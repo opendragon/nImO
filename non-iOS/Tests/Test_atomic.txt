@@ -157,6 +157,18 @@ add_test(NAME TestDefaultAddressValue COMMAND ${THIS_TARGET} 65)
 add_test(NAME TestAddressValue COMMAND ${THIS_TARGET} 66 "1.2.3.4" "@1.2.3.4")
 # Test address copy constructor and assignment operators
 add_test(NAME TestAddressCopyAndAssign COMMAND ${THIS_TARGET} 67)
+# Test default date value
+add_test(NAME TestDefaultDateValue COMMAND ${THIS_TARGET} 68)
+# Test date value
+add_test(NAME TestDateValue COMMAND ${THIS_TARGET} 69 "1/2/3" "^d1/2/3")
+# Test date copy constructor and assignment operators
+add_test(NAME TestDateCopyAndAssign COMMAND ${THIS_TARGET} 70)
+# Test default time value
+add_test(NAME TestDefaultTimeValue COMMAND ${THIS_TARGET} 71)
+# Test time value
+add_test(NAME TestTimeValue COMMAND ${THIS_TARGET} 72 "1:2:3.4" "^t01:02:03.004")
+# Test time copy constructor and assignment operators
+add_test(NAME TestTimeCopyAndAssign COMMAND ${THIS_TARGET} 73)
 
 # Test valid logical compares
 add_test(NAME TestValidLogicalCompares COMMAND ${THIS_TARGET} 80)
@@ -178,6 +190,14 @@ add_test(NAME TestInvalidBlobCompares COMMAND ${THIS_TARGET} 87)
 add_test(NAME TestValidAddressCompares COMMAND ${THIS_TARGET} 88)
 # Test invalid address compares
 add_test(NAME TestInvalidAddressCompares COMMAND ${THIS_TARGET} 89)
+# Test valid date compares
+add_test(NAME TestValidDateCompares COMMAND ${THIS_TARGET} 90)
+# Test invalid date compares
+add_test(NAME TestInvalidDateCompares COMMAND ${THIS_TARGET} 91)
+# Test valid time compares
+add_test(NAME TestValidTimeCompares COMMAND ${THIS_TARGET} 92)
+# Test invalid time compares
+add_test(NAME TestInvalidTimeCompares COMMAND ${THIS_TARGET} 93)
 
 # Test default logical value as JSON
 add_test(NAME TestDefaultLogicalValueJSON COMMAND ${THIS_TARGET} 100)
@@ -199,3 +219,11 @@ add_test(NAME TestShortStringValueJSON COMMAND ${THIS_TARGET} 105 "abcdef" "\"ab
 add_test(NAME TestDefaultAddressValueJSON COMMAND ${THIS_TARGET} 106)
 # Test address value as JSON
 add_test(NAME TestAddressValueJSON COMMAND ${THIS_TARGET} 107 "1.2.3.4" "\"1.2.3.4\"")
+# Test default date value as JSON
+add_test(NAME TestDefaultDateValueJSON COMMAND ${THIS_TARGET} 108)
+# Test date value as JSON
+add_test(NAME TestDateValueJSON COMMAND ${THIS_TARGET} 109 "1/2/3" "\"1/2/3\"")
+# Test default time value as JSON
+add_test(NAME TestDefaultTimeValueJSON COMMAND ${THIS_TARGET} 110)
+# Test time value as JSON
+add_test(NAME TestTimeValueJSON COMMAND ${THIS_TARGET} 111 "1:2:3.4" "\"01:02:03.004\"")

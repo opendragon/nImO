@@ -90,6 +90,16 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Return the raw internal value.
+             @return The raw internal value. */
+            uint32_t
+            getValue
+                (void)
+                const
+            {
+                return _dateTimeValue;
+            }
+
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */

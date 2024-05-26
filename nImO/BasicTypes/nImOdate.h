@@ -70,6 +70,9 @@ namespace nImO
         public :
             // Public type definitions.
 
+            /*! @brief A convenience type. */
+            using DatePieces = uint16_t[3];
+
         protected :
             // Protected type definitions.
 
@@ -332,10 +335,20 @@ namespace nImO
     inline constexpr uint32_t
     MakeDateValue
         (const int  theYear = 0,
-         const int  theMonth = 0,
-         const int  theDay = 0)
+         const int  theMonth = 1,
+         const int  theDay = 1)
     {
         return StaticCast(uint32_t, (theYear * (kMaxMonth + 1) * (kMaxDay + 1)) + (theMonth * (kMaxDay + 1)) + theDay);
+    }
+
+    /*! @brief Generate a value that can be used to initialize a Date value.
+     @param[in] thePieces The components of the value.
+     @return The pieces combined to make a suitable initialization value for a Date. */
+    inline constexpr uint32_t
+    MakeDateValue
+        (const Date::DatePieces &   thePieces)
+    {
+        return StaticCast(uint32_t, (thePieces[0] * (kMaxMonth + 1) * (kMaxDay + 1)) + (thePieces[1] * (kMaxDay + 1)) + thePieces[2]);
     }
 
     /*! @brief Extract the first byte of a Date value in network order.
@@ -352,6 +365,16 @@ namespace nImO
         return ((MakeDateValue(theYear, theMonth, theDay) >> 24) & 0x0FF);
     }
 
+    /*! @brief Extract the first byte of a Date value in network order.
+     @param[in] thePieces The components of the value.
+     @return The first byte of a Date value in network order. */
+    inline constexpr uint8_t
+    FirstDateByte
+        (const Date::DatePieces &   thePieces)
+    {
+        return ((MakeDateValue(thePieces) >> 24) & 0x0FF);
+    }
+
     /*! @brief Extract the second byte of a Date value in network order.
      @param[in] theYear The year part of the value.
      @param[in] theMonth The month part of the value.
@@ -364,6 +387,16 @@ namespace nImO
          const int  theDay = 0)
     {
         return ((MakeDateValue(theYear, theMonth, theDay) >> 16) & 0x0FF);
+    }
+
+    /*! @brief Extract the second byte of a Date value in network order.
+     @param[in] thePieces The components of the value.
+     @return The second byte of a Date value in network order. */
+    inline constexpr uint8_t
+    SecondDateByte
+        (const Date::DatePieces &   thePieces)
+    {
+        return ((MakeDateValue(thePieces) >> 16) & 0x0FF);
     }
 
     /*! @brief Extract the third byte of a Date value in network order.
@@ -380,6 +413,16 @@ namespace nImO
         return ((MakeDateValue(theYear, theMonth, theDay) >> 8) & 0x0FF);
     }
 
+    /*! @brief Extract the third byte of a Date value in network order.
+     @param[in] thePieces The components of the value.
+     @return The third byte of a Date value in network order. */
+    inline constexpr uint8_t
+    ThirdDateByte
+        (const Date::DatePieces &   thePieces)
+    {
+        return ((MakeDateValue(thePieces) >> 8) & 0x0FF);
+    }
+
     /*! @brief Extract the fourth byte of a Date value in network order.
      @param[in] theYear The year part of the value.
      @param[in] theMonth The month part of the value.
@@ -392,6 +435,16 @@ namespace nImO
          const int  theDay = 0)
     {
         return (MakeDateValue(theYear, theMonth, theDay) & 0x0FF);
+    }
+
+    /*! @brief Extract the fourth byte of a Date value in network order.
+     @param[in] thePieces The components of the value.
+     @return The fourth byte of a Date value in network order. */
+    inline constexpr uint8_t
+    FourthDateByte
+        (const Date::DatePieces &   thePieces)
+    {
+        return (MakeDateValue(thePieces) & 0x0FF);
     }
 
 } // nImO

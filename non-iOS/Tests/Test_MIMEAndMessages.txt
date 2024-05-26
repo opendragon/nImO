@@ -122,10 +122,18 @@ add_test(NAME TestMIMEExtractMediumBlobMessage COMMAND ${THIS_TARGET} 123)
 add_test(NAME TestMIMEInsertSingleDoubleMessage COMMAND ${THIS_TARGET} 124)
 # Test message with single double
 add_test(NAME TestMIMEExtractSingleDoubleMessage COMMAND ${THIS_TARGET} 125)
-# Test message with short string
+# Test message with address
 add_test(NAME TestMIMEInsertAddressMessage COMMAND ${THIS_TARGET} 126)
-# Test message with short string
+# Test message with address
 add_test(NAME TestMIMEExtractAddressMessage COMMAND ${THIS_TARGET} 127)
+# Test message with date
+add_test(NAME TestMIMEInsertDateMessage COMMAND ${THIS_TARGET} 128)
+# Test message with date
+add_test(NAME TestMIMEExtractDateMessage COMMAND ${THIS_TARGET} 129)
+# Test message with time
+add_test(NAME TestMIMEInsertTimeMessage COMMAND ${THIS_TARGET} 130)
+# Test message with time
+add_test(NAME TestMIMEExtractTimeMessage COMMAND ${THIS_TARGET} 131)
 
 # Test message with empty array
 add_test(NAME TestMIMEInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 200)
@@ -176,6 +184,14 @@ add_test(NAME TestMIMEExtractArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 
 add_test(NAME TestMIMEInsertArrayWithOneAddressMessage COMMAND ${THIS_TARGET} 316)
 # Test message with array with one address
 add_test(NAME TestMIMEExtractArrayWithOneAddressMessage COMMAND ${THIS_TARGET} 317)
+# Test message with array with one date
+add_test(NAME TestMIMEInsertArrayWithOneDateMessage COMMAND ${THIS_TARGET} 318)
+# Test message with array with one date
+add_test(NAME TestMIMEExtractArrayWithOneDateMessage COMMAND ${THIS_TARGET} 319)
+# Test message with array with one time
+add_test(NAME TestMIMEInsertArrayWithOneTimeMessage COMMAND ${THIS_TARGET} 320)
+# Test message with array with one time
+add_test(NAME TestMIMEExtractArrayWithOneTimeMessage COMMAND ${THIS_TARGET} 321)
 
 # Test message with array with two logicals
 add_test(NAME TestMIMEInsertArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 400)
@@ -225,10 +241,22 @@ add_test(NAME TestMIMEExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THI
 add_test(NAME TestMIMEInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 422)
 # Test message with array with many doubles
 add_test(NAME TestMIMEExtractArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 423)
-# Test message with array with two strings
+# Test message with array with two addresses
 add_test(NAME TestMIMEInsertArrayWithTwoAddressesMessage COMMAND ${THIS_TARGET} 424)
-# Test message with array with two strings
+# Test message with array with two addresses
 add_test(NAME TestMIMEExtractArrayWithTwoAddressesMessage COMMAND ${THIS_TARGET} 425)
+# Test message with array with two dates
+add_test(NAME TestMIMEInsertArrayWithTwoDatesMessage COMMAND ${THIS_TARGET} 426)
+# Test message with array with two dates
+add_test(NAME TestMIMEExtractArrayWithTwoDatesMessage COMMAND ${THIS_TARGET} 427)
+# Test message with array with two times
+add_test(NAME TestMIMEInsertArrayWithTwoTimesMessage COMMAND ${THIS_TARGET} 428)
+# Test message with array with two times
+add_test(NAME TestMIMEExtractArrayWithTwoTimesMessage COMMAND ${THIS_TARGET} 429)
+# Test message with array with one date and one time
+add_test(NAME TestMIMEInsertArrayWithONeDateOneTimeMessage COMMAND ${THIS_TARGET} 430)
+# Test message with array with one date and one time
+add_test(NAME TestMIMEExtractArrayWithONeDateOneTimeMessage COMMAND ${THIS_TARGET} 431)
 
 # Test message with logical map
 add_test(NAME TestMIMEInsertLogicalMapMessage COMMAND ${THIS_TARGET} 500)
@@ -254,14 +282,30 @@ add_test(NAME TestMIMEExtractIntegerSetMessage COMMAND ${THIS_TARGET} 509)
 add_test(NAME TestMIMEInsertStdStringSetMessage COMMAND ${THIS_TARGET} 510)
 # Test message with string set
 add_test(NAME TestMIMEExtractStdStringSetMessage COMMAND ${THIS_TARGET} 511)
-# Test message with string map
+# Test message with address map
 add_test(NAME TestMIMEInsertAddressMapMessage COMMAND ${THIS_TARGET} 512)
-# Test message with string map
+# Test message with address map
 add_test(NAME TestMIMEExtractAddressMapMessage COMMAND ${THIS_TARGET} 513)
-# Test message with string set
+# Test message with address set
 add_test(NAME TestMIMEInsertAddressSetMessage COMMAND ${THIS_TARGET} 514)
-# Test message with string set
+# Test message with address set
 add_test(NAME TestMIMEExtractAddressSetMessage COMMAND ${THIS_TARGET} 515)
+# Test message with date map
+add_test(NAME TestMIMEInsertDateMapMessage COMMAND ${THIS_TARGET} 516)
+# Test message with date map
+add_test(NAME TestMIMEExtractDateMapMessage COMMAND ${THIS_TARGET} 517)
+# Test message with date set
+add_test(NAME TestMIMEInsertDateSetMessage COMMAND ${THIS_TARGET} 518)
+# Test message with date set
+add_test(NAME TestMIMEExtractDateSetMessage COMMAND ${THIS_TARGET} 519)
+# Test message with time map
+add_test(NAME TestMIMEInsertTimeMapMessage COMMAND ${THIS_TARGET} 520)
+# Test message with time map
+add_test(NAME TestMIMEExtractTimeMapMessage COMMAND ${THIS_TARGET} 521)
+# Test message with time set
+add_test(NAME TestMIMEInsertTimeSetMessage COMMAND ${THIS_TARGET} 522)
+# Test message with time set
+add_test(NAME TestMIMEExtractTimeSetMessage COMMAND ${THIS_TARGET} 523)
 
 # Test message with array with range of integers
 add_test(NAME TestMIMEInsertArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 600)

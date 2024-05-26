@@ -38,10 +38,12 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
+#include <BasicTypes/nImOdate.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOtime.h>
 #include <Containers/nImObufferChunk.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOtestContext.h>
@@ -206,6 +208,130 @@ getIPv4Bytes
     }
     return okSoFar;
 } // getIPv4Bytes
+
+/*! @brief Extract the components of a date from a string.
+ @param[out] asBytes The bytes for the address.
+ @param[in] inString The character string to process.
+ @return @c true on success and @c false on failure. */
+static bool
+getDatePieces
+    (Date::DatePieces & pieces,
+     CPtr(char)         inString)
+{
+    // y/m/d
+    bool            okSoFar{true};
+    const int       maxs[] = { kMaxYear, kMaxMonth, kMaxDay };
+    const int       mins[] = { 0, 1, 1 };
+    const size_t    numE{numElementsInArray(pieces)};
+
+    for (size_t ii = 0; ii < numE; ++ii)
+    {
+        pieces[ii] = mins[ii];
+    }
+    for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
+    {
+        Ptr(char)   endPtr;
+        int64_t     value{strtoll(inString, &endPtr, 10)};
+
+        if (inString == endPtr)
+        {
+            okSoFar = false;
+        }
+        else
+        {
+            if ((maxs[ii] < value) || (mins[ii] > value))
+            {
+                okSoFar = false;
+            }
+            else
+            {
+                if ((kEndOfString == *endPtr) && (ii == (numE - 1)))
+                {
+                    pieces[ii] = StaticCast(uint16_t, value);
+                }
+                else
+                {
+                    if ((kDateSeparator == *endPtr) && (ii < (numE - 1)))
+                    {
+                        pieces[ii] = StaticCast(uint16_t, value);
+                        inString = endPtr + 1;
+                    }
+                    else
+                    {
+                        okSoFar = false;
+                    }
+                }
+            }
+        }
+    }
+    return okSoFar;
+} // getDatePieces
+
+/*! @brief Extract the components of a time from a string.
+ @param[out] asBytes The bytes for the address.
+ @param[in] inString The character string to process.
+ @return @c true on success and @c false on failure. */
+static bool
+getTimePieces
+    (Time::TimePieces & pieces,
+     CPtr(char)         inString)
+{
+    // y/m/d
+    bool            okSoFar{true};
+    const int       maxs[] = { kMaxHours, kMaxMinutes, kMaxSeconds, kMaxMilliseconds };
+    const int       mins[] = { 0, 0, 0, 0 };
+    const size_t    numE{numElementsInArray(pieces)};
+
+    for (size_t ii = 0; ii < numE; ++ii)
+    {
+        pieces[ii] = mins[ii];
+    }
+    for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
+    {
+        Ptr(char)   endPtr;
+        int64_t     value{strtoll(inString, &endPtr, 10)};
+
+        if (inString == endPtr)
+        {
+            okSoFar = false;
+        }
+        else
+        {
+            if ((maxs[ii] < value) || (mins[ii] > value))
+            {
+                okSoFar = false;
+            }
+            else
+            {
+                if ((kEndOfString == *endPtr) && (ii == (numE - 1)))
+                {
+                    pieces[ii] = StaticCast(uint16_t, value);
+                }
+                else
+                {
+                    if ((kSecondMillisecondSeparator == *endPtr) && (ii == (numE - 2)))
+                    {
+                        pieces[ii] = StaticCast(uint16_t, value);
+                        inString = endPtr + 1;
+                    }
+                    else
+                    {
+                        if ((kTimeSeparator == *endPtr) && (ii < (numE - 1)))
+                        {
+                            pieces[ii] = StaticCast(uint16_t, value);
+                            inString = endPtr + 1;
+                        }
+                        else
+                        {
+                            okSoFar = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return okSoFar;
+} // getTimePieces
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
@@ -2598,7 +2724,7 @@ doTestDefaultAddressValue
             }
             else
             {
-                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0.0.0.0\")) && " //####
+                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"@0.0.0.0\")) && " //####
                         "(nullptr != stuff->asAddress()))"); //####
             }
         }
@@ -2769,6 +2895,422 @@ doTestAddressCopyAndAssign
     ODL_EXIT_I(result); //####
     return result;
 } // doTestAddressCopyAndAssign
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 68 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultDateValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Date>()};
+
+        if (stuff)
+        {
+            if ((0 == compareValueWithString(*stuff, "^d0/0/0")) && (nullptr != stuff->asDate()))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"^d0/0/0\")) && " //####
+                        "(nullptr != stuff->asDate()))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultDateValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 69 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+//    ODL_S1("launchPath = ", launchPath); //####
+//    ODL_I1("argc = ", argc); //####
+//    ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        if (1 < argc)
+        {
+            Date::DatePieces    pieces;
+            CPtr(char)          outString{argv[1]};
+
+            if (getDatePieces(pieces, argv[0]))
+            {
+                auto    stuff{std::make_unique<Date>(MakeDateValue(pieces))};
+
+                if (stuff)
+                {
+                    if (0 == compareValueWithString(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 70 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateCopyAndAssign
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        static const uint32_t   value1{MakeDateValue(12, 11, 10)};
+        static const uint32_t   value2{MakeDateValue(11, 10, 9)};
+        static const uint32_t   value3{MakeDateValue(10, 9, 12)};
+        Date                    date1{value1};
+        Date                    date2{value2};
+        Date                    date3{value3};
+
+        if ((value1 == date1.getValue()) &&
+            (value2 == date2.getValue()) &&
+            (value3 == date3.getValue()))
+        {
+            Date    copy1{date1};
+            Date    copy2{date2};
+            Date    copy3{date3};
+
+            if ((copy1.getValue() == date1.getValue()) &&
+                (copy2.getValue() == date2.getValue()) &&
+                (copy3.getValue() == date3.getValue()))
+            {
+                copy1 = date2;
+                copy2 = date3;
+                copy3 = date1;
+                if ((copy1.getValue() == date2.getValue()) &&
+                    (copy2.getValue() == date3.getValue()) &&
+                    (copy3.getValue() == date1.getValue()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! ((copy1.getValue() == date2.getValue()) && " //####
+                            "(copy2.getValue() == date3.getValue()) && " //####
+                            "(copy3.getValue() == date1.getValue()))"); //####
+                    result = 1;
+                }
+            }
+            else
+            {
+                ODL_LOG("! ((copy1.getValue() == date1.getValue()) && " //####
+                        "(copy2.getValue() == date2.getValue()) && " //####
+                        "(copy3.getValue() == date3.getValue()))"); //####
+                result = 1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((value1 == date1.getValue()) && " //####
+                    "(value2 == date2.getValue()) && " //####
+                    "(value3 == date3.getValue()))"); //####
+            result = 1;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateCopyAndAssign
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 71 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultTimeValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Time>()};
+
+        if (stuff)
+        {
+            if ((0 == compareValueWithString(*stuff, "^t00:00:00.000")) && (nullptr != stuff->asTime()))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"^t00:00:00.000\")) && " //####
+                        "(nullptr != stuff->asTime()))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultTimeValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 72 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+//    ODL_S1("launchPath = ", launchPath); //####
+//    ODL_I1("argc = ", argc); //####
+//    ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        if (1 < argc)
+        {
+            Time::TimePieces    pieces;
+            CPtr(char)          outString{argv[1]};
+
+            if (getTimePieces(pieces, argv[0]))
+            {
+                auto    stuff{std::make_unique<Time>(MakeTimeValue(pieces))};
+
+                if (stuff)
+                {
+                    if (0 == compareValueWithString(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 73 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeCopyAndAssign
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        static const uint32_t   value1{MakeTimeValue(12, 11, 10, 9)};
+        static const uint32_t   value2{MakeTimeValue(11, 10, 9, 8)};
+        static const uint32_t   value3{MakeTimeValue(10, 9, 8, 7)};
+        Time                    time1{value1};
+        Time                    time2{value2};
+        Time                    time3{value3};
+
+        if ((value1 == time1.getValue()) &&
+            (value2 == time2.getValue()) &&
+            (value3 == time3.getValue()))
+        {
+            Time    copy1{time1};
+            Time    copy2{time2};
+            Time    copy3{time3};
+
+            if ((copy1.getValue() == time1.getValue()) &&
+                (copy2.getValue() == time2.getValue()) &&
+                (copy3.getValue() == time3.getValue()))
+            {
+                copy1 = time2;
+                copy2 = time3;
+                copy3 = time1;
+                if ((copy1.getValue() == time2.getValue()) &&
+                    (copy2.getValue() == time3.getValue()) &&
+                    (copy3.getValue() == time1.getValue()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! ((copy1.getValue() == time2.getValue()) && " //####
+                            "(copy2.getValue() == time3.getValue()) && " //####
+                            "(copy3.getValue() == time1.getValue()))"); //####
+                    result = 1;
+                }
+            }
+            else
+            {
+                ODL_LOG("! ((copy1.getValue() == time1.getValue()) && " //####
+                        "(copy2.getValue() == time2.getValue()) && " //####
+                        "(copy3.getValue() == time3.getValue()))"); //####
+                result = 1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((value1 == time1.getValue()) && " //####
+                    "(value2 == time2.getValue()) && " //####
+                    "(value3 == time3.getValue()))"); //####
+            result = 1;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeCopyAndAssign
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 80 ***
@@ -3661,7 +4203,9 @@ doTestInvalidLogicalCompares
         String              rightValue2;
         Blob                rightValue3;
         Address             rightValue4;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
+        Date                rightValue5;
+        Time                rightValue6;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3766,7 +4310,9 @@ doTestInvalidNumberCompares
         String              rightValue2;
         Blob                rightValue3;
         Address             rightValue4;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
+        Date                rightValue5;
+        Time                rightValue6;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3871,7 +4417,9 @@ doTestInvalidStringCompares
         Number              rightValue2;
         Blob                rightValue3;
         Address             rightValue4;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
+        Date                rightValue5;
+        Time                rightValue6;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3976,7 +4524,9 @@ doTestInvalidBlobCompares
         Number              rightValue2;
         String              rightValue3;
         Address             rightValue4;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
+        Date                rightValue5;
+        Time                rightValue6;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -4220,7 +4770,9 @@ doTestInvalidAddressCompares
         String              rightValue2;
         Blob                rightValue3;
         Integer             rightValue4;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
+        Date                rightValue5;
+        Time                rightValue6;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -4292,6 +4844,498 @@ doTestInvalidAddressCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidAddressCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 90 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidDateCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        struct testsD2D
+        {
+            uint32_t            _leftValue;
+            uint32_t            _rightValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testsD2D
+
+        const testsD2D  testSet1[]
+        {
+            // l   r
+            { MakeDateValue(), MakeDateValue(),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
+            { MakeDateValue(), MakeDateValue(1),
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeDateValue(9000, 12, 31), MakeDateValue(1000),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeDateValue(1), MakeDateValue(),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeDateValue(1000), MakeDateValue(9000, 12, 31),
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeDateValue(1), MakeDateValue(1),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
+            { MakeDateValue(1000), MakeDateValue(1000),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
+        };
+        constexpr size_t    numTests1{numElementsInArray(testSet1)};
+
+        for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
+        {
+            Date    leftValue{testSet1[ii]._leftValue};
+            Date    rightValue{testSet1[ii]._rightValue};
+
+            if (testSet1[ii]._lessThan != leftValue.lessThan(rightValue))
+            {
+                ODL_LOG("(testSet1[ii]._lessThan != leftValue.lessThan(rightValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._greaterThan != leftValue.greaterThan(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThan != leftValue.greaterThan(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._lessThanOrEqual != leftValue.lessThanOrEqual(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._lessThanOrEqual != leftValue.lessThanOrEqual(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._greaterThanOrEqual != leftValue.greaterThanOrEqual(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThanOrEqual != leftValue.greaterThanOrEqual(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._equalTo != leftValue.equalTo(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._equalTo != leftValue.equalTo(rightValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidDateCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 91 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidDateCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        ComparisonStatus    status;
+        Date                leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Integer             rightValue4;
+        Address             rightValue5;
+        Time                rightValue6;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
+
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            Value & aRightValue{*rightValues[ii]};
+
+            status = leftValue.lessThan(aRightValue);
+            if (status.isValid())
+            {
+                ODL_LOG("(status.isValid())"); //####
+                result = 1;
+            }
+            else
+            {
+                status = leftValue.greaterThan(aRightValue);
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.lessThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.greaterThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.equalTo(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInvalidDateCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 92 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidTimeCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        struct testsT2T
+        {
+            uint32_t            _leftValue;
+            uint32_t            _rightValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testsD2D
+
+        const testsT2T  testSet1[]
+        {
+            // l   r
+            { MakeTimeValue(), MakeTimeValue(),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
+            { MakeTimeValue(), MakeTimeValue(1),
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeTimeValue(12, 59, 59, 999), MakeTimeValue(5, 6, 7, 8),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeTimeValue(1), MakeTimeValue(),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeTimeValue(5, 6, 7, 8), MakeTimeValue(12, 59, 59, 999),
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { MakeTimeValue(1), MakeTimeValue(1),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
+            { MakeTimeValue(5, 6, 7, 8), MakeTimeValue(5, 6, 7, 8),
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
+        };
+        constexpr size_t    numTests1{numElementsInArray(testSet1)};
+
+        for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
+        {
+            Date    leftValue{testSet1[ii]._leftValue};
+            Date    rightValue{testSet1[ii]._rightValue};
+
+            if (testSet1[ii]._lessThan != leftValue.lessThan(rightValue))
+            {
+                ODL_LOG("(testSet1[ii]._lessThan != leftValue.lessThan(rightValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._greaterThan != leftValue.greaterThan(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThan != leftValue.greaterThan(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._lessThanOrEqual != leftValue.lessThanOrEqual(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._lessThanOrEqual != leftValue.lessThanOrEqual(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._greaterThanOrEqual != leftValue.greaterThanOrEqual(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThanOrEqual != leftValue.greaterThanOrEqual(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._equalTo != leftValue.equalTo(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._equalTo != leftValue.equalTo(rightValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidTimeCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 93 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidTimeCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        ComparisonStatus    status;
+        Time                leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Integer             rightValue4;
+        Address             rightValue5;
+        Date                rightValue6;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
+
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            Value & aRightValue{*rightValues[ii]};
+
+            status = leftValue.lessThan(aRightValue);
+            if (status.isValid())
+            {
+                ODL_LOG("(status.isValid())"); //####
+                result = 1;
+            }
+            else
+            {
+                status = leftValue.greaterThan(aRightValue);
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.lessThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.greaterThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.equalTo(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInvalidTimeCompares
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
@@ -4714,7 +5758,7 @@ doTestDefaultAddressValueJSON
             }
             else
             {
-                ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"\\\"0\\\"\")) && " //####
+                ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"\"0.0.0.0\"\")) && " //####
                         "(nullptr != stuff->asAddress()))"); //####
             }
         }
@@ -4797,6 +5841,246 @@ doTestAddressValueJSON
     ODL_EXIT_I(result); //####
     return result;
 } // doAddressValueJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 108 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultDateValueJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Date>()};
+
+        if (stuff)
+        {
+            if ((0 == compareValueWithStringAsJSON(*stuff, "\"0/0/0\"")) && (nullptr != stuff->asDate()))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"\"0/0/0\"\")) && " //####
+                        "(nullptr != stuff->asDate()))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultDateValueJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 109 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateValueJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+//    ODL_S1("launchPath = ", launchPath); //####
+//    ODL_I1("argc = ", argc); //####
+//    ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        if (1 < argc)
+        {
+            Date::DatePieces    pieces;
+            CPtr(char)          outString{argv[1]};
+
+            if (getDatePieces(pieces, argv[0]))
+            {
+                auto    stuff{std::make_unique<Date>(MakeDateValue(pieces))};
+
+                if (stuff)
+                {
+                    if (0 == compareValueWithStringAsJSON(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateValueJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 110 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultTimeValueJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Time>()};
+
+        if (stuff)
+        {
+            if ((0 == compareValueWithStringAsJSON(*stuff, "\"00:00:00.000\"")) && (nullptr != stuff->asTime()))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"\"00:00:00.000\"\")) && " //####
+                        "(nullptr != stuff->asTime()))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultTimeValueJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 111 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeValueJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+//    ODL_S1("launchPath = ", launchPath); //####
+//    ODL_I1("argc = ", argc); //####
+//    ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        if (1 < argc)
+        {
+            Time::TimePieces    pieces;
+            CPtr(char)          outString{argv[1]};
+
+            if (getTimePieces(pieces, argv[0]))
+            {
+                auto    stuff{std::make_unique<Time>(MakeTimeValue(pieces))};
+
+                if (stuff)
+                {
+                    if (0 == compareValueWithStringAsJSON(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeValueJSON
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -4982,6 +6266,30 @@ main
                         result = doTestAddressCopyAndAssign(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 68 :
+                        result = doTestDefaultDateValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 69 :
+                        result = doTestDateValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 70 :
+                        result = doTestDateCopyAndAssign(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 71 :
+                        result = doTestDefaultTimeValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 72 :
+                        result = doTestTimeValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 73 :
+                        result = doTestTimeCopyAndAssign(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 80 :
                         result = doTestValidLogicalCompares(*argv, argc - 1, argv + 2);
                         break;
@@ -5022,6 +6330,22 @@ main
                         result = doTestInvalidAddressCompares(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 90 :
+                        result = doTestValidDateCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 91 :
+                        result = doTestInvalidDateCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 92 :
+                        result = doTestValidTimeCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 93 :
+                        result = doTestInvalidTimeCompares(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 100 :
                         result = doTestDefaultLogicalValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
@@ -5052,6 +6376,22 @@ main
 
                     case 107 :
                         result = doTestAddressValueJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 108 :
+                        result = doTestDefaultDateValueJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 109 :
+                        result = doTestDateValueJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 110 :
+                        result = doTestDefaultTimeValueJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 111 :
+                        result = doTestTimeValueJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

@@ -38,10 +38,12 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
+#include <BasicTypes/nImOdate.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOtime.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImObufferChunk.h>
 #include <Containers/nImOmap.h>
@@ -1339,6 +1341,244 @@ doTestInsertAddressMessage
 } // doTestInsertAddressMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 015 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   date1{12, 11, 10};
+            static const Date::DatePieces   date2{11, 10, 9};
+            static const Date::DatePieces   date3{10, 9, 8};
+            static const DataKind           expectedDate1Bytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(date1)),
+                    StaticCast(DataKind, SecondDateByte(date1)),
+                    StaticCast(DataKind, ThirdDateByte(date1)),
+                    StaticCast(DataKind, FourthDateByte(date1)),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedDate1ByteCount{numElementsInArray(expectedDate1Bytes)};
+            static const DataKind           expectedDate2Bytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(date2)),
+                    StaticCast(DataKind, SecondDateByte(date2)),
+                    StaticCast(DataKind, ThirdDateByte(date2)),
+                    StaticCast(DataKind, FourthDateByte(date2)),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedDate2ByteCount{numElementsInArray(expectedDate2Bytes)};
+            static const DataKind           expectedDate3Bytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(date3)),
+                    StaticCast(DataKind, SecondDateByte(date3)),
+                    StaticCast(DataKind, ThirdDateByte(date3)),
+                    StaticCast(DataKind, FourthDateByte(date3)),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedDate3ByteCount{numElementsInArray(expectedDate3Bytes)};
+            auto                            date1Value{std::make_shared<Date>(MakeDateValue(date1))};
+            auto                            date2Value{std::make_shared<Date>(MakeDateValue(date2))};
+            auto                            date3Value{std::make_shared<Date>(MakeDateValue(date3))};
+
+            result = setValueAndCheck(*stuff, date1Value, expectedDate1Bytes, expectedDate1ByteCount);
+            if (0 == result)
+            {
+                result = setValueAndCheck(*stuff, date2Value, expectedDate2Bytes, expectedDate2ByteCount);
+            }
+            if (0 == result)
+            {
+                result = setValueAndCheck(*stuff, date3Value, expectedDate3Bytes, expectedDate3ByteCount);
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 016 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   time1{12, 11, 10, 9};
+            static const Time::TimePieces   time2{11, 10, 9, 8};
+            static const Time::TimePieces   time3{10, 9, 8, 7};
+            static const DataKind           expectedTime1Bytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(time1)),
+                    StaticCast(DataKind, SecondTimeByte(time1)),
+                    StaticCast(DataKind, ThirdTimeByte(time1)),
+                    StaticCast(DataKind, FourthTimeByte(time1)),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedTime1ByteCount{numElementsInArray(expectedTime1Bytes)};
+            static const DataKind           expectedTime2Bytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(time2)),
+                    StaticCast(DataKind, SecondTimeByte(time2)),
+                    StaticCast(DataKind, ThirdTimeByte(time2)),
+                    StaticCast(DataKind, FourthTimeByte(time2)),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedTime2ByteCount{numElementsInArray(expectedTime2Bytes)};
+            static const DataKind           expectedTime3Bytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(time3)),
+                    StaticCast(DataKind, SecondTimeByte(time3)),
+                    StaticCast(DataKind, ThirdTimeByte(time3)),
+                    StaticCast(DataKind, FourthTimeByte(time3)),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedTime3ByteCount{numElementsInArray(expectedTime3Bytes)};
+            auto                            time1Value{std::make_shared<Time>(MakeTimeValue(time1))};
+            auto                            time2Value{std::make_shared<Time>(MakeTimeValue(time2))};
+            auto                            time3Value{std::make_shared<Time>(MakeTimeValue(time3))};
+
+            result = setValueAndCheck(*stuff, time1Value, expectedTime1Bytes, expectedTime1ByteCount);
+            if (0 == result)
+            {
+                result = setValueAndCheck(*stuff, time2Value, expectedTime2Bytes, expectedTime2ByteCount);
+            }
+            if (0 == result)
+            {
+                result = setValueAndCheck(*stuff, time3Value, expectedTime3Bytes, expectedTime3ByteCount);
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertTimeMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
@@ -2272,6 +2512,172 @@ doTestInsertArrayWithOneAddressMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInsertArrayWithOneAddressMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 119 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertArrayWithOneDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            static const DataKind           expectedArrayOneDateBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate)),
+                    StaticCast(DataKind, SecondDateByte(aDate)),
+                    StaticCast(DataKind, ThirdDateByte(aDate)),
+                    StaticCast(DataKind, FourthDateByte(aDate)),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedArrayOneDateByteCount{numElementsInArray(expectedArrayOneDateBytes)};
+            auto                            arrayOneDate{std::make_shared<Array>()};
+
+            arrayOneDate->addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = setValueAndCheck(*stuff, arrayOneDate, expectedArrayOneDateBytes, expectedArrayOneDateByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertArrayWithOneDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 120 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertArrayWithOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            static const DataKind           expectedArrayOneTimeBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime)),
+                    StaticCast(DataKind, SecondTimeByte(aTime)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime)),
+                    StaticCast(DataKind, FourthTimeByte(aTime)),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedArrayOneTimeByteCount{numElementsInArray(expectedArrayOneTimeBytes)};
+            auto                            arrayOneTime{std::make_shared<Array>()};
+
+            arrayOneTime->addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = setValueAndCheck(*stuff, arrayOneTime, expectedArrayOneTimeBytes, expectedArrayOneTimeByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertArrayWithOneTimeMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 130 ***
@@ -3591,6 +3997,282 @@ doTestInsertArrayWithTwoAddressesMessage
 } // doTestInsertArrayWithTwoAddressesMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 143 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertArrayWithTwoDatesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate1{12, 11, 10};
+            static const Date::DatePieces   aDate2{11, 10, 9};
+            static const DataKind           expectedArrayTwoDatesBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate1)),
+                    StaticCast(DataKind, SecondDateByte(aDate1)),
+                    StaticCast(DataKind, ThirdDateByte(aDate1)),
+                    StaticCast(DataKind, FourthDateByte(aDate1)),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate2)),
+                    StaticCast(DataKind, SecondDateByte(aDate2)),
+                    StaticCast(DataKind, ThirdDateByte(aDate2)),
+                    StaticCast(DataKind, FourthDateByte(aDate2)),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedArrayTwoDatesByteCount{numElementsInArray(expectedArrayTwoDatesBytes)};
+            auto                            arrayTwoDates{std::make_shared<Array>()};
+
+            arrayTwoDates->addValue(std::make_shared<Date>(MakeDateValue(aDate1)));
+            arrayTwoDates->addValue(std::make_shared<Date>(MakeDateValue(aDate2)));
+            result = setValueAndCheck(*stuff, arrayTwoDates, expectedArrayTwoDatesBytes, expectedArrayTwoDatesByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertArrayWithTwoDatesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 144 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertArrayWithTwoTimesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime1{12, 11, 10, 9};
+            static const Time::TimePieces   aTime2{11, 10, 9, 8};
+            static const DataKind           expectedArrayTwoTimesBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime1)),
+                    StaticCast(DataKind, SecondTimeByte(aTime1)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime1)),
+                    StaticCast(DataKind, FourthTimeByte(aTime1)),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime2)),
+                    StaticCast(DataKind, SecondTimeByte(aTime2)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime2)),
+                    StaticCast(DataKind, FourthTimeByte(aTime2)),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        expectedArrayTwoTimesByteCount{numElementsInArray(expectedArrayTwoTimesBytes)};
+            auto                    arrayTwoTimes{std::make_shared<Array>()};
+
+            arrayTwoTimes->addValue(std::make_shared<Time>(MakeTimeValue(aTime1)));
+            arrayTwoTimes->addValue(std::make_shared<Time>(MakeTimeValue(aTime2)));
+            result = setValueAndCheck(*stuff, arrayTwoTimes, expectedArrayTwoTimesBytes, expectedArrayTwoTimesByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertArrayWithTwoTimesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 145 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertArrayWithOneDateOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            static const DataKind           expectedArrayOneDateOneTimeBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate)),
+                    StaticCast(DataKind, SecondDateByte(aDate)),
+                    StaticCast(DataKind, ThirdDateByte(aDate)),
+                    StaticCast(DataKind, FourthDateByte(aDate)),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime)),
+                    StaticCast(DataKind, SecondTimeByte(aTime)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime)),
+                    StaticCast(DataKind, FourthTimeByte(aTime)),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedArrayOneDateOneTimeByteCount{numElementsInArray(expectedArrayOneDateOneTimeBytes)};
+            auto                            arrayOneDateOneTime{std::make_shared<Array>()};
+
+            arrayOneDateOneTime->addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            arrayOneDateOneTime->addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = setValueAndCheck(*stuff, arrayOneDateOneTime, expectedArrayOneDateOneTimeBytes, expectedArrayOneDateOneTimeByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertArrayWithOneDateOneTimeMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 160 ***
 #endif // defined(__APPLE__)
 
@@ -4237,6 +4919,344 @@ doTestInsertAddressSetMessage
 } // doTestInsertAddressSetMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 168 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertDateMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            static const DataKind           expectedDateMapBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate)),
+                    StaticCast(DataKind, SecondDateByte(aDate)),
+                    StaticCast(DataKind, ThirdDateByte(aDate)),
+                    StaticCast(DataKind, FourthDateByte(aDate)),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (13 & DataKind::IntegerShortValueValueMask),
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedDateMapByteCount{numElementsInArray(expectedDateMapBytes)};
+            auto                            dateMap{std::make_shared<Map>()};
+
+            dateMap->addValue(std::make_shared<Date>(MakeDateValue(aDate)), std::make_shared<Integer>(13));
+            result = setValueAndCheck(*stuff, dateMap, expectedDateMapBytes, expectedDateMapByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertDateMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 169 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertDateSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            static const DataKind           expectedDateSetBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate)),
+                    StaticCast(DataKind, SecondDateByte(aDate)),
+                    StaticCast(DataKind, ThirdDateByte(aDate)),
+                    StaticCast(DataKind, FourthDateByte(aDate)),
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedDateSetByteCount{numElementsInArray(expectedDateSetBytes)};
+            auto                            dateSet{std::make_shared<Set>()};
+
+            dateSet->addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = setValueAndCheck(*stuff, dateSet, expectedDateSetBytes, expectedDateSetByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertDateSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 170 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertTimeMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            static const DataKind           expectedTimeMapBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime)),
+                    StaticCast(DataKind, SecondTimeByte(aTime)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime)),
+                    StaticCast(DataKind, FourthTimeByte(aTime)),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (13 & DataKind::IntegerShortValueValueMask),
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        expectedTimeMapByteCount{numElementsInArray(expectedTimeMapBytes)};
+            auto                    timeMap{std::make_shared<Map>()};
+
+            timeMap->addValue(std::make_shared<Time>(MakeTimeValue(aTime)), std::make_shared<Integer>(13));
+            result = setValueAndCheck(*stuff, timeMap, expectedTimeMapBytes, expectedTimeMapByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertTimeMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 171 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInsertTimeSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            static const DataKind           expectedTimeSetBytes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime)),
+                    StaticCast(DataKind, SecondTimeByte(aTime)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime)),
+                    StaticCast(DataKind, FourthTimeByte(aTime)),
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                expectedTimeSetByteCount{numElementsInArray(expectedTimeSetBytes)};
+            auto                            timeSet{std::make_shared<Set>()};
+
+            timeSet->addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = setValueAndCheck(*stuff, timeSet, expectedTimeSetBytes, expectedTimeSetByteCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInsertTimeSetMessage
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -4331,6 +5351,14 @@ main
                         result = doTestInsertAddressMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 15 :
+                        result = doTestInsertDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 16 :
+                        result = doTestInsertTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 100 :
                         result = doTestInsertEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -4377,6 +5405,14 @@ main
 
                     case 118 :
                         result = doTestInsertArrayWithOneAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 119 :
+                        result = doTestInsertArrayWithOneDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 120 :
+                        result = doTestInsertArrayWithOneTimeMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 130 :
@@ -4431,6 +5467,18 @@ main
                         result = doTestInsertArrayWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 143 :
+                        result = doTestInsertArrayWithTwoDatesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 144 :
+                        result = doTestInsertArrayWithTwoTimesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 145 :
+                        result = doTestInsertArrayWithOneDateOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 160 :
                         result = doTestInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -4461,6 +5509,22 @@ main
 
                     case 167 :
                         result = doTestInsertAddressSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 168 :
+                        result = doTestInsertDateMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 169 :
+                        result = doTestInsertDateSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 170 :
+                        result = doTestInsertTimeMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 171 :
+                        result = doTestInsertTimeSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

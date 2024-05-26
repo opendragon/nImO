@@ -85,6 +85,10 @@ add_test(NAME TestExtractMediumBlobMessage COMMAND ${THIS_TARGET} 12)
 add_test(NAME TestExtractSingleDoubleMessage COMMAND ${THIS_TARGET} 13)
 # Test message with address
 add_test(NAME TestExtractAddressMessage COMMAND ${THIS_TARGET} 14)
+# Test message with date
+add_test(NAME TestExtractDateMessage COMMAND ${THIS_TARGET} 15)
+# Test message with time
+add_test(NAME TestExtractTimeMessage COMMAND ${THIS_TARGET} 16)
 
 # Test message with empty array
 add_test(NAME TestExtractEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
@@ -111,6 +115,10 @@ add_test(NAME TestExtractArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
 add_test(NAME TestExtractArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
 # Test message with array with one address
 add_test(NAME TestExtractArrayWithOneAddressMessage COMMAND ${THIS_TARGET} 118)
+# Test message with array with one date
+add_test(NAME TestExtractArrayWithOneDateMessage COMMAND ${THIS_TARGET} 119)
+# Test message with array with one time
+add_test(NAME TestExtractArrayWithOneTimeMessage COMMAND ${THIS_TARGET} 120)
 
 # Test message with array with two logicals
 add_test(NAME TestExtractArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 130)
@@ -138,6 +146,12 @@ add_test(NAME TestExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TA
 add_test(NAME TestExtractArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
 # Test message with array with two addresses
 add_test(NAME TestExtractArrayWithTwoAddressesMessage COMMAND ${THIS_TARGET} 142)
+# Test message with array with two dates
+add_test(NAME TestExtractArrayWithTwoDatesMessage COMMAND ${THIS_TARGET} 143)
+# Test message with array with two times
+add_test(NAME TestExtractArrayWithTwoTimesMessage COMMAND ${THIS_TARGET} 144)
+# Test message with array with one date and one time
+add_test(NAME TestExtractArrayWithOneDateOneTimeMessage COMMAND ${THIS_TARGET} 145)
 
 # Test message with logical map
 add_test(NAME TestExtractLogicalMapMessage COMMAND ${THIS_TARGET} 160)
@@ -155,6 +169,14 @@ add_test(NAME TestExtractStdStringSetMessage COMMAND ${THIS_TARGET} 165)
 add_test(NAME TestExtractAddressMapMessage COMMAND ${THIS_TARGET} 166)
 # Test message with address set
 add_test(NAME TestExtractAddressSetMessage COMMAND ${THIS_TARGET} 167)
+# Test message with date map
+add_test(NAME TestExtractDateMapMessage COMMAND ${THIS_TARGET} 168)
+# Test message with date set
+add_test(NAME TestExtractDateSetMessage COMMAND ${THIS_TARGET} 169)
+# Test message with time map
+add_test(NAME TestExtractTimeMapMessage COMMAND ${THIS_TARGET} 170)
+# Test message with time set
+add_test(NAME TestExtractTimeSetMessage COMMAND ${THIS_TARGET} 171)
 
 # Test message with array with range of integers
 add_test(NAME TestMessageWithArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 180)

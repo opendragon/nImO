@@ -38,11 +38,13 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
+#include <BasicTypes/nImOdate.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOflaw.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOtime.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImObufferChunk.h>
 #include <Containers/nImOmap.h>
@@ -2328,6 +2330,214 @@ doTestMIMEExtractAddressMessage
 } // doTestMIMEExtractAddressMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 128 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            auto                            dateValue{std::make_shared<Date>(MakeDateValue(aDate))};
+            std::string                     expectedDateLines[]{ "98UAABTq/w=="s };
+            constexpr size_t                expectedDateLinesCount{numElementsInArray(expectedDateLines)};
+
+            result = setValueAndCheck(*stuff, dateValue, expectedDateLines, expectedDateLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 129 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            std::string                     insertedDateLines[]{ "98UAABTq/w=="s };
+            constexpr size_t                insertedDateLinesCount{numElementsInArray(insertedDateLines)};
+            Date                            dateValue{MakeDateValue(aDate)};
+
+            result = extractValueAndCheck(*stuff, insertedDateLines, insertedDateLinesCount, dateValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 130 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            auto                            timeValue{std::make_shared<Time>(MakeTimeValue(aTime))};
+            std::string                     expectedTimeLines[]{ "98YCnWc5/w=="s };
+            constexpr size_t                expectedTimeLinesCount{numElementsInArray(expectedTimeLines)};
+
+            result = setValueAndCheck(*stuff, timeValue, expectedTimeLines, expectedTimeLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertTimeMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 131 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            std::string                     insertedTimeLines[]{ "98YCnWc5/w=="s };
+            constexpr size_t                insertedTimeLinesCount{numElementsInArray(insertedTimeLines)};
+            Time                            timeValue{MakeTimeValue(aTime)};
+
+            result = extractValueAndCheck(*stuff, insertedTimeLines, insertedTimeLinesCount, timeValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractTimeMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 200 ***
 #endif // defined(__APPLE__)
 
@@ -3568,6 +3778,218 @@ doTestMIMEExtractArrayWithOneAddressMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMIMEExtractArrayWithOneAddressMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 318 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithOneDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            auto                            arrayOneDate{std::make_shared<Array>()};
+            std::string                     expectedArrayOneDateLines[]{ "99EQxQAAFOrh/w=="s };
+            constexpr size_t                expectedArrayOneDateLinesCount{numElementsInArray(expectedArrayOneDateLines)};
+
+            arrayOneDate->addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = setValueAndCheck(*stuff, arrayOneDate, expectedArrayOneDateLines, expectedArrayOneDateLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithOneDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 319 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithOneDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            std::string                     insertedArrayOneDateLines[]{ "99EQxQAAFOrh/w=="s };
+            constexpr size_t                insertedArrayOneDateLinesCount{numElementsInArray(insertedArrayOneDateLines)};
+            Array                           arrayOneDate;
+
+            arrayOneDate.addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = extractValueAndCheck(*stuff, insertedArrayOneDateLines, insertedArrayOneDateLinesCount, arrayOneDate);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithOneDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 320 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            auto                            arrayOneTime{std::make_shared<Array>()};
+            std::string                     expectedArrayOneTimeLines[]{ "99EQxgKdZznh/w=="s };
+            constexpr size_t                expectedArrayOneTimeLinesCount{numElementsInArray(expectedArrayOneTimeLines)};
+
+            arrayOneTime->addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = setValueAndCheck(*stuff, arrayOneTime, expectedArrayOneTimeLines, expectedArrayOneTimeLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithOneTimeMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 321 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            std::string                     insertedArrayOneTimeLines[]{ "99EQxgKdZznh/w=="s };
+            constexpr size_t                insertedArrayOneTimeLinesCount{numElementsInArray(insertedArrayOneTimeLines)};
+            Array                           arrayOneTime;
+
+            arrayOneTime.addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = extractValueAndCheck(*stuff, insertedArrayOneTimeLines, insertedArrayOneTimeLinesCount, arrayOneTime);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithOneTimeMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 400 ***
@@ -4968,6 +5390,336 @@ doTestMIMEExtractArrayWithTwoAddressesMessage
 } // doTestMIMEExtractArrayWithTwoAddressesMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 426 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithTwoDatesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate1{12, 11, 10};
+            static const Date::DatePieces   aDate2{11, 10, 9};
+            auto                            arrayTwoDates{std::make_shared<Array>()};
+            std::string                     expectedArrayTwoDatesLines[]{ "99ERxQAAFOrFAAATKeH/"s };
+            constexpr size_t                expectedArrayTwoDatesLinesCount{numElementsInArray(expectedArrayTwoDatesLines)};
+
+            arrayTwoDates->addValue(std::make_shared<Date>(MakeDateValue(aDate1)));
+            arrayTwoDates->addValue(std::make_shared<Date>(MakeDateValue(aDate2)));
+            result = setValueAndCheck(*stuff, arrayTwoDates, expectedArrayTwoDatesLines, expectedArrayTwoDatesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithTwoDatesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 427 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithTwoDatesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate1{12, 11, 10};
+            static const Date::DatePieces   aDate2{11, 10, 9};
+            std::string                     insertedArrayTwoDatesLines[]{ "99ERxQAAFOrFAAATKeH/"s };
+            constexpr size_t                insertedArrayTwoDatesLinesCount{numElementsInArray(insertedArrayTwoDatesLines)};
+            Array                           arrayTwoDates;
+
+            arrayTwoDates.addValue(std::make_shared<Date>(MakeDateValue(aDate1)));
+            arrayTwoDates.addValue(std::make_shared<Date>(MakeDateValue(aDate2)));
+            result = extractValueAndCheck(*stuff, insertedArrayTwoDatesLines, insertedArrayTwoDatesLinesCount, arrayTwoDates);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithTwoDatesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 428 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithTwoTimesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime1{12, 11, 10, 9};
+            static const Time::TimePieces   aTime2{11, 10, 9, 8};
+            auto                            arrayTwoTimes{std::make_shared<Array>()};
+            std::string                     expectedArrayTwoTimesLines[]{ "99ERxgKdZznGAmWKcOH/"s };
+            constexpr size_t                expectedArrayTwoTimesLinesCount{numElementsInArray(expectedArrayTwoTimesLines)};
+
+            arrayTwoTimes->addValue(std::make_shared<Time>(MakeTimeValue(aTime1)));
+            arrayTwoTimes->addValue(std::make_shared<Time>(MakeTimeValue(aTime2)));
+            result = setValueAndCheck(*stuff, arrayTwoTimes, expectedArrayTwoTimesLines, expectedArrayTwoTimesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithTwoTimesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 429 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithTwoTimesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime1{12, 11, 10, 9};
+            static const Time::TimePieces   aTime2{11, 10, 9, 8};
+            std::string                     insertedArrayTwoTimesLines[]{ "99ERxgKdZznGAmWKcOH/"s };
+            constexpr size_t                insertedArrayTwoTimesLinesCount{numElementsInArray(insertedArrayTwoTimesLines)};
+            Array                           arrayTwoTimes;
+
+            arrayTwoTimes.addValue(std::make_shared<Time>(MakeTimeValue(aTime1)));
+            arrayTwoTimes.addValue(std::make_shared<Time>(MakeTimeValue(aTime2)));
+            result = extractValueAndCheck(*stuff, insertedArrayTwoTimesLines, insertedArrayTwoTimesLinesCount, arrayTwoTimes);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithTwoTimesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 430 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithOneDateOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            auto                            arrayOneDateOneTime{std::make_shared<Array>()};
+            std::string                     expectedArrayOneDateOneTimeLines[]{ "99ERxQAAFOrGAp1nOeH/"s };
+            constexpr size_t                expectedArrayOneDateOneTimeLinesCount{numElementsInArray(expectedArrayOneDateOneTimeLines)};
+
+            arrayOneDateOneTime->addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            arrayOneDateOneTime->addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = setValueAndCheck(*stuff, arrayOneDateOneTime, expectedArrayOneDateOneTimeLines, expectedArrayOneDateOneTimeLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithOneDateOneTimeMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 431 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithOneDateOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            std::string                     insertedArrayOneDateOneTimeLines[]{ "99ERxQAAFOrGAp1nOeH/"s };
+            constexpr size_t                insertedArrayOneDateOneTimeLinesCount{numElementsInArray(insertedArrayOneDateOneTimeLines)};
+            Array                           arrayOneDateOneTime;
+
+            arrayOneDateOneTime.addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            arrayOneDateOneTime.addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = extractValueAndCheck(*stuff, insertedArrayOneDateOneTimeLines, insertedArrayOneDateOneTimeLinesCount, arrayOneDateOneTime);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithOneDateOneTimeMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 500 ***
 #endif // defined(__APPLE__)
 
@@ -5800,6 +6552,430 @@ doTestMIMEExtractAddressSetMessage
 } // doTestMIMEExtractAddressSetMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 516 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertDateMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            auto                            dateMap{std::make_shared<Map>()};
+            std::string                     expectedDateMapLines[]{ "99UQxQAAFOoN5f8="s };
+            constexpr size_t                expectedDateMapLinesCount{numElementsInArray(expectedDateMapLines)};
+
+            dateMap->addValue(std::make_shared<Date>(MakeDateValue(aDate)), std::make_shared<Integer>(13));
+            result = setValueAndCheck(*stuff, dateMap, expectedDateMapLines, expectedDateMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertDateMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 517 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractDateMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            std::string                     insertedDateMapLines[]{ "99UQxQAAFOoN5f8="s };
+            constexpr size_t                insertedDateMapLinesCount{numElementsInArray(insertedDateMapLines)};
+            Map                             dateMap;
+
+            dateMap.addValue(std::make_shared<Date>(MakeDateValue(aDate)), std::make_shared<Integer>(13));
+            result = extractValueAndCheck(*stuff, insertedDateMapLines, insertedDateMapLinesCount, dateMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractDateMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 518 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertDateSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            auto                            dateSet{std::make_shared<Set>()};
+            std::string                     expectedDateSetLines[]{ "99kQxQAAFOrp/w=="s };
+            constexpr size_t                expectedDateSetLinesCount{numElementsInArray(expectedDateSetLines)};
+
+            dateSet->addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = setValueAndCheck(*stuff, dateSet, expectedDateSetLines, expectedDateSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertDateSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 519 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractDateSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            std::string                     insertedDateSetLines[]{ "99kQxQAAFOrp/w=="s };
+            constexpr size_t                insertedDateSetLinesCount{numElementsInArray(insertedDateSetLines)};
+            Set                             dateSet;
+
+            dateSet.addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = extractValueAndCheck(*stuff, insertedDateSetLines, insertedDateSetLinesCount, dateSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractDateSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 520 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertTimeMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            auto                            timeMap{std::make_shared<Map>()};
+            std::string                     expectedTimeMapLines[]{ "99UQxgKdZzkN5f8="s };
+            constexpr size_t                expectedTimeMapLinesCount{numElementsInArray(expectedTimeMapLines)};
+
+            timeMap->addValue(std::make_shared<Time>(MakeTimeValue(aTime)), std::make_shared<Integer>(13));
+            result = setValueAndCheck(*stuff, timeMap, expectedTimeMapLines, expectedTimeMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertTimeMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 521 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractTimeMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            std::string                     insertedTimeMapLines[]{ "99UQxgKdZzkN5f8="s };
+            constexpr size_t                insertedTimeMapLinesCount{numElementsInArray(insertedTimeMapLines)};
+            Map                             timeMap;
+
+            timeMap.addValue(std::make_shared<Time>(MakeTimeValue(aTime)), std::make_shared<Integer>(13));
+            result = extractValueAndCheck(*stuff, insertedTimeMapLines, insertedTimeMapLinesCount, timeMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractTimeMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 522 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertTimeSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            auto                            timeSet{std::make_shared<Set>()};
+            std::string                     expectedTimeSetLines[]{ "99kQxgKdZznp/w=="s };
+            constexpr size_t                expectedTimeSetLinesCount{numElementsInArray(expectedTimeSetLines)};
+
+            timeSet->addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = setValueAndCheck(*stuff, timeSet, expectedTimeSetLines, expectedTimeSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertTimeSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 523 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractTimeSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            std::string                     insertedTimeSetLines[]{ "99kQxgKdZznp/w=="s };
+            constexpr size_t                insertedTimeSetLinesCount{numElementsInArray(insertedTimeSetLines)};
+            Set                             timeSet;
+
+            timeSet.addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = extractValueAndCheck(*stuff, insertedTimeSetLines, insertedTimeSetLinesCount, timeSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractTimeSetMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 600 ***
 #endif // defined(__APPLE__)
 
@@ -6256,6 +7432,22 @@ main
                         result = doTestMIMEExtractAddressMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 128 :
+                        result = doTestMIMEInsertDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 129 :
+                        result = doTestMIMEExtractDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 130 :
+                        result = doTestMIMEInsertTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 131 :
+                        result = doTestMIMEExtractTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 200 :
                         result = doTestMIMEInsertEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -6350,6 +7542,22 @@ main
 
                     case 317 :
                         result = doTestMIMEExtractArrayWithOneAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 318 :
+                        result = doTestMIMEInsertArrayWithOneDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 319 :
+                        result = doTestMIMEExtractArrayWithOneDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 320 :
+                        result = doTestMIMEInsertArrayWithOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 321 :
+                        result = doTestMIMEExtractArrayWithOneTimeMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 400 :
@@ -6456,6 +7664,30 @@ main
                         result = doTestMIMEExtractArrayWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 426 :
+                        result = doTestMIMEInsertArrayWithTwoDatesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 427 :
+                        result = doTestMIMEExtractArrayWithTwoDatesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 428 :
+                        result = doTestMIMEInsertArrayWithTwoTimesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 429 :
+                        result = doTestMIMEExtractArrayWithTwoTimesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 430 :
+                        result = doTestMIMEInsertArrayWithOneDateOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 431 :
+                        result = doTestMIMEExtractArrayWithOneDateOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 500 :
                         result = doTestMIMEInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -6518,6 +7750,38 @@ main
 
                     case 515 :
                         result = doTestMIMEExtractAddressSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 516 :
+                        result = doTestMIMEInsertDateMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 517 :
+                        result = doTestMIMEExtractDateMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 518 :
+                        result = doTestMIMEInsertDateSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 519 :
+                        result = doTestMIMEExtractDateSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 520 :
+                        result = doTestMIMEInsertTimeMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 521 :
+                        result = doTestMIMEExtractTimeMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 522 :
+                        result = doTestMIMEInsertTimeSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 523 :
+                        result = doTestMIMEExtractTimeSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 600 :

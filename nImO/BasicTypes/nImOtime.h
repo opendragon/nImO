@@ -73,6 +73,9 @@ namespace nImO
         public :
             // Public type definitions.
 
+            /*! @brief A convenience type. */
+            using TimePieces = uint16_t[4];
+
         protected :
             // Protected type definitions.
 
@@ -352,6 +355,18 @@ namespace nImO
                                     (theSecond * (kMaxMilliseconds + 1)) + theMillisecond);
     }
 
+    /*! @brief Generate a value that can be used to initialize a Time value.
+     @param[in] thePieces The components of the value.
+     @return The pieces combined to make a suitable initialization value for a Time. */
+    inline constexpr uint32_t
+    MakeTimeValue
+        (const Time::TimePieces &   thePieces)
+    {
+        return StaticCast(uint32_t, (thePieces[0] * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                    (thePieces[1] * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                    (thePieces[2] * (kMaxMilliseconds + 1)) + thePieces[3]);
+    }
+
     /*! @brief Extract the first byte of a Time value in network order.
      @param[in] theHour The hour part of the value.
      @param[in] theMinute The minute part of the value.
@@ -366,6 +381,16 @@ namespace nImO
          const int  theMillisecond = 0)
     {
         return ((MakeTimeValue(theHour, theMinute, theSecond, theMillisecond) >> 24) & 0x0FF);
+    }
+
+    /*! @brief Extract the first byte of a Time value in network order.
+     @param[in] thePieces The components of the value.
+     @return The first byte of a Time value in network order. */
+    inline constexpr uint8_t
+    FirstTimeByte
+        (const Time::TimePieces &   thePieces)
+    {
+        return ((MakeTimeValue(thePieces) >> 24) & 0x0FF);
     }
 
     /*! @brief Extract the second byte of a Time value in network order.
@@ -384,6 +409,16 @@ namespace nImO
         return ((MakeTimeValue(theHour, theMinute, theSecond, theMillisecond) >> 16) & 0x0FF);
     }
 
+    /*! @brief Extract the second byte of a Time value in network order.
+     @param[in] thePieces The components of the value.
+     @return The second byte of a Time value in network order. */
+    inline constexpr uint8_t
+    SecondTimeByte
+        (const Time::TimePieces &   thePieces)
+    {
+        return ((MakeTimeValue(thePieces) >> 16) & 0x0FF);
+    }
+
     /*! @brief Extract the third byte of a Time value in network order.
      @param[in] theHour The hour part of the value.
      @param[in] theMinute The minute part of the value.
@@ -400,6 +435,16 @@ namespace nImO
         return ((MakeTimeValue(theHour, theMinute, theSecond, theMillisecond) >> 8) & 0x0FF);
     }
 
+    /*! @brief Extract the third byte of a Time value in network order.
+     @param[in] thePieces The components of the value.
+     @return The third byte of a Time value in network order. */
+    inline constexpr uint8_t
+    ThirdTimeByte
+        (const Time::TimePieces &   thePieces)
+    {
+        return ((MakeTimeValue(thePieces) >> 8) & 0x0FF);
+    }
+
     /*! @brief Extract the fourth byte of a Time value in network order.
      @param[in] theHour The hour part of the value.
      @param[in] theMinute The minute part of the value.
@@ -414,6 +459,16 @@ namespace nImO
          const int  theMillisecond = 0)
     {
         return (MakeTimeValue(theHour, theMinute, theSecond, theMillisecond) & 0x0FF);
+    }
+
+    /*! @brief Extract the fourth byte of a Time value in network order.
+     @param[in] thePieces The components of the value.
+     @return The fourth byte of a Time value in network order. */
+    inline constexpr uint8_t
+    FourthTimeByte
+        (const Time::TimePieces &   thePieces)
+    {
+        return (MakeTimeValue(thePieces) & 0x0FF);
     }
 
 } // nImO

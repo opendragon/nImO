@@ -54,6 +54,15 @@
 
 namespace nImO
 {
+    /*! @brief The largest allowed value for the year. */
+    constexpr int   kMaxYear{9999};
+
+    /*! @brief The largest allowed value for the month. */
+    constexpr int   kMaxMonth{12};
+
+    /*! @brief The largest allowed value for the day. */
+    constexpr int   kMaxDay{31};
+
     /*! @brief A class to provide Date values. */
     class Date final : public DateTime
     {
@@ -105,6 +114,13 @@ namespace nImO
                 (void)
                 const
                 override;
+
+            /*! @brief Return the day part of the Date.
+             @return The day part of the Date. */
+            uint16_t
+            day
+                (void)
+                const;
 
             /*! @brief Return @c true if two Values are structurally identical.
              @param[in] other The Value to be compared with.
@@ -186,6 +202,13 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Return the month part of the Date.
+             @return The month part of the Date. */
+            uint16_t
+            month
+                (void)
+                const;
+
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
@@ -246,6 +269,13 @@ namespace nImO
                 (Message &  outMessage)
                 const
                 override;
+
+            /*! @brief Return the year part of the Date.
+             @return The year part of the Date. */
+            uint16_t
+            year
+                (void)
+                const;
 
         protected :
             // Protected methods.

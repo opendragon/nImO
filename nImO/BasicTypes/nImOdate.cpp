@@ -72,19 +72,6 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-/*! @brief Convert a 32-bit unsigned value into a sequence of bytes in network order.
- @param[out] outValue The byte sequence.
- @param[in] inValue The input value. */
-static void
-convertToIntArray
-    (nImO::DateTime::DateTimeInts & outValue,
-     const uint32_t                 inValue)
-{
-    outValue[2] = StaticCast(uint16_t, inValue % (nImO::kMaxDay + 1));
-    outValue[1] = StaticCast(uint16_t, (inValue / (nImO::kMaxDay + 1)) % (nImO::kMaxMonth + 1));
-    outValue[0] = StaticCast(uint16_t, (inValue / ((nImO::kMaxDay + 1) * (nImO::kMaxMonth + 1))) % (nImO::kMaxYear + 1));
-} // convertToIntArray
-
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -151,6 +138,18 @@ nImO::Date::asDate
     ODL_OBJEXIT_P(this); //####
     return this;
 } // nImO::Date::asDate
+
+uint16_t
+nImO::Date::day
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    uint16_t    result{StaticCast(uint16_t, _dateTimeValue % (nImO::kMaxDay + 1))};
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Date::day
 
 bool
 nImO::Date::deeplyEqualTo
@@ -437,6 +436,18 @@ nImO::Date::lessThanOrEqual
     return result;
 } // nImO::Date::lessThanOrEqual
 
+uint16_t
+nImO::Date::month
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / (nImO::kMaxDay + 1)) % (nImO::kMaxMonth + 1))};
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Date::month
+
 std::ostream &
 nImO::Date::operator<<
     (std::ostream & out)
@@ -444,10 +455,7 @@ nImO::Date::operator<<
 {
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
-    DateTimeInts    ints;
-
-    convertToIntArray(ints, _dateTimeValue);
-    out << kStartDateTimeChar << kSecondCharForDate << ints[0] << kDateSeparator << ints[1] << kDateSeparator << ints[2];
+    out << kStartDateTimeChar << kSecondCharForDate << year() << kDateSeparator << month() << kDateSeparator << day();
     ODL_OBJEXIT_P(&out); //####
     return out;
 } // nImO::Date::operator<<
@@ -462,16 +470,13 @@ nImO::Date::printToStringBuffer
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    DateTimeInts    ints;
-
-    convertToIntArray(ints, _dateTimeValue);
     outBuffer.appendChar(kStartDateTimeChar);
     outBuffer.appendChar(kSecondCharForDate);
-    outBuffer.addLong(ints[0]);
+    outBuffer.addLong(year());
     outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(ints[1]);
+    outBuffer.addLong(month());
     outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(ints[2]);
+    outBuffer.addLong(day());
     ODL_OBJEXIT(); //####
 } // nImO::Date::printToStringBuffer
 
@@ -487,15 +492,12 @@ nImO::Date::printToStringBufferAsJSON
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
-    DateTimeInts    ints;
-
-    convertToIntArray(ints, _dateTimeValue);
     outBuffer.appendChar(kDoubleQuote);
-    outBuffer.addLong(ints[0]);
+    outBuffer.addLong(year());
     outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(ints[1]);
+    outBuffer.addLong(month());
     outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(ints[2]);
+    outBuffer.addLong(day());
     outBuffer.appendChar(kDoubleQuote);
     ODL_OBJEXIT(); //####
 } // nImO::Date::printToStringBufferAsJSON
@@ -516,6 +518,18 @@ nImO::Date::writeToMessage
     outMessage.appendBytes(bytes, sizeof(bytes));
     ODL_OBJEXIT(); //####
 } // nImO::Date::writeToMessage
+
+uint16_t
+nImO::Date::year
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / ((nImO::kMaxDay + 1) * (nImO::kMaxMonth + 1))) % (nImO::kMaxYear + 1))};
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Date::year
 
 #if defined(__APPLE__)
 # pragma mark Global functions

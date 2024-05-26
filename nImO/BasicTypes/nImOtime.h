@@ -54,6 +54,18 @@
 
 namespace nImO
 {
+    /*! @brief The largest allowed value for the hour. */
+    constexpr int   kMaxHours{23};
+
+    /*! @brief The largest allowed value for the minutes. */
+    constexpr int   kMaxMinutes{59};
+
+    /*! @brief The largest allowed value for the seconds. */
+    constexpr int   kMaxSeconds{59};
+
+    /*! @brief The largest allowed value for the seconds. */
+    constexpr int   kMaxMilliseconds{999};
+
     /*! @brief A class to provide Time values. */
     class Time final : public DateTime
     {
@@ -168,6 +180,13 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Return the hour part of the Time.
+             @return The hour part of the Time. */
+            uint16_t
+            hour
+                (void)
+                const;
+
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
@@ -185,6 +204,20 @@ namespace nImO
                 (const Value &  other)
                 const
                 override;
+
+            /*! @brief Return the millisecond part of the Time.
+             @return The millisecond part of the Time. */
+            uint16_t
+            millisecond
+                (void)
+                const;
+
+            /*! @brief Return the minute part of the Time.
+             @return The minute part of the Time. */
+            uint16_t
+            minute
+                (void)
+                const;
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
@@ -238,6 +271,13 @@ namespace nImO
                  const bool     squished = false)
                 const
                 override;
+
+            /*! @brief Return the second part of the Time.
+             @return The second part of the time. */
+            uint16_t
+            second
+                (void)
+                const;
 
             /*! @brief Add a binary representation of the object to the message.
              @param[in,out] outMessage The Message to be appended to. */

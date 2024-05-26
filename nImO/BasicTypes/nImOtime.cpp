@@ -72,20 +72,6 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-/*! @brief Convert a 32-bit unsigned value into a sequence of bytes in network order.
- @param[out] outValue The byte sequence.
- @param[in] inValue The input value. */
-static void
-convertToIntArray
-    (nImO::DateTime::DateTimeInts & outValue,
-     const uint32_t                 inValue)
-{
-    outValue[3] = StaticCast(uint16_t, inValue % (nImO::kMaxMilliseconds + 1));
-    outValue[2] = StaticCast(uint16_t, (inValue / (nImO::kMaxMilliseconds + 1)) % (nImO::kMaxSeconds + 1));
-    outValue[1] = StaticCast(uint16_t, (inValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxSeconds + 1));
-    outValue[0] = StaticCast(uint16_t, (inValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxHours + 1));
-} // convertToIntArray
-
 /*! @brief Convert a 16-bit unsigned value into a string with a specific width.
  @param[out] value The input value.
  @param[in] numDigits The requested number of digits.
@@ -388,6 +374,18 @@ nImO::Time::greaterThanOrEqual
     return result;
 } // nImO::Time::greaterThanOrEqual
 
+uint16_t
+nImO::Time::hour
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxHours + 1))};
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Time::hour
+
 nImO::ComparisonStatus
 nImO::Time::lessThan
     (const Value &  other)
@@ -458,6 +456,30 @@ nImO::Time::lessThanOrEqual
     return result;
 } // nImO::Time::lessThanOrEqual
 
+uint16_t
+nImO::Time::millisecond
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    uint16_t    result{StaticCast(uint16_t, _dateTimeValue % (nImO::kMaxMilliseconds + 1))};
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Time::millisecond
+
+uint16_t
+nImO::Time::minute
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxSeconds + 1))};
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Time::minute
+
 std::ostream &
 nImO::Time::operator<<
     (std::ostream & out)
@@ -465,11 +487,8 @@ nImO::Time::operator<<
 {
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
-    DateTimeInts    ints;
-
-    convertToIntArray(ints, _dateTimeValue);
-    out << kStartDateTimeChar << kSecondCharForTime << paddedDecimal(ints[0], 2) << kTimeSeparator << paddedDecimal(ints[1], 2) <<
-            kTimeSeparator << paddedDecimal(ints[2], 2) << kSecondMillisecondSeparator << paddedDecimal(ints[3], 3);
+    out << kStartDateTimeChar << kSecondCharForTime << paddedDecimal(hour(), 2) << kTimeSeparator << paddedDecimal(minute(), 2) <<
+            kTimeSeparator << paddedDecimal(second(), 2) << kSecondMillisecondSeparator << paddedDecimal(millisecond(), 3);
     ODL_OBJEXIT_P(&out); //####
     return out;
 } // nImO::Time::operator<<
@@ -484,18 +503,15 @@ nImO::Time::printToStringBuffer
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    DateTimeInts    ints;
-
-    convertToIntArray(ints, _dateTimeValue);
     outBuffer.appendChar(kStartDateTimeChar);
     outBuffer.appendChar(kSecondCharForTime);
-    outBuffer.addString(paddedDecimal(ints[0], 2));
+    outBuffer.addString(paddedDecimal(hour(), 2));
     outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(ints[1], 2));
+    outBuffer.addString(paddedDecimal(minute(), 2));
     outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(ints[2], 2));
+    outBuffer.addString(paddedDecimal(second(), 2));
     outBuffer.appendChar(kSecondMillisecondSeparator);
-    outBuffer.addString(paddedDecimal(ints[3], 3));
+    outBuffer.addString(paddedDecimal(millisecond(), 3));
     ODL_OBJEXIT(); //####
 } // nImO::Time::printToStringBuffer
 
@@ -511,20 +527,29 @@ nImO::Time::printToStringBufferAsJSON
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
-    DateTimeInts    ints;
-
-    convertToIntArray(ints, _dateTimeValue);
     outBuffer.appendChar(kDoubleQuote);
-    outBuffer.addString(paddedDecimal(ints[0], 2));
+    outBuffer.addString(paddedDecimal(hour(), 2));
     outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(ints[1], 2));
+    outBuffer.addString(paddedDecimal(minute(), 2));
     outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(ints[2], 2));
+    outBuffer.addString(paddedDecimal(second(), 2));
     outBuffer.appendChar(kSecondMillisecondSeparator);
-    outBuffer.addString(paddedDecimal(ints[3], 3));
+    outBuffer.addString(paddedDecimal(millisecond(), 3));
     outBuffer.appendChar(kDoubleQuote);
     ODL_OBJEXIT(); //####
 } // nImO::Time::printToStringBufferAsJSON
+
+uint16_t
+nImO::Time::second
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / (nImO::kMaxMilliseconds + 1)) % (nImO::kMaxSeconds + 1))};
+
+    ODL_OBJEXIT_I(result); //####
+    return result;
+} // nImO::Time::second
 
 void
 nImO::Time::writeToMessage

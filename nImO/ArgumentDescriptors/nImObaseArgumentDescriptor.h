@@ -134,7 +134,13 @@ namespace nImO
         PortTypeTag = 'P',
 
         /*! @brief The argument is a string. */
-        StringTypeTag = 'S'
+        StringTypeTag = 'S',
+
+        /*! @brief The argument is a time. */
+        TimeTypeTag = 'T',
+
+        /*! @brief The argument is a date. */
+        DateTypeTag = 'Y'
 
     }; // ArgumentTypeTag
 
@@ -367,7 +373,7 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief Return the paramter separator.
+            /*! @brief Return the parameter separator.
              @return The parameter separator. */
             inline static std::string
             getParameterSeparator

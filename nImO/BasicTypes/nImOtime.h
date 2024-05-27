@@ -95,7 +95,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
             Time
-                (const uint32_t initialValue);
+                (const DateTimeValue    initialValue);
 
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
@@ -343,28 +343,28 @@ namespace nImO
      @param[in] theSecond The second part of the value.
      @param[in] theMillisecond The millisecond part of the value.
      @return The hour, minute, second and millisecond combined to make a suitable initialization value for a Time. */
-    inline constexpr uint32_t
+    inline constexpr DateTime::DateTimeValue
     MakeTimeValue
         (const int  theHour = 0,
          const int  theMinute = 0,
          const int  theSecond = 0,
          const int  theMillisecond = 0)
     {
-        return StaticCast(uint32_t, (theHour * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
-                                    (theMinute * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
-                                    (theSecond * (kMaxMilliseconds + 1)) + theMillisecond);
+        return StaticCast(DateTime::DateTimeValue, (theHour * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                                    (theMinute * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                                    (theSecond * (kMaxMilliseconds + 1)) + theMillisecond);
     }
 
     /*! @brief Generate a value that can be used to initialize a Time value.
      @param[in] thePieces The components of the value.
      @return The pieces combined to make a suitable initialization value for a Time. */
-    inline constexpr uint32_t
+    inline constexpr DateTime::DateTimeValue
     MakeTimeValue
         (const Time::TimePieces &   thePieces)
     {
-        return StaticCast(uint32_t, (thePieces[0] * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
-                                    (thePieces[1] * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
-                                    (thePieces[2] * (kMaxMilliseconds + 1)) + thePieces[3]);
+        return StaticCast(DateTime::DateTimeValue, (thePieces[0] * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                                    (thePieces[1] * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                                    (thePieces[2] * (kMaxMilliseconds + 1)) + thePieces[3]);
     }
 
     /*! @brief Extract the first byte of a Time value in network order.

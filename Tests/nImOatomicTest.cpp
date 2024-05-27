@@ -3042,12 +3042,12 @@ doTestDateCopyAndAssign
 
     try
     {
-        static const uint32_t   value1{MakeDateValue(12, 11, 10)};
-        static const uint32_t   value2{MakeDateValue(11, 10, 9)};
-        static const uint32_t   value3{MakeDateValue(10, 9, 12)};
-        Date                    date1{value1};
-        Date                    date2{value2};
-        Date                    date3{value3};
+        static const DateTimeValue  value1{MakeDateValue(12, 11, 10)};
+        static const DateTimeValue  value2{MakeDateValue(11, 10, 9)};
+        static const DateTimeValue  value3{MakeDateValue(10, 9, 12)};
+        Date                        date1{value1};
+        Date                        date2{value2};
+        Date                        date3{value3};
 
         if ((value1 == date1.getValue()) &&
             (value2 == date2.getValue()) &&
@@ -3250,12 +3250,12 @@ doTestTimeCopyAndAssign
 
     try
     {
-        static const uint32_t   value1{MakeTimeValue(12, 11, 10, 9)};
-        static const uint32_t   value2{MakeTimeValue(11, 10, 9, 8)};
-        static const uint32_t   value3{MakeTimeValue(10, 9, 8, 7)};
-        Time                    time1{value1};
-        Time                    time2{value2};
-        Time                    time3{value3};
+        static const DateTimeValue  value1{MakeTimeValue(12, 11, 10, 9)};
+        static const DateTimeValue  value2{MakeTimeValue(11, 10, 9, 8)};
+        static const DateTimeValue  value3{MakeTimeValue(10, 9, 8, 7)};
+        Time                        time1{value1};
+        Time                        time2{value2};
+        Time                        time3{value3};
 
         if ((value1 == time1.getValue()) &&
             (value2 == time2.getValue()) &&
@@ -4873,8 +4873,8 @@ doTestValidDateCompares
     {
         struct testsD2D
         {
-            uint32_t            _leftValue;
-            uint32_t            _rightValue;
+            DateTimeValue       _leftValue;
+            DateTimeValue       _rightValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -5119,8 +5119,8 @@ doTestValidTimeCompares
     {
         struct testsT2T
         {
-            uint32_t            _leftValue;
-            uint32_t            _rightValue;
+            DateTimeValue       _leftValue;
+            DateTimeValue       _rightValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;

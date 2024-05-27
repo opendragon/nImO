@@ -573,8 +573,14 @@ namespace nImO
 
     }; // TransportType
 
+    /*! @brief A convenience type. */
     using IPv4Address = uint32_t;
+
+    /*! @brief A convenience type. */
     using IPv4Port = uint16_t;
+
+    /*! @brief A convenience type. */
+    using DateTimeValue = uint32_t;
 
     /*! @brief The raw information for a network connection. */
     struct AddressInfo

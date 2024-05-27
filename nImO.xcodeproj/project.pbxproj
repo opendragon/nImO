@@ -351,6 +351,10 @@
 		F6B388FA1C77F3E3004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = CPack/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B8B9FA1E6D976B0094EF96 /* nImObadMessageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObadMessageTest.cpp; path = Tests/nImObadMessageTest.cpp; sourceTree = SOURCE_ROOT; };
 		F6B8B9FB1E6D976B0094EF96 /* nImObadMessageTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImObadMessageTest.rc.in; path = Tests/nImObadMessageTest.rc.in; sourceTree = SOURCE_ROOT; };
+		F6B9171D2C048AC400D0C70E /* nImOtimeArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOtimeArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImOtimeArgumentDescriptor.cpp; sourceTree = "<group>"; };
+		F6B9171E2C048AC400D0C70E /* nImOdateArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdateArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImOdateArgumentDescriptor.cpp; sourceTree = "<group>"; };
+		F6B9171F2C048AC400D0C70E /* nImOtimeArgumentDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOtimeArgumentDescriptor.h; path = nImO/ArgumentDescriptors/nImOtimeArgumentDescriptor.h; sourceTree = "<group>"; };
+		F6B917202C048AC400D0C70E /* nImOdateArgumentDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOdateArgumentDescriptor.h; path = nImO/ArgumentDescriptors/nImOdateArgumentDescriptor.h; sourceTree = "<group>"; };
 		F6B9F1B71CB4931A00ECC740 /* nImOatomicTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOatomicTest.cpp; path = Tests/nImOatomicTest.cpp; sourceTree = "<group>"; };
 		F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOatomicTest.rc.in; path = Tests/nImOatomicTest.rc.in; sourceTree = "<group>"; };
 		F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainerTest.cpp; path = Tests/nImOcontainerTest.cpp; sourceTree = "<group>"; };
@@ -749,6 +753,8 @@
 				F6E511142A1970C100D52E80 /* nImObaseArgumentDescriptor.h */,
 				F6E511192A1970C100D52E80 /* nImOchannelArgumentDescriptor.cpp */,
 				F6E5110E2A1970C000D52E80 /* nImOchannelArgumentDescriptor.h */,
+				F6B9171E2C048AC400D0C70E /* nImOdateArgumentDescriptor.cpp */,
+				F6B917202C048AC400D0C70E /* nImOdateArgumentDescriptor.h */,
 				F6E511102A1970C100D52E80 /* nImOdoubleArgumentDescriptor.cpp */,
 				F6E511092A1970C000D52E80 /* nImOdoubleArgumentDescriptor.h */,
 				F6E5111A2A1970C100D52E80 /* nImOextraArgumentDescriptor.cpp */,
@@ -765,6 +771,8 @@
 				F6E5110C2A1970C000D52E80 /* nImOstringArgumentDescriptor.h */,
 				F6E511172A1970C100D52E80 /* nImOstringsArgumentDescriptor.cpp */,
 				F6E511132A1970C100D52E80 /* nImOstringsArgumentDescriptor.h */,
+				F6B9171D2C048AC400D0C70E /* nImOtimeArgumentDescriptor.cpp */,
+				F6B9171F2C048AC400D0C70E /* nImOtimeArgumentDescriptor.h */,
 			);
 			name = "Argument Descriptors";
 			sourceTree = "<group>";

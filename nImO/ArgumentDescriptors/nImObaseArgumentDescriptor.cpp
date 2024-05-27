@@ -41,6 +41,7 @@
 
 #include <ArgumentDescriptors/nImOaddressArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOdateArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOextraArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
@@ -49,6 +50,7 @@
 #include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOtimeArgumentDescriptor.h>
 
 #include <string>
 
@@ -490,8 +492,8 @@ nImO::ArgumentsToArgString
 void
 nImO::ArgumentsToDescriptionArray
     (const DescriptorVector &  arguments,
-     StdStringVector &              output,
-     const size_t                   minSpace)
+     StdStringVector &         output,
+     const size_t              minSpace)
 {
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
@@ -597,11 +599,11 @@ nImO::ConvertStringToDescriptor
 
     if (! result)
     {
-        result = LogicalArgumentDescriptor::parseArgString(inString);
+        result = ChannelArgumentDescriptor::parseArgString(inString);
     }
     if (! result)
     {
-        result = ChannelArgumentDescriptor::parseArgString(inString);
+        result = DateArgumentDescriptor::parseArgString(inString);
     }
     if (! result)
     {
@@ -621,6 +623,10 @@ nImO::ConvertStringToDescriptor
     }
     if (! result)
     {
+        result = LogicalArgumentDescriptor::parseArgString(inString);
+    }
+    if (! result)
+    {
         result = PortArgumentDescriptor::parseArgString(inString);
     }
     if (! result)
@@ -630,6 +636,10 @@ nImO::ConvertStringToDescriptor
     if (! result)
     {
         result = StringsArgumentDescriptor::parseArgString(inString);
+    }
+    if (! result)
+    {
+        result = TimeArgumentDescriptor::parseArgString(inString);
     }
     ODL_EXIT_P(result.get()); //####
     return result;

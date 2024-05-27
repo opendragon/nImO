@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ArgumentDescriptors/nImOaddressArgumentDescriptor.h
+//  File:       nImO/ArgumentDescriptors/nImOdateArgumentDescriptor.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the minimal functionality required to represent an IP
-//              address command-line argument.
+//  Contains:   The class declaration for the minimal functionality required to represent a date
+//              command-line argument.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -33,14 +33,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2015-05-17
+//  Created:    2024-05-27
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOaddressArgumentDescriptor_H_))
-# define nImOaddressArgumentDescriptor_H_ /* Header guard */
+#if (! defined(nImOdateArgumentDescriptor_H_))
+# define nImOdateArgumentDescriptor_H_ /* Header guard */
 
-# include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+# include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+# include <BasicTypes/nImOdate.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,7 +49,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the minimal functionality required to represent an IP address
+ @brief The class declaration for the minimal functionality required to represent a date
  command-line argument. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
@@ -56,12 +57,12 @@
 
 namespace nImO
 {
-    /*! @brief An address argument description.
+    /*! @brief A date argument description.
 
     The external representation of an address argument description is:
 
-     addressTagAndInfo ::= 'A'; */
-    class AddressArgumentDescriptor final : public StringArgumentDescriptor
+     dateTagAndInfo ::= 'Y'; */
+    class DateArgumentDescriptor final : public BaseArgumentDescriptor
     {
 
         public :
@@ -74,7 +75,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = StringArgumentDescriptor;
+            using inherited = BaseArgumentDescriptor;
 
         public :
             // Public methods.
@@ -83,24 +84,22 @@ namespace nImO
              @param[in] argName The name of the command-line argument.
              @param[in] argDescription A description of the command-line argument.
              @param[in] argMode The mode of the command-line argument.
-             @param[in] defaultValue The default value for the command-line argument.
-             @param[in,out] addrBuff If non-@c nullptr, the variable to be set with the actual address. */
-            AddressArgumentDescriptor
+             @param[in] defaultValue The default value for the command-line argument. */
+            DateArgumentDescriptor
                 (const std::string &    argName,
                  const std::string &    argDescription,
                  const ArgumentMode     argMode,
-                 const std::string &    defaultValue,
-                 Ptr(struct in_addr)    addrBuff = nullptr);
+                 const std::string &    defaultValue);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
-            AddressArgumentDescriptor
-                (const AddressArgumentDescriptor &  other);
+            DateArgumentDescriptor
+                (const DateArgumentDescriptor &  other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
-            AddressArgumentDescriptor
-                (AddressArgumentDescriptor &&	other)
+            DateArgumentDescriptor
+                (DateArgumentDescriptor &&	other)
                 noexcept;
 
             /*! @brief Convert to a description of the expected values.
@@ -110,19 +109,36 @@ namespace nImO
                 (void)
                 override;
 
+            /*! @brief Return the current value.
+            @return The current value. */
+            inline DateTimeValue
+            getCurrentValue
+                (void)
+                const
+            {
+                return _currentValue;
+            }
+
+            /*! @brief Return the default value.
+            @return The default value. */
+            std::string
+            getDefaultValue
+                (void)
+                override;
+
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
-            AddressArgumentDescriptor &
+            DateArgumentDescriptor &
             operator=
-                (const AddressArgumentDescriptor &  other);
+                (const DateArgumentDescriptor &  other);
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            AddressArgumentDescriptor &
+            DateArgumentDescriptor &
             operator=
-                (AddressArgumentDescriptor &&  other)
+                (DateArgumentDescriptor &&  other)
                 noexcept;
 
             /*! @brief Construct a descriptor, if at all possible, from the input string.
@@ -136,7 +152,7 @@ namespace nImO
              @param[in,out] other The object to be swapped with. */
             void
             swap
-                (AddressArgumentDescriptor &    other);
+                (DateArgumentDescriptor &    other);
 
         protected :
             // Protected methods.
@@ -150,6 +166,26 @@ namespace nImO
             clone
                 (void)
                 const
+                override;
+
+            /*! @brief Return the default value as a human-readable string.
+            @return The default value as a human-readable string. */
+            std::string
+            getPrintableDefaultValue
+                (void)
+                override;
+
+            /*! @brief Return the processed value.
+            @return The processed value. */
+            std::string
+            getProcessedValue
+                (void)
+                override;
+
+            /*! @brief Set the associated variable to the default value. */
+            void
+            setToDefaultValue
+                (void)
                 override;
 
             /*! @brief Convert to a printable representation.
@@ -177,11 +213,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The variable to be filled in with the actual address. */
-            Ptr(struct in_addr) _addrBuff{nullptr};
+            /*! @brief The variable to be filled in with the actual date. */
+            DateTimeValue   _currentValue;
 
-    }; // AddressArgumentDescriptor
+    }; // DateArgumentDescriptor
 
 } // nImO
 
-#endif // not defined(nImOaddressArgumentDescriptor_H_)
+#endif // not defined(nImOdateArgumentDescriptor_H_)

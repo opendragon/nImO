@@ -64,6 +64,9 @@ namespace nImO
             /*! @brief A convenience type. */
             using DateTimeBytes = uint8_t[4];
 
+            /*! @brief A convenience type. */
+            using DateTimeValue = uint32_t;
+
         protected :
             // Protected type definitions.
 
@@ -92,7 +95,7 @@ namespace nImO
 
             /*! @brief Return the raw internal value.
              @return The raw internal value. */
-            uint32_t
+            DateTimeValue
             getValue
                 (void)
                 const
@@ -110,7 +113,6 @@ namespace nImO
                 if (this != &other)
                 {
                     _dateTimeValue = other._dateTimeValue;
-                    _isDate = other._isDate;
                 }
                 return *this;
             }
@@ -140,27 +142,22 @@ namespace nImO
              @param[in] inValue The input value. */
             static void
             convertToByteArray
-                (DateTimeBytes &    outValue,
-                 const uint32_t     inValue);
+                (DateTimeBytes &        outValue,
+                 const DateTimeValue    inValue);
+
+            /*! @brief The constructor. */
+            DateTime
+                (void);
 
             /*! @brief The constructor.
-             @param[in] isDate @c true if a Date value and @c false if a Time value*/
+             @param[in] initialValue The initial value for the object. */
             DateTime
-                (const bool isDate);
+                (const DateTimeValue    initialValue);
 
             /*! @brief The constructor.
-             @param[in] initialValue The initial value for the object.
-             @param[in] isDate @c true if a Date value and @c false if a Time value*/
+             @param[in] initialValue The initial value for the object. */
             DateTime
-                (const uint32_t initialValue,
-                 const bool     isDate);
-
-            /*! @brief The constructor.
-             @param[in] initialValue The initial value for the object.
-             @param[in] isDate @c true if a Date value and @c false if a Time value*/
-            DateTime
-                (const DateTimeBytes &  initialValue,
-                 const bool             isDate);
+                (const DateTimeBytes &  initialValue);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
@@ -183,10 +180,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The associated value. */
-            uint32_t    _dateTimeValue{0};
-
-            /*! @brief @c true if the value is a Date and @c false if it is a Time. */
-            bool    _isDate{false};
+            DateTimeValue   _dateTimeValue{0};
 
         private :
             // Private fields.

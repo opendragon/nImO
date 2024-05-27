@@ -61,6 +61,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOaddressArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObaseArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdateArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdoubleArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOextraArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOfilePathArgumentDescriptor.cpp"
@@ -69,6 +70,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOtimeArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp"
@@ -264,6 +266,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOaddressArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObaseArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdateArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdoubleArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOextraArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOfilePathArgumentDescriptor.h"
@@ -272,6 +275,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOtimeArgumentDescriptor.h"
         DESTINATION ${INCLUDE_DEST}/ArgumentDescriptors
         COMPONENT headers)
 
@@ -408,6 +412,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObaseArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdateArgumentDescriptor.cpp
+        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdateArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdoubleArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdoubleArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOextraArgumentDescriptor.cpp
@@ -424,6 +430,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOtimeArgumentDescriptor.cpp
+        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOtimeArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.h

@@ -82,15 +82,15 @@
 
 nImO::Date::Date
     (void) :
-        inherited{true}
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Date::Date
 
 nImO::Date::Date
-    (const uint32_t initialValue) :
-        inherited{initialValue, true}
+    (const DateTimeValue    initialValue) :
+        inherited{initialValue}
 {
     ODL_ENTER(); //####
     ODL_X1("initialValue = ", initialValue); //####
@@ -99,7 +99,7 @@ nImO::Date::Date
 
 nImO::Date::Date
     (const DateTimeBytes &  initialValue) :
-        inherited{initialValue, true}
+        inherited{initialValue}
 {
     ODL_ENTER(); //####
     ODL_P1("initialValue = ", &initialValue); //####
@@ -241,9 +241,9 @@ nImO::Date::extractValue
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
-    SpValue     result;
-    uint32_t    accumulator{0};
-    bool        atEnd{false};
+    SpValue         result;
+    DateTimeValue   accumulator{0};
+    bool            atEnd{false};
 
     ++position; // We will always accept the lead byte
     for (int ii = 0; (ii < 4) && (! atEnd); ++ii)

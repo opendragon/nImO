@@ -9603,20 +9603,20 @@ doTestValidDateMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int             result{0};
-    const uint32_t  val1{MakeDateValue(1, 2, 3)};
-    const uint32_t  val2{MakeDateValue(2, 3, 4)};
-    const uint32_t  val3{MakeDateValue(3, 4, 5)};
-    const uint32_t  val4{MakeDateValue(4, 5, 6)};
-    const uint32_t  val5{MakeDateValue(5, 6, 7)};
-    const uint32_t  val6{MakeDateValue(6, 7, 8)};
-    const uint32_t  val7{MakeDateValue(7, 8, 9)};
+    int                 result{0};
+    const DateTimeValue val1{MakeDateValue(1, 2, 3)};
+    const DateTimeValue val2{MakeDateValue(2, 3, 4)};
+    const DateTimeValue val3{MakeDateValue(3, 4, 5)};
+    const DateTimeValue val4{MakeDateValue(4, 5, 6)};
+    const DateTimeValue val5{MakeDateValue(5, 6, 7)};
+    const DateTimeValue val6{MakeDateValue(6, 7, 8)};
+    const DateTimeValue val7{MakeDateValue(7, 8, 9)};
 
     try
     {
         struct testDates
         {
-            uint32_t            _testValue;
+            DateTimeValue       _testValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -9839,20 +9839,20 @@ doTestValidDateSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int             result{0};
-    const uint32_t  val1{MakeDateValue(1, 2, 3)};
-    const uint32_t  val2{MakeDateValue(2, 3, 4)};
-    const uint32_t  val3{MakeDateValue(3, 4, 5)};
-    const uint32_t  val4{MakeDateValue(4, 5, 6)};
-    const uint32_t  val5{MakeDateValue(5, 6, 7)};
-    const uint32_t  val6{MakeDateValue(6, 7, 8)};
-    const uint32_t  val7{MakeDateValue(7, 8, 9)};
+    int                 result{0};
+    const DateTimeValue val1{MakeDateValue(1, 2, 3)};
+    const DateTimeValue val2{MakeDateValue(2, 3, 4)};
+    const DateTimeValue val3{MakeDateValue(3, 4, 5)};
+    const DateTimeValue val4{MakeDateValue(4, 5, 6)};
+    const DateTimeValue val5{MakeDateValue(5, 6, 7)};
+    const DateTimeValue val6{MakeDateValue(6, 7, 8)};
+    const DateTimeValue val7{MakeDateValue(7, 8, 9)};
 
     try
     {
         struct testDates
         {
-            uint32_t            _testValue;
+            DateTimeValue       _testValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -10311,20 +10311,20 @@ doTestValidTimeMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int             result{0};
-    const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
-    const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
-    const uint32_t  val3{MakeTimeValue(3, 4, 5, 6)};
-    const uint32_t  val4{MakeTimeValue(4, 5, 6, 7)};
-    const uint32_t  val5{MakeTimeValue(5, 6, 7, 8)};
-    const uint32_t  val6{MakeTimeValue(6, 7, 8, 9)};
-    const uint32_t  val7{MakeTimeValue(7, 8, 9, 10)};
+    int                 result{0};
+    const DateTimeValue val1{MakeTimeValue(1, 2, 3, 4)};
+    const DateTimeValue val2{MakeTimeValue(2, 3, 4, 5)};
+    const DateTimeValue val3{MakeTimeValue(3, 4, 5, 6)};
+    const DateTimeValue val4{MakeTimeValue(4, 5, 6, 7)};
+    const DateTimeValue val5{MakeTimeValue(5, 6, 7, 8)};
+    const DateTimeValue val6{MakeTimeValue(6, 7, 8, 9)};
+    const DateTimeValue val7{MakeTimeValue(7, 8, 9, 10)};
 
     try
     {
         struct testDates
         {
-            uint32_t            _testValue;
+            DateTimeValue       _testValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -10547,20 +10547,20 @@ doTestValidTimeSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int             result{0};
-    const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
-    const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
-    const uint32_t  val3{MakeTimeValue(3, 4, 5, 6)};
-    const uint32_t  val4{MakeTimeValue(4, 5, 6, 7)};
-    const uint32_t  val5{MakeTimeValue(5, 6, 7, 8)};
-    const uint32_t  val6{MakeTimeValue(6, 7, 8, 9)};
-    const uint32_t  val7{MakeTimeValue(7, 8, 9, 10)};
+    int                 result{0};
+    const DateTimeValue val1{MakeTimeValue(1, 2, 3, 4)};
+    const DateTimeValue val2{MakeTimeValue(2, 3, 4, 5)};
+    const DateTimeValue val3{MakeTimeValue(3, 4, 5, 6)};
+    const DateTimeValue val4{MakeTimeValue(4, 5, 6, 7)};
+    const DateTimeValue val5{MakeTimeValue(5, 6, 7, 8)};
+    const DateTimeValue val6{MakeTimeValue(6, 7, 8, 9)};
+    const DateTimeValue val7{MakeTimeValue(7, 8, 9, 10)};
 
     try
     {
         struct testDates
         {
-            uint32_t            _testValue;
+            DateTimeValue       _testValue;
             ComparisonStatus    _lessThan;
             ComparisonStatus    _greaterThan;
             ComparisonStatus    _lessThanOrEqual;
@@ -11961,12 +11961,12 @@ doTestDateMapSearches
 
     try
     {
-        Map             stuff;
-        Map::iterator   iter;
-        auto            string17{std::make_shared<String>("17")};
-        SpString        string12;
-        const uint32_t  val1{MakeDateValue(1, 2, 3)};
-        const uint32_t  val2{MakeDateValue(2, 3, 4)};
+        Map                 stuff;
+        Map::iterator       iter;
+        auto                string17{std::make_shared<String>("17")};
+        SpString            string12;
+        const DateTimeValue val1{MakeDateValue(1, 2, 3)};
+        const DateTimeValue val2{MakeDateValue(2, 3, 4)};
 
         stuff.addValue(std::make_shared<Date>(val1), string17);
         iter = stuff.find(std::make_shared<Date>(val2));
@@ -12075,10 +12075,10 @@ doTestDateSetSearches
 
     try
     {
-        Set             stuff;
-        Set::iterator   iter;
-        const uint32_t  val1{MakeDateValue(1, 2, 3)};
-        const uint32_t  val2{MakeDateValue(2, 3, 4)};
+        Set                 stuff;
+        Set::iterator       iter;
+        const DateTimeValue val1{MakeDateValue(1, 2, 3)};
+        const DateTimeValue val2{MakeDateValue(2, 3, 4)};
 
         stuff.addValue(std::make_shared<Date>(val1));
         iter = stuff.find(std::make_shared<Date>(val2));
@@ -12170,12 +12170,12 @@ doTestTimeMapSearches
 
     try
     {
-        Map             stuff;
-        Map::iterator   iter;
-        auto            string17{std::make_shared<String>("17")};
-        SpString        string12;
-        const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
-        const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
+        Map                 stuff;
+        Map::iterator       iter;
+        auto                string17{std::make_shared<String>("17")};
+        SpString            string12;
+        const DateTimeValue val1{MakeTimeValue(1, 2, 3, 4)};
+        const DateTimeValue val2{MakeTimeValue(2, 3, 4, 5)};
 
         stuff.addValue(std::make_shared<Time>(val1), string17);
         iter = stuff.find(std::make_shared<Time>(val2));
@@ -12284,10 +12284,10 @@ doTestTimeSetSearches
 
     try
     {
-        Set             stuff;
-        Set::iterator   iter;
-        const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
-        const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
+        Set                 stuff;
+        Set::iterator       iter;
+        const DateTimeValue val1{MakeTimeValue(1, 2, 3, 4)};
+        const DateTimeValue val2{MakeTimeValue(2, 3, 4, 5)};
 
         stuff.addValue(std::make_shared<Time>(val1));
         iter = stuff.find(std::make_shared<Time>(val2));
@@ -15641,7 +15641,7 @@ doTestKeysFromMapWithDateKeys
 
             if (otherStuff)
             {
-                static const uint32_t   rawKeys[]
+                static const DateTimeValue  rawKeys[]
                 {
                     MakeDateValue(8, 9, 10), MakeDateValue(9, 10, 11), MakeDateValue(10, 11, 12), MakeDateValue(11, 12, 13)
                 };
@@ -15726,7 +15726,7 @@ doTestKeysFromMapWithTimeKeys
 
             if (otherStuff)
             {
-                static const uint32_t   rawKeys[]
+                static const DateTimeValue  rawKeys[]
                 {
                     MakeTimeValue(8, 9, 10, 60), MakeTimeValue(9, 10, 11, 61), MakeTimeValue(10, 11, 12, 62), MakeTimeValue(11, 12, 13, 63)
                 };

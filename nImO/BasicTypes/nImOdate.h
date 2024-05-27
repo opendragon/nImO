@@ -92,7 +92,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
             Date
-                (const uint32_t initialValue);
+                (const DateTimeValue    initialValue);
 
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
@@ -332,23 +332,23 @@ namespace nImO
      @param[in] theMonth The month part of the value.
      @param[in] theDay The day part of the value.
      @return The year, month and day combined to make a suitable initialization value for a Date. */
-    inline constexpr uint32_t
+    inline constexpr DateTime::DateTimeValue
     MakeDateValue
         (const int  theYear = 0,
          const int  theMonth = 1,
          const int  theDay = 1)
     {
-        return StaticCast(uint32_t, (theYear * (kMaxMonth + 1) * (kMaxDay + 1)) + (theMonth * (kMaxDay + 1)) + theDay);
+        return StaticCast(DateTime::DateTimeValue, (theYear * (kMaxMonth + 1) * (kMaxDay + 1)) + (theMonth * (kMaxDay + 1)) + theDay);
     }
 
     /*! @brief Generate a value that can be used to initialize a Date value.
      @param[in] thePieces The components of the value.
      @return The pieces combined to make a suitable initialization value for a Date. */
-    inline constexpr uint32_t
+    inline constexpr DateTime::DateTimeValue
     MakeDateValue
         (const Date::DatePieces &   thePieces)
     {
-        return StaticCast(uint32_t, (thePieces[0] * (kMaxMonth + 1) * (kMaxDay + 1)) + (thePieces[1] * (kMaxDay + 1)) + thePieces[2]);
+        return StaticCast(DateTime::DateTimeValue, (thePieces[0] * (kMaxMonth + 1) * (kMaxDay + 1)) + (thePieces[1] * (kMaxDay + 1)) + thePieces[2]);
     }
 
     /*! @brief Extract the first byte of a Date value in network order.

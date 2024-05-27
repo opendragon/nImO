@@ -80,8 +80,8 @@
 
 void
 nImO::DateTime::convertToByteArray
-    (nImO::DateTime::DateTimeBytes &    outValue,
-     const uint32_t                     inValue)
+    (DateTimeBytes &        outValue,
+     const DateTimeValue    inValue)
 {
     outValue[0] = StaticCast(uint8_t, (inValue >> 24) & 0x0FF);
     outValue[1] = StaticCast(uint8_t, (inValue >> 16) & 0x0FF);
@@ -94,33 +94,28 @@ nImO::DateTime::convertToByteArray
 #endif // defined(__APPLE__)
 
 nImO::DateTime::DateTime
-    (const bool isDate) :
-        inherited{}, _isDate(isDate)
+    (void) :
+        inherited{}
 {
     ODL_ENTER(); //####
-    ODL_B1("isDate = ", isDate); //####
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
 
 nImO::DateTime::DateTime
-    (const uint32_t initialValue,
-     const bool     isDate) :
-        inherited{}, _dateTimeValue{initialValue}, _isDate{isDate}
+    (const DateTimeValue    initialValue) :
+        inherited{}, _dateTimeValue{initialValue}
 {
     ODL_ENTER(); //####
     ODL_X1("initialValue = ", initialValue); //####
-    ODL_B1("isDate = ", isDate); //####
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
 
 nImO::DateTime::DateTime
-    (const DateTimeBytes &  initialValue,
-     const bool             isDate) :
-        inherited{}, _isDate(isDate)
+    (const DateTimeBytes &  initialValue) :
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_P1("initialValue = ", &initialValue); //####
-    ODL_B1("isDate = ", isDate); //####
     _dateTimeValue = ((initialValue[0] << 24) | (initialValue[1] << 16) | (initialValue[2] << 8) | initialValue[3]);
     ODL_X1("_dateTimeValue = ", _dateTimeValue); //####
     ODL_EXIT_P(this); //####
@@ -128,7 +123,7 @@ nImO::DateTime::DateTime
 
 nImO::DateTime::DateTime
     (const DateTime &    other) :
-        inherited{}, _dateTimeValue{other._dateTimeValue}, _isDate{other._isDate}
+        inherited{}, _dateTimeValue{other._dateTimeValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -138,12 +133,11 @@ nImO::DateTime::DateTime
 nImO::DateTime::DateTime
     (DateTime && other)
     noexcept :
-        inherited{std::move(other)}, _dateTimeValue{other._dateTimeValue}, _isDate{other._isDate}
+        inherited{std::move(other)}, _dateTimeValue{other._dateTimeValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     other._dateTimeValue = 0;
-    other._isDate = false;
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
 
@@ -185,9 +179,7 @@ nImO::DateTime::operator=
     {
         inherited::operator=(std::move(other));
         _dateTimeValue = other._dateTimeValue;
-        _isDate = other._isDate;
         other._dateTimeValue = 0;
-        other._isDate = false;
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

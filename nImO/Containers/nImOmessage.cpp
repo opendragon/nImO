@@ -196,24 +196,6 @@ nImO::Message::close
     return *this;
 } // nImO::Message::close
 
-std::string
-nImO::Message::getBytes
-    (void)
-{
-    ODL_OBJENTER(); //####
-    std::string result;
-
-    if (MessageState::Closed == _state)
-    {
-        ODL_LOG("(MessageState::Closed == _state)"); //####
-        std::lock_guard<std::mutex> guard{_lock};
-
-        result = inherited::getBytes();
-    }
-    ODL_OBJEXIT(); //####
-    return result;
-} // nImO::Message:getBytes
-
 size_t
 nImO::Message::getLength
     (void)
@@ -235,6 +217,24 @@ nImO::Message::getLength
     ODL_OBJEXIT_I(totalLength); //####
     return totalLength;
 } // nImO::Message::getLength
+
+std::string
+nImO::Message::getString
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result;
+
+    if (MessageState::Closed == _state)
+    {
+        ODL_LOG("(MessageState::Closed == _state)"); //####
+        std::lock_guard<std::mutex> guard{_lock};
+
+        result = inherited::getString();
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} // nImO::Message:getString
 
 nImO::SpValue
 nImO::Message::getValue

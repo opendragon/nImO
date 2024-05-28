@@ -5491,7 +5491,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                           DataKind::OtherMessageExpectedOtherValue
                     };
                     constexpr size_t        expectedBytesForArrayWithIntegersCount{numElementsInArray(expectedBytesForArrayWithIntegers)};
-                    auto                    contents{stuff->getBytes()};
+                    auto                    contents{stuff->getString()};
                     size_t                  length{contents.size()};
 
                     ODL_PACKET("contents", contents.data(), length); //####

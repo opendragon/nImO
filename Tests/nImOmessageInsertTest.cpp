@@ -124,7 +124,7 @@ setValueAndCheck
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    auto    contents{stuff.getBytes()};
+    auto    contents{stuff.getString()};
     size_t  length{contents.size()};
     int     result;
 
@@ -182,14 +182,14 @@ doTestInsertEmptyMessage
             };
             constexpr size_t        expectedEmptyByteCount{numElementsInArray(expectedEmptyBytes)};
             ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
-            auto                    contents{stuff->getBytes()};
+            auto                    contents{stuff->getString()};
             size_t                  length{contents.size()};
 
             stuff->open(true);
             if (0 == length)
             {
                 stuff->close();
-                contents = stuff->getBytes();
+                contents = stuff->getString();
                 length = contents.size();
                 ODL_PACKET("contents", contents.data(), length); //####
                 if (expectedEmptyByteCount == length)

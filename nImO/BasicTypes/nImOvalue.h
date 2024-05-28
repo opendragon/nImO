@@ -319,6 +319,14 @@ namespace nImO
             initialize
                 (void);
 
+            /*! @brief Returns @c true if the character can appear immediately after a Value in a
+             string.
+             @param[in] aChar The character of interest.
+             @return @c true if the character can appear immediately after a Value in a string. */
+            static bool
+            isLegalTerminator
+                (const char aChar);
+
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
@@ -486,14 +494,6 @@ namespace nImO
                  const int          leadByte,
                  size_t &           position,
                  IntStatus &        status);
-
-            /*! @brief Returns @c true if the character can appear immediately after a Value in a
-             string.
-             @param[in] aChar The character of interest.
-             @return @c true if the character can appear immediately after a Value in a string. */
-            static bool
-            isLegalTerminator
-                (const char aChar);
 
             /*! @brief Add a binary representation of an integer to the Message.
              @param[in,out] outMessage The Message to be appended to.

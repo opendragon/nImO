@@ -151,17 +151,25 @@ namespace nImO
                  bool &         atEnd)
                 const;
 
-            /*! @brief Return a copy of the bytes in the buffer.
-            @return A copy of the bytes in the buffer. */
-            virtual std::string
-            getBytes
-                (void);
-
             /*! @brief Return the number of valid bytes in the buffer.
             @return The number of valid bytes in the buffer. */
             virtual size_t
             getLength
                 (void)
+                const;
+
+            /*! @brief Return a copy of the bytes in the buffer.
+             @return A copy of the bytes in the buffer. */
+            virtual std::string
+            getString
+                (void);
+
+            /*! @brief Return a copy of the bytes in the buffer.
+             @param[in] index The zero-based location in the buffer where to start.
+             @return A copy of the bytes in the buffer. */
+            std::string
+            getString
+                (const size_t   index)
                 const;
 
             /*! @brief The copy assignment operator.

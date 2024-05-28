@@ -121,19 +121,19 @@ namespace nImO
             close
                 (void);
 
-            /*! @brief Return a copy of the bytes in the buffer.
-            @return A copy of the bytes in the buffer. */
-            std::string
-            getBytes
-                (void)
-                override;
-
             /*! @brief Return the number of valid bytes in the buffer.
             @return The number of valid bytes in the buffer. */
             size_t
             getLength
                 (void)
                 const
+                override;
+
+            /*! @brief Return a copy of the bytes in the buffer.
+             @return A copy of the bytes in the buffer. */
+            std::string
+            getString
+                (void)
                 override;
 
             /*! @brief Return the next Value in the Message.

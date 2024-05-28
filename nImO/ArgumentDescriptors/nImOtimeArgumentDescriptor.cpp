@@ -252,7 +252,7 @@ TimeArgumentDescriptor::setToDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-//    _currentValue = _defaultValue;
+    _currentValue = _defaultValue;
     ODL_D1("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
 } // TimeArgumentDescriptor::setToDefaultValue

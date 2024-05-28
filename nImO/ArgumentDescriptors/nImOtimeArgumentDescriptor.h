@@ -214,7 +214,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The variable to be filled in with the actual time. */
-            DateTimeValue   _currentValue;
+            DateTimeValue   _currentValue{0};
+
+            /*! @brief The default value for the command-line argument. */
+            DateTimeValue   _defaultValue{0};
 
     }; // TimeArgumentDescriptor
 

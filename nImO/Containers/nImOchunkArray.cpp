@@ -276,38 +276,6 @@ nImO::ChunkArray::getByte
     return result;
 } // nImO::ChunkArray::getByte
 
-std::string
-nImO::ChunkArray::getBytes
-    (void)
-{
-    ODL_OBJENTER(); //####
-    if (0 == _cachedString.size())
-    {
-        ODL_LOG("(0 == _cachedString.size())"); //####
-        size_t  length{getLength()};
-
-        ODL_I1("length = ", length); //####
-        _cachedString.reserve(length + (_buffersArePadded ? 1 : 0));
-        for (size_t ii = 0; _numChunks > ii; ++ii)
-        {
-            Ptr(BufferChunk)    aChunk{_buffers[ii]};
-
-            if (nullptr != aChunk)
-            {
-                ODL_LOG("(nullptr != aChunk)"); //####
-                auto    data{aChunk->getData()};
-
-                for (size_t jj = 0, nn = aChunk->getDataSize(); nn > jj; ++jj)
-                {
-                    _cachedString += *data++;
-                }
-            }
-        }
-    }
-    ODL_OBJEXIT(); //####
-    return _cachedString;
-} // nImO::ChunkArray::getBytes
-
 size_t
 nImO::ChunkArray::getLength
     (void)
@@ -319,7 +287,7 @@ nImO::ChunkArray::getLength
     if (nullptr != _buffers)
     {
         ODL_LOG("(nullptr != _buffers)"); //####
-        Ptr(BufferChunk)    aChunk{_buffers[_numChunks - 1]};
+        CPtr(BufferChunk)   aChunk{_buffers[_numChunks - 1]};
 
         totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
         if (nullptr != aChunk)
@@ -331,6 +299,77 @@ nImO::ChunkArray::getLength
     ODL_OBJEXIT_I(totalLength); //####
     return totalLength;
 } // nImO::ChunkArray::getLength
+
+std::string
+nImO::ChunkArray::getString
+    (void)
+{
+    ODL_OBJENTER(); //####
+    if (0 == _cachedString.size())
+    {
+        ODL_LOG("(0 == _cachedString.size())"); //####
+        _cachedString = getString(0);
+//        size_t  length{getLength()};
+//
+//        ODL_I1("length = ", length); //####
+//        _cachedString.reserve(length + (_buffersArePadded ? 1 : 0));
+//        for (size_t ii = 0; _numChunks > ii; ++ii)
+//        {
+//            CPtr(BufferChunk)   aChunk{_buffers[ii]};
+//
+//            if (nullptr != aChunk)
+//            {
+//                ODL_LOG("(nullptr != aChunk)"); //####
+//                auto    data{aChunk->getData()};
+//
+//                for (size_t jj = 0, nn = aChunk->getDataSize(); nn > jj; ++jj)
+//                {
+//                    _cachedString += *data++;
+//                }
+//            }
+//        }
+    }
+    ODL_OBJEXIT_s(_cachedString); //####
+    return _cachedString;
+} // nImO::ChunkArray::getString
+
+std::string
+nImO::ChunkArray::getString
+    (const size_t   index)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_I1("index = ", index); //####
+    std::string result;
+    size_t      length{getLength()};
+    size_t      walker{0};
+
+    ODL_I2("length = ", length, "walker = ", walker); //####
+    if (index < length)
+    {
+        for (size_t ii = 0; _numChunks > ii; ++ii)
+        {
+            CPtr(BufferChunk)   aChunk{_buffers[ii]};
+
+            if (nullptr != aChunk)
+            {
+                ODL_LOG("(nullptr != aChunk)"); //####
+                auto    data{aChunk->getData()};
+
+                for (size_t jj = 0, nn = aChunk->getDataSize(); nn > jj; ++jj, ++data)
+                {
+                    if (walker++ >= index)
+                    {
+                        result += *data;
+                    }
+                    ODL_I2("walker = ", walker, "jj = ", jj); //####
+                }
+            }
+        }
+    }
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // nImO::ChunkArray::getString
 
 nImO::ChunkArray &
 nImO::ChunkArray::operator=

@@ -133,7 +133,7 @@ setValueAndCheck
 
     if (0 < stuff.getLength())
     {
-        auto    asString{stuff.getBytes()};
+        auto    asString{stuff.getString()};
 
         if (asString.empty())
         {
@@ -726,7 +726,7 @@ doTestMIMEInsertEmptyMessage
             stuff->close();
             if (0 < stuff->getLength())
             {
-                auto    asString{stuff->getBytes()};
+                auto    asString{stuff->getString()};
 
                 if (asString.empty())
                 {

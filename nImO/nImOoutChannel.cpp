@@ -140,7 +140,7 @@ nImO::OutChannel::send
             messageToSend.close();
             if (0 < messageToSend.getLength())
             {
-                auto    asString{messageToSend.getBytes()};
+                auto    asString{messageToSend.getString()};
 
                 if (asString.empty())
                 {

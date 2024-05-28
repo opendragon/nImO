@@ -38,6 +38,7 @@
 
 #include <BasicTypes/nImOtime.h>
 
+#include <BasicTypes/nImOvalue.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmessage.h>
 #include <Containers/nImOstringBuffer.h>
@@ -571,3 +572,85 @@ nImO::Time::writeToMessage
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+bool
+nImO::GetTimePieces
+    (Time::TimePieces &     pieces,
+     const std::string &    inString,
+     Ptr(size_t)            processedLength)
+{
+    // y/m/d
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
+    ODL_P1("processedLength = ", processedLength); //####
+    bool            okSoFar{true};
+    const int       maxs[] = { kMaxHours, kMaxMinutes, kMaxSeconds, kMaxMilliseconds };
+    const int       mins[] = { 0, 0, 0, 0 };
+    const size_t    numE{numElementsInArray(pieces)};
+    CPtr(char)      beginPtr{inString.c_str()};
+    Ptr(char)       endPtr{nullptr};
+    CPtr(char)      walker{beginPtr};
+
+    for (size_t ii = 0; ii < numE; ++ii)
+    {
+        pieces[ii] = mins[ii];
+    }
+    for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
+    {
+        int64_t value{strtoll(walker, &endPtr, 10)};
+
+        if (walker == endPtr)
+        {
+            okSoFar = false;
+            ODL_B1("okSoFar = ", okSoFar); //####
+        }
+        else
+        {
+            if ((maxs[ii] < value) || (mins[ii] > value))
+            {
+                okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
+            }
+            else
+            {
+                char    aChar{*endPtr};
+
+                ODL_C1("aChar = ", aChar); //####
+                if ((kEndOfString == aChar) || Value::isLegalTerminator(aChar))
+                {
+                    pieces[ii] = StaticCast(uint16_t, value);
+                    ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                    break;
+
+                }
+                if ((kSecondMillisecondSeparator == aChar) && (ii == (numE - 2)))
+                {
+                    pieces[ii] = StaticCast(uint16_t, value);
+                    ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                    walker = endPtr + 1;
+                }
+                else
+                {
+                    if ((kTimeSeparator == aChar) && (ii < (numE - 1)))
+                    {
+                        pieces[ii] = StaticCast(uint16_t, value);
+                        ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                        walker = endPtr + 1;
+                    }
+                    else
+                    {
+                        okSoFar = false;
+                        ODL_B1("okSoFar = ", okSoFar); //####
+                    }
+                }
+            }
+        }
+    }
+    if (okSoFar && (nullptr != processedLength))
+    {
+        *processedLength = endPtr - beginPtr;
+        ODL_I1("*processedLength = ", *processedLength); //####
+    }
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::GetTimePieces

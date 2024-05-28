@@ -337,6 +337,17 @@ namespace nImO
 
     }; // Time
 
+    /*! @brief Extract the components of a time from a string.
+     @param[out] asBytes The bytes for the address.
+     @param[in] inString The character string to process.
+     @param[out] processedLength The number of characters processed.
+     @return @c true on success and @c false on failure. */
+    bool
+    GetTimePieces
+        (Time::TimePieces &     pieces,
+         const std::string &    inString,
+         Ptr(size_t)            processedLength = nullptr);
+
     /*! @brief Generate a value that can be used to initialize a Time value.
      @param[in] theHour The hour part of the value.
      @param[in] theMinute The minute part of the value.

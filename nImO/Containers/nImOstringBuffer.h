@@ -174,15 +174,6 @@ namespace nImO
                 return inherited::getByte(index, atEnd);
             }
 
-            /*! @brief Return a copy of the characters in the buffer.
-             @return A copy of the characters in the buffer. */
-            inline std::string
-            getString
-                (void)
-            {
-                return inherited::getBytes();
-            }
-
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */

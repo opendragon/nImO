@@ -327,6 +327,17 @@ namespace nImO
 
     }; // Date
 
+    /*! @brief Extract the components of a date from a string.
+     @param[out] asBytes The bytes for the address.
+     @param[in] inString The character string to process.
+     @param[out] processedLength The number of characters processed.
+     @return @c true on success and @c false on failure. */
+    bool
+    GetDatePieces
+        (Date::DatePieces &     pieces,
+         const std::string &    inString,
+         Ptr(size_t)            processedLength = nullptr);
+
     /*! @brief Generate a value that can be used to initialize a Date value.
      @param[in] theYear The year part of the value.
      @param[in] theMonth The month part of the value.

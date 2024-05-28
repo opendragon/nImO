@@ -343,7 +343,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     requestToSend.close();
     if (0 < requestToSend.getLength())
     {
-        auto    asString{requestToSend.getBytes()};
+        auto    asString{requestToSend.getString()};
 
         if (asString.empty())
         {

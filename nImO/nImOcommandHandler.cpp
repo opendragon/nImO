@@ -154,7 +154,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     responseToSend.close();
     if (0 < responseToSend.getLength())
     {
-        auto    asString{responseToSend.getBytes()};
+        auto    asString{responseToSend.getString()};
 
         if (asString.empty())
         {
@@ -264,7 +264,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     responseToSend.close();
     if (0 < responseToSend.getLength())
     {
-        auto    asString{responseToSend.getBytes()};
+        auto    asString{responseToSend.getString()};
 
         if (asString.empty())
         {
@@ -352,7 +352,7 @@ nImO::CommandHandler::sendStatusReport
     messageToSend.close();
     if (0 < messageToSend.getLength())
     {
-        auto    asString{messageToSend.getBytes()};
+        auto    asString{messageToSend.getString()};
 
         if (asString.empty())
         {

@@ -209,130 +209,6 @@ getIPv4Bytes
     return okSoFar;
 } // getIPv4Bytes
 
-/*! @brief Extract the components of a date from a string.
- @param[out] asBytes The bytes for the address.
- @param[in] inString The character string to process.
- @return @c true on success and @c false on failure. */
-static bool
-getDatePieces
-    (Date::DatePieces & pieces,
-     CPtr(char)         inString)
-{
-    // y/m/d
-    bool            okSoFar{true};
-    const int       maxs[] = { kMaxYear, kMaxMonth, kMaxDay };
-    const int       mins[] = { 0, 1, 1 };
-    const size_t    numE{numElementsInArray(pieces)};
-
-    for (size_t ii = 0; ii < numE; ++ii)
-    {
-        pieces[ii] = mins[ii];
-    }
-    for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
-    {
-        Ptr(char)   endPtr;
-        int64_t     value{strtoll(inString, &endPtr, 10)};
-
-        if (inString == endPtr)
-        {
-            okSoFar = false;
-        }
-        else
-        {
-            if ((maxs[ii] < value) || (mins[ii] > value))
-            {
-                okSoFar = false;
-            }
-            else
-            {
-                if ((kEndOfString == *endPtr) && (ii == (numE - 1)))
-                {
-                    pieces[ii] = StaticCast(uint16_t, value);
-                }
-                else
-                {
-                    if ((kDateSeparator == *endPtr) && (ii < (numE - 1)))
-                    {
-                        pieces[ii] = StaticCast(uint16_t, value);
-                        inString = endPtr + 1;
-                    }
-                    else
-                    {
-                        okSoFar = false;
-                    }
-                }
-            }
-        }
-    }
-    return okSoFar;
-} // getDatePieces
-
-/*! @brief Extract the components of a time from a string.
- @param[out] asBytes The bytes for the address.
- @param[in] inString The character string to process.
- @return @c true on success and @c false on failure. */
-static bool
-getTimePieces
-    (Time::TimePieces & pieces,
-     CPtr(char)         inString)
-{
-    // y/m/d
-    bool            okSoFar{true};
-    const int       maxs[] = { kMaxHours, kMaxMinutes, kMaxSeconds, kMaxMilliseconds };
-    const int       mins[] = { 0, 0, 0, 0 };
-    const size_t    numE{numElementsInArray(pieces)};
-
-    for (size_t ii = 0; ii < numE; ++ii)
-    {
-        pieces[ii] = mins[ii];
-    }
-    for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
-    {
-        Ptr(char)   endPtr;
-        int64_t     value{strtoll(inString, &endPtr, 10)};
-
-        if (inString == endPtr)
-        {
-            okSoFar = false;
-        }
-        else
-        {
-            if ((maxs[ii] < value) || (mins[ii] > value))
-            {
-                okSoFar = false;
-            }
-            else
-            {
-                if ((kEndOfString == *endPtr) && (ii == (numE - 1)))
-                {
-                    pieces[ii] = StaticCast(uint16_t, value);
-                }
-                else
-                {
-                    if ((kSecondMillisecondSeparator == *endPtr) && (ii == (numE - 2)))
-                    {
-                        pieces[ii] = StaticCast(uint16_t, value);
-                        inString = endPtr + 1;
-                    }
-                    else
-                    {
-                        if ((kTimeSeparator == *endPtr) && (ii < (numE - 1)))
-                        {
-                            pieces[ii] = StaticCast(uint16_t, value);
-                            inString = endPtr + 1;
-                        }
-                        else
-                        {
-                            okSoFar = false;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return okSoFar;
-} // getTimePieces
-
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
@@ -2980,7 +2856,7 @@ doTestDateValue
             Date::DatePieces    pieces;
             CPtr(char)          outString{argv[1]};
 
-            if (getDatePieces(pieces, argv[0]))
+            if (GetDatePieces(pieces, argv[0]))
             {
                 auto    stuff{std::make_unique<Date>(MakeDateValue(pieces))};
 
@@ -3188,7 +3064,7 @@ doTestTimeValue
             Time::TimePieces    pieces;
             CPtr(char)          outString{argv[1]};
 
-            if (getTimePieces(pieces, argv[0]))
+            if (GetTimePieces(pieces, argv[0]))
             {
                 auto    stuff{std::make_unique<Time>(MakeTimeValue(pieces))};
 
@@ -5926,7 +5802,7 @@ doTestDateValueJSON
             Date::DatePieces    pieces;
             CPtr(char)          outString{argv[1]};
 
-            if (getDatePieces(pieces, argv[0]))
+            if (GetDatePieces(pieces, argv[0]))
             {
                 auto    stuff{std::make_unique<Date>(MakeDateValue(pieces))};
 
@@ -6046,7 +5922,7 @@ doTestTimeValueJSON
             Time::TimePieces    pieces;
             CPtr(char)          outString{argv[1]};
 
-            if (getTimePieces(pieces, argv[0]))
+            if (GetTimePieces(pieces, argv[0]))
             {
                 auto    stuff{std::make_unique<Time>(MakeTimeValue(pieces))};
 

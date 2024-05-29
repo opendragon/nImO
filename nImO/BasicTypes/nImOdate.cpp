@@ -586,61 +586,70 @@ nImO::GetDatePieces
     const int       maxs[] = { kMaxYear, kMaxMonth, kMaxDay };
     const int       mins[] = { kMinYear, kMinMonth, kMinDay };
     const size_t    numE{numElementsInArray(pieces)};
-    CPtr(char)      beginPtr{inString.c_str()};
-    Ptr(char)       endPtr{nullptr};
-    CPtr(char)      walker{beginPtr};
 
     for (size_t ii = 0; ii < numE; ++ii)
     {
         pieces[ii] = mins[ii];
     }
-    for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
+    if (0 < inString.length())
     {
-        int64_t value{strtoll(walker, &endPtr, 10)};
+        CPtr(char)  beginPtr{inString.c_str()};
+        Ptr(char)   endPtr{nullptr};
+        CPtr(char)  walker{beginPtr};
 
-        if (walker == endPtr)
+        for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
         {
-            okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //####
-        }
-        else
-        {
-            if ((maxs[ii] < value) || (mins[ii] > value))
+            int64_t value{strtoll(walker, &endPtr, 10)};
+
+            if (walker == endPtr)
             {
                 okSoFar = false;
                 ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {
-                char    aChar{*endPtr};
-
-                ODL_C1("aChar <- ", aChar); //####
-                if (((kEndOfString == aChar) || Value::isLegalTerminator(aChar)) && (ii == (numE - 1)))
+                if ((maxs[ii] < value) || (mins[ii] > value))
                 {
-                    pieces[ii] = StaticCast(uint16_t, value);
-                    ODL_I1("pieces[ii] <- ", pieces[ii]); //####
+                    okSoFar = false;
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
                 else
                 {
-                    if ((kDateSeparator == aChar) && (ii < (numE - 1)))
+                    char    aChar{*endPtr};
+
+                    ODL_C1("aChar <- ", aChar); //####
+                    if (((kEndOfString == aChar) || Value::isLegalTerminator(aChar)) && (ii == (numE - 1)))
                     {
                         pieces[ii] = StaticCast(uint16_t, value);
                         ODL_I1("pieces[ii] <- ", pieces[ii]); //####
-                        walker = endPtr + 1;
                     }
                     else
                     {
-                        okSoFar = false;
-                        ODL_B1("okSoFar <- ", okSoFar); //####
+                        if ((kDateSeparator == aChar) && (ii < (numE - 1)))
+                        {
+                            pieces[ii] = StaticCast(uint16_t, value);
+                            ODL_I1("pieces[ii] <- ", pieces[ii]); //####
+                            walker = endPtr + 1;
+                        }
+                        else
+                        {
+                            okSoFar = false;
+                            ODL_B1("okSoFar <- ", okSoFar); //####
+                        }
                     }
                 }
             }
         }
+        if (okSoFar && (nullptr != processedLength))
+        {
+            *processedLength = endPtr - beginPtr;
+            ODL_I1("*processedLength <- ", *processedLength); //####
+        }
     }
-    if (okSoFar && (nullptr != processedLength))
+    else
     {
-        *processedLength = endPtr - beginPtr;
-        ODL_I1("*processedLength <- ", *processedLength); //####
+        okSoFar = false;
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;

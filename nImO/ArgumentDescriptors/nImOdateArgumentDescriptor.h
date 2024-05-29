@@ -183,14 +183,16 @@ namespace nImO
                 override;
 
             /*! @brief Change the current value.
-            @param[in] newValue The new current value. */
-            void
+            @param[in] newValue The new current value.
+            @return @c true if the value was set. */
+            bool
             setCurrentValue
                 (const std::string &    newValue);
 
             /*! @brief Change the default value.
-            @param[in] newValue The new default value. */
-            void
+             @param[in] newValue The new default value.
+             @return @c true if the value was set. */
+            bool
             setDefaultValue
                 (const std::string &    newValue);
 

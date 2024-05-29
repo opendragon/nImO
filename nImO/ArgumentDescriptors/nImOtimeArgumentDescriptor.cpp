@@ -90,7 +90,8 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
-    setDefaultValue(defaultValue);
+    setValidity(setDefaultValue(defaultValue));
+    ODL_B1("isValid() <- ", isValid()); //####
     ODL_EXIT_P(this); //####
 } // TimeArgumentDescriptor::TimeArgumentDescriptor
 
@@ -234,34 +235,40 @@ TimeArgumentDescriptor::parseArgString
     return result;
 } // TimeArgumentDescriptor::parseArgString
 
-void
+bool
 TimeArgumentDescriptor::setCurrentValue
     (const std::string &    newValue)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("newValue = ", newValue); //####
     Time::TimePieces    pieces;
+    bool                okSoFar = GetTimePieces(pieces, newValue);
 
-    if (GetTimePieces(pieces, newValue))
+    ODL_B1("okSoFar <- ", okSoFar); //####
+    if (okSoFar)
     {
         _currentValue = MakeTimeValue(pieces);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // TimeArgumentDescriptor::setCurrentValue
 
-void
+bool
 TimeArgumentDescriptor::setDefaultValue
     (const std::string &    newValue)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("newValue = ", newValue); //####
     Time::TimePieces    pieces;
+    bool                okSoFar = GetTimePieces(pieces, newValue);
 
-    if (GetTimePieces(pieces, newValue))
+    ODL_B1("okSoFar <- ", okSoFar); //####
+    if (okSoFar)
     {
         _defaultValue = MakeTimeValue(pieces);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // TimeArgumentDescriptor::setDefaultValue
 
 void
@@ -270,7 +277,7 @@ TimeArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_D1("_currentValue <- ", _currentValue); //####
+    ODL_I1("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
 } // TimeArgumentDescriptor::setToDefaultValue
 
@@ -309,7 +316,7 @@ TimeArgumentDescriptor::validate
     if (isValid())
     {
         setCurrentValue(value);
-        ODL_S1s("_currentValue <- ", getCurrentValue()); //####
+        ODL_I1("_currentValue <- ", getCurrentValue()); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

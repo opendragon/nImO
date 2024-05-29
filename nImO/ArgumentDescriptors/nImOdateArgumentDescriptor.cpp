@@ -90,7 +90,8 @@ DateArgumentDescriptor::DateArgumentDescriptor
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
-    setDefaultValue(defaultValue);
+    setValidity(setDefaultValue(defaultValue));
+    ODL_B1("isValid() <- ", isValid()); //####
     ODL_EXIT_P(this); //####
 } // DateArgumentDescriptor::DateArgumentDescriptor
 
@@ -234,34 +235,40 @@ DateArgumentDescriptor::parseArgString
     return result;
 } // DateArgumentDescriptor::parseArgString
 
-void
+bool
 DateArgumentDescriptor::setCurrentValue
     (const std::string &    newValue)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("newValue = ", newValue); //####
     Date::DatePieces    pieces;
+    bool                okSoFar = GetDatePieces(pieces, newValue);
 
-    if (GetDatePieces(pieces, newValue))
+    ODL_B1("okSoFar <- ", okSoFar); //####
+    if (okSoFar)
     {
         _currentValue = MakeDateValue(pieces);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // DateArgumentDescriptor::setCurrentValue
 
-void
+bool
 DateArgumentDescriptor::setDefaultValue
     (const std::string &    newValue)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("newValue = ", newValue); //####
     Date::DatePieces    pieces;
+    bool                okSoFar = GetDatePieces(pieces, newValue);
 
-    if (GetDatePieces(pieces, newValue))
+    ODL_B1("okSoFar <- ", okSoFar); //####
+    if (okSoFar)
     {
         _defaultValue = MakeDateValue(pieces);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // DateArgumentDescriptor::setDefaultValue
 
 void
@@ -270,7 +277,7 @@ DateArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_D1("_currentValue <- ", _currentValue); //####
+    ODL_I1("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
 } // DateArgumentDescriptor::setToDefaultValue
 
@@ -309,7 +316,7 @@ DateArgumentDescriptor::validate
     if (isValid())
     {
         setCurrentValue(value);
-        ODL_S1s("_currentValue <- ", getCurrentValue()); //####
+        ODL_I1("_currentValue <- ", getCurrentValue()); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

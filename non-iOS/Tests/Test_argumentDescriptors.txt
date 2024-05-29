@@ -233,27 +233,49 @@ add_test(NAME TestValidDateArgumentParameters COMMAND ${THIS_TARGET} 10 t 1)
 # Test that 'unreasonable' parameters build a descriptor that rejects the default value
 add_test(NAME TestInvalidDateArgumentParameters COMMAND ${THIS_TARGET} 10 f 2)
 # Test that a 'reasonable' parameter results in the expected description
-add_test(NAME TestDateArgumentDescriptor COMMAND ${THIS_TARGET} 10 t 3 "1.2.3.4" "descriptor\tA\t0\t~1.2.3.4~\tsomething")
+add_test(NAME TestDateArgumentDescriptor COMMAND ${THIS_TARGET} 10 t 3 "1/2/3" "descriptor\tY\t0\t~1/2/3~\tsomething")
 # Test valid input
-add_test(NAME TestDateArgumentValidInput1 COMMAND ${THIS_TARGET} 10 t 4 "1.2.3.4")
+add_test(NAME TestDateArgumentValidInput1 COMMAND ${THIS_TARGET} 10 t 4 "0/1/1")
 # Test valid input
-add_test(NAME TestDateArgumentValidInput2 COMMAND ${THIS_TARGET} 10 t 4 "192.168.3.4")
+add_test(NAME TestDateArgumentValidInput2 COMMAND ${THIS_TARGET} 10 t 4 "5000/11/12")
+# Test valid input
+add_test(NAME TestDateArgumentValidInput3 COMMAND ${THIS_TARGET} 10 t 4 "2000/12/17")
 # Test invalid input
 add_test(NAME TestDateArgumentInvalidInput1 COMMAND ${THIS_TARGET} 10 f 4 "chuckles")
 # Test invalid input
-add_test(NAME TestDateArgumentInvalidInput2 COMMAND ${THIS_TARGET} 10 f 4 "1000.2000.300.500")
+add_test(NAME TestDateArgumentInvalidInput2 COMMAND ${THIS_TARGET} 10 f 4 "10000/11/12")
+# Test invalid input
+add_test(NAME TestDateArgumentInvalidInput3 COMMAND ${THIS_TARGET} 10 f 4 "500/13/12")
+# Test invalid input
+add_test(NAME TestDateArgumentInvalidInput4 COMMAND ${THIS_TARGET} 10 f 4 "500/11/32")
 
 # Test that 'reasonable' parameters build a useable descriptor
 add_test(NAME TestValidTimeArgumentParameters COMMAND ${THIS_TARGET} 11 t 1)
 # Test that 'unreasonable' parameters build a descriptor that rejects the default value
 add_test(NAME TestInvalidTimeArgumentParameters COMMAND ${THIS_TARGET} 11 f 2)
 # Test that a 'reasonable' parameter results in the expected description
-add_test(NAME TestTimeArgumentDescriptor COMMAND ${THIS_TARGET} 11 t 3 "1.2.3.4" "descriptor\tA\t0\t~1.2.3.4~\tsomething")
+add_test(NAME TestTimeArgumentDescriptor COMMAND ${THIS_TARGET} 11 t 3 "1:2:3.4" "descriptor\tT\t0\t~01:02:03.004~\tsomething")
 # Test valid input
-add_test(NAME TestTimeArgumentValidInput1 COMMAND ${THIS_TARGET} 11 t 4 "1.2.3.4")
+add_test(NAME TestTimeArgumentValidInput1 COMMAND ${THIS_TARGET} 11 t 4 "1:2:3.4")
 # Test valid input
-add_test(NAME TestTimeArgumentValidInput2 COMMAND ${THIS_TARGET} 11 t 4 "192.168.3.4")
+add_test(NAME TestTimeArgumentValidInput2 COMMAND ${THIS_TARGET} 11 t 4 "23:59:59.999")
+# Test valid input
+add_test(NAME TestTimeArgumentValidInput3 COMMAND ${THIS_TARGET} 11 t 4 "5:30:15")
+# Test valid input
+add_test(NAME TestTimeArgumentValidInput4 COMMAND ${THIS_TARGET} 11 t 4 "6:12")
+# Test valid input
+add_test(NAME TestTimeArgumentValidInput5 COMMAND ${THIS_TARGET} 11 t 4 "17")
 # Test invalid input
 add_test(NAME TestTimeArgumentInvalidInput1 COMMAND ${THIS_TARGET} 11 f 4 "chuckles")
 # Test invalid input
-add_test(NAME TestTimeArgumentInvalidInput2 COMMAND ${THIS_TARGET} 11 f 4 "1000.2000.300.500")
+add_test(NAME TestTimeArgumentInvalidInput2 COMMAND ${THIS_TARGET} 11 f 4 "11:50:47.1000")
+# Test invalid input
+add_test(NAME TestTimeArgumentInvalidInput3 COMMAND ${THIS_TARGET} 11 f 4 "10:40:72.900")
+# Test invalid input
+add_test(NAME TestTimeArgumentInvalidInput4 COMMAND ${THIS_TARGET} 11 f 4 "13:12:17.1000")
+# Test invalid input
+add_test(NAME TestTimeArgumentInvalidInput5 COMMAND ${THIS_TARGET} 11 f 4 "10:40:72")
+# Test invalid input
+add_test(NAME TestTimeArgumentInvalidInput6 COMMAND ${THIS_TARGET} 11 f 4 "11:70")
+# Test invalid input
+add_test(NAME TestTimeArgumentInvalidInput7 COMMAND ${THIS_TARGET} 11 f 4 "25")

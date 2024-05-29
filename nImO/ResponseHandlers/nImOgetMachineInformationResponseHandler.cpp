@@ -122,7 +122,7 @@ nImO::GetMachineInformationResponseHandler::doIt
                     _result._name = namePtr->getValue();
                     _result._address = addressPtr->getIntegerValue();
                     okSoFar = true;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
                 else
                 {

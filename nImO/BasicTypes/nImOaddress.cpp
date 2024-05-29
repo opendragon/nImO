@@ -574,19 +574,19 @@ nImO::Address::readFromStringBuffer
             for ( ; okSoFar; )
             {
                 aChar = inBuffer.getChar(localIndex, atEnd);
-                ODL_C1("aChar = ", aChar); //####
+                ODL_C1("aChar <- ", aChar); //####
                 if (atEnd)
                 {
                     ODL_LOG("(atEnd)"); //####
                     okSoFar = false;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
                 else
                 {
                     if (isdigit(aChar))
                     {
                         digitSeen = true;
-                        ODL_B1("digitSeen = ", digitSeen); //####
+                        ODL_B1("digitSeen <- ", digitSeen); //####
                         if (0 < collector)
                         {
                             collector = (collector * 10) + (aChar - '0');
@@ -595,9 +595,9 @@ nImO::Address::readFromStringBuffer
                         {
                             collector = (aChar - '0');
                         }
-                        ODL_X1("collector = ", collector); //####
+                        ODL_X1("collector <- ", collector); //####
                         ++localIndex;
-                        ODL_I1("localIndex = ", localIndex); //####
+                        ODL_I1("localIndex <- ", localIndex); //####
                     }
                     else
                     {
@@ -606,19 +606,19 @@ nImO::Address::readFromStringBuffer
                             if ((! digitSeen) || (255 < collector))
                             {
                                 okSoFar = false;
-                                ODL_B1("okSoFar = ", okSoFar); //####
+                                ODL_B1("okSoFar <- ", okSoFar); //####
                             }
                             else
                             {
                                 ++localIndex;
-                                ODL_I1("localIndex = ", localIndex); //####
+                                ODL_I1("localIndex <- ", localIndex); //####
                                 break;
                             }
                         }
                         else
                         {
                             okSoFar = false;
-                            ODL_B1("okSoFar = ", okSoFar); //####
+                            ODL_B1("okSoFar <- ", okSoFar); //####
                         }
                     }
                 }
@@ -626,11 +626,11 @@ nImO::Address::readFromStringBuffer
             if (okSoFar)
             {
                 totalValue = (totalValue << 8) + StaticCast(IPv4Address, collector);
-                ODL_I1("totalValue = ", totalValue); //####
+                ODL_I1("totalValue <- ", totalValue); //####
                 digitSeen = false;
-                ODL_B1("digitSeen = ", digitSeen); //####
+                ODL_B1("digitSeen <- ", digitSeen); //####
                 collector = 0;
-                ODL_X1("collector = ", collector); //####
+                ODL_X1("collector <- ", collector); //####
             }
             else
             {
@@ -651,7 +651,7 @@ nImO::Address::readFromStringBuffer
                 else
                 {
                     okSoFar = false;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
             }
             else
@@ -659,7 +659,7 @@ nImO::Address::readFromStringBuffer
                 if (isdigit(aChar))
                 {
                     digitSeen = true;
-                    ODL_B1("digitSeen = ", digitSeen); //####
+                    ODL_B1("digitSeen <- ", digitSeen); //####
                     if (0 < collector)
                     {
                         collector = (collector * 10) + (aChar - '0');
@@ -668,21 +668,21 @@ nImO::Address::readFromStringBuffer
                     {
                         collector = (aChar - '0');
                     }
-                    ODL_X1("collector = ", collector); //####
+                    ODL_X1("collector <- ", collector); //####
                     ++localIndex;
-                    ODL_I1("localIndex = ", localIndex); //####
+                    ODL_I1("localIndex <- ", localIndex); //####
                 }
                 else
                 {
                     okSoFar = false;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
             }
         }
         if (okSoFar)
         {
             totalValue = (totalValue << 8) + StaticCast(IPv4Address, collector);
-            ODL_X1("totalValue = ", totalValue); //####
+            ODL_X1("totalValue <- ", totalValue); //####
             result = std::make_shared<Address>(totalValue);
         }
     }

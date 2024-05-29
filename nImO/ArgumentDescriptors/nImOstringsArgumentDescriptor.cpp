@@ -354,7 +354,7 @@ StringsArgumentDescriptor::validate
     {
         setValidity(_allowedValues.find(value) != _allowedValues.end());
     }
-    ODL_B1("_valid <- ", isValid()); //####
+    ODL_B1("isValid() <- ", isValid()); //####
     if (isValid())
     {
         _currentValue = value;

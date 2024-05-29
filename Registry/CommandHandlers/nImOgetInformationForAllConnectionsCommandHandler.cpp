@@ -132,7 +132,7 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
                 connectionArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsResponse, "get information for all connections"s, connectionArray, reason);
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {

@@ -90,6 +90,7 @@ DateArgumentDescriptor::DateArgumentDescriptor
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    setDefaultValue(defaultValue);
     ODL_EXIT_P(this); //####
 } // DateArgumentDescriptor::DateArgumentDescriptor
 
@@ -146,8 +147,7 @@ DateArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-//    auto    result{nImO::ConvertDoubleToString(_defaultValue)};
-    std::string result;
+    auto    result{ConvertDateToString(_defaultValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -169,8 +169,7 @@ DateArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-//    auto    result{nImO::ConvertDoubleToString(_currentValue)};
-    std::string result;
+    auto    result{ConvertDateToString(_currentValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -219,29 +218,51 @@ DateArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::DateTypeTag, 3, name, argMode, inVector))
     {
-//        bool            okSoFar{true};
-//        auto            defaultString{inVector[0]};
-//        auto            description{inVector[1]};
-//        struct in_addr  addrBuff;
-//
-//        if (kSelfAddressName == defaultString)
-//        {
-//            defaultString = kSelfAddressIpAddress;
-//        }
-//#if MAC_OR_LINUX_OR_BSD_
-//        okSoFar = (0 < inet_pton(AF_INET, defaultString.c_str(), &addrBuff));
-//#else // not MAC_OR_LINUX_OR_BSD_
-//        okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
-//#endif // not MAC_OR_LINUX_OR_BSD_
-//        ODL_B1("okSoFar = ", okSoFar); //####
-//        if (okSoFar)
-//        {
-//            result = std::make_shared<DateArgumentDescriptor>(name, description, argMode, defaultString);
-//        }
+        bool                okSoFar{true};
+        auto                defaultString{inVector[0]};
+        auto                description{inVector[1]};
+        Date::DatePieces    pieces;
+
+        okSoFar = GetDatePieces(pieces, defaultString);
+        ODL_B1("okSoFar <- ", okSoFar); //####
+        if (okSoFar)
+        {
+            result = std::make_shared<DateArgumentDescriptor>(name, description, argMode, defaultString);
+        }
     }
     ODL_EXIT_P(result.get()); //####
     return result;
 } // DateArgumentDescriptor::parseArgString
+
+void
+DateArgumentDescriptor::setCurrentValue
+    (const std::string &    newValue)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("newValue = ", newValue); //####
+    Date::DatePieces    pieces;
+
+    if (GetDatePieces(pieces, newValue))
+    {
+        _currentValue = MakeDateValue(pieces);
+    }
+    ODL_OBJEXIT(); //####
+} // DateArgumentDescriptor::setCurrentValue
+
+void
+DateArgumentDescriptor::setDefaultValue
+    (const std::string &    newValue)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("newValue = ", newValue); //####
+    Date::DatePieces    pieces;
+
+    if (GetDatePieces(pieces, newValue))
+    {
+        _defaultValue = MakeDateValue(pieces);
+    }
+    ODL_OBJEXIT(); //####
+} // DateArgumentDescriptor::setDefaultValue
 
 void
 DateArgumentDescriptor::setToDefaultValue
@@ -281,39 +302,13 @@ DateArgumentDescriptor::validate
 {
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####
-//    std::string testValue;
-//
-//    if (kSelfAddressName == value)
-//    {
-//        testValue = kSelfAddressIpAddress;
-//    }
-//    else
-//    {
-//        testValue = value;
-//    }
-//    if (nullptr == _addrBuff)
-//    {
-//        struct in_addr  addrBuff;
-//
-//#if MAC_OR_LINUX_OR_BSD_
-//        setValidity(0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
-//#else // not MAC_OR_LINUX_OR_BSD_
-//        setValidity(0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
-//#endif // not MAC_OR_LINUX_OR_BSD_
-//        ODL_B1("_valid <- ", isValid()); //####
-//    }
-//    else
-//    {
-//#if MAC_OR_LINUX_OR_BSD_
-//        setValidity(0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
-//#else // not MAC_OR_LINUX_OR_BSD_
-//        setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
-//#endif // not MAC_OR_LINUX_OR_BSD_
-//        ODL_B1("_valid <- ", isValid()); //####
-//    }
+    Date::DatePieces    pieces;
+
+    setValidity(GetDatePieces(pieces, value));
+    ODL_B1("isValid() <- ", isValid()); //####
     if (isValid())
     {
-//        setCurrentValue(testValue);
+        setCurrentValue(value);
         ODL_S1s("_currentValue <- ", getCurrentValue()); //####
     }
     ODL_OBJEXIT_B(isValid()); //####

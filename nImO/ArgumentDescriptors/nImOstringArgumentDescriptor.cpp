@@ -290,7 +290,7 @@ StringArgumentDescriptor::validate
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####
     setValidity(true);
-    ODL_B1("_valid <- ", isValid()); //####
+    ODL_B1("isValid() <- ", isValid()); //####
     if (isValid())
     {
         _currentValue = value;

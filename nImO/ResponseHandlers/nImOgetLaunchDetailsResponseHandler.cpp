@@ -124,7 +124,7 @@ nImO::GetLaunchDetailsResponseHandler::doIt
                     _result._launchDirectory = launchDirectoryPtr->getValue();
                     _result._commandLine = commandLinePtr->getValue();
                     okSoFar = true;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
                 else
                 {

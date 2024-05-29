@@ -66,6 +66,18 @@ namespace nImO
     /*! @brief The largest allowed value for the seconds. */
     constexpr int   kMaxMilliseconds{999};
 
+    /*! @brief The smallest allowed value for the hour. */
+    constexpr int   kMinHours{0};
+
+    /*! @brief The smallest allowed value for the minutes. */
+    constexpr int   kMinMinutes{0};
+
+    /*! @brief The smallest allowed value for the seconds. */
+    constexpr int   kMinSeconds{0};
+
+    /*! @brief The smallest allowed value for the seconds. */
+    constexpr int   kMinMilliseconds{0};
+
     /*! @brief A class to provide Time values. */
     class Time final : public DateTime
     {
@@ -337,6 +349,13 @@ namespace nImO
 
     }; // Time
 
+    /*! @brief Generate a string representation of a time.
+     @param[in] value The time to be converted to a string.
+     @return The date as a string. */
+    std::string
+    ConvertTimeToString
+        (const DateTimeValue    value);
+
     /*! @brief Extract the components of a time from a string.
      @param[out] asBytes The bytes for the address.
      @param[in] inString The character string to process.
@@ -356,10 +375,10 @@ namespace nImO
      @return The hour, minute, second and millisecond combined to make a suitable initialization value for a Time. */
     inline constexpr DateTime::DateTimeValue
     MakeTimeValue
-        (const int  theHour = 0,
-         const int  theMinute = 0,
-         const int  theSecond = 0,
-         const int  theMillisecond = 0)
+        (const int  theHour = kMinHours,
+         const int  theMinute = kMinMinutes,
+         const int  theSecond = kMinSeconds,
+         const int  theMillisecond = kMinMilliseconds)
     {
         return StaticCast(DateTime::DateTimeValue, (theHour * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
                                                     (theMinute * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +

@@ -266,9 +266,8 @@ ExtraArgumentDescriptor::validate
     NIMO_UNUSED_VAR_(value);
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####
-    //ODL_P1("value = ", &value); //####
     setValidity(true);
-    ODL_B1("_valid <- ", isValid()); //####
+    ODL_B1("isValid() <- ", isValid()); //####
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();
 } // ExtraArgumentDescriptor::validate

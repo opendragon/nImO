@@ -73,6 +73,36 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Extract the day from a date.
+ @param[in] aDate The date to be processed.
+ @return The day part of the date. */
+static constexpr uint16_t
+dayFromDateTime
+    (const nImO::DateTimeValue  aDate)
+{
+    return StaticCast(uint16_t, aDate % (nImO::kMaxDay + 1));
+} // dayFromDateTime
+
+/*! @brief Extract the month from a date.
+ @param[in] aDate The date to be processed.
+ @return The month part of the date. */
+static constexpr uint16_t
+monthFromDateTime
+    (const nImO::DateTimeValue  aDate)
+{
+    return StaticCast(uint16_t, (aDate / (nImO::kMaxDay + 1)) % (nImO::kMaxMonth + 1));
+} // monthFromDateTime
+
+/*! @brief Extract the year from a date.
+ @param[in] aDate The date to be processed.
+ @return The year part of the date. */
+static constexpr uint16_t
+yearFromDateTime
+    (const nImO::DateTimeValue  aDate)
+{
+    return StaticCast(uint16_t, (aDate / ((nImO::kMaxDay + 1) * (nImO::kMaxMonth + 1))) % (nImO::kMaxYear + 1));
+} // yearFromDateTime
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -146,7 +176,7 @@ nImO::Date::day
     const
 {
     ODL_OBJENTER(); //####
-    uint16_t    result{StaticCast(uint16_t, _dateTimeValue % (nImO::kMaxDay + 1))};
+    auto    result{dayFromDateTime(_dateTimeValue)};
 
     ODL_OBJEXIT_I(result); //####
     return result;
@@ -443,7 +473,7 @@ nImO::Date::month
     const
 {
     ODL_OBJENTER(); //####
-    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / (nImO::kMaxDay + 1)) % (nImO::kMaxMonth + 1))};
+    auto    result{monthFromDateTime(_dateTimeValue)};
 
     ODL_OBJEXIT_I(result); //####
     return result;
@@ -456,7 +486,7 @@ nImO::Date::operator<<
 {
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
-    out << kStartDateTimeChar << kSecondCharForDate << year() << kDateSeparator << month() << kDateSeparator << day();
+    out << kStartDateTimeChar << kSecondCharForDate << ConvertDateToString(_dateTimeValue);
     ODL_OBJEXIT_P(&out); //####
     return out;
 } // nImO::Date::operator<<
@@ -473,11 +503,7 @@ nImO::Date::printToStringBuffer
     ODL_B1("squished = ", squished); //####
     outBuffer.appendChar(kStartDateTimeChar);
     outBuffer.appendChar(kSecondCharForDate);
-    outBuffer.addLong(year());
-    outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(month());
-    outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(day());
+    outBuffer.addString(ConvertDateToString(_dateTimeValue));
     ODL_OBJEXIT(); //####
 } // nImO::Date::printToStringBuffer
 
@@ -494,11 +520,7 @@ nImO::Date::printToStringBufferAsJSON
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     outBuffer.appendChar(kDoubleQuote);
-    outBuffer.addLong(year());
-    outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(month());
-    outBuffer.appendChar(kDateSeparator);
-    outBuffer.addLong(day());
+    outBuffer.addString(ConvertDateToString(_dateTimeValue));
     outBuffer.appendChar(kDoubleQuote);
     ODL_OBJEXIT(); //####
 } // nImO::Date::printToStringBufferAsJSON
@@ -526,7 +548,7 @@ nImO::Date::year
     const
 {
     ODL_OBJENTER(); //####
-    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / ((nImO::kMaxDay + 1) * (nImO::kMaxMonth + 1))) % (nImO::kMaxYear + 1))};
+    auto    result{yearFromDateTime(_dateTimeValue)};
 
     ODL_OBJEXIT_I(result); //####
     return result;
@@ -535,6 +557,20 @@ nImO::Date::year
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+std::string
+nImO::ConvertDateToString
+    (const DateTimeValue    value)
+{
+    ODL_ENTER(); //####
+    ODL_I1("value = ", value);
+    std::string result{std::to_string(yearFromDateTime(value)) + kDateSeparator +
+                        std::to_string(monthFromDateTime(value)) + kDateSeparator +
+                        std::to_string(dayFromDateTime(value))};
+
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ConvertDateToString
 
 bool
 nImO::GetDatePieces
@@ -548,7 +584,7 @@ nImO::GetDatePieces
     ODL_P1("processedLength = ", processedLength); //####
     bool            okSoFar{true};
     const int       maxs[] = { kMaxYear, kMaxMonth, kMaxDay };
-    const int       mins[] = { 0, 1, 1 };
+    const int       mins[] = { kMinYear, kMinMonth, kMinDay };
     const size_t    numE{numElementsInArray(pieces)};
     CPtr(char)      beginPtr{inString.c_str()};
     Ptr(char)       endPtr{nullptr};
@@ -565,37 +601,37 @@ nImO::GetDatePieces
         if (walker == endPtr)
         {
             okSoFar = false;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {
             if ((maxs[ii] < value) || (mins[ii] > value))
             {
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {
                 char    aChar{*endPtr};
 
-                ODL_C1("aChar = ", aChar); //####
+                ODL_C1("aChar <- ", aChar); //####
                 if (((kEndOfString == aChar) || Value::isLegalTerminator(aChar)) && (ii == (numE - 1)))
                 {
                     pieces[ii] = StaticCast(uint16_t, value);
-                    ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                    ODL_I1("pieces[ii] <- ", pieces[ii]); //####
                 }
                 else
                 {
                     if ((kDateSeparator == aChar) && (ii < (numE - 1)))
                     {
                         pieces[ii] = StaticCast(uint16_t, value);
-                        ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                        ODL_I1("pieces[ii] <- ", pieces[ii]); //####
                         walker = endPtr + 1;
                     }
                     else
                     {
                         okSoFar = false;
-                        ODL_B1("okSoFar = ", okSoFar); //####
+                        ODL_B1("okSoFar <- ", okSoFar); //####
                     }
                 }
             }
@@ -604,7 +640,7 @@ nImO::GetDatePieces
     if (okSoFar && (nullptr != processedLength))
     {
         *processedLength = endPtr - beginPtr;
-        ODL_I1("*processedLength = ", *processedLength); //####
+        ODL_I1("*processedLength <- ", *processedLength); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;

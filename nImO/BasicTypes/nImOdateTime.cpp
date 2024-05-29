@@ -217,6 +217,10 @@ nImO::DateTime::readFromStringBuffer
                     result = std::make_shared<Date>(MakeDateValue(pieces));
                     localIndex += processed;
                 }
+                else
+                {
+                    ODL_LOG("! (GetDatePieces(pieces, toScan, &processed))"); //####
+                }
             }
             else
             {
@@ -227,6 +231,10 @@ nImO::DateTime::readFromStringBuffer
                 {
                     result = std::make_shared<Time>(MakeTimeValue(pieces));
                     localIndex += processed;
+                }
+                else
+                {
+                    ODL_LOG("! (GetTimePieces(pieces, toScan, &processed))"); //####
                 }
             }
         }

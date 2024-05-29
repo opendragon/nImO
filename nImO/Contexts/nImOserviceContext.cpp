@@ -142,7 +142,7 @@ nImO::ServiceContext::addHandler
         const auto result = _commandHandlers.insert({commandName, theHandler});
 
         okSoFar = result.second;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -372,7 +372,7 @@ nImO::ServiceContext::removeHandler
         if (_commandHandlers.end() != match)
         {
             okSoFar = (1 == _commandHandlers.erase(commandName));
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####

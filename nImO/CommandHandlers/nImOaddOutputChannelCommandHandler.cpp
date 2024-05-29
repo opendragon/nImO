@@ -108,11 +108,11 @@ nImO::AddOutputChannelCommandHandler::doIt
     if (nullptr != _callback)
     {
         okSoFar = (*_callback)();
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
         if (okSoFar)
         {
             okSoFar = sendSimpleResponse(socket, kAddOutputChannelResponse, "add output channel"s, true, reason);
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {

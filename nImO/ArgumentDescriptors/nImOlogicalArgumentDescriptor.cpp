@@ -240,7 +240,7 @@ LogicalArgumentDescriptor::parseArgString
         if (defaultString.empty())
         {
             okSoFar = false;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {
@@ -257,7 +257,7 @@ LogicalArgumentDescriptor::parseArgString
                 else
                 {
                     okSoFar = false;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
             }
         }
@@ -316,7 +316,7 @@ LogicalArgumentDescriptor::validate
     {
         boolValue = false;
         setValidity(true);
-        ODL_B1("_valid <- ", isValid()); //####
+        ODL_B1("isValid() <- ", isValid()); //####
     }
     else
     {
@@ -324,12 +324,12 @@ LogicalArgumentDescriptor::validate
         {
             boolValue = true;
             setValidity(true);
-            ODL_B1("_valid <- ", isValid()); //####
+            ODL_B1("isValid() <- ", isValid()); //####
         }
         else
         {
             setValidity(false);
-            ODL_B1("_valid <- ", isValid()); //####
+            ODL_B1("isValid() <- ", isValid()); //####
         }
     }
     if (isValid())

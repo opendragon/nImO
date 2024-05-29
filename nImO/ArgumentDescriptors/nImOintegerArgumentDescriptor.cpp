@@ -266,7 +266,7 @@ IntegerArgumentDescriptor::parseArgString
         if (defaultString.empty())
         {
             okSoFar = false;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {
@@ -279,7 +279,7 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
         }
         if (okSoFar && (! minValString.empty()))
@@ -293,7 +293,7 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
         }
         if (okSoFar && (! maxValString.empty()))
@@ -307,7 +307,7 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
         }
         if (okSoFar)
@@ -382,22 +382,22 @@ IntegerArgumentDescriptor::validate
     if (ConvertToInt64(value, intValue))
     {
         setValidity(true);
-        ODL_B1("_valid <- ", isValid()); //####
+        ODL_B1("isValid() <- ", isValid()); //####
         if (_hasMinimumValue && (intValue < _minimumValue))
         {
             setValidity(false);
-            ODL_B1("_valid <- ", isValid()); //####
+            ODL_B1("isValid() <- ", isValid()); //####
         }
         if (_hasMaximumValue && (intValue > _maximumValue))
         {
             setValidity(false);
-            ODL_B1("_valid <- ", isValid()); //####
+            ODL_B1("isValid() <- ", isValid()); //####
         }
     }
     else
     {
         setValidity(false);
-        ODL_B1("_valid <- ", isValid()); //####
+        ODL_B1("isValid() <- ", isValid()); //####
     }
     if (isValid())
     {

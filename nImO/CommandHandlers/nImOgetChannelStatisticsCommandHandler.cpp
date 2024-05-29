@@ -129,7 +129,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
             {
                 theInputChannel->getStatistics(numberOfBytes, numberOfMessages);
                 okSoFar = true;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {
@@ -140,7 +140,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
                 {
                     theOutputChannel->getStatistics(numberOfBytes, numberOfMessages);
                     okSoFar = true;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
                 else
                 {
@@ -155,7 +155,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
                 infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
                 okSoFar = sendComplexResponse(socket, kGetChannelStatisticsResponse, "get channel statistics"s, infoArray, reason);
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
         }
     }

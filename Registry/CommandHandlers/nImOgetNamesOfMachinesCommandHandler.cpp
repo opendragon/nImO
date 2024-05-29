@@ -123,7 +123,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
                 stringSet->addValue(std::make_shared<String>(walker));
             }
             okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "get names of machines"s, stringSet, reason);
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {

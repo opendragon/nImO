@@ -131,7 +131,7 @@ nImO::GetConnectionInformationResponseHandler::doIt
                     _result._dataType = dataTypePtr->getValue();
                     _result._mode = StaticCast(TransportType, modePtr->getIntegerValue());
                     okSoFar = true;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
                 else
                 {

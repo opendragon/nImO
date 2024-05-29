@@ -531,7 +531,7 @@ nImO::RegistryContext::makePortAnnouncement
             }
         }
         okSoFar = _announceData->setServiceData(port, serviceName, hostName, dataKey, hostAddress);
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
         if (okSoFar)
         {
             // Send an announcement on startup of service
@@ -563,7 +563,7 @@ nImO::RegistryContext::makePortAnnouncement
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

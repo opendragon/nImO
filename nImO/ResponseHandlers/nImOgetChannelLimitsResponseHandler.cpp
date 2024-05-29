@@ -117,7 +117,7 @@ nImO::GetChannelLimitsResponseHandler::doIt
                     _maxInputChannels = maximumInputChannelsPtr->getIntegerValue();
                     _maxOutputChannels = maximumOutputChannelsPtr->getIntegerValue();
                     okSoFar = true;
-                    ODL_B1("okSoFar = ", okSoFar); //####
+                    ODL_B1("okSoFar <- ", okSoFar); //####
                 }
                 else
                 {

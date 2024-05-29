@@ -122,7 +122,7 @@ nImO::GetChannelInUseCommandHandler::doIt
             if (statusWithBool.first.first)
             {
                 okSoFar = sendSimpleResponse(socket, kGetChannelInUseResponse, "get channel in use"s, statusWithBool.second, reason);
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {

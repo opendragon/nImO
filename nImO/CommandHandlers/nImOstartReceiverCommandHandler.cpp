@@ -125,7 +125,7 @@ nImO::StartReceiverCommandHandler::doIt
 
                 // Send the response to the requestor.
                 okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver"s, theChannel->start(senderAddress, senderPort), reason);
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {

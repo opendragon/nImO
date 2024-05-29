@@ -230,7 +230,7 @@ nImO::InChannel::setUp
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket->local_endpoint().port();
         okSoFar = true;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
 #if defined(nImO_ChattyTcpUdpLogging)
         _context.report("local port = "s + std::to_string(_connection._port) + "."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
@@ -249,7 +249,7 @@ nImO::InChannel::setUp
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -276,7 +276,7 @@ nImO::InChannel::start
         ODL_B2("_unfiltered <- ", _unfiltered, "_udpConnected <- ", _udpConnected); //####
         receiveUdpMessages();
         okSoFar = true;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     else
     {
@@ -310,7 +310,7 @@ nImO::InChannel::start
                                             }
                                        });
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -334,7 +334,7 @@ nImO::InChannel::stop
         _udpConnected = false;
         ODL_B1("_udpConnected <- ", _udpConnected); //####
         okSoFar = true;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     else
     {
@@ -351,12 +351,12 @@ nImO::InChannel::stop
             _tcpConnected = false;
             ODL_B1("_tcpConnected <- ", _tcpConnected); //####
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     _connection._transport = TransportType::kUnknown;

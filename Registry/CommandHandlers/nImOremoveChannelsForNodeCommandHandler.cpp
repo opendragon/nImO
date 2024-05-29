@@ -125,7 +125,7 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kRemoveChannelsForNodeResponse, "remove channels for node"s, true, reason);
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kChannelsRemovedStatus + kStatusSeparator + nodeName);

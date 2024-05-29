@@ -227,3 +227,33 @@ add_test(NAME TestStringsArgumentValidInput5 COMMAND ${THIS_TARGET} 9 t 6 "aBc")
 add_test(NAME TestStringsArgumentInvalidInput4 COMMAND ${THIS_TARGET} 9 f 6 "cba")
 # Test invalid input
 add_test(NAME TestStringsArgumentInvalidInput5 COMMAND ${THIS_TARGET} 9 f 6 "12345")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidDateArgumentParameters COMMAND ${THIS_TARGET} 10 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidDateArgumentParameters COMMAND ${THIS_TARGET} 10 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestDateArgumentDescriptor COMMAND ${THIS_TARGET} 10 t 3 "1.2.3.4" "descriptor\tA\t0\t~1.2.3.4~\tsomething")
+# Test valid input
+add_test(NAME TestDateArgumentValidInput1 COMMAND ${THIS_TARGET} 10 t 4 "1.2.3.4")
+# Test valid input
+add_test(NAME TestDateArgumentValidInput2 COMMAND ${THIS_TARGET} 10 t 4 "192.168.3.4")
+# Test invalid input
+add_test(NAME TestDateArgumentInvalidInput1 COMMAND ${THIS_TARGET} 10 f 4 "chuckles")
+# Test invalid input
+add_test(NAME TestDateArgumentInvalidInput2 COMMAND ${THIS_TARGET} 10 f 4 "1000.2000.300.500")
+
+# Test that 'reasonable' parameters build a useable descriptor
+add_test(NAME TestValidTimeArgumentParameters COMMAND ${THIS_TARGET} 11 t 1)
+# Test that 'unreasonable' parameters build a descriptor that rejects the default value
+add_test(NAME TestInvalidTimeArgumentParameters COMMAND ${THIS_TARGET} 11 f 2)
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestTimeArgumentDescriptor COMMAND ${THIS_TARGET} 11 t 3 "1.2.3.4" "descriptor\tA\t0\t~1.2.3.4~\tsomething")
+# Test valid input
+add_test(NAME TestTimeArgumentValidInput1 COMMAND ${THIS_TARGET} 11 t 4 "1.2.3.4")
+# Test valid input
+add_test(NAME TestTimeArgumentValidInput2 COMMAND ${THIS_TARGET} 11 t 4 "192.168.3.4")
+# Test invalid input
+add_test(NAME TestTimeArgumentInvalidInput1 COMMAND ${THIS_TARGET} 11 f 4 "chuckles")
+# Test invalid input
+add_test(NAME TestTimeArgumentInvalidInput2 COMMAND ${THIS_TARGET} 11 f 4 "1000.2000.300.500")

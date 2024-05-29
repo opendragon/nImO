@@ -155,7 +155,7 @@ nImO::ChannelName::generatePath
         if (base.empty())
         {
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
             path = ""s;
         }
         else
@@ -166,13 +166,13 @@ nImO::ChannelName::generatePath
             if (parsed)
             {
                 okSoFar = true;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
                 path = parsed->_path;
             }
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
         }
         if (okSoFar)
@@ -187,7 +187,7 @@ nImO::ChannelName::generatePath
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;

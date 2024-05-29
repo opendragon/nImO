@@ -204,7 +204,7 @@ AddressArgumentDescriptor::parseArgString
 #else // not MAC_OR_LINUX_OR_BSD_
         okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
         if (okSoFar)
         {
             result = std::make_shared<AddressArgumentDescriptor>(name, description, argMode, defaultString);
@@ -261,7 +261,7 @@ AddressArgumentDescriptor::validate
 #else // not MAC_OR_LINUX_OR_BSD_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
-        ODL_B1("_valid <- ", isValid()); //####
+        ODL_B1("isValid() <- ", isValid()); //####
     }
     else
     {
@@ -270,7 +270,7 @@ AddressArgumentDescriptor::validate
 #else // not MAC_OR_LINUX_OR_BSD_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
-        ODL_B1("_valid <- ", isValid()); //####
+        ODL_B1("isValid() <- ", isValid()); //####
     }
     if (isValid())
     {

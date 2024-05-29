@@ -182,7 +182,7 @@ nImO::Blob::Blob
         inherited{}, _value{}, _size{0}
 {
     ODL_ENTER(); //####
-    ODL_P1("datat = ", data); //####
+    ODL_P1("data = ", data); //####
     ODL_I1("size = ", size); //####
     if ((nullptr != data) && (0 < size))
     {
@@ -345,7 +345,7 @@ nImO::Blob::extractValue
             {
                 ODL_LOG("(atEnd)"); //####
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {
@@ -374,7 +374,7 @@ nImO::Blob::extractValue
                 ODL_LOG("(atEnd)"); //####
                 result.reset();
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {

@@ -129,7 +129,7 @@ nImO::OutChannel::send
         if (TransportType::kUnknown == _connection._transport)
         {
             okSoFar = true; // if the channel hasn't been configured, just throw the message away but it's not an error.
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {
@@ -183,7 +183,7 @@ nImO::OutChannel::send
                                                     }
                                                   });
                         okSoFar = true;
-                        ODL_B1("okSoFar = ", okSoFar); //####
+                        ODL_B1("okSoFar <- ", okSoFar); //####
                     }
                     else
                     {
@@ -219,7 +219,7 @@ nImO::OutChannel::send
                                                          });
                             }
                             okSoFar = true;
-                            ODL_B1("okSoFar = ", okSoFar); //####
+                            ODL_B1("okSoFar <- ", okSoFar); //####
                         }
                     }
                 }
@@ -271,7 +271,7 @@ nImO::OutChannel::setUp
         _udpSendpoint.address(destAddress);
         _udpSendpoint.port(_destinationPort);
         okSoFar = true;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     else
     {
@@ -286,7 +286,7 @@ nImO::OutChannel::setUp
             _tcpSendpoint.address(destAddress);
             _tcpSendpoint.port(_destinationPort);
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -306,7 +306,7 @@ nImO::OutChannel::start
         _udpConnected = true;
         ODL_B1("_udpConnected <- ", _udpConnected); //####
         okSoFar = true;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     else
     {
@@ -345,7 +345,7 @@ nImO::OutChannel::start
                 boost::this_thread::yield();
             }
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -367,7 +367,7 @@ nImO::OutChannel::stop
             _udpSocket->cancel();
         }
         okSoFar = true;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     else
     {
@@ -377,13 +377,13 @@ nImO::OutChannel::stop
             {
                 _tcpSocket->cancel();
                 okSoFar = true;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
         }
         else
         {
             okSoFar = true;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     _connection._transport = TransportType::kUnknown;

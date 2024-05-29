@@ -291,7 +291,7 @@ ChannelArgumentDescriptor::validate
     auto        trialValue{ChannelName::parse(value, failReason)};
 
     setValidity(nullptr != trialValue);
-    ODL_B1("_valid <- ", isValid()); //####
+    ODL_B1("isValid() <- ", isValid()); //####
     if (isValid())
     {
         _currentValue = trialValue;

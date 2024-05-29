@@ -63,6 +63,15 @@ namespace nImO
     /*! @brief The largest allowed value for the day. */
     constexpr int   kMaxDay{31};
 
+    /*! @brief The smallest allowed value for the year. */
+    constexpr int   kMinYear{0};
+
+    /*! @brief The smallest allowed value for the month. */
+    constexpr int   kMinMonth{1};
+
+    /*! @brief The smallest allowed value for the day. */
+    constexpr int   kMinDay{1};
+
     /*! @brief A class to provide Date values. */
     class Date final : public DateTime
     {
@@ -327,6 +336,13 @@ namespace nImO
 
     }; // Date
 
+    /*! @brief Generate a string representation of a date.
+     @param[in] value The date to be converted to a string.
+     @return The date as a string. */
+    std::string
+    ConvertDateToString
+        (const DateTimeValue    value);
+
     /*! @brief Extract the components of a date from a string.
      @param[out] asBytes The bytes for the address.
      @param[in] inString The character string to process.
@@ -345,9 +361,9 @@ namespace nImO
      @return The year, month and day combined to make a suitable initialization value for a Date. */
     inline constexpr DateTime::DateTimeValue
     MakeDateValue
-        (const int  theYear = 0,
-         const int  theMonth = 1,
-         const int  theDay = 1)
+        (const int  theYear = kMinYear,
+         const int  theMonth = kMinMonth,
+         const int  theDay = kMinDay)
     {
         return StaticCast(DateTime::DateTimeValue, (theYear * (kMaxMonth + 1) * (kMaxDay + 1)) + (theMonth * (kMaxDay + 1)) + theDay);
     }

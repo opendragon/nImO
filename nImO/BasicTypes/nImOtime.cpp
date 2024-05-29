@@ -73,6 +73,46 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Extract the hours from a time.
+ @param[in] aTime The time to be processed.
+ @return The hours part of the time. */
+static constexpr uint16_t
+hoursFromDateTime
+    (const nImO::DateTimeValue  aTime)
+{
+    return StaticCast(uint16_t, (aTime / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxHours + 1));
+} // hoursFromDateTime
+
+/*! @brief Extract the milliseconds from a time.
+ @param[in] aTime The time to be processed.
+ @return The milliseconds part of the time. */
+static constexpr uint16_t
+millisecondsFromDateTime
+    (const nImO::DateTimeValue  aTime)
+{
+    return StaticCast(uint16_t, aTime % (nImO::kMaxMilliseconds + 1));
+} // millisecondsFromDateTime
+
+/*! @brief Extract the minutes from a time.
+ @param[in] aTime The time to be processed.
+ @return The minutes part of the time. */
+static constexpr uint16_t
+minutesFromDateTime
+    (const nImO::DateTimeValue  aTime)
+{
+    return StaticCast(uint16_t, (aTime / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxSeconds + 1));
+} // minutesFromDateTime
+
+/*! @brief Extract the seconds from a time.
+ @param[in] aTime The time to be processed.
+ @return The seconds part of the time. */
+static constexpr uint16_t
+secondsFromDateTime
+    (const nImO::DateTimeValue  aTime)
+{
+    return StaticCast(uint16_t, (aTime / (nImO::kMaxMilliseconds + 1)) % (nImO::kMaxSeconds + 1));
+} // secondsFromDateTime
+
 /*! @brief Convert a 16-bit unsigned value into a string with a specific width.
  @param[out] value The input value.
  @param[in] numDigits The requested number of digits.
@@ -381,7 +421,7 @@ nImO::Time::hour
     const
 {
     ODL_OBJENTER(); //####
-    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxHours + 1))};
+    auto    result{hoursFromDateTime(_dateTimeValue)};
 
     ODL_OBJEXIT_I(result); //####
     return result;
@@ -463,7 +503,7 @@ nImO::Time::millisecond
     const
 {
     ODL_OBJENTER(); //####
-    uint16_t    result{StaticCast(uint16_t, _dateTimeValue % (nImO::kMaxMilliseconds + 1))};
+    auto    result{millisecondsFromDateTime(_dateTimeValue)};
 
     ODL_OBJEXIT_I(result); //####
     return result;
@@ -475,7 +515,7 @@ nImO::Time::minute
     const
 {
     ODL_OBJENTER(); //####
-    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxSeconds + 1))};
+    auto    result{minutesFromDateTime(_dateTimeValue)};
 
     ODL_OBJEXIT_I(result); //####
     return result;
@@ -488,8 +528,7 @@ nImO::Time::operator<<
 {
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
-    out << kStartDateTimeChar << kSecondCharForTime << paddedDecimal(hour(), 2) << kTimeSeparator << paddedDecimal(minute(), 2) <<
-            kTimeSeparator << paddedDecimal(second(), 2) << kSecondMillisecondSeparator << paddedDecimal(millisecond(), 3);
+    out << kStartDateTimeChar << kSecondCharForTime << ConvertTimeToString(_dateTimeValue);
     ODL_OBJEXIT_P(&out); //####
     return out;
 } // nImO::Time::operator<<
@@ -506,13 +545,7 @@ nImO::Time::printToStringBuffer
     ODL_B1("squished = ", squished); //####
     outBuffer.appendChar(kStartDateTimeChar);
     outBuffer.appendChar(kSecondCharForTime);
-    outBuffer.addString(paddedDecimal(hour(), 2));
-    outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(minute(), 2));
-    outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(second(), 2));
-    outBuffer.appendChar(kSecondMillisecondSeparator);
-    outBuffer.addString(paddedDecimal(millisecond(), 3));
+    outBuffer.addString(ConvertTimeToString(_dateTimeValue));
     ODL_OBJEXIT(); //####
 } // nImO::Time::printToStringBuffer
 
@@ -529,13 +562,7 @@ nImO::Time::printToStringBufferAsJSON
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     outBuffer.appendChar(kDoubleQuote);
-    outBuffer.addString(paddedDecimal(hour(), 2));
-    outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(minute(), 2));
-    outBuffer.appendChar(kTimeSeparator);
-    outBuffer.addString(paddedDecimal(second(), 2));
-    outBuffer.appendChar(kSecondMillisecondSeparator);
-    outBuffer.addString(paddedDecimal(millisecond(), 3));
+    outBuffer.addString(ConvertTimeToString(_dateTimeValue));
     outBuffer.appendChar(kDoubleQuote);
     ODL_OBJEXIT(); //####
 } // nImO::Time::printToStringBufferAsJSON
@@ -546,7 +573,7 @@ nImO::Time::second
     const
 {
     ODL_OBJENTER(); //####
-    uint16_t    result{StaticCast(uint16_t, (_dateTimeValue / (nImO::kMaxMilliseconds + 1)) % (nImO::kMaxSeconds + 1))};
+    auto    result{secondsFromDateTime(_dateTimeValue)};
 
     ODL_OBJEXIT_I(result); //####
     return result;
@@ -573,6 +600,21 @@ nImO::Time::writeToMessage
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
+std::string
+nImO::ConvertTimeToString
+    (const DateTimeValue    value)
+{
+    ODL_ENTER(); //####
+    ODL_I1("value = ", value);
+    std::string result{paddedDecimal(hoursFromDateTime(value), 2) + kTimeSeparator +
+                        paddedDecimal(minutesFromDateTime(value), 2) + kTimeSeparator +
+                        paddedDecimal(secondsFromDateTime(value), 2) + kSecondMillisecondSeparator +
+                        paddedDecimal(millisecondsFromDateTime(value), 3)};
+
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ConvertTimeToString
+
 bool
 nImO::GetTimePieces
     (Time::TimePieces &     pieces,
@@ -585,7 +627,7 @@ nImO::GetTimePieces
     ODL_P1("processedLength = ", processedLength); //####
     bool            okSoFar{true};
     const int       maxs[] = { kMaxHours, kMaxMinutes, kMaxSeconds, kMaxMilliseconds };
-    const int       mins[] = { 0, 0, 0, 0 };
+    const int       mins[] = { kMinHours, kMinMinutes, kMinSeconds, kMinMilliseconds };
     const size_t    numE{numElementsInArray(pieces)};
     CPtr(char)      beginPtr{inString.c_str()};
     Ptr(char)       endPtr{nullptr};
@@ -602,31 +644,31 @@ nImO::GetTimePieces
         if (walker == endPtr)
         {
             okSoFar = false;
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {
             if ((maxs[ii] < value) || (mins[ii] > value))
             {
                 okSoFar = false;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
             else
             {
                 char    aChar{*endPtr};
 
-                ODL_C1("aChar = ", aChar); //####
+                ODL_C1("aChar <- ", aChar); //####
                 if ((kEndOfString == aChar) || Value::isLegalTerminator(aChar))
                 {
                     pieces[ii] = StaticCast(uint16_t, value);
-                    ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                    ODL_I1("pieces[ii] <- ", pieces[ii]); //####
                     break;
 
                 }
                 if ((kSecondMillisecondSeparator == aChar) && (ii == (numE - 2)))
                 {
                     pieces[ii] = StaticCast(uint16_t, value);
-                    ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                    ODL_I1("pieces[ii] <- ", pieces[ii]); //####
                     walker = endPtr + 1;
                 }
                 else
@@ -634,13 +676,13 @@ nImO::GetTimePieces
                     if ((kTimeSeparator == aChar) && (ii < (numE - 1)))
                     {
                         pieces[ii] = StaticCast(uint16_t, value);
-                        ODL_I1("pieces[ii] = ", pieces[ii]); //####
+                        ODL_I1("pieces[ii] <- ", pieces[ii]); //####
                         walker = endPtr + 1;
                     }
                     else
                     {
                         okSoFar = false;
-                        ODL_B1("okSoFar = ", okSoFar); //####
+                        ODL_B1("okSoFar <- ", okSoFar); //####
                     }
                 }
             }
@@ -649,7 +691,7 @@ nImO::GetTimePieces
     if (okSoFar && (nullptr != processedLength))
     {
         *processedLength = endPtr - beginPtr;
-        ODL_I1("*processedLength = ", *processedLength); //####
+        ODL_I1("*processedLength <- ", *processedLength); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;

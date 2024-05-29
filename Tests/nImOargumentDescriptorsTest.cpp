@@ -39,12 +39,14 @@
 #include <ArgumentDescriptors/nImOaddressArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOdateArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOtimeArgumentDescriptor.h>
 #include <Contexts/nImOtestContext.h>
 
 #include <iomanip>
@@ -997,6 +999,200 @@ doTestStringsArgumentDescriptors
 } // doTestStringsArgumentDescriptors
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 10 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] subSelector The subtest to perform.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateArgumentDescriptors
+    (CPtr(char)     launchPath,
+     const int      subSelector,
+     const bool     expected,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+#if 0
+        SpBaseArgumentDescriptor    testDescriptor;
+
+        // 1) test that 'reasonable' parameters successfully build a descriptor that accepts the default value
+        // 2) if there are 'unreasonable' parameters possible, test that using the default value fails
+        // 3) for a range of 'reasonable' parameters, compare the descriptor description with the expected description
+        // 4) for a range of 'reasonable' parameters, test for 'valid' and 'invalid' input
+        switch (subSelector)
+        {
+            case 1 :
+                // Test that 'reasonable' parameters work with the default value.
+                testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                                                                             kSelfAddressIpAddress);
+                if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
+                {
+                    result = 0;
+                }
+                break;
+
+            case 2 :
+                // Test that using 'unreasonable' parameters fails with the default value.
+                testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "");
+                if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
+                {
+                    result = 0;
+                }
+                break;
+
+            case 3 :
+                // Check the descriptor description.
+                if (2 == argc)
+                {
+                    testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, *argv);
+                    if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
+                    {
+                        result = 0;
+                    }
+                }
+                break;
+
+            case 4 :
+                // Test input for validity.
+                if (1 == argc)
+                {
+                    testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                                                                                 kSelfAddressIpAddress);
+                    if (testDescriptor->validate(*argv) == expected)
+                    {
+                        result = 0;
+                    }
+                }
+                break;
+
+            default :
+                break;
+
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateArgumentDescriptors
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 11 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] subSelector The subtest to perform.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeArgumentDescriptors
+    (CPtr(char)     launchPath,
+     const int      subSelector,
+     const bool     expected,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+    ODL_S1("launchPath = ", launchPath); //####
+    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+#if 0
+        SpBaseArgumentDescriptor    testDescriptor;
+
+        // 1) test that 'reasonable' parameters successfully build a descriptor that accepts the default value
+        // 2) if there are 'unreasonable' parameters possible, test that using the default value fails
+        // 3) for a range of 'reasonable' parameters, compare the descriptor description with the expected description
+        // 4) for a range of 'reasonable' parameters, test for 'valid' and 'invalid' input
+        switch (subSelector)
+        {
+            case 1 :
+                // Test that 'reasonable' parameters work with the default value.
+                testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                                                                             kSelfAddressIpAddress);
+                if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
+                {
+                    result = 0;
+                }
+                break;
+
+            case 2 :
+                // Test that using 'unreasonable' parameters fails with the default value.
+                testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "");
+                if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
+                {
+                    result = 0;
+                }
+                break;
+
+            case 3 :
+                // Check the descriptor description.
+                if (2 == argc)
+                {
+                    testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, *argv);
+                    if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
+                    {
+                        result = 0;
+                    }
+                }
+                break;
+
+            case 4 :
+                // Test input for validity.
+                if (1 == argc)
+                {
+                    testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                                                                                 kSelfAddressIpAddress);
+                    if (testDescriptor->validate(*argv) == expected)
+                    {
+                        result = 0;
+                    }
+                }
+                break;
+
+            default :
+                break;
+
+        }
+#endif//0
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeArgumentDescriptors
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 /*! @brief The entry point for unit tests of the %nImO common classes.
@@ -1081,6 +1277,16 @@ main
                     case 9 :
                         // Strings argument descriptor
                         result = doTestStringsArgumentDescriptors(*argv, subSelector, expected, argc - 3, argv + 4);
+                        break;
+
+                    case 10 :
+                        // Date argument descriptor
+                        result = doTestDateArgumentDescriptors(*argv, subSelector, expected, argc - 3, argv + 4);
+                        break;
+
+                    case 11 :
+                        // Time argument descriptor
+                        result = doTestTimeArgumentDescriptors(*argv, subSelector, expected, argc - 3, argv + 4);
                         break;
 
                     default :

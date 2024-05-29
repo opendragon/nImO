@@ -133,12 +133,12 @@ nImO::Logger::report
     if ((nullptr != stringToSend) && (0 < strlen(stringToSend)))
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -155,12 +155,12 @@ nImO::Logger::report
     if (stringToSend.empty())
     {
         okSoFar = false;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     else
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -185,18 +185,18 @@ nImO::Logger::report
                 stringArray->addValue(std::make_shared<String>(stringsToSend[ii]));
             }
             okSoFar = report(stringArray);
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
         else
         {
             okSoFar = report(stringsToSend[0]);
-            ODL_B1("okSoFar = ", okSoFar); //####
+            ODL_B1("okSoFar <- ", okSoFar); //####
         }
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar = ", okSoFar); //####
+        ODL_B1("okSoFar <- ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -250,7 +250,7 @@ nImO::Logger::report
                                         NIMO_UNUSED_VAR_(length);
                                       });
                 okSoFar = true;
-                ODL_B1("okSoFar = ", okSoFar); //####
+                ODL_B1("okSoFar <- ", okSoFar); //####
             }
         }
         else

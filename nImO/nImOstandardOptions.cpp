@@ -89,13 +89,13 @@ static nImO::SpValue    lConfigurationValues{};
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-boost::optional<nImO::SpValue>
+std::optional<nImO::SpValue>
 nImO::GetConfiguredValue
     (const std::string &    key)
 {
     ODL_ENTER(); //####
     ODL_S1s("key = ", key); //####
-    boost::optional<SpValue>    retVal;
+    std::optional<SpValue>  retVal;
 
     if ((! key.empty()) && (nullptr != lConfigurationValues))
     {

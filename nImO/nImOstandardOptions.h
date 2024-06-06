@@ -159,7 +159,7 @@ namespace nImO
     /*! @brief Get a value associated with the provided key in the configuration data.
      @param[in] key The key took look up in the configuration data.
      @return The associated value if found, or 'empty'. */
-    boost::optional<SpValue>
+    std::optional<SpValue>
     GetConfiguredValue
         (const std::string &    key);
 

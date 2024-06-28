@@ -89,21 +89,21 @@ static nImO::SpValue    lConfigurationValues{};
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-#if BOOST_NO_CXX17_HDR_OPTIONAL
+#if defined(BOOST_NO_CXX17_HDR_OPTIONAL)
 boost::optional<nImO::SpValue>
-#else /* not BOOST_NO_CXX17_HDR_OPTIONAL */
+#else /* not defined(BOOST_NO_CXX17_HDR_OPTIONAL) */
 std::optional<nImO::SpValue>
-#endif /* not BOOST_NO_CXX17_HDR_OPTIONAL */
+#endif /* not defined(BOOST_NO_CXX17_HDR_OPTIONAL) */
 nImO::GetConfiguredValue
     (const std::string &    key)
 {
     ODL_ENTER(); //####
     ODL_S1s("key = ", key); //####
-#if BOOST_NO_CXX17_HDR_OPTIONAL
+#if defined(BOOST_NO_CXX17_HDR_OPTIONAL)
     boost::optional<SpValue>  retVal;
-#else /* not BOOST_NO_CXX17_HDR_OPTIONAL */
+#else /* not defined(BOOST_NO_CXX17_HDR_OPTIONAL) */
     std::optional<SpValue>  retVal;
-#endif /* not BOOST_NO_CXX17_HDR_OPTIONAL */
+#endif /* not defined(BOOST_NO_CXX17_HDR_OPTIONAL) */
 
     if ((! key.empty()) && (nullptr != lConfigurationValues))
     {

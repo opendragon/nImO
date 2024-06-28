@@ -159,7 +159,11 @@ namespace nImO
     /*! @brief Get a value associated with the provided key in the configuration data.
      @param[in] key The key took look up in the configuration data.
      @return The associated value if found, or 'empty'. */
+# if BOOST_NO_CXX17_HDR_OPTIONAL
+    boost::optional<SpValue>
+# else /* not BOOST_NO_CXX17_HDR_OPTIONAL */
     std::optional<SpValue>
+# endif /* not BOOST_NO_CXX17_HDR_OPTIONAL */
     GetConfiguredValue
         (const std::string &    key);
 

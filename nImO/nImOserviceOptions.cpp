@@ -391,7 +391,7 @@ nImO::ProcessServiceOptions
                             if (0 == (skipOptions & kSkipBaseOption))
                             {
                                 // Use the last 'base' value.
-                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionBASE)]; nullptr != opt; opt = opt->next())
+                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionBASE)]}; nullptr != opt; opt = opt->next())
                                 {
                                     if (nullptr != opt->arg)
                                     {
@@ -402,7 +402,7 @@ nImO::ProcessServiceOptions
                             if (0 == (skipOptions & kSkipConfigFileOption))
                             {
                                 // Use the last 'config' value.
-                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]; nullptr != opt; opt = opt->next())
+                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]}; nullptr != opt; opt = opt->next())
                                 {
                                     if (nullptr != opt->arg)
                                     {
@@ -413,7 +413,7 @@ nImO::ProcessServiceOptions
                             if (0 == (skipOptions & kSkipInTypeOption))
                             {
                                 // Use the last 'inType' value.
-                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionINTYPE)]; nullptr != opt; opt = opt->next())
+                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionINTYPE)]}; nullptr != opt; opt = opt->next())
                                 {
                                     if (nullptr != opt->arg)
                                     {
@@ -424,7 +424,7 @@ nImO::ProcessServiceOptions
                             if (0 == (skipOptions & kSkipNodeOption))
                             {
                                 // Use the last 'node' value.
-                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionNODE)]; nullptr != opt; opt = opt->next())
+                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionNODE)]}; nullptr != opt; opt = opt->next())
                                 {
                                     if (nullptr != opt->arg)
                                     {
@@ -435,7 +435,7 @@ nImO::ProcessServiceOptions
                             if (0 == (skipOptions & kSkipOutTypeOption))
                             {
                                 // Use the last 'outType' value.
-                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)]; nullptr != opt; opt = opt->next())
+                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)]}; nullptr != opt; opt = opt->next())
                                 {
                                     if (nullptr != opt->arg)
                                     {
@@ -446,7 +446,7 @@ nImO::ProcessServiceOptions
                             if (0 == (skipOptions & kSkipTagOption))
                             {
                                 // Use the last 'tag' value.
-                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionTAG)]; nullptr != opt; opt = opt->next())
+                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionTAG)]}; nullptr != opt; opt = opt->next())
                                 {
                                     if (nullptr != opt->arg)
                                     {

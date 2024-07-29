@@ -326,7 +326,7 @@ getLocalAddresses
     bool    firstIpv4{true};
     bool    firstIpv6{true};
 
-    for (Ptr(struct ifaddrs) address = addresses; nullptr != address; address = address->ifa_next)
+    for (Ptr(struct ifaddrs) address{addresses}; nullptr != address; address = address->ifa_next)
     {
         if (nullptr != address->ifa_addr)
         {
@@ -396,7 +396,7 @@ getLocalAddresses
     bool    firstIpv4{true};
     bool    firstIpv6{true};
 
-    for (PIP_ADAPTER_ADDRESSES adapter = adapterAddress; nullptr != adapter; adapter = adapter->Next)
+    for (PIP_ADAPTER_ADDRESSES adapter{adapterAddress}; nullptr != adapter; adapter = adapter->Next)
     {
         if (TUNNEL_TYPE_TEREDO == adapter->TunnelType)
         {
@@ -408,7 +408,7 @@ getLocalAddresses
             continue;
 
         }
-        for (Ptr(IP_ADAPTER_UNICAST_ADDRESS) unicast = adapter->FirstUnicastAddress; nullptr != unicast; unicast = unicast->Next)
+        for (Ptr(IP_ADAPTER_UNICAST_ADDRESS) unicast{adapter->FirstUnicastAddress}; nullptr != unicast; unicast = unicast->Next)
         {
             if (nullptr != unicast->Address.lpSockaddr)
             {

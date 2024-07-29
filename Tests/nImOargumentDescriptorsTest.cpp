@@ -111,7 +111,7 @@ fixDescriptorString
     ODL_S1s("inString = ", inString); //####
     auto    result{inString};
 
-    for (std::string::size_type pos = result.find("\\t"); pos != result.npos; pos = result.find("\\t"))
+    for (auto pos{result.find("\\t")}; pos != result.npos; pos = result.find("\\t"))
     {
         result.replace(pos, 2, "\t");
     }

@@ -381,7 +381,7 @@ nImO::ProcessStandardOptions
                     if (0 == (kSkipConfigFileOption & optionsToIgnore))
                     {
                         // Use the last 'machine' value.
-                        for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]; nullptr != opt; opt = opt->next())
+                        for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]}; nullptr != opt; opt = opt->next())
                         {
                             if (nullptr != opt->arg)
                             {
@@ -392,7 +392,7 @@ nImO::ProcessStandardOptions
                     if (0 == (kSkipMachineOption & optionsToIgnore))
                     {
                         // Use the last 'machine' value.
-                        for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]; nullptr != opt; opt = opt->next())
+                        for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]}; nullptr != opt; opt = opt->next())
                         {
                             if (nullptr != opt->arg)
                             {

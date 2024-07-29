@@ -154,7 +154,7 @@ StringsArgumentDescriptor::describe
     const int   maxCount = 4;
 
     result += ", a string with a default value of "s + getDefaultValue() + " that is found in the set {"s;
-    for (auto walker{_allowedValues.begin()}; walker != _allowedValues.end(); ++walker)
+    for (auto & walker : _allowedValues)
     {
         result += " "s;
         if (maxCount < ++count)
@@ -163,7 +163,7 @@ StringsArgumentDescriptor::describe
             break;
 
         }
-        result += *walker;
+        result += walker;
     }
     result += " } of strings"s;
     ODL_OBJEXIT_s(result); //####

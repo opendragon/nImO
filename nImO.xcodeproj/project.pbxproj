@@ -98,6 +98,8 @@
 		F6491B0F29BE23E500DE5D58 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F6491B1029BE29FB00DE5D58 /* nImOregistryTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryTypes.h; path = nImO/nImOregistryTypes.h; sourceTree = "<group>"; };
 		F64B0DAD299268EB000D13C1 /* nimo-config.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nimo-config.txt"; path = "non-iOS/nimo-config.txt"; sourceTree = "<group>"; };
+		F64BA1B52CB960A900B7EAD8 /* Check */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Check; sourceTree = "<group>"; };
+		F64BA1B62CB962A000B7EAD8 /* Check */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Check; sourceTree = "<group>"; };
 		F65018592B60297500A26DF8 /* nImOgetNumberOfApplicationsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfApplicationsResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.cpp; sourceTree = "<group>"; };
 		F650185A2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp; sourceTree = "<group>"; };
 		F650185B2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfApplicationsOnNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h; sourceTree = "<group>"; };
@@ -944,6 +946,7 @@
 				F6E299902B8BCF68006FEE77 /* AddChannel */,
 				F65C4A8D2985620100430284 /* ApplicationSupport */,
 				F65C4ACB2985620200430284 /* Bridge */,
+				F64BA1B62CB962A000B7EAD8 /* Check */,
 				F65C4A722985620100430284 /* CMakeLists.txt */,
 				F65C4B832985620200430284 /* Connect */,
 				F65C4B692985620200430284 /* Disconnect */,
@@ -1057,6 +1060,7 @@
 		F65C4B9D2985636700430284 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				F64BA1B52CB960A900B7EAD8 /* Check */,
 				F6E2998B2B8BCD8A006FEE77 /* AddChannel */,
 				F65C4BAA2985636700430284 /* ApplicationSupport */,
 				F65C4BB32985636800430284 /* Bridge */,

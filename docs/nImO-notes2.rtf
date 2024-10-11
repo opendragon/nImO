@@ -13,6 +13,7 @@ tools:\
 \f1\b DONE
 \f0\b0 \
 * [nImObridge 'a' 'b' \'97 routing between networks; 'a' is the name of this network, 'b' is the address to connect to the other]\
+* nImOcheck - returns zero if the registry detected and non-zero otherwise, so that scripts can start the registry\
 * nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT]) [only one connection allowed between 'c' and 'd']; 
 \f1\b DONE
 \f0\b0 \
@@ -84,6 +85,7 @@ shell script:\
 		nimo adda <a> - invokes nImOaddApp <a>\
 		nImO addc <a> <b> - invokes nImOaddChannel <a> <b>\
 		nimo bridge <a> <b> - invokes nImObridge <a> <b>\
+		nimo check - invokes nImOcheck\
 		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
 		nimo disconnect <c> - invokes nImOdisconnect <c>\
 		nimo help - lists choices\

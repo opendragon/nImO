@@ -83,6 +83,9 @@ non-iOS/Tools/ApplicationSupport/UpdateApplication/nImOupdateApp.rc
 non-iOS/Tools/Bridge/nImObridge
 non-iOS/Tools/Bridge/nImObridge.dir/
 non-iOS/Tools/Bridge/nImObridge.rc
+non-iOS/Tools/Check/nImOcheck
+non-iOS/Tools/Check/nImOcheck.dir/
+non-iOS/Tools/Check/nImOcheck.rc
 non-iOS/Tools/Connect/nImOconnect
 non-iOS/Tools/Connect/nImOconnect.dir/
 non-iOS/Tools/Connect/nImOconnect.rc

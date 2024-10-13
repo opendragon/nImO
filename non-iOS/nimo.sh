@@ -11,7 +11,6 @@ function list_commands() {
     echo "    connect    connect two channels together"
     echo "    disconnect break the connection between two channels"
     echo "    help       list the available commands"
-    echo "    info       report on a channel"
     echo "    list       list channels, applications, services, et cetera"
     echo "    loada      load a set of applications"
     echo "    loads      load a setup"
@@ -94,7 +93,7 @@ function usage_help() {
             "stores")
                 nImOstoreSetup -h
                 ;;
-            "updte")
+            "update")
                 nImOupdateApp -h
                 ;;
             "version")

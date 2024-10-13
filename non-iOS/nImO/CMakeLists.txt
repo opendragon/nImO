@@ -176,6 +176,8 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOaddInputChannelCallbackHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOaddOutputChannelCallbackHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp"
             "${THIS_SOURCE_DIR}/nImObaseChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOcallbackFunction.cpp"
@@ -225,6 +227,8 @@ install(TARGETS
         COMPONENT libraries)
 
 install(FILES
+        "${THIS_SOURCE_DIR}/nImOaddInputChannelCallbackHandler.h"
+        "${THIS_SOURCE_DIR}/nImOaddOutputChannelCallbackHandler.h"
         "${THIS_SOURCE_DIR}/nImOannounceServiceData.h"
         "${THIS_SOURCE_DIR}/nImObaseChannel.h"
         "${THIS_SOURCE_DIR}/nImOcallbackFunction.h"
@@ -608,6 +612,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.h
+        ${THIS_SOURCE_DIR}/nImOaddInputChannelCallbackHandler.cpp ${THIS_SOURCE_DIR}/nImOaddInputChannelCallbackHandler.h
+        ${THIS_SOURCE_DIR}/nImOaddOutputChannelCallbackHandler.cpp ${THIS_SOURCE_DIR}/nImOaddOutputChannelCallbackHandler.h
         ${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp ${THIS_SOURCE_DIR}/nImOannounceServiceData.h
         ${THIS_SOURCE_DIR}/nImObaseChannel.cpp ${THIS_SOURCE_DIR}/nImObaseChannel.h
         ${THIS_SOURCE_DIR}/nImOcallbackFunction.cpp ${THIS_SOURCE_DIR}/nImOcallbackFunction.h

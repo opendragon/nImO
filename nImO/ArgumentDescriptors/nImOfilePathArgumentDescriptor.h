@@ -100,8 +100,8 @@ namespace nImO
                 (const std::string &    argName,
                  const std::string &    argDescription,
                  const ArgumentMode     argMode,
-                 const std::string &    pathPrefix,
-                 const std::string &    pathSuffix,
+                 const std::string &    pathPrefix = ""s,
+                 const std::string &    pathSuffix = ""s,
                  const bool             forOutput = false,
                  const bool             useRandomPath = false);
 

@@ -93,7 +93,7 @@ main
     auto                    firstArg{std::make_shared<nImO::LogicalArgumentDescriptor>("stream"s, "Read standard input for text"s,
                                                                                        nImO::ArgumentMode::Optional, false)};
     auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("message"s, "Text to send to logging applications"s,
-                                                                                       nImO::ArgumentMode::Optional, ""s)};
+                                                                                       nImO::ArgumentMode::Optional)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{true};
     nImO::StdStringVector   arguments{};

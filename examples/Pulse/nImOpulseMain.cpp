@@ -39,7 +39,6 @@
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <Contexts/nImOsourceContext.h>
 #include <nImOchannelName.h>
-#include <nImOfilterBreakHandler.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>

@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOremoveAppMain.cpp
+//  File:       nImO/nImOaddInputChannelCallbackHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to remove an application from the list of known applications.
+//  Contains:   The class definition for a callback function for adding input channels.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2020 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,15 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-02-27
+//  Created:    2024-10-13
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
-#include <Contexts/nImOutilityContext.h>
-#include <nImOmainSupport.h>
+#include <nImOaddInputChannelCallbackHandler.h>
+
+#include <nImOchannelName.h>
 #include <nImOregistryProxy.h>
-#include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -51,10 +50,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to remove an application from the list of known applications. */
-
-/*! @dir RemoveApplication
- @brief The set of files that implement the RemoveApplication tool. */
+ @brief The class definition for a callback function for adding input channels. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -76,63 +72,77 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
-# pragma mark Global functions
+# pragma mark Class methods
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the tool.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
-{
-    std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("name"s, "Application name"s,
-                                                                                      nImO::ArgumentMode::Required)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
-    int                     exitCode{0};
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
 
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
-    nImO::Initialize();
-    nImO::ReportVersions();
-    argumentList.push_back(firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application"s, "nImOremoveApp shortAppName"s, 2020, nImO::kCopyrightName,
-                                     optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
+
+bool
+nImO::AddInputChannelCallbackHandler::operator()
+    (void)
+{
+    ODL_OBJENTER(); //####
+    bool    result{false};
+
+    if (_requestsAllowed)
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::GetShortComputerName()};
-            auto                ourContext{std::make_shared<nImO::UtilityContext>("removeApp"s, optionValues._logging)};
-            nImO::Connection    registryConnection{};
+            _active = true;
+            std::string scratch;
+            int64_t     currentNumChannels = _context->getNumberOfInputChannels();
+            int64_t     nextChannelNumber = currentNumChannels + 1;
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            // Using one greater than the requested number of channels will ensure that all the
+            // channel paths will have a number at the end.
+            if (nImO::ChannelName::generatePath(_basePath, false, nextChannelNumber + 1, nextChannelNumber, scratch))
             {
-                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
+                auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, false, _dataType, nImO::TransportType::kAny)};
 
-std::cerr << "** Unimplemented **\n";
-                // TBD
+                if (statusWithBool.first.first)
+                {
+                    if (statusWithBool.second)
+                    {
+                        _context->addInputChannel(scratch);
+                        result = true;
+                    }
+                    else
+                    {
+                        _failureReason = "'"s + scratch + "' already registered"s;
+                    }
+                }
+                else
+                {
+                    _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
+                }
             }
             else
             {
-                ourContext->report("Registry not found."s);
-                exitCode = 2;
+                _failureReason = "Invalid channel path '"s + _basePath + "'"s;
             }
-            ourContext->report("exiting."s, false);
+            _active = false;
         }
         catch (...)
         {
-            ODL_LOG("Exception caught"); //####
-            exitCode = -1;
+            _active = false;
+            throw;
+
         }
     }
-    ODL_EXIT_I(exitCode); //####
-    return exitCode;
-} // main
+    else
+    {
+        _failureReason = "Service not finished setup or exiting"s;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::AddInputChannelCallbackHandler::operator()
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

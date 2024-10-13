@@ -88,7 +88,7 @@ namespace nImO
                 (const std::string &    argName,
                  const std::string &    argDescription,
                  const ArgumentMode     argMode,
-                 const std::string &    defaultValue);
+                 const std::string &    defaultValue = ""s);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */

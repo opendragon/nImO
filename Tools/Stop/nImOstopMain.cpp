@@ -96,7 +96,7 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("node"s,
                                                                                       "Node to be stop (if machine is not specified)"s,
-                                                                                      nImO::ArgumentMode::Optional, ""s)};
+                                                                                      nImO::ArgumentMode::Optional)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{};
     int                     exitCode{0};

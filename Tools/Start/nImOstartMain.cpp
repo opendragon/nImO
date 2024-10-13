@@ -136,9 +136,9 @@ main
 {
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("launcher"s, "Launcher to use"s,
-                                                                                      nImO::ArgumentMode::Optional, ""s)};
+                                                                                      nImO::ArgumentMode::Optional)};
     auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("service"s, "Service to start"s,
-                                                                                       nImO::ArgumentMode::Optional, ""s)};
+                                                                                       nImO::ArgumentMode::Optional)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{};
     int                     exitCode{0};

@@ -56,6 +56,15 @@ non-iOS/Wiring/Junction/nImOjunction.rc
 non-iOS/Launcher/nImOlauncher
 non-iOS/Launcher/nImOlauncher.dir/
 non-iOS/Launcher/nImOlauncher.rc
+non-iOS/ProgrammableServices/JavaScript/nImOjavaScript
+non-iOS/ProgrammableServices/JavaScript/nImOjavaScript.dir/
+non-iOS/ProgrammableServices/JavaScript/nImOjavaScript.rc
+non-iOS/ProgrammableServices/Lisp/nImOlisp
+non-iOS/ProgrammableServices/Lisp/nImOlisp.dir/
+non-iOS/ProgrammableServices/Lisp/nImOlisp.rc
+non-iOS/ProgrammableServices/Python/nImOpython
+non-iOS/ProgrammableServices/Python/nImOpython.dir/
+non-iOS/ProgrammableServices/Python/nImOpython.rc
 non-iOS/Tools/AddChannel/nImOaddChannel
 non-iOS/Tools/AddChannel/nImOaddChannel.dir/
 non-iOS/Tools/AddChannel/nImOaddChannel.rc

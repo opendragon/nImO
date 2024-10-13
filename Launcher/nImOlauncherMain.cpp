@@ -56,7 +56,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A service application to provide remote launch capabilities for #nImO. */
+ @brief A service application to provide remote launch capabilities for %nImO. */
 
 /*! @dir Launcher
  @brief The set of files that implement the Launcher application. */

@@ -363,6 +363,12 @@
 		F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcontainerTest.rc.in; path = Tests/nImOcontainerTest.rc.in; sourceTree = "<group>"; };
 		F6BE1C242973491F009828BF /* nImOcommandSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandSession.h; path = nImO/nImOcommandSession.h; sourceTree = "<group>"; };
 		F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandSession.cpp; path = nImO/nImOcommandSession.cpp; sourceTree = "<group>"; };
+		F6BEEB4E2CBBE7D4003167ED /* ProgrammableServices */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ProgrammableServices; sourceTree = "<group>"; };
+		F6BEEB4F2CBBE7F8003167ED /* ProgrammableServices */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProgrammableServices; path = "non-iOS/ProgrammableServices"; sourceTree = "<group>"; };
+		F6BEEB522CBBFF61003167ED /* nImOaddInputChannelCallbackHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddInputChannelCallbackHandler.cpp; path = nImO/nImOaddInputChannelCallbackHandler.cpp; sourceTree = "<group>"; };
+		F6BEEB532CBBFFE0003167ED /* nImOaddOutputChannelCallbackHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddOutputChannelCallbackHandler.cpp; path = nImO/nImOaddOutputChannelCallbackHandler.cpp; sourceTree = "<group>"; };
+		F6BEEB542CBC004B003167ED /* nImOaddInputChannelCallbackHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddInputChannelCallbackHandler.h; path = nImO/nImOaddInputChannelCallbackHandler.h; sourceTree = "<group>"; };
+		F6BEEB552CBC004B003167ED /* nImOaddOutputChannelCallbackHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddOutputChannelCallbackHandler.h; path = nImO/nImOaddOutputChannelCallbackHandler.h; sourceTree = "<group>"; };
 		F6C4319B2B55CBF500836193 /* nImOlauncherContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOlauncherContext.cpp; sourceTree = "<group>"; };
 		F6C4319C2B55CBF500836193 /* nImOlauncherContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOlauncherContext.h; sourceTree = "<group>"; };
 		F6C907252B62C5770007A38F /* nImOgetRunOptionsForAppCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetRunOptionsForAppCommandHandler.h; path = CommandHandlers/nImOgetRunOptionsForAppCommandHandler.h; sourceTree = "<group>"; };
@@ -1462,6 +1468,7 @@
 				F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */,
 				F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */,
 				F6D7AD05224A5D560095AA43 /* non-iOS */,
+				F6BEEB4E2CBBE7D4003167ED /* ProgrammableServices */,
 				F60B49742104F787009D2CDA /* README.md */,
 				F627506924141ACB00FCF36C /* sloc.sh */,
 				F6B1E7A329B7B8BE00FDF4D6 /* SQLite */,
@@ -1521,6 +1528,10 @@
 				F6263BF929DCC5B30034A9F9 /* Containers */,
 				F6263BF829DCC4890034A9F9 /* Contexts */,
 				F6263BF629DCC4040034A9F9 /* Response Handlers */,
+				F6BEEB522CBBFF61003167ED /* nImOaddInputChannelCallbackHandler.cpp */,
+				F6BEEB542CBC004B003167ED /* nImOaddInputChannelCallbackHandler.h */,
+				F6BEEB532CBBFFE0003167ED /* nImOaddOutputChannelCallbackHandler.cpp */,
+				F6BEEB552CBC004B003167ED /* nImOaddOutputChannelCallbackHandler.h */,
 				F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */,
 				F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */,
 				F62FE69D29FBCF39002D5FE3 /* nImObaseChannel.cpp */,
@@ -1598,6 +1609,7 @@
 				F683BD86240F2F27009E20FE /* nimo.sh */,
 				F64B0DAD299268EB000D13C1 /* nimo-config.txt */,
 				F63DDD6D2B56AD4100182B28 /* nimo-services.txt */,
+				F6BEEB4F2CBBE7F8003167ED /* ProgrammableServices */,
 				F613D161288D8455008712C9 /* Registry */,
 				F6D7AD0F224A5DEA0095AA43 /* Tests */,
 				F65C4A3D2985620100430284 /* Tools */,

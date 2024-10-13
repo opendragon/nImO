@@ -111,9 +111,9 @@ fixDescriptorString
     ODL_S1s("inString = ", inString); //####
     auto    result{inString};
 
-    for (auto pos{result.find("\\t")}; pos != result.npos; pos = result.find("\\t"))
+    for (auto pos{result.find("\\t"s)}; pos != result.npos; pos = result.find("\\t"s))
     {
-        result.replace(pos, 2, "\t");
+        result.replace(pos, 2, "\t"s);
     }
     ODL_EXIT_s(result); //####
     return result;
@@ -157,7 +157,7 @@ doTestAddressArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required,
                                                                              kSelfAddressIpAddress);
                 if (testDescriptor->isValid())
                 {
@@ -177,7 +177,7 @@ doTestAddressArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "");
+                testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, ""s);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -198,7 +198,7 @@ doTestAddressArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, *argv);
+                    testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, *argv);
                     if (testDescriptor->isValid())
                     {
                         if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
@@ -220,7 +220,7 @@ doTestAddressArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                    testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required,
                                                                                  kSelfAddressIpAddress);
                     if (testDescriptor->isValid())
                     {
@@ -292,7 +292,7 @@ doTestBooleanArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, true);
+                testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, true);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -320,7 +320,7 @@ doTestBooleanArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                    testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required,
                                                                                  0 == strcmp(*argv, "true"));
                     if (testDescriptor->isValid())
                     {
@@ -343,7 +343,7 @@ doTestBooleanArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, false);
+                    testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, false);
                     if (testDescriptor->isValid())
                     {
                         if (testDescriptor->validate(*argv) == expected)
@@ -414,7 +414,7 @@ doTestChannelArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "/out");
+                testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "/out"s);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -433,7 +433,7 @@ doTestChannelArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, ":#");
+                testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, ":#"s);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -454,7 +454,7 @@ doTestChannelArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, *argv);
+                    testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, *argv);
                     if (testDescriptor->isValid())
                     {
                         if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
@@ -476,7 +476,7 @@ doTestChannelArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "/tmp");
+                    testDescriptor = std::make_shared<ChannelArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "/tmp"s);
                     if (testDescriptor->isValid())
                     {
                         if (testDescriptor->validate(*argv) == expected)
@@ -547,7 +547,7 @@ doTestDoubleArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 42.0, false,
+                testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 42.0, false,
                                                                             0.0, false, 0.0);
                 if (testDescriptor->isValid())
                 {
@@ -567,7 +567,7 @@ doTestDoubleArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 42.0, true,
+                testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 42.0, true,
                                                                             1000, true, 200);
                 if (testDescriptor->isValid())
                 {
@@ -589,7 +589,7 @@ doTestDoubleArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                    testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required,
                                                                                 strtod(*argv, nullptr), false, 0, true, 1000);
                     if (testDescriptor->isValid())
                     {
@@ -612,7 +612,7 @@ doTestDoubleArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 42.0, true,
+                    testDescriptor = std::make_shared<DoubleArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 42.0, true,
                                                                                 -10, true, 10);
                     if (testDescriptor->isValid())
                     {
@@ -684,8 +684,8 @@ doTestFilePathArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "/tmp/",
-                                                                              "temp.txt", true);
+                testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "/tmp/"s,
+                                                                              "temp.txt"s, true);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -704,8 +704,8 @@ doTestFilePathArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "/usr/bin",
-                                                                              "", true);
+                testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "/usr/bin"s,
+                                                                              ""s, true);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -726,8 +726,8 @@ doTestFilePathArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "/tmp/",
-                                                                                  "stuff.txt");
+                    testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "/tmp/"s,
+                                                                                  "stuff.txt"s);
                     if (testDescriptor->isValid())
                     {
                         if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
@@ -749,8 +749,8 @@ doTestFilePathArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "/tmp/",
-                                                                                  "stuff.txt", true);
+                    testDescriptor = std::make_shared<FilePathArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "/tmp/"s,
+                                                                                  "stuff.txt"s, true);
                     if (testDescriptor->isValid())
                     {
                         if (testDescriptor->validate(*argv) == expected)
@@ -821,7 +821,7 @@ doTestIntegerArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 42, false, 0,
+                testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 42, false, 0,
                                                                              false, 0);
                 if (testDescriptor->isValid())
                 {
@@ -841,7 +841,7 @@ doTestIntegerArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 42, true, 1000,
+                testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 42, true, 1000,
                                                                              true, 200);
                 if (testDescriptor->isValid())
                 {
@@ -863,7 +863,7 @@ doTestIntegerArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                    testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required,
                                                                                  strtol(*argv, nullptr, 10), false, 0, true, 1000);
                     if (testDescriptor->isValid())
                     {
@@ -886,7 +886,7 @@ doTestIntegerArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 42, true,
+                    testDescriptor = std::make_shared<IntegerArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 42, true,
                                                                                  -100, true, 100);
                     if (testDescriptor->isValid())
                     {
@@ -961,7 +961,7 @@ doTestPortArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 1234, true);
+                testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 1234, true);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -980,7 +980,7 @@ doTestPortArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 42, false);
+                testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 42, false);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -1001,7 +1001,7 @@ doTestPortArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                    testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required,
                                                                               strtol(*argv, nullptr, 10), false);
                     if (testDescriptor->isValid())
                     {
@@ -1024,7 +1024,7 @@ doTestPortArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, 1234, false);
+                    testDescriptor = std::make_shared<PortArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, 1234, false);
                     if (testDescriptor->isValid())
                     {
                         if (testDescriptor->validate(*argv) == expected)
@@ -1109,7 +1109,7 @@ doTestStringArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<StringArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, *argv);
+                    testDescriptor = std::make_shared<StringArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, *argv);
                     if (testDescriptor->isValid())
                     {
                         if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
@@ -1190,7 +1190,7 @@ doTestStringsArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "abc",
+                testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "abc"s,
                                                                              allowable);
                 if (testDescriptor->isValid())
                 {
@@ -1211,7 +1211,7 @@ doTestStringsArgumentDescriptors
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
                 allowable.clear();
-                testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "abc",
+                testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "abc"s,
                                                                              allowable);
                 if (testDescriptor->isValid())
                 {
@@ -1233,7 +1233,7 @@ doTestStringsArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "abc",
+                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "abc"s,
                                                                                  allowable);
                     if (testDescriptor->isValid())
                     {
@@ -1256,7 +1256,7 @@ doTestStringsArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "abc",
+                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "abc"s,
                                                                                  allowable);
                     if (testDescriptor->isValid())
                     {
@@ -1279,8 +1279,8 @@ doTestStringsArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something",
-                                                                                 ArgumentMode::Required | ArgumentMode::CaseInsensitive, "abc",
+                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor"s, "something"s,
+                                                                                 ArgumentMode::Required | ArgumentMode::CaseInsensitive, "abc"s,
                                                                                  allowable);
                     if (testDescriptor->isValid())
                     {
@@ -1303,8 +1303,8 @@ doTestStringsArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something",
-                                                                                 ArgumentMode::Required | ArgumentMode::CaseInsensitive, "abc",
+                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor"s, "something"s,
+                                                                                 ArgumentMode::Required | ArgumentMode::CaseInsensitive, "abc"s,
                                                                                  allowable);
                     if (testDescriptor->isValid())
                     {
@@ -1376,7 +1376,7 @@ doTestDateArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "0/1/1");
+                testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "0/1/1"s);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -1395,7 +1395,7 @@ doTestDateArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "");
+                testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, ""s);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -1416,7 +1416,7 @@ doTestDateArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, *argv);
+                    testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, *argv);
                     if (testDescriptor->isValid())
                     {
                         if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
@@ -1438,7 +1438,7 @@ doTestDateArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "0/1/1");
+                    testDescriptor = std::make_shared<DateArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "0/1/1"s);
                     if (testDescriptor->isValid())
                     {
                         if (testDescriptor->validate(*argv) == expected)
@@ -1509,7 +1509,7 @@ doTestTimeArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "0");
+                testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "0"s);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -1528,7 +1528,7 @@ doTestTimeArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "");
+                testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, ""s);
                 if (testDescriptor->isValid())
                 {
                     if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
@@ -1549,7 +1549,7 @@ doTestTimeArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, *argv);
+                    testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, *argv);
                     if (testDescriptor->isValid())
                     {
                         if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
@@ -1571,7 +1571,7 @@ doTestTimeArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, "0");
+                    testDescriptor = std::make_shared<TimeArgumentDescriptor>("descriptor"s, "something"s, ArgumentMode::Required, "0"s);
                     if (testDescriptor->isValid())
                     {
                         if (testDescriptor->validate(*argv) == expected)

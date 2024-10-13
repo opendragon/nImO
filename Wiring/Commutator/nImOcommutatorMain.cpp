@@ -39,6 +39,7 @@
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <Contexts/nImOfilterContext.h>
+#include <nImOaddOutputChannelCallbackHandler.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
 #include <nImOinputOutputCommands.h>
@@ -70,194 +71,6 @@
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
-
-namespace nImO
-{
-    namespace Commutator
-    {
-
-        /*! @brief A class to provide values that are used for handling callbacks for the application. */
-        class AddOutputChannelCallbackHandler final : public nImO::CallbackFunction
-        {
-            public :
-                // Public type definitions.
-
-            protected :
-                // Protected type definitions.
-
-            private :
-                // Private type definitions.
-
-                /*! @brief The class that this class is derived from. */
-                using inherited = CallbackFunction;
-
-            public :
-                // Public methods.
-
-                /*! @brief The constructor.
-                 @param[in] theContext The filter context that is active.
-                 @param[in] basePath The base part of the channel name. */
-                inline AddOutputChannelCallbackHandler
-                    (Ptr(nImO::FilterContext)   theContext,
-                     const std::string &        basePath) :
-                        inherited(), _context(theContext), _basePath(basePath)
-                {
-                }
-
-                /*! @brief Stop accepting requests. */
-                inline void
-                disable
-                    (void)
-                {
-                    _requestsAllowed = false;
-                }
-
-                /*! @brief Indicate that the service is ready to accept these requests.
-                 @param[in] nodeName The name of this node.
-                 @param[in] proxy The RegistryProxy to use.
-                 @param[in] dataType The expected data format. */
-                inline void
-                enable
-                    (const std::string &    nodeName,
-                     nImO::SpRegistryProxy  proxy,
-                     const std::string &    dataType)
-                {
-                    _dataType = dataType;
-                    _nodeName = nodeName;
-                    _proxy = proxy;
-                    _requestsAllowed = true;
-                }
-
-                /*! @brief Return @c true if the callback is processing a request.
-                 @return @c true if the callback is processing a request. */
-                inline bool
-                isActive
-                    (void)
-                {
-                    return _active;
-                }
-            
-                /*! @brief Return @c true is a channel was added and clear the flag
-                 used to track when a channel is added.
-                 @return @c true if a channel was added. */
-                inline bool
-                wasAdded
-                    (void)
-                {
-                    return _added.exchange(false);
-                }
-
-            protected :
-                // Protected methods.
-
-            private :
-                // Private methods.
-
-                /*! @brief Process an add output channel request.
-                 @return @c true on success. */
-                bool
-                operator()
-                    (void)
-                    override;
-
-            public :
-                // Public fields.
-
-            protected :
-                // Protected fields.
-
-            private :
-                // Private fields.
-
-                /*! @brief The filter context that is active. */
-                Ptr(nImO::FilterContext)    _context{nullptr};
-
-                /*! @brief A flag to control when requests can be honoured. */
-                std::atomic_bool    _requestsAllowed{false};
-
-                /*! @brief The base part of the channel name. */
-                std::string _basePath{};
-
-                /*! @brief The RegistryProxy to use. */
-                nImO::SpRegistryProxy   _proxy{};
-
-                /*! @brief The name of this node. */
-                std::string _nodeName{};
-
-                /*! @brief The expected data type. */
-                std::string _dataType{};
-
-                /*! @brief @c true while the callback is executing. */
-                std::atomic_bool    _active{false};
-
-                /*! @brief @c true when a channel has been added. */
-                std::atomic_bool    _added{false};
-
-        }; // AddOutputChannelCallbackHandler
-
-    }; // namespace Commutator
-
-}; // namespace nImO
-
-bool
-nImO::Commutator::AddOutputChannelCallbackHandler::operator()
-    (void)
-{
-    ODL_OBJENTER(); //####
-    bool    result{false};
-
-    if (_requestsAllowed)
-    {
-        try
-        {
-            _active = true;
-            std::string scratch;
-            int64_t     currentNumChannels = _context->getNumberOfOutputChannels();
-            int64_t     nextChannelNumber = currentNumChannels + 1;
-
-            // Using one greater than the requested number of channels will ensure that all the
-            // channel paths will have a number at the end.
-            if (nImO::ChannelName::generatePath(_basePath, true, nextChannelNumber + 1, nextChannelNumber, scratch))
-            {
-                auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, true, _dataType, nImO::TransportType::kAny)};
-
-                if (statusWithBool.first.first)
-                {
-                    if (statusWithBool.second)
-                    {
-                        _context->addOutputChannel(scratch);
-                        _added = result = true;
-                    }
-                    else
-                    {
-                        _failureReason = "'"s + scratch + "' already registered"s;
-                    }
-                }
-                else
-                {
-                    _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
-                }
-            }
-            else
-            {
-                _failureReason = "Invalid channel path '"s + _basePath + "'"s;
-            }
-            _active = false;
-        }
-        catch (...)
-        {
-            _active = false;
-            throw;
-
-        }
-    }
-    else
-    {
-        _failureReason = "Service not finished setup or exiting"s;
-    }
-    ODL_OBJEXIT_B(result); //####
-    return result;
-} // nImO::Commutator::AddOutputChannelCallbackHandler::operator()
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -310,7 +123,7 @@ main
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
-            auto                addOutputChannelCallback{new nImO::Commutator::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
+            auto                addOutputChannelCallback{new nImO::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
 
             if (! basePath.empty())
             {

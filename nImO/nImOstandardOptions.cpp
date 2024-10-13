@@ -56,7 +56,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The function and variable definitions for standard command-line options used with nImO. */
+ @brief The function and variable definitions for standard command-line options used with %nImO. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)

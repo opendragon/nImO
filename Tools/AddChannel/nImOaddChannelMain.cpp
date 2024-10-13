@@ -102,7 +102,7 @@ main
 {
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("node"s, "Node to get new channel"s,
-                                                                                      nImO::ArgumentMode::Required, ""s)};
+                                                                                      nImO::ArgumentMode::Required)};
     auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("isOutput"s,
                                                                                         "True if the new channel is an output"s,
                                                                                         nImO::ArgumentMode::Optional, false)};

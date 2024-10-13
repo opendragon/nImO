@@ -93,7 +93,7 @@ main
     auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("outFile"s, "Path to application"s,
                                                                                         nImO::ArgumentMode::Required, ""s, ".txt"s)};
     auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("name"s, "Application name"s,
-                                                                                       nImO::ArgumentMode::Optional, ""s)};
+                                                                                       nImO::ArgumentMode::Optional)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{};
     int                     exitCode{0};

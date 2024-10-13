@@ -61,7 +61,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to continuously report information on #nImO. */
+ @brief A utility application to continuously report information on %nImO. */
 
 /*! @dir Log
  @brief The set of files that implement the Log application. */
@@ -234,7 +234,7 @@ class LogBreakHandler final : public nImO::CallbackFunction
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for reporting information on #nImO.
+/*! @brief The entry point for reporting information on %nImO.
 
  Standard output will receive a list of the connections to the channel.
  @param[in] argc The number of arguments in 'argv'.

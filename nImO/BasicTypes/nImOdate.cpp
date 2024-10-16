@@ -124,7 +124,7 @@ nImO::Date::Date
         inherited{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_X1("initialValue = ", initialValue); //####
+    ODL_X1(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Date::Date
 
@@ -133,7 +133,7 @@ nImO::Date::Date
         inherited{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("initialValue = ", &initialValue); //####
+    ODL_P1(&initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Date::Date
 
@@ -142,7 +142,7 @@ nImO::Date::Date
         inherited{other}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Date::Date
 
@@ -152,7 +152,7 @@ nImO::Date::Date
         inherited{std::move(other)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Date::Date
 
@@ -188,7 +188,7 @@ nImO::Date::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool    result{&other == this};
 
     if (! result)
@@ -210,7 +210,7 @@ nImO::Date::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "date";
     ODL_OBJEXIT_P(&output); //####
     return output;
@@ -234,7 +234,7 @@ nImO::Date::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -270,8 +270,8 @@ nImO::Date::extractValue
 {
     NIMO_UNUSED_VAR_(leadByte);
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, parentValue.get()); //####
+    ODL_X1(leadByte); //####
     SpValue         result;
     DateTimeValue   accumulator{0};
     bool            atEnd{false};
@@ -281,8 +281,8 @@ nImO::Date::extractValue
     {
         uint8_t aByte = theMessage.getByte(position, atEnd);
 
-        ODL_X1("aByte <- ", aByte); //####
-        ODL_B1("atEnd <- ", atEnd); //####
+        ODL_X1(aByte); //####
+        ODL_B1(atEnd); //####
         if (atEnd)
         {
             ODL_LOG("(atEnd)"); //####
@@ -291,7 +291,7 @@ nImO::Date::extractValue
         {
             accumulator = ((accumulator << 8) | aByte);
             ++position;
-            ODL_I1("position <- ", position); //####
+            ODL_I1(position); //####
         }
     }
     if (atEnd)
@@ -318,7 +318,7 @@ nImO::Date::getExtractionInfo
      DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    ODL_P2(&aByte, &aMask); //####
     aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
              DataKind::OtherMiscellaneousTypeBitFieldTypeDate);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask |
@@ -333,7 +333,7 @@ nImO::Date::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -370,7 +370,7 @@ nImO::Date::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -403,7 +403,7 @@ nImO::Date::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -440,7 +440,7 @@ nImO::Date::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -485,7 +485,7 @@ nImO::Date::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     out << kStartDateTimeChar << kSecondCharForDate << ConvertDateToString(_dateTimeValue);
     ODL_OBJEXIT_P(&out); //####
     return out;
@@ -499,8 +499,8 @@ nImO::Date::printToStringBuffer
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     outBuffer.appendChar(kStartDateTimeChar);
     outBuffer.appendChar(kSecondCharForDate);
     outBuffer.addString(ConvertDateToString(_dateTimeValue));
@@ -517,8 +517,8 @@ nImO::Date::printToStringBufferAsJSON
     NIMO_UNUSED_VAR_(asKey);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     outBuffer.appendChar(kDoubleQuote);
     outBuffer.addString(ConvertDateToString(_dateTimeValue));
     outBuffer.appendChar(kDoubleQuote);
@@ -531,7 +531,7 @@ nImO::Date::writeToMessage
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     DataKind        stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
                             DataKind::OtherMiscellaneousTypeBitFieldTypeDate};
     DateTimeBytes   bytes;
@@ -563,7 +563,7 @@ nImO::ConvertDateToString
     (const DateTimeValue    value)
 {
     ODL_ENTER(); //####
-    ODL_I1("value = ", value);
+    ODL_I1(value);
     std::string result{std::to_string(yearFromDateTime(value)) + kDateSeparator +
                         std::to_string(monthFromDateTime(value)) + kDateSeparator +
                         std::to_string(dayFromDateTime(value))};
@@ -580,8 +580,8 @@ nImO::GetDatePieces
 {
     // y/m/d
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
-    ODL_P1("processedLength = ", processedLength); //####
+    ODL_S1s(inString); //####
+    ODL_P1(processedLength); //####
     bool            okSoFar{true};
     const int       maxs[] = { kMaxYear, kMaxMonth, kMaxDay };
     const int       mins[] = { kMinYear, kMinMonth, kMinDay };
@@ -604,37 +604,37 @@ nImO::GetDatePieces
             if (walker == endPtr)
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {
                 if ((maxs[ii] < value) || (mins[ii] > value))
                 {
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {
                     char    aChar{*endPtr};
 
-                    ODL_C1("aChar <- ", aChar); //####
+                    ODL_C1(aChar); //####
                     if (((kEndOfString == aChar) || Value::isLegalTerminator(aChar)) && (ii == (numE - 1)))
                     {
                         pieces[ii] = StaticCast(uint16_t, value);
-                        ODL_I1("pieces[ii] <- ", pieces[ii]); //####
+                        ODL_I1(pieces[ii]); //####
                     }
                     else
                     {
                         if ((kDateSeparator == aChar) && (ii < (numE - 1)))
                         {
                             pieces[ii] = StaticCast(uint16_t, value);
-                            ODL_I1("pieces[ii] <- ", pieces[ii]); //####
+                            ODL_I1(pieces[ii]); //####
                             walker = endPtr + 1;
                         }
                         else
                         {
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //####
+                            ODL_B1(okSoFar); //####
                         }
                     }
                 }
@@ -643,13 +643,13 @@ nImO::GetDatePieces
         if (okSoFar && (nullptr != processedLength))
         {
             *processedLength = endPtr - beginPtr;
-            ODL_I1("*processedLength <- ", *processedLength); //####
+            ODL_I1(*processedLength); //####
         }
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;

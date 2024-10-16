@@ -95,7 +95,7 @@ nImO::Double::Double
         inherited{}, _floatValue{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_D1("initialValue = ", initialValue); //####
+    ODL_D1(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
@@ -104,7 +104,7 @@ nImO::Double::Double
         inherited{}, _floatValue{other._floatValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
@@ -114,7 +114,7 @@ nImO::Double::Double
         inherited{std::move(other)}, _floatValue{other._floatValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._floatValue = 0;
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
@@ -139,7 +139,7 @@ nImO::Double::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool    result{&other == this};
 
     if (! result)
@@ -161,7 +161,7 @@ nImO::Double::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "double";
     ODL_OBJEXIT_P(&output); //####
     return output;
@@ -185,7 +185,7 @@ nImO::Double::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -229,19 +229,19 @@ nImO::Double::extractValue
      SpArray            parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, parentValue.get()); //####
+    ODL_X1(leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort{DataKind::DoubleShortCount == (DataKind::DoubleCountMask & leadByte)};
     int64_t howMany;
 
     ++position; // We will always accept the lead byte
-    ODL_I1("position <- ", position); //####
+    ODL_I1(position); //####
     if (isShort)
     {
         howMany = toUType(DataKind::DoubleShortCountMask & leadByte) + 1;
-        ODL_I1("howMany <- ", howMany);
+        ODL_I1(howMany);
     }
     else
     {
@@ -257,19 +257,19 @@ nImO::Double::extractValue
             {
                 ODL_LOG("(atEnd)"); //####
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {
                 holder[ii] = StaticCast(uint8_t, aByte);
                 ++position;
-                ODL_I1("position <- ", position); //####
+                ODL_I1(position); //####
             }
         }
         if (okSoFar)
         {
             howMany = B2I(holder, size);
-            ODL_I1("howMany <- ", howMany);
+            ODL_I1(howMany);
         }
         else
         {
@@ -296,13 +296,13 @@ nImO::Double::extractValue
                     ODL_LOG("(atEnd)"); //####
                     result.reset();
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {
                     holder[jj] = StaticCast(uint8_t, aByte);
                     ++position;
-                    ODL_I1("position <- ", position); //####
+                    ODL_I1(position); //####
                 }
             }
             if (okSoFar)
@@ -326,7 +326,7 @@ nImO::Double::getExtractionInfo
      DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    ODL_P2(&aByte, &aMask); //####
     aByte = DataKind::Double;
     aMask = DataKind::Mask;
     ODL_EXIT(); //####
@@ -351,7 +351,7 @@ nImO::Double::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -397,7 +397,7 @@ nImO::Double::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -439,7 +439,7 @@ nImO::Double::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -485,7 +485,7 @@ nImO::Double::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -527,7 +527,7 @@ nImO::Double::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -544,7 +544,7 @@ nImO::Double::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     out << _floatValue;
     ODL_OBJEXIT_P(&out); //####
     return out;
@@ -558,8 +558,8 @@ nImO::Double::printToStringBuffer
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     outBuffer.addDouble(_floatValue);
     ODL_OBJEXIT(); //####
 } // nImO::Double::printToStringBuffer
@@ -574,8 +574,8 @@ nImO::Double::printToStringBufferAsJSON
     NIMO_UNUSED_VAR_(asKey);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     outBuffer.addDouble(_floatValue);
     ODL_OBJEXIT(); //####
 } // nImO::Double::printToStringBufferAsJSON
@@ -586,7 +586,7 @@ nImO::Double::writeToMessage
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     NumberAsBytes   numBuff;
 
     D2B(_floatValue, numBuff);
@@ -604,7 +604,7 @@ nImO::Double::writeValuesToMessage
      nImO::Message &        outMessage)
 {
     ODL_ENTER(); //####
-    ODL_P2("values = ", &values, "outMessage = ", &outMessage); //####
+    ODL_P2(&values, &outMessage); //####
     NumberAsBytes   numBuff;
     size_t          numValues{values.size()};
 

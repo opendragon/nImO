@@ -95,7 +95,7 @@ nImO::GetRunParamsForAppCommandHandler::GetRunParamsForAppCommandHandler
         inherited{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetRunParamsForAppCommandHandler::GetRunParamsForAppCommandHandler
 
@@ -111,7 +111,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
     auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
@@ -158,7 +158,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                             params->addValue(std::make_shared<String>(line));
                         }
                         okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "get run params for app"s, params, reason);
-                        ODL_B1("okSoFar <- ", okSoFar); //####
+                        ODL_B1(okSoFar); //####
                         cc.wait();
                     }
                 }

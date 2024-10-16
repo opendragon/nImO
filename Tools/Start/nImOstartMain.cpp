@@ -90,7 +90,7 @@ constructNodeNameFromOptions
      const nImO::StdStringVector &  theOptions)
 {
     ODL_ENTER(); //####
-    ODL_S2s("launcherName = ", launcherName, "serviceName = ", serviceName); //####
+    ODL_S2s(launcherName, serviceName); //####
     std::string nodeName{launcherName};
     std::string tag{};
 

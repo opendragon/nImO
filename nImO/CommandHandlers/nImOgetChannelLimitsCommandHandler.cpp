@@ -89,7 +89,7 @@ nImO::GetChannelLimitsCommandHandler::GetChannelLimitsCommandHandler
         inherited{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetChannelLimitsCommandHandler::GetChannelLimitsCommandHandler
 
@@ -105,7 +105,7 @@ nImO::GetChannelLimitsCommandHandler::doIt
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("get channel limits request received."s);
@@ -120,7 +120,7 @@ nImO::GetChannelLimitsCommandHandler::doIt
         infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
         infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
         okSoFar = sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray, reason);
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {

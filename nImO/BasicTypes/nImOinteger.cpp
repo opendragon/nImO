@@ -94,7 +94,7 @@ nImO::Integer::Integer
         inherited{}, _intValue{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_I1("initialValue = ", initialValue); //####
+    ODL_I1(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
@@ -103,7 +103,7 @@ nImO::Integer::Integer
         inherited{}, _intValue{other._intValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
@@ -113,7 +113,7 @@ nImO::Integer::Integer
         inherited{std::move(other)}, _intValue{other._intValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._intValue = 0;
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
@@ -138,7 +138,7 @@ nImO::Integer::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool    result{&other == this};
 
     if (! result)
@@ -160,7 +160,7 @@ nImO::Integer::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "integer";
     ODL_OBJEXIT_P(&output); //####
     return output;
@@ -184,7 +184,7 @@ nImO::Integer::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -228,8 +228,8 @@ nImO::Integer::extractValue
      SpArray            parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, parentValue.get()); //####
+    ODL_X1(leadByte); //####
     SpValue     result;
     IntStatus   numStatus;
     int64_t     holder{extractInt64FromMessage(theMessage, leadByte, position, numStatus)};
@@ -258,7 +258,7 @@ nImO::Integer::getExtractionInfo
      DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    ODL_P2(&aByte, &aMask); //####
     aByte = DataKind::Integer;
     aMask = DataKind::Mask;
     ODL_EXIT(); //####
@@ -283,7 +283,7 @@ nImO::Integer::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -329,7 +329,7 @@ nImO::Integer::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -371,7 +371,7 @@ nImO::Integer::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -417,7 +417,7 @@ nImO::Integer::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -459,7 +459,7 @@ nImO::Integer::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -476,7 +476,7 @@ nImO::Integer::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     out << _intValue;
     ODL_OBJEXIT_P(&out); //####
     return out;
@@ -490,8 +490,8 @@ nImO::Integer::printToStringBuffer
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     outBuffer.addLong(_intValue);
     ODL_OBJEXIT(); //####
 } // nImO::Integer::printToStringBuffer
@@ -505,8 +505,8 @@ nImO::Integer::printToStringBufferAsJSON
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     if (asKey)
     {
         outBuffer.appendChar(kDoubleQuote);
@@ -526,7 +526,7 @@ nImO::Integer::writeToMessage
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     writeInt64ToMessage(outMessage, _intValue);
     ODL_OBJEXIT(); //####
 } // nImO::Integer::writeToMessage

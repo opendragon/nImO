@@ -88,7 +88,7 @@ nImO::RemoveChannelCommandHandler::RemoveChannelCommandHandler
         inherited{owner, theRegistry}, _statusConnection{statusConnection}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::RemoveChannelCommandHandler::RemoveChannelCommandHandler
 
@@ -104,7 +104,7 @@ nImO::RemoveChannelCommandHandler::doIt
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("remove channel request received."s);
@@ -122,7 +122,7 @@ nImO::RemoveChannelCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kRemoveChannelResponse, "remove channel"s, true, reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kChannelRemovedStatus + kStatusSeparator + nodeName + kStatusSeparator + path);

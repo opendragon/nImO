@@ -88,10 +88,10 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
         inherited{argName, argDescription, argMode}
 {
     ODL_ENTER(); //####
-    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    ODL_S3s(argName, argDescription, defaultValue); //####
+    ODL_I1(argMode); //####
     setValidity(setDefaultValue(defaultValue));
-    ODL_B1("isValid() <- ", isValid()); //####
+    ODL_B1(isValid()); //####
     ODL_EXIT_P(this); //####
 } // TimeArgumentDescriptor::TimeArgumentDescriptor
 
@@ -100,7 +100,7 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
         inherited{other}, _currentValue{other._currentValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // TimeArgumentDescriptor::TimeArgumentDescriptor
 
@@ -110,7 +110,7 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
         inherited{std::move(other)}, _currentValue{other._currentValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._currentValue = 0;
     ODL_EXIT_P(this); //####
 } // TimeArgumentDescriptor::TimeArgumentDescriptor
@@ -195,7 +195,7 @@ TimeArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -211,7 +211,7 @@ TimeArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -225,7 +225,7 @@ TimeArgumentDescriptor::parseArgString
         Time::TimePieces    pieces;
 
         okSoFar = GetTimePieces(pieces, defaultString);
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
         if (okSoFar)
         {
             result = std::make_shared<TimeArgumentDescriptor>(name, description, argMode, defaultString);
@@ -240,11 +240,11 @@ TimeArgumentDescriptor::setCurrentValue
     (const std::string &    newValue)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("newValue = ", newValue); //####
+    ODL_S1s(newValue); //####
     Time::TimePieces    pieces;
     bool                okSoFar = GetTimePieces(pieces, newValue);
 
-    ODL_B1("okSoFar <- ", okSoFar); //####
+    ODL_B1(okSoFar); //####
     if (okSoFar)
     {
         _currentValue = MakeTimeValue(pieces);
@@ -258,11 +258,11 @@ TimeArgumentDescriptor::setDefaultValue
     (const std::string &    newValue)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("newValue = ", newValue); //####
+    ODL_S1s(newValue); //####
     Time::TimePieces    pieces;
     bool                okSoFar = GetTimePieces(pieces, newValue);
 
-    ODL_B1("okSoFar <- ", okSoFar); //####
+    ODL_B1(okSoFar); //####
     if (okSoFar)
     {
         _defaultValue = MakeTimeValue(pieces);
@@ -277,7 +277,7 @@ TimeArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_I1("_currentValue <- ", _currentValue); //####
+    ODL_I1(_currentValue); //####
     ODL_OBJEXIT(); //####
 } // TimeArgumentDescriptor::setToDefaultValue
 
@@ -286,7 +286,7 @@ TimeArgumentDescriptor::swap
     (TimeArgumentDescriptor &    other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_currentValue, other._currentValue);
     ODL_OBJEXIT(); //####
@@ -308,15 +308,15 @@ TimeArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     Time::TimePieces    pieces;
 
     setValidity(GetTimePieces(pieces, value));
-    ODL_B1("isValid() <- ", isValid()); //####
+    ODL_B1(isValid()); //####
     if (isValid())
     {
         setCurrentValue(value);
-        ODL_I1("_currentValue <- ", getCurrentValue()); //####
+        ODL_I1(getCurrentValue()); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

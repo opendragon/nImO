@@ -90,7 +90,7 @@ nImO::Container::Container
         inherited{std::move(other)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Container::Container
 
@@ -114,7 +114,7 @@ nImO::Container::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));

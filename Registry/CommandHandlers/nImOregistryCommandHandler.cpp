@@ -82,7 +82,7 @@ nImO::RegistryCommandHandler::RegistryCommandHandler
         inherited(owner), _registry(theRegistry)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::RegistryCommandHandler::RegistryCommandHandler
 

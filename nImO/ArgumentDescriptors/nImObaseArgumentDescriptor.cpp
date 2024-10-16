@@ -104,8 +104,8 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
         _argDescription{argDescription}, _argMode{argMode}, _argName{argName}, _valid{true}
 {
     ODL_ENTER(); //####
-    ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    ODL_S2s(argName, argDescription); //####
+    ODL_I1(argMode); //####
     ODL_EXIT_P(this); //####
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
@@ -115,7 +115,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
         _valid{other._valid}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
@@ -126,7 +126,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
         _valid{other._valid}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._argDescription = other._argName = "";
     other._argMode = ArgumentMode::Unknown;
     other._valid = false;
@@ -206,7 +206,7 @@ BaseArgumentDescriptor::isForFiles
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("isForOutput = ", &isForOutput); //####
+    ODL_P1(&isForOutput); //####
     isForOutput = false;
     ODL_OBJEXIT_B(false); //####
     return false;
@@ -227,7 +227,7 @@ BaseArgumentDescriptor::modeFromString
     (const std::string &    modeString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("modeString = ", modeString); //####
+    ODL_S1s(modeString); //####
     ArgumentMode result{ArgumentMode::Unknown};
     int64_t      modeAsInt;
 
@@ -249,7 +249,7 @@ BaseArgumentDescriptor::operator=
     (const BaseArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         _argDescription = other._argDescription;
@@ -267,7 +267,7 @@ BaseArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         _argDescription = std::move(other._argDescription);
@@ -292,10 +292,10 @@ BaseArgumentDescriptor::partitionString
      const size_t           indexOfListValue)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
-    ODL_C1("expectedTag = ", expectedTag); //####
-    ODL_I2("indexOfDefaultValue = ", indexOfDefaultValue, "indexOfListValue = ", indexOfListValue); //####
-    ODL_P3("name = ", &name, "argMode = ", &argMode, "result = ", &result); //####
+    ODL_S1s(inString); //####
+    ODL_C1(expectedTag); //####
+    ODL_I2(indexOfDefaultValue, indexOfListValue); //####
+    ODL_P3(&name, &argMode, &result); //####
     bool    okSoFar{false};
     auto    workingCopy{inString};
 
@@ -331,7 +331,7 @@ BaseArgumentDescriptor::partitionString
                 {
                     workingCopy = workingCopy.substr(1);
                     okSoFar = true;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {
@@ -380,13 +380,13 @@ BaseArgumentDescriptor::partitionString
         if ((1 != typeTag.length()) || (expectedTag != StaticCast(ArgumentTypeTag, typeTag[0])))
         {
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         if (okSoFar)
         {
             argMode = modeFromString(modeString);
             okSoFar = (ArgumentMode::Unknown != argMode);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
@@ -407,7 +407,7 @@ BaseArgumentDescriptor::prefixFields
     const
 {
     ODL_OBJENTER(); //####
-    ODL_C1("tagForField = ", tagForField); //####
+    ODL_C1(tagForField); //####
     auto    result{_argName + _parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode))};
 
     ODL_OBJEXIT_s(result); //####
@@ -419,7 +419,7 @@ BaseArgumentDescriptor::setValidity
     (const bool isValid)
 {
     ODL_OBJENTER(); //####
-    ODL_B1("isValid = ", isValid); //####
+    ODL_B1(isValid); //####
     _valid = isValid;
     ODL_OBJEXIT(); //####
 } // BaseArgumentDescriptor::setValidity
@@ -429,7 +429,7 @@ BaseArgumentDescriptor::suffixFields
     (const std::string &    defaultToUse)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("defaultToUse = ", defaultToUse); //####
+    ODL_S1s(defaultToUse); //####
     char    charToUse{identifyDelimiter(defaultToUse)};
     auto    result{_parameterSeparator + charToUse + defaultToUse + charToUse + _parameterSeparator + _argDescription};
 
@@ -442,7 +442,7 @@ BaseArgumentDescriptor::swap
     (BaseArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     std::swap(_valid, other._valid);
     std::swap(_argDescription, other._argDescription);
     std::swap(_argName, other._argName);
@@ -459,7 +459,7 @@ nImO::ArgumentsToArgString
     (const DescriptorVector &   arguments)
 {
     ODL_ENTER(); //####
-    ODL_P1("arguments = ", &arguments); //####
+    ODL_P1(&arguments); //####
     std::string result;
     size_t      numOptional{0};
 
@@ -496,8 +496,8 @@ nImO::ArgumentsToDescriptionArray
      const size_t              minSpace)
 {
     ODL_ENTER(); //####
-    ODL_P2("arguments = ", &arguments, "output = ", &output); //####
-    ODL_I1("minSpace = ", minSpace); //####
+    ODL_P2(&arguments, &output); //####
+    ODL_I1(minSpace); //####
     int       nameSize{-1};
     int       optionSize{-1};
     const int kOptionStringLen{20}; // '(Optional, default=)'
@@ -568,8 +568,8 @@ nImO::CombineArguments
      const std::string &        sep)
 {
     ODL_ENTER(); //####
-    ODL_P1("arguments = ", &arguments); //####
-    ODL_S1s("sep = ", sep); //####
+    ODL_P1(&arguments); //####
+    ODL_S1s(sep); //####
     std::string result;
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
@@ -594,7 +594,7 @@ nImO::ConvertStringToDescriptor
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     auto    result{AddressArgumentDescriptor::parseArgString(inString)};
 
     if (! result)
@@ -652,7 +652,7 @@ nImO::ProcessArguments
      std::string &              badArgs)
 {
     ODL_ENTER(); //####
-    ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", &badArgs); //####
+    ODL_P3(&arguments, &parseResult, &badArgs); //####
     bool   result{true};
     bool   sawExtra{false};
     bool   sawOptional{false};
@@ -660,7 +660,7 @@ nImO::ProcessArguments
     size_t numValues{StaticCast(size_t, parseResult.nonOptionsCount())};
     size_t numToCheck{std::min(numArgs, numValues)};
 
-    ODL_I3("numArgs <- ", numArgs, "numValues <-", numValues, "numToCheck <- ", numToCheck); //####
+    ODL_I3(numArgs, numValues, numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.
     badArgs = ""s;
     for (size_t ii = 0; numArgs > ii; ++ii)
@@ -693,13 +693,13 @@ nImO::ProcessArguments
                 {
                     ODL_LOG("(anArg->isOptional())"); //####
                     result = (! sawExtra);
-                    ODL_B1("result <- ", result); //####
+                    ODL_B1(result); //####
                     sawOptional = true;
                 }
                 else
                 {
                     result = (! sawOptional) && (! sawExtra);
-                    ODL_B1("result <- ", result); //####
+                    ODL_B1(result); //####
                 }
             }
         }
@@ -722,7 +722,7 @@ nImO::ProcessArguments
                     }
                     badArgs += anArg->argumentName();
                     result = false;
-                    ODL_B1("result <- ", result); //####
+                    ODL_B1(result); //####
                 }
             }
         }
@@ -737,7 +737,7 @@ nImO::ProcessArguments
         if ((nullptr != anArg) && (! anArg->isExtra()))
         {
             ODL_LOG("((nullptr != anArg) && (! anArg->isExtra()))"); //####
-            ODL_I1("arg mode = ", anArg->argumentMode()); //####
+            ODL_I1(anArg->argumentMode()); //####
             if (! anArg->isOptional())
             {
                 ODL_LOG("(! anArg->isOptional())"); //####
@@ -747,7 +747,7 @@ nImO::ProcessArguments
                 }
                 badArgs += anArg->argumentName();
                 result = false;
-                ODL_B1("result <- ", result); //####
+                ODL_B1(result); //####
             }
         }
     }
@@ -760,7 +760,7 @@ nImO::PromptForValues
     (const DescriptorVector &   arguments)
 {
     ODL_ENTER(); //####
-    ODL_P1("arguments = ", &arguments); //####
+    ODL_P1(&arguments); //####
     bool    result{true};
     char    inChar;
 

@@ -147,8 +147,8 @@ loadApplicationInformation
      const std::string &        appListFilePath)
 {
     ODL_ENTER(); //####
-    ODL_P1("ourContext = ", ourContext.get()); //####
-    ODL_S1s("appListFilePath = ", appListFilePath); //####
+    ODL_P1(ourContext.get()); //####
+    ODL_S1s(appListFilePath); //####
     std::string workingPath{};
     bool        result{false};
 

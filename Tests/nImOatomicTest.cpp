@@ -101,7 +101,7 @@ catchSignal
     (int signal)
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    ODL_I1(signal); //####
     auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
@@ -120,8 +120,8 @@ compareValueWithString
      CPtr(char)     aString)
 {
     ODL_ENTER(); //####
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
+    ODL_P1(&aValue); //####
+    ODL_S1(aString); //####
     StringBuffer    buff;
     int             result;
 
@@ -129,7 +129,7 @@ compareValueWithString
     auto    valString{buff.getString()};
 
     result = valString.compare(aString);
-    ODL_S2("got: ", valString.c_str(), "expected: ", aString); //####
+    ODL_S2(valString.c_str(), aString); //####
     ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithString
@@ -145,8 +145,8 @@ compareValueWithStringAsJSON
      CPtr(char)     aString)
 {
     ODL_ENTER(); //####
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
+    ODL_P1(&aValue); //####
+    ODL_S1(aString); //####
     StringBuffer    buff;
     int             result;
 
@@ -154,7 +154,7 @@ compareValueWithStringAsJSON
     auto    valString{buff.getString()};
 
     result = valString.compare(aString);
-    ODL_S2("got: ", valString.c_str(), "expected: ", aString); //####
+    ODL_S2(valString.c_str(), aString); //####
     ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithStringAsJSON
@@ -228,9 +228,9 @@ doTestEmptyBufferChunk
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -282,9 +282,9 @@ doTestBufferChunkWithSingleByte
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -348,9 +348,9 @@ doTestFilledBufferChunk
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -440,9 +440,9 @@ doTestOverfilledBufferChunk
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -532,9 +532,9 @@ doTestBufferChunkReset
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -597,9 +597,9 @@ doTestEmptyStringBuffer
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -659,9 +659,9 @@ doTestStringBufferWithCharacters
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -688,7 +688,7 @@ doTestStringBufferWithCharacters
                     }
                     else
                     {
-                        ODL_S2("outString = ", outString, "resultString = ", resultString.c_str()); //####
+                        ODL_S2(outString, resultString.c_str()); //####
                         ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
                 }
@@ -734,9 +734,9 @@ doTestStringBufferWithLogical
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -808,9 +808,9 @@ doTestStringBufferWithInteger
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -880,9 +880,9 @@ doTestStringBufferWithString
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -956,9 +956,9 @@ doTestStringBufferWithSpecialCharacters
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1023,9 +1023,9 @@ doTestStringBufferWithDouble
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1106,9 +1106,9 @@ doTestBigStringBuffer
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1180,9 +1180,9 @@ doTestStringBufferWithEmptyBlob
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1238,9 +1238,9 @@ doTestStringBufferWithSmallBlob
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1322,9 +1322,9 @@ doTestStringBufferWithBigBlob
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1406,9 +1406,9 @@ doTestStringBufferReset
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1473,9 +1473,9 @@ doTestDefaultLogicalValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1525,9 +1525,9 @@ doTestLogicalValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1596,9 +1596,9 @@ doTestDefaultIntegerValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1649,9 +1649,9 @@ doTestNumberValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1745,9 +1745,9 @@ doTestDefaultStringValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1797,9 +1797,9 @@ doTestStringValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1858,9 +1858,9 @@ doTestStringValueWithEscapes
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1914,9 +1914,9 @@ doTestDefaultBlobValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1968,9 +1968,9 @@ doTestSmallBlobValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2050,9 +2050,9 @@ doTestBigBlobValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2132,9 +2132,9 @@ doTestLogicalCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result;
 
     try
@@ -2205,9 +2205,9 @@ doTestIntegerCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2299,9 +2299,9 @@ doTestDoubleCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2392,9 +2392,9 @@ doTestStringCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2465,9 +2465,9 @@ doTestBlobCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2583,9 +2583,9 @@ doTestDefaultAddressValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2636,9 +2636,9 @@ doTestAddressValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1("launchPath = ", launchPath); //####
-//    ODL_I1("argc = ", argc); //####
-//    ODL_P1("argv = ", argv); //####
+//    ODL_S1(launchPath); //####
+//    ODL_I1(argc); //####
+//    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2703,9 +2703,9 @@ doTestAddressCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2791,9 +2791,9 @@ doTestDefaultDateValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2844,9 +2844,9 @@ doTestDateValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1("launchPath = ", launchPath); //####
-//    ODL_I1("argc = ", argc); //####
-//    ODL_P1("argv = ", argv); //####
+//    ODL_S1(launchPath); //####
+//    ODL_I1(argc); //####
+//    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2911,9 +2911,9 @@ doTestDateCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2999,9 +2999,9 @@ doTestDefaultTimeValue
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -3052,9 +3052,9 @@ doTestTimeValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1("launchPath = ", launchPath); //####
-//    ODL_I1("argc = ", argc); //####
-//    ODL_P1("argv = ", argv); //####
+//    ODL_S1(launchPath); //####
+//    ODL_I1(argc); //####
+//    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -3119,9 +3119,9 @@ doTestTimeCopyAndAssign
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -3207,9 +3207,9 @@ doTestValidLogicalCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -3327,9 +3327,9 @@ doTestValidNumberCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -3766,9 +3766,9 @@ doTestValidStringCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -3911,9 +3911,9 @@ doTestValidBlobCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4066,9 +4066,9 @@ doTestInvalidLogicalCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4173,9 +4173,9 @@ doTestInvalidNumberCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4280,9 +4280,9 @@ doTestInvalidStringCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4387,9 +4387,9 @@ doTestInvalidBlobCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4494,9 +4494,9 @@ doTestValidAddressCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4633,9 +4633,9 @@ doTestInvalidAddressCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4740,9 +4740,9 @@ doTestValidDateCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4879,9 +4879,9 @@ doTestInvalidDateCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -4986,9 +4986,9 @@ doTestValidTimeCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -5125,9 +5125,9 @@ doTestInvalidTimeCompares
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{0};
 
     try
@@ -5232,9 +5232,9 @@ doTestDefaultLogicalValueAsJSON
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5284,9 +5284,9 @@ doTestLogicalValueAsJSON
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5355,9 +5355,9 @@ doTestDefaultIntegerValueAsJSON
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5408,9 +5408,9 @@ doTestNumberValueAsJSON
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5504,9 +5504,9 @@ doTestDefaultStringValueAsJSON
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5556,9 +5556,9 @@ doTestStringValueAsJSON
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5617,9 +5617,9 @@ doTestDefaultAddressValueJSON
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5670,9 +5670,9 @@ doTestAddressValueJSON
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5737,9 +5737,9 @@ doTestDefaultDateValueJSON
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5790,9 +5790,9 @@ doTestDateValueJSON
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1("launchPath = ", launchPath); //####
-//    ODL_I1("argc = ", argc); //####
-//    ODL_P1("argv = ", argv); //####
+//    ODL_S1(launchPath); //####
+//    ODL_I1(argc); //####
+//    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5857,9 +5857,9 @@ doTestDefaultTimeValueJSON
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5910,9 +5910,9 @@ doTestTimeValueJSON
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1("launchPath = ", launchPath); //####
-//    ODL_I1("argc = ", argc); //####
-//    ODL_P1("argv = ", argv); //####
+//    ODL_S1(launchPath); //####
+//    ODL_I1(argc); //####
+//    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -6276,7 +6276,7 @@ main
                 }
                 if (0 != result)
                 {
-                    ODL_I1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1(result); //####
                 }
             }
             else

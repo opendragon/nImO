@@ -94,10 +94,10 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
         _hasMinimumValue{hasMinimumValue}
 {
     ODL_ENTER(); //####
-    ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
-    ODL_D3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, "maximumValue = ", maximumValue); //####
-    ODL_B2("hasMinimumValue = ", hasMinimumValue, "hasMaximumValue = ", hasMaximumValue); //####
+    ODL_S2s(argName, argDescription); //####
+    ODL_I1(argMode); //####
+    ODL_D3(defaultValue, minimumValue, maximumValue); //####
+    ODL_B2(hasMinimumValue, hasMaximumValue); //####
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
@@ -108,7 +108,7 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
         _hasMinimumValue{other._hasMinimumValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
@@ -120,7 +120,7 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
         _hasMinimumValue{other._hasMinimumValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._defaultValue = other._maximumValue = other._minimumValue = 0;
     other._hasMaximumValue = other._hasMinimumValue = false;
     ODL_EXIT_P(this); //####
@@ -225,7 +225,7 @@ DoubleArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -246,7 +246,7 @@ DoubleArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -266,7 +266,7 @@ DoubleArgumentDescriptor::parseArgString
         if (defaultString.empty())
         {
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
@@ -279,7 +279,7 @@ DoubleArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar && (! minValString.empty()))
@@ -293,7 +293,7 @@ DoubleArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar && (! maxValString.empty()))
@@ -307,7 +307,7 @@ DoubleArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar)
@@ -330,7 +330,7 @@ DoubleArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_D1("_currentValue <- ", _currentValue); //####
+    ODL_D1(_currentValue); //####
     ODL_OBJEXIT(); //####
 } // DoubleArgumentDescriptor::setToDefaultValue
 
@@ -339,7 +339,7 @@ DoubleArgumentDescriptor::swap
     (DoubleArgumentDescriptor & other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_currentValue, other._currentValue);
     std::swap(_defaultValue, other._defaultValue);
@@ -376,33 +376,33 @@ DoubleArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     double  dblValue;
 
     if (ConvertToDouble(value, dblValue))
     {
         setValidity(true);
-        ODL_B1("isValid() <- ", isValid()); //####
+        ODL_B1(isValid()); //####
         if (_hasMinimumValue && (dblValue < _minimumValue))
         {
             setValidity(false);
-            ODL_B1("isValid() <- ", isValid()); //####
+            ODL_B1(isValid()); //####
         }
         if (_hasMaximumValue && (dblValue > _maximumValue))
         {
             setValidity(false);
-            ODL_B1("isValid() <- ", isValid()); //####
+            ODL_B1(isValid()); //####
         }
     }
     else
     {
         setValidity(false);
-        ODL_B1("isValid() <- ", isValid()); //####
+        ODL_B1(isValid()); //####
     }
     if (isValid())
     {
         _currentValue = dblValue;
-        ODL_D1("_currentValue <- ", _currentValue); //####
+        ODL_D1(_currentValue); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

@@ -130,8 +130,8 @@ nImO::Value::addToExtractionMap
      Extractor      theExtractor)
 {
     ODL_ENTER(); //####
-    ODL_I2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
-    ODL_P1("theExtractor = ", &theExtractor); //####
+    ODL_I2(toUType(aByte), toUType(aMask)); //####
+    ODL_P1(&theExtractor); //####
     uint8_t lByte{toUType(aByte)};
     uint8_t lMask{toUType(aMask)};
 
@@ -296,7 +296,7 @@ nImO::Value::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_OBJEXIT_B(&other == this); //####
     return (&other == this);
 } // nImO::Value::deeplyEqualTo
@@ -319,7 +319,7 @@ nImO::Value::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -338,8 +338,8 @@ nImO::Value::extractInt64FromMessage
      IntStatus &        status)
 {
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, &status); //####
+    ODL_X1(leadByte); //####
     int64_t result{0};
 
     if (DataKind::Integer == (leadByte & DataKind::Mask))
@@ -347,7 +347,7 @@ nImO::Value::extractInt64FromMessage
         bool    isShort{DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte)};
 
         ++position; // We can accept the lead byte
-        ODL_I1("position <- ", position); //####
+        ODL_I1(position); //####
         if (isShort)
         {
             ODL_LOG("(isShort)"); //####
@@ -367,7 +367,7 @@ nImO::Value::extractInt64FromMessage
                 result = toUType(shortBits);
             }
             status = IntStatus::Successful;
-            ODL_I1("status <- ", toUType(status)); //####
+            ODL_I1(toUType(status)); //####
         }
         else
         {
@@ -385,22 +385,22 @@ nImO::Value::extractInt64FromMessage
                 {
                     ODL_LOG("(atEnd)"); //####
                     status = IntStatus::Incomplete;
-                    ODL_I1("status <- ", toUType(status)); //####
+                    ODL_I1(toUType(status)); //####
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {
                     holder[ii] = StaticCast(uint8_t, aByte);
                     ++position;
-                    ODL_I1("position <- ", position); //####
+                    ODL_I1(position); //####
                 }
             }
             if (okSoFar)
             {
                 result = B2I(holder, size);
                 status = IntStatus::Successful;
-                ODL_I1("status <- ", toUType(status)); //####
+                ODL_I1(toUType(status)); //####
             }
         }
     }
@@ -408,7 +408,7 @@ nImO::Value::extractInt64FromMessage
     {
         ODL_LOG("! (DataKind::Integer == (leadByte & DataKind::Mask))"); //####
         status = IntStatus::Invalid;
-        ODL_I1("status <- ", toUType(status)); //####
+        ODL_I1(toUType(status)); //####
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -434,8 +434,8 @@ nImO::Value::getValueFromMessage
      SpArray            parent)
 {
     ODL_ENTER(); //####
-    ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&inMessage, &position, parent.get()); //####
+    ODL_X1(leadByte); //####
     SpValue result;
     auto    match{gExtractors.find(StaticCast(uint8_t, leadByte))};
 
@@ -456,7 +456,7 @@ nImO::Value::getValueFromMessage
         else
         {
             result = handler(inMessage, leadByte, position, parent);
-            ODL_P1("result <- ", result.get()); //####
+            ODL_P1(result.get()); //####
         }
     }
     ODL_EXIT_P(result.get()); //####
@@ -470,7 +470,7 @@ nImO::Value::greaterThan
 {
     NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{false, false};
 
     ODL_EXIT_B(result.value()); //####
@@ -483,7 +483,7 @@ nImO::Value::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -553,7 +553,7 @@ nImO::Value::isLegalTerminator
     (const char aChar)
 {
     ODL_ENTER(); //####
-    ODL_C1("aChar = ", aChar); //####
+    ODL_C1(aChar); //####
     bool    result;
 
     if (isspace(aChar) || Noise(aChar) || (kCommentChar == aChar))
@@ -575,7 +575,7 @@ nImO::Value::lessThan
 {
     NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{false, false};
 
     ODL_EXIT_B(result.value()); //####
@@ -588,7 +588,7 @@ nImO::Value::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -605,7 +605,7 @@ nImO::Value::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     std::ios_base::fmtflags  originalFormat{out.flags()};
 
     out << std::hex << "0x" << ReinterpretCast(int64_t, this);
@@ -623,8 +623,8 @@ nImO::Value::printToStringBuffer
     NIMO_UNUSED_VAR_(outBuffer);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::printToStringBuffer
 
@@ -639,8 +639,8 @@ nImO::Value::printToStringBufferAsJSON
     NIMO_UNUSED_VAR_(asKey);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::printToStringBufferAsJSON
 
@@ -650,16 +650,16 @@ nImO::Value::readFromStringBuffer
      size_t &               position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    ODL_P2(&inBuffer, &position); //####
     SpValue result;
     size_t  localIndex{position};
     bool    atEnd{false};
     int     aChar{kEndOfString};
 
     inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
-    ODL_I1("localIndex = ", localIndex); //####
-    ODL_C1("aChar = ", aChar); //####
-    ODL_B1("atEnd = ", atEnd); //####
+    ODL_I1(localIndex); //####
+    ODL_C1(aChar); //####
+    ODL_B1(atEnd); //####
     if (atEnd)
     {
         ODL_LOG("(atEnd)"); //####
@@ -704,8 +704,8 @@ nImO::Value::writeInt64ToMessage
      const int64_t  outValue)
 {
     ODL_ENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
-    ODL_I1("outValue = ", outValue); //####
+    ODL_P1(&outMessage); //####
+    ODL_I1(outValue); //####
     if ((kDataKindIntegerShortValueMinValue <= outValue) &&
         (kDataKindIntegerShortValueMaxValue >= outValue))
     {
@@ -745,7 +745,7 @@ nImO::Value::writeToMessage
 {
     NIMO_UNUSED_VAR_(outMessage);
     ODL_OBJENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::writeToMessage
 
@@ -759,7 +759,7 @@ nImO::operator<<
      const nImO::Value &    aValue)
 {
     ODL_ENTER(); //###
-    ODL_P2("out = ", &out, "aValue = ", &aValue); //####
+    ODL_P2(&out, &aValue); //####
     aValue.operator<<(out);
     ODL_EXIT_P(&out); //####
     return out;

@@ -369,7 +369,7 @@ nImO::RegistryContext::RegistryContext
         inherited{argc, argv, "Registry"s, logging, true}, _startAnnouncer{startAnnouncer}
 {
     ODL_ENTER(); //####
-    ODL_B1("logging = ", logging); //####
+    ODL_B1(logging); //####
     try
     {
 
@@ -400,7 +400,7 @@ nImO::RegistryContext::executeAnnouncer
     (RegistryContext &  owner)
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", &owner); //####
+    ODL_P1(&owner); //####
     struct timeval timeout;
 
     timeout.tv_sec = 2;
@@ -482,8 +482,8 @@ nImO::RegistryContext::makePortAnnouncement
      const std::string &    dataKey)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("port = ", port); //####
-    ODL_S3s("serviceName = ", serviceName, "hostName = ", hostName, "dataKey = ", dataKey); //####
+    ODL_I1(port); //####
+    ODL_S3s(serviceName, hostName, dataKey); //####
     bool    okSoFar;
 
     _announceData.reset();
@@ -493,9 +493,9 @@ nImO::RegistryContext::makePortAnnouncement
         std::string hostAddress;
 
         lAnnouncerThreadStop = false;
-        ODL_B1("lAnnouncerThreadStop <- ", lAnnouncerThreadStop); //####
+        ODL_B1(lAnnouncerThreadStop); //####
         _announceData = std::make_unique<AnnounceServiceData>(gServiceAddressIpv4, gServiceAddressIpv6);
-        ODL_P1("_announceData <- ", _announceData.get()); //####
+        ODL_P1(_announceData.get()); //####
         _announcerThread = new boost::thread([this]
                                             (void)
                                             {
@@ -503,7 +503,7 @@ nImO::RegistryContext::makePortAnnouncement
                                                 executeAnnouncer(*this);
                                                 ODL_LOG("announcer thread ended"); //####
                                             });
-        ODL_P1("announcer thread = ", _announcerThread); //####
+        ODL_P1(_announcerThread); //####
         _pool.add_thread(_announcerThread);
         if (nImO::ContextWithMDNS::gHasIpv4)
         {
@@ -531,7 +531,7 @@ nImO::RegistryContext::makePortAnnouncement
             }
         }
         okSoFar = _announceData->setServiceData(port, serviceName, hostName, dataKey, hostAddress);
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
         if (okSoFar)
         {
             // Send an announcement on startup of service
@@ -563,7 +563,7 @@ nImO::RegistryContext::makePortAnnouncement
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -606,7 +606,7 @@ nImO::RegistryContext::removeAnnouncement
         if (nullptr != _announcerThread)
         {
             lAnnouncerThreadStop = true;
-            ODL_B1("lAnnouncerThreadStop <- ", lAnnouncerThreadStop); //####
+            ODL_B1(lAnnouncerThreadStop); //####
             _announcerThread->join();
             _announcerThread = nullptr;
         }

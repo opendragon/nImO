@@ -88,9 +88,9 @@ LogicalArgumentDescriptor::LogicalArgumentDescriptor
         inherited{argName, argDescription, argMode}, _defaultValue{defaultValue}
 {
     ODL_ENTER(); //####
-    ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
-    ODL_B1("defaultValue = ", defaultValue); //####
+    ODL_S2s(argName, argDescription); //####
+    ODL_I1(argMode); //####
+    ODL_B1(defaultValue); //####
     ODL_EXIT_P(this); //####
 } // LogicalArgumentDescriptor::LogicalArgumentDescriptor
 
@@ -99,7 +99,7 @@ LogicalArgumentDescriptor::LogicalArgumentDescriptor
         inherited{other}, _defaultValue{other._defaultValue}, _currentValue{other._currentValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // LogicalArgumentDescriptor::LogicalArgumentDescriptor
 
@@ -109,7 +109,7 @@ LogicalArgumentDescriptor::LogicalArgumentDescriptor
         inherited{std::move(other)}, _defaultValue{other._defaultValue}, _currentValue{other._currentValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._currentValue = other._defaultValue = false;
     ODL_EXIT_P(this); //####
 } // LogicalArgumentDescriptor::LogicalArgumentDescriptor
@@ -190,7 +190,7 @@ LogicalArgumentDescriptor::operator=
     (const LogicalArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         LogicalArgumentDescriptor   temp{other};
@@ -207,7 +207,7 @@ LogicalArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -224,7 +224,7 @@ LogicalArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -240,7 +240,7 @@ LogicalArgumentDescriptor::parseArgString
         if (defaultString.empty())
         {
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
@@ -257,7 +257,7 @@ LogicalArgumentDescriptor::parseArgString
                 else
                 {
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
             }
         }
@@ -276,7 +276,7 @@ LogicalArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_B1("_currentValue <- ", _currentValue); //####
+    ODL_B1(_currentValue); //####
     ODL_OBJEXIT(); //####
 } // LogicalArgumentDescriptor::setToDefaultValue
 
@@ -285,7 +285,7 @@ LogicalArgumentDescriptor::swap
     (LogicalArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_defaultValue, other._defaultValue);
     std::swap(_currentValue, other._currentValue);
@@ -308,7 +308,7 @@ LogicalArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     bool    boolValue;
     char    firstChar{StaticCast(char, tolower(value[0]))};
 
@@ -316,7 +316,7 @@ LogicalArgumentDescriptor::validate
     {
         boolValue = false;
         setValidity(true);
-        ODL_B1("isValid() <- ", isValid()); //####
+        ODL_B1(isValid()); //####
     }
     else
     {
@@ -324,18 +324,18 @@ LogicalArgumentDescriptor::validate
         {
             boolValue = true;
             setValidity(true);
-            ODL_B1("isValid() <- ", isValid()); //####
+            ODL_B1(isValid()); //####
         }
         else
         {
             setValidity(false);
-            ODL_B1("isValid() <- ", isValid()); //####
+            ODL_B1(isValid()); //####
         }
     }
     if (isValid())
     {
         _currentValue = boolValue;
-        ODL_B1("_currentValue <- ", _currentValue); //####
+        ODL_B1(_currentValue); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

@@ -85,15 +85,15 @@ nImO::BufferChunk::BufferChunk
         _buffer{std::make_unique<uint8_t[]>(kBufferSize + (addPadding ? 1 : 0))}, _bufferEnd{nullptr}, _write{nullptr}, _padded{addPadding}
 {
     ODL_ENTER(); //####
-    ODL_B1("addPadding = ", addPadding); //####
-    ODL_P1("_buffer <- ", _buffer.get()); //####
+    ODL_B1(addPadding); //####
+    ODL_P1(_buffer.get()); //####
     if (_buffer)
     {
         ODL_LOG("(_buffer)"); //####
         _write = _buffer.get();
         _bufferEnd = _write + kBufferSize;
-        ODL_P2("_bufferEnd <- ", _bufferEnd, "_write <- ", _write); //####
-        ODL_I1("[size] <- ", getDataSize()); //####
+        ODL_P2(_bufferEnd, _write); //####
+        ODL_I1(getDataSize()); //####
         if (_padded)
         {
             ODL_LOG("(_padded)"); //####
@@ -109,7 +109,7 @@ nImO::BufferChunk::BufferChunk
         _buffer{std::move(other._buffer)}, _bufferEnd{other._bufferEnd}, _write{other._write}, _padded{other._padded}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._bufferEnd = other._write = nullptr;
     other._padded = false;
     ODL_EXIT_P(this); //####
@@ -125,8 +125,8 @@ nImO::BufferChunk::appendData
      const size_t   numBytes)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("data = ", data); //####
-    ODL_I1("numBytes = ", numBytes); //####
+    ODL_P1(data); //####
+    ODL_I1(numBytes); //####
     size_t  actualCount{(getAvailableBytes() < numBytes) ? getAvailableBytes() : numBytes};
 
     if (0 < actualCount)
@@ -135,8 +135,8 @@ nImO::BufferChunk::appendData
         ODL_PACKET("data", data, actualCount); //####
         memcpy(_write, data, actualCount);
         _write += actualCount;
-        ODL_P1("_write <- ", _write); //####
-        ODL_I1("[size] <- ", getDataSize()); //####
+        ODL_P1(_write); //####
+        ODL_I1(getDataSize()); //####
         if (_padded)
         {
             ODL_LOG("(_padded)"); //####
@@ -153,7 +153,7 @@ nImO::BufferChunk::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         _buffer = std::move(other._buffer);

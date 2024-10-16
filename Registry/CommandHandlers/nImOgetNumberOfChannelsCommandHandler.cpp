@@ -88,7 +88,7 @@ nImO::GetNumberOfChannelsCommandHandler::GetNumberOfChannelsCommandHandler
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetNumberOfChannelsCommandHandler::GetNumberOfChannelsCommandHandler
 
@@ -105,7 +105,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get number of channels request received."s);
@@ -118,7 +118,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
             okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "get number of channels"s, count, reason);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {

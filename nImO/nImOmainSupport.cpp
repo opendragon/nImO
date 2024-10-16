@@ -94,12 +94,12 @@ nImO::CatchSignal
     (const int  signal)
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    ODL_I1(signal); //####
 #if defined(SIGINT)
     if (SIGINT == signal)
     {
         gKeepRunning = false;
-        ODL_B1("gKeepRunning <- ", gKeepRunning); //####
+        ODL_B1(gKeepRunning); //####
         InterruptRegistryWait();
         if (nullptr != lSpecialSignalObject)
         {
@@ -127,9 +127,9 @@ nImO::CloseConnection
      bool &                     reported)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "proxy = ", proxy.get()); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    ODL_B2("isFrom = ", isFrom, "reported = ", reported); //####
+    ODL_P2(context.get(), proxy.get()); //####
+    ODL_S2s(nodeName, path); //####
+    ODL_B2(isFrom, reported); //####
     bool    result{false};
     auto    statusWithInfo{proxy->getConnectionInformation(nodeName, path, isFrom)};
 
@@ -271,7 +271,7 @@ nImO::MakeOption
      const std::string &    longForm)
 {
     ODL_ENTER(); //####
-    ODL_S2s("shortForm = ", shortForm, "longForm = ", longForm); //####
+    ODL_S2s(shortForm, longForm); //####
     std::string result{};
 
 #if MAC_OR_LINUX_OR_BSD_
@@ -302,7 +302,7 @@ nImO::SetSpecialBreakObject
     (Ptr(CallbackFunction)    sigObject)
 {
     ODL_ENTER(); //####
-    ODL_P1("sigObject = ", sigObject); //####
+    ODL_P1(sigObject); //####
     lSpecialSignalObject = sigObject;
     ODL_EXIT(); //####
 } // nImO::SetSpecialBreakObject

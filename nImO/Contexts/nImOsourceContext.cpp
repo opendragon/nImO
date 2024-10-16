@@ -85,8 +85,8 @@ nImO::SourceContext::SourceContext
         inherited{argc, argv, tagForLogging, logging, nodeName}
 {
     ODL_ENTER(); //####
-    ODL_S2s("tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
-    ODL_B1("logging = ", logging); //####
+    ODL_S2s(tagForLogging, nodeName); //####
+    ODL_B1(logging); //####
     try
     {
     }

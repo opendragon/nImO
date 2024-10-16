@@ -132,11 +132,11 @@ nImO::ProcessServiceOptions
      Ptr(StdStringVector)   arguments)
 {
     ODL_ENTER(); //####
-    ODL_I2("argc = ", argc, "year = ", year); //####
-    ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues, "arguments = ", arguments); //####
-    ODL_S2s("serviceDescription = ", serviceDescription, "copyrightHolder = ", copyrightHolder); //####
-    ODL_X1("skipOptions = ", StaticCast(int64_t, skipOptions)); //####
-    ODL_B2("multipleInputs = ", multipleInputs, "multipleOutputs = ", multipleOutputs); //####
+    ODL_I2(argc, year); //####
+    ODL_P4(argv, &argumentDescriptions, &optionValues, arguments); //####
+    ODL_S2s(serviceDescription, copyrightHolder); //####
+    ODL_X1(StaticCast(int64_t, skipOptions)); //####
+    ODL_B2(multipleInputs, multipleOutputs); //####
     enum class OptionIndex
     {
         kOptionUNKNOWN,
@@ -359,7 +359,7 @@ nImO::ProcessServiceOptions
     {
         ODL_LOG("(parse.error())"); //####
         keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
+        ODL_B1(keepGoing); //####
     }
     else
     {
@@ -368,7 +368,7 @@ nImO::ProcessServiceOptions
         {
             Option_::printUsage(std::cout, usage, kHelpLineLength);
             keepGoing = false;
-            ODL_B1("keepGoing <- ", keepGoing); //####
+            ODL_B1(keepGoing); //####
         }
         else
         {
@@ -470,7 +470,7 @@ nImO::ProcessServiceOptions
                         {
                             std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
                             keepGoing = false;
-                            ODL_B1("keepGoing <- ", keepGoing); //####
+                            ODL_B1(keepGoing); //####
                         }
                     }
                     else
@@ -519,7 +519,7 @@ nImO::ProcessServiceOptions
                         }
                         std::cout << "\t" << serviceDescription << "\n";
                         keepGoing = false;
-                        ODL_B1("keepGoing <- ", keepGoing); //####
+                        ODL_B1(keepGoing); //####
                     }
                 }
                 else
@@ -527,7 +527,7 @@ nImO::ProcessServiceOptions
                     std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " <<
                                 copyrightHolder << ".\n";
                     keepGoing = false;
-                    ODL_B1("keepGoing <- ", keepGoing); //####
+                    ODL_B1(keepGoing); //####
                 }
             }
             else
@@ -542,7 +542,7 @@ nImO::ProcessServiceOptions
                     }
                 }
                 keepGoing = false;
-                ODL_B1("keepGoing <- ", keepGoing); //####
+                ODL_B1(keepGoing); //####
             }
         }
     }

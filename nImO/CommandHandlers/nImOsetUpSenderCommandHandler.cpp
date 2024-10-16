@@ -88,7 +88,7 @@ nImO::SetUpSenderCommandHandler::SetUpSenderCommandHandler
         inherited{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::SetUpSenderCommandHandler::SetUpSenderCommandHandler
 
@@ -104,7 +104,7 @@ nImO::SetUpSenderCommandHandler::doIt
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("set up sender request received."s);
@@ -134,7 +134,7 @@ nImO::SetUpSenderCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Address>(theConnection._address));
                     infoArray->addValue(std::make_shared<Integer>(theConnection._port));
                     okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender"s, infoArray, reason);
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {

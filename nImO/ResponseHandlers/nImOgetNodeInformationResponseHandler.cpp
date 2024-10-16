@@ -129,7 +129,7 @@ nImO::GetNodeInformationResponseHandler::doIt
                     _result._connection._port = portPtr->getIntegerValue();
                     _result._connection._transport = StaticCast(TransportType, transportPtr->getIntegerValue());
                     okSoFar = true;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {

@@ -84,7 +84,7 @@ nImO::AddInputChannelCommandHandler::AddInputChannelCommandHandler
         inherited{owner}, _callback(callback)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "callback = ", callback); //####
+    ODL_P2(owner.get(), callback); //####
     ODL_EXIT_P(this); //####
 } // nImO::AddInputChannelCommandHandler::AddInputChannelCommandHandler
 
@@ -101,18 +101,18 @@ nImO::AddInputChannelCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("add input channel request received."s);
     if (nullptr != _callback)
     {
         okSoFar = (*_callback)();
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
         if (okSoFar)
         {
             okSoFar = sendSimpleResponse(socket, kAddInputChannelResponse, "add input channel"s, true, reason);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {

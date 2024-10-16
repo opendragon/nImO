@@ -90,8 +90,8 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
         inherited{argName, argDescription, argMode}, _defaultValue{defaultValue}
 {
     ODL_ENTER(); //####
-    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    ODL_S3s(argName, argDescription, defaultValue); //####
+    ODL_I1(argMode); //####
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
@@ -100,7 +100,7 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
         inherited{other}, _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
@@ -111,7 +111,7 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
         _defaultValue{std::move(other._defaultValue)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
@@ -185,7 +185,7 @@ ChannelArgumentDescriptor::operator=
     (const ChannelArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         ChannelArgumentDescriptor   temp{other};
@@ -202,7 +202,7 @@ ChannelArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -218,7 +218,7 @@ ChannelArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -254,7 +254,7 @@ ChannelArgumentDescriptor::setToDefaultValue
 
         _currentValue = ChannelName::parse(_defaultValue, failReason);
     }
-    ODL_P1("_currentValue = ", _currentValue.get()); //####
+    ODL_P1(_currentValue.get()); //####
     ODL_OBJEXIT(); //####
 } // ChannelArgumentDescriptor::setToDefaultValue
 
@@ -263,7 +263,7 @@ ChannelArgumentDescriptor::swap
     (ChannelArgumentDescriptor &    other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_currentValue, other._currentValue);
     std::swap(_defaultValue, other._defaultValue);
@@ -286,16 +286,16 @@ ChannelArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     std::string failReason;
     auto        trialValue{ChannelName::parse(value, failReason)};
 
     setValidity(nullptr != trialValue);
-    ODL_B1("isValid() <- ", isValid()); //####
+    ODL_B1(isValid()); //####
     if (isValid())
     {
         _currentValue = trialValue;
-        ODL_S1s("_currentValue <- ", _currentValue->getName()); //####
+        ODL_S1s(_currentValue->getName()); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

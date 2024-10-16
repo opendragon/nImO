@@ -81,7 +81,7 @@ nImO::LauncherCommandHandler::LauncherCommandHandler
         inherited{owner}, _ownerForLauncher{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::LauncherCommandHandler::LauncherCommandHandler
 

@@ -112,9 +112,9 @@ nImO::ContextWithNetworking::ContextWithNetworking
         _statusConnection{kDefaultStatusConnection}, _loggingEnabled{logging}
 {
     ODL_ENTER(); //####
-    ODL_S1s("tagForLogging = ", tagForLogging); //####
-    ODL_B1("logging = ", logging); //####
-    ODL_I1("numReservedThreads = ", numReservedThreads); //####
+    ODL_S1s(tagForLogging); //####
+    ODL_B1(logging); //####
+    ODL_I1(numReservedThreads); //####
 #if (! MAC_OR_LINUX_OR_BSD_)
     WORD    versionWanted{MAKEWORD(1, 1)};
 #endif // not MAC_OR_LINUX_OR_BSD_
@@ -138,7 +138,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             numThreadsInPool -= numReservedThreads;
         }
         _work = std::make_unique<boost::asio::io_service::work>(*getService());
-        ODL_P1("_work <- ", _work.get()); //####
+        ODL_P1(_work.get()); //####
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {
             auto    aThread{new boost::thread([this]
@@ -147,7 +147,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                                                     getService()->run();
                                                 })};
 
-            ODL_P1("aThread = ", aThread); //####
+            ODL_P1(aThread); //####
             _pool.add_thread(aThread);
         }
         // Get the address and port to use for logging.
@@ -237,7 +237,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             std::lock_guard<std::mutex> loggerGuard{_loggerLock};
 
             _logger = std::make_shared<Logger>(getService(), tagForLogging, _logConnection);
-            ODL_P1("_logger <- ", _logger.get()); //####
+            ODL_P1(_logger.get()); //####
         }
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
@@ -361,7 +361,7 @@ nImO::ContextWithNetworking::report
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1("stringToSend = ", stringToSend); //####
+    ODL_S1(stringToSend); //####
     bool    okSoFar{false};
 
     if (_loggingEnabled)
@@ -371,18 +371,18 @@ nImO::ContextWithNetworking::report
         if (nullptr == _logger)
         {
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
             okSoFar = _logger->report(stringToSend);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     else
     {
         okSoFar = true; // If we aren't set up for logging, ignore this call.
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -394,7 +394,7 @@ nImO::ContextWithNetworking::report
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("stringToSend = ", stringToSend); //####
+    ODL_S1s(stringToSend); //####
     bool    okSoFar{false};
 
     if (_loggingEnabled)
@@ -404,18 +404,18 @@ nImO::ContextWithNetworking::report
         if (nullptr == _logger)
         {
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
             okSoFar = _logger->report(stringToSend);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     else
     {
         okSoFar = true; // If we aren't set up for logging, ignore this call.
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -427,7 +427,7 @@ nImO::ContextWithNetworking::report
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("stringsToSend = ", &stringsToSend); //####
+    ODL_P1(&stringsToSend); //####
     bool    okSoFar{false};
 
     if (_loggingEnabled)
@@ -437,18 +437,18 @@ nImO::ContextWithNetworking::report
         if (nullptr == _logger)
         {
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
             okSoFar = _logger->report(stringsToSend);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     else
     {
         okSoFar = true; // If we aren't set up for logging, ignore this call.
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -459,7 +459,7 @@ nImO::ContextWithNetworking::setCommandPort
     (const IPv4Port commandPort)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("commandPort = ", commandPort); //####
+    ODL_I1(commandPort); //####
     if (_loggingEnabled && (nullptr != _logger))
     {
         _logger->setCommandPort(commandPort);

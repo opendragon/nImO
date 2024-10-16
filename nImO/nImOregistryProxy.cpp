@@ -140,7 +140,7 @@ nImO::RegistryProxy::RegistryProxy
         _context{context}, _connection{connection}
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", &context, "connection = ", &connection); //####
+    ODL_P2(&context, &connection); //####
     sockaddr_in sock_addr;
 
     memset(&sock_addr, 0, sizeof(sock_addr));
@@ -163,7 +163,7 @@ nImO::RegistryProxy::addAppToList
      const std::string &    applicationDescription)
 {
     ODL_OBJENTER(); //####
-    ODL_S3s("nodeName = ", nodeName, "applicationName = ", applicationName, "applicationDescription = ", applicationDescription); //####
+    ODL_S3s(nodeName, applicationName, applicationDescription); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<AddChannelResponseHandler>()};
 
@@ -186,9 +186,9 @@ nImO::RegistryProxy::addChannel
      const TransportType    modes)
 {
     ODL_OBJENTER(); //####
-    ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
-    ODL_B1("isOutput = ", isOutput); //####
-    ODL_I1("modes = ", StaticCast(int, modes)); //####
+    ODL_S3s(nodeName, path, dataType); //####
+    ODL_B1(isOutput); //####
+    ODL_I1(StaticCast(int, modes)); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<AddChannelResponseHandler>()};
 
@@ -214,9 +214,9 @@ nImO::RegistryProxy::addConnection
      const TransportType    mode)
 {
     ODL_OBJENTER(); //####
-    ODL_S4s("fromNodeName = ", fromNodeName, "fromPath = ", fromPath, "toNodeName = ", toNodeName, "toPath = ", toPath); //####
-    ODL_S1s("dataType = ", dataType); //####
-    ODL_I1("mode = ", StaticCast(int, mode)); //####
+    ODL_S4s(fromNodeName, fromPath, toNodeName, toPath); //####
+    ODL_S1s(dataType); //####
+    ODL_I1(StaticCast(int, mode)); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<AddConnectionResponseHandler>()};
 
@@ -242,9 +242,9 @@ nImO::RegistryProxy::addNode
      const Connection &     nodeConnection)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
-    ODL_I2("argc = ", argc, "serviceType = ", StaticCast(int, serviceType)); //####
-    ODL_P2("argv = ", argv, "nodeConnection = ", &nodeConnection); //####
+    ODL_S1s(nodeName); //####
+    ODL_I2(argc, StaticCast(int, serviceType)); //####
+    ODL_P2(argv, &nodeConnection); //####
     auto    execPath{nImO::GetPathToExecutable()};
     auto    launchDirectory{boost::filesystem::current_path().string()};
     auto    commandLine{nImO::MakeStringFromCommandLine(argc - 1, argv + 1)};
@@ -274,7 +274,7 @@ nImO::RegistryProxy::clearAppListForLauncher
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<ClearChannelInUseResponseHandler>()};
 
@@ -292,7 +292,7 @@ nImO::RegistryProxy::clearChannelInUse
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<ClearChannelInUseResponseHandler>()};
 
@@ -311,7 +311,7 @@ nImO::RegistryProxy::getChannelInformation
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetChannelInformationResponseHandler>()};
 
@@ -330,7 +330,7 @@ nImO::RegistryProxy::getChannelInUseAndSet
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetChannelInUseAndSetResponseHandler>()};
 
@@ -350,8 +350,8 @@ nImO::RegistryProxy::getConnectionInformation
      const bool             fromIsSpecified)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    ODL_B1("fromIsSpecified = ", fromIsSpecified); //####
+    ODL_S2s(nodeName, path); //####
+    ODL_B1(fromIsSpecified); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetConnectionInformationResponseHandler>()};
 
@@ -383,7 +383,7 @@ nImO::RegistryProxy::getInformationForAllApplicationsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllApplicationsOnNodeResponseHandler>()};
 
@@ -414,7 +414,7 @@ nImO::RegistryProxy::getInformationForAllChannelsOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllChannelsOnMachineResponseHandler>()};
 
@@ -432,7 +432,7 @@ nImO::RegistryProxy::getInformationForAllChannelsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllChannelsOnNodeResponseHandler>()};
 
@@ -463,7 +463,7 @@ nImO::RegistryProxy::getInformationForAllConnectionsOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllConnectionsOnMachineResponseHandler>()};
 
@@ -481,7 +481,7 @@ nImO::RegistryProxy::getInformationForAllConnectionsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllConnectionsOnNodeResponseHandler>()};
 
@@ -525,7 +525,7 @@ nImO::RegistryProxy::getInformationForAllNodesOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllNodesOnMachineResponseHandler>()};
 
@@ -543,7 +543,7 @@ nImO::RegistryProxy::getLaunchDetails
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetLaunchDetailsResponseHandler>()};
 
@@ -560,7 +560,7 @@ nImO::RegistryProxy::getMachineInformation
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetMachineInformationResponseHandler>()};
 
@@ -603,7 +603,7 @@ nImO::RegistryProxy::getNamesOfNodesOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNamesOfNodesOnMachineResponseHandler>()};
 
@@ -620,7 +620,7 @@ nImO::RegistryProxy::getNodeInformation
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNodeInformationResponseHandler>()};
 
@@ -637,7 +637,7 @@ nImO::RegistryProxy::getNodesWithApplication
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNodesWithApplicationResponseHandler>()};
 
@@ -667,7 +667,7 @@ nImO::RegistryProxy::getNumberOfApplicationsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNumberOfApplicationsOnNodeResponseHandler>()};
 
@@ -697,7 +697,7 @@ nImO::RegistryProxy::getNumberOfChannelsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNumberOfChannelsOnNodeResponseHandler>()};
 
@@ -727,7 +727,7 @@ nImO::RegistryProxy::getNumberOfInputChannelsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNumberOfInputChannelsOnNodeResponseHandler>()};
 
@@ -770,7 +770,7 @@ nImO::RegistryProxy::getNumberOfNodesOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNumberOfNodesOnMachineResponseHandler>()};
 
@@ -787,7 +787,7 @@ nImO::RegistryProxy::getNumberOfOutputChannelsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNumberOfOutputChannelsOnNodeResponseHandler>()};
 
@@ -805,7 +805,7 @@ nImO::RegistryProxy::isChannelPresent
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<IsChannelPresentResponseHandler>()};
 
@@ -823,7 +823,7 @@ nImO::RegistryProxy::isMachinePresent
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<IsMachinePresentResponseHandler>()};
 
@@ -840,7 +840,7 @@ nImO::RegistryProxy::isNodePresent
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<IsNodePresentResponseHandler>()};
 
@@ -858,7 +858,7 @@ nImO::RegistryProxy::removeChannel
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<RemoveChannelResponseHandler>()};
 
@@ -876,7 +876,7 @@ nImO::RegistryProxy::removeChannelsForNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<RemoveChannelsForNodeResponseHandler>()};
 
@@ -895,8 +895,8 @@ nImO::RegistryProxy::removeConnection
      const bool             fromIsSpecified)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    ODL_B1("fromIsSpecified = ", fromIsSpecified); //####
+    ODL_S2s(nodeName, path); //####
+    ODL_B1(fromIsSpecified); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<RemoveConnectionResponseHandler>()};
 
@@ -915,7 +915,7 @@ nImO::RegistryProxy::removeNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<RemoveNodeResponseHandler>()};
 
@@ -933,7 +933,7 @@ nImO::RegistryProxy::setChannelInUse
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<SetChannelInUseResponseHandler>()};
 
@@ -955,7 +955,7 @@ nImO::ConvertApplicationListToMap
     (const ApplicationInfoVector &  applications)
 {
     ODL_ENTER(); //####
-    ODL_P1("applications = ", &applications); //####
+    ODL_P1(&applications); //####
     auto        result{std::make_shared<Map>()};
     auto        applicationSubMap{std::make_shared<Map>()};
     std::string nodeName{};

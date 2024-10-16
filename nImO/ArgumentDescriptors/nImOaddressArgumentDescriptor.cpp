@@ -89,9 +89,9 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
         inherited{argName, argDescription, argMode, defaultValue}, _addrBuff{addrBuff}
 {
     ODL_ENTER(); //####
-    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
-    ODL_P1("addrBuff = ", addrBuff); //####
+    ODL_S3s(argName, argDescription, defaultValue); //####
+    ODL_I1(argMode); //####
+    ODL_P1(addrBuff); //####
     if (kSelfAddressName == inherited::getDefaultValue())
     {
         setDefaultValue(kSelfAddressIpAddress);
@@ -104,7 +104,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
         inherited{other}, _addrBuff{nullptr}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
@@ -114,7 +114,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
         inherited{std::move(other)}, _addrBuff{other._addrBuff}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._addrBuff = nullptr;
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
@@ -166,7 +166,7 @@ AddressArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -182,7 +182,7 @@ AddressArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -204,7 +204,7 @@ AddressArgumentDescriptor::parseArgString
 #else // not MAC_OR_LINUX_OR_BSD_
         okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
         if (okSoFar)
         {
             result = std::make_shared<AddressArgumentDescriptor>(name, description, argMode, defaultString);
@@ -219,7 +219,7 @@ AddressArgumentDescriptor::swap
     (AddressArgumentDescriptor &    other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_addrBuff, other._addrBuff);
     ODL_OBJEXIT(); //####
@@ -241,7 +241,7 @@ AddressArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     std::string testValue;
 
     if (kSelfAddressName == value)
@@ -261,7 +261,7 @@ AddressArgumentDescriptor::validate
 #else // not MAC_OR_LINUX_OR_BSD_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
-        ODL_B1("isValid() <- ", isValid()); //####
+        ODL_B1(isValid()); //####
     }
     else
     {
@@ -270,12 +270,12 @@ AddressArgumentDescriptor::validate
 #else // not MAC_OR_LINUX_OR_BSD_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
-        ODL_B1("isValid() <- ", isValid()); //####
+        ODL_B1(isValid()); //####
     }
     if (isValid())
     {
         setCurrentValue(testValue);
-        ODL_S1s("_currentValue <- ", getCurrentValue()); //####
+        ODL_S1s(getCurrentValue()); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

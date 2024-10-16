@@ -90,8 +90,8 @@ checkFilePath
      const bool emptyIsOK)
 {
     ODL_ENTER(); //####
-    ODL_S1("thePath = ", thePath); //####
-    ODL_B2("forOutput = ", forOutput, "emptyIsOK = ", emptyIsOK); //####
+    ODL_S1(thePath); //####
+    ODL_B2(forOutput, emptyIsOK); //####
     bool    okSoFar;
 
     if (forOutput)
@@ -108,12 +108,12 @@ checkFilePath
 #else // not MAC_OR_LINUX_OR_BSD_
                 okSoFar = (0 == _access("..", 2));
 #endif // not MAC_OR_LINUX_OR_BSD_
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {
                 okSoFar = emptyIsOK;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         else
@@ -124,7 +124,7 @@ checkFilePath
 #else // not MAC_OR_LINUX_OR_BSD_
             okSoFar = (0 == _access(dirPath.c_str(), 2));
 #endif // not MAC_OR_LINUX_OR_BSD_
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     else
@@ -137,12 +137,12 @@ checkFilePath
 #else // not MAC_OR_LINUX_OR_BSD_
             okSoFar = (0 == _access(thePath, 4));
 #endif // not MAC_OR_LINUX_OR_BSD_
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
             okSoFar = emptyIsOK;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     ODL_EXIT_B(okSoFar); //####
@@ -170,10 +170,9 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
         _useRandomPath{useRandomPath}
 {
     ODL_ENTER(); //####
-    ODL_S4s("argName = ", argName, "argDescription = ", argDescription, "pathPrefix = ", pathPrefix, //####
-            "pathSuffix = ", pathSuffix); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
-    ODL_B2("forOutput = ", forOutput, "useRandomPath = ", useRandomPath); //####
+    ODL_S4s(argName, argDescription, pathPrefix, pathSuffix); //####
+    ODL_I1(argMode); //####
+    ODL_B2(forOutput, useRandomPath); //####
     getDefaultValue();
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
@@ -184,7 +183,7 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
         _defaultSet{false}, _forOutput{other._forOutput}, _useRandomPath{other._useRandomPath}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
@@ -196,7 +195,7 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
         _useRandomPath{other._useRandomPath}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._defaultSet = other._forOutput = other._useRandomPath = false;
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
@@ -237,16 +236,16 @@ FilePathArgumentDescriptor::getDefaultValue
     if (! _defaultSet)
     {
         setDefaultValue(_pathPrefix);
-        ODL_S1s("_defaultValue <- ", inherited::getDefaultValue()); //####
+        ODL_S1s(inherited::getDefaultValue()); //####
         if (_useRandomPath)
         {
             setDefaultValue(inherited::getDefaultValue() + GetRandomHexString());
-            ODL_S1s("_defaultValue <- ", inherited::getDefaultValue()); //####
+            ODL_S1s(inherited::getDefaultValue()); //####
         }
         setDefaultValue(inherited::getDefaultValue() + _pathSuffix);
-        ODL_S1s("_defaultValue <- ", inherited::getDefaultValue()); //####
+        ODL_S1s(inherited::getDefaultValue()); //####
         _defaultSet = true;
-        ODL_B1("_defaultSet <- ", _defaultSet); //####
+        ODL_B1(_defaultSet); //####
     }
     ODL_OBJEXIT_s(inherited::getDefaultValue()); //####
     return inherited::getDefaultValue();
@@ -269,7 +268,7 @@ FilePathArgumentDescriptor::isForFiles
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("isForOutput = ", &isForOutput); //####
+    ODL_P1(&isForOutput); //####
     isForOutput = _forOutput;
     ODL_OBJEXIT_B(true); //####
     return true;
@@ -280,7 +279,7 @@ FilePathArgumentDescriptor::operator=
     (const FilePathArgumentDescriptor & other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         FilePathArgumentDescriptor  temp{other};
@@ -297,7 +296,7 @@ FilePathArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -317,7 +316,7 @@ FilePathArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -343,7 +342,7 @@ FilePathArgumentDescriptor::parseArgString
             if ("i" != direction)
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar)
@@ -357,7 +356,7 @@ FilePathArgumentDescriptor::parseArgString
                 if ("0" != randomFlag)
                 {
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
             }
         }
@@ -371,7 +370,7 @@ FilePathArgumentDescriptor::parseArgString
             }
             tempString += suffixValue;
             okSoFar = checkFilePath(tempString.c_str(), forOutput, 0 == (toUType(argMode) & toUType(ArgumentMode::Optional)));
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         if (okSoFar)
         {
@@ -389,7 +388,7 @@ FilePathArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     setCurrentValue(getDefaultValue());
-    ODL_S1s("_currentValue <- ", getCurrentValue()); //####
+    ODL_S1s(getCurrentValue()); //####
     ODL_OBJEXIT(); //####
 } // FilePathArgumentDescriptor::setToDefaultValue
 
@@ -398,7 +397,7 @@ FilePathArgumentDescriptor::swap
     (FilePathArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_pathPrefix, other._pathPrefix);
     std::swap(_pathSuffix, other._pathSuffix);
@@ -428,13 +427,13 @@ FilePathArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     setValidity(checkFilePath(value.c_str(), _forOutput, false));
-    ODL_B1("isValid() <- ", isValid()); //####
+    ODL_B1(isValid()); //####
     if (isValid())
     {
         setCurrentValue(value);
-        ODL_S1s("_currentValue <- ", getCurrentValue()); //####
+        ODL_S1s(getCurrentValue()); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

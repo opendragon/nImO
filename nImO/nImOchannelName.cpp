@@ -116,7 +116,7 @@ nImO::ChannelName::ChannelName
         _network{other._network}, _node{other._node}, _path{other._path}, _transport{other._transport}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
 
@@ -127,7 +127,7 @@ nImO::ChannelName::ChannelName
         _transport{other._transport}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._transport = TransportType::kUnknown;
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
@@ -145,9 +145,9 @@ nImO::ChannelName::generatePath
      std::string &          path)
 {
     ODL_ENTER(); //####
-    ODL_S1s("base = ", base); //####
-    ODL_B1("forOutput = ", forOutput); //####
-    ODL_I2("numChannels = ", numChannels, "channelNumber = ", channelNumber); //####
+    ODL_S1s(base); //####
+    ODL_B1(forOutput); //####
+    ODL_I2(numChannels, channelNumber); //####
     bool    okSoFar;
 
     if ((channelNumber > 0) && (channelNumber <= numChannels))
@@ -155,7 +155,7 @@ nImO::ChannelName::generatePath
         if (base.empty())
         {
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
             path = ""s;
         }
         else
@@ -166,13 +166,13 @@ nImO::ChannelName::generatePath
             if (parsed)
             {
                 okSoFar = true;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
                 path = parsed->_path;
             }
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar)
@@ -187,7 +187,7 @@ nImO::ChannelName::generatePath
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -255,8 +255,8 @@ nImO::ChannelName::parse
      std::string &          problemDescription)
 {
     ODL_ENTER(); //####
-    ODL_S1s("input = ", input); //####
-    ODL_P1("problemDescription = ", &problemDescription); //####
+    ODL_S1s(input); //####
+    ODL_P1(&problemDescription); //####
     SpChannelName   result;
     std::string     networkName;
     std::string     nodeName;
@@ -306,7 +306,7 @@ nImO::ChannelName::transportFromName
     (const std::string &    aName)
 {
     ODL_ENTER(); //####
-    ODL_S1s("aName = ", aName); //####
+    ODL_S1s(aName); //####
     auto    protocol{TransportType::kUnknown};
     auto    nameToCheck{ConvertToLowerCase(aName)};
 
@@ -351,7 +351,7 @@ nImO::ChannelName::transportToName
     (const TransportType    aValue)
 {
     ODL_ENTER(); //####
-    ODL_I1("aValue = ", StaticCast(int64_t, aValue)); //####
+    ODL_I1(StaticCast(int64_t, aValue)); //####
     std::string result;
 
     switch (aValue)
@@ -382,7 +382,7 @@ nImO::ChannelName::validNetwork
     (const std::string &    input)
 {
     ODL_ENTER(); //####
-    ODL_S1s("input = ", input); //####
+    ODL_S1s(input); //####
     bool    result{std::regex_match(input, lNameMatch)};
 
     ODL_EXIT_B(result); //####
@@ -394,7 +394,7 @@ nImO::ChannelName::validNode
     (const std::string &    input)
 {
     ODL_ENTER(); //####
-    ODL_S1s("input = ", input); //####
+    ODL_S1s(input); //####
     bool    result{std::regex_match(input, lNameMatch)};
 
     ODL_EXIT_B(result); //####
@@ -406,7 +406,7 @@ nImO::ChannelName::validPath
     (const std::string &    input)
 {
     ODL_ENTER(); //####
-    ODL_S1s("input = ", input); //####
+    ODL_S1s(input); //####
     bool    result{std::regex_match(input, lPathMatch)};
 
     ODL_EXIT_B(result); //####
@@ -418,7 +418,7 @@ nImO::ChannelName::validTransport
     (const std::string &    input)
 {
     ODL_ENTER(); //####
-    ODL_S1s("input = ", input); //####
+    ODL_S1s(input); //####
     bool    result{std::regex_match(input, lTransportMatch)};
 
     ODL_EXIT_B(result); //####
@@ -434,7 +434,7 @@ nImO::ValidNameSegment
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     bool    result{std::regex_match(inString, lNameMatch)};
 
     ODL_EXIT_B(result); //####

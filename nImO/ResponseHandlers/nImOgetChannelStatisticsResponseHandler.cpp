@@ -117,7 +117,7 @@ nImO::GetChannelStatisticsResponseHandler::doIt
                     _byteCount = bytesPtr->getIntegerValue();
                     _messageCount = messagesPtr->getIntegerValue();
                     okSoFar = true;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {

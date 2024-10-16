@@ -82,7 +82,7 @@ catchSignal
     (int signal)
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    ODL_I1(signal); //####
     auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
@@ -105,8 +105,8 @@ doTestValidateNetworkName
      CPtr(char) inString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_B1(expected); //####
+    ODL_S1(inString); //####
     int result{1};
 
     try
@@ -143,8 +143,8 @@ doTestValidateNodeName
      CPtr(char) inString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_B1(expected); //####
+    ODL_S1(inString); //####
     int result{1};
 
     try
@@ -181,8 +181,8 @@ doTestValidatePath
      CPtr(char) inString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_B1(expected); //####
+    ODL_S1(inString); //####
     int result{1};
 
     try
@@ -219,8 +219,8 @@ doTestValidateTransport
      CPtr(char) inString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_B1(expected); //####
+    ODL_S1(inString); //####
     int result{1};
 
     try
@@ -257,8 +257,8 @@ doTestParseChannelName
      CPtr(char) inString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_B1(expected); //####
+    ODL_S1(inString); //####
     int result{1};
 
     try
@@ -297,8 +297,8 @@ doTestParseExpectedName
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -343,8 +343,8 @@ doTestParseExtractNetwork
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -389,8 +389,8 @@ doTestParseExtractNode
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -435,8 +435,8 @@ doTestParseExtractPath
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -481,8 +481,8 @@ doTestParseExtractProtocol
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -533,10 +533,9 @@ doTestGeneratePath
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S4("baseString = ", baseString, "forOutputString = ", forOutputString, "numChannelsString = ", numChannelsString, //####
-           "channelNumberString = ", channelNumberString); //####
-    ODL_S1("expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S4(baseString, forOutputString, numChannelsString, channelNumberString); //####
+    ODL_S1(expectedString); //####
     int result{1};
 
     try
@@ -591,8 +590,8 @@ doTestName
      CPtr(char) inString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S1("inString = ", inString); //####
+    ODL_B1(expected); //####
+    ODL_S1(inString); //####
     int result{1};
 
     try
@@ -653,7 +652,7 @@ main
                 bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
                 SetSignalHandlers(catchSignal);
-                ODL_B1("expected <- ", expected); //####
+                ODL_B1(expected); //####
                 switch (selector)
                 {
                     case 1 :
@@ -728,7 +727,7 @@ main
                 }
                 if (0 != result)
                 {
-                    ODL_I1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1(result); //####
                 }
             }
             else

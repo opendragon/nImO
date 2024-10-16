@@ -89,7 +89,7 @@ nImO::GetInformationForAllChannelsCommandHandler::GetInformationForAllChannelsCo
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetInformationForAllChannelsCommandHandler::GetInformationForAllChannelsCommandHandler
 
@@ -106,7 +106,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get information for all channels request received."s);
@@ -132,7 +132,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
                 channelArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsResponse, "get information for all channels"s, channelArray, reason);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {

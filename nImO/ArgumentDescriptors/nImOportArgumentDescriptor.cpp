@@ -91,9 +91,9 @@ PortArgumentDescriptor::PortArgumentDescriptor
         _isSystemPort{isSystemPort}
 {
     ODL_ENTER(); //####
-    ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I2("argMode = ", StaticCast(int64_t, argMode), "defaultValue = ", defaultValue); //####
-    ODL_B1("isSystemPort = ", isSystemPort); //####
+    ODL_S2s(argName, argDescription); //####
+    ODL_I2(StaticCast(int64_t, argMode), defaultValue); //####
+    ODL_B1(isSystemPort); //####
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
@@ -102,7 +102,7 @@ PortArgumentDescriptor::PortArgumentDescriptor
         inherited{other}, _isSystemPort{other._isSystemPort}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
@@ -112,7 +112,7 @@ PortArgumentDescriptor::PortArgumentDescriptor
         inherited{std::move(other)}, _isSystemPort{other._isSystemPort}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._isSystemPort = false;
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
@@ -149,7 +149,7 @@ PortArgumentDescriptor::operator=
     (const PortArgumentDescriptor & other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         PortArgumentDescriptor  temp{other};
@@ -166,7 +166,7 @@ PortArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -182,7 +182,7 @@ PortArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -206,7 +206,7 @@ PortArgumentDescriptor::parseArgString
             if ("r" != portClass)
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar && (! defaultString.empty()))
@@ -220,7 +220,7 @@ PortArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar)
@@ -237,7 +237,7 @@ PortArgumentDescriptor::swap
     (PortArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_isSystemPort, other._isSystemPort);
     ODL_OBJEXIT(); //####

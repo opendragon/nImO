@@ -85,7 +85,7 @@ nImO::StopCommandHandler::StopCommandHandler
         inherited{owner}, _callback(callback)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "callback = ", callback); //####
+    ODL_P2(owner.get(), callback); //####
     ODL_EXIT_P(this); //####
 } // nImO::StopCommandHandler::StopCommandHandler
 
@@ -102,14 +102,14 @@ nImO::StopCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     _owner->report("stop request received."s);
     // Send the response to the requestor.
     bool    okSoFar{sendSimpleResponse(socket, kStopResponse, "stop"s, true, reason)};
 
     // Signal to the application that it should terminate.
     gPendingStop = true;
-    ODL_B1("gPendingStop <- ", gPendingStop); //####
+    ODL_B1(gPendingStop); //####
     if (okSoFar && (nullptr != _callback))
     {
         (*_callback)();

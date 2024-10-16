@@ -88,7 +88,7 @@ catchSignal
     (int signal)
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    ODL_I1(signal); //####
     auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
@@ -107,15 +107,15 @@ compareValueWithString
      CPtr(char)     aString)
 {
     ODL_ENTER(); //####
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
+    ODL_P1(&aValue); //####
+    ODL_S1(aString); //####
     StringBuffer    buff;
 
     aValue.printToStringBuffer(buff);
     auto    resultString{buff.getString()};
     int     result{resultString.compare(aString)};
 
-    ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
+    ODL_S2(resultString.c_str(), aString); //####
     ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithString
@@ -136,8 +136,8 @@ doTestParseLogicalValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -213,8 +213,8 @@ doTestParseNumberValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -290,8 +290,8 @@ doTestParseStringValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -367,8 +367,8 @@ doTestParseAddressValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -444,8 +444,8 @@ doTestParseDateValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -521,8 +521,8 @@ doTestParseTimeValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -598,8 +598,8 @@ doTestParseArrayValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -675,8 +675,8 @@ doTestParseSetValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -752,8 +752,8 @@ doTestParseMapValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -829,8 +829,8 @@ doTestParseImplicitArrayValue
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
     int result{1};
 
     try
@@ -929,7 +929,7 @@ main
                 bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
                 SetSignalHandlers(catchSignal);
-                ODL_B1("expected <- ", expected); //####
+                ODL_B1(expected); //####
                 switch (selector)
                 {
                     case 1 :
@@ -978,7 +978,7 @@ main
                 }
                 if (0 != result)
                 {
-                    ODL_I1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1(result); //####
                 }
             }
             else

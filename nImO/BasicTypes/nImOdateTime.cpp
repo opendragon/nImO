@@ -106,7 +106,7 @@ nImO::DateTime::DateTime
         inherited{}, _dateTimeValue{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_X1("initialValue = ", initialValue); //####
+    ODL_X1(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
 
@@ -115,9 +115,9 @@ nImO::DateTime::DateTime
         inherited{}
 {
     ODL_ENTER(); //####
-    ODL_P1("initialValue = ", &initialValue); //####
+    ODL_P1(&initialValue); //####
     _dateTimeValue = ((initialValue[0] << 24) | (initialValue[1] << 16) | (initialValue[2] << 8) | initialValue[3]);
-    ODL_X1("_dateTimeValue = ", _dateTimeValue); //####
+    ODL_X1(_dateTimeValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
 
@@ -126,7 +126,7 @@ nImO::DateTime::DateTime
         inherited{}, _dateTimeValue{other._dateTimeValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
 
@@ -136,7 +136,7 @@ nImO::DateTime::DateTime
         inherited{std::move(other)}, _dateTimeValue{other._dateTimeValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._dateTimeValue = 0;
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
@@ -174,7 +174,7 @@ nImO::DateTime::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -191,7 +191,7 @@ nImO::DateTime::readFromStringBuffer
      size_t &               position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    ODL_P2(&inBuffer, &position); //####
     SpValue result;
     size_t  localIndex{position};
     bool    atEnd;

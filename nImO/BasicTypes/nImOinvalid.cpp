@@ -91,7 +91,7 @@ nImO::Invalid::Invalid
         inherited{}, _description{description}
 {
     ODL_ENTER(); //####
-    ODL_S1s("description = ", description); //####
+    ODL_S1s(description); //####
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 
@@ -103,8 +103,8 @@ nImO::Invalid::Invalid
     std::stringstream   restOfDescription;
 
     ODL_ENTER(); //####
-    ODL_S1s("description = ", description); //####
-    ODL_I1("position = ", position); //####
+    ODL_S1s(description); //####
+    ODL_I1(position); //####
     restOfDescription << " @" << position << "d/0x" << std::hex << position;
     _description += restOfDescription.str();
     ODL_EXIT_P(this); //####
@@ -116,7 +116,7 @@ nImO::Invalid::Invalid
         inherited{std::move(other)}, _description{other._description}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._description = ""s;
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
@@ -131,7 +131,7 @@ nImO::Invalid::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "invalid value";
     ODL_OBJEXIT_P(&output); //####
     return output;

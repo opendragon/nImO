@@ -82,8 +82,8 @@ nImO::UtilityContext::UtilityContext
         inherited{tagForLogging, logging, true}
 {
     ODL_ENTER(); //####
-    ODL_S1s("tagForLogging = ", tagForLogging); //####
-    ODL_B1("logging = ", logging); //####
+    ODL_S1s(tagForLogging); //####
+    ODL_B1(logging); //####
     try
     {
         if (waitForRegistry())
@@ -129,8 +129,8 @@ nImO::UtilityContext::report
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1("stringToSend = ", stringToSend); //####
-    ODL_B1("andCerr = ", andCerr); //####
+    ODL_S1(stringToSend); //####
+    ODL_B1(andCerr); //####
     bool    result{inherited::report(stringToSend)};
 
     if (andCerr)
@@ -148,8 +148,8 @@ nImO::UtilityContext::report
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("stringToSend = ", stringToSend); //####
-    ODL_B1("andCerr = ", andCerr); //####
+    ODL_S1s(stringToSend); //####
+    ODL_B1(andCerr); //####
     bool    result{inherited::report(stringToSend)};
 
     if (andCerr)

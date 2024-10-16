@@ -89,7 +89,7 @@ nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
 
@@ -106,7 +106,7 @@ nImO::ClearChannelInUseCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("clear channel inUse request received."s);
@@ -122,7 +122,7 @@ nImO::ClearChannelInUseCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kClearChannelInUseResponse, "clear channel inUse"s, true, reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {

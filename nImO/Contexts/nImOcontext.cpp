@@ -84,7 +84,7 @@ nImO::Context::Context
         _service{std::make_shared<boost::asio::io_service>()}
 {
     ODL_ENTER(); //####
-    ODL_P1("_service <- ", _service.get()); //####
+    ODL_P1(_service.get()); //####
     if (lContextCreated)
     {
         throw "Too many contexts.";

@@ -467,7 +467,7 @@ listApplications
     {
         std::cerr << "Problem with 'getInformationForAllApplications': " << statusWithAllApplications.first.second << ".\n";
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     return okSoFar;
 } // listApplications
@@ -689,7 +689,7 @@ listChannels
                                 {
                                     std::cerr << "Problem with getting the channel statistics for node '" << node << "'.\n";
                                     okSoFar = false;
-                                    ODL_B1("okSoFar <- ", okSoFar); //####
+                                    ODL_B1(okSoFar); //####
                                 }
                             }
                         }
@@ -697,7 +697,7 @@ listChannels
                         {
                             std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //####
+                            ODL_B1(okSoFar); //####
                         }
                         if (okSoFar)
                         {
@@ -812,7 +812,7 @@ listChannels
     {
         std::cerr << "Problem with 'getInformationForAllChannels': " << statusWithAllChannels.first.second << ".\n";
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     return okSoFar;
 } // listChannels
@@ -1081,7 +1081,7 @@ listConnections
     {
         std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << ".\n";
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     return okSoFar;
 } // listConnections
@@ -1299,7 +1299,7 @@ listMachines
     {
         std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << ".\n";
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     return okSoFar;
 } // listMachines
@@ -1526,7 +1526,7 @@ listNodes
                         {
                             std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << ".\n";
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //####
+                            ODL_B1(okSoFar); //####
                         }
                     }
                     ++walker;
@@ -1612,7 +1612,7 @@ listNodes
     {
         std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << ".\n";
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     return okSoFar;
 } // listNodes

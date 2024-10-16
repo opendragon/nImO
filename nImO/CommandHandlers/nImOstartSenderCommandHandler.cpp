@@ -87,7 +87,7 @@ nImO::StartSenderCommandHandler::StartSenderCommandHandler
         inherited{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::StartSenderCommandHandler::StartSenderCommandHandler
 
@@ -104,7 +104,7 @@ nImO::StartSenderCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("start sender request received."s);
@@ -124,7 +124,7 @@ nImO::StartSenderCommandHandler::doIt
             {
                 // Send the response to the requestor.
                 okSoFar = sendSimpleResponse(socket, kStartSenderResponse, "start sender"s, theChannel->start(), reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {

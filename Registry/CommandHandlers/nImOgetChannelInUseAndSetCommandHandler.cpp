@@ -89,7 +89,7 @@ nImO::GetChannelInUseAndSetCommandHandler::GetChannelInUseAndSetCommandHandler
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetChannelInUseAndSetCommandHandler::GetChannelInUseAndSetCommandHandler
 
@@ -106,7 +106,7 @@ nImO::GetChannelInUseAndSetCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get channel in use and set request received."s);
@@ -122,7 +122,7 @@ nImO::GetChannelInUseAndSetCommandHandler::doIt
             if (statusWithBool.first.first)
             {
                 okSoFar = sendSimpleResponse(socket, kGetChannelInUseAndSetResponse, "get channel in use and set"s, statusWithBool.second, reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {

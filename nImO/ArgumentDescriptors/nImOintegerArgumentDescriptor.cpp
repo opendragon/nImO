@@ -94,10 +94,10 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
         _hasMinimumValue{hasMinimumValue}
 {
     ODL_ENTER(); //####
-    ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
-    ODL_I3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, "maximumValue = ", maximumValue); //####
-    ODL_B2("hasMinimumValue = ", hasMinimumValue, "hasMaximumValue = ", hasMaximumValue); //####
+    ODL_S2s(argName, argDescription); //####
+    ODL_I1(argMode); //####
+    ODL_I3(defaultValue, minimumValue, maximumValue); //####
+    ODL_B2(hasMinimumValue, hasMaximumValue); //####
     ODL_EXIT_P(this); //####
 } // IntegerArgumentDescriptor::IntegerArgumentDescriptor
 
@@ -108,7 +108,7 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
         _hasMinimumValue{other._hasMinimumValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // IntegerArgumentDescriptor::IntegerArgumentDescriptor
 
@@ -120,7 +120,7 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
         _hasMinimumValue{other._hasMinimumValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._defaultValue = other._maximumValue = other._minimumValue = 0;
     other._hasMaximumValue = other._hasMinimumValue = false;
     ODL_EXIT_P(this); //####
@@ -225,7 +225,7 @@ IntegerArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -246,7 +246,7 @@ IntegerArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -266,7 +266,7 @@ IntegerArgumentDescriptor::parseArgString
         if (defaultString.empty())
         {
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
@@ -279,7 +279,7 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar && (! minValString.empty()))
@@ -293,7 +293,7 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar && (! maxValString.empty()))
@@ -307,7 +307,7 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         if (okSoFar)
@@ -330,7 +330,7 @@ IntegerArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_I1("_currentValue <- ", _currentValue); //####
+    ODL_I1(_currentValue); //####
     ODL_OBJEXIT(); //####
 } // IntegerArgumentDescriptor::setToDefaultValue
 
@@ -339,7 +339,7 @@ IntegerArgumentDescriptor::swap
     (IntegerArgumentDescriptor &    other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_defaultValue, other._defaultValue);
     std::swap(_currentValue, other._currentValue);
@@ -376,33 +376,33 @@ IntegerArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     int64_t intValue;
 
     if (ConvertToInt64(value, intValue))
     {
         setValidity(true);
-        ODL_B1("isValid() <- ", isValid()); //####
+        ODL_B1(isValid()); //####
         if (_hasMinimumValue && (intValue < _minimumValue))
         {
             setValidity(false);
-            ODL_B1("isValid() <- ", isValid()); //####
+            ODL_B1(isValid()); //####
         }
         if (_hasMaximumValue && (intValue > _maximumValue))
         {
             setValidity(false);
-            ODL_B1("isValid() <- ", isValid()); //####
+            ODL_B1(isValid()); //####
         }
     }
     else
     {
         setValidity(false);
-        ODL_B1("isValid() <- ", isValid()); //####
+        ODL_B1(isValid()); //####
     }
     if (isValid())
     {
         _currentValue = StaticCast(int, intValue);
-        ODL_I1("_currentValue <- ", _currentValue); //####
+        ODL_I1(_currentValue); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

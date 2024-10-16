@@ -90,7 +90,7 @@ nImO::Flaw::Flaw
         inherited{std::move(other)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Flaw::Flaw
 
@@ -114,7 +114,7 @@ nImO::Flaw::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     out << getDescription();
     ODL_OBJEXIT_P(&out); //####
     return out;

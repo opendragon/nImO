@@ -92,8 +92,8 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
         _defaultValue{defaultValue}
 {
     ODL_ENTER(); //####
-    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
-    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    ODL_S3s(argName, argDescription, defaultValue); //####
+    ODL_I1(argMode); //####
     if (_caseInsensitive)
     {
         for (auto & walker : allowedValues)
@@ -113,7 +113,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
         inherited{other}, _caseInsensitive{other._caseInsensitive}, _defaultValue{other._defaultValue}, _allowedValues{other._allowedValues}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // StringsArgumentDescriptor::StringsArgumentDescriptor
 
@@ -124,7 +124,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
         _allowedValues{std::move(other._allowedValues)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // StringsArgumentDescriptor::StringsArgumentDescriptor
 
@@ -206,7 +206,7 @@ StringsArgumentDescriptor::operator=
     (const StringsArgumentDescriptor &  other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         StringsArgumentDescriptor   temp{other};
@@ -223,7 +223,7 @@ StringsArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -240,7 +240,7 @@ StringsArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -294,7 +294,7 @@ StringsArgumentDescriptor::setToDefaultValue
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
-    ODL_S1s("_currentValue <- ", _currentValue); //####
+    ODL_S1s(_currentValue); //####
     ODL_OBJEXIT(); //####
 } // StringsArgumentDescriptor::setToDefaultValue
 
@@ -303,7 +303,7 @@ StringsArgumentDescriptor::swap
     (StringsArgumentDescriptor & other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     std::swap(_caseInsensitive, other._caseInsensitive);
     std::swap(_currentValue, other._currentValue);
@@ -345,7 +345,7 @@ StringsArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     if (_caseInsensitive)
     {
         setValidity(_allowedValues.find(ConvertToLowerCase(value)) != _allowedValues.end());
@@ -354,11 +354,11 @@ StringsArgumentDescriptor::validate
     {
         setValidity(_allowedValues.find(value) != _allowedValues.end());
     }
-    ODL_B1("isValid() <- ", isValid()); //####
+    ODL_B1(isValid()); //####
     if (isValid())
     {
         _currentValue = value;
-        ODL_S1s("_currentValue <- ", _currentValue); //####
+        ODL_S1s(_currentValue); //####
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();

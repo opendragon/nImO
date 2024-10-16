@@ -92,7 +92,7 @@ catchSignal
     (int signal)
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    ODL_I1(signal); //####
     auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
@@ -108,7 +108,7 @@ fixDescriptorString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     auto    result{inString};
 
     for (auto pos{result.find("\\t"s)}; pos != result.npos; pos = result.find("\\t"s))
@@ -139,10 +139,10 @@ doTestAddressArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -274,10 +274,10 @@ doTestBooleanArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -396,10 +396,10 @@ doTestChannelArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -529,10 +529,10 @@ doTestDoubleArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -666,10 +666,10 @@ doTestFilePathArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -803,10 +803,10 @@ doTestIntegerArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -943,10 +943,10 @@ doTestPortArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1077,10 +1077,10 @@ doTestStringArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1168,10 +1168,10 @@ doTestStringsArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1358,10 +1358,10 @@ doTestDateArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1491,10 +1491,10 @@ doTestTimeArgumentDescriptors
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1639,7 +1639,7 @@ main
             int64_t subSelector;
             bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
-            ODL_B1("expected <- ", expected); //####
+            ODL_B1(expected); //####
             if (ConvertToInt64(argv[1], selector) && (0 < selector) && ConvertToInt64(argv[3], subSelector) && (0 < subSelector))
             {
                 SetSignalHandlers(catchSignal);
@@ -1707,7 +1707,7 @@ main
                 }
                 if (0 != result)
                 {
-                    ODL_I1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1(result); //####
                 }
             }
             else

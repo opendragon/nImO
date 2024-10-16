@@ -89,7 +89,7 @@ nImO::GetMachineInformationCommandHandler::GetMachineInformationCommandHandler
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetMachineInformationCommandHandler::GetMachineInformationCommandHandler
 
@@ -106,7 +106,7 @@ nImO::GetMachineInformationCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get machine information request received."s);
@@ -132,7 +132,7 @@ nImO::GetMachineInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._name));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
                 okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "get machine information"s, infoArray, reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {

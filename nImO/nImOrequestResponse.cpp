@@ -99,8 +99,8 @@ handleResponse
      std::string &              failureReason)
 {
     ODL_ENTER(); //####
-    ODL_P2("handler = ", handler, "failureReason = ", &failureReason); //####
-    ODL_S2s("incoming = ", incoming, "expectedKey = ", expectedKey); //####
+    ODL_P2(handler, &failureReason); //####
+    ODL_S2s(incoming, expectedKey); //####
     bool    wasOK{false};
 
     if (nullptr == handler)
@@ -114,7 +114,7 @@ handleResponse
         auto                trimmed{nImO::UnpackageMessage(incoming)};
         nImO::ByteVector    rawStuff{};
 
-        ODL_S1s("trimmed <- ", trimmed); //####
+        ODL_S1s(trimmed); //####
         // Ignore a request that can't be processed...
         if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
         {
@@ -142,7 +142,7 @@ handleResponse
                         }
                         else
                         {
-                            ODL_S1s("response->getValue() = ", response->getValue()); //####
+                            ODL_S1s(response->getValue()); //####
                             if (expectedKey == response->getValue())
                             {
                                 wasOK = handler->doIt(*asArray);
@@ -197,9 +197,9 @@ handleWriteCompletion
      nImO::SpSuccessOrFailure       status)
 {
     ODL_ENTER(); //####
-    ODL_P4("context = ", context.get(), "socket = ", socket.get(), "handler = ", handler, "keepGoing = ", keepGoing.get()); //####
-    ODL_P1("status = ", status.get()); //####
-    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_P4(context.get(), socket.get(), handler, keepGoing.get()); //####
+    ODL_P1(status.get()); //####
+    ODL_S1s(responseKey); //####
 #if defined(nImO_ChattyTcpUdpLogging)
     context->report("command sent."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
@@ -246,7 +246,7 @@ handleWriteCompletion
                                         }
                                     }
                                     *keepGoing = false;
-                                    ODL_B1("keepGoing <- ", *keepGoing); //####
+                                    ODL_B1(*keepGoing); //####
                                 });
     ODL_EXIT(); //####
 } // handleWriteCompletion
@@ -262,9 +262,9 @@ handleConnectCompletion
      nImO::SpSuccessOrFailure       status)
 {
     ODL_ENTER(); //####
-    ODL_P4("context = ", context.get(), "socket = ", socket.get(), "outString = ", outString.get(), "handler = ", handler); //####
-    ODL_P2("keepGoing = ", keepGoing.get(), "status = ", status.get()); //####
-    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_P4(context.get(), socket.get(), outString.get(), handler); //####
+    ODL_P2(keepGoing.get(), status.get()); //####
+    ODL_S1s(responseKey); //####
 #if defined(nImO_ChattyTcpUdpLogging)
     context->report("command connection request accepted."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
@@ -291,7 +291,7 @@ handleConnectCompletion
                                         *status = std::make_pair(false, errMessage);
                                     }
                                     *keepGoing = false;
-                                    ODL_B1("keepGoing <- ", *keepGoing); //####
+                                    ODL_B1(*keepGoing); //####
                                 }
                                 else
                                 {
@@ -327,8 +327,8 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
      const std::string &        responseKey)
 {
     ODL_ENTER(); //####
-    ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####
-    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
+    ODL_P4(context.get(), &connection, handler, arguments); //####
+    ODL_S2s(requestKey, responseKey); //####
     Message requestToSend;
     auto    requestArray{std::make_shared<Array>()};
     auto    status{std::make_shared<SuccessOrFailure>(true, ""s)};
@@ -358,7 +358,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
-            ODL_S1("outString <- ", outString->c_str()); //####
+            ODL_S1(outString->c_str()); //####
             // Make a connection to the service whose address is in the connection argument.
             auto            socket{std::make_shared<BTCP::socket>(*context->getService())};
             BTCP::endpoint  endpoint{BAIP::make_address_v4(connection._address), connection._port};
@@ -384,7 +384,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                             *status = std::make_pair(false, errMessage);
                                         }
                                         *keepGoing = false;
-                                        ODL_B1("keepGoing <- ", *keepGoing); //####
+                                        ODL_B1(*keepGoing); //####
                                     }
                                     else
                                     {

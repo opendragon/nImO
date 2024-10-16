@@ -99,7 +99,7 @@ nImO::Logical::Logical
         inherited{}, _value{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_B1("initialValue = ", initialValue); //####
+    ODL_B1(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
@@ -108,7 +108,7 @@ nImO::Logical::Logical
         inherited{}, _value{other._value}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
@@ -118,7 +118,7 @@ nImO::Logical::Logical
         inherited{std::move(other)}, _value{other._value}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._value = false;
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
@@ -143,7 +143,7 @@ nImO::Logical::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool    result{&other == this};
 
     if (! result)
@@ -165,7 +165,7 @@ nImO::Logical::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "logical";
     ODL_OBJEXIT_P(&output); //####
     return output;
@@ -189,7 +189,7 @@ nImO::Logical::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -225,13 +225,13 @@ nImO::Logical::extractValue
 {
     NIMO_UNUSED_VAR_(theMessage);
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, parentValue.get()); //####
+    ODL_X1(leadByte); //####
     auto    result{std::make_shared<Logical>(DataKind::OtherMiscellaneousLogicalTrueValue ==
                                              (DataKind::OtherMiscellaneousLogicalValueMask & leadByte))};
 
     ++position; // We will always accept the lead byte
-    ODL_I1("position <- ", position); //####
+    ODL_I1(position); //####
     if (parentValue && result)
     {
         ODL_LOG("(parentValue && result)"); //####
@@ -246,7 +246,7 @@ nImO::Logical::getCanonicalRepresentation
     (const bool aValue)
 {
     ODL_ENTER(); //####
-    ODL_B1("aValue = ", aValue); //####
+    ODL_B1(aValue); //####
     const std::string & result{aValue ? kCanonicalTrue : kCanonicalFalse};
 
     ODL_EXIT_P(&result); //####
@@ -259,7 +259,7 @@ nImO::Logical::getExtractionInfo
      DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    ODL_P2(&aByte, &aMask); //####
     aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask);
     ODL_EXIT(); //####
@@ -295,7 +295,7 @@ nImO::Logical::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -332,7 +332,7 @@ nImO::Logical::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -365,7 +365,7 @@ nImO::Logical::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -402,7 +402,7 @@ nImO::Logical::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -434,7 +434,7 @@ nImO::Logical::operator=
     (const Logical &    other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         _value = other._value;
@@ -449,7 +449,7 @@ nImO::Logical::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -465,7 +465,7 @@ nImO::Logical::operator=
     (const bool value)
 {
     ODL_OBJENTER(); //####
-    ODL_B1("value = ", value); //####
+    ODL_B1(value); //####
     _value = value;
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -477,7 +477,7 @@ nImO::Logical::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     std::ios_base::fmtflags  originalFormat{out.flags()};
 
     out << std::boolalpha << _value;
@@ -494,8 +494,8 @@ nImO::Logical::printToStringBuffer
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     outBuffer.addBool(_value);
     ODL_OBJEXIT(); //####
 } // nImO::Logical::printToStringBuffer
@@ -509,8 +509,8 @@ nImO::Logical::printToStringBufferAsJSON
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     if (asKey)
     {
         outBuffer.appendChar(kDoubleQuote);
@@ -530,7 +530,7 @@ nImO::Logical::readFromStringBuffer
      size_t &               position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    ODL_P2(&inBuffer, &position); //####
     bool                atEnd;
     bool                candidateValue{false};
     SpValue             result;
@@ -608,7 +608,7 @@ nImO::Logical::writeToMessage
     const
 {
     ODL_ENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     DataKind    stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
                         (_value ? DataKind::OtherMiscellaneousLogicalTrueValue : DataKind::OtherMiscellaneousLogicalFalseValue)};
 

@@ -127,18 +127,18 @@ nImO::Logger::report
     (CPtr(char) stringToSend)
 {
     ODL_OBJENTER(); //####
-    ODL_S1("stringToSend = ", stringToSend); //####
+    ODL_S1(stringToSend); //####
     bool    okSoFar;
 
     if ((nullptr != stringToSend) && (0 < strlen(stringToSend)))
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -149,18 +149,18 @@ nImO::Logger::report
     (const std::string &    stringToSend)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("stringToSend = ", stringToSend); //####
+    ODL_S1s(stringToSend); //####
     bool    okSoFar;
 
     if (stringToSend.empty())
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -171,7 +171,7 @@ nImO::Logger::report
     (const StdStringVector &    stringsToSend)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("stringsToSend = ", &stringsToSend); //####
+    ODL_P1(&stringsToSend); //####
     bool    okSoFar;
 
     if (1 <= stringsToSend.size())
@@ -185,18 +185,18 @@ nImO::Logger::report
                 stringArray->addValue(std::make_shared<String>(stringsToSend[ii]));
             }
             okSoFar = report(stringArray);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
             okSoFar = report(stringsToSend[0]);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -207,7 +207,7 @@ nImO::Logger::report
     (SpValue    valueToSend)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("valueToSend = ",valueToSend.get()); //####
+    ODL_P1(valueToSend.get()); //####
     bool    okSoFar{false};
 
     if (valueToSend)
@@ -250,7 +250,7 @@ nImO::Logger::report
                                         NIMO_UNUSED_VAR_(length);
                                       });
                 okSoFar = true;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
         else
@@ -271,7 +271,7 @@ nImO::Logger::setCommandPort
     (const IPv4Port commandPort)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("commandPort = ", commandPort); //####
+    ODL_I1(commandPort); //####
     _commandPort.reset();
     if (0 < commandPort)
     {

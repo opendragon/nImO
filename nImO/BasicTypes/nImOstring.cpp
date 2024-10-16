@@ -93,7 +93,7 @@ nImO::String::String
         inherited{}, _value{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_S1s("initialValue = ", initialValue); //####
+    ODL_S1s(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
@@ -102,7 +102,7 @@ nImO::String::String
         inherited{}, _value{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_S1("initialValue = ", initialValue); //####
+    ODL_S1(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
@@ -111,7 +111,7 @@ nImO::String::String
         inherited{}, _value{other._value}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
@@ -121,7 +121,7 @@ nImO::String::String
         inherited{std::move(other)}, _value{std::move(other._value)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
@@ -145,7 +145,7 @@ nImO::String::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool    result{&other == this};
 
     if (! result)
@@ -167,7 +167,7 @@ nImO::String::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "string";
     ODL_OBJEXIT_P(&output); //####
     return output;
@@ -191,7 +191,7 @@ nImO::String::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -226,20 +226,20 @@ nImO::String::extractValue
      SpArray            parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, parentValue.get()); //####
+    ODL_X1(leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort{DataKind::StringOrBlobShortLengthValue == (DataKind::StringOrBlobLengthMask & leadByte)};
     size_t  numBytes{0};
 
     ++position; // We will always accept the lead byte
-    ODL_I1("position <- ", position); //####
+    ODL_I1(position); //####
     if (isShort)
     {
         ODL_LOG("(isShort)"); //####
         numBytes = toUType(DataKind::StringOrBlobShortLengthMask & leadByte);
-        ODL_I1("numBytes <- ", numBytes); //####
+        ODL_I1(numBytes); //####
     }
     else
     {
@@ -255,19 +255,19 @@ nImO::String::extractValue
             {
                 ODL_LOG("(atEnd)"); //####
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {
                 holder[ii] = StaticCast(uint8_t, aByte);
                 ++position;
-                ODL_I1("position <- ", position); //####
+                ODL_I1(position); //####
             }
         }
         if (okSoFar)
         {
             numBytes = B2I(holder, size);
-            ODL_I1("numBytes <- ", numBytes); //####
+            ODL_I1(numBytes); //####
         }
     }
     if (0 < numBytes)
@@ -284,20 +284,20 @@ nImO::String::extractValue
                 ODL_LOG("(atEnd)"); //####
                 result.reset();
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {
                 holder[ii] = StaticCast(char, aByte);
                 ++position;
-                ODL_I1("position <- ", position); //####
+                ODL_I1(position); //####
             }
         }
         if (okSoFar)
         {
             holder[numBytes] = kEndOfString;
             result = std::make_shared<String>(holder.get());
-            ODL_I1("numBytes <- ", numBytes); //####
+            ODL_I1(numBytes); //####
         }
     }
     else
@@ -319,7 +319,7 @@ nImO::String::getExtractionInfo
      DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    ODL_P2(&aByte, &aMask); //####
     aByte = (DataKind::StringOrBlob | DataKind::StringOrBlobStringValue);
     aMask = (DataKind::Mask | DataKind::StringOrBlobTypeMask);
     ODL_EXIT(); //####
@@ -355,7 +355,7 @@ nImO::String::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -392,7 +392,7 @@ nImO::String::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -425,7 +425,7 @@ nImO::String::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -462,7 +462,7 @@ nImO::String::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -495,7 +495,7 @@ nImO::String::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -511,7 +511,7 @@ nImO::String::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     out << "\"" << _value << "\"";
     ODL_OBJEXIT_P(&out); //####
     return out;
@@ -525,8 +525,8 @@ nImO::String::printToStringBuffer
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     outBuffer.addString(_value, true);
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBuffer
@@ -541,8 +541,8 @@ nImO::String::printToStringBufferAsJSON
     NIMO_UNUSED_VAR_(asKey);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     outBuffer.addString(_value, true);
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBufferAsJSON
@@ -553,7 +553,7 @@ nImO::String::readFromStringBuffer
      size_t &               position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    ODL_P2(&inBuffer, &position); //####
     SpValue result;
     size_t  localIndex{position};
     bool    atEnd;
@@ -862,7 +862,7 @@ nImO::String::writeToMessage
     const
 {
     ODL_ENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     size_t length{_value.length()};
 
     if (0 < length)

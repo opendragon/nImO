@@ -84,7 +84,7 @@ nImO::AnnounceServiceData::AnnounceServiceData
         _addressIpv4{addressIpv4}, _addressIpv6{addressIpv6}
 {
     ODL_ENTER(); //####
-    ODL_P2("addressIpv4 = ", &addressIpv4, "addressIpv6 = ", &addressIpv6); //####
+    ODL_P2(&addressIpv4, &addressIpv6); //####
     ODL_EXIT_P(this); //####
 } // nImO::AnnounceServiceData::AnnounceServiceData
 
@@ -125,8 +125,8 @@ nImO::AnnounceServiceData::setServiceData
      const std::string &    hostAddress)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("port = ", port); //####
-    ODL_S4s("serviceName = ", serviceName, "hostName = ", hostName, "dataKey = ", dataKey, "hostAddress = ", hostAddress); //####
+    ODL_I1(port); //####
+    ODL_S4s(serviceName, hostName, dataKey, hostAddress); //####
     bool    okSoFar;
     size_t  serviceNameLength{serviceName.length()};
     size_t  hostNameLength{hostName.length()};
@@ -193,12 +193,12 @@ nImO::AnnounceServiceData::setServiceData
         _recordTXT[0].data.txt.key = make_mdns_string(dataKey.c_str(), dataKey.length());
         _recordTXT[0].data.txt.value = make_mdns_string(hostAddress.c_str(), hostAddress.length());
         okSoFar = true;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

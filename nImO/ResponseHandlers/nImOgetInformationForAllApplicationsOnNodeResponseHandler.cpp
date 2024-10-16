@@ -110,7 +110,7 @@ nImO::GetInformationForAllApplicationsOnNodeResponseHandler::doIt
         else
         {
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
             for (auto & walker : *infoVector)
             {
                 auto    infoArray{walker->asArray()};
@@ -119,7 +119,7 @@ nImO::GetInformationForAllApplicationsOnNodeResponseHandler::doIt
                 {
                     ODL_LOG("(nullptr == infoArray)"); //####
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {
@@ -149,14 +149,14 @@ nImO::GetInformationForAllApplicationsOnNodeResponseHandler::doIt
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != launcherNamePtr) && (nullptr != appNamePtr) && " //####
                                     "(nullptr != appDescrPtr))"); //####
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //####
+                            ODL_B1(okSoFar); //####
                         }
                     }
                     else
                     {
                         ODL_LOG("! (3 < infoArray->size())"); //####
                         okSoFar = false;
-                        ODL_B1("okSoFar <- ", okSoFar); //####
+                        ODL_B1(okSoFar); //####
                     }
                 }
             }

@@ -242,7 +242,7 @@ main
                                                                                             gatherLines(inLine);
                                                                                         })};
 
-                                        ODL_P1("aThread = ", aThread); //####
+                                        ODL_P1(aThread); //####
                                         aThread->detach();
                                         std::cout << "ready.\n";
                                         std::cout.flush();

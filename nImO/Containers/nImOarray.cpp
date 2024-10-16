@@ -95,7 +95,7 @@ nImO::Array::Array
         inherited1{}, inherited2{}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     addEntries(other);
     ODL_EXIT_P(this); //####
 } // nImO::Array::Array
@@ -106,7 +106,7 @@ nImO::Array::Array
         inherited1{std::move(other)}, inherited2{std::move(other)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     addEntries(other);
     other.clear();
     ODL_EXIT_P(this); //####
@@ -129,7 +129,7 @@ nImO::Array::addEntries
     (const Array &  other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     for (auto & walker : other)
     {
         addValue(walker);
@@ -163,7 +163,7 @@ nImO::Array::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool    result{&other == this};
 
     if (! result)
@@ -201,7 +201,7 @@ nImO::Array::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "array of " << size() << " elements";
     ODL_OBJEXIT_P(&output); //####
     return output;
@@ -225,7 +225,7 @@ nImO::Array::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
@@ -248,21 +248,21 @@ nImO::Array::extractValue
      SpArray            parentValue)
 {
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, parentValue.get()); //####
+    ODL_X1(leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isEmpty{DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte)};
     int     aByte;
 
     ++position; // We will always accept the lead byte
-    ODL_I1("position <- ", position); //####
+    ODL_I1(position); //####
     if (isEmpty)
     {
         ODL_LOG("(isEmpty)"); //####
         aByte = theMessage.getByte(position, atEnd);
-        ODL_X1("aByte <- ", aByte); //####
-        ODL_B1("atEnd <- ", atEnd); //####
+        ODL_X1(aByte); //####
+        ODL_B1(atEnd); //####
         if (! atEnd)
         {
             ODL_LOG("(! atEnd)"); //####
@@ -274,7 +274,7 @@ nImO::Array::extractValue
                 ODL_LOG("(endMarker == aByte)"); //####
                 result = std::make_shared<Array>();
                 ++position;
-                ODL_I1("position <- ", position); //####
+                ODL_I1(position); //####
             }
             else
             {
@@ -287,8 +287,8 @@ nImO::Array::extractValue
     {
         ODL_LOG("! (isEmpty)"); //####
         aByte = theMessage.getByte(position, atEnd);
-        ODL_X1("aByte <- ", aByte); //####
-        ODL_B1("atEnd <- ", atEnd); //####
+        ODL_X1(aByte); //####
+        ODL_B1(atEnd); //####
         if (! atEnd)
         {
             ODL_LOG("(! atEnd)"); //####
@@ -299,7 +299,7 @@ nImO::Array::extractValue
             {
                 ODL_LOG("(IntStatus::Successful == status)"); //####
                 elementCount -= kDataKindIntegerShortValueMinValue - 1;
-                ODL_I1("elementCount <- ", elementCount); //####
+                ODL_I1(elementCount); //####
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
@@ -317,14 +317,14 @@ nImO::Array::extractValue
                         for ( ; okSoFar && (elementCount > StaticCast(int64_t, anArray->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
-                            ODL_X1("aByte <- ", aByte); //####
-                            ODL_B1("atEnd <- ", atEnd); //####
+                            ODL_X1(aByte); //####
+                            ODL_B1(atEnd); //####
                             if (atEnd)
                             {
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
-                                ODL_B1("okSoFar <- ", okSoFar); //####
+                                ODL_B1(okSoFar); //####
                             }
                             else
                             {
@@ -340,7 +340,7 @@ nImO::Array::extractValue
                                         ODL_LOG("(aValue->asFlaw())"); //####
                                         result = aValue;
                                         okSoFar = false;
-                                        ODL_B1("okSoFar <- ", okSoFar); //####
+                                        ODL_B1(okSoFar); //####
                                     }
                                 }
                                 else
@@ -348,21 +348,21 @@ nImO::Array::extractValue
                                     ODL_LOG("(nullptr == aValue)"); //####
                                     result = std::make_shared<Invalid>("Null Value read", position);
                                     okSoFar = false;
-                                    ODL_B1("okSoFar <- ", okSoFar); //####
+                                    ODL_B1(okSoFar); //####
                                 }
                             }
                         }
                         if (okSoFar)
                         {
                             aByte = theMessage.getByte(position, atEnd);
-                            ODL_X1("aByte <- ", aByte); //####
-                            ODL_B1("atEnd <- ", atEnd); //####
+                            ODL_X1(aByte); //####
+                            ODL_B1(atEnd); //####
                             if (atEnd)
                             {
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
-                                ODL_B1("okSoFar <- ", okSoFar); //####
+                                ODL_B1(okSoFar); //####
                             }
                             else
                             {
@@ -375,7 +375,7 @@ nImO::Array::extractValue
                                 {
                                     ODL_LOG("(toUType(endMarker) == aByte)"); //####
                                     ++position;
-                                    ODL_I1("position <- ", position); //####
+                                    ODL_I1(position); //####
                                 }
                                 else
                                 {
@@ -413,7 +413,7 @@ nImO::Array::getExtractionInfo
      DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    ODL_P2(&aByte, &aMask); //####
     aByte = (DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeArray);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherContainerTypeMask);
     ODL_EXIT(); //####
@@ -460,7 +460,7 @@ nImO::Array::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
@@ -481,7 +481,7 @@ nImO::Array::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
@@ -502,7 +502,7 @@ nImO::Array::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
@@ -523,7 +523,7 @@ nImO::Array::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
@@ -544,7 +544,7 @@ nImO::Array::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited1::operator=(std::move(other));
@@ -562,7 +562,7 @@ nImO::Array::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     out << kStartArrayChar;
     for (auto & walker : *this)
     {
@@ -583,8 +583,8 @@ nImO::Array::printToStringBuffer
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     bool    first{true};
 
     outBuffer.appendChar(kStartArrayChar);
@@ -621,8 +621,8 @@ nImO::Array::printToStringBufferAsJSON
 {
     NIMO_UNUSED_VAR_(asKey);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     bool    first{true};
 
     outBuffer.appendChar(kStartArrayChar);
@@ -695,7 +695,7 @@ nImO::Array::readFromStringBuffer
      size_t &               position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    ODL_P2(&inBuffer, &position); //####
     bool    atEnd;
     bool    done{false};
     bool    valid{false};
@@ -703,18 +703,18 @@ nImO::Array::readFromStringBuffer
     size_t  localIndex{position};
     int     aChar{inBuffer.getChar(localIndex++, atEnd)};
 
-    ODL_P1("result <- ", result.get()); //####
-    ODL_I1("localIndex <- ", localIndex); //####
-    ODL_C1("aChar <- ", aChar); //####
-    ODL_B1("atEnd <- ", atEnd); //####
+    ODL_P1(result.get()); //####
+    ODL_I1(localIndex); //####
+    ODL_C1(aChar); //####
+    ODL_B1(atEnd); //####
     if ((! atEnd) && (kStartArrayChar == aChar))
     {
         for ( ; ! done; )
         {
             inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
-            ODL_I1("localIndex = ", localIndex); //####
-            ODL_C1("aChar = ", aChar); //####
-            ODL_B1("atEnd = ", atEnd); //####
+            ODL_I1(localIndex); //####
+            ODL_C1(aChar); //####
+            ODL_B1(atEnd); //####
             // Check for the closing bracket
             if (atEnd)
             {
@@ -731,7 +731,7 @@ nImO::Array::readFromStringBuffer
                 {
                     auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
-                    ODL_I1("localIndex <- ", localIndex); //####
+                    ODL_I1(localIndex); //####
                     if (element)
                     {
                         result->addValue(element);
@@ -780,7 +780,7 @@ nImO::Array::writeToMessage
     const
 {
     ODL_ENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####

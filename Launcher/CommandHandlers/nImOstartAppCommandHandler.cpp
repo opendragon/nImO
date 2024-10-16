@@ -95,7 +95,7 @@ nImO::StartAppCommandHandler::StartAppCommandHandler
         inherited{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::StartAppCommandHandler::StartAppCommandHandler
 
@@ -111,7 +111,7 @@ nImO::StartAppCommandHandler::doIt
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
     auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
@@ -218,7 +218,7 @@ nImO::StartAppCommandHandler::doIt
 
                                 cc.detach();
                                 okSoFar = sendSimpleResponse(socket, kStartAppResponse, "start app"s, true, reason);
-                                ODL_B1("okSoFar <- ", okSoFar); //####
+                                ODL_B1(okSoFar); //####
                             }
                             else
                             {

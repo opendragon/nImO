@@ -86,7 +86,7 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
         inherited{argName, argDescription, ArgumentMode::Optional}
 {
     ODL_ENTER(); //####
-    ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
+    ODL_S2s(argName, argDescription); //####
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
@@ -95,7 +95,7 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
         inherited{other}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
@@ -105,7 +105,7 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
         inherited{std::move(other)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
@@ -199,7 +199,7 @@ ExtraArgumentDescriptor::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -213,7 +213,7 @@ ExtraArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     SpBaseArgumentDescriptor    result;
     StdStringVector             inVector;
     std::string                 name;
@@ -243,7 +243,7 @@ ExtraArgumentDescriptor::swap
     (ExtraArgumentDescriptor &  other)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     inherited::swap(other);
     ODL_OBJEXIT(); //####
 } // ExtraArgumentDescriptor::swap
@@ -265,9 +265,9 @@ ExtraArgumentDescriptor::validate
 {
     NIMO_UNUSED_VAR_(value);
     ODL_OBJENTER(); //####
-    ODL_S1s("value = ", value); //####
+    ODL_S1s(value); //####
     setValidity(true);
-    ODL_B1("isValid() <- ", isValid()); //####
+    ODL_B1(isValid()); //####
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();
 } // ExtraArgumentDescriptor::validate

@@ -154,7 +154,7 @@ nImO::Time::Time
         inherited{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_X1("initialValue = ", initialValue); //####
+    ODL_X1(initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Time::Time
 
@@ -163,7 +163,7 @@ nImO::Time::Time
         inherited{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("initialValue = ", &initialValue); //####
+    ODL_P1(&initialValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Time::Time
 
@@ -172,7 +172,7 @@ nImO::Time::Time
         inherited{other}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Time::Time
 
@@ -182,7 +182,7 @@ nImO::Time::Time
         inherited{std::move(other)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Time::Time
 
@@ -206,7 +206,7 @@ nImO::Time::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool    result{&other == this};
 
     if (! result)
@@ -228,7 +228,7 @@ nImO::Time::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     output << "time";
     ODL_OBJEXIT_P(&output); //####
     return output;
@@ -252,7 +252,7 @@ nImO::Time::equalTo
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -288,8 +288,8 @@ nImO::Time::extractValue
 {
     NIMO_UNUSED_VAR_(leadByte);
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
+    ODL_P3(&theMessage, &position, parentValue.get()); //####
+    ODL_X1(leadByte); //####
     SpValue         result;
     DateTimeValue   accumulator{0};
     bool            atEnd{false};
@@ -299,8 +299,8 @@ nImO::Time::extractValue
     {
         uint8_t aByte = theMessage.getByte(position, atEnd);
 
-        ODL_X1("aByte <- ", aByte); //####
-        ODL_B1("atEnd <- ", atEnd); //####
+        ODL_X1(aByte); //####
+        ODL_B1(atEnd); //####
         if (atEnd)
         {
             ODL_LOG("(atEnd)"); //####
@@ -309,7 +309,7 @@ nImO::Time::extractValue
         {
             accumulator = ((accumulator << 8) | aByte);
             ++position;
-            ODL_I1("position <- ", position); //####
+            ODL_I1(position); //####
         }
     }
     if (atEnd)
@@ -336,7 +336,7 @@ nImO::Time::getExtractionInfo
      DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    ODL_P2(&aByte, &aMask); //####
     aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
              DataKind::OtherMiscellaneousTypeBitFieldTypeTime);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask |
@@ -351,7 +351,7 @@ nImO::Time::greaterThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -388,7 +388,7 @@ nImO::Time::greaterThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -433,7 +433,7 @@ nImO::Time::lessThan
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other == this)
@@ -470,7 +470,7 @@ nImO::Time::lessThanOrEqual
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ComparisonStatus    result{};
 
     if (&other != this)
@@ -527,7 +527,7 @@ nImO::Time::operator<<
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
+    ODL_P1(&out); //####
     out << kStartDateTimeChar << kSecondCharForTime << ConvertTimeToString(_dateTimeValue);
     ODL_OBJEXIT_P(&out); //####
     return out;
@@ -541,8 +541,8 @@ nImO::Time::printToStringBuffer
 {
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B1(squished); //####
     outBuffer.appendChar(kStartDateTimeChar);
     outBuffer.appendChar(kSecondCharForTime);
     outBuffer.addString(ConvertTimeToString(_dateTimeValue));
@@ -559,8 +559,8 @@ nImO::Time::printToStringBufferAsJSON
     NIMO_UNUSED_VAR_(asKey);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
-    ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
+    ODL_P1(&outBuffer); //####
+    ODL_B2(asKey, squished); //####
     outBuffer.appendChar(kDoubleQuote);
     outBuffer.addString(ConvertTimeToString(_dateTimeValue));
     outBuffer.appendChar(kDoubleQuote);
@@ -585,7 +585,7 @@ nImO::Time::writeToMessage
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
+    ODL_P1(&outMessage); //####
     DataKind        stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
                             DataKind::OtherMiscellaneousTypeBitFieldTypeTime};
     DateTimeBytes   bytes;
@@ -605,7 +605,7 @@ nImO::ConvertTimeToString
     (const DateTimeValue    value)
 {
     ODL_ENTER(); //####
-    ODL_I1("value = ", value);
+    ODL_I1(value);
     std::string result{paddedDecimal(hoursFromDateTime(value), 2) + kTimeSeparator +
                         paddedDecimal(minutesFromDateTime(value), 2) + kTimeSeparator +
                         paddedDecimal(secondsFromDateTime(value), 2) + kSecondMillisecondSeparator +
@@ -623,8 +623,8 @@ nImO::GetTimePieces
 {
     // y/m/d
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
-    ODL_P1("processedLength = ", processedLength); //####
+    ODL_S1s(inString); //####
+    ODL_P1(processedLength); //####
     bool            okSoFar{true};
     const int       maxs[] = { kMaxHours, kMaxMinutes, kMaxSeconds, kMaxMilliseconds };
     const int       mins[] = { kMinHours, kMinMinutes, kMinSeconds, kMinMilliseconds };
@@ -647,31 +647,31 @@ nImO::GetTimePieces
             if (walker == endPtr)
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {
                 if ((maxs[ii] < value) || (mins[ii] > value))
                 {
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {
                     char    aChar{*endPtr};
 
-                    ODL_C1("aChar <- ", aChar); //####
+                    ODL_C1(aChar); //####
                     if ((kEndOfString == aChar) || Value::isLegalTerminator(aChar))
                     {
                         pieces[ii] = StaticCast(uint16_t, value);
-                        ODL_I1("pieces[ii] <- ", pieces[ii]); //####
+                        ODL_I1(pieces[ii]); //####
                         break;
 
                     }
                     if ((kSecondMillisecondSeparator == aChar) && (ii == (numE - 2)))
                     {
                         pieces[ii] = StaticCast(uint16_t, value);
-                        ODL_I1("pieces[ii] <- ", pieces[ii]); //####
+                        ODL_I1(pieces[ii]); //####
                         walker = endPtr + 1;
                     }
                     else
@@ -679,13 +679,13 @@ nImO::GetTimePieces
                         if ((kTimeSeparator == aChar) && (ii < (numE - 1)))
                         {
                             pieces[ii] = StaticCast(uint16_t, value);
-                            ODL_I1("pieces[ii] <- ", pieces[ii]); //####
+                            ODL_I1(pieces[ii]); //####
                             walker = endPtr + 1;
                         }
                         else
                         {
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //####
+                            ODL_B1(okSoFar); //####
                         }
                     }
                 }
@@ -694,13 +694,13 @@ nImO::GetTimePieces
         if (okSoFar && (nullptr != processedLength))
         {
             *processedLength = endPtr - beginPtr;
-            ODL_I1("*processedLength <- ", *processedLength); //####
+            ODL_I1(*processedLength); //####
         }
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;

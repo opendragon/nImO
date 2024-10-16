@@ -88,7 +88,7 @@ nImO::GetNumberOfConnectionsCommandHandler::GetNumberOfConnectionsCommandHandler
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetNumberOfConnectionsCommandHandler::GetNumberOfConnectionsCommandHandler
 
@@ -105,7 +105,7 @@ nImO::GetNumberOfConnectionsCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get number of connections request received."s);
@@ -118,7 +118,7 @@ nImO::GetNumberOfConnectionsCommandHandler::doIt
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
             okSoFar = sendComplexResponse(socket, kGetNumberOfConnectionsResponse, "get number of connections"s, count, reason);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {

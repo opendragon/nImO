@@ -86,7 +86,7 @@ nImO::StopSenderCommandHandler::StopSenderCommandHandler
         inherited{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::StopSenderCommandHandler::StopSenderCommandHandler
 
@@ -103,7 +103,7 @@ nImO::StopSenderCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("stop sender request received."s);
@@ -123,7 +123,7 @@ nImO::StopSenderCommandHandler::doIt
             if (theChannel)
             {
                 okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "stop sender"s, theChannel->stop(), reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {

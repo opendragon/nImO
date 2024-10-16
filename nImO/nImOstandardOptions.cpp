@@ -94,7 +94,7 @@ nImO::GetConfiguredValue
     (const std::string &    key)
 {
     ODL_ENTER(); //####
-    ODL_S1s("key = ", key); //####
+    ODL_S1s(key); //####
     boost::optional<SpValue>  retVal;
 
     if ((! key.empty()) && (nullptr != lConfigurationValues))
@@ -120,7 +120,7 @@ nImO::LoadConfiguration
     (const std::string &    configFilePath)
 {
     ODL_ENTER(); //####
-    ODL_S1s("configFilePath = ", configFilePath); //####
+    ODL_S1s(configFilePath); //####
     std::string workingPath;
 
     if (configFilePath.empty())
@@ -190,12 +190,11 @@ nImO::ProcessStandardOptions
      Ptr(StdStringVector)   arguments)
 {
     ODL_ENTER(); //####
-    ODL_I2("argc = ", argc, "year = ", year); //####
-    ODL_P3("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues); //####
-    ODL_X1("optionsToIgnore = ", StaticCast(int64_t, optionsToIgnore)); //####
-    ODL_P1("arguments = ", arguments); //####
-    ODL_S3s("utilityDescription = ", utilityDescription, "utilityExample = ", utilityExample, //####
-            "copyrightHolder = ", copyrightHolder); //####
+    ODL_I2(argc, year); //####
+    ODL_P3(argv, &argumentDescriptions, &optionValues); //####
+    ODL_X1(StaticCast(int64_t, optionsToIgnore)); //####
+    ODL_P1(arguments); //####
+    ODL_S3s(utilityDescription, utilityExample, copyrightHolder); //####
     enum class OptionIndex
     {
         kOptionUNKNOWN,
@@ -327,7 +326,7 @@ nImO::ProcessStandardOptions
     if (parse.error())
     {
         keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
+        ODL_B1(keepGoing); //####
     }
     else
     {
@@ -340,7 +339,7 @@ nImO::ProcessStandardOptions
                 helper(std::cout);
             }
             keepGoing = false;
-            ODL_B1("keepGoing <- ", keepGoing); //####
+            ODL_B1(keepGoing); //####
         }
         else
         {
@@ -413,7 +412,7 @@ nImO::ProcessStandardOptions
                 {
                     std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
                     keepGoing = false;
-                    ODL_B1("keepGoing <- ", keepGoing); //####
+                    ODL_B1(keepGoing); //####
                 }
             }
             else
@@ -423,7 +422,7 @@ nImO::ProcessStandardOptions
                 std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
                             copyrightHolder << ".\n";
                 keepGoing = false;
-                ODL_B1("keepGoing <- ", keepGoing); //####
+                ODL_B1(keepGoing); //####
             }
         }
     }

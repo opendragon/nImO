@@ -90,7 +90,7 @@ nImO::operator<<
      const nImO::ComparisonStatus & aValue)
 {
     ODL_ENTER(); //###
-    ODL_P2("out = ", &out, "aValue = ", &aValue); //####
+    ODL_P2(&out, &aValue); //####
     std::ios_base::fmtflags  originalFormat{out.flags()};
 
     out << "result:" << std::boolalpha << aValue._result << "/valid:" << aValue._valid;

@@ -87,9 +87,9 @@ nImO::InChannel::InChannel
         inherited{context, path, index}, _inQueue(inQueue)
 {
     ODL_ENTER(); //####
-    ODL_P2("inQueue = ", &inQueue, "context = ", &context); //####
-    ODL_S1s("path = ", path); //####
-    ODL_I1("index = ", index); //####
+    ODL_P2(&inQueue, &context); //####
+    ODL_S1s(path); //####
+    ODL_I1(index); //####
     ODL_EXIT_P(this); //####
 } // nImO::InChannel::InChannel
 
@@ -142,7 +142,7 @@ nImO::InChannel::receiveTcpMessages
                                             std::string receivedAsString{buffers_begin(rB->data()), buffers_end(rB->data())};
                                             auto        trimmed{UnpackageMessage(receivedAsString)};
 
-                                            ODL_S1s("trimmed <- ", trimmed); //####
+                                            ODL_S1s(trimmed); //####
 #if defined(nImO_ChattyTcpUdpLogging)
                                             _context.report("got message."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
@@ -194,7 +194,7 @@ nImO::InChannel::receiveUdpMessages
                                                    std::string  receivedAsString{_rawData.data(), length};
                                                    auto         trimmed{UnpackageMessage(receivedAsString)};
 
-                                                   ODL_S1s("trimmed <- ", trimmed); //####
+                                                   ODL_S1s(trimmed); //####
 #if defined(nImO_ChattyTcpUdpLogging)
                                                    _context.report("got message."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
@@ -213,7 +213,7 @@ nImO::InChannel::setUp
     (const TransportType    mode)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("mode = ", StaticCast(int, mode)); //####
+    ODL_I1(StaticCast(int, mode)); //####
     bool    okSoFar{false};
 
     _connection._transport = mode;
@@ -230,7 +230,7 @@ nImO::InChannel::setUp
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket->local_endpoint().port();
         okSoFar = true;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
 #if defined(nImO_ChattyTcpUdpLogging)
         _context.report("local port = "s + std::to_string(_connection._port) + "."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
@@ -249,7 +249,7 @@ nImO::InChannel::setUp
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -262,8 +262,8 @@ nImO::InChannel::start
      const IPv4Port     senderPort)
 {
     ODL_OBJENTER(); //####
-    ODL_X1("senderAddress = ", senderAddress); //####
-    ODL_I1("senderPort = ", senderPort); //####
+    ODL_X1(senderAddress); //####
+    ODL_I1(senderPort); //####
     bool    okSoFar{false};
 
     _matchAddress = senderAddress;
@@ -273,10 +273,10 @@ nImO::InChannel::start
     {
         _unfiltered = ((BytesToIPv4Address(0, 0, 0, 0) == _matchAddress) && (0 == _matchPort));
         _udpConnected = true;
-        ODL_B2("_unfiltered <- ", _unfiltered, "_udpConnected <- ", _udpConnected); //####
+        ODL_B2(_unfiltered, _udpConnected); //####
         receiveUdpMessages();
         okSoFar = true;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {
@@ -305,12 +305,12 @@ nImO::InChannel::start
                                             else
                                             {
                                                 _tcpConnected = true;
-                                                ODL_B1("_tcpConnected <- ", _tcpConnected); //####
+                                                ODL_B1(_tcpConnected); //####
                                                 receiveTcpMessages();
                                             }
                                        });
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -332,9 +332,9 @@ nImO::InChannel::stop
             _udpSocket->cancel();
         }
         _udpConnected = false;
-        ODL_B1("_udpConnected <- ", _udpConnected); //####
+        ODL_B1(_udpConnected); //####
         okSoFar = true;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {
@@ -349,14 +349,14 @@ nImO::InChannel::stop
                 _tcpAcceptor->close();
             }
             _tcpConnected = false;
-            ODL_B1("_tcpConnected <- ", _tcpConnected); //####
+            ODL_B1(_tcpConnected); //####
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     _connection._transport = TransportType::kUnknown;

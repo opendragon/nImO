@@ -85,9 +85,9 @@ nImO::BaseChannel::BaseChannel
         _context(context), _name(path), _index(index)
 {
     ODL_ENTER(); //####
-    ODL_P1("context = ", &context); //####
-    ODL_S1s("path = ", path); //####
-    ODL_I1("index = ", index); //####
+    ODL_P1(&context); //####
+    ODL_S1s(path); //####
+    ODL_I1(index); //####
     ODL_EXIT_P(this); //####
 } // nImO::BaseChannel::BaseChannel
 

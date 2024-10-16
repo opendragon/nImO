@@ -108,7 +108,7 @@ nImO::GetRunParamsForAppResponseHandler::doIt
         else
         {
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
             for (auto & walker : *asArray)
             {
                 if (walker)
@@ -119,7 +119,7 @@ nImO::GetRunParamsForAppResponseHandler::doIt
                     {
                         ODL_LOG("(nullptr == asString)"); //####
                         okSoFar = false;
-                        ODL_B1("okSoFar <- ", okSoFar); //####
+                        ODL_B1(okSoFar); //####
                     }
                     else
                     {
@@ -130,7 +130,7 @@ nImO::GetRunParamsForAppResponseHandler::doIt
                 {
                     ODL_LOG("! (walker)"); //####
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
             }
         }

@@ -109,7 +109,7 @@ nImO::GetNumberOfInputChannelsOnNodeResponseHandler::doIt
         {
             _result = asInteger->getIntegerValue();
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     else

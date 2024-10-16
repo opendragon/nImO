@@ -89,7 +89,7 @@ nImO::GetInformationForAllMachinesCommandHandler::GetInformationForAllMachinesCo
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetInformationForAllMachinesCommandHandler::GetInformationForAllMachinesCommandHandler
 
@@ -106,7 +106,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get information for all machines request received."s);
@@ -128,7 +128,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
                 machineArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "get information for all machines"s, machineArray, reason);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {

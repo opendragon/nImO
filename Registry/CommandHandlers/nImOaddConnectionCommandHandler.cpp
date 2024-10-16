@@ -90,7 +90,7 @@ nImO::AddConnectionCommandHandler::AddConnectionCommandHandler
         inherited{owner, theRegistry}, _statusConnection{statusConnection}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::AddConnectionCommandHandler::AddConnectionCommandHandler
 
@@ -106,7 +106,7 @@ nImO::AddConnectionCommandHandler::doIt
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("add connection request received."s);
@@ -133,7 +133,7 @@ nImO::AddConnectionCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kAddConnectionResponse, "add connection"s, true, reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kConnectionAddedStatus + kStatusSeparator + fromNodeName + kStatusSeparator +

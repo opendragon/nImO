@@ -95,8 +95,8 @@ nImO::ServiceContext::ServiceContext
         _commandLine{std::make_shared<Array>()}, _keepGoing{true}, _nodeName{nodeName}
 {
     ODL_ENTER(); //####
-    ODL_S2s("tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
-    ODL_B2("logging = ", logging, "startBrowser = ", startBrowser); //####
+    ODL_S2s(tagForLogging, nodeName); //####
+    ODL_B2(logging, startBrowser); //####
     for (int ii = 0; ii < argc; ++ii)
     {
         _commandLine->addValue(std::make_shared<String>(argv[ii]));
@@ -133,8 +133,8 @@ nImO::ServiceContext::addHandler
      SpCommandHandler       theHandler)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("commandName = ", commandName); //####
-    ODL_P1("theHandler = ", theHandler.get()); //####
+    ODL_S1s(commandName); //####
+    ODL_P1(theHandler.get()); //####
     bool    okSoFar{false};
 
     if (theHandler && (0 < commandName.size()))
@@ -142,7 +142,7 @@ nImO::ServiceContext::addHandler
         const auto result = _commandHandlers.insert({commandName, theHandler});
 
         okSoFar = result.second;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -154,17 +154,17 @@ nImO::ServiceContext::addStandardHandlers
      Ptr(CallbackFunction)  stopCallback)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "stopCallback = ", stopCallback); //####
+    ODL_P2(context.get(), stopCallback); //####
     if (context)
     {
         auto    newHandler{std::make_shared<StopCommandHandler>(context, stopCallback)};
 
-        ODL_P1("newHandler <- ", newHandler.get()); //####
+        ODL_P1(newHandler.get()); //####
         if (context->addHandler(kStopRequest, newHandler))
         {
             auto    newSession{std::make_shared<CommandSession>(context)};
 
-            ODL_P1("newSession <- ", newSession.get()); //####
+            ODL_P1(newSession.get()); //####
             context->_acceptor.async_accept(*newSession->getSocket(),
                                                [context, newSession]
                                                (const BSErr ec)
@@ -223,7 +223,7 @@ nImO::ServiceContext::destroyCommandPort
     report("destroying a command port."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     _keepGoing = false;
-    ODL_B1("_keepGoing <- ", _keepGoing); //####
+    ODL_B1(_keepGoing); //####
     _acceptor.close();
     for (auto & walker : _sessions)
     {
@@ -246,7 +246,7 @@ nImO::ServiceContext::forgetSession
     (SpCommandSession   aSession)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("aSession = ", aSession.get()); //####
+    ODL_P1(aSession.get()); //####
     // Drop the finished session.
     auto    found{_sessions.find(aSession)};
 
@@ -277,7 +277,7 @@ nImO::ServiceContext::getHandler
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("commandName = ", commandName); //####
+    ODL_S1s(commandName); //####
     SpCommandHandler    handler{};
 
     if (0 < commandName.size())
@@ -299,8 +299,8 @@ nImO::ServiceContext::handleAccept
      const BSErr &      error)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("newSession = ", newSession.get()); //####
-    ODL_I1("error = ", error.value()); //####
+    ODL_P1(newSession.get()); //####
+    ODL_I1(error.value()); //####
     bool    releaseSession;
 
     if (error)
@@ -332,7 +332,7 @@ nImO::ServiceContext::handleAccept
                 report("creating new session."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                 newSession = std::make_shared<CommandSession>(newSession->getContext());
-                ODL_P1("newSession <- ", newSession.get()); //####
+                ODL_P1(newSession.get()); //####
                 _acceptor.async_accept(*newSession->getSocket(),
                                        [this, newSession]
                                        (const BSErr ec)
@@ -362,7 +362,7 @@ nImO::ServiceContext::removeHandler
     (const std::string &    commandName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("commandName = ", commandName); //####
+    ODL_S1s(commandName); //####
     bool    okSoFar{false};
 
     if (0 < commandName.size())
@@ -372,7 +372,7 @@ nImO::ServiceContext::removeHandler
         if (_commandHandlers.end() != match)
         {
             okSoFar = (1 == _commandHandlers.erase(commandName));
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####

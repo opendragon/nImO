@@ -136,7 +136,7 @@ nImO::StringBuffer::StringBuffer
         inherited{std::move(other)}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
@@ -149,7 +149,7 @@ nImO::StringBuffer::addBool
     (const bool aBool)
 {
     ODL_OBJENTER(); //####
-    ODL_B1("aBool = ", aBool); //####
+    ODL_B1(aBool); //####
     addString(Logical::getCanonicalRepresentation(aBool));
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -161,8 +161,8 @@ nImO::StringBuffer::addBytes
      const size_t   numBytes)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("inBytes = ", inBytes); //####
-    ODL_I1("numBytes = ", numBytes); //####
+    ODL_P1(inBytes); //####
+    ODL_I1(numBytes); //####
     static const char hexDigits[16]
     {
         '0', '1', '2', '3', '4', '5', '6', '7',
@@ -190,8 +190,8 @@ nImO::StringBuffer::addString
      const bool addQuotes)
 {
     ODL_OBJENTER(); //####
-    ODL_S1("aString = ", aString); //####
-    ODL_B1("addQuotes = ", addQuotes); //####
+    ODL_S1(aString); //####
+    ODL_B1(addQuotes); //####
     if (nullptr != aString)
     {
         size_t  length{strlen(aString)};
@@ -215,8 +215,8 @@ nImO::StringBuffer::addString
      const bool             addQuotes)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("aString = ", aString); //####
-    ODL_B1("addQuotes = ", addQuotes); //####
+    ODL_S1s(aString); //####
+    ODL_B1(addQuotes); //####
     size_t  length{aString.length()};
 
     if (addQuotes)
@@ -240,7 +240,7 @@ nImO::StringBuffer::convertToValue
     size_t  position{0};
     auto    result{Value::readFromStringBuffer(*this, position)};
 
-    ODL_P1("result <- ", result.get()); //####
+    ODL_P1(result.get()); //####
     if (result)
     {
         bool    atEnd{false};
@@ -266,11 +266,11 @@ nImO::StringBuffer::convertToValue
                 if (! holder)
                 {
                     holder = std::make_shared<Array>();
-                    ODL_P1("holder <- ", holder.get()); //####
+                    ODL_P1(holder.get()); //####
                 }
                 holder->addValue(result);
                 result = Value::readFromStringBuffer(*this, position);
-                ODL_P1("result <- ", result.get()); //####
+                ODL_P1(result.get()); //####
                 if (! result)
                 {
                     ODL_LOG("(! result)"); //####
@@ -284,7 +284,7 @@ nImO::StringBuffer::convertToValue
             if (holder)
             {
                 result = holder;
-                ODL_P1("result <- ", result.get()); //####
+                ODL_P1(result.get()); //####
             }
         }
         else
@@ -307,7 +307,7 @@ nImO::StringBuffer::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited(std::move(other));
@@ -322,8 +322,8 @@ nImO::StringBuffer::processCharacters
      const size_t   length)
 {
     ODL_ENTER(); //####
-    ODL_S1("aString = ", aString); //####
-    ODL_I1("length = ", length); //####
+    ODL_S1(aString); //####
+    ODL_I1(length); //####
     bool    hasSpecials{false};
     size_t  numSingleQuotes{0};
     size_t  numDoubleQuotes{0};
@@ -469,19 +469,19 @@ nImO::StringBuffer::skipOverWhiteSpace
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("position = ", &position, "aChar = ", &aChar, "atEnd = ", &atEnd); //####
+    ODL_P3(&position, &aChar, &atEnd); //####
     for (aChar = getChar(position, atEnd); ! atEnd; )
     {
-        ODL_C1("aChar <- ", aChar); //####
-        ODL_I1("position <- ", position); //####
+        ODL_C1(aChar); //####
+        ODL_I1(position); //####
         if (isspace(aChar) || Noise(aChar) || (kCommentChar == aChar))
         {
             if (kCommentChar == aChar)
             {
                 for (aChar = getChar(position, atEnd); ! atEnd; )
                 {
-                    ODL_C1("aChar <- ", aChar); //####
-                    ODL_I1("position <- ", position); //####
+                    ODL_C1(aChar); //####
+                    ODL_I1(position); //####
                     if (kEndOfLine == aChar)
                     {
                         break;
@@ -502,9 +502,9 @@ nImO::StringBuffer::skipOverWhiteSpace
             break;
         }
     }
-    ODL_C1("aChar <- ", aChar); //####
-    ODL_B1("atEnd <- ", atEnd); //####
-    ODL_I1("position <- ", position); //####
+    ODL_C1(aChar); //####
+    ODL_B1(atEnd); //####
+    ODL_I1(position); //####
     ODL_OBJEXIT(); //####
 } // nImO::StringBuffer::skipOverWhiteSpace
 
@@ -518,7 +518,7 @@ nImO::operator>>
      StringBuffer & aBuffer)
 {
     ODL_ENTER(); //###
-    ODL_P2("in = ", &in, "aBuffer = ", &aBuffer); //####
+    ODL_P2(&in, &aBuffer); //####
     aBuffer.reset();
     for (std::string inLine; std::getline(in, inLine); )
     {
@@ -535,7 +535,7 @@ nImO::operator<<
      const nImO::StringBuffer & aBuffer)
 {
     ODL_ENTER(); //###
-    ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
+    ODL_P2(&out, &aBuffer); //####
     for (size_t ii = 0, num = aBuffer.getNumChunks(); num > ii; ++ii)
     {
         Ptr(BufferChunk)    aChunk{aBuffer.getBufferChunk(ii)};

@@ -415,9 +415,9 @@ performSQLstatementWithMultipleColumnResults
      CPtr(void)                     data = nullptr)
 {
     ODL_ENTER(); //####
-    ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "results = ", &results, "data = ", data); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
-    ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
+    ODL_P4(owner.get(), dbHandle, &results, data); //####
+    ODL_S1(sqlStatement); //####
+    ODL_B1(nullptr != doBinds); //####
     nImO::SuccessOrFailure  status{true, ""s};
 
     try
@@ -432,13 +432,13 @@ performSQLstatementWithMultipleColumnResults
             Ptr(sqlite3_stmt)   prepared{nullptr};
             int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
-            ODL_I1("sqlRes <- ", sqlRes); //####
+            ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
             {
                 if (nullptr != doBinds)
                 {
                     sqlRes = doBinds(prepared, data);
-                    ODL_I1("sqlRes <- ", sqlRes); //####
+                    ODL_I1(sqlRes); //####
                     if (SQLITE_OK != sqlRes)
                     {
                         status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
@@ -451,7 +451,7 @@ performSQLstatementWithMultipleColumnResults
                         do
                         {
                             sqlRes = sqlite3_step(prepared);
-                            ODL_I1("sqlRes <- ", sqlRes); //####
+                            ODL_I1(sqlRes); //####
                             if (SQLITE_BUSY == sqlRes)
                             {
                                 nImO::ConsumeSomeTime(owner.get(), 10.0);
@@ -463,7 +463,7 @@ performSQLstatementWithMultipleColumnResults
                             // Gather the column data...
                             int colCount{sqlite3_column_count(prepared)};
 
-                            ODL_I1("colCount <- ", colCount); //####
+                            ODL_I1(colCount); //####
                             if (0 < colCount)
                             {
                                 nImO::StdStringVector   thisRow;
@@ -472,7 +472,7 @@ performSQLstatementWithMultipleColumnResults
                                 {
                                     CPtr(char)  value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, ii))};
 
-                                    ODL_S1("value <- ", value); //####
+                                    ODL_S1(value); //####
                                     if (nullptr == value)
                                     {
                                         thisRow.push_back("");
@@ -526,9 +526,9 @@ performSQLstatementWithNoResults
      CPtr(void)                     data = nullptr)
 {
     ODL_ENTER(); //####
-    ODL_P3("owner = ", owner.get(), "dbHandle = ", dbHandle, "data = ", data); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
-    ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
+    ODL_P3(owner.get(), dbHandle, data); //####
+    ODL_S1(sqlStatement); //####
+    ODL_B1(nullptr != doBinds); //####
     nImO::SuccessOrFailure  status{true, ""s};
 
     try
@@ -543,13 +543,13 @@ performSQLstatementWithNoResults
             Ptr(sqlite3_stmt)   prepared{nullptr};
             int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
-            ODL_I1("sqlRes <- ", sqlRes); //####
+            ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
             {
                 if (nullptr != doBinds)
                 {
                     sqlRes = doBinds(prepared, data);
-                    ODL_I1("sqlRes <- ", sqlRes); //####
+                    ODL_I1(sqlRes); //####
                     if (SQLITE_OK != sqlRes)
                     {
                         status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
@@ -560,7 +560,7 @@ performSQLstatementWithNoResults
                     do
                     {
                         sqlRes = sqlite3_step(prepared);
-                        ODL_I1("sqlRes <- ", sqlRes); //####
+                        ODL_I1(sqlRes); //####
                         if (SQLITE_BUSY == sqlRes)
                         {
                             nImO::ConsumeSomeTime(owner.get(), 10.0);
@@ -604,8 +604,8 @@ performSQLstatementWithNoResultsNoArgs
      CPtr(char)                     sqlStatement)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
+    ODL_P2(owner.get(), dbHandle); //####
+    ODL_S1(sqlStatement); //####
     nImO::SuccessOrFailure  status{true, ""s};
 
     try
@@ -620,13 +620,13 @@ performSQLstatementWithNoResultsNoArgs
             Ptr(sqlite3_stmt)   prepared{nullptr};
             int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
-            ODL_I1("sqlRes <- ", sqlRes); //####
+            ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
             {
                 do
                 {
                     sqlRes = sqlite3_step(prepared);
-                    ODL_I1("sqlRes <- ", sqlRes); //####
+                    ODL_I1(sqlRes); //####
                     if (SQLITE_BUSY == sqlRes)
                     {
                         nImO::ConsumeSomeTime(owner.get(), 10.0);
@@ -674,9 +674,9 @@ performSQLstatementWithSingleColumnResults
      CPtr(void)                     data = nullptr)
 {
     ODL_ENTER(); //####
-    ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
-    ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
+    ODL_P4(owner.get(), dbHandle, &resultList, data); //####
+    ODL_S1(sqlStatement); //####
+    ODL_B1(nullptr != doBinds); //####
     nImO::SuccessOrFailure  status{true, ""s};
 
     resultList.clear();
@@ -692,13 +692,13 @@ performSQLstatementWithSingleColumnResults
             Ptr(sqlite3_stmt)   prepared{nullptr};
             int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
-            ODL_I1("sqlRes <- ", sqlRes); //####
+            ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
             {
                 if (nullptr != doBinds)
                 {
                     sqlRes = doBinds(prepared, data);
-                    ODL_I1("sqlRes <- ", sqlRes); //####
+                    ODL_I1(sqlRes); //####
                     if (SQLITE_OK != sqlRes)
                     {
                         status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
@@ -711,7 +711,7 @@ performSQLstatementWithSingleColumnResults
                         do
                         {
                             sqlRes = sqlite3_step(prepared);
-                            ODL_I1("sqlRes <- ", sqlRes); //####
+                            ODL_I1(sqlRes); //####
                             if (SQLITE_BUSY == sqlRes)
                             {
                                 nImO::ConsumeSomeTime(owner.get(), 10.0);
@@ -723,12 +723,12 @@ performSQLstatementWithSingleColumnResults
                             // Gather the column data...
                             int colCount{sqlite3_column_count(prepared)};
 
-                            ODL_I1("colCount <- ", colCount); //####
+                            ODL_I1(colCount); //####
                             if (0 < colCount)
                             {
                                 CPtr(char)  value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, 0))};
 
-                                ODL_S1("value <- ", value); //####
+                                ODL_S1(value); //####
                                 if (nullptr != value)
                                 {
                                     resultList.push_back(value);
@@ -771,7 +771,7 @@ doBeginTransaction
      Ptr(sqlite3)                   dbHandle)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
+    ODL_P2(owner.get(), dbHandle); //####
     nImO::SuccessOrFailure  status{true, ""s};
 
     try
@@ -809,8 +809,8 @@ doEndTransaction
      const bool                     wasOK)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
-    ODL_B1("wasOK = ", wasOK); //####
+    ODL_P2(owner.get(), dbHandle); //####
+    ODL_B1(wasOK); //####
     nImO::SuccessOrFailure  status{true, ""s};
 
     try
@@ -850,8 +850,8 @@ createTables
      Ptr(sqlite3)                   dbHandle)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
-    ODL_B1("logging = ", logging); //####
+    ODL_P2(owner.get(), dbHandle); //####
+    ODL_B1(logging); //####
     nImO::SuccessOrFailure  status{true, ""s};
 
     if (nullptr == dbHandle)
@@ -946,7 +946,7 @@ setupCountApplications
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -960,7 +960,7 @@ setupCountApplications
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -988,7 +988,7 @@ setupCountChannels
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1002,7 +1002,7 @@ setupCountChannels
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1030,7 +1030,7 @@ setupInsertIntoApplications
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1057,7 +1057,7 @@ setupInsertIntoApplications
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1085,7 +1085,7 @@ setupInsertIntoChannels
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1124,7 +1124,7 @@ setupInsertIntoChannels
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1152,7 +1152,7 @@ setupInsertIntoConnections
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1197,7 +1197,7 @@ setupInsertIntoConnections
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1226,7 +1226,7 @@ setupInsertIntoMachines
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1247,7 +1247,7 @@ setupInsertIntoMachines
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1275,7 +1275,7 @@ setupInsertIntoNodes
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1326,7 +1326,7 @@ setupInsertIntoNodes
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1355,7 +1355,7 @@ setupSearchApplicationsNodeOnly
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1369,7 +1369,7 @@ setupSearchApplicationsNodeOnly
             result = sqlite3_bind_text(statement, nodeNameIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1397,7 +1397,7 @@ setupSearchChannels
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1418,7 +1418,7 @@ setupSearchChannels
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1446,7 +1446,7 @@ setupSearchChannelsMachineOnly
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1460,7 +1460,7 @@ setupSearchChannelsMachineOnly
             result = sqlite3_bind_text(statement, machineNameIndex, machine.c_str(), StaticCast(int, machine.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1488,7 +1488,7 @@ setupSearchChannelsNodeOnly
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1502,7 +1502,7 @@ setupSearchChannelsNodeOnly
             result = sqlite3_bind_text(statement, channelNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1530,7 +1530,7 @@ setupSearchConnectionsViaFrom
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1551,7 +1551,7 @@ setupSearchConnectionsViaFrom
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1579,7 +1579,7 @@ setupSearchConnectionsViaTo
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1600,7 +1600,7 @@ setupSearchConnectionsViaTo
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1628,7 +1628,7 @@ setupSearchMachines
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1642,7 +1642,7 @@ setupSearchMachines
             result = sqlite3_bind_text(statement, machineNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1670,7 +1670,7 @@ setupSearchNodeConnections
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1689,7 +1689,7 @@ setupSearchNodeConnections
             }
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1717,7 +1717,7 @@ setupSearchNodes
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1731,7 +1731,7 @@ setupSearchNodes
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1759,7 +1759,7 @@ setupSearchNodesForApplication
      CPtr(void)         stuff)
 {
     ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    ODL_P2(statement, stuff); //####
     int result{SQLITE_MISUSE};
 
     try
@@ -1773,7 +1773,7 @@ setupSearchNodesForApplication
             result = sqlite3_bind_text(statement, appNameIndex, appName.c_str(), StaticCast(int, appName.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
             {
-                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+                ODL_S1(sqlite3_errstr(result)); //####
             }
         }
         else
@@ -1800,7 +1800,7 @@ extractApplicationInfoFromVector
      const nImO::StdStringVector &  values)
 {
     ODL_ENTER(); //####
-    ODL_P1("info = ", &info); //####
+    ODL_P1(&info); //####
     if (2 < values.size())
     {
         info._found = true;
@@ -1825,7 +1825,7 @@ extractChannelInfoFromVector
      const nImO::StdStringVector &  values)
 {
     ODL_ENTER(); //####
-    ODL_P1("info = ", &info); //####
+    ODL_P1(&info); //####
     if (5 < values.size())
     {
         size_t  pos;
@@ -1880,7 +1880,7 @@ extractNodeInfoFromVector
      const nImO::StdStringVector &  values)
 {
     ODL_ENTER(); //####
-    ODL_P1("info = ", &info); //####
+    ODL_P1(&info); //####
     if (3 < values.size())
     {
         size_t  pos;
@@ -1924,8 +1924,8 @@ nImO::Registry::Registry
         _owner{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
-    ODL_B1("logging = ", logging); //####
+    ODL_P1(owner.get()); //####
+    ODL_B1(logging); //####
     if (logging && (nullptr != _owner))
     {
         sqlite3_config(SQLITE_CONFIG_LOG, sqlLogger, _owner.get());
@@ -1985,7 +1985,7 @@ nImO::Registry::addAppToList
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S3s("nodeName = ", nodeName, "applicationName = ", applicationName, "applicationDescription = ", applicationDescription); //####
+    ODL_S3s(nodeName, applicationName, applicationDescription); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && (! applicationName.empty()) && (! applicationDescription.empty()))
@@ -2052,9 +2052,9 @@ nImO::Registry::addChannel
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
-    ODL_B1("isOutput = ", isOutput); //####
-    ODL_I1("modes = ", StaticCast(int, modes)); //####
+    ODL_S3s(nodeName, path, dataType); //####
+    ODL_B1(isOutput); //####
+    ODL_I1(StaticCast(int, modes)); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
@@ -2109,9 +2109,9 @@ nImO::Registry::addConnection
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S4s("fromNodeName = ", fromNodeName, "fromPath = ", fromPath, "toNodeName = ", toNodeName, "toPath = ", toPath); //####
-    ODL_S1s("dataType = ", dataType); //####
-    ODL_I1("mode = ", StaticCast(int, mode)); //####
+    ODL_S4s(fromNodeName, fromPath, toNodeName, toPath); //####
+    ODL_S1s(dataType); //####
+    ODL_I1(StaticCast(int, mode)); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(fromNodeName) && ChannelName::validPath(fromPath) && ChannelName::validNode(toNodeName) &&
@@ -2179,8 +2179,8 @@ nImO::Registry::addMachine
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
-    ODL_I1("address = ", address); //####
+    ODL_S1s(machineName); //####
+    ODL_I1(address); //####
     auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
@@ -2211,9 +2211,9 @@ nImO::Registry::addNode
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
-    ODL_I1("serviceClass = ", StaticCast(int, serviceClass)); //####
-    ODL_P1("nodeConnection = ", &nodeConnection); //####
+    ODL_S4s(nodeName, execPath, launchDirectory, commandLine); //####
+    ODL_I1(StaticCast(int, serviceClass)); //####
+    ODL_P1(&nodeConnection); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
@@ -2250,7 +2250,7 @@ nImO::Registry::clearAppListForLauncher
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
@@ -2284,7 +2284,7 @@ nImO::Registry::clearChannelInUse
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
@@ -2326,7 +2326,7 @@ nImO::Registry::getChannelInformation
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     SuccessOrFailure    status;
     ChannelInfo         info;
 
@@ -2381,7 +2381,7 @@ nImO::Registry::getChannelInUseAndSet
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     bool                inUse{false};
     SuccessOrFailure    status;
 
@@ -2455,7 +2455,7 @@ nImO::Registry::getChannelInUse
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     bool                inUse{false};
     SuccessOrFailure    status;
 
@@ -2520,8 +2520,8 @@ nImO::Registry::getConnectionInformation
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    ODL_B1("fromIsSpecified = ", fromIsSpecified); //####
+    ODL_S2s(nodeName, path); //####
+    ODL_B1(fromIsSpecified); //####
     SuccessOrFailure    status;
     ConnectionInfo      connectionData;
 
@@ -2746,7 +2746,7 @@ nImO::Registry::getInformationForAllChannelsOnMachine
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto                status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
@@ -2798,7 +2798,7 @@ nImO::Registry::getInformationForAllChannelsOnNode
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto                status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
@@ -2909,7 +2909,7 @@ nImO::Registry::getInformationForAllConnectionsOnMachine
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto                    status{doBeginTransaction(_owner, _dbHandle)};
     ConnectionInfoVector    connectionData;
 
@@ -2976,7 +2976,7 @@ nImO::Registry::getInformationForAllConnectionsOnNode
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     auto                    status{doBeginTransaction(_owner, _dbHandle)};
     ConnectionInfoVector    connectionData;
 
@@ -3139,7 +3139,7 @@ nImO::Registry::getInformationForAllNodesOnMachine
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto            status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfoVector  nodeData;
 
@@ -3185,7 +3185,7 @@ nImO::Registry::getLaunchDetails
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     SuccessOrFailure    status;
     LaunchDetails       details;
 
@@ -3248,7 +3248,7 @@ nImO::Registry::getMachineInformation
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     SuccessOrFailure    status;
     MachineInfo         info;
 
@@ -3380,7 +3380,7 @@ nImO::Registry::getNamesOfNodesOnMachine
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     auto            status{doBeginTransaction(_owner, _dbHandle)};
     StdStringSet    strings;
 
@@ -3422,7 +3422,7 @@ nImO::Registry::getNodeInformation
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     SuccessOrFailure    status;
     NodeInfo            info;
 
@@ -3500,7 +3500,7 @@ nImO::Registry::getNodesWithApplication
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("applicationName = ", applicationName); //####
+    ODL_S1s(applicationName); //####
     auto            status{doBeginTransaction(_owner, _dbHandle)};
     StdStringSet    strings;
 
@@ -3930,7 +3930,7 @@ nImO::Registry::isChannelPresent
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     bool                found{false};
     SuccessOrFailure    status;
 
@@ -3985,7 +3985,7 @@ nImO::Registry::isMachinePresent
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
+    ODL_S1s(machineName); //####
     bool    found{false};
     auto    status{doBeginTransaction(_owner, _dbHandle)};
 
@@ -4029,7 +4029,7 @@ nImO::Registry::isNodePresent
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     bool                found{false};
     SuccessOrFailure    status;
 
@@ -4083,7 +4083,7 @@ nImO::Registry::removeChannel
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
@@ -4118,7 +4118,7 @@ nImO::Registry::removeChannelsForNode
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
@@ -4153,8 +4153,8 @@ nImO::Registry::removeConnection
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
-    ODL_B1("fromIsSpecified = ", fromIsSpecified); //####
+    ODL_S1s(nodeName); //####
+    ODL_B1(fromIsSpecified); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
@@ -4214,7 +4214,7 @@ nImO::Registry::removeNode
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S1s(nodeName); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
@@ -4248,7 +4248,7 @@ nImO::Registry::setChannelInUse
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_S2s(nodeName, path); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))

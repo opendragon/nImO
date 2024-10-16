@@ -109,7 +109,7 @@ nImO::StartAppResponseHandler::doIt
         {
             _result = asLogical->getValue();
             okSoFar = true;
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
     }
     else

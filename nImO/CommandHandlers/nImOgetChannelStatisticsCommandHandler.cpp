@@ -89,7 +89,7 @@ nImO::GetChannelStatisticsCommandHandler::GetChannelStatisticsCommandHandler
         inherited{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetChannelStatisticsCommandHandler::GetChannelStatisticsCommandHandler
 
@@ -105,7 +105,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("get channel statistics request received."s);
@@ -129,7 +129,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
             {
                 theInputChannel->getStatistics(numberOfBytes, numberOfMessages);
                 okSoFar = true;
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
             else
             {
@@ -140,7 +140,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
                 {
                     theOutputChannel->getStatistics(numberOfBytes, numberOfMessages);
                     okSoFar = true;
-                    ODL_B1("okSoFar <- ", okSoFar); //####
+                    ODL_B1(okSoFar); //####
                 }
                 else
                 {
@@ -155,7 +155,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
                 infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
                 okSoFar = sendComplexResponse(socket, kGetChannelStatisticsResponse, "get channel statistics"s, infoArray, reason);
-                ODL_B1("okSoFar <- ", okSoFar); //####
+                ODL_B1(okSoFar); //####
             }
         }
     }

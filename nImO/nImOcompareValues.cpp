@@ -87,7 +87,7 @@ nImO::CompareValues::operator=
 {
     NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::CompareValues::operator=
@@ -99,7 +99,7 @@ nImO::CompareValues::operator()
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("lhs = ", lhs.get(), "rhs = ", rhs.get()); //####
+    ODL_P2(lhs.get(), rhs.get()); //####
     bool    result;
 
     if (lhs->enumerationType() == rhs->enumerationType())

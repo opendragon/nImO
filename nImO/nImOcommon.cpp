@@ -131,7 +131,7 @@ nImO::B2D
     (const NumberAsBytes &  inString)
 {
     ODL_ENTER(); //####
-    ODL_P1("inString = ", &inString); //####
+    ODL_P1(&inString); //####
     boost::endian::big_float64_buf_t    holder;
     double                              result;
 
@@ -147,8 +147,8 @@ nImO::B2I
      const size_t           numBytes)
 {
     ODL_ENTER(); //####
-    ODL_P1("inString = ", &inString); //####
-    ODL_I1("numBytes = ", numBytes); //####
+    ODL_P1(&inString); //####
+    ODL_I1(numBytes); //####
     bool                            isNegative{0 != (0x080 & inString[0])};
     boost::endian::big_int64_buf_t  holder;
     int64_t                         result;
@@ -215,8 +215,8 @@ nImO::CompareBytes
      const size_t   numBytes)
 {
     ODL_ENTER(); //####
-    ODL_P2("first = ", first, "second = ", second); //####
-    ODL_I1("numBytes = ", numBytes); //####
+    ODL_P2(first, second); //####
+    ODL_I1(numBytes); //####
     size_t  result{0};
 
     if (memcmp(first, second, numBytes))
@@ -231,7 +231,7 @@ nImO::CompareBytes
 
             if (firstByte != secondByte)
             {
-                ODL_I1("mismatch at index: ", ii); //####
+                ODL_I1(ii); //####
                 result = ii + 1;
                 break;
 
@@ -250,8 +250,8 @@ nImO::ConstructNodeName
      const bool             alwaysAddTheSuffix)
 {
     ODL_ENTER(); //####
-    ODL_S3s("nameFromOptions = ", nameFromOptions, "suffixIfNotFromOptions = ", suffixIfNotFromOptions, "tag =", tag); //####
-    ODL_B1("alwaysAddTheSuffix = ", alwaysAddTheSuffix); //####
+    ODL_S3s(nameFromOptions, suffixIfNotFromOptions, tag); //####
+    ODL_B1(alwaysAddTheSuffix); //####
     std::string nodeName{};
 
     if (nameFromOptions.empty())
@@ -283,8 +283,8 @@ nImO::ConsumeSomeTime
      const double   factor)
 {
     ODL_ENTER(); //####
-    ODL_P1("context = ", context); //####
-    ODL_D1("factor = ", factor); //####
+    ODL_P1(context); //####
+    ODL_D1(factor); //####
     if (nullptr != context)
     {
         BAD_t   timer(*context->getService());
@@ -301,7 +301,7 @@ nImO::ConvertDoubleToString
     (const double   value)
 {
     ODL_ENTER(); //####
-    ODL_D1("value = ", value); //####
+    ODL_D1(value); //####
     // Note that boost::lexical_cast<std::string>(double) generates strings with trailing digits.
     // That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.
     std::ostringstream  holder;
@@ -319,8 +319,8 @@ nImO::ConvertToDouble
      double &   result)
 {
     ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
+    ODL_S1(startPtr); //####
+    ODL_P1(&result); //####
     bool        okSoFar;
     Ptr(char)   endPtr;
     double      value{strtod(startPtr, &endPtr)};
@@ -328,14 +328,14 @@ nImO::ConvertToDouble
     if ((startPtr != endPtr) && (kEndOfString == *endPtr))
     {
         result = value;
-        ODL_D1("result <- ", result); //####
+        ODL_D1(result); //####
         okSoFar = true;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -347,8 +347,8 @@ nImO::ConvertToDouble
      double &               result)
 {
     ODL_ENTER(); //####
-    ODL_S1s("aString = ", aString); //####
-    ODL_P1("result = ", &result); //####
+    ODL_S1s(aString); //####
+    ODL_P1(&result); //####
     bool    okSoFar{ConvertToDouble(aString.c_str(), result)};
 
     ODL_EXIT_B(okSoFar); //####
@@ -361,8 +361,8 @@ nImO::ConvertToInt64
      int64_t &  result)
 {
     ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
+    ODL_S1(startPtr); //####
+    ODL_P1(&result); //####
     bool        okSoFar;
     Ptr(char)   endPtr;
     int64_t     value{strtoll(startPtr, &endPtr, 10)};
@@ -370,14 +370,14 @@ nImO::ConvertToInt64
     if ((startPtr != endPtr) && (kEndOfString == *endPtr))
     {
         result = value;
-        ODL_I1("result <- ", result); //####
+        ODL_I1(result); //####
         okSoFar = true;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     else
     {
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //####
+        ODL_B1(okSoFar); //####
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -389,8 +389,8 @@ nImO::ConvertToInt64
      int64_t &              result)
 {
     ODL_ENTER(); //####
-    ODL_S1s("aString = ", aString); //####
-    ODL_P1("result = ", &result); //####
+    ODL_S1s(aString); //####
+    ODL_P1(&result); //####
     bool    okSoFar{ConvertToInt64(aString.c_str(), result)};
 
     ODL_EXIT_B(okSoFar); //####
@@ -402,7 +402,7 @@ nImO::ConvertToLowerCase
     (const std::string &    aString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("aString = ", aString); //####
+    ODL_S1s(aString); //####
     std::string result;
 
     for (auto walker : aString)
@@ -419,8 +419,8 @@ nImO::D2B
      NumberAsBytes &    outString)
 {
     ODL_ENTER(); //####
-    ODL_D1("inValue = ", inValue); //####
-    ODL_P1("outString = ", &outString); //####
+    ODL_D1(inValue); //####
+    ODL_P1(&outString); //####
     boost::endian::big_float64_buf_t    holder{inValue};
 
     memcpy(outString, holder.data(), sizeof(inValue));
@@ -530,8 +530,8 @@ nImO::I2B
      NumberAsBytes &    outString)
 {
     ODL_ENTER(); //####
-    ODL_X1("inValue = ", inValue); //####
-    ODL_P1("outString = ", &outString); //####
+    ODL_X1(inValue); //####
+    ODL_P1(&outString); //####
     boost::endian::big_int64_buf_t  holder{inValue};
     size_t                          length{0};
 
@@ -598,7 +598,7 @@ nImO::LeftTrim
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     std::string result{inString};
 
     result.erase(result.begin(), std::find_if(result.begin(), result.end(),
@@ -616,8 +616,8 @@ nImO::MakeStringFromCommandLine
      Ptr(Ptr(char)) args)
 {
     ODL_ENTER(); //####
-    ODL_I1("numArgs = ", numArgs); //####
-    ODL_P1("args = ", args); //####
+    ODL_I1(numArgs); //####
+    ODL_P1(args); //####
     std::string result;
 
     if (0 < numArgs)
@@ -874,7 +874,7 @@ nImO::RightTrim
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
+    ODL_S1s(inString); //####
     std::string result{inString};
 
     result.erase(std::find_if(result.rbegin(), result.rend(),
@@ -892,8 +892,8 @@ nImO::SanitizeString
      const bool             allowDoubleQuotes)
 {
     ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
-    ODL_B1("allowDoubleQuotes = ", allowDoubleQuotes); //####
+    ODL_S1s(inString); //####
+    ODL_B1(allowDoubleQuotes); //####
     std::string outString;
 
     try

@@ -90,14 +90,14 @@ processRequest
      std::string &          reason)
 {
     ODL_ENTER(); //####
-    ODL_P3("owner = ", owner.get(), "socket = ", socket.get(), "reason = ", reason); //####
-    ODL_S1s("incoming = ", incoming); //####
+    ODL_P3(owner.get(), socket.get(), reason); //####
+    ODL_S1s(incoming); //####
     // We need to strip off the Message separator first.
     bool                okSoFar{false};
     auto                trimmed{nImO::UnpackageMessage(incoming)};
     nImO::ByteVector    rawStuff;
 
-    ODL_S1s("trimmed <- ", trimmed); //####
+    ODL_S1s(trimmed); //####
     // Ignore a request that can't be processed...
     if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
     {
@@ -135,7 +135,7 @@ processRequest
                         else
                         {
                             okSoFar = handler->doIt(*socket.get(), *asArray, reason);
-                            ODL_B1("okSoFar <- ", okSoFar); //####
+                            ODL_B1(okSoFar); //####
                         }
                     }
                 }
@@ -179,7 +179,7 @@ nImO::CommandSession::CommandSession
         _owner{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     try
     {
         _socket = std::make_shared<BTCP::socket>(*_owner->getService());
@@ -250,7 +250,7 @@ nImO::CommandSession::start
                                             }
                                         }
                                         keepGoing = false;
-                                        ODL_B1("keepGoing <- ", keepGoing); //####
+                                        ODL_B1(keepGoing); //####
                                     });
     for ( ; keepGoing && gKeepRunning; )
     {
@@ -259,7 +259,7 @@ nImO::CommandSession::start
     if (gPendingStop)
     {
         gKeepRunning = false;
-        ODL_B1("gKeepRunning <- ", gKeepRunning); //####
+        ODL_B1(gKeepRunning); //####
     }
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::start

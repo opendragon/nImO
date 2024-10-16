@@ -118,7 +118,7 @@ nImO::Number::describe
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("output = ", &output); //####
+    ODL_P1(&output); //####
     ODL_OBJEXIT_P(&output); //####
     return output;
 } // nImO::Number::describe
@@ -140,7 +140,7 @@ nImO::Number::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         inherited::operator=(std::move(other));
@@ -155,7 +155,7 @@ nImO::Number::readFromStringBuffer
      size_t &               position)
 {
     ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
+    ODL_P2(&inBuffer, &position); //####
     enum class ScanState
     {
         Initial,
@@ -185,8 +185,8 @@ nImO::Number::readFromStringBuffer
     for (int aChar; (! done); )
     {
         aChar = tolower(inBuffer.getChar(localIndex++, atEnd));
-        ODL_I2("aChar <- ", aChar, "localIndex <- ", localIndex); //####
-        ODL_B1("atEnd <- ", atEnd); //####
+        ODL_I2(aChar, localIndex); //####
+        ODL_B1(atEnd); //####
         switch (currentState)
         {
             case ScanState::Initial :

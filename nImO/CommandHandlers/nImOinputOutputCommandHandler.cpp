@@ -81,7 +81,7 @@ nImO::InputOutputCommandHandler::InputOutputCommandHandler
         inherited{owner}, _ownerForInputOutput{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::InputOutputCommandHandler::InputOutputCommandHandler
 

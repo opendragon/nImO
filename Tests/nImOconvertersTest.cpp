@@ -88,7 +88,7 @@ catchSignal
     (int signal)
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    ODL_I1(signal); //####
     auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
@@ -113,9 +113,9 @@ doTestInvalidArgs
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -197,9 +197,9 @@ doTestIntegerSize
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -261,9 +261,9 @@ doTestDoubleSize
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -308,9 +308,9 @@ doTestIntegerConversion
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    ODL_I1("argc = ", argc); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -383,9 +383,9 @@ doTestDoubleConversion
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -503,7 +503,7 @@ main
                 }
                 if (0 != result)
                 {
-                    ODL_I1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1(result); //####
                 }
             }
             else

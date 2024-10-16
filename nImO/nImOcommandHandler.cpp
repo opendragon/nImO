@@ -98,7 +98,7 @@ nImO::CommandHandler::CommandHandler
         _owner{owner}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P1(owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::CommandHandler::CommandHandler
 
@@ -123,8 +123,8 @@ nImO::CommandHandler::sendComplexResponse
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "contents = ", contents.get(), "reason = ", &reason); //####
-    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
+    ODL_P3(&socket, contents.get(), &reason); //####
+    ODL_S2s(responseKey, responseText); //####
     bool    okSoFar{sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents, reason)};
 
     ODL_OBJEXIT_B(okSoFar); //####
@@ -141,8 +141,8 @@ nImO::CommandHandler::sendComplexResponseWithContext
      std::string &          reason)
 {
     ODL_ENTER(); //####
-    ODL_P4("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get(), "reason = ", &reason); //####
-    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
+    ODL_P4(context.get(), &socket, contents.get(), &reason); //####
+    ODL_S2s(responseKey, responseText); //####
     bool    okSoFar{false};
     Message responseToSend;
     auto    responseArray{std::make_shared<Array>()};
@@ -169,7 +169,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
-            ODL_S1("outString <- ", outString->c_str()); //####
+            ODL_S1(outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpUdpLogging)
             context->report("sending response."s);
@@ -196,13 +196,13 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                                 reason = "async_write() failed"s;
                                             }
                                             keepGoing = false;
-                                            ODL_B1("keepGoing <- ", keepGoing); //####
+                                            ODL_B1(keepGoing); //####
                                         }
                                         else
                                         {
                                             context->report(responseText + " response sent."s);
                                             okSoFar = true;
-                                            ODL_B1("okSoFar <- ", okSoFar); //####
+                                            ODL_B1(okSoFar); //####
                                             keepGoing = false;
                                         }
                                       });
@@ -231,9 +231,9 @@ nImO::CommandHandler::sendSimpleResponse
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "reason = ", &reason); //####
-    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
-    ODL_B1("wasOK = ", wasOK); //####
+    ODL_P2(&socket, &reason); //####
+    ODL_S2s(responseKey, responseText); //####
+    ODL_B1(wasOK); //####
     bool    okSoFar{sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK, reason)};
 
     ODL_OBJEXIT_B(okSoFar); //####
@@ -250,9 +250,9 @@ nImO::CommandHandler::sendSimpleResponseWithContext
      std::string &          reason)
 {
     ODL_ENTER(); //####
-    ODL_P3("context = ", context.get(), "socket = ", &socket, "reason = ", &reason); //####
-    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
-    ODL_B1("wasOK = ", wasOK); //####
+    ODL_P3(context.get(), &socket, &reason); //####
+    ODL_S2s(responseKey, responseText); //####
+    ODL_B1(wasOK); //####
     bool    okSoFar{false};
     Message responseToSend;
     auto    responseArray{std::make_shared<Array>()};
@@ -279,7 +279,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
-            ODL_S1("outString <- ", outString->c_str()); //####
+            ODL_S1(outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpUdpLogging)
             context->report("sending response"s);
@@ -306,15 +306,15 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                                 reason = "async_write() failed"s;
                                             }
                                             keepGoing = false;
-                                            ODL_B1("keepGoing <- ", keepGoing); //####
+                                            ODL_B1(keepGoing); //####
                                         }
                                         else
                                         {
                                             context->report(responseText + " response sent"s);
                                             okSoFar = true;
-                                            ODL_B1("okSoFar <- ", okSoFar); //####
+                                            ODL_B1(okSoFar); //####
                                             keepGoing = false;
-                                            ODL_B1("keepGoing <- ", keepGoing); //####
+                                            ODL_B1(keepGoing); //####
                                         }
                                       });
             for ( ; keepGoing && gKeepRunning; )
@@ -340,8 +340,8 @@ nImO::CommandHandler::sendStatusReport
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("context = ", context.get()); //####
-    ODL_S1s("statusChange = ", statusChange); //####
+    ODL_P1(context.get()); //####
+    ODL_S1s(statusChange); //####
     BUDP::endpoint  theEndpoint{BAIP::address_v4(whereToSend._address), whereToSend._port};
     BUDP::socket    theSocket{*context->getService(), theEndpoint.protocol()};
     Message         messageToSend;
@@ -393,8 +393,8 @@ nImO::CommandHandler::SendBadResponse
      const std::string &    reason)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####
-    ODL_S1s("reason = ", reason); //####
+    ODL_P2(context.get(), socket.get()); //####
+    ODL_S1s(reason); //####
     std::string localReason{}; // this is so the original reason is not lost.
 
     if (reason.empty())

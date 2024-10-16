@@ -89,7 +89,7 @@ nImO::GetNamesOfMachinesCommandHandler::GetNamesOfMachinesCommandHandler
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
+    ODL_P2(owner.get(), theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetNamesOfMachinesCommandHandler::GetNamesOfMachinesCommandHandler
 
@@ -106,7 +106,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
+    ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get names of machines request received."s);
@@ -123,7 +123,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
                 stringSet->addValue(std::make_shared<String>(walker));
             }
             okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "get names of machines"s, stringSet, reason);
-            ODL_B1("okSoFar <- ", okSoFar); //####
+            ODL_B1(okSoFar); //####
         }
         else
         {

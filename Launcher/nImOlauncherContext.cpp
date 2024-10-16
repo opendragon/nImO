@@ -90,8 +90,8 @@ nImO::LauncherContext::LauncherContext
         inherited{argc, argv, tagForLogging, logging, true, nodeName}
 {
     ODL_ENTER(); //####
-    ODL_S2s("tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
-    ODL_B1("logging = ", logging); //####
+    ODL_S2s(tagForLogging, nodeName); //####
+    ODL_B1(logging); //####
     try
     {
     }
@@ -118,14 +118,14 @@ nImO::AddLauncherHandlers
      Ptr(CallbackFunction)  stopCallback)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "stopCallback = ", stopCallback); //####
+    ODL_P2(context.get(), stopCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
     if (context)
     {
         bool    goAhead{true};
         auto    newHandler1{std::make_shared<GetRunOptionsForAppCommandHandler>(context)};
 
-        ODL_P1("newHandler1 <- ", newHandler1.get()); //####
+        ODL_P1(newHandler1.get()); //####
         if (! context->addHandler(kGetRunOptionsForAppRequest, newHandler1))
         {
             goAhead = false;
@@ -134,7 +134,7 @@ nImO::AddLauncherHandlers
         {
             auto    newHandler2{std::make_shared<GetRunParamsForAppCommandHandler>(context)};
 
-            ODL_P1("newHandler2 <- ", newHandler2.get()); //####
+            ODL_P1(newHandler2.get()); //####
             if (! context->addHandler(kGetRunParamsForAppRequest, newHandler2))
             {
                 goAhead = false;
@@ -144,7 +144,7 @@ nImO::AddLauncherHandlers
         {
             auto    newHandler3{std::make_shared<StartAppCommandHandler>(context)};
 
-            ODL_P1("newHandler3 <- ", newHandler3.get()); //####
+            ODL_P1(newHandler3.get()); //####
             if (! context->addHandler(kStartAppRequest, newHandler3))
             {
                 goAhead = false;

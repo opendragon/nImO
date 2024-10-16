@@ -88,10 +88,10 @@ nImO::ChunkArray::ChunkArray
         _buffers{new Ptr(BufferChunk)[1]}, _buffersArePadded{padWithNull}, _cachedString{}, _numChunks{1}
 {
     ODL_ENTER(); //####
-    ODL_B1("padWithNull = ", padWithNull); //####
-    ODL_P1("_buffers <- ", _buffers); //####
-    ODL_I1("_numChunks <- ", _numChunks); //####
-    ODL_B1("_buffersArePadded <- ", _buffersArePadded); //####
+    ODL_B1(padWithNull); //####
+    ODL_P1(_buffers); //####
+    ODL_I1(_numChunks); //####
+    ODL_B1(_buffersArePadded); //####
     *_buffers = new BufferChunk(_buffersArePadded);
     ODL_EXIT_P(this); //####
 } // nImO::ChunkArray::ChunkArray
@@ -103,7 +103,7 @@ nImO::ChunkArray::ChunkArray
         _numChunks{other._numChunks}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     other._buffers = nullptr;
     other._buffersArePadded = false;
     other._cachedString = ""s;
@@ -137,8 +137,8 @@ nImO::ChunkArray::appendBytes
      const size_t   numBytes)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("data = ", data); //####
-    ODL_I1("numBytes = ", numBytes); //####
+    ODL_P1(data); //####
+    ODL_I1(numBytes); //####
     if ((nullptr != data) && (0 < numBytes))
     {
         ODL_LOG("((nullptr != data) && (0 < numBytes))"); //####
@@ -183,9 +183,9 @@ nImO::ChunkArray::appendBytes
                         memcpy(newBuffers, _buffers, sizeof(*_buffers) * _numChunks);
                         delete[] _buffers;
                         _buffers = newBuffers;
-                        ODL_P1("_buffers <- ", _buffers); //####
+                        ODL_P1(_buffers); //####
                         _buffers[_numChunks++] = lastChunk;
-                        ODL_I1("_numChunks <- ", _numChunks); //####
+                        ODL_I1(_numChunks); //####
                         prevChunk->appendData(walker, available);
                         walker += available;
                         bytesLeft -= available;
@@ -203,7 +203,7 @@ nImO::ChunkArray::atEnd
     const
 {
     ODL_OBJENTER(); //####
-    ODL_I1("index = ", index); //####
+    ODL_I1(index); //####
     bool    result{true};
 
     if (nullptr != _buffers)
@@ -212,7 +212,7 @@ nImO::ChunkArray::atEnd
         size_t  chunkNumber{index / BufferChunk::kBufferSize};
         size_t  offset{index % BufferChunk::kBufferSize};
 
-        ODL_I2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
+        ODL_I2(chunkNumber, offset); //####
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
@@ -240,18 +240,18 @@ nImO::ChunkArray::getByte
     const
 {
     ODL_OBJENTER(); //####
-    ODL_I1("index = ", index); //####
+    ODL_I1(index); //####
     int result{-1};
 
     atEnd = true;
-    ODL_B1("atEnd <- ", atEnd); //####
+    ODL_B1(atEnd); //####
     if (nullptr != _buffers)
     {
         ODL_LOG("(nullptr != _buffers)"); //####
         size_t  chunkNumber{index / BufferChunk::kBufferSize};
         size_t  offset{index % BufferChunk::kBufferSize};
 
-        ODL_I2("chunkNumber <- ", chunkNumber, "offset <- ", offset); //####
+        ODL_I2(chunkNumber, offset); //####
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
@@ -267,7 +267,7 @@ nImO::ChunkArray::getByte
 
                     result = *(thisData + offset);
                     atEnd = false;
-                    ODL_B1("atEnd <- ", atEnd); //####
+                    ODL_B1(atEnd); //####
                 }
             }
         }
@@ -320,12 +320,12 @@ nImO::ChunkArray::getString
     const
 {
     ODL_OBJENTER(); //####
-    ODL_I1("index = ", index); //####
+    ODL_I1(index); //####
     std::string result;
     size_t      length{getLength()};
     size_t      walker{0};
 
-    ODL_I2("length <- ", length, "walker <- ", walker); //####
+    ODL_I2(length, walker); //####
     if (index < length)
     {
         for (size_t ii = 0; _numChunks > ii; ++ii)
@@ -343,7 +343,7 @@ nImO::ChunkArray::getString
                     {
                         result += *data;
                     }
-                    ODL_I2("walker <- ", walker, "jj = ", jj); //####
+                    ODL_I2(walker, jj); //####
                 }
             }
         }
@@ -358,7 +358,7 @@ nImO::ChunkArray::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     if (this != &other)
     {
         _buffers = other._buffers;

@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <Containers/nImOstringBuffer.h>
@@ -136,6 +137,8 @@ main
                                                                                         nImO::ArgumentMode::Required)};
     auto                    secondArg{std::make_shared<nImO::DoubleArgumentDescriptor>("interval"s, "Number of seconds between messages"s,
                                                                                        nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
+    auto                    thirdArg{std::make_shared<nImO::LogicalArgumentDescriptor>("loop"s, "Repeat sending the file contents"s,
+                                                                                       nImO::ArgumentMode::Optional, false)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -148,6 +151,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
+    argumentList.push_back(thirdArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Playback from a file to a channel"s, "nImOplayback recording.txt"s, 2024, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption))
     {

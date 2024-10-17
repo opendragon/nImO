@@ -104,6 +104,7 @@ namespace nImO
      @param[in] argv The arguments to be used with the service.
      @param[in] argumentDescriptions Descriptions of the arguments to the service.
      @param[in] serviceDescription A description of the service.
+     @param[in] serviceExample An example of invoking the service.
      @param[in] year The copyright year for the calling application.
      @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
      @param[out] optionValues Values set by command-line options.
@@ -118,6 +119,7 @@ namespace nImO
          Ptr(Ptr(char))         argv,
          DescriptorVector &     argumentDescriptions,
          const std::string &    serviceDescription,
+         const std::string &    serviceExample,
          const int              year,
          const std::string &    copyrightHolder,
          ServiceOptions &       optionValues,

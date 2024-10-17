@@ -116,7 +116,7 @@ main
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
     argumentList.push_back(thirdArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Run a Common Lisp program"s, 2024, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Run a Common Lisp program"s, "nImOlisp script.lisp"s, 2024, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipWaitOption))
     {

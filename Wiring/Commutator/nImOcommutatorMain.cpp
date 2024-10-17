@@ -111,7 +111,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to one of a set of channels"s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to one of a set of channels"s, "nImOcommutator 3"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, false, true))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

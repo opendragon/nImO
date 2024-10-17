@@ -111,8 +111,8 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send messages to all output channels from any input channel"s, 2023, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, true, true))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send messages to all output channels from any input channel"s, "nImOjunction 2 3"s, 2023, nImO::kCopyrightName,
+                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, true, true))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

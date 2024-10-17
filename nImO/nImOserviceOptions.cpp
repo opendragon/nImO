@@ -123,6 +123,7 @@ nImO::ProcessServiceOptions
      Ptr(Ptr(char))         argv,
      DescriptorVector &     argumentDescriptions,
      const std::string &    serviceDescription,
+     const std::string &    serviceExample,
      const int              year,
      const std::string &    copyrightHolder,
      ServiceOptions &       optionValues,
@@ -134,7 +135,7 @@ nImO::ProcessServiceOptions
     ODL_ENTER(); //####
     ODL_I2(argc, year); //####
     ODL_P4(argv, &argumentDescriptions, &optionValues, arguments); //####
-    ODL_S2s(serviceDescription, copyrightHolder); //####
+    ODL_S3s(serviceDescription, serviceExample, copyrightHolder); //####
     ODL_X1(StaticCast(int64_t, skipOptions)); //####
     ODL_B2(multipleInputs, multipleOutputs); //####
     enum class OptionIndex
@@ -216,10 +217,22 @@ nImO::ProcessServiceOptions
     usageString += " [options]"s;
     if (! argList.empty())
     {
+        usageString += " "s + argList;
+    }
+    if (! serviceDescription.empty())
+    {
+        usageString += "\n"s + serviceDescription;
+    }
+    if (! serviceExample.empty())
+    {
+        usageString += "\n\nExample: "s + serviceExample;
+    }
+    if (! argList.empty())
+    {
         StdStringVector descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
-        usageString += " "s + argList + "\n\n"s;
+        usageString += "\n\n"s;
         for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)
         {
             if (0 < ii)

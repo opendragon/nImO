@@ -94,7 +94,7 @@ main
     std::string             thisService{"Record"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("output"s, "File to write to"s,
-                                                                                        nImO::ArgumentMode::Required)};
+                                                                                        nImO::ArgumentMode::Required, ""s, ""s, true)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};

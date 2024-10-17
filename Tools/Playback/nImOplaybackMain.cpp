@@ -133,8 +133,7 @@ main
 {
     std::string             thisService{"Playback"s};
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("input"s, "File to read from"s,
-                                                                                        nImO::ArgumentMode::Required)};
+    auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("input"s, "File to read from"s, nImO::ArgumentMode::Required)};
     auto                    secondArg{std::make_shared<nImO::DoubleArgumentDescriptor>("interval"s, "Number of seconds between messages"s,
                                                                                        nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
     auto                    thirdArg{std::make_shared<nImO::LogicalArgumentDescriptor>("loop"s, "Repeat sending the file contents"s,

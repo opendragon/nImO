@@ -26,21 +26,23 @@ tools:\
 \f1\b DONE
 \f0\b0 \
 * nImOlog - displays the log in a terminal; 
-\f1\b DONE
-\f0\b0 \
+\f1\b DONE\
+
+\f0\b0 * nImOplayback 'a' [ 'b' ] - sends messages from a file at a specified rate\
 * nImOpost 'a' 'b' - writes text to the log; 
 \f1\b DONE
 \f0\b0 \
-* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'; 
-\f1\b DONE
-\f0\b0 \
+* nImOread \'97 writes out the string representation of messages received; 
+\f1\b DONE\
+
+\f0\b0 * nImOrecord 'a' - writes out received messages to a file\
 * nImOstart [ 'a' [ 'b' ]] - starts a service via a launcher; 
 \f1\b DONE
 \f0\b0 \
 * nImOversion \'97 reports the versions of the libraries; 
 \f1\b DONE\
 
-\f0\b0 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'; 
+\f0\b0 * nImOwrite \'97 reads the string representation of a message and sends it out a channel; 
 \f1\b DONE\
 
 \f0\b0 \
@@ -100,8 +102,10 @@ shell script:\
 		nimo loada <a> - invokes nImOloadApps <a>\
 		nimo loads <a> - invokes nImOloadSetup <a>\
 		nimo log - invokes nImOlog\
+		nimo playback <a> <b> - invokes nImOplayback <a> <b>\
 		nimo post <a> <b> - invokes nImOport <a> <b>\
-		nimo read <c> - invokes nImOread <c>\
+		nimo read - invokes nImOread\
+		nimo record <a> - invokes nImOrecord <a>\
 		nimo remove <a> - invokes nImOremoveApp <a>\
 		nimo start <a> <b> - invokes nImOstart <a> <b>\
 		nimo stop <a> - invokes nImOstop <a>\
@@ -109,7 +113,7 @@ shell script:\
 		nimo stores <a> - invokes nImOstoreSetup <a>\
 		nimo update <a> - invokes nImOupdateApp <a>\
 		nimo version - invokes nImOversion\
-		nimo write <c> - invokes nImOwrite <c>\
+		nimo write - invokes nImOwrite\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 

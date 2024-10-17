@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOwriteMain.cpp
+//  File:       nImOplaybackMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to write to a nImO channel.
+//  Contains:   A utility application to playback from a file to a nImO channel.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,10 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-02-19
+//  Created:    2024-10-17
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsourceContext.h>
 #include <nImOcallbackFunction.h>
@@ -56,10 +58,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to write to a #nImO channel. */
+ @brief A utility application to playback to a #nImO channel. */
 
-/*! @dir Write
- @brief The set of files that implement the Write application. */
+/*! @dir Playback
+ @brief The set of files that implement the Playback application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -88,6 +90,7 @@ std::condition_variable lReceivedCondition{};
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+#if 0
 /*! @brief Handle console input.
  @param[out] outLine where to place the received text. */
 static void
@@ -111,6 +114,7 @@ gatherLines
     }
     lReceivedCondition.notify_one();
 } // gatherLines
+#endif//0
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -126,19 +130,25 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Write"s};
+    std::string             thisService{"Playback"s};
     std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("input"s, "File to read from"s,
+                                                                                        nImO::ArgumentMode::Required)};
+    auto                    secondArg{std::make_shared<nImO::DoubleArgumentDescriptor>("interval"s, "Number of seconds between messages"s,
+                                                                                       nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
+             kODLoggingOptionPlaybackToStderr); //####
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel"s, 2016, nImO::kCopyrightName, optionValues,
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Playback from a file to a channel"s, 2024, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -232,6 +242,8 @@ main
                                             }
                                         }
                                         ourContext->report("waiting for input."s);
+std::cerr << "** Unimplemented **\n";
+#if 0
                                         nImO::StringBuffer  inBuffer;
                                         std::string         inLine;
                                         auto                aThread{new boost::thread([&inLine]
@@ -284,6 +296,7 @@ main
                                                 }
                                             }
                                         }
+#endif//0
                                         if (! nImO::gPendingStop)
                                         {
                                             bool    alreadyReported{false};

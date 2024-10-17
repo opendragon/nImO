@@ -15,8 +15,10 @@ function list_commands() {
     echo "    loada      load a set of applications"
     echo "    loads      load a setup"
     echo "    log        report on nImO"
+    echo "    playback   write messages stored in a file"
     echo "    post       write to the log"
     echo "    read       read from a channel"
+    echo "    record     write messages received to a file"
     echo "    remove     remove an application"
     echo "    start      start an application"
     echo "    stop       stop one or all applications except active log programs"
@@ -72,11 +74,17 @@ function usage_help() {
             "log")
                 nImOlog -h
                 ;;
+            "playback")
+                nImOplayback -h
+                ;;
             "post")
                 nImOpost -h
                 ;;
             "read")
                 nImOread -h
+                ;;
+            "record")
+                nImOrecord -h
                 ;;
             "remove")
                 nImOremoveApp -h
@@ -180,6 +188,13 @@ else
         "log")
             nImOlog $*
             ;;
+        "playback")
+            if [[ $# -eq 0 ]]; then
+                usage_help playback
+            else
+                nImOplayback $*
+            fi
+            ;;
         "post")
             if [[ $# -eq 0 ]]; then
                 usage_help post
@@ -188,10 +203,13 @@ else
             fi
             ;;
         "read")
+            nImOread $*
+            ;;
+        "record")
             if [[ $# -eq 0 ]]; then
-                usage_help read
+                usage_help record
             else
-                nImOread $*
+                nImOrecord $*
             fi
             ;;
         "remove")
@@ -236,11 +254,7 @@ else
             nImOversion $*
             ;;
         "write")
-            if [[ $# -eq 0 ]]; then
-                usage_help write
-            else
-                nImOwrite $*
-            fi
+            nImOwrite $*
             ;;
         *)
             usage

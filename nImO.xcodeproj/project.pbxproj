@@ -300,6 +300,10 @@
 		F6943A582886C275002117FA /* nImOlogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogger.cpp; path = nImO/nImOlogger.cpp; sourceTree = "<group>"; };
 		F699CCA12945026100B471C6 /* nImOMIMESupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOMIMESupport.cpp; path = nImO/nImOMIMESupport.cpp; sourceTree = "<group>"; };
 		F699CCA22945026100B471C6 /* nImOMIMESupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOMIMESupport.h; path = nImO/nImOMIMESupport.h; sourceTree = "<group>"; };
+		F69C73902CC138ED00C4CBC1 /* Record */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Record; sourceTree = "<group>"; };
+		F69C73912CC139FD00C4CBC1 /* Record */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Record; sourceTree = "<group>"; };
+		F69C73922CC13E1200C4CBC1 /* Playback */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Playback; sourceTree = "<group>"; };
+		F69C73932CC140A800C4CBC1 /* Playback */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Playback; sourceTree = "<group>"; };
 		F69DD8F42B8C9CCC00B8C8CB /* nImOaddInputChannelResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddInputChannelResponseHandler.cpp; path = nImO/ResponseHandlers/nImOaddInputChannelResponseHandler.cpp; sourceTree = "<group>"; };
 		F69DD8F52B8C9CCC00B8C8CB /* nImOaddInputChannelResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddInputChannelResponseHandler.h; path = nImO/ResponseHandlers/nImOaddInputChannelResponseHandler.h; sourceTree = "<group>"; };
 		F69DD8F62B8C9D7200B8C8CB /* nImOaddOutputChannelResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddOutputChannelResponseHandler.cpp; path = nImO/ResponseHandlers/nImOaddOutputChannelResponseHandler.cpp; sourceTree = "<group>"; };
@@ -958,8 +962,10 @@
 				F65C4B692985620200430284 /* Disconnect */,
 				F65C4B4F2985620200430284 /* List */,
 				F68F63DB2BBFFDA400E08558 /* Log */,
+				F69C73932CC140A800C4CBC1 /* Playback */,
 				F65C4A732985620100430284 /* Post */,
 				F65C4B012985620200430284 /* Read */,
+				F69C73902CC138ED00C4CBC1 /* Record */,
 				F692A44429C0E954003711E9 /* SetupSupport */,
 				F6B0A16F2BC0126B009453D3 /* Start */,
 				F692A44629C0E954003711E9 /* Stop */,
@@ -1066,16 +1072,18 @@
 		F65C4B9D2985636700430284 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				F64BA1B52CB960A900B7EAD8 /* Check */,
 				F6E2998B2B8BCD8A006FEE77 /* AddChannel */,
 				F65C4BAA2985636700430284 /* ApplicationSupport */,
 				F65C4BB32985636800430284 /* Bridge */,
+				F64BA1B52CB960A900B7EAD8 /* Check */,
 				F65C4BCF2985636800430284 /* Connect */,
 				F65C4BCB2985636800430284 /* Disconnect */,
 				F65C4BC72985636800430284 /* List */,
 				F68F63D72BBFFCB400E08558 /* Log */,
+				F69C73922CC13E1200C4CBC1 /* Playback */,
 				F65C4BA62985636700430284 /* Post */,
 				F65C4BBB2985636800430284 /* Read */,
+				F69C73912CC139FD00C4CBC1 /* Record */,
 				F692A43729C0E911003711E9 /* SetupSupport */,
 				F6B0A1712BC01296009453D3 /* Start */,
 				F692A43829C0E911003711E9 /* Stop */,

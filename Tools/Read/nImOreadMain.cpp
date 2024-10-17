@@ -36,8 +36,6 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
-#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsinkContext.h>
 #include <nImOchannelName.h>

@@ -184,55 +184,64 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    if (optionValues._waitForConnections)
-                                    {
-                                        auto    inChannel{ourContext->getInputChannel(inChannelPath)};
-                                        bool    connected{false};
+                                    std::string     workingPath{firstArg->getCurrentValue()};
+                                    std::ofstream   outStream{workingPath};
 
-                                        ourContext->report("waiting for connection(s)."s);
-                                        for ( ; nImO::gKeepRunning && (! connected); )
+                                    if (outStream)
+                                    {
+                                        if (optionValues._waitForConnections)
                                         {
-                                            boost::this_thread::yield();
-                                            connected = inChannel->isConnected();
-                                        }
-                                    }
-                                    if (nImO::gKeepRunning)
-                                    {
-                                        ourContext->report("waiting for messages."s);
-                                        std::cout << "ready.\n";
-                                        std::cout.flush();
-                                    }
-std::cerr << "** Unimplemented **\n";
-#if 0
-                                    for ( ; nImO::gKeepRunning; )
-                                    {
-                                        boost::this_thread::yield();
-                                        auto    nextData{ourContext->getNextMessage()};
+                                            auto    inChannel{ourContext->getInputChannel(inChannelPath)};
+                                            bool    connected{false};
 
-                                        if (nImO::gKeepRunning)
-                                        {
-                                            if (nextData)
+                                            ourContext->report("waiting for connection(s)."s);
+                                            for ( ; nImO::gKeepRunning && (! connected); )
                                             {
-                                                auto                contents{nextData->_receivedMessage};
-                                                nImO::StringBuffer  buff;
-
-                                                contents->printToStringBuffer(buff);
-                                                auto    valString{buff.getString()};
-
-                                                std::cout << valString << "\n";
+                                                boost::this_thread::yield();
+                                                connected = inChannel->isConnected();
                                             }
                                         }
-                                    }
-#endif//0
-                                    if (! nImO::gPendingStop)
-                                    {
-                                        bool    alreadyReported{false};
+                                        if (nImO::gKeepRunning)
+                                        {
+                                            ourContext->report("waiting for messages."s);
+                                            std::cout << "ready.\n";
+                                            std::cout.flush();
+                                        }
+                                        for ( ; nImO::gKeepRunning; )
+                                        {
+                                            boost::this_thread::yield();
+                                            auto    nextData{ourContext->getNextMessage()};
 
-                                        nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
-                                        nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
+                                            if (nImO::gKeepRunning)
+                                            {
+                                                if (nextData)
+                                                {
+                                                    auto                contents{nextData->_receivedMessage};
+                                                    nImO::StringBuffer  buff;
+
+                                                    contents->printToStringBuffer(buff);
+                                                    auto    valString{buff.getString()};
+
+                                                    outStream << nImO::kCommentChar << "\n" << valString << "\n";
+                                                    outStream.flush();
+                                                }
+                                            }
+                                        }
+                                        if (! nImO::gPendingStop)
+                                        {
+                                            bool    alreadyReported{false};
+
+                                            nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
+                                        }
+                                        std::cout << "done.\n";
+                                        std::cout.flush();
                                     }
-                                    std::cout << "done.\n";
-                                    std::cout.flush();
+                                    else
+                                    {
+                                        std::cerr << "Warning: output file could not be written.\n";
+                                        exitCode = 1;
+                                    }
                                 }
                                 if (inValid)
                                 {

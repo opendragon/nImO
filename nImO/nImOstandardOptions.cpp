@@ -155,22 +155,22 @@ nImO::LoadConfiguration
             {
                 if (readValue)
                 {
-                    std::cerr << "warning: configuration file did not have the correct structure.\n";
+                    std::cerr << "Warning: configuration file did not have the correct structure.\n";
                 }
                 else
                 {
-                    std::cerr << "warning: could not parse contents of configuration file.\n";
+                    std::cerr << "Warning: could not parse contents of configuration file.\n";
                 }
             }
         }
         else
         {
-            std::cerr << "warning: configuration file could not be read.\n";
+            std::cerr << "Warning: configuration file could not be read.\n";
         }
     }
     else
     {
-        std::cerr << "warning: configuration file could not be found.\n";
+        std::cerr << "Warning: configuration file could not be found.\n";
     }
     ODL_EXIT(); //####
 } // LoadConfiguration

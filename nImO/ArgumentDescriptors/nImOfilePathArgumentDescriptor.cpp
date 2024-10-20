@@ -103,11 +103,7 @@ checkFilePath
         {
             if (0 < strlen(thePath))
             {
-#if MAC_OR_LINUX_OR_BSD_
-                okSoFar = (0 == access("..", W_OK));
-#else // not MAC_OR_LINUX_OR_BSD_
-                okSoFar = (0 == _access("..", 2));
-#endif // not MAC_OR_LINUX_OR_BSD_
+                okSoFar = true;
                 ODL_B1(okSoFar); //####
             }
             else

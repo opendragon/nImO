@@ -224,6 +224,7 @@ main
                                         {
                                             bool    connected{false};
 
+                                            std::cout << "waiting for connection(s).\n";
                                             ourContext->report("waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {

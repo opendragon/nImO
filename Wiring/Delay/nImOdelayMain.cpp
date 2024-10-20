@@ -226,6 +226,7 @@ main
                                             auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                             bool    connected{false};
 
+                                            std::cout << "waiting for connection(s).\n";
                                             ourContext->report("waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {
@@ -307,7 +308,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
                                 }

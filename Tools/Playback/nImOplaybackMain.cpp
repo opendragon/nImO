@@ -39,6 +39,7 @@
 #include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
+#include <Containers/nImOarray.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsourceContext.h>
 #include <nImOcallbackFunction.h>
@@ -77,12 +78,6 @@ using namespace std::chrono_literals;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief Used to protect the received text. */
-std::mutex  lReceivedLock{};
-
-/*! @brief Used to indicate that there is some received text. */
-std::condition_variable lReceivedCondition{};
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -90,32 +85,6 @@ std::condition_variable lReceivedCondition{};
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
-
-#if 0
-/*! @brief Handle console input.
- @param[out] outLine where to place the received text. */
-static void
-gatherLines
-    (std::string &  outLine)
-{
-    std::string inLine{};
-
-    for ( ; nImO::gKeepRunning; )
-    {
-        boost::this_thread::yield();
-        if (getline(std::cin, inLine))
-        {
-            {
-                std::lock_guard<std::mutex>  lock{lReceivedLock};
-
-                outLine = inLine;
-            }
-            lReceivedCondition.notify_one();
-        }
-    }
-    lReceivedCondition.notify_one();
-} // gatherLines
-#endif//0
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -229,65 +198,60 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
+                                    std::string workingPath{firstArg->getCurrentValue()};
 
-                                    if (outChannel)
+#if MAC_OR_LINUX_OR_BSD_
+                                    if (0 == access(workingPath.c_str(), R_OK))
+#else // not MAC_OR_LINUX_OR_BSD_
+                                    if (0 == _access(workingPath.c_str(), 4))
+#endif // not MAC_OR_LINUX_OR_BSD_
                                     {
-                                        if (optionValues._waitForConnections)
+                                        std::ifstream   inStream{workingPath};
+
+                                        if (inStream)
                                         {
-                                            bool    connected{false};
+                                            auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
-                                            ourContext->report("waiting for connection(s)."s);
-                                            for ( ; nImO::gKeepRunning && (! connected); )
+                                            if (outChannel)
                                             {
-                                                boost::this_thread::yield();
-                                                connected = outChannel->isConnected();
-                                            }
-                                        }
-                                        ourContext->report("waiting for input."s);
-std::cerr << "** Unimplemented **\n";
-#if 0
-                                        nImO::StringBuffer  inBuffer;
-                                        std::string         inLine;
-                                        auto                aThread{new boost::thread([&inLine]
-                                                                                        (void)
-                                                                                        {
-                                                                                            gatherLines(inLine);
-                                                                                        })};
+                                                nImO::StringBuffer  inBuffer;
+                                                std::string         inLine;
+                                                nImO::Array         inValues;
 
-                                        ODL_P1(aThread); //####
-                                        aThread->detach();
-                                        std::cout << "ready.\n";
-                                        std::cout.flush();
-                                        for ( ; nImO::gKeepRunning; )
-                                        {
-                                            {
-                                                // Check for text.
-                                                std::unique_lock<std::mutex>    lock{lReceivedLock};
-
-                                                for ( ; nImO::gKeepRunning && inLine.empty(); )
+                                                std::cout << "ready.\n";
+                                                std::cout.flush();
+                                                // Collect the file as a sequence of objects.
+                                                for ( ; getline(inStream, inLine); )
                                                 {
-                                                    boost::this_thread::yield();
-                                                    lReceivedCondition.wait_for(lock, 10ms,
-                                                                                  []
-                                                                                  (void)
-                                                                                  {
-                                                                                    return (! nImO::gKeepRunning);
-                                                                                  });
-                                                }
-                                            }
-                                            if (nImO::gKeepRunning)
-                                            {
-                                                inBuffer.addString("\n" + inLine);
-                                                inLine.clear();
-                                                auto    readValue{inBuffer.convertToValue()};
+                                                    inBuffer.addString("\n" + inLine);
+                                                    auto    readValue{inBuffer.convertToValue()};
 
-                                                if (readValue)
-                                                {
-                                                    inBuffer.reset();
-                                                    if (nImO::gKeepRunning)
+                                                    if (readValue)
                                                     {
-                                                        if (! outChannel->send(readValue))
+                                                        inBuffer.reset();
+                                                        inValues.addValue(readValue);
+                                                    }
+                                                }
+                                                if (optionValues._waitForConnections)
+                                                {
+                                                    bool    connected{false};
+
+                                                    std::cout << "waiting for connection(s).\n";
+                                                    ourContext->report("waiting for connection(s)."s);
+                                                    for ( ; nImO::gKeepRunning && (! connected); )
+                                                    {
+                                                        boost::this_thread::yield();
+                                                        connected = outChannel->isConnected();
+                                                    }
+                                                }
+                                                int     numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
+                                                auto    repeatValues{thirdArg->getCurrentValue()};
+
+                                                for ( ; nImO::gKeepRunning; )
+                                                {
+                                                    for (size_t ii = 0; nImO::gKeepRunning && (ii < inValues.size()); ++ii)
+                                                    {
+                                                        if (! outChannel->send(inValues[ii]))
                                                         {
                                                             ourContext->report("problem sending to '"s + outChannelPath + "'."s);
                                                             std::cerr << "problem sending to " << outChannelPath << "\n";
@@ -295,20 +259,58 @@ std::cerr << "** Unimplemented **\n";
                                                             break;
 
                                                         }
+                                                        // delay
+                                                        if (0 < numMilliseconds)
+                                                        {
+                                                            bool    doneFlag{false};
+                                                            auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+
+                                                            aTimer->expires_from_now(boost::posix_time::milliseconds(numMilliseconds));
+                                                            aTimer->async_wait([&doneFlag, aTimer]
+                                                                               (const BSErr & error)
+                                                                               {
+                                                                                    NIMO_UNUSED_VAR_(error);
+                                                                                    doneFlag = true;
+                                                                                });
+                                                            for ( ; nImO::gKeepRunning; )
+                                                            {
+                                                                // Do something to use up a bit of time...
+                                                                boost::this_thread::yield();
+                                                                if (doneFlag)
+                                                                {
+                                                                    break;
+
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    if ((0 != exitCode) || (! repeatValues))
+                                                    {
+                                                        break;
+
                                                     }
                                                 }
+                                                if (! nImO::gPendingStop)
+                                                {
+                                                    bool    alreadyReported{false};
+
+                                                    nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
+                                                    nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
+                                                }
+                                                std::cout << "done.\n";
+                                                std::cout.flush();
                                             }
                                         }
-#endif//0
-                                        if (! nImO::gPendingStop)
+                                        else
                                         {
-                                            bool    alreadyReported{false};
-
-                                            nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
-                                            nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
+                                            std::cerr << "Input file could not be read.\n";
+                                            exitCode = 1;
                                         }
-                                        std::cout << "done.\n";
-                                        std::cout.flush();
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Input file could not be found.\n";
+                                        exitCode = 1;
                                     }
                                 }
                                 if (outValid)
@@ -326,7 +328,7 @@ std::cerr << "** Unimplemented **\n";
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
                                 }

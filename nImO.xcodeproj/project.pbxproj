@@ -340,6 +340,8 @@
 		F6ADA5E12B5151A100BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Junction/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5E52B51567B00BE55B0 /* nImOsinkBreakHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsinkBreakHandler.cpp; path = nImO/nImOsinkBreakHandler.cpp; sourceTree = "<group>"; };
 		F6ADA5E62B51567B00BE55B0 /* nImOsinkBreakHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsinkBreakHandler.h; path = nImO/nImOsinkBreakHandler.h; sourceTree = "<group>"; };
+		F6ADDD562CCE6ACD00385D3F /* Clean */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Clean; sourceTree = "<group>"; };
+		F6ADDD572CCE6B0100385D3F /* Clean */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Clean; sourceTree = "<group>"; };
 		F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconvertersTest.cpp; path = Tests/nImOconvertersTest.cpp; sourceTree = "<group>"; };
 		F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconvertersTest.rc.in; path = Tests/nImOconvertersTest.rc.in; sourceTree = "<group>"; };
 		F6B0A1702BC01284009453D3 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Start/CMakeLists.txt; sourceTree = "<group>"; };
@@ -957,6 +959,7 @@
 				F65C4A8D2985620100430284 /* ApplicationSupport */,
 				F65C4ACB2985620200430284 /* Bridge */,
 				F64BA1B62CB962A000B7EAD8 /* Check */,
+				F6ADDD562CCE6ACD00385D3F /* Clean */,
 				F65C4A722985620100430284 /* CMakeLists.txt */,
 				F65C4B832985620200430284 /* Connect */,
 				F65C4B692985620200430284 /* Disconnect */,
@@ -1076,6 +1079,7 @@
 				F65C4BAA2985636700430284 /* ApplicationSupport */,
 				F65C4BB32985636800430284 /* Bridge */,
 				F64BA1B52CB960A900B7EAD8 /* Check */,
+				F6ADDD572CCE6B0100385D3F /* Clean */,
 				F65C4BCF2985636800430284 /* Connect */,
 				F65C4BCB2985636800430284 /* Disconnect */,
 				F65C4BC72985636800430284 /* List */,

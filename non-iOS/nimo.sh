@@ -8,6 +8,7 @@ function list_commands() {
     echo "    addc       add a channel to a node"
     echo "    bridge     connect two subnets"
     echo "    check      return zero if the registry is detected"
+    echo "    clean      remove Registry information for a node or a machine"
     echo "    connect    connect two channels together"
     echo "    disconnect break the connection between two channels"
     echo "    help       list the available commands"
@@ -52,6 +53,9 @@ function usage_help() {
                 ;;
             "check")
                 nImOcheck -h
+                ;;
+            "clean")
+                nImOclean -h
                 ;;
             "connect")
                 nImOconnect -h
@@ -146,6 +150,13 @@ else
             ;;
         "check")
             nImOcheck $*
+            ;;
+        "clean")
+            if [[ $# -eq 0 ]]; then
+                usage_help clean
+            else
+                nImOclean $*
+            fi
             ;;
         "connect")
             if [[ $# -eq 0 ]]; then

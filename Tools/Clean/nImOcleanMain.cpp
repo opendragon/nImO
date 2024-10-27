@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOstopMain.cpp
+//  File:       nImOcleanMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to stop active nImO applications except copies of nImOmonitor.
+//  Contains:   A tool to remove registry information for a node or a machine.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-03-14
+//  Created:    2024-10-27
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -56,10 +56,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to stop all active #nImO applications except copies of nImOmonitor. */
+ @brief A tool to remove registry information for a node or a machine. */
 
 /*! @dir Stop
- @brief The set of files that implement the Stop tool. */
+ @brief The set of files that implement the Clean tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -95,7 +95,7 @@ main
 {
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("node"s,
-                                                                                      "Node to be stop (if machine is not specified)"s,
+                                                                                      "Node information to be removed (if machine is not specified)"s,
                                                                                       nImO::ArgumentMode::Optional)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{};
@@ -108,14 +108,14 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Stop one node or machine or all nodes"s, "nImOstop node"s, 2023,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove registry information for a node or a machine"s, "nImOclean node"s, 2024,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>("stop"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>("clean"s, optionValues._logging)};
             auto                nodeName{firstArg->getCurrentValue()};
             nImO::Connection    registryConnection{};
 
@@ -127,129 +127,7 @@ main
                 {
                     if (nodeName.empty())
                     {
-                        auto    statusWithAllNodes{proxy->getInformationForAllNodes()};
-
-                        if (statusWithAllNodes.first.first)
-                        {
-                            auto    nodes{statusWithAllNodes.second};
-
-                            // Send Stop command to all launchers.
-                            for (auto & walker : nodes)
-                            {
-                                if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
-                                {
-                                    ourContext->report("sending stop request to '"s + walker._name + "'."s);
-                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
-                                                                                     nImO::kStopResponse);
-                                    // Give the service time to inform the Registry.
-                                    nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                    auto    statusWithBool{proxy->removeNode(walker._name)};
-
-                                    if (! statusWithBool.first.first)
-                                    {
-                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
-                                    }
-                                }
-                            }
-                            if (optionValues._expanded)
-                            {
-                                ourContext->report("closing all connections"s);
-                            }
-                            auto    statusWithAllConnections{proxy->getInformationForAllConnections()};
-
-                            if (statusWithAllConnections.first.first)
-                            {
-                                for (auto & walker : statusWithAllConnections.second)
-                                {
-                                    bool    okSoFar{true};
-
-                                    if (walker._found)
-                                    {
-                                        auto                fromNode{walker._fromNode};
-                                        auto                fromPath{walker._fromPath};
-                                        auto                toNode{walker._toNode};
-                                        auto                toPath{walker._toPath};
-                                        nImO::Connection    fromConnection;
-                                        auto                statusWithNodeInfo{proxy->getNodeInformation(fromNode)};
-
-                                        if (statusWithNodeInfo.first.first)
-                                        {
-                                            if (statusWithNodeInfo.second._found)
-                                            {
-                                                fromConnection = statusWithNodeInfo.second._connection;
-                                            }
-                                            else
-                                            {
-                                                ourContext->report("Unknown node: '"s + fromNode + "'."s);
-                                                okSoFar = false;
-                                                ODL_B1(okSoFar); //####
-                                            }
-                                        }
-                                        else
-                                        {
-                                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
-                                            okSoFar = false;
-                                            ODL_B1(okSoFar); //####
-                                        }
-                                        if (okSoFar)
-                                        {
-                                            statusWithNodeInfo = proxy->getNodeInformation(toNode);
-                                            if (statusWithNodeInfo.first.first)
-                                            {
-                                                if (statusWithNodeInfo.second._found)
-                                                {
-                                                    bool    reported{false};
-
-                                                    nImO::CloseConnection(ourContext, fromNode, proxy, fromPath, true, reported);
-                                                }
-                                                else
-                                                {
-                                                    ourContext->report("Unknown node: '"s + toNode + "'."s);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << ".\n";
-                                exitCode = 1;
-                            }
-                            // Send Stop command to all other nodes.
-                            for (auto & walker : nodes)
-                            {
-                                if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
-                                {
-                                    ourContext->report("sending stop request to '"s + walker._name + "'."s);
-                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
-                                                                                     nImO::kStopResponse);
-                                    // Give the service time to inform the Registry.
-                                    nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                    auto    statusWithBool{proxy->removeNode(walker._name)};
-
-                                    if (! statusWithBool.first.first)
-                                    {
-                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << ".\n";
-                            exitCode = 1;
-                        }
-                        // Give the Registry time to handle pending requests.
-                        nImO::ConsumeSomeTime(ourContext.get(), 20);
-                        ourContext->report("sending stop request to Registry."s);
-                        // Send Stop command to Registry.
-                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kStopRequest,
-                                                                         nImO::kStopResponse);
+                        ourContext->report("no machine or node specified."s);
                     }
                     else
                     {
@@ -347,18 +225,19 @@ main
                                                 ".\n";
                                     exitCode = 1;
                                 }
-                                // Send Stop command to the node.
-                                if (optionValues._expanded)
-                                {
-                                    ourContext->report("sending stop request to '"s + nodeName + "'."s);
-                                }
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kStopRequest,
-                                                                                 nImO::kStopResponse);
-                                auto    statusWithBool{proxy->removeNode(nodeName)};
+                                auto    statusWithBool{proxy->removeChannelsForNode(nodeName)};
 
-                                if (! statusWithBool.first.first)
+                                if (statusWithBool.first.first)
                                 {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
+                                    statusWithBool = proxy->removeNode(nodeName);
+                                    if (! statusWithBool.first.first)
+                                    {
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
+                                    }
+                                }
+                                else
+                                {
+                                    std::cerr << "Problem with 'removeChannelsForNode': " << statusWithBool.first.second << ".\n";
                                 }
                             }
                             else
@@ -381,16 +260,10 @@ main
                     {
                         auto    nodes{statusWithAllNodes.second};
 
-                        // Send Stop command to all the launchers on the machine.
                         for (auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
-                                ourContext->report("sending stop request to '"s + walker._name + "'."s);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
-                                                                                 nImO::kStopResponse);
-                                // Give the service time to inform the Registry.
-                                nImO::ConsumeSomeTime(ourContext.get(), 20);
                                 auto    statusWithBool{proxy->removeNode(walker._name)};
 
                                 if (! statusWithBool.first.first)
@@ -490,21 +363,23 @@ main
                                         ".\n";
                             exitCode = 1;
                         }
-                        // Send Stop command to all other nodes on the machine.
                         for (auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                             {
-                                ourContext->report("sending stop request to '"s + walker._name + "'."s);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
-                                                                                 nImO::kStopResponse);
-                                // Give the service time to inform the Registry.
-                                nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                auto    statusWithBool{proxy->removeNode(walker._name)};
+                                auto    statusWithBool{proxy->removeChannelsForNode(walker._name)};
 
-                                if (! statusWithBool.first.first)
+                                if (statusWithBool.first.first)
                                 {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
+                                    statusWithBool = proxy->removeNode(walker._name);
+                                    if (! statusWithBool.first.first)
+                                    {
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
+                                    }
+                                }
+                                else
+                                {
+                                    std::cerr << "Problem with 'removeChannelsForNode': " << statusWithBool.first.second << ".\n";
                                 }
                             }
                             else

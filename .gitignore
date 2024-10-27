@@ -95,6 +95,9 @@ non-iOS/Tools/Bridge/nImObridge.rc
 non-iOS/Tools/Check/nImOcheck
 non-iOS/Tools/Check/nImOcheck.dir/
 non-iOS/Tools/Check/nImOcheck.rc
+non-iOS/Tools/Clean/nImOclean
+non-iOS/Tools/Clean/nImOclean.dir/
+non-iOS/Tools/Clean/nImOclean.rc
 non-iOS/Tools/Connect/nImOconnect
 non-iOS/Tools/Connect/nImOconnect.dir/
 non-iOS/Tools/Connect/nImOconnect.rc

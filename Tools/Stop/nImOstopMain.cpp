@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to stop active nImO applications except copies of nImOmonitor.
+//  Contains:   A tool to stop active nImO applications except copies of nImOlog or nImOwatch.
 //
 //  Written by: Norman Jaffe
 //
@@ -56,7 +56,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to stop all active #nImO applications except copies of nImOmonitor. */
+ @brief A tool to stop all active #nImO applications except copies of nImOlog or nImOwatch. */
 
 /*! @dir Stop
  @brief The set of files that implement the Stop tool. */

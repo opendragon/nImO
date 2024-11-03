@@ -150,7 +150,7 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Maintain a registry of services"s, "nImOregistry", 2022, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipTagOption | nImO::kSkipWaitOption))
+                                    nImO::kSkipPortOption | nImO::kSkipRemoteOption | nImO::kSkipTagOption | nImO::kSkipWaitOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

@@ -2038,7 +2038,7 @@ nImO::Registry::addAppToList
         ODL_LOG("! (ChannelName::validName(nodeName) && (! applicationName.empty()) && (! applicationDescription.empty()))"); //####
         status = SuccessOrFailure(false, "Invalid node name or empty application name or description"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::addAppToList
 
@@ -2094,7 +2094,7 @@ nImO::Registry::addChannel
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::addChannel
 
@@ -2168,7 +2168,7 @@ nImO::Registry::addConnection
                 "ChannelName::validNode(toNodeName) && ChannelName::validPath(toPath))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::addConnection
 
@@ -2196,7 +2196,7 @@ nImO::Registry::addMachine
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::addMachine
 
@@ -2240,7 +2240,7 @@ nImO::Registry::addNode
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::addNode
 
@@ -2273,7 +2273,7 @@ nImO::Registry::clearAppListForLauncher
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::clearAppListForLauncher
 
@@ -2315,7 +2315,7 @@ nImO::Registry::clearChannelInUse
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::clearChannelInUse
 
@@ -2370,7 +2370,7 @@ nImO::Registry::getChannelInformation
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ChannelInfoOrFailure{status, info};
 } // nImO::Registry::getChannelInformation
 
@@ -2444,7 +2444,7 @@ nImO::Registry::getChannelInUseAndSet
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return BoolOrFailure{status, inUse};
 } // nImO::Registry::getChannelInUseAndSet
 
@@ -2508,7 +2508,7 @@ nImO::Registry::getChannelInUse
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return BoolOrFailure{status, inUse};
 } // nImO::Registry::getChannelInUse
 
@@ -2580,6 +2580,7 @@ nImO::Registry::getConnectionInformation
                     else
                     {
                         ODL_LOG("! (5 < values.size())"); //####
+                        status = SuccessOrFailure(false, "Bad node information"s);
                     }
                 }
                 else
@@ -2603,7 +2604,7 @@ nImO::Registry::getConnectionInformation
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ConnectionInfoOrFailure{status, connectionData};
 } // nImO::Registry::getConnectionInformation
 
@@ -2647,7 +2648,7 @@ nImO::Registry::getInformationForAllApplications
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ApplicationInfoVectorOrFailure{status, applicationData};
 } // nImO::Registry::getInformationForAllApplications
 
@@ -2692,7 +2693,7 @@ nImO::Registry::getInformationForAllApplicationsOnNode
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ApplicationInfoVectorOrFailure{status, applicationData};
 } // nImO::Registry::getInformationForAllApplicationsOnNode
 
@@ -2736,7 +2737,7 @@ nImO::Registry::getInformationForAllChannels
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ChannelInfoVectorOrFailure{status, channelData};
 } // nImO::Registry::getInformationForAllChannels
 
@@ -2788,7 +2789,7 @@ nImO::Registry::getInformationForAllChannelsOnMachine
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ChannelInfoVectorOrFailure{status, channelData};
 } // nImO::Registry::getInformationForAllChannelsOnMachine
 
@@ -2837,7 +2838,7 @@ nImO::Registry::getInformationForAllChannelsOnNode
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ChannelInfoVectorOrFailure{status, channelData};
 } // nImO::Registry::getInformationForAllChannelsOnNode
 
@@ -2899,7 +2900,7 @@ nImO::Registry::getInformationForAllConnections
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ConnectionInfoVectorOrFailure{status, connectionData};
 } // nImO::Registry::getInformationForAllConnections
 
@@ -2966,7 +2967,7 @@ nImO::Registry::getInformationForAllConnectionsOnMachine
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ConnectionInfoVectorOrFailure{status, connectionData};
 } // nImO::Registry::getInformationForAllConnectionsOnNode
 
@@ -3030,7 +3031,7 @@ nImO::Registry::getInformationForAllConnectionsOnNode
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return ConnectionInfoVectorOrFailure{status, connectionData};
 } // nImO::Registry::getInformationForAllConnectionsOnNode
 
@@ -3086,7 +3087,7 @@ nImO::Registry::getInformationForAllMachines
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return MachineInfoVectorOrFailure{status, machineData};
 } // nImO::Registry::getInformationForAllMachines
 
@@ -3129,7 +3130,7 @@ nImO::Registry::getInformationForAllNodes
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return NodeInfoVectorOrFailure{status, nodeData};
 } // nImO::Registry::getInformationForAllNodes
 
@@ -3175,7 +3176,7 @@ nImO::Registry::getInformationForAllNodesOnMachine
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return NodeInfoVectorOrFailure{status, nodeData};
 } // nImO::Registry::getInformationForAllNodesOnMachine
 
@@ -3215,6 +3216,7 @@ nImO::Registry::getLaunchDetails
                     else
                     {
                         ODL_LOG("! (2 < values.size())"); //####
+                        status = SuccessOrFailure(false, "Bad launch information"s);
                     }
                 }
                 else
@@ -3238,7 +3240,7 @@ nImO::Registry::getLaunchDetails
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return LaunchDetailsOrFailure{status, details};
 } // nImO::Registry::getLaunchDetails
 
@@ -3283,11 +3285,13 @@ nImO::Registry::getMachineInformation
                     else
                     {
                         ODL_LOG("! (0 < values.size())"); //####
+                        status = SuccessOrFailure(false, "Bad machine information"s);
                     }
                 }
                 else
                 {
                     ODL_LOG("! (0 < results.size())"); //####
+                    status = SuccessOrFailure(false, "No such machine"s);
                 }
             }
             else
@@ -3306,7 +3310,7 @@ nImO::Registry::getMachineInformation
         ODL_LOG("! (Connection::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return MachineInfoOrFailure{status, info};
 } // nImO::Registry::getMachineInformation
 
@@ -3338,7 +3342,7 @@ nImO::Registry::getNamesOfMachines
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return StdStringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfMachines
 
@@ -3370,7 +3374,7 @@ nImO::Registry::getNamesOfNodes
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return StdStringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfNodes
 
@@ -3412,7 +3416,7 @@ nImO::Registry::getNamesOfNodesOnMachine
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return StdStringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfNodesOnMachine
 
@@ -3467,6 +3471,7 @@ nImO::Registry::getNodeInformation
                     else
                     {
                         ODL_LOG("! (2 < values.size())"); //####
+                        status = SuccessOrFailure(false, "Bad node information"s);
                     }
                 }
                 else
@@ -3490,7 +3495,7 @@ nImO::Registry::getNodeInformation
         ODL_LOG("! (Connection::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return NodeInfoOrFailure{status, info};
 } // nImO::Registry::getNodeInformation
 
@@ -3525,7 +3530,7 @@ nImO::Registry::getNodesWithApplication
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return StdStringSetOrFailure{status, strings};
 } // nImO::Registry::getNodesWithApplication
 
@@ -3564,7 +3569,7 @@ nImO::Registry::getNumberOfApplications
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfApplications
 
@@ -3604,7 +3609,7 @@ nImO::Registry::getNumberOfApplicationsOnNode
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfApplicationsOnNode
 
@@ -3643,7 +3648,7 @@ nImO::Registry::getNumberOfChannels
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfChannels
 
@@ -3682,7 +3687,7 @@ nImO::Registry::getNumberOfChannelsOnNode
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfChannelsOnNode
 
@@ -3721,7 +3726,7 @@ nImO::Registry::getNumberOfConnections
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfConnections
 
@@ -3761,7 +3766,7 @@ nImO::Registry::getNumberOfInputChannelsOnNode
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfInputChannelsOnNode
 
@@ -3800,7 +3805,7 @@ nImO::Registry::getNumberOfMachines
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfMachines
 
@@ -3839,7 +3844,7 @@ nImO::Registry::getNumberOfNodes
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodes
 
@@ -3879,7 +3884,7 @@ nImO::Registry::getNumberOfNodesOnMachine
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodesOnMachine
 
@@ -3919,7 +3924,7 @@ nImO::Registry::getNumberOfOutputChannelsOnNode
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfOutputChannelsOnNode
 
@@ -3975,7 +3980,7 @@ nImO::Registry::isChannelPresent
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return BoolOrFailure{status, found};
 } // nImO::Registry::isChannelPresent
 
@@ -4019,7 +4024,7 @@ nImO::Registry::isMachinePresent
     {
         ODL_LOG("! (status.first)"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return BoolOrFailure{status, found};
 } // nImO::Registry::isMachinePresent
 
@@ -4072,7 +4077,7 @@ nImO::Registry::isNodePresent
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return BoolOrFailure{status, found};
 } // nImO::Registry::isNodePresent
 
@@ -4108,7 +4113,7 @@ nImO::Registry::removeChannel
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::removeChannel
 
@@ -4141,7 +4146,7 @@ nImO::Registry::removeChannelsForNode
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::removeChannelsForNode
 
@@ -4204,7 +4209,7 @@ nImO::Registry::removeConnection
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::removeConnection
 
@@ -4237,7 +4242,7 @@ nImO::Registry::removeNode
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
         status = SuccessOrFailure(false, "Invalid node name"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::removeNode
 
@@ -4279,7 +4284,7 @@ nImO::Registry::setChannelInUse
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
         status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(status.first); //####
     return status;
 } // nImO::Registry::setChannelInUse
 

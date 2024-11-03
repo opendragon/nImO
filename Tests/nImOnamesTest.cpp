@@ -100,44 +100,6 @@ catchSignal
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestValidateNetworkName
-    (const bool expected,
-     CPtr(char) inString)
-{
-    ODL_ENTER(); //####
-    ODL_B1(expected); //####
-    ODL_S1(inString); //####
-    int result{1};
-
-    try
-    {
-        bool    checked{ChannelName::validNetwork(inString)};
-
-        if (checked == expected)
-        {
-            result = 0;
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestValidateNetworkName
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 02  ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
 doTestValidateNodeName
     (const bool expected,
      CPtr(char) inString)
@@ -167,7 +129,7 @@ doTestValidateNodeName
 } // doTestValidateNodeName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 03  ***
+# pragma mark *** Test Case 02  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -205,7 +167,7 @@ doTestValidatePath
 } // doTestValidatePath
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 04  ***
+# pragma mark *** Test Case 03  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -337,52 +299,6 @@ doTestParseExpectedName
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseExtractNetwork
-    (const bool expected,
-     CPtr(char) inString,
-     CPtr(char) expectedString)
-{
-    ODL_ENTER(); //####
-    ODL_B1(expected); //####
-    ODL_S2(inString, expectedString); //####
-    int result{1};
-
-    try
-    {
-        std::string     failed;
-        SpChannelName   parsed{ChannelName::parse(inString, failed)};
-
-        if ((nullptr != parsed) == expected)
-        {
-            if (expected)
-            {
-                if (parsed->getNetwork() == expectedString)
-                {
-                    result = 0;
-                }
-            }
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestParseExtractNetwork
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 13  ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
 doTestParseExtractNode
     (const bool expected,
      CPtr(char) inString,
@@ -420,7 +336,7 @@ doTestParseExtractNode
 } // doTestParseExtractNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 14  ***
+# pragma mark *** Test Case 13  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -466,7 +382,7 @@ doTestParseExtractPath
 } // doTestParseExtractPath
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 15  ***
+# pragma mark *** Test Case 14  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -512,7 +428,7 @@ doTestParseExtractProtocol
 } // doTestParseExtractProtocol
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 16  ***
+# pragma mark *** Test Case 15  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -576,7 +492,7 @@ doTestGeneratePath
 } // doTestGeneratePath
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 17  ***
+# pragma mark *** Test Case 16  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -656,18 +572,14 @@ main
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestValidateNetworkName(expected, *(argv + 3));
-                        break;
-
-                    case 2 :
                         result = doTestValidateNodeName(expected, *(argv + 3));
                         break;
 
-                    case 3 :
+                    case 2 :
                         result = doTestValidatePath(expected, *(argv + 3));
                         break;
 
-                    case 4 :
+                    case 3 :
                         result = doTestValidateTransport(expected, *(argv + 3));
                         break;
 
@@ -685,39 +597,32 @@ main
                     case 12 :
                         if (3 < argc)
                         {
-                            result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
+                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
                     case 13 :
                         if (3 < argc)
                         {
-                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
+                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
                     case 14 :
                         if (3 < argc)
                         {
-                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
-                        }
-                        break;
-
-                    case 15 :
-                        if (3 < argc)
-                        {
                             result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 16 :
+                    case 15 :
                         if (6 < argc)
                         {
                             result = doTestGeneratePath(expected, *(argv + 3), *(argv + 4), *(argv + 5), *(argv + 6), *(argv + 7));
                         }
                         break;
 
-                    case 17 :
+                    case 16 :
                         result = doTestName(expected, *(argv + 3));
                         break;
 

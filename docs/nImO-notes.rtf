@@ -13,7 +13,7 @@ This port is used to report the channels available, their status and 'mode'; it 
 When a node is initialized, it advertises its command/response port, as well as the (initial) channels that it has - after checking if it is already running.\
 The channel 'modes':\
 	'IN' = a 'server' channel that can make a connection to an 'OUT' channel, but only is unidirectional 'in'\
-	'OUT' = a 'client' channel that can make a single connection to an 'IN' channel and is unidirectional 'out'; multiple logical 'out' connections are made via multiple physical connections\
+	'OUT' = a 'client' channel that can make a single connection to an 'IN' channel and is unidirectional 'out'\
 Note that the command/response port is not displayed in the GUI, as it is an implementation issue.\
 Command-line tools (and the GUI) can interact with the command/response ports, via code that uses the Registry mechanisms to interrogate the advertised ports.\
 Packages are placed on queues and handled by I/O services; a package has a tag (source or destination port number) and a pointer to a message.\
@@ -34,17 +34,16 @@ n) Destroy context/RAII\
 \
 <name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore and are case-insensitive.\
 <node_name> ::= name\
-<network_name> ::= name\
 <path> ::= (/<name>)+ \'97> Paths start with a forward slash but do not have a trailing slash.\
-<mode> ::= #(UDP|TCP|ANY) -> Case-insensitive\
-<channel> ::= (<network_name>?:)?<node_name>?<path><mode>?  \'97> The node name is 'optional' when parsed but required in actual use.\
+<mode> ::= #(UDP|TCP|ANY) \'97> Case-insensitive\
+<channel> ::= <node_name>?<path><mode>?  \'97> The node name is 'optional' when parsed but required in actual use.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f1\b \cf0 Node names:\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\b0 \cf0 [Network:]Name  - where Network is established by a Bridge and Name is self-assigned; no Network implies the same subnet; the name comes from the host name and service name or is directly provided.\
+\f0\b0 \cf0 Name  - where Name is self-assigned; the name comes from the host name and service name or is directly provided.\
 The default node name is <computer short name>-<service name>, but Launcher services do not have channels so this is not critical.\
 The node name can be modified by a tag, so it will be <node>-<tag> to allow multiple copies of a service on a machine.\
 \
@@ -55,7 +54,7 @@ The node name can be modified by a tag, so it will be <node>-<tag> to allow mult
 [NodeName]/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; (physical) ports are assigned by the system; no Protocol implies TCP\
 If the NodeName is not specified, it implies the machine where the service is running and the NodeName of the only service on the machine - it's an error to not specify the NodeName if there is more than one service running or if the only services are Launchers; note that services will always report their node name but command-line tools can follow this rule.\
 \
-Minimal Channel = node/arbitrary-path; maximal Channel = network:node/arbitrary-path#protocol\
+Minimal Channel = node/arbitrary-path; maximal Channel = node/arbitrary-path#protocol\
 \
 Channels have an associated 'type' that represents the format of the data that they can process.\
 If the type is not specified or is blank, the service can handle any properly-formatted messages.\
@@ -74,9 +73,7 @@ Input/Output contexts: <an intermediate context class>\
 Networking contexts: nImOlog, nImOpost\
 Utility contexts: 
 \f2\i nImOaddApp
-\f0\i0 , nImOaddChannel, 
-\f2\i nImObridge
-\f0\i0 , nImOconnect, nImOdisconnect, nImOlist, 
+\f0\i0 , nImOaddChannel, nImOconnect, nImOdisconnect, nImOlist, 
 \f2\i nImOloadApps
 \f0\i0 , 
 \f2\i nImOloadSetup
@@ -89,7 +86,9 @@ Utility contexts:
 \f0\i0 , 
 \f2\i nImOupdateApp
 \f0\i0 \
-Filter contexts: nImOcommutator, nImOdelay, 
+Filter contexts: 
+\f2\i nImObridge
+\f0\i0 , nImOcommutator, nImOdelay, 
 \f2\i nImOjavaScript
 \f0\i0 , nImOjunction, 
 \f2\i nImOlisp
@@ -108,6 +107,8 @@ Miscellaneous contexts:
 \f0\i0 \
 Test contexts: nImO*Test\
 context-free: nImOcheckRegistry, nImOversion\
+\
+A 'client' nImObridge connects to a 'server' nImObridge; both have single input and output channels and the 'client' service specifies the IP address of the 'server'.\
 \
 nImOlauncher reports its node name and its command port and IP address to the registry when starting and deletes the node name from the registry on exit.\
 \

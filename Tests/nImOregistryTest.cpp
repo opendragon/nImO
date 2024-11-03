@@ -11691,14 +11691,43 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
 
                                     if (statusWithInfo.first.first)
                                     {
-                                        ODL_LOG("(statusWithInfo.first.first)"); //####
+                                        if (statusWithInfo.second._found)
+                                        {
+                                            ODL_LOG("(statusWithInfo.second._found)"); //####
+                                        }
+                                        else
+                                        {
+                                            statusWithInfo = aRegistry->getConnectionInformation(kBadNodeName, kChannelPath1, true);
+                                            if (statusWithInfo.first.first)
+                                            {
+                                                if (statusWithInfo.second._found)
+                                                {
+                                                    ODL_LOG("(statusWithInfo.second._found)"); //####
+                                                }
+                                                else
+                                                {
+                                                    result = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                result = 0;
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         statusWithInfo = aRegistry->getConnectionInformation(kBadNodeName, kChannelPath1, true);
                                         if (statusWithInfo.first.first)
                                         {
-                                            ODL_LOG("(statusWithInfo.first.first)"); //####
+                                            if (statusWithInfo.second._found)
+                                            {
+                                                ODL_LOG("(statusWithInfo.second._found)"); //####
+                                            }
+                                            else
+                                            {
+                                                result = 0;
+                                            }
                                         }
                                         else
                                         {
@@ -11812,14 +11841,43 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
 
                                     if (statusWithInfo.first.first)
                                     {
-                                        ODL_LOG("(statusWithInfo.first.first)"); //####
+                                        if (statusWithInfo.second._found)
+                                        {
+                                            ODL_LOG("(statusWithInfo.second._found)"); //####
+                                        }
+                                        else
+                                        {
+                                            statusWithInfo = aRegistry->getConnectionInformation(kNodeName1, kBadChannelPath, true);
+                                            if (statusWithInfo.first.first)
+                                            {
+                                                if (statusWithInfo.second._found)
+                                                {
+                                                    ODL_LOG("(statusWithInfo.second._found)"); //####
+                                                }
+                                                else
+                                                {
+                                                    result = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                result = 0;
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         statusWithInfo = aRegistry->getConnectionInformation(kNodeName1, kBadChannelPath, true);
                                         if (statusWithInfo.first.first)
                                         {
-                                            ODL_LOG("(statusWithInfo.first.first)"); //####
+                                            if (statusWithInfo.second._found)
+                                            {
+                                                ODL_LOG("(statusWithInfo.second._found)"); //####
+                                            }
+                                            else
+                                            {
+                                                result = 0;
+                                            }
                                         }
                                         else
                                         {

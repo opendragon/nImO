@@ -95,11 +95,17 @@ namespace nImO
         /*! @brief Skip the 'outType' option. */
         kSkipOutTypeOption      = 0x0400,
 
+        /*! @brief Skip the 'port' option. */
+        kSkipPortOption         = 0x0800,
+
+        /*! @brief Skip the 'remote' option. */
+        kSkipRemoteOption       = 0x1000,
+
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x0800,
+        kSkipTagOption          = 0x2000,
 
         /*! @brief Skip the 'wait' option. */
-        kSkipWaitOption         = 0x1000,
+        kSkipWaitOption         = 0x4000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFF
@@ -175,7 +181,7 @@ namespace nImO
      The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.
      The option '-l' / '--log' specifies that the executable is to be logged.
-     The option '-m'/'--machine' specifies the machine to be referenced.
+     The option '-m' / '--machine' specifies the machine to be referenced.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
      The option '-v' / '--version' displays the version and copyright information and returns @c false.
      @param[in] argc The number of arguments in 'argv'.

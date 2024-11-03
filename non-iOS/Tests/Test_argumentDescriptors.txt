@@ -95,16 +95,10 @@ add_test(NAME TestInvalidChannelArgumentParameters COMMAND ${THIS_TARGET} 3 f 2)
 add_test(NAME TestChannelArgumentDescriptor COMMAND ${THIS_TARGET} 3 t 3 "/out" "descriptor\tC\t0\t~/out~\tsomething")
 # Test valid input
 add_test(NAME TestChannelArgumentValidInput1 COMMAND ${THIS_TARGET} 3 t 4 "/in")
-# Test valid input
-add_test(NAME TestChannelArgumentValidInput2 COMMAND ${THIS_TARGET} 3 t 4 "net:node/out#tcp")
-# Test valid input
-add_test(NAME TestChannelArgumentValidInput3 COMMAND ${THIS_TARGET} 3 t 4 ":name/transfer")
 # Test invalid input
 add_test(NAME TestChannelArgumentInvalidInput1 COMMAND ${THIS_TARGET} 3 f 4 "")
 # Test invalid input
 add_test(NAME TestChannelArgumentInvalidInput2 COMMAND ${THIS_TARGET} 3 f 4 "#udp")
-# Test invalid input
-add_test(NAME TestChannelArgumentInvalidInput3 COMMAND ${THIS_TARGET} 3 f 4 "net:#bpd")
 
 # Test that 'reasonable' parameters build a useable descriptor
 add_test(NAME TestValidDoubleArgumentParameters COMMAND ${THIS_TARGET} 4 t 1)

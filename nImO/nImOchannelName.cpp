@@ -63,20 +63,16 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-#define ALPHA_OR_DOLLAR_STRING  "[[:alnum:]$]"
-#define NAME_MATCH_STRING       ALPHA_OR_DOLLAR_STRING "+([_.-]" ALPHA_OR_DOLLAR_STRING "+)*"
+//#define ALPHA_OR_DOLLAR_STRING  "[[:alnum:]$]"
+#define NAME_MATCH_STRING       "([[:alnum:]$][[:alnum:]$_.-]*)"//ALPHA_OR_DOLLAR_STRING "+([_.-] | " ALPHA_OR_DOLLAR_STRING "+)*"
 #define PATH_MATCH_STRING       "(/" NAME_MATCH_STRING ")+"
 #define TRANSPORT_MATCH_STRING  "([Uu][Dd][Pp]|[Tt][Cc][Pp]|[Aa][Nn][Yy])"
-
-/*! @brief The character that ends the network part of a ChannelName. */
-constexpr char  kEndNetwork{':'};
 
 /*! @brief The character that starts the protocol part of a ChannelName. */
 constexpr char  kStartProtocol{'#'};
 
 /*! @brief A regular expression describing the syntax of a channel name. */
-static std::regex   lChannelNameMatch{"^((" NAME_MATCH_STRING ")?:)?(" NAME_MATCH_STRING ")?(" PATH_MATCH_STRING ")(#" TRANSPORT_MATCH_STRING ")?$",
-                                        std::regex::extended};
+static std::regex   lChannelNameMatch{"^(" NAME_MATCH_STRING ")?(" PATH_MATCH_STRING ")(#" TRANSPORT_MATCH_STRING ")?$", std::regex::extended};
 
 /*! @brief A regular expression describing the syntax of a name. */
 static std::regex   lNameMatch{"^" NAME_MATCH_STRING "$", std::regex::extended};
@@ -113,7 +109,7 @@ const std::string   nImO::kProtocolUnknownName{"unknown"s};
 
 nImO::ChannelName::ChannelName
     (const ChannelName &  other) :
-        _network{other._network}, _node{other._node}, _path{other._path}, _transport{other._transport}
+        _node{other._node}, _path{other._path}, _transport{other._transport}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -123,8 +119,7 @@ nImO::ChannelName::ChannelName
 nImO::ChannelName::ChannelName
     (ChannelName && other)
     noexcept :
-        _network{std::move(other._network)}, _node{std::move(other._node)}, _path{std::move(other._path)},
-        _transport{other._transport}
+        _node{std::move(other._node)}, _path{std::move(other._path)}, _transport{other._transport}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -201,10 +196,6 @@ nImO::ChannelName::getName
     ODL_OBJENTER(); //####
     std::string result;
 
-    if (! _network.empty())
-    {
-        result += _network + kEndNetwork;
-    }
     if (! _node.empty())
     {
         result += _node;
@@ -223,7 +214,6 @@ nImO::ChannelName::operator=
     (const ChannelName &  other)
 {
     ODL_OBJENTER(); //####
-    _network = other._network;
     _node = other._node;
     _path = other._path;
     _transport = other._transport;
@@ -240,7 +230,6 @@ nImO::ChannelName::operator=
     noexcept
 {
     ODL_OBJENTER(); //####
-    _network = std::move(other._network);
     _node = std::move(other._node);
     _path = std::move(other._path);
     _transport = other._transport;
@@ -258,7 +247,6 @@ nImO::ChannelName::parse
     ODL_S1s(input); //####
     ODL_P1(&problemDescription); //####
     SpChannelName   result;
-    std::string     networkName;
     std::string     nodeName;
     std::string     path;
     std::smatch     matches;
@@ -267,16 +255,13 @@ nImO::ChannelName::parse
 
     if (okSoFar)
     {
-        // Submatch 2 = network [can be empty]
-        networkName = matches[2].str();
-        // Submatch 4 = node name
-        nodeName = matches[4].str();
-        // Submatch 6 = path
-        path = matches[6].str();
-        // Submatch 10 = transport [can be empty]
-        protocol = transportFromName(matches[10].str());
+        // Submatch 1 = node name
+        nodeName = matches[1].str();
+        // Submatch 3 = path
+        path = matches[3].str();
+        // Submatch 7 = transport [can be empty]
+        protocol = transportFromName(matches[7].str());
         result = std::make_shared<ChannelName>();
-        result->_network = networkName;
         result->_node = nodeName;
         result->_path = path;
         result->_transport = protocol;
@@ -294,7 +279,6 @@ nImO::ChannelName::swap
     (ChannelName &  other)
 {
     ODL_ENTER(); //####
-    _network.swap(other._network);
     _node.swap(other._node);
     _path.swap(other._path);
     std::swap(_transport, other._transport);
@@ -376,18 +360,6 @@ nImO::ChannelName::transportToName
     ODL_EXIT_s(result); //####
     return result;
 } // nImO::ChannelName::transportToName
-
-bool
-nImO::ChannelName::validNetwork
-    (const std::string &    input)
-{
-    ODL_ENTER(); //####
-    ODL_S1s(input); //####
-    bool    result{std::regex_match(input, lNameMatch)};
-
-    ODL_EXIT_B(result); //####
-    return result;
-} // nImO::ChannelName::validNetwork
 
 bool
 nImO::ChannelName::validNode

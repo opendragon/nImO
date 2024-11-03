@@ -107,16 +107,6 @@ namespace nImO
                 (void)
                 const;
 
-            /*! @brief Return the name of the network for the channel.
-             @return The network name for the channel. */
-            inline const std::string &
-            getNetwork
-                (void)
-                const
-            {
-                return _network;
-            }
-
             /*! @brief Return the name of the node for the channel.
              @return The node name for the channel. */
             inline const std::string &
@@ -197,13 +187,6 @@ namespace nImO
             transportToName
                 (const TransportType    aValue);
 
-            /*! @brief Check if the provided string is a valid network name.
-             @parm[in] input The string being checked.
-             @return @c true if the string is in the correct format for a network name. */
-            static bool
-            validNetwork
-                (const std::string &    input);
-
             /*! @brief Check if the provided string is a valid node name.
              @parm[in] input The string being checked.
              @return @c true if the string is in the correct format for a node name. */
@@ -239,9 +222,6 @@ namespace nImO
 
         private :
             // Private fields.
-
-            /*! @brief The associated network name. */
-            std::string _network{};
 
             /*! @brief The associated node name. */
             std::string _node{};

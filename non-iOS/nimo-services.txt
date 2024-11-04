@@ -1,4 +1,8 @@
 {
+"Bridge" > {
+            "path" > "$$/nImObridge"
+            "description" > "Connect two subnets"
+            }
 "Commutator" > {
             "path" > "$$/nImOcommutator"
             "description" > "Route a message to one of the outputs"

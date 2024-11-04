@@ -144,7 +144,6 @@
 		F65C4A8F2985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4AA92985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4AAB2985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		F65C4ACC2985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4B022985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4B362985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4B502985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -202,6 +201,7 @@
 		F66847892B5C522300E81E01 /* nImOclearAppListForLauncherCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOclearAppListForLauncherCommandHandler.h; path = Registry/CommandHandlers/nImOclearAppListForLauncherCommandHandler.h; sourceTree = "<group>"; };
 		F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmainSupport.cpp; path = nImO/nImOmainSupport.cpp; sourceTree = "<group>"; };
 		F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmainSupport.h; path = nImO/nImOmainSupport.h; sourceTree = "<group>"; };
+		F66B81922CD95A12009C1F05 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Bridge/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
 		F66E44A62B5009D50091A1ED /* nImOcallbackFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcallbackFunction.cpp; path = nImO/nImOcallbackFunction.cpp; sourceTree = "<group>"; };
 		F66E44A72B5009D50091A1ED /* nImOcallbackFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcallbackFunction.h; path = nImO/nImOcallbackFunction.h; sourceTree = "<group>"; };
 		F66E75422A1AAA9C002C03B5 /* nImOgetInformationForAllChannelsResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h; sourceTree = "<group>"; };
@@ -988,7 +988,6 @@
 			children = (
 				F6E299902B8BCF68006FEE77 /* AddChannel */,
 				F65C4A8D2985620100430284 /* ApplicationSupport */,
-				F65C4ACB2985620200430284 /* Bridge */,
 				F6CA16892CD9524400BA78EB /* Check */,
 				F6CA168B2CD9529100BA78EB /* Clean */,
 				F65C4A722985620100430284 /* CMakeLists.txt */,
@@ -1055,14 +1054,6 @@
 			path = RemoveApplication;
 			sourceTree = "<group>";
 		};
-		F65C4ACB2985620200430284 /* Bridge */ = {
-			isa = PBXGroup;
-			children = (
-				F65C4ACC2985620200430284 /* CMakeLists.txt */,
-			);
-			path = Bridge;
-			sourceTree = "<group>";
-		};
 		F65C4B012985620200430284 /* Read */ = {
 			isa = PBXGroup;
 			children = (
@@ -1108,7 +1099,6 @@
 			children = (
 				F6E2998B2B8BCD8A006FEE77 /* AddChannel */,
 				F65C4BAA2985636700430284 /* ApplicationSupport */,
-				F65C4BB32985636800430284 /* Bridge */,
 				F6CA16972CD9546B00BA78EB /* Check */,
 				F6CA169B2CD954CF00BA78EB /* Clean */,
 				F65C4BCF2985636800430284 /* Connect */,
@@ -1256,6 +1246,14 @@
 				F65F860C2B84E4720035119D /* CMakeLists.txt */,
 			);
 			name = Pulse;
+			sourceTree = "<group>";
+		};
+		F66B81912CD959B8009C1F05 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				F66B81922CD95A12009C1F05 /* CMakeLists.txt */,
+			);
+			path = Bridge;
 			sourceTree = "<group>";
 		};
 		F67718112B376A9A00959A15 /* Command Handlers */ = {
@@ -1437,6 +1435,7 @@
 		F6ADA5D82B51502200BE55B0 /* Wiring */ = {
 			isa = PBXGroup;
 			children = (
+				F66B81912CD959B8009C1F05 /* Bridge */,
 				F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */,
 				F6ADA5DA2B51506300BE55B0 /* Commutator */,
 				F6ADA5DC2B5150BB00BE55B0 /* Delay */,
@@ -2054,6 +2053,7 @@
 		F6EC8DC22B514855009DF89A /* Wiring */ = {
 			isa = PBXGroup;
 			children = (
+				F65C4BB32985636800430284 /* Bridge */,
 				F61D210B299BA9EA0083424E /* Commutator */,
 				F62CFD652B514CB7000AA344 /* Delay */,
 				F6CA16A72CD9558D00BA78EB /* FanIn */,

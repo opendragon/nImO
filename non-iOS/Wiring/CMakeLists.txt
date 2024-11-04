@@ -36,6 +36,7 @@
 #
 #--------------------------------------------------------------------------------------------------
 
+add_subdirectory(Bridge)
 add_subdirectory(Commutator)
 add_subdirectory(Delay)
 add_subdirectory(FanIn)

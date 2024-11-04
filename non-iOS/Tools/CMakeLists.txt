@@ -38,7 +38,6 @@
 
 add_subdirectory(AddChannel)
 add_subdirectory(ApplicationSupport)
-add_subdirectory(Bridge)
 add_subdirectory(Check)
 add_subdirectory(Clean)
 add_subdirectory(Connect)

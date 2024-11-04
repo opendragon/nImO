@@ -44,6 +44,9 @@ non-iOS/examples/Ricochet/nImOricochet.rc
 non-iOS/examples/Ricochet/nImOricochetControl
 non-iOS/examples/Ricochet/nImOricochetControl.dir/
 non-iOS/examples/Ricochet/nImOricochetControl.rc
+non-iOS/Wiring/Bridge/nImObridge
+non-iOS/Wiring/Bridge/nImObridge.dir/
+non-iOS/Wiring/Bridge/nImObridge.rc
 non-iOS/Wiring/Commutator/nImOcommutator
 non-iOS/Wiring/Commutator/nImOcommutator.dir/
 non-iOS/Wiring/Commutator/nImOcommutator.rc
@@ -98,9 +101,6 @@ non-iOS/Tools/ApplicationSupport/StoreApplications/nImOstoreApps.rc
 non-iOS/Tools/ApplicationSupport/UpdateApplication/nImOupdateApp
 non-iOS/Tools/ApplicationSupport/UpdateApplication/nImOupdateApp.dir/
 non-iOS/Tools/ApplicationSupport/UpdateApplication/nImOupdateApp.rc
-non-iOS/Tools/Bridge/nImObridge
-non-iOS/Tools/Bridge/nImObridge.dir/
-non-iOS/Tools/Bridge/nImObridge.rc
 non-iOS/Tools/Check/nImOcheck
 non-iOS/Tools/Check/nImOcheck.dir/
 non-iOS/Tools/Check/nImOcheck.rc

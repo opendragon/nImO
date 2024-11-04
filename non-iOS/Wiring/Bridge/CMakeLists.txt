@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/Bridge/CMakeLists.txt
+#  File:       non-iOS/Wiring/Bridge/CMakeLists.txt
 #
 #  Project:    nImO
 #
@@ -39,7 +39,7 @@
 include_directories("${nImO_SOURCE_DIR}")
 
 set(THIS_TARGET nImObridge)
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Bridge)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Wiring/Bridge)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)

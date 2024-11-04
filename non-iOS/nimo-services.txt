@@ -1,7 +1,7 @@
 {
 "Bridge" > {
             "path" > "$$/nImObridge"
-            "description" > "Connect two subnets"
+            "description" > "Connect two subnets -> unimplemented"
             }
 "Commutator" > {
             "path" > "$$/nImOcommutator"
@@ -19,9 +19,21 @@
             "path" > "$$/nImOfanIn"
             "description" > "Send messages to all output channels from the input channel"
             }
+"JavaScript" > {
+            "path" > "$$/nImOjavaScript"
+            "description" > "Run a JavaScript program -> unimplemented"
+            }
 "Junction" > {
             "path" > "$$/nImOjunction"
             "description" > "Send messages to all output channels from any input channel"
+            }
+"Lisp" > {
+            "path" > "$$/nImOlisp"
+            "description" > "Run a Common Lisp program -> unimplemented"
+            }
+"Python" > {
+            "path" > "$$/nImOpython"
+            "description" > "Run a Python program -> unimplemented"
             }
 "Repeat" > {
             "path" > "$$/nImOrepeat"

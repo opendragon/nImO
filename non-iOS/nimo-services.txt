@@ -5,10 +5,22 @@
             }
 "Delay" > {
             "path" > "$$/nImOdelay"
-            "description" > "Passes along messages after a delay"
+            "description" > "Send a message to a channel after a delay"
+            }
+"FanIn" > {
+            "path" > "$$/nImOfanIn"
+            "description" > "Send messages to the output channel from any input channel"
+            }
+"FanOut" > {
+            "path" > "$$/nImOfanIn"
+            "description" > "Send messages to all output channels from the input channel"
             }
 "Junction" > {
             "path" > "$$/nImOjunction"
-            "description" > "Multiple inlets to multiple outlets"
+            "description" > "Send messages to all output channels from any input channel"
+            }
+"Repeat" > {
+            "path" > "$$/nImOrepeat"
+            "description" > "Send copies of a message to a channel after a delay"
             }
 }

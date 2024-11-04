@@ -333,6 +333,10 @@
 		F6A81BDB2B517B9F00F3E701 /* nImOfilterBreakHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOfilterBreakHandler.h; path = nImO/nImOfilterBreakHandler.h; sourceTree = "<group>"; };
 		F6A898292CD906BE0020DA8C /* Repeat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Repeat; path = "non-iOS/Wiring/Repeat"; sourceTree = "<group>"; };
 		F6A8982A2CD907680020DA8C /* Repeat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Repeat; sourceTree = "<group>"; };
+		F6A8982B2CD90C620020DA8C /* FanOut */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FanOut; path = "non-iOS/Wiring/FanOut"; sourceTree = "<group>"; };
+		F6A8982C2CD90C620020DA8C /* FanIn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FanIn; path = "non-iOS/Wiring/FanIn"; sourceTree = "<group>"; };
+		F6A8982D2CD90D4E0020DA8C /* FanIn */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FanIn; sourceTree = "<group>"; };
+		F6A8982E2CD90D4F0020DA8C /* FanOut */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FanOut; sourceTree = "<group>"; };
 		F6AA4D3E2B55C5260014444D /* nImOlauncherCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOlauncherCommands.h; path = nImO/nImOlauncherCommands.h; sourceTree = "<group>"; };
 		F6AB47A72AB8DACA006A6446 /* nImOaddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddress.h; path = nImO/BasicTypes/nImOaddress.h; sourceTree = "<group>"; };
 		F6AB47A82AB8DACA006A6446 /* nImOaddress.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddress.cpp; path = nImO/BasicTypes/nImOaddress.cpp; sourceTree = "<group>"; };
@@ -1411,6 +1415,8 @@
 				F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */,
 				F6ADA5DA2B51506300BE55B0 /* Commutator */,
 				F6ADA5DC2B5150BB00BE55B0 /* Delay */,
+				F6A8982C2CD90C620020DA8C /* FanIn */,
+				F6A8982B2CD90C620020DA8C /* FanOut */,
 				F6ADA5E22B5151A700BE55B0 /* Junction */,
 				F6A898292CD906BE0020DA8C /* Repeat */,
 			);
@@ -1824,6 +1830,8 @@
 			children = (
 				F61D210B299BA9EA0083424E /* Commutator */,
 				F62CFD652B514CB7000AA344 /* Delay */,
+				F6A8982D2CD90D4E0020DA8C /* FanIn */,
+				F6A8982E2CD90D4F0020DA8C /* FanOut */,
 				F62CFD712B514D66000AA344 /* Junction */,
 				F6A8982A2CD907680020DA8C /* Repeat */,
 			);

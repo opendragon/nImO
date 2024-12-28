@@ -187,14 +187,14 @@ using BindFunction = int (*)
 /*! @brief The data used to update the Applications table. */
 struct ApplicationInsertData
 {
-    /*! @brief The Launcher node for this application. */
-    std::string _launcherName;
+    /*! @brief The description for this application. */
+    std::string _appDescription;
 
     /*! @brief The name for this application. */
     std::string _appName;
 
-    /*! @brief The description for this application. */
-    std::string _appDescription;
+    /*! @brief The Launcher node for this application. */
+    std::string _launcherName;
 
     /*! @brief The constructor.
      @param[in] launcherName The name of the Launcher node for the application.
@@ -204,7 +204,7 @@ struct ApplicationInsertData
         (const std::string &    launcherName,
          const std::string &    appName,
          const std::string &    appDescription) :
-            _launcherName(launcherName), _appName(appName), _appDescription(appDescription)
+            _appDescription(appDescription), _appName(appName), _launcherName(launcherName)
     {
     }
 
@@ -213,20 +213,20 @@ struct ApplicationInsertData
 /*! @brief The data used to update the Channels table. */
 struct ChannelInsertData
 {
+    /*! @brief The format of the data to be transferred over this channel. */
+    std::string _dataType;
+
+    /*! @brief @c true if this channel is to be used for output. */
+    bool    _isOutput;
+
+    /*! @brief The allowed transport types for the channel. */
+    nImO::TransportType   _modes;
+
     /*! @brief The node for this channel. */
     std::string _node;
 
     /*! @brief The path for this channel. */
     std::string _path;
-
-    /*! @brief @c true if this channel is to be used for output. */
-    bool    _isOutput;
-
-    /*! @brief The format of the data to be transferred over this channel. */
-    std::string _dataType;
-
-    /*! @brief The allowed transport types for the channel. */
-    nImO::TransportType   _modes;
 
     /*! @brief The constructor.
      @param[in] node The name of the node for the channel.
@@ -240,7 +240,7 @@ struct ChannelInsertData
          const bool                 isOutput,
          const std::string &        dataType,
          const nImO::TransportType  modes) :
-            _node(node), _path(path), _isOutput(isOutput), _dataType(dataType), _modes(modes)
+            _dataType(dataType), _isOutput(isOutput), _modes(modes), _node(node), _path(path)
     {
     }
 
@@ -270,23 +270,23 @@ struct ChannelSearchData
 /*! @brief The data used to update the Connections table. */
 struct ConnectionInsertData
 {
+    /*! @brief The format of the data to be transferred over this connection. */
+    std::string _dataType;
+
     /*! @brief The input node for this connection. */
     std::string _fromNode;
 
     /*! @brief The input path for this connection. */
     std::string _fromPath;
 
+    /*! @brief The transport types for the connection. */
+    nImO::TransportType   _mode;
+
     /*! @brief The output node for this connection. */
     std::string _toNode;
 
     /*! @brief The output path for this connection. */
     std::string _toPath;
-
-    /*! @brief The format of the data to be transferred over this connection. */
-    std::string _dataType;
-
-    /*! @brief The transport types for the connection. */
-    nImO::TransportType   _mode;
 
     /*! @brief The constructor.
      @param[in] fromNode The name of the input node for the connection.
@@ -302,7 +302,7 @@ struct ConnectionInsertData
          const std::string &        toPath,
          const std::string &        dataType,
          const nImO::TransportType  mode) :
-            _fromNode(fromNode), _fromPath(fromPath), _toNode(toNode), _toPath(toPath), _dataType(dataType), _mode(mode)
+            _dataType(dataType), _fromNode(fromNode), _fromPath(fromPath), _mode(mode), _toNode(toNode), _toPath(toPath)
     {
     }
 
@@ -332,11 +332,11 @@ struct ConnectionSearchData
 /*! @brief The data used to update the Machines table. */
 struct MachineInsertData
 {
-    /*! @brief The name of this machine. */
-    std::string _name;
-
     /*! @brief The IP address for this machine.*/
     nImO::IPv4Address   _address;
+
+    /*! @brief The name of this machine. */
+    std::string _name;
 
     /*! @brief The constructor.
      @param[in] name The name of this node.
@@ -345,7 +345,7 @@ struct MachineInsertData
     inline MachineInsertData
         (const std::string &        name,
          const nImO::IPv4Address    address) :
-            _name(name), _address(address)
+            _address(address), _name(name)
     {
     }
 
@@ -354,14 +354,11 @@ struct MachineInsertData
 /*! @brief The data used to update the Nodes table. */
 struct NodeInsertData
 {
-    /*! @brief The name of this node. */
-    std::string _name;
+    /*! @brief The command line that was used to launch this node. */
+    std::string _commandLine;
 
     /*! @brief The command IP address and port for this node.*/
     nImO::Connection    _connection;
-
-    /*! @brief The type of this node. */
-    nImO::ServiceType   _serviceType;
 
     /*! @brief The path to the executable for this node. */
     std::string _execPath;
@@ -369,8 +366,11 @@ struct NodeInsertData
     /*! @brief The directory where this node was launched. */
     std::string _launchDirectory;
 
-    /*! @brief The command line that was used to launch this node. */
-    std::string _commandLine;
+    /*! @brief The name of this node. */
+    std::string _name;
+
+    /*! @brief The type of this node. */
+    nImO::ServiceType   _serviceType;
 
     /*! @brief The constructor.
      @param[in] name The name of this node.
@@ -383,8 +383,7 @@ struct NodeInsertData
          const std::string &        execPath,
          const std::string &        launchDirectory,
          const std::string &        commandLine) :
-            _name(name), _connection(connection), _serviceType(serviceType), _execPath(execPath), _launchDirectory(launchDirectory),
-            _commandLine(commandLine)
+            _commandLine(commandLine), _connection(connection), _execPath(execPath), _launchDirectory(launchDirectory), _name(name), _serviceType(serviceType)
     {
     }
 

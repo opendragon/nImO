@@ -257,7 +257,8 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on nImO"s, "nImOlog"s, 2017, nImO::kCopyrightName, optionValues, nullptr,
-                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+                                     nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption |
+                                     nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

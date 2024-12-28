@@ -114,14 +114,14 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief Mutual-exclusion protection. */
+            mutable std::mutex  _lock;
+
             /*! @brief The number of bytes transferred. */
             int64_t _numberOfBytes{0};
 
             /*! @brief The number of messages transferred. */
             int64_t _numberOfMessages{0};
-
-            /*! @brief Mutual-exclusion protection. */
-            mutable std::mutex  _lock;
 
     }; // ChannelStatistics
 

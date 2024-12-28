@@ -161,7 +161,7 @@ main
             auto    statusConnection{ourContext->getStatusInfo()};
 
             nImO::ServiceContext::addStandardHandlers(ourContext);
-            if (ourContext->findRegistry(true))
+            if (ourContext->findTheRegistry(true))
             {
                 ourContext->report("Registry already running."s);
                 std::cerr << "Registry already running.\n";
@@ -276,14 +276,14 @@ main
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
                                                                 nImO::GetShortComputerName(), nImO::kRegistryAddressKey))
                     {
-                        std::cout << "ready.\n";
+                        std::cout << progName << " ready.\n";
                         std::cout.flush();
                         for ( ; nImO::gKeepRunning; )
                         {
                             boost::this_thread::yield();
                         }
                         asRegistryContext->removeAnnouncement();
-                        std::cout << "done.\n";
+                        std::cout << progName << " done.\n";
                         std::cout.flush();
                     }
                 }

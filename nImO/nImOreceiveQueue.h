@@ -127,14 +127,14 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief Used to indicate that the sequence of received messages is ready to use. */
+            std::condition_variable    _receivedCondition{};
+
             /*! @brief The sequence of received messages. */
             std::deque<nImO::SpReceivedData>    _receivedData{};
 
             /*! @brief Used to protect the sequence of received messages. */
             std::mutex _receivedLock{};
-
-            /*! @brief Used to indicate that the sequence of received messages is ready to use. */
-            std::condition_variable    _receivedCondition{};
 
             /*! @brief Set to @c true to disable and empty the queue. */
             std::atomic_bool    _stop{false};

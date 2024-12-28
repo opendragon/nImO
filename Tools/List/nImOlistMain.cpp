@@ -1660,7 +1660,8 @@ main
 
     argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space"s, "nImOlist node"s, 2016,
-                                     nImO::kCopyrightName, optionValues, helpForList, nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+                                     nImO::kCopyrightName, optionValues, helpForList, nImO::kSkipAutolaunchOption | nImO::kSkipLoggingOption |
+                                     nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -1669,7 +1670,11 @@ main
             auto                ourContext{std::make_shared<nImO::UtilityContext>("list"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
+            if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto    choice{firstArg->getCurrentValue()};
                 auto    match{lChoiceMap.find(choice)};

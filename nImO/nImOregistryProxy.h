@@ -495,11 +495,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The application context to use. */
-            SpContextWithNetworking _context{};
-
             /*! @brief The IP address and port of the Registry. */
             Connection  _connection{};
+
+            /*! @brief The application context to use. */
+            SpContextWithNetworking _context{};
 
     }; // RegistryProxy
 

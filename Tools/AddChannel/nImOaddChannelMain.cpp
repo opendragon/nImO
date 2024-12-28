@@ -120,7 +120,7 @@ main
     argumentList.push_back(secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Add a channel"s, "nImOaddChannel node1 true"s, 2024,
                                      nImO::kCopyrightName, optionValues, nullptr,
-                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
+                                     nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -129,7 +129,7 @@ main
             auto                ourContext{std::make_shared<nImO::UtilityContext>("addChannel"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    nodeName{firstArg->getCurrentValue()};

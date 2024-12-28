@@ -77,17 +77,17 @@ namespace nImO
     /*! @brief The data found in the Registry for an application. */
     struct ApplicationInfo final
     {
+        /*! @brief The description of the application. */
+        std::string _appDescription{};
+
+        /*! @brief The name of the application. */
+        std::string _appName{};
+
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
 
         /*! @brief The Launcher node name for the application. */
         std::string _launcherName{};
-
-        /*! @brief The name of the application. */
-        std::string _appName{};
-
-        /*! @brief The description of the application. */
-        std::string _appDescription{};
 
         /*! @brief The constructor. */
         inline ApplicationInfo
@@ -100,26 +100,26 @@ namespace nImO
     /*! @brief The data found in the Registry for a channel. */
     struct ChannelInfo final
     {
+        /*! @brief The type of data carried by the channel. */
+        std::string _dataType{};
+
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
+
+        /*! @brief @c true if the channel is connected to another channel. */
+        bool    _inUse{false};
+
+        /*! @brief @c true if the channel is for output from a service. */
+        bool    _isOutput{false};
+
+        /*! @brief The allowed transport types for the channel. */
+        TransportType   _modes{TransportType::kAny};
 
         /*! @brief The name of the node for the channel. */
         std::string _node{};
 
         /*! @brief The path of the channel on the node. */
         std::string _path{};
-
-        /*! @brief @c true if the channel is for output from a service. */
-        bool    _isOutput{false};
-
-        /*! @brief The type of data carried by the channel. */
-        std::string _dataType{};
-
-        /*! @brief The allowed transport types for the channel. */
-        TransportType   _modes{TransportType::kAny};
-
-        /*! @brief @c true if the channel is connected to another channel. */
-        bool    _inUse{false};
 
         /*! @brief The constructor. */
         inline ChannelInfo
@@ -132,6 +132,9 @@ namespace nImO
     /*! @brief The data found in the Registry for a connection. */
     struct ConnectionInfo final
     {
+        /*! @brief The type of data carried by the channel. */
+        std::string _dataType{};
+
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
 
@@ -141,17 +144,14 @@ namespace nImO
         /*! @brief The path of the input channel on the node. */
         std::string _fromPath{};
 
+        /*! @brief The allowed transport types for the channel. */
+        TransportType   _mode{TransportType::kAny};
+
         /*! @brief The name of the output node for the channel. */
         std::string _toNode{};
 
         /*! @brief The path of the output channel on the node. */
         std::string _toPath{};
-
-        /*! @brief The type of data carried by the channel. */
-        std::string _dataType{};
-
-        /*! @brief The allowed transport types for the channel. */
-        TransportType   _mode{TransportType::kAny};
 
         /*! @brief The constructor. */
         inline ConnectionInfo
@@ -164,17 +164,17 @@ namespace nImO
     /*! @brief The launch information for a node. */
     struct LaunchDetails final
     {
-        /*! @brief @c true if the data is valid. */
-        bool    _found{false};
+        /*! @brief The command line used to launch the executable for the node. */
+        std::string _commandLine{};
 
         /*! @brief The path to the executable for the node. */
         std::string _execPath{};
 
+        /*! @brief @c true if the data is valid. */
+        bool    _found{false};
+
         /*! @brief The path to the directory where the executable for the node was launched. */
         std::string _launchDirectory{};
-
-        /*! @brief The command line used to launch the executable for the node. */
-        std::string _commandLine{};
 
         /*! @brief The constructor. */
         inline LaunchDetails
@@ -187,14 +187,14 @@ namespace nImO
     /*! @brief The data found in the Registry for a machine. */
     struct MachineInfo final
     {
+        /*! @brief The address of the machine. */
+        IPv4Address _address{0};
+
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
 
         /*! @brief The name of the machine. */
         std::string _name{};
-
-        /*! @brief The address of the machine. */
-        IPv4Address _address{0};
 
         /*! @brief The constructor. */
         inline MachineInfo
@@ -207,11 +207,11 @@ namespace nImO
     /*! @brief The data found in the Registry for a node. */
     struct NodeInfo final
     {
-        /*! @brief @c true if the data is valid. */
-        bool    _found{false};
-
         /*! @brief The command IP address and port that was found.*/
         Connection  _connection{};
+
+        /*! @brief @c true if the data is valid. */
+        bool    _found{false};
 
         /*! @brief The name of the node. */
         std::string _name{};

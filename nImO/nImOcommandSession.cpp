@@ -90,7 +90,7 @@ processRequest
      std::string &          reason)
 {
     ODL_ENTER(); //####
-    ODL_P3(owner.get(), socket.get(), reason); //####
+    ODL_P3(owner.get(), socket.get(), &reason); //####
     ODL_S1s(incoming); //####
     // We need to strip off the Message separator first.
     bool                okSoFar{false};

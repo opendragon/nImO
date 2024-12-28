@@ -108,12 +108,18 @@ namespace nImO
                 (void)
                 override;
 
+            /*! @brief Find and launch the Registry if it's not running.
+             @return @c true if the Registry was launched. */
+            bool
+            findAndLaunchTheRegistry
+                (void);
+
             /*! @brief Find the Registry if it's running.
              @param[out] connection The IP address and port of the Registry, if found.
              @param[in] quietly @c true if reporting a failure is suppressed.
              @return @c true if the Registry is located. */
             bool
-            findRegistry
+            findTheRegistry
                 (Connection &   connection,
                  const bool     quietly = false);
 
@@ -121,12 +127,12 @@ namespace nImO
              @param[in] quietly @c true if reporting a failure is suppressed.
              @return @c true if the Registry is located. */
             inline bool
-            findRegistry
+            findTheRegistry
                 (const bool quietly = false)
             {
                 Connection  ignoredConnection;
 
-                return findRegistry(ignoredConnection, quietly);
+                return findTheRegistry(ignoredConnection, quietly);
             }
 
         protected :
@@ -171,6 +177,12 @@ namespace nImO
         public :
             // Public fields.
 
+            /*! @brief @c true if an IPv4 address was found. */
+            static bool gHasIpv4;
+
+            /*! @brief @c true if an IPv6 address was found. */
+            static bool gHasIpv6;
+
             /*! @brief The buffer used to record the name from a mDNS request. */
             static char gNameBuffer[256];
 
@@ -180,14 +192,11 @@ namespace nImO
             /*@ @brief The first IPv6 address found. */
             static struct sockaddr_in6  gServiceAddressIpv6;
 
-            /*! @brief @c true if an IPv4 address was found. */
-            static bool gHasIpv4;
-
-            /*! @brief @c true if an IPv6 address was found. */
-            static bool gHasIpv6;
-
         protected :
             // Protected fields.
+
+            /*! @brief The buffer to be used for MDNS I/O operations. */
+            Ptr(char)   _buffer;
 
             /*! @brief The number of sockets in use. */
             int _numSockets;
@@ -195,29 +204,11 @@ namespace nImO
             /*! @brief The sockets to use. */
             int _sockets[8];
 
-            /*! @brief The buffer to be used for MDNS I/O operations. */
-            Ptr(char)   _buffer;
-
         private :
             // Private fields.
 
-            /*! @brief Set to @c true to initiate a new scan of announcements. */
-            std::atomic_bool    _requestNewScan{false};
-
-            /*! @brief The active query identifiers. */
-            int _queryId[8];
-
-            /*! @brief @c true if the browser thread is to be launched. */
-            bool  _startBrowser{false};
-
-            /*! @brief The identifying tag for the Registry process. */
-            std::string _registryTag{};
-
-            /*! @brief The IP port for connections to the Registry process. */
-            IPv4Port    _registryPort{0};
-
-            /*! @brief The preferred address for connections to the Registry process. */
-            std::string _registryPreferredAddress{};
+            /*! @brief The thread which executes the browser code. */
+            Ptr(boost::thread)  _browserThread{nullptr};
 
             /*! @brief Set to @c true when the Registry has reported its address. */
             std::atomic_bool    _haveAddress{false};
@@ -225,8 +216,23 @@ namespace nImO
             /*! @brief Set to @c true when the Registry has reported its port. */
             std::atomic_bool    _havePort{false};
 
-            /*! @brief The thread which executes the browser code. */
-            Ptr(boost::thread)  _browserThread{nullptr};
+            /*! @brief The active query identifiers. */
+            int _queryId[8];
+
+            /*! @brief The IP port for connections to the Registry process. */
+            IPv4Port    _registryPort{0};
+
+            /*! @brief The preferred address for connections to the Registry process. */
+            std::string _registryPreferredAddress{};
+
+            /*! @brief The identifying tag for the Registry process. */
+            std::string _registryTag{};
+
+            /*! @brief Set to @c true to initiate a new scan of announcements. */
+            std::atomic_bool    _requestNewScan{false};
+
+            /*! @brief @c true if the browser thread is to be launched. */
+            bool  _startBrowser{false};
 
     }; // ContextWithMDNS
 

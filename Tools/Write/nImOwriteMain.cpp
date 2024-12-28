@@ -74,11 +74,11 @@ using namespace std::chrono_literals;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief Used to protect the received text. */
-std::mutex  lReceivedLock{};
-
 /*! @brief Used to indicate that there is some received text. */
-std::condition_variable lReceivedCondition{};
+static std::condition_variable lReceivedCondition{};
+
+/*! @brief Used to protect the received text. */
+static std::mutex  lReceivedLock{};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -152,8 +152,12 @@ main
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(0, 1);
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
             nImO::AddInputOutputHandlers(ourContext, cleanup);
-            if (ourContext->findRegistry(registryConnection))
+            if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    statusWithBool{proxy->isNodePresent(nodeName)};
@@ -243,7 +247,7 @@ main
 
                                         ODL_P1(aThread); //####
                                         aThread->detach();
-                                        std::cout << "ready.\n";
+                                        std::cout << progName << " ready.\n";
                                         std::cout.flush();
                                         for ( ; nImO::gKeepRunning; )
                                         {
@@ -292,7 +296,7 @@ main
                                             nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                         }
-                                        std::cout << "done.\n";
+                                        std::cout << progName << " done.\n";
                                         std::cout.flush();
                                     }
                                 }

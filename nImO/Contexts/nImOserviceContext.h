@@ -244,11 +244,14 @@ namespace nImO
             /*! @brief The acceptor for command port connections. */
             BTCP::acceptor  _acceptor;
 
-            /*! @brief The command-line provided to the application. */
-            SpArray _commandLine{};
-
             /*! @brief The command address. */
             IPv4Address _commandAddress{0};
+
+            /*! @brief The command handlers. */
+            std::map<std::string, SpCommandHandler> _commandHandlers{};
+
+            /*! @brief The command-line provided to the application. */
+            SpArray _commandLine{};
 
             /*! @brief The command port. */
             IPv4Port    _commandPort{0};
@@ -256,14 +259,11 @@ namespace nImO
             /*! @brief Set to @c false to stop asynchronous operations. */
             std::atomic_bool    _keepGoing{false};
 
-            /*! @brief The active sessions. */
-            std::set<SpCommandSession>  _sessions{};
-
-            /*! @brief The command handlers. */
-            std::map<std::string, SpCommandHandler> _commandHandlers{};
-
             /*! @brief The @nImO-visible name of the executing program. */
             std::string _nodeName{};
+
+            /*! @brief The active sessions. */
+            std::set<SpCommandSession>  _sessions{};
 
     }; // ServiceContext
 

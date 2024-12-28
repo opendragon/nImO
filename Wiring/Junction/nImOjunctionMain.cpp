@@ -135,8 +135,12 @@ main
             }
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(nImO::kUnlimitedChannels, nImO::kUnlimitedChannels);
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
             nImO::AddInputOutputHandlers(ourContext, cleanup, addInputChannelCallback, addOutputChannelCallback);
-            if (ourContext->findRegistry(registryConnection))
+            if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    statusWithBool{proxy->isNodePresent(nodeName)};
@@ -249,7 +253,7 @@ main
                                     if (nImO::gKeepRunning)
                                     {
                                         ourContext->report("waiting for messages."s);
-                                        std::cout << "ready.\n";
+                                        std::cout << progName << " ready.\n";
                                         std::cout.flush();
                                     }
                                     for ( ; nImO::gKeepRunning && (0 == exitCode); )
@@ -313,7 +317,7 @@ main
                                             nImO::CloseConnection(ourContext, nodeName, proxy, walker, false, alreadyReported);
                                         }
                                     }
-                                    std::cout << "done.\n";
+                                    std::cout << progName << " done.\n";
                                     std::cout.flush();
                                 }
                                 nImO::StdStringVector   outChannelPaths;

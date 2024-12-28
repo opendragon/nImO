@@ -88,7 +88,7 @@ namespace nImO
             inline AddOutputChannelCallbackHandler
                 (Ptr(nImO::FilterContext)   theContext,
                  const std::string &        basePath) :
-                    inherited(), _context(theContext), _basePath(basePath)
+                    inherited(), _basePath(basePath), _context(theContext)
             {
             }
 
@@ -157,29 +157,29 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context{nullptr};
-
-            /*! @brief A flag to control when requests can be honoured. */
-            std::atomic_bool    _requestsAllowed{false};
-
-            /*! @brief The base part of the channel name. */
-            std::string _basePath{};
-
-            /*! @brief The RegistryProxy to use. */
-            nImO::SpRegistryProxy   _proxy{};
-
-            /*! @brief The name of this node. */
-            std::string _nodeName{};
-
-            /*! @brief The expected data type. */
-            std::string _dataType{};
-
             /*! @brief @c true while the callback is executing. */
             std::atomic_bool    _active{false};
 
             /*! @brief @c true when a channel has been added. */
             std::atomic_bool    _added{false};
+
+            /*! @brief The base part of the channel name. */
+            std::string _basePath{};
+
+            /*! @brief The filter context that is active. */
+            Ptr(nImO::FilterContext)    _context{nullptr};
+
+            /*! @brief The expected data type. */
+            std::string _dataType{};
+
+            /*! @brief The name of this node. */
+            std::string _nodeName{};
+
+            /*! @brief The RegistryProxy to use. */
+            nImO::SpRegistryProxy   _proxy{};
+
+            /*! @brief A flag to control when requests can be honoured. */
+            std::atomic_bool    _requestsAllowed{false};
 
     }; // AddOutputChannelCallbackHandler
 

@@ -39,6 +39,7 @@
 #if (! defined(nImOcontextWithNetworking_H_))
 # define nImOcontextWithNetworking_H_ /* Header guard */
 
+# include <Containers/nImOarray.h>
 # include <Containers/nImOmessage.h>
 # include <Contexts/nImOcontext.h>
 # include <nImOlogger.h>
@@ -176,6 +177,24 @@ namespace nImO
         protected :
             // Protected methods.
 
+            /*! @brief Return the options to be applied when launching the Registry automatically. */
+            inline const Array &
+            getRegistryLaunchOptions
+                (void)
+                const
+            {
+                return _registryLaunchOptions;
+            }
+
+            /*! @brief Return the path to the executable to be used when launching the Registry automatically. */
+            inline std::string
+            getRegistryLaunchPath
+                (void)
+                const
+            {
+                return _registryLaunchPath;
+            }
+
             /*! @brief Return the number of seconds allowed for the search for an active Registry. */
             inline int
             getRegistrySearchTimeout
@@ -206,17 +225,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief A 'dummy' operation to keep the service queue alive. */
-            UPwork  _work{};
-
             /*! @brief The multicast connection used for logging. */
             Connection  _logConnection{};
-
-            /*! @brief The multicast connection used for status changes. */
-            Connection  _statusConnection{};
-
-            /*! @brief @c true if logging has been enabled. */
-            bool _loggingEnabled{false};
 
             /*! @brief The active logger. */
             std::shared_ptr<Logger> _logger{nullptr};
@@ -224,8 +234,23 @@ namespace nImO
             /*! @brief Mutex to protect against simultaneous access to the logger. */
             mutable std::mutex  _loggerLock;
 
+            /*! @brief @c true if logging has been enabled. */
+            bool _loggingEnabled{false};
+
+            /*! @brief The options to be applied when launching the Registry automatically. */
+            Array   _registryLaunchOptions;
+
+            /*! @brief The path to the Registry executable to be used when launching the Registry automatically. */
+            std::string _registryLaunchPath;
+
             /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
             int _registrySearchTimeout{0};
+
+            /*! @brief The multicast connection used for status changes. */
+            Connection  _statusConnection{};
+
+            /*! @brief A 'dummy' operation to keep the service queue alive. */
+            UPwork  _work{};
 
 # if (! MAC_OR_LINUX_OR_BSD_)
             /*! @brief Required for Windows networking. */

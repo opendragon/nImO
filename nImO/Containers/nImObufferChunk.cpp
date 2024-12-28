@@ -82,7 +82,7 @@ const size_t nImO::BufferChunk::kBufferSize = 1000;
 
 nImO::BufferChunk::BufferChunk
     (const bool addPadding) :
-        _buffer{std::make_unique<uint8_t[]>(kBufferSize + (addPadding ? 1 : 0))}, _bufferEnd{nullptr}, _write{nullptr}, _padded{addPadding}
+        _buffer{std::make_unique<uint8_t[]>(kBufferSize + (addPadding ? 1 : 0))}, _bufferEnd{nullptr}, _padded{addPadding}, _write{nullptr}
 {
     ODL_ENTER(); //####
     ODL_B1(addPadding); //####
@@ -106,7 +106,7 @@ nImO::BufferChunk::BufferChunk
 nImO::BufferChunk::BufferChunk
     (BufferChunk && other)
     noexcept :
-        _buffer{std::move(other._buffer)}, _bufferEnd{other._bufferEnd}, _write{other._write}, _padded{other._padded}
+        _buffer{std::move(other._buffer)}, _bufferEnd{other._bufferEnd}, _padded{other._padded}, _write{other._write}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####

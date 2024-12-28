@@ -103,7 +103,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application"s, "nImOremoveApp shortAppName"s, 2020, nImO::kCopyrightName,
-                                     optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
+                                     optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -113,7 +113,7 @@ main
             auto                ourContext{std::make_shared<nImO::UtilityContext>("removeApp"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
 

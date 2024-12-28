@@ -220,17 +220,17 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The prefix value to use for constructing the default value. */
-            std::string _pathPrefix{};
-
-            /*! @brief The suffix value to use for constructing the default value. */
-            std::string _pathSuffix{};
-
             /*! @brief @c true if the default value is available and @c false otherwise. */
             bool    _defaultSet{false};
 
             /*! @brief @c true if the file path will be used for output and @c false otherwise. */
             bool    _forOutput{false};
+
+            /*! @brief The prefix value to use for constructing the default value. */
+            std::string _pathPrefix{};
+
+            /*! @brief The suffix value to use for constructing the default value. */
+            std::string _pathSuffix{};
 
             /*! @brief @c true if the file path will be constructed with a random number
             and @c false if the file path is fixed. */

@@ -38,10 +38,20 @@
 
 #include <Contexts/nImOcontextWithMDNS.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOarray.h>
+#include <nImOmainSupport.h>
+
 #if MAC_OR_LINUX_OR_BSD_
 # include <ifaddrs.h>
 #endif // MAC_OR_LINUX_OR_BSD_
 #include <string>
+
+#pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunused-parameter"
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+# include <boost/process.hpp>
+#pragma clang diagnostic pop
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -61,36 +71,38 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
+namespace BP = boost::process;
+
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief @c true if the application needs to performa a single check for the Registry. */
-static std::atomic_bool lPerformSingleRegistryCheck;
-
-/*! @brief @c true if the application should wait for the Registry. */
-static std::atomic_bool lWaitForRegistry{true};
-
-/*! @brief Set to @c true when the browser thread has started. */
-static std::atomic_bool lBrowserThreadStarted;
-
-/*! @brief Set to @c true to cause the browser thread to terminate. */
-static std::atomic_bool lBrowserThreadStop;
-
-/*! @brief Set to @c true when the browser thread has terminated. */
-static std::atomic_bool lBrowserThreadStopped;
-
-/*! @brief Set to @c true to cause the loop looking for the Registry to terminate. */
-static std::atomic_bool lStopRegistryLoop;
-
 /*! @brief The buffer used to hold an IP address. */
 static char lAddrBuffer[64];
+
+/*! @brief Set to @c true when the browser thread has started. */
+static std::atomic_bool lBrowserThreadStarted{false};
+
+/*! @brief Set to @c true to cause the browser thread to terminate. */
+static std::atomic_bool lBrowserThreadStop{false};
+
+/*! @brief Set to @c true when the browser thread has terminated. */
+static std::atomic_bool lBrowserThreadStopped{false};
 
 /*! @brief The buffer to hold a received mDNS reply structure. */
 static char lEntryBuffer[256];
 
+/*! @brief @c true if the application needs to performa a single check for the Registry. */
+static std::atomic_bool lPerformSingleRegistryCheck{false};
+
+/*! @brief Set to @c true to cause the loop looking for the Registry to terminate. */
+static std::atomic_bool lStopRegistryLoop{false};
+
 /*! @brief The buffer used to hold TXT records from a received mDNS reply structure. */
 static mDNS::record_txt_t   lTxtBuffer[128];
+
+/*! @brief @c true if the application should wait for the Registry. */
+static std::atomic_bool    lWaitForRegistry{true};
 
 namespace nImO
 {
@@ -286,15 +298,15 @@ namespace nImO
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+bool nImO::ContextWithMDNS::gHasIpv4{false};
+
+bool nImO::ContextWithMDNS::gHasIpv6{false};
+
 char nImO::ContextWithMDNS::gNameBuffer[256];
 
 struct sockaddr_in   nImO::ContextWithMDNS::gServiceAddressIpv4;
 
 struct sockaddr_in6  nImO::ContextWithMDNS::gServiceAddressIpv6;
-
-bool nImO::ContextWithMDNS::gHasIpv4{false};
-
-bool nImO::ContextWithMDNS::gHasIpv6{false};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -490,9 +502,6 @@ queryCallback
     Ptr(nImO::RecordHandler)    handlerPtr{ReinterpretCast(Ptr(nImO::RecordHandler), userData)};
     nImO::RecordHandler &       handler{*handlerPtr};
 
-//#if DUMP_RAW_DATA
-//    dumpData(data, size, name_offset, record_offset, record_length, entry, rtype, rclass, ttl);
-//#endif /* DUMP_RAW_DATA */
     switch (rType)
     {
         case mDNS::kRecordTypePTR:
@@ -594,8 +603,8 @@ nImO::ContextWithMDNS::ContextWithMDNS
     (const std::string &    tagForLogging,
      const bool             logging,
      const bool             startBrowser) :
-        inherited{tagForLogging, logging, 2 /* browse + announce */}, _numSockets{0},
-        _buffer{new char[kBufferCapacity]}, _startBrowser{startBrowser}, _browserThread{nullptr}
+        inherited{tagForLogging, logging, 2 /* browse + announce */}, _buffer{new char[kBufferCapacity]}, _numSockets{0}, _browserThread{nullptr},
+        _startBrowser{startBrowser}
 {
     ODL_ENTER(); //####
     ODL_S1s(tagForLogging); //####
@@ -744,7 +753,75 @@ nImO::ContextWithMDNS::executeBrowser
 } // nImO::ContextWithMDNS::executeBrowser
 
 bool
-nImO::ContextWithMDNS::findRegistry
+nImO::ContextWithMDNS::findAndLaunchTheRegistry
+    (void)
+{
+    ODL_OBJENTER(); //####
+    bool    launched{false};
+    bool    wasEnabled{lWaitForRegistry};
+
+    lWaitForRegistry = false;
+    lPerformSingleRegistryCheck = true;
+    ODL_B2(lWaitForRegistry, lPerformSingleRegistryCheck); //####
+    gatherAnnouncements(false);
+    if ((! _havePort) || (! _haveAddress))
+    {
+        auto            regPath{getRegistryLaunchPath()};
+        auto            regOptions{getRegistryLaunchOptions()};
+        StdStringVector commandLine{};
+
+        report("Registry was not found so it will be launched");
+        for (auto & walker : regOptions)
+        {
+            auto    anOptionString{walker->asString()};
+
+            if (nullptr == anOptionString)
+            {
+                ODL_LOG("(nullptr == anOptionString)"); //####
+            }
+            else
+            {
+                auto    anOption{anOptionString->getValue()};
+
+                if (0 < anOption.length())
+                {
+                    auto    optionChar{anOption.substr(0, 1)};
+                    auto    optionValue{anOption.substr(1, anOption.length())};
+
+                    commandLine.push_back(MakeOption(optionChar));
+                    if (! optionValue.empty())
+                    {
+                        commandLine.push_back(optionValue);
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (0 < anOption.length())"); //####
+                }
+            }
+        }
+        // We need to put the new process in it's own group so that it will be fully detached.
+        BP::group   aGroup;
+
+        aGroup.detach();
+        // Make sure to 'throw away' any standard output from the child process.
+        BP::child   cc{regPath, BP::args(commandLine), BP::std_out > BP::null, aGroup};
+
+        cc.detach();
+        launched = true;
+    }
+    if (wasEnabled)
+    {
+        lWaitForRegistry = true;
+        lPerformSingleRegistryCheck = false;
+        ODL_B2(lWaitForRegistry, lPerformSingleRegistryCheck); //####
+    }
+    ODL_OBJEXIT_B(launched); //####
+    return launched;
+} // nImO::ContextWithMDNS::findAndLaunchTheRegistry
+
+bool
+nImO::ContextWithMDNS::findTheRegistry
     (Connection &   connection,
      const bool     quietly)
 {
@@ -766,7 +843,7 @@ nImO::ContextWithMDNS::findRegistry
     }
     ODL_OBJEXIT_B(found); //####
     return found;
-} // nImO::ContextWithMDNS::findRegistry
+} // nImO::ContextWithMDNS::findTheRegistry
 
 void
 nImO::ContextWithMDNS::gatherAnnouncements
@@ -807,7 +884,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
             std::atomic_bool    timedOut{false};
             BAD_t               timeOutTimer{*getService()};
 
-            report("timeout = "s + std::to_string(getRegistrySearchTimeout()) + "."s);
+            report("timeout = "s + std::to_string(getRegistrySearchTimeout()) + " seconds."s);
             timeOutTimer.expires_from_now(boost::posix_time::seconds(getRegistrySearchTimeout()));
             timeOutTimer.async_wait([this, quietly, &timedOut]
                                    (const BSErr &   error)
@@ -874,7 +951,7 @@ nImO::ContextWithMDNS::openSockets
             _sockets[_numSockets++] = sock;
         }
     }
-    ODL_I1(numSockets)
+    ODL_I1(_numSockets);
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::openSockets
 

@@ -109,7 +109,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove registry information for a node or a machine"s, "nImOclean node"s, 2024,
-                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -119,7 +119,7 @@ main
             auto                nodeName{firstArg->getCurrentValue()};
             nImO::Connection    registryConnection{};
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
 

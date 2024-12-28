@@ -116,7 +116,7 @@ main
             nImO::MiscellaneousContext  ourContext{};
 
 std::cerr << "** Unimplemented **\n";
-            std::cout << "ready.\n";
+            std::cout << progName << " ready.\n";
             std::cout.flush();
             for ( ; nImO::gKeepRunning; )
             {

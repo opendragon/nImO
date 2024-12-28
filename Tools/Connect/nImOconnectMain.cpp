@@ -140,7 +140,7 @@ main
     argumentList.push_back(secondArg);
     argumentList.push_back(thirdArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two channels"s, "nImOconnect service1/out service2/in udp"s, 2016, nImO::kCopyrightName, optionValues,
-                                     helpForConnect, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
+                                     helpForConnect, nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -149,7 +149,7 @@ main
             auto                ourContext{std::make_shared<nImO::UtilityContext>("connect"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto        proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto        fromChannel{firstArg->getCurrentValue()};

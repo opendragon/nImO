@@ -236,18 +236,18 @@ namespace nImO
             /*! @brief The default value for the command-line argument. */
             int _defaultValue{0};
 
-            /*! @brief The maximum value that is acceptable. */
-            int64_t _maximumValue{0};
-
-            /*! @brief The minimum value that is acceptable. */
-            int64_t _minimumValue{0};
-
             /*! @brief @c true if the value must be less than or equal to the specified maximum. */
             bool    _hasMaximumValue{false};
 
             /*! @brief @c true if the value must be greater than or equal to the specified minimum
             or @c false otherwise. */
             bool    _hasMinimumValue{false};
+
+            /*! @brief The maximum value that is acceptable. */
+            int64_t _maximumValue{0};
+
+            /*! @brief The minimum value that is acceptable. */
+            int64_t _minimumValue{0};
 
     }; // IntegerArgumentDescriptor
 

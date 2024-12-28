@@ -118,8 +118,12 @@ main
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(1, 0);
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
             nImO::AddInputOutputHandlers(ourContext, cleanup);
-            if (ourContext->findRegistry(registryConnection))
+            if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    statusWithBool{proxy->isNodePresent(nodeName)};
@@ -198,7 +202,7 @@ main
                                     if (nImO::gKeepRunning)
                                     {
                                         ourContext->report("waiting for messages."s);
-                                        std::cout << "ready.\n";
+                                        std::cout << progName << " ready.\n";
                                         std::cout.flush();
                                     }
                                     for ( ; nImO::gKeepRunning; )
@@ -227,7 +231,7 @@ main
                                         nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
                                         nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                     }
-                                    std::cout << "done.\n";
+                                    std::cout << progName << " done.\n";
                                     std::cout.flush();
                                 }
                                 if (inValid)

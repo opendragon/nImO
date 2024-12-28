@@ -107,8 +107,8 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Determines if the Registry is active"s, "nImOcheck"s, 2024,
-                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
-                                     nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption |
+                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -117,7 +117,7 @@ main
             nImO::DisableWaitForRegistry(true);
             auto    ourContext{std::make_shared<nImO::UtilityContext>("check"s, optionValues._logging)};
 
-            if (ourContext->asUtilityContext()->findRegistry())
+            if (ourContext->asUtilityContext()->findTheRegistry())
             {
                 ourContext->report("Registry found."s);
             }

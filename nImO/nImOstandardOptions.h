@@ -60,55 +60,58 @@ namespace nImO
     enum OptionsMask
     {
         /*! @brief Skip no options. */
-        kSkipNone               = 0x0000,
+        kSkipNone               = 0x00000000,
 
         /*! @brief Skip the 'args' option. */
-        kSkipArgsOption         = 0x0001,
+        kSkipArgsOption         = 0x00000001,
+
+        /*! @brief Skip the 'autolaunch' option. */
+        kSkipAutolaunchOption   = 0x00000002,
 
         /*! @brief Skip the 'base' option. */
-        kSkipBaseOption         = 0x0002,
+        kSkipBaseOption         = 0x00000004,
 
         /*! @brief Skip the 'configFile' option. */
-        kSkipConfigFileOption   = 0x0004,
+        kSkipConfigFileOption   = 0x00000008,
 
         /*! @brief Skip the 'describe' option. */
-        kSkipDescribeOption     = 0x0008,
+        kSkipDescribeOption     = 0x00000010,
 
         /*! @brief Skip the 'expanded' option. */
-        kSkipExpandedOption     = 0x0010,
+        kSkipExpandedOption     = 0x00000020,
 
         /*! @brief Skip the 'flavours' option. */
-        kSkipFlavoursOption     = 0x0020,
+        kSkipFlavoursOption     = 0x00000040,
 
         /*! @brief Skip the 'inType' option. */
-        kSkipInTypeOption       = 0x0040,
+        kSkipInTypeOption       = 0x00000080,
 
         /*! @brief Skip the 'logging' option. */
-        kSkipLoggingOption      = 0x0080,
+        kSkipLoggingOption      = 0x00000100,
 
         /*! @brief Skip the 'machine' option. */
-        kSkipMachineOption      = 0x0100,
+        kSkipMachineOption      = 0x00000200,
 
         /*! @brief Skip the 'node' option. */
-        kSkipNodeOption         = 0x0200,
+        kSkipNodeOption         = 0x00000400,
 
         /*! @brief Skip the 'outType' option. */
-        kSkipOutTypeOption      = 0x0400,
+        kSkipOutTypeOption      = 0x00000800,
 
         /*! @brief Skip the 'port' option. */
-        kSkipPortOption         = 0x0800,
+        kSkipPortOption         = 0x00001000,
 
         /*! @brief Skip the 'remote' option. */
-        kSkipRemoteOption       = 0x1000,
+        kSkipRemoteOption       = 0x00002000,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x2000,
+        kSkipTagOption          = 0x00004000,
 
         /*! @brief Skip the 'wait' option. */
-        kSkipWaitOption         = 0x4000,
+        kSkipWaitOption         = 0x00008000,
 
         /*! @brief Skip all the options. */
-        kSkipAllOptions         = 0xFFFF
+        kSkipAllOptions         = 0xFFFFFFFF
     }; // OptionsMask
 
     /*! @brief The format for the output from command-line tools. */
@@ -137,10 +140,13 @@ namespace nImO
     /*! @brief Convenience structure for standard options. */
     struct StandardOptions
     {
+        /*! @brief @c true if a command-line option requested the automatic launching of the Registry. */
+        bool    _autolaunch{false};
+
         /*! @brief The configuration file path set by a command-line option. */
         std::string _configFilePath{};
 
-        /*! @brief @c true is a command-line option requested more details. */
+        /*! @brief @c true if a command-line option requested more details. */
         bool    _expanded{false};
 
         /*! @brief The flavour set by a command-line option. */

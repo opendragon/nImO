@@ -124,8 +124,8 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Reports the version number of the libraries used"s, "nImOversion -t"s, 2016,
-                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipExpandedOption |
-                                     nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipConfigFileOption |
+                                     nImO::kSkipExpandedOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         std::string mdnsVersionString;
         std::string nImOversionString;

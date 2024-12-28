@@ -40,6 +40,7 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOstring.h>
 #include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
@@ -67,17 +68,29 @@
 /*! @brief The connection to be used for logging, if none is specified in the configuration file. */
 static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1954};
 
-/*! @brief The connection to be used for status reporting, if none is specified in the configuration file. */
-static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1955};
+/*! @brief The registry launch options value to be used if none is specified in the configuration file. */
+static const std::string    kDefaultRegistryLaunchOptions{""s};
+
+/*! @brief The registry launch path value to be used if none is specified in the configuration file. */
+static const std::string    kDefaultRegistryLaunchPath{"$$/nImOregistry"s};
 
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
 constexpr int   kDefaultRegistryTimeout{5};
+
+/*! @brief The connection to be used for status reporting, if none is specified in the configuration file. */
+static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1955};
 
 /*! @brief The key for the logger address in the configuration file. */
 static const std::string    kLoggerAddressKey{"logger address"s};
 
 /*! @brief The key for the logger port in the configuration file. */
 static const std::string    kLoggerPortKey{"logger port"s};
+
+/*! @brief The key for the options to apply when autolaunching the Registry. */
+static const std::string    kRegistryOptionsKey{"registry options"s};
+
+/*! @brief The key for the path to the Registry executable to use when autolaunching the Registry. */
+static const std::string    kRegistryPathKey{"registry path"s};
 
 /*! @brief The key for the maximum number of seconds to watch for a running Registry. */
 static const std::string    kRegistryTimeoutKey{"registry search timeout"s};
@@ -108,8 +121,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    tagForLogging,
      const bool             logging,
      const int              numReservedThreads) :
-        inherited{}, _logConnection{kDefaultLogConnection},
-        _statusConnection{kDefaultStatusConnection}, _loggingEnabled{logging}
+        inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _statusConnection{kDefaultStatusConnection}
 {
     ODL_ENTER(); //####
     ODL_S1s(tagForLogging); //####
@@ -158,7 +170,11 @@ nImO::ContextWithNetworking::ContextWithNetworking
             SpValue actualValue{*retValue};
             auto    asAddress{actualValue->asAddress()};
 
-            if (nullptr != asAddress)
+            if (nullptr == asAddress)
+            {
+                std::cerr << "Invalid address (" << kLoggerAddressKey << ") in configuration file; ignored.\n";
+            }
+            else
             {
                 auto    tempValue{asAddress->getAddressValue()};
 
@@ -168,7 +184,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid address in configuration file; using default address.\n";
+                    std::cerr << "Invalid address (" << kLoggerAddressKey << ") in configuration file; using default address.\n";
                 }
             }
         }
@@ -178,7 +194,11 @@ nImO::ContextWithNetworking::ContextWithNetworking
             SpValue actualValue{*retValue};
             auto    asInteger{actualValue->asInteger()};
 
-            if (nullptr != asInteger)
+            if (nullptr == asInteger)
+            {
+                std::cerr << "Invalid port (" << kLoggerPortKey << ") in configuration file; ignored.\n";
+            }
+            else
             {
                 int64_t tempValue{asInteger->getIntegerValue()};
 
@@ -188,7 +208,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid port in configuration file; using default port.\n";
+                    std::cerr << "Invalid port (" << kLoggerPortKey << ") in configuration file; using default port.\n";
                 }
             }
         }
@@ -198,7 +218,11 @@ nImO::ContextWithNetworking::ContextWithNetworking
             SpValue actualValue{*retValue};
             auto    asAddress{actualValue->asAddress()};
 
-            if (nullptr != asAddress)
+            if (nullptr == asAddress)
+            {
+                std::cerr << "Invalid address (" << kStatusAddressKey << ") in configuration file; ignored.\n";
+            }
+            else
             {
                 IPv4Address tempValue{asAddress->getAddressValue()};
 
@@ -208,7 +232,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid address in configuration file; using default address.\n";
+                    std::cerr << "Invalid address (" << kStatusAddressKey << ") in configuration file; using default address.\n";
                 }
             }
         }
@@ -218,7 +242,11 @@ nImO::ContextWithNetworking::ContextWithNetworking
             SpValue actualValue{*retValue};
             auto    asInteger{actualValue->asInteger()};
 
-            if (nullptr != asInteger)
+            if (nullptr == asInteger)
+            {
+                std::cerr << "Invalid port (" << kStatusPortKey << ") in configuration file; ignored.\n";
+            }
+            else
             {
                 int64_t tempValue{asInteger->getIntegerValue()};
 
@@ -228,7 +256,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid port in configuration file; using default port.\n";
+                    std::cerr << "Invalid port (" << kStatusPortKey << ") in configuration file; using default port.\n";
                 }
             }
         }
@@ -239,6 +267,57 @@ nImO::ContextWithNetworking::ContextWithNetworking
             _logger = std::make_shared<Logger>(getService(), tagForLogging, _logConnection);
             ODL_P1(_logger.get()); //####
         }
+        retValue = GetConfiguredValue(kRegistryOptionsKey);
+        if (retValue)
+        {
+            SpValue actualValue{*retValue};
+            auto    asArray{actualValue->asArray()};
+
+            _registryLaunchOptions.clear();
+            if (nullptr == asArray)
+            {
+                std::cerr << "Invalid options (" << kRegistryOptionsKey << ") in configuration file; ignored.\n";
+            }
+            else
+            {
+                for (auto & walker : *asArray)
+                {
+                    auto    anOptionString{walker->asString()};
+
+                    if (nullptr == anOptionString)
+                    {
+                        ODL_LOG("(nullptr == anOptionString)"); //####
+                    }
+                    else
+                    {
+                        _registryLaunchOptions.addValue(walker);
+                    }
+                }
+            }
+        }
+        retValue = GetConfiguredValue(kRegistryPathKey);
+        if (retValue)
+        {
+            SpValue actualValue{*retValue};
+            auto    asString{actualValue->asString()};
+
+            if (nullptr == asString)
+            {
+                std::cerr << "Invalid path (" << kRegistryPathKey << ") in configuration file; using default path.\n";
+                _registryLaunchPath = kDefaultRegistryLaunchPath;
+            }
+            else
+            {
+                _registryLaunchPath = asString->getValue();
+            }
+            if (3 < _registryLaunchPath.length())
+            {
+                if (_registryLaunchPath.substr(0, 3) == "$$/")
+                {
+                    _registryLaunchPath = nImO_BIN_DIR_ + _registryLaunchPath.substr(3);
+                }
+            }
+        }
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
         {
@@ -247,6 +326,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr == asInteger)
             {
+                std::cerr << "Invalid timeout (" << kRegistryTimeoutKey << ") in configuration file; using default.\n";
                 _registrySearchTimeout = kDefaultRegistryTimeout;
             }
             else
@@ -259,6 +339,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
+                    std::cerr << "Invalid timeout (" << kRegistryTimeoutKey << ") in configuration file; using default.\n";
                     _registrySearchTimeout = kDefaultRegistryTimeout;
                 }
             }

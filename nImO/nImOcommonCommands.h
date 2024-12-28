@@ -55,14 +55,14 @@
 namespace nImO
 {
 
+    /*! @brief A place-holder response for a bad command. */
+    const std::string   kBadResponse{"BAD!!!"s};
+
     /*! @brief The 'stop' request. */
     const std::string   kStopRequest{"stop."s};
 
     /*! @brief The 'stop' response. */
     const std::string   kStopResponse{"stop="s};
-
-    /*! @brief A place-holder response for a bad command. */
-    const std::string   kBadResponse{"BAD!!!"s};
 
 } // nImO
 

@@ -74,6 +74,9 @@
 /*! @brief The 'equals' character that is used to pad MIME data. */
 constexpr char  kEqualsChar{'='};
 
+/*! @brief The maximum line length when converting to a MIME representation of data. */
+constexpr size_t    kMaxMIMELine{72}; // Must be divisible by 4!
+
 /*! @brief The set of characters to be used with MIME data. */
 static const char   kMIMECharSet[]{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
 
@@ -84,9 +87,6 @@ constexpr char  kPlusChar{'+'};
 /*! @brief The 'slash' character that is used in MIME data.
  This is a convenience declaration to simply validity checks. */
 constexpr char  kSlashChar{'/'};
-
-/*! @brief The maximum line length when converting to a MIME representation of data. */
-constexpr size_t    kMaxMIMELine{72}; // Must be divisible by 4!
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

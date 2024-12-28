@@ -236,18 +236,18 @@ namespace nImO
             /*! @brief The default value for the command-line argument. */
             double  _defaultValue{0};
 
-            /*! @brief The maximum value that is acceptable. */
-            double  _maximumValue{0};
-
-            /*! @brief The minimum value that is acceptable. */
-            double  _minimumValue{0};
-
             /*! @brief @c true if the value must be less than or equal to the specified maximum. */
             bool    _hasMaximumValue{false};
 
             /*! @brief @c true if the value must be greater than or equal to the specified minimum
             or @c false otherwise. */
             bool    _hasMinimumValue{false};
+
+            /*! @brief The maximum value that is acceptable. */
+            double  _maximumValue{0};
+
+            /*! @brief The minimum value that is acceptable. */
+            double  _minimumValue{0};
 
     }; // DoubleArgumentDescriptor
 

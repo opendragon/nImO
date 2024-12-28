@@ -356,7 +356,11 @@ main
 
             nImO::SetSpecialBreakObject(cleanup);
             nImO::AddLauncherHandlers(ourContext, cleanup);
-            if (ourContext->findRegistry(registryConnection))
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
+            if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    statusWithBool{proxy->isNodePresent(nodeName)};
@@ -402,13 +406,13 @@ main
                                         if (0 == exitCode)
                                         {
                                             ourContext->report("waiting for requests."s);
-                                            std::cout << "ready.\n";
+                                            std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                             for ( ; nImO::gKeepRunning; )
                                             {
                                                 boost::this_thread::yield();
                                             }
-                                            std::cout << "done.\n";
+                                            std::cout << progName << " done.\n";
                                             std::cout.flush();
                                         }
                                     }

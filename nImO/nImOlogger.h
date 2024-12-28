@@ -142,6 +142,12 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief The command port for the requesting Context. */
+            SpInteger   _commandPort{};
+
+            /*! @brief The name of the computer. */
+            SpString    _computerName{};
+
             /*! @brief The multicast connection used for logging. */
             Connection  _connection{};
 
@@ -153,12 +159,6 @@ namespace nImO
 
             /*! @brief The symbolic name for the current process. */
             SpString    _tag{};
-
-            /*! @brief The name of the computer. */
-            SpString    _computerName{};
-
-            /*! @brief The command port for the requesting Context. */
-            SpInteger   _commandPort{};
 
     }; // Logger
 

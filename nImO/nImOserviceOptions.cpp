@@ -249,6 +249,7 @@ nImO::ProcessServiceOptions
     {
         kOptionUNKNOWN,
         kOptionARGS,
+        kOptionAUTOLAUNCH,
         kOptionBASE,
         kOptionCONFIG,
         kOptionDESCRIBE,
@@ -267,6 +268,9 @@ nImO::ProcessServiceOptions
 
     bool                keepGoing{true};
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
+    auto                autolaunchHelpString{"  "s + MakeOption("@"s, "autolaunch"s) + " \tAutolaunch the Registry"s};
+    Option_::Descriptor autolaunchDescriptor{StaticCast(unsigned int, OptionIndex::kOptionAUTOLAUNCH), 0, "@", "autolaunch", Option_::Arg::None,
+                                                autolaunchHelpString.c_str()};
     auto                argsHelpString{"  "s + MakeOption("a"s, "args"s) + " \tReport the argument formats"s};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
                                         argsHelpString.c_str()};
@@ -365,6 +369,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipAutolaunchOption))
+    {
+        ++descriptorCount;
+    }
     if (0 == (skipOptions & kSkipBaseOption))
     {
         ++descriptorCount;
@@ -425,6 +433,10 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipArgsOption))
     {
         memcpy(usageWalker++, &argsDescriptor, sizeof(argsDescriptor));
+    }
+    if (0 == (skipOptions & kSkipAutolaunchOption))
+    {
+        memcpy(usageWalker++, &autolaunchDescriptor, sizeof(autolaunchDescriptor));
     }
     if (0 == (skipOptions & kSkipBaseOption))
     {
@@ -524,6 +536,10 @@ nImO::ProcessServiceOptions
                     {
                         if (ProcessArguments(argumentDescriptions, parse, badArgs))
                         {
+                            if ((0 == (skipOptions & kSkipAutolaunchOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionAUTOLAUNCH)]))
+                            {
+                                optionValues._autolaunch = true;
+                            }
                             if ((0 == (skipOptions & kSkipExpandedOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)]))
                             {
                                 optionValues._expanded = true;
@@ -660,6 +676,10 @@ nImO::ProcessServiceOptions
                     {
                         // Note that we don't report the 'd', 'h' and 'v' options, as they are not involved in
                         // determining what choices to offer when launching a service.
+                        if (0 == (skipOptions & kSkipAutolaunchOption))
+                        {
+                            std::cout << "@";
+                        }
                         if (0 == (skipOptions & kSkipArgsOption))
                         {
                             std::cout << "a";

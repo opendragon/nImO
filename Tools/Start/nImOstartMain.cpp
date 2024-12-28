@@ -162,7 +162,11 @@ main
             auto                ourContext{std::make_shared<nImO::UtilityContext>("start"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
+            if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto                proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 nImO::Connection    launcherConnection{};

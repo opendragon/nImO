@@ -128,11 +128,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The thread which executes the announcer code. */
-            Ptr(boost::thread)  _announcerThread{nullptr};
-
             /*! @brief Data to be used with the announcer thread. */
             std::unique_ptr<AnnounceServiceData>    _announceData{nullptr};
+
+            /*! @brief The thread which executes the announcer code. */
+            Ptr(boost::thread)  _announcerThread{nullptr};
 
             /*! @brief @c true if the announcer thread is to be launched. */
             bool  _startAnnouncer{false};

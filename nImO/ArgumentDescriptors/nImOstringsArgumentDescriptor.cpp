@@ -110,7 +110,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (const StringsArgumentDescriptor &   other) :
-        inherited{other}, _caseInsensitive{other._caseInsensitive}, _defaultValue{other._defaultValue}, _allowedValues{other._allowedValues}
+        inherited{other}, _allowedValues{other._allowedValues}, _caseInsensitive{other._caseInsensitive}, _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -120,8 +120,8 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (StringsArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _caseInsensitive{std::move(other._caseInsensitive)}, _defaultValue{std::move(other._defaultValue)},
-        _allowedValues{std::move(other._allowedValues)}
+        inherited{std::move(other)}, _allowedValues{std::move(other._allowedValues)}, _caseInsensitive{std::move(other._caseInsensitive)},
+        _defaultValue{std::move(other._defaultValue)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####

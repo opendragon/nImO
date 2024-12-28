@@ -90,8 +90,7 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
      const bool             hasMaximumValue,
      const double           maximumValue) :
         inherited{argName, argDescription, argMode}, _defaultValue{defaultValue},
-        _maximumValue{maximumValue}, _minimumValue{minimumValue}, _hasMaximumValue{hasMaximumValue},
-        _hasMinimumValue{hasMinimumValue}
+        _hasMaximumValue{hasMaximumValue}, _hasMinimumValue{hasMinimumValue}, _maximumValue{maximumValue}, _minimumValue{minimumValue}
 {
     ODL_ENTER(); //####
     ODL_S2s(argName, argDescription); //####
@@ -103,9 +102,8 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
     (const DoubleArgumentDescriptor &   other) :
-        inherited{other}, _defaultValue{other._defaultValue}, _maximumValue{other._maximumValue},
-        _minimumValue{other._minimumValue}, _hasMaximumValue{other._hasMaximumValue},
-        _hasMinimumValue{other._hasMinimumValue}
+        inherited{other}, _defaultValue{other._defaultValue}, _hasMaximumValue{other._hasMaximumValue}, _hasMinimumValue{other._hasMinimumValue},
+        _maximumValue{other._maximumValue}, _minimumValue{other._minimumValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -115,9 +113,8 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
     (DoubleArgumentDescriptor &&    other)
     noexcept :
-        inherited{std::move(other)}, _defaultValue{other._defaultValue}, _maximumValue{other._maximumValue},
-        _minimumValue{other._minimumValue}, _hasMaximumValue{other._hasMaximumValue},
-        _hasMinimumValue{other._hasMinimumValue}
+        inherited{std::move(other)}, _defaultValue{other._defaultValue}, _hasMaximumValue{other._hasMaximumValue}, _hasMinimumValue{other._hasMinimumValue},
+        _maximumValue{other._maximumValue}, _minimumValue{other._minimumValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####

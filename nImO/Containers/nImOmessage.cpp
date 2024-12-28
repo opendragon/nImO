@@ -130,8 +130,8 @@ nImO::Message::Message
 nImO::Message::Message
     (Message && other)
     noexcept :
-        inherited{std::move(other)}, _lock{}, _cachedTransmissionString{std::move(other._cachedTransmissionString)},
-        _readPosition{other._readPosition}, _state{other._state}, _headerAdded{other._headerAdded}
+        inherited{std::move(other)}, _cachedTransmissionString{std::move(other._cachedTransmissionString)}, _headerAdded{other._headerAdded}, _lock{},
+        _readPosition{other._readPosition}, _state{other._state}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####

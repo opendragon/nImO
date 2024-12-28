@@ -173,11 +173,11 @@ namespace nImO
             /*! @brief The byte just past the end of the internal buffer. */
             Ptr(uint8_t)    _bufferEnd{nullptr};
 
-            /*! @brief The next byte to write in the internal buffer. */
-            Ptr(uint8_t)    _write{nullptr};
-
             /*! @brief @c true if the buffer has an extra byte. */
             bool    _padded{false};
+
+            /*! @brief The next byte to write in the internal buffer. */
+            Ptr(uint8_t)    _write{nullptr};
 
     }; // BufferChunk
 

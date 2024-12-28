@@ -161,8 +161,7 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
      const std::string &    pathSuffix,
      const bool             forOutput,
      const bool             useRandomPath) :
-        inherited{argName, argDescription, argMode, pathPrefix},
-        _pathPrefix{pathPrefix}, _pathSuffix{pathSuffix}, _defaultSet{false}, _forOutput{forOutput},
+        inherited{argName, argDescription, argMode, pathPrefix}, _defaultSet{false}, _forOutput{forOutput},_pathPrefix{pathPrefix}, _pathSuffix{pathSuffix},
         _useRandomPath{useRandomPath}
 {
     ODL_ENTER(); //####
@@ -175,8 +174,8 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
     (const FilePathArgumentDescriptor & other) :
-        inherited{other}, _pathPrefix{other._pathPrefix}, _pathSuffix{other._pathSuffix},
-        _defaultSet{false}, _forOutput{other._forOutput}, _useRandomPath{other._useRandomPath}
+        inherited{other}, _defaultSet{false}, _forOutput{other._forOutput}, _pathPrefix{other._pathPrefix}, _pathSuffix{other._pathSuffix},
+        _useRandomPath{other._useRandomPath}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -186,9 +185,8 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
     (FilePathArgumentDescriptor &&  other)
     noexcept :
-        inherited{std::move(other)}, _pathPrefix{std::move(other._pathPrefix)},
-        _pathSuffix{std::move(other._pathSuffix)}, _defaultSet{other._defaultSet}, _forOutput{other._forOutput},
-        _useRandomPath{other._useRandomPath}
+        inherited{std::move(other)}, _defaultSet{other._defaultSet}, _forOutput{other._forOutput}, _pathPrefix{std::move(other._pathPrefix)},
+        _pathSuffix{std::move(other._pathSuffix)}, _useRandomPath{other._useRandomPath}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####

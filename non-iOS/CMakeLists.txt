@@ -132,22 +132,6 @@ option(nImO_ChattyStart "Report the version numbers when launching an executable
 option(nImO_ChattyTcpUdpLogging "Log the TCP/IP and UDP/IP operations")
 mark_as_advanced(nImO_ChattyTcpUdpLogging)
 
-#       option(nImO_DoExplicitClose "Perform an explicit CloseChannel() prior to freeing a channel")
-#mark_as_advanced(nImO_DoExplicitClose)
-
-#       option(nImO_DoExplicitDisconnect "Perform an explicit disconnect prior to closing a channel")
-#mark_as_advanced(nImO_DoExplicitDisconnect)
-
-#       option(nImO_DontUseTimeouts "Allow operations to take arbitrary lengths of time")
-#mark_as_advanced(nImO_DontUseTimeouts)
-
-#       option(nImO_MetricsInitiallyOn "Collect channel measurement data by default")
-
-#       option(nImO_ReportOnConnections "Report on connections")
-
-#       option(nImO_UseDiskDatabase "Use a disk-based database, rather than in-memory")
-#mark_as_advanced(nImO_UseDiskDatabase)
-
 option(nImO_DO_SWIG "Build the SWIG files" OFF)
 
 # Add the nImO target path so that nImO can be found

@@ -128,8 +128,12 @@ main
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(0, 1);
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
             nImO::AddInputOutputHandlers(ourContext, cleanup);
-            if (ourContext->findRegistry(registryConnection))
+            if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    statusWithBool{proxy->isNodePresent(nodeName)};
@@ -256,7 +260,7 @@ main
                                             nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                         }
-                                        std::cout << "done.\n";
+                                        std::cout << progName << " done.\n";
                                         std::cout.flush();
                                     }
                                 }

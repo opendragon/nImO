@@ -213,8 +213,12 @@ nImO::StartAppCommandHandler::doIt
                                         }
                                     }
                                 }
+                                // We need to put the new process in it's own group so that it will be fully detached.
+                                BP::group   aGroup;
+
+                                aGroup.detach();
                                 // Make sure to 'throw away' any standard output from the child process.
-                                BP::child   cc{appPath, BP::args(commandLine), BP::std_out > BP::null};
+                                BP::child   cc{appPath, BP::args(commandLine), BP::std_out > BP::null, aGroup};
 
                                 cc.detach();
                                 okSoFar = sendSimpleResponse(socket, kStartAppResponse, "start app"s, true, reason);

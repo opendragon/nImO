@@ -82,7 +82,7 @@ nImO::BaseChannel::BaseChannel
     (InputOutputContext &   context,
      const std::string &    path,
      const int              index) :
-        _context(context), _name(path), _index(index)
+        _context(context), _index(index), _name(path)
 {
     ODL_ENTER(); //####
     ODL_P1(&context); //####

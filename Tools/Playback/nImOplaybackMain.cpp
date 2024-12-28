@@ -134,8 +134,12 @@ main
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(0, 1);
+            if (optionValues._autolaunch)
+            {
+                ourContext->findAndLaunchTheRegistry();
+            }
             nImO::AddInputOutputHandlers(ourContext, cleanup);
-            if (ourContext->findRegistry(registryConnection))
+            if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    statusWithBool{proxy->isNodePresent(nodeName)};
@@ -218,7 +222,7 @@ main
                                                 std::string         inLine;
                                                 nImO::Array         inValues;
 
-                                                std::cout << "ready.\n";
+                                                std::cout << progName << " ready.\n";
                                                 std::cout.flush();
                                                 // Collect the file as a sequence of objects.
                                                 for ( ; getline(inStream, inLine); )
@@ -297,7 +301,7 @@ main
                                                     nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
                                                     nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                                 }
-                                                std::cout << "done.\n";
+                                                std::cout << progName << " done.\n";
                                                 std::cout.flush();
                                             }
                                         }

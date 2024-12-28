@@ -266,14 +266,14 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The sequence of received packages. */
-            ReceiveQueue    _receiveQueue;
-
             /*! @brief The maximum number of input channels allowed. */
             int64_t _maxInputChannels{0};
 
             /*! @brief The maximum number of output channels allowed. */
             int64_t _maxOutputChannels{0};
+
+            /*! @brief The sequence of received packages. */
+            ReceiveQueue    _receiveQueue;
 
     }; // InputOutputContext
 

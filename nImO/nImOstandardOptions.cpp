@@ -198,6 +198,7 @@ nImO::ProcessStandardOptions
     enum class OptionIndex
     {
         kOptionUNKNOWN,
+        kOptionAUTOLAUNCH,
         kOptionCONFIG,
         kOptionDESCRIBE,
         kOptionEXPANDED,
@@ -213,6 +214,9 @@ nImO::ProcessStandardOptions
     bool                        keepGoing{true};
     Option_::Descriptor         firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "",
                                                 Option_::Arg::None, nullptr};
+    auto                        autolaunchHelpString{"  "s + MakeOption("@"s, "autolaunch"s) + " \tAutolaunch the Registry"s};
+    Option_::Descriptor         autolaunchDescriptor{StaticCast(unsigned int, OptionIndex::kOptionAUTOLAUNCH), 0, "@", "autolaunch",
+                                                        Option_::Arg::None, autolaunchHelpString.c_str()};
     auto                        configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify the path to the configuration file"s};
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
                                                 Option_::Arg::Required, configHelpString.c_str()};
@@ -241,7 +245,7 @@ nImO::ProcessStandardOptions
     Option_::Descriptor         versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v",
                                                     "version", Option_::Arg::None, versionHelpString.c_str()};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor         usage[12]; // first, config, describe, expanded, help, json, log, machine, nimo, tabs, version, last
+    Option_::Descriptor         usage[13]; // first, autolaunch, config, describe, expanded, help, json, log, machine, nimo, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork{argv};
@@ -368,6 +372,10 @@ nImO::ProcessStandardOptions
                             optionValues._flavour = OutputFlavour::kFlavourJSON;
                         }
                     }
+                    if ((0 == (kSkipAutolaunchOption & optionsToIgnore)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionAUTOLAUNCH)]))
+                    {
+                        optionValues._autolaunch = true;
+                    }
                     if ((0 == (kSkipExpandedOption & optionsToIgnore)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)]))
                     {
                         optionValues._expanded = true;
@@ -379,7 +387,7 @@ nImO::ProcessStandardOptions
                     optionValues._configFilePath = kDefaultConfigFilePath;
                     if (0 == (kSkipConfigFileOption & optionsToIgnore))
                     {
-                        // Use the last 'machine' value.
+                        // Use the last 'config' value.
                         for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]}; nullptr != opt; opt = opt->next())
                         {
                             if (nullptr != opt->arg)

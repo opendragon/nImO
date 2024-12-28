@@ -107,7 +107,7 @@ main
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Update an application"s, "nImOupdateApp /path-to-application [shortAppName]"s, 2023,
-                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
                                      nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -118,7 +118,7 @@ main
             auto                ourContext{std::make_shared<nImO::UtilityContext>("updateApp"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
 

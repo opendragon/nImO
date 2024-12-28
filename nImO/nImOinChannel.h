@@ -150,11 +150,17 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief The destination for incoming messages. */
+            ReceiveQueue &  _inQueue;
+
             /*! @brief The source IP address to match against. */
             IPv4Address _matchAddress{0};
 
             /*! @brief The source port to match against. */
             IPv4Port    _matchPort{0};
+
+            /*! @brief A buffer for the raw message data. */
+            std::array<char, 2048>  _rawData{};
 
             /*! @brief The acceptor TCP connections. */
             SpAcceptorTCP   _tcpAcceptor{};
@@ -164,12 +170,6 @@ namespace nImO
 
             /*! @brief The sender's endpoint for UDP. */
             BUDP::endpoint  _udpSenderEndpoint{};
-
-            /*! @brief A buffer for the raw message data. */
-            std::array<char, 2048>  _rawData{};
-
-            /*! @brief The destination for incoming messages. */
-            ReceiveQueue &  _inQueue;
 
             /*! @brief @c true if the sender address and port are ignored. */
             bool    _unfiltered{false};

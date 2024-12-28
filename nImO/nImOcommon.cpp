@@ -96,14 +96,14 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief Flag to prevent more than one initialization. */
+static bool lInitialized{false};
+
 /*! @brief Seed for random number generator. */
 static std::random_device   lRd;
 
 /*! @brief Mersenne Twister random number engine. */
 static std::mt19937 lMt{lRd()};
-
-/*! @brief Flag to prevent more than one initialization. */
-static bool lInitialized{false};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

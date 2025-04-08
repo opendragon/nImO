@@ -101,8 +101,6 @@ if(APPLE)
 "${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../antlr4;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"
         CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
-# 'rpath' warning
-    cmake_policy(SET CMP0042 OLD)
 elseif(LINUX)
     set(CMAKE_INSTALL_RPATH
 "${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../antlr4;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"

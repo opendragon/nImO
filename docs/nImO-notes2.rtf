@@ -61,10 +61,15 @@ interface:\
 * nImOwatch - like nImOlog but GUI-based\
 \
 examples:\
-* nImOpulse ['t' [ 'd' ]] - sends a simple integer message on an interval of 't' seconds and duty cycle 'd' ('t' defaults to 1 and 'd' defaults to 0.5)\
 * nImOricochet 'p' - forwards a message to the next machine in a list [uses unfiltered InChannels]\
 * nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order) [uses unfiltered inChannels]\
 \
+signals:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 * nImOnegate - changes the sign of an input signal message before sending to the output channel\
+* nImOpulse ['t' [ 'l' ]] - sends a signal message on an interval of 't' seconds and level of 'l' ('t' defaults to 1 and 'l' defaults to 1)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
 wiring:\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]; 
 \f1\b DONE

@@ -261,6 +261,7 @@ nImO::ProcessServiceOptions
         kOptionOUTTYPE,
         kOptionPORT,
         kOptionREMOTE,
+        kOptionSIGNAL,
         kOptionTAG,
         kOptionVERSION,
         kOptionWAIT
@@ -314,6 +315,9 @@ nImO::ProcessServiceOptions
     auto                remoteHelpString{"  "s + MakeOption("r"s, "remote"s) + " <IP-address> \tSpecify the IP address for the other end of the bridge-to-bridge connection"s};
     Option_::Descriptor remoteDescriptor{StaticCast(unsigned int, OptionIndex::kOptionREMOTE), 0, "r", "remote", checkAddress,
                                         remoteHelpString.c_str()};
+    auto                signalHelpString{"  "s + MakeOption("s"s, "signal"s) + " \tSpecify that all channels are for SIGNAL messages"s};
+    Option_::Descriptor signalDescriptor{StaticCast(unsigned int, OptionIndex::kOptionSIGNAL), 0, "s", "signal", Option_::Arg::None,
+                                        signalHelpString.c_str()};
     auto                tagHelpString{"  "s + MakeOption("t"s, "tag"s) + " <tag> \tSpecify the tag to be used as part of the service name"s};
     Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag", checkRequiredName, tagHelpString.c_str()};
     auto                versionHelpString{"  "s + MakeOption("v"s, "version"s) + " \tPrint version information and exit"s};
@@ -413,6 +417,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipSignalOption))
+    {
+        ++descriptorCount;
+    }
     if (0 == (skipOptions & kSkipTagOption))
     {
         ++descriptorCount;
@@ -492,6 +500,10 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipRemoteOption))
     {
         memcpy(usageWalker++, &remoteDescriptor, sizeof(remoteDescriptor));
+    }
+    if (0 == (skipOptions & kSkipSignalOption))
+    {
+        memcpy(usageWalker++, &signalDescriptor, sizeof(signalDescriptor));
     }
     if (0 == (skipOptions & kSkipTagOption))
     {
@@ -642,6 +654,10 @@ nImO::ProcessServiceOptions
                                     }
                                 }
                             }
+                            if ((0 == (skipOptions & kSkipSignalOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionSIGNAL)]))
+                            {
+                                optionValues._signal = true;
+                            }
                             if (0 == (skipOptions & kSkipTagOption))
                             {
                                 // Use the last 'tag' value.
@@ -657,7 +673,14 @@ nImO::ProcessServiceOptions
                             {
                                 optionValues._waitForConnections = true;
                             }
-                            if (nullptr != arguments)
+                            // Check if all channels are required to be SIGNAL and input or output types are specified
+                            if (optionValues._signal && ((0 < optionValues._inType.length()) || (0 < optionValues._outType.length())))
+                            {
+                                std::cout << "SIGNAL is specified as well as an INTYPE or an OUTTYPE.\n";
+                                keepGoing = false;
+                                ODL_B1(keepGoing); //####
+                            }
+                            if (keepGoing && (nullptr != arguments))
                             {
                                 for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
                                 {
@@ -719,6 +742,10 @@ nImO::ProcessServiceOptions
                         if (0 == (skipOptions & kSkipRemoteOption))
                         {
                             std::cout << "r";
+                        }
+                        if (0 == (skipOptions & kSkipSignalOption))
+                        {
+                            std::cout << "s";
                         }
                         if (0 == (skipOptions & kSkipTagOption))
                         {

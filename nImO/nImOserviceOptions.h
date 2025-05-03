@@ -79,6 +79,9 @@ namespace nImO
         /*! @brief The address of the 'remote' end of the bridge-to-bridge connection.*/
         IPv4Address _remote{0};
 
+        /*! @brief @c true if all the channels are SIGNAL type. */
+        bool    _signal{false};
+
         /*! @brief The tag modifier set by a command-line option. */
         std::string _tag{};
 

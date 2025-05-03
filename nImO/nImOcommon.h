@@ -843,6 +843,9 @@ namespace nImO
     /*! @brief The IP name for the loopback address for the machine that is running the executable. */
     const std::string   kSelfAddressName{"localhost"s};
 
+    /*! @brief The standard type for Signal channels. */
+    const std::string   kSignalType{"SIGNAL"s};
+
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
 

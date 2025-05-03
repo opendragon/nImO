@@ -151,6 +151,5 @@
 #include "nImOserviceOptions.h"
 #include "nImOsinkBreakHandler.h"
 #include "nImOsourceBreakHandler.h"
-#include "nImOstandardChannels.h"
 #include "nImOstandardOptions.h"
 %}

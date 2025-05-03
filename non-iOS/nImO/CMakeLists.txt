@@ -259,7 +259,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOserviceOptions.h"
         "${THIS_SOURCE_DIR}/nImOsinkBreakHandler.h"
         "${THIS_SOURCE_DIR}/nImOsourceBreakHandler.h"
-        "${THIS_SOURCE_DIR}/nImOstandardChannels.h"
         "${THIS_SOURCE_DIR}/nImOstandardOptions.h"
         "${THIS_SOURCE_DIR}/optionparser.hpp"
         "${THIS_SOURCE_DIR}/whereami.h"
@@ -643,7 +642,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOserviceOptions.cpp ${THIS_SOURCE_DIR}/nImOserviceOptions.h
         ${THIS_SOURCE_DIR}/nImOsinkBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOsinkBreakHandler.h
         ${THIS_SOURCE_DIR}/nImOsourceBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOsourceBreakHandler.h
-        ${THIS_SOURCE_DIR}/nImOstandardChannels.h
         ${THIS_SOURCE_DIR}/nImOstandardOptions.cpp ${THIS_SOURCE_DIR}/nImOstandardOptions.h)
 
     include_directories("${nImO_SOURCE_DIR}/nImO")

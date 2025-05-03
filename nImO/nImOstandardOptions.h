@@ -104,11 +104,14 @@ namespace nImO
         /*! @brief Skip the 'remote' option. */
         kSkipRemoteOption       = 0x00002000,
 
+        /*! @brief Skip the 'signal' option. */
+        kSkipSignalOption       = 0x00004000,
+
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x00004000,
+        kSkipTagOption          = 0x00008000,
 
         /*! @brief Skip the 'wait' option. */
-        kSkipWaitOption         = 0x00008000,
+        kSkipWaitOption         = 0x00010000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFFFFFF

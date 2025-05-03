@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/examples/Pulse/CMakeLists.txt
+#  File:       non-iOS/Signals/Negate/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Ricochet application.
+#  Contains:   The CMAKE definitions for the Negate application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2024 by OpenDragon.
+#  Copyright:  (c) 2025 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2024-02-20
+#  Created:    2025-05-03
 #
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOpulse)
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/examples/Pulse)
+set(THIS_TARGET nImOnegate)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Signals/Negate)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,8 +50,8 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOpulseMain.cpp
-               ${VERS_RESOURCE})
+                ${THIS_SOURCE_DIR}/nImOnegateMain.cpp
+                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
 # processed once.

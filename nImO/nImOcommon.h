@@ -1226,8 +1226,14 @@ namespace nImO
          CPtr(char)             heading,
          const std::string &    description);
 
-    /*! @brief Return a random number in the interval 0..RANDMAX.
-     @return A value in the range 0..RANDMAX. */
+    /*! @brief Return a random number in the interval 0..1.
+     @return A value in the range 0..1. */
+    double
+    RandomDouble
+        (void);
+
+    /*! @brief Return a random number in the interval 0..RAND_MAX.
+     @return A value in the range 0..RAND_MAX. */
     uint32_t
     RandomUnsigned
         (void);

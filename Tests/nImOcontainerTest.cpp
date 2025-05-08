@@ -15309,7 +15309,7 @@ doTestKeysFromMapWithLogicalKeys
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Logical>(rawKeys[ii])};
-                    auto    aValue{std::make_shared<Double>(rand())};
+                    auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
 
                     stuff->addValue(aKey, aValue);
                     otherStuff->addValue(aKey);
@@ -15394,7 +15394,7 @@ doTestKeysFromMapWithIntegerKeys
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Integer>(rawKeys[ii])};
-                    auto    aValue{std::make_shared<Double>(rand())};
+                    auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
 
                     stuff->addValue(aKey, aValue);
                     otherStuff->addValue(aKey);
@@ -15479,7 +15479,7 @@ doTestKeysFromMapWithAddressKeys
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Address>(rawKeys[ii])};
-                    auto    aValue{std::make_shared<Double>(rand())};
+                    auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
 
                     stuff->addValue(aKey, aValue);
                     otherStuff->addValue(aKey);
@@ -15564,7 +15564,7 @@ doTestKeysFromMapWithStringKeys
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<String>(rawKeys[ii])};
-                    auto    aValue{std::make_shared<Double>(rand())};
+                    auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
 
                     stuff->addValue(aKey, aValue);
                     otherStuff->addValue(aKey);
@@ -15649,7 +15649,7 @@ doTestKeysFromMapWithDateKeys
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Date>(rawKeys[ii])};
-                    auto    aValue{std::make_shared<Double>(rand())};
+                    auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
 
                     stuff->addValue(aKey, aValue);
                     otherStuff->addValue(aKey);
@@ -15734,7 +15734,7 @@ doTestKeysFromMapWithTimeKeys
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Time>(rawKeys[ii])};
-                    auto    aValue{std::make_shared<Double>(rand())};
+                    auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
 
                     stuff->addValue(aKey, aValue);
                     otherStuff->addValue(aKey);

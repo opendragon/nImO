@@ -37,6 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
+#include <BasicTypes/nImOdouble.h>
 #include <Contexts/nImOsourceContext.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
@@ -95,9 +97,11 @@ main
     constexpr double        tinyValue{1e-6};
     std::string             thisService{"Pulse"s};
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("period"s, "Number of seconds for full cycle"s,
+    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("period"s, "Number of seconds between pulses"s,
                                                                                       nImO::ArgumentMode::Optional, 1.0, true, tinyValue, false, 0.0)};
-    auto                    secondArg{std::make_shared<nImO::DoubleArgumentDescriptor>("level"s, "Value to be sent"s,
+    auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random values"s,
+                                                                                       nImO::ArgumentMode::Optional, false)};
+    auto                    thirdArg{std::make_shared<nImO::DoubleArgumentDescriptor>("magnitude"s, "Value to be sent"s,
                                                                                        nImO::ArgumentMode::Optional, 1.0, false, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
@@ -111,7 +115,8 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a pulse out a channel"s, "nImOpulse 5 0.25"s, 2025, nImO::kCopyrightName, optionValues,
+    argumentList.push_back(thirdArg);
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a pulse out a channel"s, "nImOpulse 5 true 0.25"s, 2025, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipPortOption | nImO::kSkipRemoteOption | nImO::kSkipSignalOption))
     {
@@ -211,46 +216,51 @@ main
                                                 connected = outChannel->isConnected();
                                             }
                                         }
-#if 0
-                                        //TBD!!
-                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg->getCurrentValue()))};
-
+                                        std::atomic_bool                doAnother{true};
+                                        int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
+                                        bool                            valueIsRandom{secondArg->getCurrentValue()};
+                                        auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
+                                        double                          magnitude{thirdArg->getCurrentValue()};
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
-                                            if (nImO::gKeepRunning)
+                                            if (nImO::gKeepRunning && doAnother)
                                             {
-//                                                auto    contents{nextData->_receivedMessage};
+                                                doAnother = false;
+                                                double          actualValue{magnitude * (valueIsRandom ? nImO::RandomDouble() : 1.0)};
+                                                nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(actualValue)};
 
-//                                                if (contents)
+                                                if (valueToSend)
                                                 {
-                                                    //TBD!!!
                                                     auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
 
                                                     timers.insert(aTimer);
                                                     aTimer->expires_from_now(delayTime);
-//                                                    aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
-//                                                                       (const BSErr & error)
-//                                                                       {
-//                                                                            if ((! error) && nImO::gKeepRunning)
-//                                                                            {
-//                                                                                if (! outChannel->send(contents))
-//                                                                                {
-//                                                                                    ourContext->report("problem sending to '"s + outChannelPath +
-//                                                                                                       "'."s);
-//                                                                                }
-//                                                                            }
-//                                                                        });
+                                                    aTimer->async_wait([&outChannel, &ourContext, valueToSend, outChannelPath, aTimer, &doAnother]
+                                                                       (const BSErr & error)
+                                                                       {
+                                                                            if ((! error) && nImO::gKeepRunning)
+                                                                            {
+                                                                                if (outChannel->send(valueToSend))
+                                                                                {
+                                                                                    doAnother = true;
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    ourContext->report("problem sending to '"s + outChannelPath +
+                                                                                                       "'."s);
+                                                                                }
+                                                                            }
+                                                                        });
                                                 }
-                                            }
+                                           }
                                         }
                                         for (auto & walker : timers)
                                         {
                                             walker->cancel();
                                         }
-#endif//0
                                         if (! nImO::gPendingStop)
                                         {
                                             bool    alreadyReported{false};

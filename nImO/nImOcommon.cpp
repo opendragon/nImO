@@ -831,6 +831,15 @@ nImO::OutputDescription
     outStream << indent << piece.c_str() << "\n";
 } // nImO::OutputDescription
 
+double
+nImO::RandomDouble
+    (void)
+{
+    std::uniform_real_distribution<> dist;
+
+    return dist(lMt);
+} // nImO::RandomDouble
+
 uint32_t
 nImO::RandomUnsigned
     (void)

@@ -333,6 +333,19 @@
 		F6AA4D3E2B55C5260014444D /* nImOlauncherCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOlauncherCommands.h; path = nImO/nImOlauncherCommands.h; sourceTree = "<group>"; };
 		F6AB47A72AB8DACA006A6446 /* nImOaddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddress.h; path = nImO/BasicTypes/nImOaddress.h; sourceTree = "<group>"; };
 		F6AB47A82AB8DACA006A6446 /* nImOaddress.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddress.cpp; path = nImO/BasicTypes/nImOaddress.cpp; sourceTree = "<group>"; };
+		F6ACA6D82DCD0EB3004A2336 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6ACA6DA2DCD0EB3004A2336 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6ACA6DC2DCD0EB3004A2336 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6ACA6DE2DCD0EB3004A2336 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6ACA6E02DCD0EEE004A2336 /* nImOdisplay.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOdisplay.rc.in; sourceTree = "<group>"; };
+		F6ACA6E12DCD0EEE004A2336 /* nImOdisplayMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOdisplayMain.cpp; sourceTree = "<group>"; };
+		F6ACA6E22DCD0EEE004A2336 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6ACA6E42DCD0EEE004A2336 /* nImOmanage.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOmanage.rc.in; sourceTree = "<group>"; };
+		F6ACA6E52DCD0EEE004A2336 /* nImOmanageMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOmanageMain.cpp; sourceTree = "<group>"; };
+		F6ACA6E62DCD0EEE004A2336 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6ACA6E82DCD0EEE004A2336 /* nImOwatch.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOwatch.rc.in; sourceTree = "<group>"; };
+		F6ACA6E92DCD0EEE004A2336 /* nImOwatchMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOwatchMain.cpp; sourceTree = "<group>"; };
+		F6ACA6EA2DCD0EEE004A2336 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5D92B51505700BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Commutator/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5DB2B5150B100BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Delay/CMakeLists.txt"; sourceTree = "<group>"; };
@@ -1472,6 +1485,82 @@
 			path = StoreSetup;
 			sourceTree = "<group>";
 		};
+		F6ACA6D92DCD0EB3004A2336 /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6D82DCD0EB3004A2336 /* CMakeLists.txt */,
+			);
+			path = Display;
+			sourceTree = "<group>";
+		};
+		F6ACA6DB2DCD0EB3004A2336 /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6DA2DCD0EB3004A2336 /* CMakeLists.txt */,
+			);
+			path = Manage;
+			sourceTree = "<group>";
+		};
+		F6ACA6DD2DCD0EB3004A2336 /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6DC2DCD0EB3004A2336 /* CMakeLists.txt */,
+			);
+			path = Watch;
+			sourceTree = "<group>";
+		};
+		F6ACA6DF2DCD0EB3004A2336 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6D92DCD0EB3004A2336 /* Display */,
+				F6ACA6DB2DCD0EB3004A2336 /* Manage */,
+				F6ACA6DD2DCD0EB3004A2336 /* Watch */,
+				F6ACA6DE2DCD0EB3004A2336 /* CMakeLists.txt */,
+			);
+			name = GUI;
+			path = "non-iOS/GUI";
+			sourceTree = "<group>";
+		};
+		F6ACA6E32DCD0EEE004A2336 /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6E02DCD0EEE004A2336 /* nImOdisplay.rc.in */,
+				F6ACA6E12DCD0EEE004A2336 /* nImOdisplayMain.cpp */,
+				F6ACA6E22DCD0EEE004A2336 /* resource.h */,
+			);
+			path = Display;
+			sourceTree = "<group>";
+		};
+		F6ACA6E72DCD0EEE004A2336 /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6E42DCD0EEE004A2336 /* nImOmanage.rc.in */,
+				F6ACA6E52DCD0EEE004A2336 /* nImOmanageMain.cpp */,
+				F6ACA6E62DCD0EEE004A2336 /* resource.h */,
+			);
+			path = Manage;
+			sourceTree = "<group>";
+		};
+		F6ACA6EB2DCD0EEE004A2336 /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6E82DCD0EEE004A2336 /* nImOwatch.rc.in */,
+				F6ACA6E92DCD0EEE004A2336 /* nImOwatchMain.cpp */,
+				F6ACA6EA2DCD0EEE004A2336 /* resource.h */,
+			);
+			path = Watch;
+			sourceTree = "<group>";
+		};
+		F6ACA6EC2DCD0EEE004A2336 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				F6ACA6E32DCD0EEE004A2336 /* Display */,
+				F6ACA6E72DCD0EEE004A2336 /* Manage */,
+				F6ACA6EB2DCD0EEE004A2336 /* Watch */,
+			);
+			path = GUI;
+			sourceTree = "<group>";
+		};
 		F6ADA5D82B51502200BE55B0 /* Wiring */ = {
 			isa = PBXGroup;
 			children = (
@@ -1545,6 +1634,7 @@
 			children = (
 				F6B388EE1C77F2A3004B2D42 /* CPack */,
 				F68373EA240409500030F969 /* examples */,
+				F6ACA6EC2DCD0EEE004A2336 /* GUI */,
 				F6D7AD07224A5D7C0095AA43 /* iOS */,
 				F6EC3D2529965273006C36D1 /* Launcher */,
 				F60B49732104F760009D2CDA /* LICENSE.txt */,
@@ -1890,6 +1980,7 @@
 			children = (
 				F6D7AD04224A5D4B0095AA43 /* CMakeLists.txt */,
 				F68373F1240409BE0030F969 /* examples */,
+				F6ACA6DF2DCD0EB3004A2336 /* GUI */,
 				F6EC3D21299651C9006C36D1 /* Launcher */,
 				F6D7AD1B224A5F0F0095AA43 /* nImO */,
 				F683BD86240F2F27009E20FE /* nimo.sh */,

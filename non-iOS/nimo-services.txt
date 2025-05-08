@@ -11,6 +11,10 @@
             "path" > "$$/nImOdelay"
             "description" > "Send a message to a channel after a delay"
             }
+"Display" > {
+            "path" > "$$/nImOdisplay"
+            "description" > "Present a window that can receive messages and display them -> unimplemented"
+            }
 "FanIn" > {
             "path" > "$$/nImOfanIn"
             "description" > "Send messages to the output channel from any input channel"
@@ -30,6 +34,14 @@
 "Lisp" > {
             "path" > "$$/nImOlisp"
             "description" > "Run a Common Lisp program -> unimplemented"
+            }
+"Negate" > {
+            "path" > "$$/nImOnegate"
+            "description" > "Change the sign of a SIGNAL message -> unimplemented"
+            }
+"Pulse" > {
+            "path" > "$$/nImOpulse"
+            "description" > "Sends a series of SIGNAL messages"
             }
 "Python" > {
             "path" > "$$/nImOpython"

@@ -37,7 +37,7 @@
             }
 "Negate" > {
             "path" > "$$/nImOnegate"
-            "description" > "Change the sign of a SIGNAL message -> unimplemented"
+            "description" > "Change the sign of a SIGNAL message"
             }
 "Pulse" > {
             "path" > "$$/nImOpulse"

@@ -221,6 +221,12 @@ main
                                         double                          magnitude{thirdArg->getCurrentValue()};
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
+                                        if (nImO::gKeepRunning)
+                                        {
+                                            ourContext->report("sending messages."s);
+                                            std::cout << progName << " ready.\n";
+                                            std::cout.flush();
+                                        }
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();

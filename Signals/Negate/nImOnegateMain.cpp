@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
+#include <BasicTypes/nImOdouble.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
@@ -255,7 +255,27 @@ main
 
                                                     if (contents)
                                                     {
-//TBD!!
+                                                        auto    asDouble{contents->asDouble()};
+
+                                                        if (nullptr == asDouble)
+                                                        {
+                                                            ourContext->report("incorrect data received from '"s + inChannelPath + "'."s);
+                                                            std::cerr << "incorrect data received from " << inChannelPath << "\n";
+                                                            exitCode = 1;
+                                                        }
+                                                        else
+                                                        {
+                                                            nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(- asDouble->getDoubleValue())};
+
+                                                            if (! outChannel->send(valueToSend))
+                                                            {
+                                                                ourContext->report("problem sending to '"s + outChannelPath + "'."s);
+                                                                std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                                exitCode = 1;
+                                                                break;
+
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }

@@ -149,7 +149,7 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy->addNode(nodeName, argc, argv, nImO::ServiceType::FilterService,
+                        statusWithBool = proxy->addNode(nodeName, argc, argv, nImO::ServiceType::InputService,
                                                         ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {

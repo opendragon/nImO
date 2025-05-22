@@ -115,7 +115,6 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._addrBuff = nullptr;
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 

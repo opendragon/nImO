@@ -130,16 +130,14 @@ nImO::Message::Message
 nImO::Message::Message
     (Message && other)
     noexcept :
-        inherited{std::move(other)}, _cachedTransmissionString{std::move(other._cachedTransmissionString)}, _headerAdded{other._headerAdded}, _lock{},
-        _readPosition{other._readPosition}, _state{other._state}
+        inherited{std::move(other)}, _cachedTransmissionString{std::move(other._cachedTransmissionString)},
+        _headerAdded{std::exchange(other._headerAdded, false)}, _lock{}, _readPosition{std::exchange(other._readPosition, 0)},
+        _state{std::exchange(other._state, MessageState::Unknown)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
     ODL_I2(_readPosition, toUType(_state)); //####
     ODL_B1(_headerAdded); //####
-    other._readPosition = 0;
-    other._state = MessageState::Unknown;
-    other._headerAdded = false;
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
 
@@ -417,12 +415,9 @@ nImO::Message::operator=
     {
         inherited::operator=(std::move(other));
         _cachedTransmissionString = std::move(other._cachedTransmissionString);
-        _readPosition = other._readPosition;
-        _state = other._state;
-        _headerAdded = other._headerAdded;
-        other._readPosition = 0;
-        other._state = MessageState::Unknown;
-        other._headerAdded = false;
+        _readPosition = std::exchange(other._readPosition, 0);
+        _state = std::exchange(other._state, MessageState::Unknown);
+        _headerAdded = std::exchange(other._headerAdded, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

@@ -115,11 +115,10 @@ nImO::Logical::Logical
 nImO::Logical::Logical
     (Logical && other)
     noexcept :
-        inherited{std::move(other)}, _value{other._value}
+        inherited{std::move(other)}, _value{std::exchange(other._value, false)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._value = false;
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
@@ -453,8 +452,7 @@ nImO::Logical::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _value = other._value;
-        other._value = false;
+        _value = std::exchange(other._value, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

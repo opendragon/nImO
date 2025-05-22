@@ -134,11 +134,10 @@ nImO::Address::Address
 nImO::Address::Address
     (Address && other)
     noexcept :
-        inherited{std::move(other)}, _addressValue{other._addressValue}
+        inherited{std::move(other)}, _addressValue{std::exchange(other._addressValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._addressValue = 0;
     ODL_EXIT_P(this); //####
 } // nImO::Address::Address
 
@@ -474,8 +473,7 @@ nImO::Address::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _addressValue = other._addressValue;
-        other._addressValue = 0;
+        _addressValue = std::exchange(other._addressValue, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

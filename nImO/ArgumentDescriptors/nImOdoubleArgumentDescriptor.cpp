@@ -113,13 +113,12 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
     (DoubleArgumentDescriptor &&    other)
     noexcept :
-        inherited{std::move(other)}, _defaultValue{other._defaultValue}, _hasMaximumValue{other._hasMaximumValue}, _hasMinimumValue{other._hasMinimumValue},
-        _maximumValue{other._maximumValue}, _minimumValue{other._minimumValue}
+        inherited{std::move(other)}, _defaultValue{std::exchange(other._defaultValue, 0)},
+        _hasMaximumValue{std::exchange(other._hasMaximumValue, false)}, _hasMinimumValue{std::exchange(other._hasMinimumValue, false)},
+        _maximumValue{std::exchange(other._maximumValue, 0)}, _minimumValue{std::exchange(other._minimumValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._defaultValue = other._maximumValue = other._minimumValue = 0;
-    other._hasMaximumValue = other._hasMinimumValue = false;
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 

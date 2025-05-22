@@ -106,12 +106,11 @@ nImO::BufferChunk::BufferChunk
 nImO::BufferChunk::BufferChunk
     (BufferChunk && other)
     noexcept :
-        _buffer{std::move(other._buffer)}, _bufferEnd{other._bufferEnd}, _padded{other._padded}, _write{other._write}
+        _buffer{std::move(other._buffer)}, _bufferEnd{std::exchange(other._bufferEnd, nullptr)}, _padded{std::exchange(other._padded, false)},
+        _write{std::exchange(other._write, nullptr)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._bufferEnd = other._write = nullptr;
-    other._padded = false;
     ODL_EXIT_P(this); //####
 } // nImO::BufferChunk::BufferChunk
 
@@ -157,11 +156,9 @@ nImO::BufferChunk::operator=
     if (this != &other)
     {
         _buffer = std::move(other._buffer);
-        _bufferEnd = other._bufferEnd;
-        _write = other._write;
-        _padded = other._padded;
-        other._bufferEnd = other._write = nullptr;
-        other._padded = false;
+        _bufferEnd = std::exchange(other._bufferEnd, nullptr);
+        _write = std::exchange(other._write, nullptr);
+        _padded = std::exchange(other._padded, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

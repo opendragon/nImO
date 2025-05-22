@@ -109,11 +109,10 @@ PortArgumentDescriptor::PortArgumentDescriptor
 PortArgumentDescriptor::PortArgumentDescriptor
     (PortArgumentDescriptor &&  other)
     noexcept :
-        inherited{std::move(other)}, _isSystemPort{other._isSystemPort}
+        inherited{std::move(other)}, _isSystemPort{std::exchange(other._isSystemPort, false)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._isSystemPort = false;
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 

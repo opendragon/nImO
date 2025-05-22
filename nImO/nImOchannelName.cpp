@@ -119,11 +119,10 @@ nImO::ChannelName::ChannelName
 nImO::ChannelName::ChannelName
     (ChannelName && other)
     noexcept :
-        _node{std::move(other._node)}, _path{std::move(other._path)}, _transport{other._transport}
+        _node{std::move(other._node)}, _path{std::move(other._path)}, _transport{std::exchange(other._transport, TransportType::kUnknown)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._transport = TransportType::kUnknown;
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
 
@@ -232,8 +231,7 @@ nImO::ChannelName::operator=
     ODL_OBJENTER(); //####
     _node = std::move(other._node);
     _path = std::move(other._path);
-    _transport = other._transport;
-    other._transport = TransportType::kUnknown;
+    _transport = std::exchange(other._transport, TransportType::kUnknown);
     ODL_OBJEXIT(); //####
     return *this;
 } // nImO::ChannelName::operator=

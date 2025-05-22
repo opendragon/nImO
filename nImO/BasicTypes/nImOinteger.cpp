@@ -110,11 +110,10 @@ nImO::Integer::Integer
 nImO::Integer::Integer
     (Integer && other)
     noexcept :
-        inherited{std::move(other)}, _intValue{other._intValue}
+        inherited{std::move(other)}, _intValue{std::exchange(other._intValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._intValue = 0;
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
@@ -463,8 +462,7 @@ nImO::Integer::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _intValue = other._intValue;
-        other._intValue = 0;
+        _intValue = std::exchange(other._intValue, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

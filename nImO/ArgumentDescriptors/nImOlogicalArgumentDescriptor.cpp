@@ -106,11 +106,10 @@ LogicalArgumentDescriptor::LogicalArgumentDescriptor
 LogicalArgumentDescriptor::LogicalArgumentDescriptor
     (LogicalArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _defaultValue{other._defaultValue}, _currentValue{other._currentValue}
+        inherited{std::move(other)}, _defaultValue{std::exchange(other._defaultValue, false)}, _currentValue{std::exchange(other._currentValue, false)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._currentValue = other._defaultValue = false;
     ODL_EXIT_P(this); //####
 } // LogicalArgumentDescriptor::LogicalArgumentDescriptor
 

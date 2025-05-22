@@ -133,11 +133,10 @@ nImO::DateTime::DateTime
 nImO::DateTime::DateTime
     (DateTime && other)
     noexcept :
-        inherited{std::move(other)}, _dateTimeValue{other._dateTimeValue}
+        inherited{std::move(other)}, _dateTimeValue{std::exchange(other._dateTimeValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._dateTimeValue = 0;
     ODL_EXIT_P(this); //####
 } // nImO::DateTime::DateTime
 
@@ -178,8 +177,7 @@ nImO::DateTime::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _dateTimeValue = other._dateTimeValue;
-        other._dateTimeValue = 0;
+        _dateTimeValue = std::exchange(other._dateTimeValue, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

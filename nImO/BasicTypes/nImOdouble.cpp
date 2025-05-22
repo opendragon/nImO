@@ -111,11 +111,10 @@ nImO::Double::Double
 nImO::Double::Double
     (Double &&  other)
     noexcept :
-        inherited{std::move(other)}, _floatValue{other._floatValue}
+        inherited{std::move(other)}, _floatValue{std::exchange(other._floatValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._floatValue = 0;
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
@@ -531,8 +530,7 @@ nImO::Double::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _floatValue = other._floatValue;
-        other._floatValue = 0;
+        _floatValue = std::exchange(other._floatValue, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

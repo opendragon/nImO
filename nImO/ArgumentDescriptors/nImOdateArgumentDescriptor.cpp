@@ -107,11 +107,10 @@ DateArgumentDescriptor::DateArgumentDescriptor
 DateArgumentDescriptor::DateArgumentDescriptor
     (DateArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _currentValue{other._currentValue}
+        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._currentValue = 0;
     ODL_EXIT_P(this); //####
 } // DateArgumentDescriptor::DateArgumentDescriptor
 

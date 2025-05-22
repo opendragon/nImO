@@ -185,12 +185,11 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
     (FilePathArgumentDescriptor &&  other)
     noexcept :
-        inherited{std::move(other)}, _defaultSet{other._defaultSet}, _forOutput{other._forOutput}, _pathPrefix{std::move(other._pathPrefix)},
-        _pathSuffix{std::move(other._pathSuffix)}, _useRandomPath{other._useRandomPath}
+        inherited{std::move(other)}, _defaultSet{std::exchange(other._defaultSet, false)}, _forOutput{std::exchange(other._forOutput, false)},
+        _pathPrefix{std::move(other._pathPrefix)}, _pathSuffix{std::move(other._pathSuffix)}, _useRandomPath{std::exchange(other._useRandomPath, false)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._defaultSet = other._forOutput = other._useRandomPath = false;
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
@@ -296,10 +295,9 @@ FilePathArgumentDescriptor::operator=
         inherited::operator=(std::move(other));
         _pathPrefix = std::move(other._pathPrefix);
         _pathSuffix = std::move(other._pathSuffix);
-        _defaultSet = other._defaultSet;
-        _forOutput = other._forOutput;
-        _useRandomPath = other._useRandomPath;
-        other._defaultSet = other._forOutput = other._useRandomPath = false;
+        _defaultSet = std::exchange(other._defaultSet, false);
+        _forOutput = std::exchange(other._forOutput, false);
+        _useRandomPath = std::exchange(other._useRandomPath, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

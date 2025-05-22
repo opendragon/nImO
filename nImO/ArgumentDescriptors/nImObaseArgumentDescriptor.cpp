@@ -271,11 +271,9 @@ BaseArgumentDescriptor::operator=
     if (this != &other)
     {
         _argDescription = std::move(other._argDescription);
-        _argMode = other._argMode;
+        _argMode = std::exchange(other._argMode, ArgumentMode::Unknown);
         _argName = std::move(other._argName);
-        _valid = other._valid;
-        other._argMode = ArgumentMode::Unknown;
-        other._valid = false;
+        _valid = std::exchange(other._valid, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

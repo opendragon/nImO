@@ -211,11 +211,10 @@ nImO::Blob::Blob
 nImO::Blob::Blob
     (Blob &&    other)
     noexcept :
-        inherited{std::move(other)}, _size{other._size}, _value{std::move(other._value)}
+        inherited{std::move(other)}, _size{std::exchange(other._size, 0)}, _value{std::move(other._value)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._size = 0;
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
 
@@ -598,8 +597,7 @@ nImO::Blob::operator=
     {
         inherited::operator=(std::move(other));
         _value = std::move(other._value);
-        _size = other._size;
-        other._size = 0;
+        _size = std::exchange(other._size, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

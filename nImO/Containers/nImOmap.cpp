@@ -103,7 +103,7 @@ nImO::Map::Map
 nImO::Map::Map
     (Map && other)
     noexcept:
-        inherited1{std::move(other)}, inherited2{std::move(other)}, _keyKind{other._keyKind}
+        inherited1{std::move(other)}, inherited2{std::move(other)}, _keyKind{std::exchange(other._keyKind, Enumerable::Unknown)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -751,6 +751,7 @@ nImO::Map::operator=
     {
         inherited1::operator=(std::move(other));
         inherited2::operator=(std::move(other));
+        _keyKind = std::exchange(other._keyKind, Enumerable::Unknown);
         addEntries(other);
         other.clear();
     }

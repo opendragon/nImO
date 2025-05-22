@@ -111,7 +111,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 AddressArgumentDescriptor::AddressArgumentDescriptor
     (AddressArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _addrBuff{other._addrBuff}
+        inherited{std::move(other)}, _addrBuff{std::exchange(other._addrBuff, nullptr)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####

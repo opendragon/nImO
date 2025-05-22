@@ -107,11 +107,10 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
 TimeArgumentDescriptor::TimeArgumentDescriptor
     (TimeArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _currentValue{other._currentValue}
+        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._currentValue = 0;
     ODL_EXIT_P(this); //####
 } // TimeArgumentDescriptor::TimeArgumentDescriptor
 
@@ -199,8 +198,7 @@ TimeArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _currentValue = other._currentValue;
-        other._currentValue = 0;
+        _currentValue = std::exchange(other._currentValue, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

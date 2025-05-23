@@ -109,8 +109,14 @@ nImO::AddOutputChannelCallbackHandler::operator()
                 {
                     if (statusWithBool.second)
                     {
-                        _context->addOutputChannel(scratch);
-                        _added = result = true;
+                        if (_context->addOutputChannel(scratch))
+                        {
+                            if (nullptr != _secondaryFunction)
+                            {
+                                (*_secondaryFunction)();
+                            }
+                            result = true;
+                        }
                     }
                     else
                     {

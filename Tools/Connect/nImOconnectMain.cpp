@@ -308,6 +308,19 @@ main
                     }
                     if (0 == exitCode)
                     {
+                        if (toIsOutput && (! fromIsOutput))
+                        {
+                            // Swap!
+                            std::swap(fromIsOutput, toIsOutput);
+                            std::swap(fromDataType, toDataType);
+                            std::swap(fromModes, toModes);
+                            std::swap(fromChannel, toChannel);
+                            std::swap(fromNode, toNode);
+                            std::swap(fromPath, toPath);
+                        }
+                    }
+                    if (0 == exitCode)
+                    {
                         if (toIsOutput)
                         {
                             ourContext->report("channel '"s + toNode + " "s + toPath + "' is an output!"s);

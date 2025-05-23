@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
+#include <BasicTypes/nImOdouble.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOaddInputChannelCallbackHandler.h>
 #include <nImOchannelName.h>
@@ -79,6 +80,110 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief A class to accumulate received values. */
+class ValueCollector final : public nImO::CallbackFunction
+{
+    public :
+        // Public type definitions.
+
+    protected :
+        // Protected type definitions.
+
+    private :
+        // Private type definitions.
+
+        /*! @brief The class that this class is derived from. */
+        using inherited = CallbackFunction;
+
+    public :
+        // Public methods.
+
+        /*! @brief The constructor. */
+        inline ValueCollector
+            (void) :
+                inherited()
+        {
+        }
+
+        /*! @brief Calculate the product of the values.
+         @return The product of the values. */
+        inline double
+        calculate
+            (void)
+        {
+            std::lock_guard<std::mutex>  lock{_valuesLock};
+            double  result{1};
+
+            for (auto aValue : _values)
+            {
+                result *= aValue;
+            }
+            return result;
+        }
+
+        /*! @brief Increase the size of the collection of values. */
+        inline void
+        resize
+            (void)
+        {
+            ODL_OBJENTER(); //####
+            std::lock_guard<std::mutex>  lock{_valuesLock};
+
+            _values.resize(_values.size() + 1);
+            ODL_OBJEXIT(); //####
+        }
+
+        /*! @brief Set a value in the collection.
+         @param[in] index The item in the collection to be updated.
+         @param[in] newValue The value to be placed in the collection. */
+        inline void
+        setValue
+            (const int      index,
+             const double   newValue)
+        {
+            ODL_OBJENTER(); //####
+            std::lock_guard<std::mutex>  lock{_valuesLock};
+
+            _values[index] = newValue;
+            ODL_OBJEXIT(); //####
+        }
+
+    protected :
+        // Protected methods.
+
+    private :
+        // Private methods.
+
+        /*! @brief Process an add request.
+         @return @c true on success. */
+        bool
+        operator()
+            (void)
+            override
+        {
+            ODL_OBJENTER(); //####
+            resize();
+            ODL_OBJEXIT_B(true); //####
+            return true;
+        }
+
+    public :
+        // Public fields.
+
+    protected :
+        // Protected fields.
+
+    private :
+        // Private fields.
+
+        /*! @brief The collected values. */
+        std::vector<double> _values{};
+
+        /*! @brief Used to protect the collected values. */
+        std::mutex  _valuesLock{};
+
+}; // ValueCollector
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -120,7 +225,8 @@ main
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
-            auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
+            auto                valueCollection{std::make_shared<ValueCollector>()};
+            auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath, valueCollection.get()}};
 
             if (! basePath.empty())
             {
@@ -172,6 +278,7 @@ main
                                             if (statusWithBool.second)
                                             {
                                                 ourContext->addInputChannel(scratch);
+                                                valueCollection->resize();
                                             }
                                             else
                                             {
@@ -262,14 +369,31 @@ main
 
                                                     if (contents)
                                                     {
-//                                                        if (! outChannel->send(contents))
-//                                                        {
-//                                                            ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-//                                                            std::cerr << "problem sending to " << outChannelPath << "\n";
-//                                                            exitCode = 1;
-//                                                            break;
+                                                        auto    asDouble{contents->asDouble()};
+
+                                                        if (nullptr == asDouble)
+                                                        {
+                                                            std::string scratch;
+
+                                                            nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input,
+                                                                                            ourContext->getNumberOfInputChannels(), nextData->_tag + 1, scratch);
+                                                            ourContext->report("incorrect data received from '"s + scratch + "'."s);
+                                                            std::cerr << "incorrect data received from " << scratch << "\n";
+                                                        }
+                                                        else
+                                                        {
+                                                            valueCollection->setValue(nextData->_tag, asDouble->getDoubleValue());
+                                                            nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(valueCollection->calculate())};
 //
-//                                                        }
+                                                            if (! outChannel->send(valueToSend))
+                                                            {
+                                                                ourContext->report("problem sending to '"s + outChannelPath + "'."s);
+                                                                std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                                exitCode = 1;
+                                                                break;
+
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }

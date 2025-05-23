@@ -103,7 +103,7 @@ nImO::ReceiveQueue::addRawBytesAsMessage
 
             newMessage->open(false);
             newMessage->appendBytes(inBytes.data(), inBytes.size());
-            auto newData{std::make_shared<ReceivedData>(tag, newMessage->getValue(), senderAddress, senderPort)};
+            auto    newData{std::make_shared<ReceivedData>(tag, newMessage->getValue(), senderAddress, senderPort)};
 
             {
                 std::lock_guard<std::mutex>  lock{_receivedLock};

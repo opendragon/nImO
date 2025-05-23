@@ -84,11 +84,13 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] theContext The filter context that is active.
-             @param[in] basePath The base part of the channel name. */
+             @param[in] basePath The base part of the channel name.
+             @param[in] secondaryFunction A function object to be invoked if the channel was added. */
             inline AddInputChannelCallbackHandler
                 (Ptr(nImO::InputOutputContext)  theContext,
-                 const std::string &            basePath) :
-                    inherited(), _basePath(basePath), _context(theContext)
+                 const std::string &            basePath,
+                 Ptr(CallbackFunction)          secondaryFunction = nullptr) :
+                    inherited(), _basePath(basePath), _context(theContext), _secondaryFunction(secondaryFunction)
             {
             }
 
@@ -167,6 +169,9 @@ namespace nImO
 
             /*! @brief A flag to control when requests can be honoured. */
             std::atomic_bool    _requestsAllowed{false};
+
+            /* @brief A function object to be invoked when the channel was successfully added. */
+            Ptr(CallbackFunction)   _secondaryFunction{nullptr};
 
     }; // AddInputChannelCallbackHandler
 

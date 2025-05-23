@@ -29,7 +29,7 @@
             }
 "Gate" > {
             "path" > "$$/nImOgate"
-            "description" > "Pass messages through when a control signal allows"
+            "description" > "Pass messages through when a control signal allows -> unimplemented"
             }
 "JavaScript" > {
             "path" > "$$/nImOjavaScript"
@@ -49,7 +49,7 @@
             }
 "Product" > {
             "path" > "$$/nImOproduct"
-            "description" > "Send the product of the input SIGNAL messages"
+            "description" > "Send the product of the input SIGNAL messages -> unimplemented"
             }
 "Pulse" > {
             "path" > "$$/nImOpulse"
@@ -65,6 +65,6 @@
             }
 "Sum" > {
             "path" > "$$/nImOsum"
-            "description" > "Send the sum of the input SIGNAL messages"
+            "description" > "Send the sum of the input SIGNAL messages -> unimplemented"
             }
 }

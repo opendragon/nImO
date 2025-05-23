@@ -78,11 +78,15 @@ signals:\
 \cf3 * nImOpower ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\cf0 ; 
 \f1\b DONE
 \f0\b0 \cf3 \
-\cf2 * nImOproduct ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\
+* nImOproduct ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\cf0 ; 
+\f1\b DONE
+\f0\b0 \cf3 \
 \cf0 * nImOpulse ['t' ['r' ['l']]] - sends a series of SIGNAL messages with an interval of 't' seconds and magnitude of 'l' with a random level if 'r' is true ('t' defaults to 1, 'r' defaults to false and 'l' defaults to 1); 
 \f1\b DONE
 \f0\b0 \
-\cf2 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\
+\cf3 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 
+\f1\b DONE
+\f0\b0 \cf3 \
 \cf0 \
 wiring:\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]; 

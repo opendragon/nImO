@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
+#include <BasicTypes/nImOdouble.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
@@ -92,7 +93,7 @@ main
 {
     std::string             thisService{"Power"s};
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("delay"s, "The power to raise the input to"s,
+    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("power"s, "The power to raise the input to"s,
                                                                                       nImO::ArgumentMode::Optional, 1.0, false, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
@@ -105,7 +106,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel after a delay"s, "nImOdelay 3.5"s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Raise a value of an input to a power"s, "nImOpower 3.5"s, 2025, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipPortOption | nImO::kSkipRemoteOption))
     {
@@ -239,17 +240,14 @@ main
                                                 connected = (inChannel->isConnected() && outChannel->isConnected());
                                             }
                                         }
+                                        auto    power{firstArg->getCurrentValue()};
+
                                         if (nImO::gKeepRunning)
                                         {
                                             ourContext->report("waiting for messages."s);
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
-#if 0
-                                        int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
-                                        auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
-                                        std::set<nImO::SpDeadlineTimer> timers{};
-
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
@@ -263,31 +261,81 @@ main
 
                                                     if (contents)
                                                     {
-                                                        auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+                                                        auto    asDouble{contents->asDouble()};
 
-                                                        timers.insert(aTimer);
-                                                        aTimer->expires_from_now(delayTime);
-                                                        aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
-                                                                           (const BSErr & error)
-                                                                           {
-                                                                                if ((! error) && nImO::gKeepRunning)
-                                                                                {
-                                                                                    if (! outChannel->send(contents))
-                                                                                    {
-                                                                                        ourContext->report("problem sending to '"s + outChannelPath +
-                                                                                                           "'."s);
-                                                                                    }
-                                                                                }
-                                                                            });
+                                                        if (nullptr == asDouble)
+                                                        {
+                                                            ourContext->report("incorrect data received from '"s + inChannelPath + "'."s);
+                                                            std::cerr << "incorrect data received from " << inChannelPath << "\n";
+                                                            exitCode = 1;
+                                                        }
+                                                        else
+                                                        {
+                                                            auto    base{asDouble->getDoubleValue()};
+                                                            bool    goAhead{true};
+                                                            double  result;
+
+                                                            // Check for out-of-range values.
+                                                            if (std::isfinite(base) && std::isfinite(power))
+                                                            {
+                                                                if (0.0 > base)
+                                                                {
+                                                                    if (std::ceil(base) == base)
+                                                                    {
+                                                                        result = std::pow(base, power);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        goAhead = false;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (0.0 == base)
+                                                                    {
+                                                                        if (0.0 <= power)
+                                                                        {
+                                                                            result = 0.0;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            goAhead = false;
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        result = std::pow(base, power);
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                goAhead = false;
+                                                            }
+                                                            if (goAhead)
+                                                            {
+                                                                nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(result)};
+
+                                                                if (! outChannel->send(valueToSend))
+                                                                {
+                                                                    ourContext->report("problem sending to '"s + outChannelPath + "'."s);
+                                                                    std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                                    exitCode = 1;
+                                                                    break;
+
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                ourContext->report("cannot calculate "s + nImO::ConvertDoubleToString(base) + "**"s +
+                                                                                   nImO::ConvertDoubleToString(power));
+                                                                std::cerr << "cannot calculate " << base << "**" << power << "\n";
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
-                                        for (auto & walker : timers)
-                                        {
-                                            walker->cancel();
-                                        }
-#endif//0
                                         if (! nImO::gPendingStop)
                                         {
                                             bool    alreadyReported{false};

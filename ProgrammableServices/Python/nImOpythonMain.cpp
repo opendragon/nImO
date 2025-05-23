@@ -59,7 +59,7 @@
 /*! @file
  @brief A service providing a scriptable service using Python. */
 
-/*! @dir Bridge
+/*! @dir Python
  @brief The set of files that implement the Bridge application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

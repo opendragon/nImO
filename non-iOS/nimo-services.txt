@@ -3,6 +3,10 @@
             "path" > "$$/nImObridge"
             "description" > "Connect two subnets -> unimplemented"
             }
+"Chart" > {
+            "path" > "$$/nImOchart"
+            "description" > "Present a window that can receive SIGNAL messages and display them -> unimplemented"
+            }
 "Commutator" > {
             "path" > "$$/nImOcommutator"
             "description" > "Route a message to one of the outputs"
@@ -39,6 +43,10 @@
             "path" > "$$/nImOnegate"
             "description" > "Change the sign of a SIGNAL message"
             }
+"Product" > {
+            "path" > "$$/nImOproduct"
+            "description" > "Send the product of the input SIGNAL messages"
+            }
 "Pulse" > {
             "path" > "$$/nImOpulse"
             "description" > "Sends a series of SIGNAL messages"
@@ -50,5 +58,9 @@
 "Repeat" > {
             "path" > "$$/nImOrepeat"
             "description" > "Send copies of a message to a channel after a delay"
+            }
+"Sum" > {
+            "path" > "$$/nImOsum"
+            "description" > "Send the sum of the input SIGNAL messages"
             }
 }

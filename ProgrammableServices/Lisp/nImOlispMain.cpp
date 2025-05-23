@@ -59,7 +59,7 @@
 /*! @file
  @brief A service providing a scriptable service using Common Lisp. */
 
-/*! @dir Bridge
+/*! @dir Lisp
  @brief The set of files that implement the Lisp application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

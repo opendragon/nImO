@@ -84,6 +84,22 @@
 		F63DDD6D2B56AD4100182B28 /* nimo-services.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "nimo-services.txt"; path = "non-iOS/nimo-services.txt"; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcomparisonStatus.h; path = nImO/nImOcomparisonStatus.h; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
+		F6484BDF2DE07B080078F729 /* nImOchart.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOchart.rc.in; sourceTree = "<group>"; };
+		F6484BE02DE07B080078F729 /* nImOchartMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOchartMain.cpp; sourceTree = "<group>"; };
+		F6484BE12DE07B080078F729 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6484BE32DE07FE00078F729 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6484BE52DE086CB0078F729 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6484BE72DE0875A0078F729 /* nImOsum.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOsum.rc.in; sourceTree = "<group>"; };
+		F6484BE82DE0875A0078F729 /* nImOsumMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOsumMain.cpp; sourceTree = "<group>"; };
+		F6484BE92DE0875A0078F729 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6484BEB2DE08C880078F729 /* nImOproduct.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOproduct.rc.in; sourceTree = "<group>"; };
+		F6484BEC2DE08C880078F729 /* nImOproductMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOproductMain.cpp; sourceTree = "<group>"; };
+		F6484BED2DE08C880078F729 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6484BEF2DE08CF90078F729 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6484BF12DE08E120078F729 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6484BF32DE08FE10078F729 /* nImOpower.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOpower.rc.in; sourceTree = "<group>"; };
+		F6484BF42DE08FE10078F729 /* nImOpowerMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOpowerMain.cpp; sourceTree = "<group>"; };
+		F6484BF52DE08FE10078F729 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F64885A12B8A40FC00F2E2C9 /* nImOgetNumberOfInputChannelsOnNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfInputChannelsOnNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOgetNumberOfInputChannelsOnNodeResponseHandler.h; sourceTree = "<group>"; };
 		F64885A22B8A40FC00F2E2C9 /* nImOgetNumberOfInputChannelsOnNodeResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfInputChannelsOnNodeResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNumberOfInputChannelsOnNodeResponseHandler.cpp; sourceTree = "<group>"; };
 		F64885A32B8A41AA00F2E2C9 /* nImOgetNumberOfOutputChannelsOnNodeResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfOutputChannelsOnNodeResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNumberOfOutputChannelsOnNodeResponseHandler.cpp; sourceTree = "<group>"; };
@@ -946,6 +962,78 @@
 			path = Junction;
 			sourceTree = "<group>";
 		};
+		F6484BE22DE07B080078F729 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BDF2DE07B080078F729 /* nImOchart.rc.in */,
+				F6484BE02DE07B080078F729 /* nImOchartMain.cpp */,
+				F6484BE12DE07B080078F729 /* resource.h */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		F6484BE42DE07FE00078F729 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BE32DE07FE00078F729 /* CMakeLists.txt */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		F6484BE62DE086CB0078F729 /* Sum */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BE52DE086CB0078F729 /* CMakeLists.txt */,
+			);
+			path = Sum;
+			sourceTree = "<group>";
+		};
+		F6484BEA2DE0875A0078F729 /* Sum */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BE72DE0875A0078F729 /* nImOsum.rc.in */,
+				F6484BE82DE0875A0078F729 /* nImOsumMain.cpp */,
+				F6484BE92DE0875A0078F729 /* resource.h */,
+			);
+			path = Sum;
+			sourceTree = "<group>";
+		};
+		F6484BEE2DE08C880078F729 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BEB2DE08C880078F729 /* nImOproduct.rc.in */,
+				F6484BEC2DE08C880078F729 /* nImOproductMain.cpp */,
+				F6484BED2DE08C880078F729 /* resource.h */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		F6484BF02DE08CF90078F729 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BEF2DE08CF90078F729 /* CMakeLists.txt */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		F6484BF22DE08E120078F729 /* Power */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BF12DE08E120078F729 /* CMakeLists.txt */,
+			);
+			path = Power;
+			sourceTree = "<group>";
+		};
+		F6484BF62DE08FE10078F729 /* Power */ = {
+			isa = PBXGroup;
+			children = (
+				F6484BF32DE08FE10078F729 /* nImOpower.rc.in */,
+				F6484BF42DE08FE10078F729 /* nImOpowerMain.cpp */,
+				F6484BF52DE08FE10078F729 /* resource.h */,
+			);
+			path = Power;
+			sourceTree = "<group>";
+		};
 		F6491B0A29BE236200DE5D58 /* UpdateApplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -969,7 +1057,10 @@
 			children = (
 				F64EECD22DC621FB0070A8FF /* CMakeLists.txt */,
 				F64EECD32DC622060070A8FF /* Negate */,
+				F6484BF22DE08E120078F729 /* Power */,
+				F6484BF02DE08CF90078F729 /* Product */,
 				F64EECD42DC622170070A8FF /* Pulse */,
+				F6484BE62DE086CB0078F729 /* Sum */,
 			);
 			name = Signals;
 			path = "non-iOS/Signals";
@@ -995,7 +1086,10 @@
 			isa = PBXGroup;
 			children = (
 				F64EECD82DC622AF0070A8FF /* Negate */,
+				F6484BF62DE08FE10078F729 /* Power */,
+				F6484BEE2DE08C880078F729 /* Product */,
 				F64EECD92DC622BD0070A8FF /* Pulse */,
+				F6484BEA2DE0875A0078F729 /* Sum */,
 			);
 			path = Signals;
 			sourceTree = "<group>";
@@ -1512,6 +1606,7 @@
 		F6ACA6DF2DCD0EB3004A2336 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
+				F6484BE42DE07FE00078F729 /* Chart */,
 				F6ACA6D92DCD0EB3004A2336 /* Display */,
 				F6ACA6DB2DCD0EB3004A2336 /* Manage */,
 				F6ACA6DD2DCD0EB3004A2336 /* Watch */,
@@ -1554,6 +1649,7 @@
 		F6ACA6EC2DCD0EEE004A2336 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
+				F6484BE22DE07B080078F729 /* Chart */,
 				F6ACA6E32DCD0EEE004A2336 /* Display */,
 				F6ACA6E72DCD0EEE004A2336 /* Manage */,
 				F6ACA6EB2DCD0EEE004A2336 /* Watch */,

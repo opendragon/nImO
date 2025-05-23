@@ -87,7 +87,7 @@ if(WIN32)
     set(CPACK_NSIS_MODIFY_PATH ON)
     set(CPACK_NSIS_MUI_ICON "${nImO_SOURCE_DIR}/InstallerIcon.ico")
     set(CPACK_NSIS_MUI_UNIICON "${nImO_SOURCE_DIR}/InstallerIcon.ico")
-    set(CPACK_NSIS_URL_INFO_ABOUT "http://www.mplusm.ca")
+    ####set(CPACK_NSIS_URL_INFO_ABOUT "http://www.mplusm.ca")
 
     #Finally, set some nImO Environment variables (WINDOWS ONLY!)
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS

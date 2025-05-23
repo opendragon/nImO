@@ -38,7 +38,6 @@
 
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
 #include <Contexts/nImOfilterContext.h>
-#include <nImOaddInputChannelCallbackHandler.h>
 #include <nImOaddOutputChannelCallbackHandler.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
@@ -120,7 +119,6 @@ main
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
-            auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
             auto                addOutputChannelCallback{new nImO::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
 
             if (! basePath.empty())
@@ -136,7 +134,7 @@ main
             {
                 ourContext->findAndLaunchTheRegistry();
             }
-            nImO::AddInputOutputHandlers(ourContext, cleanup, addInputChannelCallback, addOutputChannelCallback);
+            nImO::AddInputOutputHandlers(ourContext, cleanup, nullptr, addOutputChannelCallback);
             if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
@@ -234,7 +232,6 @@ main
                                         nImO::OutChannelVector  outChannels{};
 
                                         ourContext->collectOutputChannels(outChannels);
-                                        addInputChannelCallback->enable(nodeName, proxy, optionValues._inType);
                                         addOutputChannelCallback->enable(nodeName, proxy, optionValues._outType);
                                         if (optionValues._waitForConnections)
                                         {
@@ -286,13 +283,7 @@ main
                                                 }
                                             }
                                         }
-                                        addInputChannelCallback->disable();
                                         addOutputChannelCallback->disable();
-                                        // Wait for the callbacks to finish
-                                        for ( ; addInputChannelCallback->isActive() && nImO::gKeepRunning; )
-                                        {
-                                            boost::this_thread::yield();
-                                        }
                                         // Wait for the callbacks to finish
                                         for ( ; addOutputChannelCallback->isActive() && nImO::gKeepRunning; )
                                         {

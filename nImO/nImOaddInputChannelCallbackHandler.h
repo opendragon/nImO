@@ -39,7 +39,7 @@
 #if (! defined(nImOaddInputChannelCallbackHandler_H_))
 # define nImOaddInputChannelCallbackHandler_H_ /* Header guard */
 
-# include <Contexts/nImOfilterContext.h>
+# include <Contexts/nImOinputOutputContext.h>
 # include <nImOcallbackFunction.h>
 
 # if MAC_OR_LINUX_OR_BSD_
@@ -86,8 +86,8 @@ namespace nImO
              @param[in] theContext The filter context that is active.
              @param[in] basePath The base part of the channel name. */
             inline AddInputChannelCallbackHandler
-                (Ptr(nImO::FilterContext)   theContext,
-                 const std::string &        basePath) :
+                (Ptr(nImO::InputOutputContext)  theContext,
+                 const std::string &            basePath) :
                     inherited(), _basePath(basePath), _context(theContext)
             {
             }
@@ -154,7 +154,7 @@ namespace nImO
             std::string _basePath{};
 
             /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context{nullptr};
+            Ptr(nImO::InputOutputContext)   _context{nullptr};
 
             /*! @brief The expected data type. */
             std::string _dataType{};

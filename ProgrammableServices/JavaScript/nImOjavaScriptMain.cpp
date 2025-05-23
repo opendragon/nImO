@@ -59,7 +59,7 @@
 /*! @file
  @brief A service providing a scriptable service using JavaScript. */
 
-/*! @dir Bridge
+/*! @dir JavaScript
  @brief The set of files that implement the JavaScript application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

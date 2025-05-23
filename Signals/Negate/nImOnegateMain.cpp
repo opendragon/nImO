@@ -55,7 +55,7 @@
 /*! @file
  @brief A signals application to demonstrate using the nImO library in a program. */
 
-/*! @dir Passthrough
+/*! @dir Negate
  @brief The set of files that implement the Negate application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

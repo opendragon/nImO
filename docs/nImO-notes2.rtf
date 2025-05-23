@@ -31,7 +31,7 @@
 * nImOlog - displays the log in a terminal; 
 \f1\b DONE\
 
-\f0\b0 * nImOplayback 'a' [ 'b' [ 'c' ]] - sends messages from a file at a specified rate; 
+\f0\b0 * nImOplayback 'a' ['b' ['c']] - sends messages from a file at a specified rate; 
 \f1\b DONE
 \f0\b0 \
 * nImOpost 'a' 'b' - writes text to the log; 
@@ -43,7 +43,7 @@
 \f0\b0 * nImOrecord 'a' - writes out received messages to a file; 
 \f1\b DONE
 \f0\b0 \
-* nImOstart [ 'a' [ 'b' ]] - starts a service via a launcher; 
+* nImOstart ['a' ['b']] - starts a service via a launcher; 
 \f1\b DONE
 \f0\b0 \
 * nImOstop 'a' - shutdown one or all nodes or machines except active log programs; 
@@ -57,14 +57,15 @@
 
 \f0\b0 \
 interface:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 * 
+* 
+\f2\i nImOchart
+\f0\i0  ['n'] - graphs values of messages from the 'n' input SIGNAL channels ('n' defaults to 1)\
+* 
 \f2\i nImOdisplay
 \f0\i0  - like 
 \f1\b nImOread
 \f0\b0  but GUI-based\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 * 
+* 
 \f2\i nImOmanage
 \f0\i0  - GUI application to display and control nImO applications\
 * 
@@ -82,15 +83,25 @@ examples:\
 \f0\i0  'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order) [uses unfiltered inChannels]\
 \
 signals:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 * nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
+** 
+\f2\i nImOgate
+\f0\i0  ['t'] - passes messages through when a control input SIGNAL channel exceeds a specific value 't' ('t' defaults to 0)\
+* nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
 \f1\b DONE
 \f0\b0 \
-* nImOpulse ['t' ['r' [ 'l' ]]] - sends a series of SIGNAL messages with an interval of 't' seconds and magnitude of 'l' with a random level if 'r' is true ('t' defaults to 1, 'r' defaults to false and 'l' defaults to 1); 
+* 
+\f2\i nImOpower
+\f0\i0  ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\
+* 
+\f2\i nImOproduct
+\f0\i0  ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\
+* nImOpulse ['t' ['r' ['l']]] - sends a series of SIGNAL messages with an interval of 't' seconds and magnitude of 'l' with a random level if 'r' is true ('t' defaults to 1, 'r' defaults to false and 'l' defaults to 1); 
 \f1\b DONE
 \f0\b0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
+* 
+\f2\i nImOsum
+\f0\i0  ['n'] - gathers vales from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\
+\
 wiring:\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]; 
 \f1\b DONE

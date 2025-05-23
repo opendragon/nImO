@@ -63,7 +63,7 @@
 /*! @file
  @brief A utility application to monitor and control an #nImO installation. */
 
-/*! @dir Log
+/*! @dir Manage
  @brief The set of files that implement the manage application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -256,7 +256,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "manage nImO"s, "nImOmanage"s, 2024, nImO::kCopyrightName, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Manage nImO"s, "nImOmanage"s, 2024, nImO::kCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Signals/CMakeLists.txt
+#  File:       non-iOS/Wiring/Sum/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The signal applications for the nImO project.
+#  Contains:   The CMAKE definitions for the Sum application.
 #
 #  Written by: Norman Jaffe
 #
@@ -32,14 +32,36 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2025-05-03
+#  Created:    2025-05-23
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(Negate)
-add_subdirectory(Power)
-add_subdirectory(Product)
-add_subdirectory(Pulse)
-add_subdirectory(Sum)
+include_directories("${nImO_SOURCE_DIR}")
+
+set(THIS_TARGET nImOsum)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Signals/Sum)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+# Set up our program
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOsumMain.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+install(TARGETS
+        ${THIS_TARGET}
+        DESTINATION bin
+        COMPONENT applications)
 
 enable_testing()

@@ -61,7 +61,7 @@
 /*! @file
  @brief A utility application to start a service via a #nImO launcher. */
 
-/*! @dir Bridge
+/*! @dir Start
  @brief The set of files that implement the Bridge application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

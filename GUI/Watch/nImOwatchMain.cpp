@@ -63,7 +63,7 @@
 /*! @file
  @brief A utility application to display information about #nImO. */
 
-/*! @dir Log
+/*! @dir Watch
  @brief The set of files that implement the Watch application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -264,7 +264,7 @@ main
         {
 #if 0
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ContextWithNetworking             ourContext{"monitor"s, optionValues._logging};
+            nImO::ContextWithNetworking             ourContext{"watch"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};

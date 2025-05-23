@@ -55,7 +55,7 @@
 /*! @file
  @brief A wiring application to demonstrate using the nImO library in a program. */
 
-/*! @dir Passthrough
+/*! @dir Delay
  @brief The set of files that implement the Delay application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

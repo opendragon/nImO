@@ -58,7 +58,7 @@
 /*! @file
  @brief A tool to remove registry information for a node or a machine. */
 
-/*! @dir Stop
+/*! @dir Clean
  @brief The set of files that implement the Clean tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

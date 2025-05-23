@@ -60,7 +60,7 @@
 /*! @file
  @brief A utility application to determine if the Registry is active. */
 
-/*! @dir Version
+/*! @dir Check
  @brief The set of files that implement the Check application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

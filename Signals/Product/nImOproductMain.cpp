@@ -163,7 +163,7 @@ main
 
                                     // Using one greater than the requested number of channels will ensure that all the
                                     // channel paths will have a number at the end.
-                                    if (nImO::ChannelName::generatePath(basePath, false, mm + 1, ii, scratch))
+                                    if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input, mm + 1, ii, scratch))
                                     {
                                         statusWithBool = proxy->addChannel(nodeName, scratch, false, nImO::kSignalType,
                                                                            nImO::TransportType::kAny);
@@ -195,7 +195,7 @@ main
                                 bool        outValid{false};
                                 std::string outChannelPath;
 
-                                if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
+                                if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Output, 1, 1, outChannelPath))
                                 {
                                     statusWithBool = proxy->addChannel(nodeName, outChannelPath, true, nImO::kSignalType,
                                                                        nImO::TransportType::kAny);

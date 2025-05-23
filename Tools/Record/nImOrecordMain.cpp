@@ -157,7 +157,7 @@ main
                                         basePath = "/"s + basePath;
                                     }
                                 }
-                                if (nImO::ChannelName::generatePath(basePath, false, 1, 1, inChannelPath))
+                                if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input, 1, 1, inChannelPath))
                                 {
                                     statusWithBool = proxy->addChannel(nodeName, inChannelPath, false, optionValues._inType,
                                                                        nImO::TransportType::kAny);

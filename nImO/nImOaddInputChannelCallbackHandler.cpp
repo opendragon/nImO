@@ -101,7 +101,7 @@ nImO::AddInputChannelCallbackHandler::operator()
 
             // Using one greater than the requested number of channels will ensure that all the
             // channel paths will have a number at the end.
-            if (nImO::ChannelName::generatePath(_basePath, false, nextChannelNumber + 1, nextChannelNumber, scratch))
+            if (nImO::ChannelName::generatePath(_basePath, ChannelName::ChannelType::Input, nextChannelNumber + 1, nextChannelNumber, scratch))
             {
                 auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, false, _dataType, nImO::TransportType::kAny)};
 

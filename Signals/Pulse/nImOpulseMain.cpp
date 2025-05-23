@@ -166,7 +166,7 @@ main
                                         basePath = "/"s + basePath;
                                     }
                                 }
-                                if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
+                                if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Output, 1, 1, outChannelPath))
                                 {
                                     // Note the fixed data type and the restriction to TCP.
                                     statusWithBool = proxy->addChannel(nodeName, outChannelPath, true, nImO::kSignalType,

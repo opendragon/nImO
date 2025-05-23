@@ -133,7 +133,7 @@ nImO::ChannelName::ChannelName
 bool
 nImO::ChannelName::generatePath
     (const std::string &    base,
-     const bool             forOutput,
+     const ChannelType      typeOfChannel,
      const int64_t          numChannels,
      const int64_t          channelNumber,
      std::string &          path)
@@ -171,7 +171,21 @@ nImO::ChannelName::generatePath
         }
         if (okSoFar)
         {
-            path += (forOutput ? "/out"s : "/in"s);
+            switch (typeOfChannel)
+            {
+                case ChannelType::Input :
+                    path += "/in"s;
+                    break;
+
+                case ChannelType::Output :
+                    path += "/out"s;
+                    break;
+
+                case ChannelType::Control :
+                    path += "/control"s;
+                    break;
+
+            }
             if (1 < numChannels)
             {
                 path += std::to_string(channelNumber);

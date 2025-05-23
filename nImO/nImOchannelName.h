@@ -61,6 +61,20 @@ namespace nImO
         public :
             // Public type definitions.
 
+            /*! @brief The type of a channel. */
+            enum class ChannelType
+            {
+                /*! @brief The channel will be used as an input. */
+                Input,
+
+                /*! @brief The channel will be used as an output. */
+                Output,
+
+                /*! @brief The channel will be used as a control signal. */
+                Control
+
+            }; // ChannelName::ChannelType
+
         protected :
             // Protected type definitions.
 
@@ -87,7 +101,7 @@ namespace nImO
 
             /*! @brief Generate the path component of a ChannelName.
              @param[in] base The base name of the path, which can be blank.
-             @param[in] forOutput @c true if this is an output channel and @c false otherwise.
+             @param[in] typeOfChannel The purpose of the channel being named.
              @param[in] numChannels The total number of channels for output (forOutput=true) or input (forOutput=false).
              @param[in] channelNumber The index for the channel (1-origin).
              @param[out] path The generated path.
@@ -95,7 +109,7 @@ namespace nImO
             static bool
             generatePath
                 (const std::string &    base,
-                 const bool             forOutput,
+                 const ChannelType      typeOfChannel,
                  const int64_t          numChannels,
                  const int64_t          channelNumber,
                  std::string &          path);

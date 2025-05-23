@@ -443,14 +443,14 @@ static int
 doTestGeneratePath
     (const bool expected,
      CPtr(char) baseString,
-     CPtr(char) forOutputString,
+     CPtr(char) typeString,
      CPtr(char) numChannelsString,
      CPtr(char) channelNumberString,
      CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1(expected); //####
-    ODL_S4(baseString, forOutputString, numChannelsString, channelNumberString); //####
+    ODL_S4(baseString, typeString, numChannelsString, channelNumberString); //####
     ODL_S1(expectedString); //####
     int result{1};
 
@@ -462,21 +462,48 @@ doTestGeneratePath
         if (ConvertToInt64(numChannelsString, numChannels) && (0 < numChannels) &&
             ConvertToInt64(channelNumberString, channelNumber) && (0 < channelNumber))
         {
-            bool        forOutput{('t' == *forOutputString) || ('T' == *forOutputString)};
-            std::string path;
+            bool                        badType{false};
+            ChannelName::ChannelType    type;
 
-            if (nImO::ChannelName::generatePath(baseString, forOutput, numChannels, channelNumber, path))
+            switch (*typeString)
             {
-                if (expected && (path == expectedString))
-                {
-                    result = 0;
-                }
+                case 't' :
+                case 'T' :
+                    type = ChannelName::ChannelType::Output;
+                    break;
+
+                case 'c' :
+                case 'C' :
+                    type = ChannelName::ChannelType::Control;
+                    break;
+
+                case 'f' :
+                case 'F' :
+                    type = ChannelName::ChannelType::Input;
+                    break;
+
+                default :
+                    badType = true;
+                    break;
+
             }
-            else
+            if (! badType)
             {
-                if (! expected)
+                std::string path;
+
+                if (nImO::ChannelName::generatePath(baseString, type, numChannels, channelNumber, path))
                 {
-                    result = 0;
+                    if (expected && (path == expectedString))
+                    {
+                        result = 0;
+                    }
+                }
+                else
+                {
+                    if (! expected)
+                    {
+                        result = 0;
+                    }
                 }
             }
         }

@@ -156,7 +156,7 @@ main
                                         basePath = "/"s + basePath;
                                     }
                                 }
-                                if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
+                                if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Output, 1, 1, outChannelPath))
                                 {
                                     statusWithBool = proxy->addChannel(nodeName, outChannelPath, true, nImO::kSignalType,
                                                                        nImO::TransportType::kAny);
@@ -187,7 +187,7 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    if (nImO::ChannelName::generatePath(basePath, false, 1, 1, inChannelPath))
+                                    if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input, 1, 1, inChannelPath))
                                     {
                                         statusWithBool = proxy->addChannel(nodeName, inChannelPath, false, nImO::kSignalType,
                                                                            nImO::TransportType::kAny);

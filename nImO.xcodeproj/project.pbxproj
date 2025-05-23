@@ -282,6 +282,10 @@
 		F680E46C29FFCC8F00614B6E /* Test_contexts.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_contexts.txt; path = "non-iOS/Tests/Test_contexts.txt"; sourceTree = "<group>"; };
 		F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelName.cpp; path = nImO/nImOchannelName.cpp; sourceTree = "<group>"; };
 		F6811BD3240FFD9700B09333 /* nImOchannelName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOchannelName.h; path = nImO/nImOchannelName.h; sourceTree = "<group>"; };
+		F6815D3C2DE0957A0057BBA9 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6815D412DE095E20057BBA9 /* nImOgate.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOgate.rc.in; sourceTree = "<group>"; };
+		F6815D422DE095E20057BBA9 /* nImOgateMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOgateMain.cpp; sourceTree = "<group>"; };
+		F6815D432DE095E20057BBA9 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F68373EC2404097F0030F969 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = examples/Ricochet/resource.h; sourceTree = "<group>"; };
 		F68373ED2404097F0030F969 /* nImOricochetMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetMain.cpp; path = examples/Ricochet/nImOricochetMain.cpp; sourceTree = "<group>"; };
 		F68373EE2404097F0030F969 /* nImOricochet.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOricochet.rc.in; path = examples/Ricochet/nImOricochet.rc.in; sourceTree = "<group>"; };
@@ -1055,6 +1059,7 @@
 		F64EECD12DC6218B0070A8FF /* Signals */ = {
 			isa = PBXGroup;
 			children = (
+				F6815D402DE0957A0057BBA9 /* Gate */,
 				F64EECD22DC621FB0070A8FF /* CMakeLists.txt */,
 				F64EECD32DC622060070A8FF /* Negate */,
 				F6484BF22DE08E120078F729 /* Power */,
@@ -1085,6 +1090,7 @@
 		F64EECD72DC6229B0070A8FF /* Signals */ = {
 			isa = PBXGroup;
 			children = (
+				F6815D442DE095E20057BBA9 /* Gate */,
 				F64EECD82DC622AF0070A8FF /* Negate */,
 				F6484BF62DE08FE10078F729 /* Power */,
 				F6484BEE2DE08C880078F729 /* Product */,
@@ -1449,6 +1455,24 @@
 				F6B0A1782BC01538009453D3 /* nImOstartAppCommandHandler.h */,
 			);
 			name = "Command Handlers";
+			sourceTree = "<group>";
+		};
+		F6815D402DE0957A0057BBA9 /* Gate */ = {
+			isa = PBXGroup;
+			children = (
+				F6815D3C2DE0957A0057BBA9 /* CMakeLists.txt */,
+			);
+			path = Gate;
+			sourceTree = "<group>";
+		};
+		F6815D442DE095E20057BBA9 /* Gate */ = {
+			isa = PBXGroup;
+			children = (
+				F6815D412DE095E20057BBA9 /* nImOgate.rc.in */,
+				F6815D422DE095E20057BBA9 /* nImOgateMain.cpp */,
+				F6815D432DE095E20057BBA9 /* resource.h */,
+			);
+			path = Gate;
 			sourceTree = "<group>";
 		};
 		F68373EA240409500030F969 /* examples */ = {

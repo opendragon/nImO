@@ -154,6 +154,8 @@ add_test(NAME TestChannelNameWithLongerPathGetProtocol COMMAND ${THIS_TARGET} 14
 add_test(NAME TestGeneratedSingularOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" t 1 1 "/out")
 ## Test generated singular input channel name with default base
 add_test(NAME TestGeneratedSingularInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" f 1 1 "/in")
+## Test generated singular control channel name with default base
+add_test(NAME TestGeneratedSingularControlChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" c 1 1 "/control")
 ## Test generated first output channel name with default base
 add_test(NAME TestGeneratedFirstOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" t 10 1 "/out1")
 ## Test generated last output channel name with default base
@@ -162,10 +164,16 @@ add_test(NAME TestGeneratedLastOutputChannelNameWithDefaultBase COMMAND ${THIS_T
 add_test(NAME TestGeneratedFirstInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" f 10 1 "/in1")
 ## Test generated last input channel name with default base
 add_test(NAME TestGeneratedLastInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" f 10 10 "/in10")
+## Test generated first control channel name with default base
+add_test(NAME TestGeneratedFirstControlChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" c 10 1 "/control1")
+## Test generated last control channel name with default base
+add_test(NAME TestGeneratedLastControlChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" c 10 10 "/control10")
 ## Test generated singular output channel name with simple base
 add_test(NAME TestGeneratedSingularOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" t 1 1 "/chuckles/out")
 ## Test generated singular input channel name with simple base
 add_test(NAME TestGeneratedSingularInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" f 1 1 "/chuckles/in")
+## Test generated singular control channel name with simple base
+add_test(NAME TestGeneratedSingularControlChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" c 1 1 "/chuckles/control")
 ## Test generated first output channel name with simple base
 add_test(NAME TestGeneratedFirstOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" t 10 1 "/chuckles/out1")
 ## Test generated last output channel name with simple base
@@ -174,6 +182,10 @@ add_test(NAME TestGeneratedLastOutputChannelNameWithSimpleBase COMMAND ${THIS_TA
 add_test(NAME TestGeneratedFirstInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" f 10 1 "/chuckles/in1")
 ## Test generated last input channel name with simple base
 add_test(NAME TestGeneratedLastInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" f 10 10 "/chuckles/in10")
+## Test generated first control channel name with simple base
+add_test(NAME TestGeneratedFirstControlChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" c 10 1 "/chuckles/control1")
+## Test generated last control channel name with simple base
+add_test(NAME TestGeneratedLastControlChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 15 t "/chuckles" c 10 10 "/chuckles/control10")
 ## Test generated channel name with out-of-range index
 add_test(NAME TestGeneratedInputChannelNameWithOutOfRangeIndex COMMAND ${THIS_TARGET} 15 f "/chuckles" f 1 2 "/chuckles/in")
 

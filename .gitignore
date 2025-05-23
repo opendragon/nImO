@@ -68,6 +68,9 @@ non-iOS/ProgrammableServices/Python/nImOpython.rc
 non-iOS/Registry/nImOregistry
 non-iOS/Registry/nImOregistry.dir/
 non-iOS/Registry/nImOregistry.rc
+non-iOS/Signals/Gate/nImOgate
+non-iOS/Signals/Gate/nImOgate.dir/
+non-iOS/Signals/Gate/nImOgate.rc
 non-iOS/Signals/Negate/nImOnegate
 non-iOS/Signals/Negate/nImOnegate.dir/
 non-iOS/Signals/Negate/nImOnegate.rc

@@ -27,6 +27,10 @@
             "path" > "$$/nImOfanIn"
             "description" > "Send messages to all output channels from the input channel"
             }
+"Gate" > {
+            "path" > "$$/nImOgate"
+            "description" > "Pass messages through when a control signal allows"
+            }
 "JavaScript" > {
             "path" > "$$/nImOjavaScript"
             "description" > "Run a JavaScript program -> unimplemented"

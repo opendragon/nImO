@@ -112,7 +112,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 BaseArgumentDescriptor::BaseArgumentDescriptor
     (const BaseArgumentDescriptor & other) :
         _argDescription{other._argDescription}, _argMode{other._argMode}, _argName{other._argName},
-        _valid{other._valid}
+        _valid{other._valid}, _wasSeen{other._wasSeen}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -123,13 +123,10 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
     (BaseArgumentDescriptor &&  other)
     noexcept :
         _argDescription{std::move(other._argDescription)}, _argMode{std::exchange(other._argMode, ArgumentMode::Unknown)},
-        _argName{std::move(other._argName)}, _valid{std::exchange(other._valid, false)}
+        _argName{std::move(other._argName)}, _valid{std::exchange(other._valid, false)}, _wasSeen{std::exchange(other._wasSeen, false)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._argDescription = other._argName = "";
-    other._argMode = ArgumentMode::Unknown;
-    other._valid = false;
     ODL_EXIT_P(this); //####
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
@@ -274,6 +271,7 @@ BaseArgumentDescriptor::operator=
         _argMode = std::exchange(other._argMode, ArgumentMode::Unknown);
         _argName = std::move(other._argName);
         _valid = std::exchange(other._valid, false);
+        _wasSeen = std::exchange(other._wasSeen, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

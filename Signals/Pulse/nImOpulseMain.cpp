@@ -221,7 +221,7 @@ main
                                         bool                            sendHigh{false};
                                         int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                         bool                            valueIsRandom{secondArg->getCurrentValue()};
-                                        auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
+                                        auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds) / 2.0};
                                         double                          lowValue{thirdArg->getCurrentValue()};
                                         double                          highValue{fourthArg->getCurrentValue()};
                                         std::set<nImO::SpDeadlineTimer> timers{};

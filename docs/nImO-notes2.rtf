@@ -5,7 +5,7 @@
 }
 {\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;
 }
-\margl1440\margr1440\vieww36120\viewh22460\viewkind0
+\margl1440\margr1440\vieww38780\viewh22460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 tools:\
@@ -81,7 +81,7 @@ signals:\
 * nImOproduct ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\cf0 ; 
 \f1\b DONE
 \f0\b0 \cf3 \
-\cf0 * nImOpulse ['t' ['r' ['l']]] - sends a series of SIGNAL messages with an interval of 't' seconds and magnitude of 'l' with a random level if 'r' is true ('t' defaults to 1, 'r' defaults to false and 'l' defaults to 1); 
+\cf0 * nImOpulse ['t' ['r' ['l' ['h']]]] - sends a series of SIGNAL messages with an interval of 't' seconds and minimum of 'l' and a maximum of 'h' with a random level if 'r' is true ('t' defaults to 1, 'r' defaults to false, 'l' defaults to 0 and 'h' defaults to 1); 
 \f1\b DONE
 \f0\b0 \
 \cf3 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 

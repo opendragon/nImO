@@ -76,6 +76,16 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+nImO::ComparisonStatus::ComparisonStatus
+    (ComparisonStatus && other)
+    noexcept :
+        _result{std::exchange(other._result, false)}, _valid{std::exchange(other._valid, false)}
+{
+    ODL_ENTER(); //####
+    ODL_P1(&other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::ComparisonStatus::ComparisonStatus
+
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

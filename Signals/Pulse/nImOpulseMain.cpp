@@ -99,7 +99,9 @@ main
                                                                                       nImO::ArgumentMode::Optional, 1.0, true, tinyValue, false, 0.0)};
     auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random values"s,
                                                                                        nImO::ArgumentMode::Optional, false)};
-    auto                    thirdArg{std::make_shared<nImO::DoubleArgumentDescriptor>("magnitude"s, "Value to be sent"s,
+    auto                    thirdArg{std::make_shared<nImO::DoubleArgumentDescriptor>("minimum"s, "Low value to be sent"s,
+                                                                                       nImO::ArgumentMode::Optional, 0.0, false, 0.0, false, 0.0)};
+    auto                    fourthArg{std::make_shared<nImO::DoubleArgumentDescriptor>("maximum"s, "High value to be sent"s,
                                                                                        nImO::ArgumentMode::Optional, 1.0, false, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
@@ -114,6 +116,7 @@ main
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
     argumentList.push_back(thirdArg);
+    argumentList.push_back(fourthArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a pulse out a channel"s, "nImOpulse 5 true 0.25"s, 2025, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipPortOption | nImO::kSkipRemoteOption | nImO::kSkipSignalOption))
@@ -215,10 +218,12 @@ main
                                             }
                                         }
                                         std::atomic_bool                doAnother{true};
+                                        bool                            sendHigh{false};
                                         int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                         bool                            valueIsRandom{secondArg->getCurrentValue()};
                                         auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
-                                        double                          magnitude{thirdArg->getCurrentValue()};
+                                        double                          lowValue{thirdArg->getCurrentValue()};
+                                        double                          highValue{fourthArg->getCurrentValue()};
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
                                         if (nImO::gKeepRunning)
@@ -227,13 +232,27 @@ main
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
+                                        if (! fourthArg->wasSeen())
+                                        {
+                                            highValue = lowValue;
+                                        }
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
                                             if (nImO::gKeepRunning && doAnother)
                                             {
+                                                double  actualValue;
+
                                                 doAnother = false;
-                                                double          actualValue{magnitude * (valueIsRandom ? nImO::RandomDouble() : 1.0)};
+                                                if (valueIsRandom)
+                                                {
+                                                    actualValue = (nImO::RandomDouble() * (highValue - lowValue)) + lowValue;
+                                                }
+                                                else
+                                                {
+                                                    actualValue = (sendHigh ? highValue : lowValue);
+                                                    sendHigh = (! sendHigh);
+                                                }
                                                 nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(actualValue)};
 
                                                 if (valueToSend)

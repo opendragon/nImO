@@ -169,8 +169,7 @@ PortArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _isSystemPort = other._isSystemPort;
-        other._isSystemPort = false;
+        _isSystemPort = std::exchange(other._isSystemPort, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

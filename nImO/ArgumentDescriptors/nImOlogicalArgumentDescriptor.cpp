@@ -210,9 +210,8 @@ LogicalArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _defaultValue = other._defaultValue;
-        _currentValue = other._currentValue;
-        other._currentValue = other._defaultValue = false;
+        _defaultValue = std::exchange(other._defaultValue, false);
+        _currentValue = std::exchange(other._currentValue, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

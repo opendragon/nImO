@@ -102,7 +102,7 @@ namespace nImO
              @return The updated object. */
             InChannel &
             operator=
-                (InChannel && other)
+                (InChannel &&   other)
                 noexcept = delete;
 
             /*! @brief Receive messages via the TCP socket. */

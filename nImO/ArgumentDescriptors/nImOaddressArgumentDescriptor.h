@@ -122,7 +122,7 @@ namespace nImO
              @return The updated object. */
             AddressArgumentDescriptor &
             operator=
-                (AddressArgumentDescriptor &&  other)
+                (AddressArgumentDescriptor &&   other)
                 noexcept;
 
             /*! @brief Construct a descriptor, if at all possible, from the input string.

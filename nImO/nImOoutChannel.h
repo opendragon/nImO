@@ -85,7 +85,7 @@ namespace nImO
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             OutChannel
-                (OutChannel &&    other)
+                (OutChannel &&  other)
                 noexcept = delete;
 
             /*! @brief The destructor. */
@@ -99,7 +99,7 @@ namespace nImO
              @return The updated object. */
             OutChannel &
             operator=
-                (OutChannel && other)
+                (OutChannel &&  other)
                 noexcept = delete;
 
             /*! @brief Send a message.

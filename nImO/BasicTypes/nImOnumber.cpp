@@ -91,7 +91,7 @@ nImO::Number::Number
 nImO::Number::Number
     (Number &&  other)
     noexcept :
-        inherited{}
+        inherited{std::move(other)}
 {
     NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####

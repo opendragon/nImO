@@ -169,8 +169,7 @@ AddressArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _addrBuff = other._addrBuff;
-        other._addrBuff = nullptr;
+        _addrBuff = std::exchange(other._addrBuff, nullptr);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

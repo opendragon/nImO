@@ -120,7 +120,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (StringsArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _allowedValues{std::move(other._allowedValues)}, _caseInsensitive{std::move(other._caseInsensitive)},
+        inherited{std::move(other)}, _allowedValues{std::move(other._allowedValues)}, _caseInsensitive{std::exchange(other._caseInsensitive, false)},
         _defaultValue{std::move(other._defaultValue)}
 {
     ODL_ENTER(); //####
@@ -227,7 +227,7 @@ StringsArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _caseInsensitive = std::move(other._caseInsensitive);
+        _caseInsensitive = std::exchange(other._caseInsensitive, false);
         _defaultValue = std::move(other._defaultValue);
         _allowedValues = std::move(other._allowedValues);
     }

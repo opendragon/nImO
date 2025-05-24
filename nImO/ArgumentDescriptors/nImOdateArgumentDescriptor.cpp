@@ -198,8 +198,7 @@ DateArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _currentValue = other._currentValue;
-        other._currentValue = 0;
+        _currentValue = std::exchange(other._currentValue, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

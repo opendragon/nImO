@@ -122,8 +122,8 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 BaseArgumentDescriptor::BaseArgumentDescriptor
     (BaseArgumentDescriptor &&  other)
     noexcept :
-        _argDescription{other._argDescription}, _argMode{other._argMode}, _argName{other._argName},
-        _valid{other._valid}
+        _argDescription{std::move(other._argDescription)}, _argMode{std::exchange(other._argMode, ArgumentMode::Unknown)},
+        _argName{std::move(other._argName)}, _valid{std::exchange(other._valid, false)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -696,14 +696,14 @@ nImO::ProcessArguments
                 }
                 else
                 {
-                    result = (! sawOptional) && (! sawExtra);
+                    result = ((! sawOptional) && (! sawExtra));
                     ODL_B1(result); //####
                 }
             }
         }
     }
     // Check the arguments with matching descriptions, unless it is a placeholder for extra arguments.
-    if (0 != result)
+    if (result)
     {
         for (size_t ii = 0; numToCheck > ii; ++ii)
         {
@@ -712,7 +712,11 @@ nImO::ProcessArguments
             if ((nullptr != anArg) && (! anArg->isExtra()))
             {
                 ODL_LOG("((nullptr != anArg) && (! anArg->isExtra()))"); //####
-                if (! anArg->validate(parseResult.nonOption(StaticCast(int, ii))))
+                if (anArg->validate(parseResult.nonOption(StaticCast(int, ii))))
+                {
+                    anArg->markSeen();
+                }
+                else
                 {
                     if (! badArgs.empty())
                     {

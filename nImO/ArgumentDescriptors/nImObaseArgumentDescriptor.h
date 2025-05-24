@@ -337,6 +337,14 @@ namespace nImO
                 return _valid;
             }
 
+            /*! @brief Mark the descriptor as having been seen. */
+            inline void
+            markSeen
+                (void)
+            {
+                _wasSeen = true;
+            }
+
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
@@ -369,6 +377,16 @@ namespace nImO
             virtual bool
             validate
                 (const std::string &    value) = 0;
+
+            /*! @brief Return @c true if the argument was present and @c false otherwise.
+             @return @c true if the argument was present and @c false otherwise. */
+            inline bool
+            wasSeen
+                (void)
+                const
+            {
+                return _wasSeen;
+            }
 
         protected :
             // Protected methods.
@@ -477,6 +495,9 @@ namespace nImO
 
             /*! @brief @c true if the argument was valid and @c false otherwise. */
             bool _valid{false};
+
+            /*! @brief @c true if the argument was present. */
+            bool _wasSeen{false};
 
     }; // BaseArgumentDescriptor
 

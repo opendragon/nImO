@@ -225,13 +225,11 @@ IntegerArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _defaultValue = other._defaultValue;
-        _maximumValue = other._maximumValue;
-        _minimumValue = other._minimumValue;
-        _hasMaximumValue = other._hasMaximumValue;
-        _hasMinimumValue = other._hasMinimumValue;
-        other._defaultValue = other._maximumValue = other._minimumValue = 0;
-        other._hasMaximumValue = other._hasMinimumValue = false;
+        _defaultValue = std::exchange(other._defaultValue, 0);
+        _maximumValue = std::exchange(other._maximumValue, 0);
+        _minimumValue = std::exchange(other._minimumValue, 0);
+        _hasMaximumValue = std::exchange(other._hasMaximumValue, false);
+        _hasMinimumValue = std::exchange(other._hasMinimumValue, false);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

@@ -113,7 +113,7 @@ nImO::Invalid::Invalid
 nImO::Invalid::Invalid
     (Invalid && other)
     noexcept :
-        inherited{std::move(other)}, _description{std::exchange(other._description, ""s)}
+        inherited{std::move(other)}, _description{std::move(other._description)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####

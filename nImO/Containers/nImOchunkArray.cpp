@@ -99,15 +99,11 @@ nImO::ChunkArray::ChunkArray
 nImO::ChunkArray::ChunkArray
     (ChunkArray &&  other)
     noexcept :
-        _buffers{other._buffers}, _buffersArePadded{other._buffersArePadded}, _cachedString{other._cachedString},
-        _numChunks{other._numChunks}
+        _buffers{std::exchange(other._buffers, nullptr)}, _buffersArePadded{std::exchange(other._buffersArePadded, false)},
+        _cachedString{std::move(other._cachedString)}, _numChunks{std::exchange(other._numChunks, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
-    other._buffers = nullptr;
-    other._buffersArePadded = false;
-    other._cachedString = ""s;
-    other._numChunks = 0;
     ODL_EXIT_P(this); //####
 } // nImO::ChunkArray::ChunkArray
 
@@ -361,14 +357,10 @@ nImO::ChunkArray::operator=
     ODL_P1(&other); //####
     if (this != &other)
     {
-        _buffers = other._buffers;
-        _buffersArePadded = other._buffersArePadded;
-        _cachedString = other._cachedString;
-        _numChunks = other._numChunks;
-        other._buffers = nullptr;
-        other._buffersArePadded = false;
-        other._cachedString = ""s;
-        other._numChunks = 0;
+        _buffers = std::exchange(other._buffers, nullptr);
+        _buffersArePadded = std::exchange(other._buffersArePadded, false);
+        _cachedString = std::move(other._cachedString);
+        _numChunks = std::exchange(other._numChunks, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

@@ -280,6 +280,8 @@ main
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
+std::cerr << "** Unimplemented **\n";
+                                            // TBD
 #if 0
                                         int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                         auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};

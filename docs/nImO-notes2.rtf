@@ -67,11 +67,11 @@ interface:\
 \f0\b0  but GUI-based\
 \cf0 \
 examples:\
-\cf2 * nImOricochet 'p' - forwards a message to the next machine in a list [uses unfiltered InChannels]\
-* nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order) [uses unfiltered inChannels]\
+\cf2 * nImOricochet 'p' - forwards a message to the next machine in a list\
+* nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order)\
 \cf0 \
-signals:\
-\cf2 * nImOgate ['t'] - passes messages through when a control input SIGNAL channel exceeds a specific value 't' ('t' defaults to 0)\
+signal services:\
+\cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0)\
 \cf0 * nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
 \f1\b DONE
 \f0\b0 \
@@ -88,7 +88,7 @@ signals:\
 \f1\b DONE
 \f0\b0 \cf3 \
 \cf0 \
-wiring:\
+wiring services:\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]; 
 \f1\b DONE
 \f0\b0 \

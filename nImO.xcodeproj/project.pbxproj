@@ -648,6 +648,14 @@
 		F6EC3D2629965273006C36D1 /* nImOlauncher.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOlauncher.rc.in; sourceTree = "<group>"; };
 		F6EC3D2729965273006C36D1 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F6EC3D2829965273006C36D1 /* nImOlauncherMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOlauncherMain.cpp; sourceTree = "<group>"; };
+		F6EC944A2E1C1ACD00688FE8 /* nImOlua.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOlua.rc.in; sourceTree = "<group>"; };
+		F6EC944B2E1C1ACD00688FE8 /* nImOluaMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOluaMain.cpp; sourceTree = "<group>"; };
+		F6EC944C2E1C1ACD00688FE8 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6EC944E2E1C1ACD00688FE8 /* nImOtcl.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOtcl.rc.in; sourceTree = "<group>"; };
+		F6EC944F2E1C1ACD00688FE8 /* nImOtclMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOtclMain.cpp; sourceTree = "<group>"; };
+		F6EC94502E1C1ACD00688FE8 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6EC94562E1C1B9400688FE8 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6EC94582E1C1B9400688FE8 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommon.cpp; path = nImO/nImOcommon.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ACA1CA2C7F4004748ED /* nImOcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOcommon.h; path = nImO/nImOcommon.h; sourceTree = SOURCE_ROOT; };
 		F6EE0ACB1CA2C7F4004748ED /* nImOconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOconfig.h; path = nImO/nImOconfig.h; sourceTree = SOURCE_ROOT; };
@@ -1900,7 +1908,9 @@
 				F6CA16752CD94FFA00BA78EB /* CMakeLists.txt */,
 				F6CA16762CD9505D00BA78EB /* JavaScript */,
 				F6CA16772CD9506900BA78EB /* Lisp */,
+				F6EC94572E1C1B9400688FE8 /* Lua */,
 				F6CA16782CD9507100BA78EB /* Python */,
+				F6EC94592E1C1B9400688FE8 /* Tcl */,
 			);
 			name = ProgrammableServices;
 			sourceTree = "<group>";
@@ -1934,7 +1944,9 @@
 			children = (
 				F6CA167D2CD9511400BA78EB /* JavaScript */,
 				F6CA167E2CD9511C00BA78EB /* Lisp */,
+				F6EC944D2E1C1ACD00688FE8 /* Lua */,
 				F6CA167F2CD9512200BA78EB /* Python */,
+				F6EC94512E1C1ACD00688FE8 /* Tcl */,
 			);
 			path = ProgrammableServices;
 			sourceTree = "<group>";
@@ -2314,6 +2326,44 @@
 				F6CA16AF2CD955CF00BA78EB /* Repeat */,
 			);
 			path = Wiring;
+			sourceTree = "<group>";
+		};
+		F6EC944D2E1C1ACD00688FE8 /* Lua */ = {
+			isa = PBXGroup;
+			children = (
+				F6EC944A2E1C1ACD00688FE8 /* nImOlua.rc.in */,
+				F6EC944B2E1C1ACD00688FE8 /* nImOluaMain.cpp */,
+				F6EC944C2E1C1ACD00688FE8 /* resource.h */,
+			);
+			path = Lua;
+			sourceTree = "<group>";
+		};
+		F6EC94512E1C1ACD00688FE8 /* Tcl */ = {
+			isa = PBXGroup;
+			children = (
+				F6EC944E2E1C1ACD00688FE8 /* nImOtcl.rc.in */,
+				F6EC944F2E1C1ACD00688FE8 /* nImOtclMain.cpp */,
+				F6EC94502E1C1ACD00688FE8 /* resource.h */,
+			);
+			path = Tcl;
+			sourceTree = "<group>";
+		};
+		F6EC94572E1C1B9400688FE8 /* Lua */ = {
+			isa = PBXGroup;
+			children = (
+				F6EC94562E1C1B9400688FE8 /* CMakeLists.txt */,
+			);
+			name = Lua;
+			path = "non-iOS/ProgrammableServices/Lua";
+			sourceTree = "<group>";
+		};
+		F6EC94592E1C1B9400688FE8 /* Tcl */ = {
+			isa = PBXGroup;
+			children = (
+				F6EC94582E1C1B9400688FE8 /* CMakeLists.txt */,
+			);
+			name = Tcl;
+			path = "non-iOS/ProgrammableServices/Tcl";
 			sourceTree = "<group>";
 		};
 		F6EE0A9D1CA2C425004748ED /* swig */ = {

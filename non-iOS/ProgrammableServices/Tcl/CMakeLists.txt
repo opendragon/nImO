@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/ProgrammableServices/CMakeLists.txt
+#  File:       non-iOS/ProgrammableServices/Tcl/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The common CMAKE definitions for the nImO project.
+#  Contains:   The CMAKE definitions for the Tcl application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2024 by OpenDragon.
+#  Copyright:  (c) 2025 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,36 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2024-10-13
+#  Created:    2025-07-07
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(JavaScript)
-add_subdirectory(Lisp)
-add_subdirectory(Lua)
-add_subdirectory(Python)
-add_subdirectory(Tcl)
+include_directories("${nImO_SOURCE_DIR}")
+
+set(THIS_TARGET nImOtcl)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/ProgrammableServices/Tcl)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+# Set up our program
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOtclMain.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+install(TARGETS
+        ${THIS_TARGET}
+        DESTINATION bin
+        COMPONENT applications)
 
 enable_testing()

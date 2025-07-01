@@ -62,9 +62,15 @@ non-iOS/ProgrammableServices/JavaScript/nImOjavaScript.rc
 non-iOS/ProgrammableServices/Lisp/nImOlisp
 non-iOS/ProgrammableServices/Lisp/nImOlisp.dir/
 non-iOS/ProgrammableServices/Lisp/nImOlisp.rc
+non-iOS/ProgrammableServices/Lua/nImOlua
+non-iOS/ProgrammableServices/Lua/nImOlua.dir/
+non-iOS/ProgrammableServices/Lua/nImOlua.rc
 non-iOS/ProgrammableServices/Python/nImOpython
 non-iOS/ProgrammableServices/Python/nImOpython.dir/
 non-iOS/ProgrammableServices/Python/nImOpython.rc
+non-iOS/ProgrammableServices/Tcl/nImOtcl
+non-iOS/ProgrammableServices/Tcl/nImOtcl.dir/
+non-iOS/ProgrammableServices/Tcl/nImOtcl.rc
 non-iOS/Registry/nImOregistry
 non-iOS/Registry/nImOregistry.dir/
 non-iOS/Registry/nImOregistry.rc

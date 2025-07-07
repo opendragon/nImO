@@ -43,6 +43,10 @@
             "path" > "$$/nImOlisp"
             "description" > "Run a Common Lisp program -> unimplemented"
             }
+"Lua" > {
+            "path" > "$$/nImOlua"
+            "description" > "Run a Lua program -> unimplemented"
+            }
 "Negate" > {
             "path" > "$$/nImOnegate"
             "description" > "Change the sign of a SIGNAL message"
@@ -66,5 +70,9 @@
 "Sum" > {
             "path" > "$$/nImOsum"
             "description" > "Send the sum of the input SIGNAL messages -> unimplemented"
+            }
+"Tcl" > {
+            "path" > "$$/nImOtcl"
+            "description" > "Run a Tcl program -> unimplemented"
             }
 }

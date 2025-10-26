@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/ksh
 
 THIS_FILE_NAME=$(basename $0)
 
-function list_commands() {
+function list_commands
+{
     echo "  where <command> is"
     echo "    adda       add an application"
     echo "    addc       add a channel to a node"
@@ -30,12 +31,14 @@ function list_commands() {
     echo "    write      write to a channel"
 }
 
-function usage() {
+function usage
+{
     echo "USAGE: $THIS_FILE_NAME <command> [<options>]"
     list_commands
 }
 
-function usage_help() {
+function usage_help
+{
     if [[ $# -eq 0 ]]; then
         echo "USAGE: $THIS_FILE_NAME help [<command>]"
         list_commands

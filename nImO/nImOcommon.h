@@ -206,11 +206,12 @@ numElementsInArray
     return Num;
 }
 
-namespace BAIP = boost::asio::ip;
-namespace BAErr = boost::asio::error;
+namespace BA = boost::asio;
+namespace BAIP = BA::ip;
+namespace BAErr = BA::error;
 
 /*! @brief A shortened name for a type. */
-using BAD_t = boost::asio::deadline_timer;
+using BAD_t = BA::deadline_timer;
 
 /*! @brief A shortened name for a type. */
 using BSErr = boost::system::error_code;

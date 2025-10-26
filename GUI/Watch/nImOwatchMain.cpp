@@ -129,7 +129,7 @@ class ReceiveOnMessagePort final
         {
             if (nImO::gKeepRunning)
             {
-                _socket.async_receive_from(boost::asio::buffer(_data), _senderEndpoint,
+                _socket.async_receive_from(BA::buffer(_data), _senderEndpoint,
                                            [this]
                                            (const BSErr         ec,
                                             const std::size_t   length)

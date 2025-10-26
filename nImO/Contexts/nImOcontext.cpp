@@ -81,7 +81,7 @@ static bool lContextCreated{false};
 
 nImO::Context::Context
     (void) :
-        _service{std::make_shared<boost::asio::io_service>()}
+        _service{std::make_shared<BA::io_service>()}
 {
     ODL_ENTER(); //####
     ODL_P1(_service.get()); //####

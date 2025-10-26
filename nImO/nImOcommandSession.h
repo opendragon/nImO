@@ -123,7 +123,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief A buffer to hold the received request. */
-            boost::asio::streambuf  _buffer{};
+            BA::streambuf  _buffer{};
 
             /*! @brief The context that created this session. */
             SpServiceContext    _owner{};

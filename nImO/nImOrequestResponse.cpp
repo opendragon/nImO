@@ -203,9 +203,9 @@ handleWriteCompletion
 #if defined(nImO_ChattyTcpUdpLogging)
     context->report("command sent."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-    auto    rB{std::make_shared<boost::asio::streambuf>()};
+    auto    rB{std::make_shared<BA::streambuf>()};
 
-    boost::asio::async_read_until(*socket, *rB, nImO::MatchMessageSeparator,
+    BA::async_read_until(*socket, *rB, nImO::MatchMessageSeparator,
                                 [context, rB, handler, keepGoing, &responseKey, status]
                                 (const BSErr &      ec3,
                                  const std::size_t  size)
@@ -268,7 +268,7 @@ handleConnectCompletion
 #if defined(nImO_ChattyTcpUdpLogging)
     context->report("command connection request accepted."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-    boost::asio::async_write(*socket, boost::asio::buffer(outString->c_str(), outString->length()),
+    BA::async_write(*socket, BA::buffer(outString->c_str(), outString->length()),
                               [socket, context, handler, keepGoing, &responseKey, status]
                               (const BSErr &        ec2,
                                const std::size_t    bytes_transferred)

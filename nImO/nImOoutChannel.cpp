@@ -156,7 +156,7 @@ nImO::OutChannel::send
                     // send the encoded message to the receiver
                     if (TransportType::kUDP == _connection._transport)
                     {
-                        _udpSocket->async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
+                        _udpSocket->async_send_to(BA::buffer(*outString), _udpSendpoint,
                                                   [this, outString]
                                                   (const BSErr          ec,
                                                    const std::size_t    length)
@@ -191,7 +191,7 @@ nImO::OutChannel::send
                         {
                             if (_tcpConnected)
                             {
-                                boost::asio::async_write(*_tcpSocket, boost::asio::buffer(*outString),
+                                BA::async_write(*_tcpSocket, BA::buffer(*outString),
                                                          [this, outString]
                                                          (const BSErr &        ec,
                                                           const std::size_t    bytes_transferred)

@@ -174,7 +174,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
 #if defined(nImO_ChattyTcpUdpLogging)
             context->report("sending response."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-            boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
+            BA::async_write(socket, BA::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText, &reason]
                                       (const BSErr &        ec,
                                        const std::size_t    bytes_transferred)
@@ -284,7 +284,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
 #if defined(nImO_ChattyTcpUdpLogging)
             context->report("sending response"s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-            boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
+            BA::async_write(socket, BA::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText, &reason]
                                       (const BSErr &        ec,
                                        const std::size_t    bytes_transferred)
@@ -366,7 +366,7 @@ nImO::CommandHandler::sendStatusReport
             auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
 
             // send the encoded message to the logging ports
-            theSocket.async_send_to(boost::asio::buffer(*outString), theEndpoint,
+            theSocket.async_send_to(BA::buffer(*outString), theEndpoint,
                                       [outString]
                                       (const BSErr          ec,
                                        const std::size_t    length)

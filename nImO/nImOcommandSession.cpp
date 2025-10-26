@@ -217,7 +217,7 @@ nImO::CommandSession::start
 #if defined(nImO_ChattyTcpUdpLogging)
     _owner->report("retrieving request"s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-    boost::asio::async_read_until(*_socket, _buffer, MatchMessageSeparator,
+    BA::async_read_until(*_socket, _buffer, MatchMessageSeparator,
                                     [this, &keepGoing]
                                     (const BSErr &      ec,
                                      const std::size_t  size)

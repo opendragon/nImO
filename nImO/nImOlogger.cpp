@@ -241,7 +241,7 @@ nImO::Logger::report
                 auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
 
                 // send the encoded message to the logging ports
-                _socket.async_send_to(boost::asio::buffer(*outString), _endpoint,
+                _socket.async_send_to(BA::buffer(*outString), _endpoint,
                                       [outString]
                                       (const BSErr          ec,
                                        const std::size_t    length)

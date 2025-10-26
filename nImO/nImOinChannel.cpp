@@ -113,9 +113,9 @@ nImO::InChannel::receiveTcpMessages
     ODL_ENTER(); //####
     if (gKeepRunning)
     {
-        auto    rB{std::make_shared<boost::asio::streambuf>()};
+        auto    rB{std::make_shared<BA::streambuf>()};
 
-        boost::asio::async_read_until(*_tcpSocket, *rB, nImO::MatchMessageSeparator,
+        BA::async_read_until(*_tcpSocket, *rB, nImO::MatchMessageSeparator,
                                     [this, rB]
                                     (const BSErr &      ec,
                                      const std::size_t  size)
@@ -162,7 +162,7 @@ nImO::InChannel::receiveUdpMessages
     ODL_ENTER(); //####
     if (gKeepRunning)
     {
-        _udpSocket->async_receive_from(boost::asio::buffer(_rawData), _udpSenderEndpoint,
+        _udpSocket->async_receive_from(BA::buffer(_rawData), _udpSenderEndpoint,
                                        [this]
                                        (const BSErr         ec,
                                         const std::size_t   length)

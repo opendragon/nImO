@@ -149,7 +149,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         {
             numThreadsInPool -= numReservedThreads;
         }
-        _work = std::make_unique<boost::asio::io_service::work>(*getService());
+        _work = std::make_unique<BA::executor_work_guard<BA::io_context::executor_type>>(BA::make_work_guard(*getService()));
         ODL_P1(_work.get()); //####
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {

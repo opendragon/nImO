@@ -74,7 +74,7 @@ namespace nImO
     class UtilityContext;
 
     /*! @brief A holder for a shared pointer to an Asio context (service). */
-    using SPservice = std::shared_ptr<boost::asio::io_context>;
+    using SPservice = std::shared_ptr<BA::io_context>;
 
     /*! @brief A holder for a shared pointer to an InputOutputContext. */
     using SpInputOutputContext = std::shared_ptr<InputOutputContext>;
@@ -86,7 +86,7 @@ namespace nImO
     using SpUtilityContext = std::shared_ptr<UtilityContext>;
 
     /*! @brief A holder for a unique pointer to an Asio 'work' placeholder. */
-    using UPwork = std::unique_ptr<boost::asio::io_context::work>;
+    using UPwork = std::unique_ptr<BA::executor_work_guard<BA::io_context::executor_type>>;
 
     /*! @brief A class to provide binary data with unknown structure. */
     class Context

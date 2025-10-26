@@ -836,7 +836,7 @@ nImO::ContextWithMDNS::findTheRegistry
     }
     if (_havePort && _haveAddress)
     {
-        connection._address = BAIP::make_address_v4(_registryPreferredAddress).to_ulong();
+        connection._address = BAIP::make_address_v4(_registryPreferredAddress).to_uint();
         connection._port = _registryPort;
         stopGatheringAnnouncements();
         found = true;

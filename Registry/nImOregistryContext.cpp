@@ -505,22 +505,22 @@ nImO::RegistryContext::makePortAnnouncement
                                             });
         ODL_P1(_announcerThread); //####
         _pool.add_thread(_announcerThread);
-        if (nImO::ContextWithMDNS::gHasIpv4)
+        if (nImO::ContextWithNetworking::gHasIpv4)
         {
             mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
-                                                                  nImO::ContextWithMDNS::gServiceAddressIpv4,
-                                                                  sizeof(nImO::ContextWithMDNS::gServiceAddressIpv4))};
+                                                                  nImO::ContextWithNetworking::gServiceAddressIpv4,
+                                                                  sizeof(nImO::ContextWithNetworking::gServiceAddressIpv4))};
 
             hostAddress = addressString.str;
             release_mdns_string(addressString);
         }
         else
         {
-            if (nImO::ContextWithMDNS::gHasIpv6)
+            if (nImO::ContextWithNetworking::gHasIpv6)
             {
                 mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
-                                                                      nImO::ContextWithMDNS::gServiceAddressIpv6,
-                                                                      sizeof(nImO::ContextWithMDNS::gServiceAddressIpv6))};
+                                                                      nImO::ContextWithNetworking::gServiceAddressIpv6,
+                                                                      sizeof(nImO::ContextWithNetworking::gServiceAddressIpv6))};
 
                 hostAddress = addressString.str;
                 release_mdns_string(addressString);

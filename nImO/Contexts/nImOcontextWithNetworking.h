@@ -226,6 +226,18 @@ namespace nImO
         public :
             // Public fields.
 
+            /*! @brief @c true if an IPv4 address was found. */
+            static bool gHasIpv4;
+
+            /*! @brief @c true if an IPv6 address was found. */
+            static bool gHasIpv6;
+
+            /*! @brief The first IPv4 address found. */
+            static struct sockaddr_in   gServiceAddressIpv4;
+
+            /*@ @brief The first IPv6 address found. */
+            static struct sockaddr_in6  gServiceAddressIpv6;
+
         protected :
             // Protected fields.
 

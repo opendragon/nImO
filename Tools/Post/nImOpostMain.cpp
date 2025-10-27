@@ -39,7 +39,7 @@
 #include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOarray.h>
-#include <Contexts/nImOcontextWithMDNS.h>
+#include <Contexts/nImOcontextWithNetworking.h>
 #include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>

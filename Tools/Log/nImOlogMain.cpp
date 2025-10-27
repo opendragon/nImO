@@ -41,7 +41,6 @@
 #include <BasicTypes/nImOvalue.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
-#include <Contexts/nImOcontextWithMDNS.h>
 #include <nImOcallbackFunction.h>
 #include <nImOmainSupport.h>
 #include <nImOreceivedData.h>

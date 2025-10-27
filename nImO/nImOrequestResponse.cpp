@@ -41,7 +41,7 @@
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmessage.h>
-#include <Contexts/nImOcontextWithMDNS.h>
+//#include <Contexts/nImOcontextWithMDNS.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>

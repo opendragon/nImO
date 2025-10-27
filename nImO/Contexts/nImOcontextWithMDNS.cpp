@@ -298,15 +298,7 @@ namespace nImO
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-bool nImO::ContextWithMDNS::gHasIpv4{false};
-
-bool nImO::ContextWithMDNS::gHasIpv6{false};
-
 char nImO::ContextWithMDNS::gNameBuffer[256];
-
-struct sockaddr_in   nImO::ContextWithMDNS::gServiceAddressIpv4;
-
-struct sockaddr_in6  nImO::ContextWithMDNS::gServiceAddressIpv6;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -351,7 +343,7 @@ getLocalAddresses
                         nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
                         firstIpv4 = false;
                     }
-                    nImO::ContextWithMDNS::gHasIpv4 = true;
+                    nImO::ContextWithNetworking::gHasIpv4 = true;
                 }
             }
             else
@@ -434,7 +426,7 @@ getLocalAddresses
                             nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
                             firstIpv4 = false;
                         }
-                        nImO::ContextWithMDNS::gHasIpv4 = true;
+                        nImO::ContextWithNetworking::gHasIpv4 = true;
                     }
                 }
                 else
@@ -464,7 +456,7 @@ getLocalAddresses
     }
     free(adapterAddress);
 #endif // not MAC_OR_LINUX_OR_BSD_
-    if ((! nImO::ContextWithMDNS::gHasIpv4) && (! nImO::ContextWithMDNS::gHasIpv6))
+    if ((! nImO::ContextWithNetworking::gHasIpv4) && (! nImO::ContextWithMDNS::gHasIpv6))
     {
         throw "No usable network addresses found.";
         

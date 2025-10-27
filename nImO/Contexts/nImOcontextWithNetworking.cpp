@@ -114,6 +114,14 @@ static const std::string    kStatusPortKey{"status port"s};
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+bool nImO::ContextWithNetworking::gHasIpv4{false};
+
+bool nImO::ContextWithNetworking::gHasIpv6{false};
+
+struct sockaddr_in   nImO::ContextWithNetworking::gServiceAddressIpv4;
+
+struct sockaddr_in6  nImO::ContextWithNetworking::gServiceAddressIpv6;
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)

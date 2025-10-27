@@ -47,7 +47,7 @@
 # pragma GCC diagnostic push
 # pragma GCC diagnostic ignored "-Wunused-function"
 #endif // MAC_OR_LINUX_OR_BSD_
-#include <mdns.hpp>
+//#include <mdns.hpp>
 #if MAC_OR_LINUX_OR_BSD_
 # pragma GCC diagnostic pop
 #endif // MAC_OR_LINUX_OR_BSD_

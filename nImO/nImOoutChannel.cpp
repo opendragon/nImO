@@ -263,7 +263,7 @@ nImO::OutChannel::setUp
         _udpSocket->open(outEndpoint.protocol());
         _udpSocket->set_option(BUDP::socket::reuse_address(true));
         _udpSocket->bind(outEndpoint);
-        _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
+        _connection._address = ntohl(ContextWithNetworking::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket->local_endpoint().port();
 #if defined(nImO_ChattyTcpUdpLogging)
         _context.report("local port = "s + std::to_string(_connection._port) + ", destination port = "s + std::to_string(_destinationPort) + "."s);
@@ -334,7 +334,7 @@ nImO::OutChannel::start
                                         }
                                         else
                                         {
-                                            _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
+                                            _connection._address = ntohl(ContextWithNetworking::gServiceAddressIpv4.sin_addr.s_addr);
                                             _connection._port = _tcpSocket->local_endpoint().port();
                                             _tcpConnected = true;
                                             ODL_B1(_tcpConnected); //####

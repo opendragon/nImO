@@ -9,11 +9,11 @@
 
 \f0\fs24 \cf0 Note that the firewall daemon, firewalld, on Manjaro, blocks multicast; something on OpenBSD is interfering with mDNS but not multicast, since logging works.\
 \
-If avahi can't be made to work on OpenBSD, consider using multicast to manage the Registry announcements - a service looking to the Registry can send a multicast request, waiting on a UDP port for a response and timing out if no response is received. Avahi sort-of works, except it seems to stop refreshing it's cache - it doesn't show services on the same machine, let alone all the services on the network.\
+If Avahi can't be made to work on OpenBSD, consider using multicast to manage the Registry announcements - a service looking to the Registry can send a multicast request, waiting on a UDP port for a response and timing out if no response is received. Avahi sort-of works, except it seems to stop refreshing it's cache - it doesn't show services on the same machine, let alone all the services on the network.\
 For the Registry, if it sees a request it responds with the TCP/IP port information, much as the mDNS response contains.\
 For the Registry, it initially asks if there's a Registry present and quits if it finds one; otherwise it sets up a listen thread to handle the multicast requests.\
 \
-Rough logic flow, non-Registry service:\
+Rough logic flow, non-Registry service or utility:\
 1. Launch a thread to catch posts from the Registry multicast port.\
 2. Send a request to the Registry multicast port, asking for the TCP/IP connection information.\
 3a. If there is no response in a reasonable time, report that there is no Registry.\
@@ -30,4 +30,6 @@ Rough logic flow, Registry service:\
 \
 Note that this is similarly structured to the mDNS code, but is simpler since very little needs to be transferred.\
 The multicast code already exists as part of nImOlog and nImOpost,\
+\
+Note that ContextWithMDNS is the parent of ServiceContext and UtilityContext and is widely referenced; the initial code should be parallel to the mDNS support - the non-Registry utilities or services can watch for the Registry, while the Registry can 'announce' itself when queried, but not advance to handling requests until this has been tested.\
 }

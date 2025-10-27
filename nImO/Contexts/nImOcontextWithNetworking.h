@@ -143,6 +143,16 @@ namespace nImO
             /*! @brief Return the address and port to use for logging.
              @return The address and port to use for logging.. */
             inline Connection
+            getRegistryInfo
+                (void)
+                const
+            {
+                return _registryConnection;
+            }
+
+            /*! @brief Return the address and port to use for logging.
+             @return The address and port to use for logging.. */
+            inline Connection
             getStatusInfo
                 (void)
                 const
@@ -245,6 +255,9 @@ namespace nImO
 
             /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
             int _registrySearchTimeout{0};
+
+            /*! @brief The multicast connection used for the Registry. */
+            Connection  _registryConnection{};
 
             /*! @brief The multicast connection used for status changes. */
             Connection  _statusConnection{};

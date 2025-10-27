@@ -65,8 +65,11 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The connection to be used for logging, if none is specified in the configuration file. */
+/*! @brief The multicast connection to be used for logging, if none is specified in the configuration file. */
 static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1954};
+
+/*! @brief The multicast connection to be used for the Registry, if none is specified in the configuration file. */
+static nImO::Connection kDefaultRegistryConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1956};
 
 /*! @brief The registry launch options value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryLaunchOptions{""s};
@@ -77,14 +80,17 @@ static const std::string    kDefaultRegistryLaunchPath{"$$/nImOregistry"s};
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
 constexpr int   kDefaultRegistryTimeout{5};
 
-/*! @brief The connection to be used for status reporting, if none is specified in the configuration file. */
+/*! @brief The multicast connection to be used for status reporting, if none is specified in the configuration file. */
 static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1955};
 
-/*! @brief The key for the logger address in the configuration file. */
+/*! @brief The key for the logger multicast address in the configuration file. */
 static const std::string    kLoggerAddressKey{"logger address"s};
 
-/*! @brief The key for the logger port in the configuration file. */
+/*! @brief The key for the logger multicast port in the configuration file. */
 static const std::string    kLoggerPortKey{"logger port"s};
+
+/*! @brief The key for the Registry multicast address in the configuration file. */
+static const std::string    kRegistryAddressKey{"registry address"s};
 
 /*! @brief The key for the options to apply when autolaunching the Registry. */
 static const std::string    kRegistryOptionsKey{"registry options"s};
@@ -92,13 +98,16 @@ static const std::string    kRegistryOptionsKey{"registry options"s};
 /*! @brief The key for the path to the Registry executable to use when autolaunching the Registry. */
 static const std::string    kRegistryPathKey{"registry path"s};
 
+/*! @brief The key for the Registry multicast port in the configuration file. */
+static const std::string    kRegistryPortKey{"registry port"s};
+
 /*! @brief The key for the maximum number of seconds to watch for a running Registry. */
 static const std::string    kRegistryTimeoutKey{"registry search timeout"s};
 
-/*! @brief The key for the status address in the configuration file. */
+/*! @brief The key for the status multicast address in the configuration file. */
 static const std::string    kStatusAddressKey{"status address"s};
 
-/*! @brief The key for the status port in the configuration file. */
+/*! @brief The key for the status multicast port in the configuration file. */
 static const std::string    kStatusPortKey{"status port"s};
 
 #if defined(__APPLE__)
@@ -121,7 +130,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    tagForLogging,
      const bool             logging,
      const int              numReservedThreads) :
-        inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _statusConnection{kDefaultStatusConnection}
+        inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _registryConnection{kDefaultStatusConnection},
+        _statusConnection{kDefaultStatusConnection}
 {
     ODL_ENTER(); //####
     ODL_S1s(tagForLogging); //####
@@ -209,6 +219,55 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 else
                 {
                     std::cerr << "Invalid port (" << kLoggerPortKey << ") in configuration file; using default port.\n";
+                }
+            }
+        }
+        // Get the address and port to use for the Registry.
+        retValue = GetConfiguredValue(kRegistryAddressKey);
+        if (retValue)
+        {
+            SpValue actualValue{*retValue};
+            auto    asAddress{actualValue->asAddress()};
+
+            if (nullptr == asAddress)
+            {
+                std::cerr << "Invalid address (" << kRegistryAddressKey << ") in configuration file; ignored.\n";
+            }
+            else
+            {
+                auto    tempValue{asAddress->getAddressValue()};
+
+                if (239 == (tempValue >> 24))
+                {
+                    _registryConnection._address = tempValue;
+                }
+                else
+                {
+                    std::cerr << "Invalid address (" << kRegistryAddressKey << ") in configuration file; using default address.\n";
+                }
+            }
+        }
+        retValue = GetConfiguredValue(kRegistryPortKey);
+        if (retValue)
+        {
+            SpValue actualValue{*retValue};
+            auto    asInteger{actualValue->asInteger()};
+
+            if (nullptr == asInteger)
+            {
+                std::cerr << "Invalid port (" << kRegistryPortKey << ") in configuration file; ignored.\n";
+            }
+            else
+            {
+                int64_t tempValue{asInteger->getIntegerValue()};
+
+                if ((0 < tempValue) && (tempValue <= 0x0FFFF))
+                {
+                    _registryConnection._port = StaticCast(IPv4Port, tempValue);
+                }
+                else
+                {
+                    std::cerr << "Invalid port (" << kRegistryPortKey << ") in configuration file; using default port.\n";
                 }
             }
         }

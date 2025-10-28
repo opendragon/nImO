@@ -266,15 +266,13 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::ContextWithNetworking             ourContext{"manage"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
+            auto                                    registryConnection{ourContext.getRegistryInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
-            std::shared_ptr<ReceiveOnMessagePort>   statusReceiver;
+            std::shared_ptr<ReceiveOnMessagePort>   registryReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), registryConnection)};
+            std::shared_ptr<ReceiveOnMessagePort>   statusReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection)};
 
             nImO::SetSpecialBreakObject(new LogBreakHandler());
-            if (loggingConnection != statusConnection)
-            {
-                statusReceiver = std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection);
-            }
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; nImO::gKeepRunning; )
             {
@@ -450,6 +448,11 @@ main
                 }
             }
 #endif//0
+        }
+        catch (const std::string &  fault)
+        {
+            std::cerr << "Exception: " << fault << "\n";
+            exitCode = -1;
         }
         catch (...)
         {

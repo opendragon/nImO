@@ -77,8 +77,11 @@ static const std::string    kDefaultRegistryLaunchOptions{""s};
 /*! @brief The registry launch path value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryLaunchPath{"$$/nImOregistry"s};
 
+/*! @brief The registry search retries value to be used if none is specified in the configuration file. */
+constexpr int   kDefaultRegistryRetries{5};
+
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
-constexpr int   kDefaultRegistryTimeout{5};
+constexpr int   kDefaultRegistryTimeout{1};
 
 /*! @brief The multicast connection to be used for status reporting, if none is specified in the configuration file. */
 static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1955};
@@ -100,6 +103,9 @@ static const std::string    kRegistryPathKey{"registry path"s};
 
 /*! @brief The key for the Registry multicast port in the configuration file. */
 static const std::string    kRegistryPortKey{"registry port"s};
+
+/*! @brief The key for the maximum number of attempts to find a running Registry. */
+static const std::string    kRegistryRetriesKey{"registry search retries"s};
 
 /*! @brief The key for the maximum number of seconds to watch for a running Registry. */
 static const std::string    kRegistryTimeoutKey{"registry search timeout"s};
@@ -138,7 +144,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    tagForLogging,
      const bool             logging,
      const int              numReservedThreads) :
-        inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _registryConnection{kDefaultStatusConnection},
+        inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _registryConnection{kDefaultRegistryConnection},
         _statusConnection{kDefaultStatusConnection}
 {
     ODL_ENTER(); //####
@@ -153,7 +159,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
     if (0 != WSAStartup(versionWanted, &_wsaData))
     {
         std::cerr << "Failed to initialize WinSock\n";
-        throw "WinSock problem";
+        throw "WinSock problem"s;
 
     }
 #endif // not MAC_OR_LINUX_OR_BSD_
@@ -385,6 +391,36 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
             }
         }
+        retValue = GetConfiguredValue(kRegistryRetriesKey);
+        if (retValue)
+        {
+            SpValue actualValue{*retValue};
+            auto    asInteger{actualValue->asInteger()};
+
+            if (nullptr == asInteger)
+            {
+                std::cerr << "Invalid timeout (" << kRegistryRetriesKey << ") in configuration file; using default.\n";
+                _registrySearchRetries = kDefaultRegistryRetries;
+            }
+            else
+            {
+                int tempValue{StaticCast(int, asInteger->getIntegerValue())};
+
+                if (0 < tempValue)
+                {
+                    _registrySearchRetries = tempValue;
+                }
+                else
+                {
+                    std::cerr << "Invalid timeout (" << kRegistryRetriesKey << ") in configuration file; using default.\n";
+                    _registrySearchRetries = kDefaultRegistryRetries;
+                }
+            }
+        }
+        else
+        {
+            _registrySearchRetries = kDefaultRegistryRetries;
+        }
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
         {
@@ -414,6 +450,27 @@ nImO::ContextWithNetworking::ContextWithNetworking
         else
         {
             _registrySearchTimeout = kDefaultRegistryTimeout;
+        }
+        if (_logConnection == _registryConnection)
+        {
+            throw "The logging connection and the Registry connection are the same."s;
+
+        }
+        else
+        {
+            if (_registryConnection == _statusConnection)
+            {
+                throw "The Registry connection and the status connection are the same."s;
+
+            }
+            else
+            {
+                if (_statusConnection == _logConnection)
+                {
+                    throw "The status connection and the logging connection are the same."s;
+
+                }
+            }
         }
     }
     catch (...)

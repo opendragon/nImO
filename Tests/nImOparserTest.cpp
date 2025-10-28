@@ -991,6 +991,11 @@ main
             ODL_LOG("! (3 < --argc)"); //####
         }
     }
+    catch (const std::string &  fault)
+    {
+        std::cerr << "Exception: " << fault << "\n";
+        result = -1;
+    }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####

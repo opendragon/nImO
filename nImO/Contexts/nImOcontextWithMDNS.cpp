@@ -322,7 +322,7 @@ getLocalAddresses
 #if MAC_OR_LINUX_OR_BSD_
     if (-1 == getifaddrs(&addresses))
     {
-        throw "Failed to get network adapter addresses";
+        throw "Failed to get network adapter addresses"s;
 
     }
     bool    firstIpv4{true};
@@ -392,7 +392,7 @@ getLocalAddresses
     if ((nullptr == adapterAddress) || (ret != NO_ERROR))
     {
         free(adapterAddress);
-        throw "Failed to get network adapter addresses";
+        throw "Failed to get network adapter addresses"s;
 
     }
     bool    firstIpv4{true};
@@ -458,7 +458,7 @@ getLocalAddresses
 #endif // not MAC_OR_LINUX_OR_BSD_
     if ((! nImO::ContextWithNetworking::gHasIpv4) && (! nImO::ContextWithMDNS::gHasIpv6))
     {
-        throw "No usable network addresses found.";
+        throw "No usable network addresses found."s;
         
     }
     ODL_EXIT(); //####
@@ -875,9 +875,10 @@ nImO::ContextWithMDNS::gatherAnnouncements
         {
             std::atomic_bool    timedOut{false};
             BAD_t               timeOutTimer{*getService()};
+            int                 maxTime{getRegistrySearchTimeout() * getRegistrySearchRetries()};
 
-            report("timeout = "s + std::to_string(getRegistrySearchTimeout()) + " seconds."s);
-            timeOutTimer.expires_from_now(boost::posix_time::seconds(getRegistrySearchTimeout()));
+            report("timeout = "s + std::to_string(maxTime) + " seconds."s);
+            timeOutTimer.expires_from_now(boost::posix_time::seconds(maxTime));
             timeOutTimer.async_wait([this, quietly, &timedOut]
                                    (const BSErr &   error)
                                    {

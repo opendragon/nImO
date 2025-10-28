@@ -55,6 +55,14 @@
 namespace nImO
 {
 
+    // Initial request and response
+
+    /*! @brief The request for the Registry connection information. */
+    const std::string   kRegistryRequest{"r?"s};
+
+    /*! @brief The response to the Registry connection information request. */
+    const std::string   kRegistryResponse{"r="s};
+
     // Status reports
 
     /*! @brief The prefix for an application added status report. */

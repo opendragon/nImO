@@ -205,6 +205,15 @@ namespace nImO
                 return _registryLaunchPath;
             }
 
+            /*! @brief Return the maximum number of retries allowed for the search for an active Registry. */
+            inline int
+            getRegistrySearchRetries
+                (void)
+                const
+            {
+                return _registrySearchRetries;
+            }
+
             /*! @brief Return the number of seconds allowed for the search for an active Registry. */
             inline int
             getRegistrySearchTimeout
@@ -264,6 +273,9 @@ namespace nImO
 
             /*! @brief The path to the Registry executable to be used when launching the Registry automatically. */
             std::string _registryLaunchPath;
+
+            /*! @brief The maximum number of retries when searching for the Registry. */
+            int _registrySearchRetries{0};
 
             /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
             int _registrySearchTimeout{0};

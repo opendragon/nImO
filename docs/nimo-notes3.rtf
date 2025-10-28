@@ -9,24 +9,27 @@
 
 \f0\fs24 \cf0 Note that the firewall daemon, firewalld, on Manjaro, blocks multicast; something on OpenBSD is interfering with mDNS but not multicast, since logging works.\
 \
-If Avahi can't be made to work on OpenBSD, consider using multicast to manage the Registry announcements - a service looking to the Registry can send a multicast request, waiting on a UDP port for a response and timing out if no response is received. Avahi sort-of works, except it seems to stop refreshing it's cache - it doesn't show services on the same machine, let alone all the services on the network.\
-For the Registry, if it sees a request it responds with the TCP/IP port information, much as the mDNS response contains.\
-For the Registry, it initially asks if there's a Registry present and quits if it finds one; otherwise it sets up a listen thread to handle the multicast requests.\
+If Avahi can't be made to work on OpenBSD, consider using multicast to manage the Registry announcements - a service looking to the Registry can send a multicast request, waiting on a UDP port for a response and timing out if no response is received.\
+Avahi sort-of works, except it seems to stop refreshing its cache - it doesn't show all the services on the same machine, let alone all the services on the network.\
 \
 Rough logic flow, non-Registry service or utility:\
-1. Launch a thread to catch posts from the Registry multicast port.\
-2. Send a request to the Registry multicast port, asking for the TCP/IP connection information.\
-3a. If there is no response in a reasonable time, report that there is no Registry.\
-3b. If there is a response, record the connection details. [Note that this is like the effect of the mDNS code.]\
+1. Send a request to the Registry multicast port, asking for the TCP/IP connection information.\
+2. Wait for the number of seconds of a retry interval.\
+3. If there is no response within the retry interval and there are retry intervals left, go back to the first step.\
+4. If there is a response, record the connection details.\
+5. Close the Registry multicast port.\
+6. Exit if there was no response.\
+7. Proceed with normal activity.\
 \
 Rough logic flow, Registry service:\
-1. Start the TCP/IP listener.\
-2. Launch a thread to catch posts from the Registry multicast port, marking it as 'watching for another Registry'.\
-3. Send a request to the Registry multicast port, asking for the TCP/IP connection information.\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 4a. If there is no response in a reasonable time, switch the thread to 'watching for a request'.\
-4b. If there is a response, exit due to the existence of a running Registry.\
-5. If a request arrives on the Registry multicast port, respond with the details of the TCP/IP listener.\
+\cf0 1. Send a request to the Registry multicast port, asking for the TCP/IP connection information.\
+2. Wait for the number of seconds of a retry interval.\
+3. If there is no response within the retry interval and there are retry intervals left, go back to the first step.\
+4. If there is a response, report the connection details and exit.\
+5. Start the Registry TCP/IP listener.\
+6. If a request arrives on the Registry multicast port, respond with the details of the Registry TCP/IP listener.\
+7. If a request arrives on the request port, process it and go back to the previous step unless the request is to stop.\
 \
 Note that this is similarly structured to the mDNS code, but is simpler since very little needs to be transferred.\
 The multicast code already exists as part of nImOlog and nImOpost,\

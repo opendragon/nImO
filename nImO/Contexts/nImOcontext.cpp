@@ -87,7 +87,7 @@ nImO::Context::Context
     ODL_P1(_service.get()); //####
     if (lContextCreated)
     {
-        throw "Too many contexts.";
+        throw "Too many contexts."s;
 
     }
     try

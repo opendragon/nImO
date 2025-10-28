@@ -130,6 +130,11 @@ std::cerr << "** Unimplemented **\n";
             }
             ourContext->report("exiting."s, false);
         }
+        catch (const std::string &  fault)
+        {
+            std::cerr << "Exception: " << fault << "\n";
+            exitCode = -1;
+        }
         catch (...)
         {
             ODL_LOG("Exception caught"); //####

@@ -7,7 +7,8 @@
     "registry options" > ( "l" )
     "registry path" > "$$/nImOregistry"
     "registry port" > 2263
-    "registry search timeout" > 5 # seconds
+    "registry search retries" > 5
+    "registry search timeout" > 1 # seconds
     "status address" > @239.55.12.17; # Note that commas and semi-colons are ignored
     "status port" > 2262 # this should not match the logger port
 }

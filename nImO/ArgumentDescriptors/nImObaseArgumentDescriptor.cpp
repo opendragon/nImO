@@ -159,6 +159,10 @@ BaseArgumentDescriptor::describe
             result += " (required)"s;
         }
     }
+    if (isMutable())
+    {
+        result += " (mutable)"s;
+    }
     result += ": "s + _argDescription;
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -174,11 +178,11 @@ BaseArgumentDescriptor::identifyDelimiter
     if (! valueToCheck.empty())
     {
         // Determine an appropriate delimiter
-        for (size_t ii = 0, mm = sizeof(possibles); mm > ii; ++ii)
+        for (char possible : possibles)
         {
-            if (valueToCheck.npos == valueToCheck.find(possibles[ii], 0))
+            if (valueToCheck.npos == valueToCheck.find(possible, 0))
             {
-                charToUse = possibles[ii];
+                charToUse = possible;
                 break;
 
             }
@@ -473,6 +477,10 @@ nImO::ArgumentsToArgString
                 ++numOptional;
             }
             result += anArg->argumentName();
+            if (anArg->isMutable())
+            {
+                result += "*"s;
+            }
         }
     }
     if (0 < numOptional)
@@ -492,9 +500,10 @@ nImO::ArgumentsToDescriptionArray
     ODL_ENTER(); //####
     ODL_P2(&arguments, &output); //####
     ODL_I1(minSpace); //####
-    int       nameSize{-1};
-    int       optionSize{-1};
-    const int kOptionStringLen{20}; // '(Optional, default=)'
+    bool        sawMutable{false};
+    int         nameSize{-1};
+    int         optionSize{-1};
+    const int   kOptionStringLen{20}; // '(Optional, default=)'
 
     // Determine the width of the 'name' column.
     for (SpBaseArgumentDescriptor anArg : arguments)
@@ -515,11 +524,15 @@ nImO::ArgumentsToDescriptionArray
                     optionSize = len;
                 }
             }
+            if (anArg->isMutable())
+            {
+                sawMutable = true;
+            }
         }
     }
     if (0 < nameSize)
     {
-        nameSize += StaticCast(int, minSpace);
+        nameSize += StaticCast(int, minSpace) + (sawMutable ? 1 : 0);
         if (0 < optionSize)
         {
             optionSize += StaticCast(int, minSpace);
@@ -530,6 +543,10 @@ nImO::ArgumentsToDescriptionArray
             {
                 auto    aLine{anArg->argumentName()};
 
+                if (sawMutable)
+                {
+                    aLine += (anArg->isMutable() ? "*"s : " "s);
+                }
                 aLine += std::string(nameSize - aLine.length(), ' ');
                 if (0 < optionSize)
                 {

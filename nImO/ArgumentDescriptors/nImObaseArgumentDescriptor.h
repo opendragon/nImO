@@ -300,6 +300,16 @@ namespace nImO
                 (void)
                 const;
 
+            /*! @brief Return @c true if the argument is mutable and @c false otherwise.
+             @return @c true if the argument is mutable and @c false otherwise. */
+            inline bool
+            isMutable
+                (void)
+                const
+            {
+                return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Mutable))));
+            }
+
             /*! @brief Return @c true if the argument is optional and @c false otherwise.
              @return @c true if the argument is optional and @c false otherwise. */
             inline bool

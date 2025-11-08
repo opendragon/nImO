@@ -110,9 +110,10 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send messages to all output channels from the input channel"s, "nImOfanOut 2"s, 2024, nImO::kCopyrightName,
                                     optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption, true, true))
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::CheckArgumentDescriptions(argumentList);
+            nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                basePath{optionValues._base};

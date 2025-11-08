@@ -459,13 +459,11 @@ nImO::ArgumentsToArgString
     std::string result;
     size_t      numOptional{0};
 
-    for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
+    for (SpBaseArgumentDescriptor anArg : arguments)
     {
-        auto    anArg{arguments[ii]};
-
         if (nullptr != anArg)
         {
-            if (0 < ii)
+            if (0 < result.length())
             {
                 result += " "s;
             }
@@ -499,10 +497,8 @@ nImO::ArgumentsToDescriptionArray
     const int kOptionStringLen{20}; // '(Optional, default=)'
 
     // Determine the width of the 'name' column.
-    for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
+    for (SpBaseArgumentDescriptor anArg : arguments)
     {
-        auto    anArg{arguments[ii]};
-
         if (nullptr != anArg)
         {
             int len{StaticCast(int, anArg->argumentName().length())};
@@ -528,10 +524,8 @@ nImO::ArgumentsToDescriptionArray
         {
             optionSize += StaticCast(int, minSpace);
         }
-        for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
+        for (SpBaseArgumentDescriptor anArg : arguments)
         {
-            auto    anArg{arguments[ii]};
-
             if (nullptr != anArg)
             {
                 auto    aLine{anArg->argumentName()};
@@ -568,16 +562,14 @@ nImO::CombineArguments
     ODL_S1s(sep); //####
     std::string result;
 
-    for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
+    for (SpBaseArgumentDescriptor anArg : arguments)
     {
-        auto    anArg{arguments[ii]};
-
-        if (0 < ii)
-        {
-            result += sep;
-        }
         if (nullptr != anArg)
         {
+            if (0 < result.length())
+            {
+                result += sep;
+            }
             result += anArg->getProcessedValue();
         }
     }
@@ -659,10 +651,8 @@ nImO::ProcessArguments
     ODL_I3(numArgs, numValues, numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.
     badArgs = ""s;
-    for (size_t ii = 0; numArgs > ii; ++ii)
+    for (SpBaseArgumentDescriptor anArg : arguments)
     {
-        auto    anArg{arguments[ii]};
-
         if (nullptr != anArg)
         {
             anArg->setToDefaultValue();
@@ -671,10 +661,8 @@ nImO::ProcessArguments
     // Check if there are required arguments after optional arguments or the trailing argument placeholders.
     // Note that we don't care how many trailing argument placeholders there are, but they must
     // follow the optional arguments, which follow the mandatory ones.
-    for (size_t ii = 0; result && (numArgs > ii); ++ii)
+    for (SpBaseArgumentDescriptor anArg : arguments)
     {
-        auto    anArg{arguments[ii]};
-
         if (nullptr != anArg)
         {
             ODL_LOG("(nullptr != anArg)"); //####
@@ -697,6 +685,11 @@ nImO::ProcessArguments
                     result = ((! sawOptional) && (! sawExtra));
                     ODL_B1(result); //####
                 }
+            }
+            if (! result)
+            {
+                break;
+
             }
         }
     }

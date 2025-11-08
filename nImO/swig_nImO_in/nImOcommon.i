@@ -131,6 +131,7 @@
 #include "nImOcommandSession.h"
 #include "nImOcommon.h"
 #include "nImOcommonCommands.h"
+#include "nImOcompareStringÍs.h"
 #include "nImOcompareValues.h"
 #include "nImOcomparisonStatus.h"
 #include "nImOconverters.h"

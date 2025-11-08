@@ -292,6 +292,8 @@
 		F68373F3240409EB0030F969 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/Ricochet/CMakeLists.txt"; sourceTree = "<group>"; };
 		F68373F4240409F80030F969 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/CMakeLists.txt"; sourceTree = "<group>"; };
 		F683BD86240F2F27009E20FE /* nimo.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = nimo.sh; path = "non-iOS/nimo.sh"; sourceTree = "<group>"; };
+		F68427EE2EBF5B8300CB8600 /* nImOcompareStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcompareStrings.h; path = nImO/nImOcompareStrings.h; sourceTree = "<group>"; };
+		F68427EF2EBF5B8300CB8600 /* nImOcompareStrings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareStrings.cpp; path = nImO/nImOcompareStrings.cpp; sourceTree = "<group>"; };
 		F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOparserTest.cpp; path = Tests/nImOparserTest.cpp; sourceTree = SOURCE_ROOT; };
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
 		F68F63D82BBFFD8400E08558 /* nImOlog.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOlog.rc.in; path = Log/nImOlog.rc.in; sourceTree = "<group>"; };
@@ -1853,6 +1855,8 @@
 				F6A8069A29C6005800567C55 /* nImOcommonCommands.h */,
 				F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */,
 				F6EE0ACA1CA2C7F4004748ED /* nImOcommon.h */,
+				F68427EF2EBF5B8300CB8600 /* nImOcompareStrings.cpp */,
+				F68427EE2EBF5B8300CB8600 /* nImOcompareStrings.h */,
 				F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */,
 				F67032551CB1CBB500E04BBC /* nImOcompareValues.h */,
 				F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */,

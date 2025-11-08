@@ -113,9 +113,10 @@ main
                                     optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
                                     nImO::kSkipPortOption | nImO::kSkipRemoteOption, true))
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::CheckArgumentDescriptions(argumentList);
+            nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                basePath{optionValues._base};

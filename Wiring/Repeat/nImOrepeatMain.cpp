@@ -112,9 +112,10 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send copies of a message to a channel after a delay"s, "nImOrepeat 2 3.5"s, 2024, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption))
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::CheckArgumentDescriptions(argumentList);
+            nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};

@@ -120,9 +120,10 @@ main
                                     nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption |
                                     nImO::kSkipRemoteOption | nImO::kSkipWaitOption))
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::CheckArgumentDescriptions(argumentList);
+            nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                basePath{optionValues._base};

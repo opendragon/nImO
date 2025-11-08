@@ -171,6 +171,13 @@ namespace nImO
 
     }; // StandardOptions
 
+    /*! @brief Check the argument descriptions for duplicate names or other faults.
+     @param[in] argumentDescriptions Descriptions of the arguments to the service.
+     Throws an exception if the list of argument descriptions is invalid. */
+    void
+    CheckArgumentDescriptions
+        (DescriptorVector &    argumentList);
+
     /*! @brief Get a value associated with the provided key in the configuration data.
      @param[in] key The key took look up in the configuration data.
      @return The associated value if found, or 'empty'. */

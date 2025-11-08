@@ -123,9 +123,10 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Playback from a file to a channel"s, "nImOplayback recording.txt"s, 2024, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption))
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::CheckArgumentDescriptions(argumentList);
+            nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};

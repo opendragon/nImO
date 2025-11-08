@@ -43,6 +43,7 @@
 #include <BasicTypes/nImOvalue.h>
 #include <Containers/nImOmap.h>
 #include <Containers/nImOstringBuffer.h>
+#include <nImOcompareStrings.h>
 #include <nImOmainSupport.h>
 
 #include <string>
@@ -88,6 +89,42 @@ static nImO::SpValue    lConfigurationValues{};
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+void
+nImO::CheckArgumentDescriptions
+    (DescriptorVector &    argumentList)
+{
+    ODL_ENTER(); //####
+    ODL_P1(&argumentList); //####
+    std::set<std::string, CompareStrings>   argumentsSoFar;
+
+    for (SpBaseArgumentDescriptor anArg : argumentList)
+    {
+        if (nullptr != anArg)
+        {
+            std::string argName{anArg->argumentName()};
+
+            if (0 < argName.length())
+            {
+                if (argumentsSoFar.end() == argumentsSoFar.find(argName))
+                {
+                    argumentsSoFar.insert(argName);
+                }
+                else
+                {
+                    throw "Duplicate argument name: " + argName;
+
+                }
+            }
+            else
+            {
+                throw "Empty argument name present.";
+
+            }
+        }
+    }
+    ODL_EXIT(); //####
+} // nImO::CheckArgumentDescriptions
 
 boost::optional<nImO::SpValue>
 nImO::GetConfiguredValue

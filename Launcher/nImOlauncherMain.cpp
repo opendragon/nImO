@@ -345,9 +345,10 @@ main
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption |
                                     nImO::kSkipWaitOption))
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::CheckArgumentDescriptions(argumentList);
+            nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, thisService, optionValues._logging, nodeName)};

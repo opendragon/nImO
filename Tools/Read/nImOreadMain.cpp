@@ -107,9 +107,10 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Read from a channel"s, "nImOread"s, 2016, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipOutTypeOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption))
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::CheckArgumentDescriptions(argumentList);
+            nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::SinkContext>(argc, argv, thisService, optionValues._logging, nodeName)};

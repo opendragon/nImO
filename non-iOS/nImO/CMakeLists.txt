@@ -186,6 +186,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOcommandHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOcommandSession.cpp"
             "${THIS_SOURCE_DIR}/nImOcommon.cpp"
+            "${THIS_SOURCE_DIR}/nImOcompareStrings.cpp"
             "${THIS_SOURCE_DIR}/nImOcompareValues.cpp"
             "${THIS_SOURCE_DIR}/nImOconverters.cpp"
             "${THIS_SOURCE_DIR}/nImOfilterBreakHandler.cpp"
@@ -238,6 +239,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOcommandSession.h"
         "${THIS_SOURCE_DIR}/nImOcommon.h"
         "${THIS_SOURCE_DIR}/nImOcommonCommands.h"
+        "${THIS_SOURCE_DIR}/nImOcompareStrings.h"
         "${THIS_SOURCE_DIR}/nImOcompareValues.h"
         "${THIS_SOURCE_DIR}/nImOcomparisonStatus.h"
         "${THIS_SOURCE_DIR}/nImOconfig.h"
@@ -622,6 +624,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOcommandSession.cpp ${THIS_SOURCE_DIR}/nImOcommandSession.h
         ${THIS_SOURCE_DIR}/nImOcommon.cpp ${THIS_SOURCE_DIR}/nImOcommon.h
         ${THIS_SOURCE_DIR}/nImOcommonCommands.h
+        ${THIS_SOURCE_DIR}/nImOcompareStrings.cpp ${THIS_SOURCE_DIR}/nImOcompareStrings.h
         ${THIS_SOURCE_DIR}/nImOcompareValues.cpp ${THIS_SOURCE_DIR}/nImOcompareValues.h
         ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.h
         ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.h

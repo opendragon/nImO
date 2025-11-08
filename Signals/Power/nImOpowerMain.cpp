@@ -94,7 +94,7 @@ main
     std::string             thisService{"Power"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("power"s, "The power to raise the input to"s,
-                                                                                      nImO::ArgumentMode::Optional, 1.0, false, 0.0, false, 0.0)};
+                                                                                      nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, false, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -241,8 +241,6 @@ main
                                                 connected = (inChannel->isConnected() && outChannel->isConnected());
                                             }
                                         }
-                                        auto    power{firstArg->getCurrentValue()};
-
                                         if (nImO::gKeepRunning)
                                         {
                                             ourContext->report("waiting for messages."s);
@@ -273,6 +271,7 @@ main
                                                         else
                                                         {
                                                             auto    base{asDouble->getDoubleValue()};
+                                                            auto    power{firstArg->getCurrentValue()};
                                                             bool    goAhead{true};
                                                             double  result;
 

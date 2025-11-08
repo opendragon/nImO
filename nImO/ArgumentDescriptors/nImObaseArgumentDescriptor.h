@@ -87,6 +87,9 @@ namespace nImO
         /*! @brief The argument is case-insensitive. */
         CaseInsensitive = 0x04,
 
+        /*! @brief The argument is mutable at run-time. */
+        Mutable = 0x08,
+
         /*! @brief The argument is both required and is a password. */
         RequiredPassword = (Required | Password),
 
@@ -94,7 +97,7 @@ namespace nImO
         OptionalPassword = (Optional | Password),
 
         /*! @brief A mask for the available flags. */
-        Mask = (Optional | Password | CaseInsensitive),
+        Mask = (Optional | Password | CaseInsensitive | Mutable),
 
         /*! @brief The mode of the argument is undefined. */
         Unknown = 0x00FF

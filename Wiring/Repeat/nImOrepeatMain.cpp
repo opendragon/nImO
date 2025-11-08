@@ -94,9 +94,9 @@ main
     std::string             thisService{"Repeat"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("repeats"s, "Number of copies of the input message"s,
-                                                                                       nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
+                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1, true, 1, false, 0)};
     auto                    secondArg{std::make_shared<nImO::DoubleArgumentDescriptor>("delay"s, "Number of seconds between duplicated messages"s,
-                                                                                      nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
+                                                                                      nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, true, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -249,9 +249,6 @@ main
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
-                                        int64_t                         numCopies{firstArg->getCurrentValue()};
-                                        int                             numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
-                                        auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
                                         for ( ; nImO::gKeepRunning; )
@@ -267,6 +264,10 @@ main
 
                                                     if (contents)
                                                     {
+                                                        int64_t numCopies{firstArg->getCurrentValue()};
+                                                        int     numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
+                                                        auto    delayTime{boost::posix_time::milliseconds(numMilliseconds)};
+
                                                         for (int64_t ii = 0; ii < numCopies; ++ii)
                                                         {
                                                             auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};

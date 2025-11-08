@@ -93,7 +93,7 @@ main
     std::string             thisService{"Gate"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("threshold"s, "The value that the gate signal must exceed to pass the input"s,
-                                                                                      nImO::ArgumentMode::Optional, 0.0, false, 0.0, false, 0.0)};
+                                                                                      nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 0.0, false, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};

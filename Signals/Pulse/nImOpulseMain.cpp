@@ -96,13 +96,13 @@ main
     std::string             thisService{"Pulse"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("period"s, "Number of seconds between pulses"s,
-                                                                                      nImO::ArgumentMode::Optional, 1.0, true, tinyValue, false, 0.0)};
+                                                                                      nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, true, tinyValue, false, 0.0)};
     auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random values"s,
                                                                                        nImO::ArgumentMode::Optional, false)};
     auto                    thirdArg{std::make_shared<nImO::DoubleArgumentDescriptor>("minimum"s, "Low value to be sent"s,
-                                                                                       nImO::ArgumentMode::Optional, 0.0, false, 0.0, false, 0.0)};
+                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 0.0, false, 0.0, false, 0.0)};
     auto                    fourthArg{std::make_shared<nImO::DoubleArgumentDescriptor>("maximum"s, "High value to be sent"s,
-                                                                                       nImO::ArgumentMode::Optional, 1.0, false, 0.0, false, 0.0)};
+                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, false, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -220,11 +220,7 @@ main
                                         }
                                         std::atomic_bool                doAnother{true};
                                         bool                            sendHigh{false};
-                                        int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                         bool                            valueIsRandom{secondArg->getCurrentValue()};
-                                        auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds) / 2.0};
-                                        double                          lowValue{thirdArg->getCurrentValue()};
-                                        double                          highValue{fourthArg->getCurrentValue()};
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
                                         if (nImO::gKeepRunning)
@@ -233,17 +229,21 @@ main
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
-                                        if (! fourthArg->wasSeen())
-                                        {
-                                            highValue = lowValue;
-                                        }
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
                                             if (nImO::gKeepRunning && doAnother)
                                             {
                                                 double  actualValue;
+                                                int     numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
+                                                auto    delayTime{boost::posix_time::milliseconds(numMilliseconds) / 2.0};
+                                                double  lowValue{thirdArg->getCurrentValue()};
+                                                double  highValue{fourthArg->getCurrentValue()};
 
+                                                if (! fourthArg->wasSeen())
+                                                {
+                                                    highValue = lowValue;
+                                                }
                                                 doAnother = false;
                                                 if (valueIsRandom)
                                                 {

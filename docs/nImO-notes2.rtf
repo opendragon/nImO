@@ -31,10 +31,16 @@
 * nImOlog - displays the log in a terminal; 
 \f1\b DONE\
 
-\f0\b0 * nImOplayback 'a' ['b' ['c']] - sends messages from a file at a specified rate; 
+\f0\b0 * nImOpost 'a' 'b' - writes text to the log; 
 \f1\b DONE
 \f0\b0 \
-* nImOpost 'a' 'b' - writes text to the log; 
+* nImOversion \'97 reports the versions of the libraries; 
+\f1\b DONE\
+
+\f0\b0 \
+input output:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 * nImOplayback 'a' ['b' ['c']] - sends messages from a file at a specified rate; 
 \f1\b DONE
 \f0\b0 \
 * nImOread \'97 writes out the string representation of messages received; 
@@ -43,19 +49,11 @@
 \f0\b0 * nImOrecord 'a' - writes out received messages to a file; 
 \f1\b DONE
 \f0\b0 \
-* nImOstart ['a' ['b']] - starts a service via a launcher; 
-\f1\b DONE
-\f0\b0 \
-* nImOstop 'a' - shutdown one or all nodes or machines except active log programs; 
-\f1\b DONE
-\f0\b0 \
-* nImOversion \'97 reports the versions of the libraries; 
+* nImOwrite \'97 reads the string representation of a message and sends it out a channel; 
 \f1\b DONE\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\b0 * nImOwrite \'97 reads the string representation of a message and sends it out a channel; 
-\f1\b DONE\
-
-\f0\b0 \
+\f0\b0 \cf0 \
 interface:\
 \cf2 * nImOchart ['n'] - graphs values of messages from the 'n' input SIGNAL channels ('n' defaults to 1)\
 * nImOdisplay - like 
@@ -120,6 +118,16 @@ application support:\
 \cf2 * nImOremoveApp 'a' - removes an application from the list of available applications on the machine\
 * nImOstoreApps 'a' - stores the current set of loaded applications\
 * nImOupdateApp 'a' - update an application\
+\cf0 \
+runtime:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 * nImOstart ['a' ['b']] - starts a service via a launcher; 
+\f1\b DONE
+\f0\b0 \
+* nImOstop 'a' - shutdown one or all nodes or machines except active log programs; 
+\f1\b DONE
+\f0\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
 setup support:\
 \cf2 * nImOloadSetup 'a' - loads a setup\

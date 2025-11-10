@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/Write/CMakeLists.txt
+#  File:       non-iOS/Tools/InputOutput/Read/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Write application.
+#  Contains:   The CMAKE definitions for the Read application.
 #
 #  Written by: Norman Jaffe
 #
@@ -37,9 +37,9 @@
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/InputOutput/Read)
 
-set(THIS_TARGET nImOwrite)
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Write)
+set(THIS_TARGET nImOread)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,7 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOwriteMain.cpp
+               ${THIS_SOURCE_DIR}/nImOreadMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

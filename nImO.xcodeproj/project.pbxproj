@@ -85,6 +85,7 @@
 		F640ADAD2EC219FE00A83703 /* nImOstart.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOstart.rc.in; path = Start/nImOstart.rc.in; sourceTree = "<group>"; };
 		F640ADAE2EC219FE00A83703 /* nImOstartMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstartMain.cpp; path = Start/nImOstartMain.cpp; sourceTree = "<group>"; };
 		F640ADAF2EC219FE00A83703 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Start/resource.h; sourceTree = "<group>"; };
+		F640ADB12EC21F8100A83703 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcomparisonStatus.h; path = nImO/nImOcomparisonStatus.h; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
 		F6484BDF2DE07B080078F729 /* nImOchart.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOchart.rc.in; sourceTree = "<group>"; };
@@ -977,6 +978,29 @@
 			path = Junction;
 			sourceTree = "<group>";
 		};
+		F640ADB02EC21D9600A83703 /* InputOutput */ = {
+			isa = PBXGroup;
+			children = (
+				F640ADB12EC21F8100A83703 /* CMakeLists.txt */,
+				F6CA168D2CD952B800BA78EB /* Playback */,
+				F65C4B012985620200430284 /* Read */,
+				F6CA168F2CD952DD00BA78EB /* Record */,
+				F65C4A3E2985620100430284 /* Write */,
+			);
+			path = InputOutput;
+			sourceTree = "<group>";
+		};
+		F640ADB22EC21FC000A83703 /* InputOutput */ = {
+			isa = PBXGroup;
+			children = (
+				F6CA169F2CD954FC00BA78EB /* Playback */,
+				F65C4BBB2985636800430284 /* Read */,
+				F6CA16A32CD9551E00BA78EB /* Record */,
+				F65C4B9E2985636700430284 /* Write */,
+			);
+			path = InputOutput;
+			sourceTree = "<group>";
+		};
 		F6484BE22DE07B080078F729 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
@@ -1177,16 +1201,13 @@
 				F65C4A722985620100430284 /* CMakeLists.txt */,
 				F65C4B832985620200430284 /* Connect */,
 				F65C4B692985620200430284 /* Disconnect */,
+				F640ADB02EC21D9600A83703 /* InputOutput */,
 				F65C4B4F2985620200430284 /* List */,
 				F68F63DB2BBFFDA400E08558 /* Log */,
-				F6CA168D2CD952B800BA78EB /* Playback */,
 				F65C4A732985620100430284 /* Post */,
-				F65C4B012985620200430284 /* Read */,
-				F6CA168F2CD952DD00BA78EB /* Record */,
 				F65DA9A02EC216C30069ADA9 /* Runtime */,
 				F692A44429C0E954003711E9 /* SetupSupport */,
 				F65C4B352985620200430284 /* Version */,
-				F65C4A3E2985620100430284 /* Write */,
 			);
 			name = Tools;
 			path = "non-iOS/Tools";
@@ -1286,16 +1307,13 @@
 				F6CA169B2CD954CF00BA78EB /* Clean */,
 				F65C4BCF2985636800430284 /* Connect */,
 				F65C4BCB2985636800430284 /* Disconnect */,
+				F640ADB22EC21FC000A83703 /* InputOutput */,
 				F65C4BC72985636800430284 /* List */,
 				F68F63D72BBFFCB400E08558 /* Log */,
-				F6CA169F2CD954FC00BA78EB /* Playback */,
 				F65C4BA62985636700430284 /* Post */,
-				F65C4BBB2985636800430284 /* Read */,
-				F6CA16A32CD9551E00BA78EB /* Record */,
 				F65DA9A62EC218B40069ADA9 /* Runtime */,
 				F692A43729C0E911003711E9 /* SetupSupport */,
 				F65C4BC32985636800430284 /* Version */,
-				F65C4B9E2985636700430284 /* Write */,
 			);
 			path = Tools;
 			sourceTree = "<group>";

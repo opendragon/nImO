@@ -8,11 +8,113 @@
 \margl1440\margr1440\vieww38780\viewh22460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 tools:\
+\f0\fs24 \cf0 application support:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOaddApp 'a' - adds an application to the list of available applications on the machine\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 * nImOlauncher 'a' - records the machine and known applications with the Registry and waits for requests to start applications; 
+\f1\b DONE
+\f0\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOloadApps 'a' - loads a set of applications\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 * nImOregistry - the Registry, one per LAN; 
+\f1\b DONE
+\f0\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOremoveApp 'a' - removes an application from the list of available applications on the machine\
+* nImOstoreApps 'a' - stores the current set of loaded applications\
+* nImOupdateApp 'a' - update an application\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+examples:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOricochet 'p' - forwards a message to the next machine in a list\
+* nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 GUI:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOchart ['n'] - graphs values of messages from the 'n' input SIGNAL channels ('n' defaults to 1)\
+* nImOdisplay - like 
+\f1\b nImOread
+\f0\b0  but GUI-based\
+* nImOmanage - GUI application to display and control nImO applications\
+* nImOwatch - like 
+\f1\b nImOlog
+\f0\b0  but GUI-based\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 input output:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 * nImOplayback 'a' ['b' ['c']] - sends messages from a file at a specified rate; 
+\f1\b DONE
+\f0\b0 \
+* nImOread \'97 writes out the string representation of messages received; 
+\f1\b DONE\
+
+\f0\b0 * nImOrecord 'a' - writes out received messages to a file; 
+\f1\b DONE
+\f0\b0 \
+* nImOwrite \'97 reads the string representation of a message and sends it out a channel; 
+\f1\b DONE\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 programmable services:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOjavaScript 'a' ['b' \'85 ] - loads and runs a JavaScript service\
+* nImOlisp 'a' ['b' \'85 ] - loads and runs a Common Lisp service\
+* nImOlua 'a' ['b' \'85 ] - loads and runs a Lua service\
+* nImOpython 'a' ['b' \'85 ] - loads and runs a Python service\
+* nImOtcl 'a' ['b' \'85 ] - loads and runs a Tcl service\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 runtime:\
+* nImOstart ['a' ['b']] - starts a service via a launcher; 
+\f1\b DONE
+\f0\b0 \
+* nImOstop 'a' - shutdown one or all nodes or machines except active log programs; 
+\f1\b DONE
+\f0\b0 \
+\
+setup support:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOloadSetup 'a' - loads a setup\
+* nImOstoreSetup 'a' - stores a setup\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 signals:\
+\cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0)\
+\cf0 * nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
+\f1\b DONE
+\f0\b0 \
+\cf3 * nImOpower ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\cf0 ; 
+\f1\b DONE
+\f0\b0 \cf3 \
+* nImOproduct ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\cf0 ; 
+\f1\b DONE
+\f0\b0 \cf3 \
+\cf0 * nImOpulse ['p' ['r' ['l' ['h']]]] - sends a series of SIGNAL messages with an period of 'p' seconds and a minimum of 'l' and a maximum of 'h' with a random level if 'r' is true ('p' defaults to 1, 'r' defaults to false, 'l' defaults to 0 and 'h' defaults to 1); 
+\f1\b DONE
+\f0\b0 \
+\cf3 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 
+\f1\b DONE
+\f0\b0 \cf3 \
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 tools:\
 * nImOaddChannel 'a' ['b'] - add a channel to the node 'a' with 'b' = true adding an output and 'b' = false adding an input ('b' defaults to false); 
 \f1\b DONE
 \f0\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf2 * nImObridge 'a' 'b' \'97 routing between networks; 'a' is the name of this network, 'b' is the address to connect to the other\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 * nImOcheck - returns zero if the registry detected and non-zero otherwise, so that scripts can start the registry; 
 \f1\b DONE\
 
@@ -36,57 +138,10 @@
 \f0\b0 \
 * nImOversion \'97 reports the versions of the libraries; 
 \f1\b DONE\
-
-\f0\b0 \
-input output:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 * nImOplayback 'a' ['b' ['c']] - sends messages from a file at a specified rate; 
-\f1\b DONE
-\f0\b0 \
-* nImOread \'97 writes out the string representation of messages received; 
-\f1\b DONE\
-
-\f0\b0 * nImOrecord 'a' - writes out received messages to a file; 
-\f1\b DONE
-\f0\b0 \
-* nImOwrite \'97 reads the string representation of a message and sends it out a channel; 
-\f1\b DONE\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\b0 \cf0 \
-interface:\
-\cf2 * nImOchart ['n'] - graphs values of messages from the 'n' input SIGNAL channels ('n' defaults to 1)\
-* nImOdisplay - like 
-\f1\b nImOread
-\f0\b0  but GUI-based\
-* nImOmanage - GUI application to display and control nImO applications\
-* nImOwatch - like 
-\f1\b nImOlog
-\f0\b0  but GUI-based\
-\cf0 \
-examples:\
-\cf2 * nImOricochet 'p' - forwards a message to the next machine in a list\
-* nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order)\
-\cf0 \
-signal services:\
-\cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0)\
-\cf0 * nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
-\f1\b DONE
-\f0\b0 \
-\cf3 * nImOpower ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\cf0 ; 
-\f1\b DONE
-\f0\b0 \cf3 \
-* nImOproduct ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\cf0 ; 
-\f1\b DONE
-\f0\b0 \cf3 \
-\cf0 * nImOpulse ['p' ['r' ['l' ['h']]]] - sends a series of SIGNAL messages with an period of 'p' seconds and a minimum of 'l' and a maximum of 'h' with a random level if 'r' is true ('p' defaults to 1, 'r' defaults to false, 'l' defaults to 0 and 'h' defaults to 1); 
-\f1\b DONE
-\f0\b0 \
-\cf3 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 
-\f1\b DONE
-\f0\b0 \cf3 \
-\cf0 \
-wiring services:\
+wiring:\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]; 
 \f1\b DONE
 \f0\b0 \
@@ -106,40 +161,6 @@ wiring services:\
 \f1\b ; DONE
 \f0\b0 \
 \
-application support:\
-\cf2 * nImOaddApp 'a' - adds an application to the list of available applications on the machine\
-\cf0 * nImOlauncher 'a' - records the machine and known applications with the Registry and waits for requests to start applications; 
-\f1\b DONE
-\f0\b0 \
-\cf2 * nImOloadApps 'a' - loads a set of applications\
-\cf0 * nImOregistry - the Registry, one per LAN; 
-\f1\b DONE
-\f0\b0 \
-\cf2 * nImOremoveApp 'a' - removes an application from the list of available applications on the machine\
-* nImOstoreApps 'a' - stores the current set of loaded applications\
-* nImOupdateApp 'a' - update an application\
-\cf0 \
-runtime:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 * nImOstart ['a' ['b']] - starts a service via a launcher; 
-\f1\b DONE
-\f0\b0 \
-* nImOstop 'a' - shutdown one or all nodes or machines except active log programs; 
-\f1\b DONE
-\f0\b0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
-setup support:\
-\cf2 * nImOloadSetup 'a' - loads a setup\
-* nImOstoreSetup 'a' - stores a setup\
-\cf0 \
-programmable services:\
-\cf2 * nImOjavaScript 'a' ['b' \'85 ] - loads and runs a JavaScript service\
-* nImOlisp 'a' ['b' \'85 ] - loads and runs a Common Lisp service\
-* nImOlua 'a' ['b' \'85 ] - loads and runs a Lua service\
-* nImOpython 'a' ['b' \'85 ] - loads and runs a Python service\
-* nImOtcl 'a' ['b' \'85 ] - loads and runs a Tcl service\
-\cf0 \
 shell script:\
 * nimo\
 	provides a 'simplified' command-line interface to some of the executables, using the default options \

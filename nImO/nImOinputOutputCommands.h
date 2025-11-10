@@ -71,16 +71,34 @@ namespace nImO
     const std::string   kAddOutputChannelResponse{"addOutputChannel="s};
 
     /*! @brief The 'getChannelLimits' request. */
-    const std::string   kGetChannelLimitsRequest{"getChannelLimits."s};
+    const std::string   kGetChannelLimitsRequest{"getChannelLimits?"s};
 
     /*! @brief The 'getChannelLimits' response. */
     const std::string   kGetChannelLimitsResponse{"getChannelLimits="s};
 
     /*! @brief The 'getChannelStatistics' request. */
-    const std::string   kGetChannelStatisticsRequest{"getChannelStatistics."s};
+    const std::string   kGetChannelStatisticsRequest{"getChannelStatistics?"s};
 
     /*! @brief The 'getChannelStatistics' response. */
     const std::string   kGetChannelStatisticsResponse{"getChannelStatistics="s};
+
+    /*! @brief The 'getParameters' request. */
+    const std::string   kGetParametersRequest{"getParameters?"s};
+
+    /*! @brief The 'getParameters' response. */
+    const std::string   kGetParametersResponse{"getParameters="s};
+
+    /*! @brief The 'getParameterValue' request. */
+    const std::string   kGetParameterValueRequest{"getParameterValue?"s};
+
+    /*! @brief The 'getParameterValue' response. */
+    const std::string   kGetParameterValueResponse{"getParameterValue="s};
+
+    /*! @brief The 'setParameter' request. */
+    const std::string   kSetParameterRequest{"setParameter."s};
+
+    /*! @brief The 'setParameter' response. */
+    const std::string   kSetParameterResponse{"setParameter="s};
 
     /*! @brief The 'setUpReceiver' request. */
     const std::string   kSetUpReceiverRequest{"setUpReceiver."s};

@@ -208,6 +208,15 @@ non-iOS/Tools/Monitor/nImOmonitor.rc
 non-iOS/Tools/Post/nImOpost
 non-iOS/Tools/Post/nImOpost.dir/
 non-iOS/Tools/Post/nImOpost.rc
+non-iOS/Tools/Runtime/GetParameters/nImOgetParameters
+non-iOS/Tools/Runtime/GetParameters/nImOgetParameters.dir/
+non-iOS/Tools/Runtime/GetParameters/nImOgetParameters.rc
+non-iOS/Tools/Runtime/GetParameterValue/nImOgetParameterValue
+non-iOS/Tools/Runtime/GetParameterValue/nImOgetParameterValue.dir/
+non-iOS/Tools/Runtime/GetParameterValue/nImOgetParameterValue.rc
+non-iOS/Tools/Runtime/SetParameterValue/nImOsetParameterValue
+non-iOS/Tools/Runtime/SetParameterValue/nImOsetParameterValue.dir/
+non-iOS/Tools/Runtime/SetParameterValue/nImOsetParameterValue.rc
 non-iOS/Tools/Runtime/Start/nImOstart
 non-iOS/Tools/Runtime/Start/nImOstart.dir/
 non-iOS/Tools/Runtime/Start/nImOstart.rc

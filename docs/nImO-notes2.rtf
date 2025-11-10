@@ -1,11 +1,11 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2822
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Bold;\f2\fswiss\fcharset0 Helvetica-Bold;
 \f3\fmodern\fcharset0 Courier-BoldOblique;}
-{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red255\green255\blue255;
-}
-{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;
-}
-\margl1440\margr1440\vieww38780\viewh22460\viewkind0
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red127\green127\blue127;\red0\green0\blue0;
+\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;
+\cssrgb\c100000\c100000\c100000;}
+\margl1440\margr1440\vieww24880\viewh22460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 application support:\
@@ -75,7 +75,10 @@ examples:\
 \cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 runtime:\
-* nImOstart ['a' ['b']] - starts a service via a launcher; 
+\cf3 * nImOgetParameters 'a' - reports the parameters for node 'a'\
+* nImOgetParameterValue 'a' 'b' - reports the current value of parameter 'b' on node 'a'\
+* nImOsetParameterValue 'a' 'b' 'c' - sets the value of mutable parameter 'b' on node 'a' to 'c'\
+\cf0 * nImOstart ['a' ['b']] - starts a service via a launcher; 
 \f1\b DONE
 \f0\b0 \
 * nImOstop 'a' - shutdown one or all nodes or machines except active log programs; 
@@ -90,22 +93,22 @@ setup support:\
 \cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 signals:\
-\cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0)\
+\cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0) and discards messages otherwise; initialy discards\
 \cf0 * nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
 \f1\b DONE
 \f0\b0 \
-\cf3 * nImOpower ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\cf0 ; 
+\cf4 * nImOpower ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\cf0 ; 
 \f1\b DONE
-\f0\b0 \cf3 \
+\f0\b0 \cf4 \
 * nImOproduct ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\cf0 ; 
 \f1\b DONE
-\f0\b0 \cf3 \
+\f0\b0 \cf4 \
 \cf0 * nImOpulse ['p' ['r' ['l' ['h']]]] - sends a series of SIGNAL messages with an period of 'p' seconds and a minimum of 'l' and a maximum of 'h' with a random level if 'r' is true ('p' defaults to 1, 'r' defaults to false, 'l' defaults to 0 and 'h' defaults to 1); 
 \f1\b DONE
 \f0\b0 \
-\cf3 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 
+\cf4 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 
 \f1\b DONE
-\f0\b0 \cf3 \
+\f0\b0 \cf4 \
 \cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 tools:\
@@ -171,6 +174,8 @@ shell script:\
 		nimo clean <a> - invokes nImOclean <a>\
 		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
 		nimo disconnect <c> - invokes nImOdisconnect <c>\
+		nimo getparams <a> - invokes nImOgetParameters <a>\
+		nimo getparamv <a> <b> - invokes nImOgetParameterValue <a> <b>\
 		nimo help - lists choices\
 		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\
 		nimo loada <a> - invokes nImOloadApps <a>\
@@ -181,7 +186,10 @@ shell script:\
 		nimo read - invokes nImOread\
 		nimo record <a> - invokes nImOrecord <a>\
 		nimo remove <a> - invokes nImOremoveApp <a>\
-		nimo start <a> <b> - invokes nImOstart <a> <b>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 		nimo setparamv <a> <b> <c> - invokes nImOgetParameterValue <a> <b> <c>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 		nimo start <a> <b> - invokes nImOstart <a> <b>\
 		nimo stop <a> - invokes nImOstop <a>\
 		nimo storea <a> - invokes nImOstoreApps <a>\
 		nimo stores <a> - invokes nImOstoreSetup <a>\
@@ -191,7 +199,7 @@ shell script:\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f2\b \cf3 \cb4 \expnd0\expndtw0\kerning0
+\f2\b \cf4 \cb5 \expnd0\expndtw0\kerning0
 fix CMakeLists.txt to use current SWIG commands; check what languages can be generated - currently Python and C#
 \f0\b0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
 1. can Ansible be used for the initial deployment - installing nImOmanage, nImOregistry, nImOlauncher, tools and services plus starting nImOlauncher and nImOregistry?\
@@ -200,12 +208,8 @@ this will allow elimination of the 'App' and 'Setup' programs as they won't be n
 3. create the 3D and Leap applications\
 4. create the 'programmable' applications\
 5. Arduino connection? Raspberry Pi sensors? cameras? AI?\
+6. a mechanism for a Launcher to re-launch or to refresh its list of applications?\
 \
 
-\f3\i\b\fs28 Note that m+m manager supported the ability to restart a service after changing its configuration - something that nImO can't do because of the command-line options approach\'85 nImOmanage should provide this via a mechanism to send revised options to a service!!! [refer to the video "m+m manager.mov" for this as well as some of the metrics that are collected.]; add a new mechanism to allow updating selected command-line options after execution has started - but limit its use to the GUI interface?\
-\
-* nImoGetParameters - returns a list of configuration variables that can be changed after launch; i.e nImOgate threshold, nImOpower power, nImOpulse parameters, et cetera\
-* nImOGetParameterValue - returns the current value of a modifiable configuration variable\
-* nImOSetParameterValue - sets the value of a modifiable configuration variable\
-- command-line parameters must have unique (case-insensitive) names so that they can be looked up; the parameters (floating-point or integer) are associated with global variables and 'registered' so that (a) the Registry can report them and (b) callback functions to handle the requests can be established \
+\f3\i\b\fs28 Note that m+m manager supported the ability to restart a service after changing its configuration - nImOmanage should provide this via a mechanism to send revised options to a service. [refer to the video "m+m manager.mov" for this as well as some of the metrics that are collected.]\
 }

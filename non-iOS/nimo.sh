@@ -12,6 +12,8 @@ function list_commands
     echo "    clean      remove Registry information for a node or a machine"
     echo "    connect    connect two channels together"
     echo "    disconnect break the connection between two channels"
+    echo "    getparams  list the mutable parameters of a node"
+    echo "    getparamv  report the value of a mutable parameter of a node"
     echo "    help       list the available commands"
     echo "    list       list channels, applications, services, et cetera"
     echo "    loada      load a set of applications"
@@ -22,6 +24,7 @@ function list_commands
     echo "    read       read from a channel"
     echo "    record     write messages received to a file"
     echo "    remove     remove an application"
+    echo "    setparamv  set the value of a mutable parameter of a node"
     echo "    start      start an application"
     echo "    stop       stop one or all applications except active log programs"
     echo "    storea     store a set of applications"
@@ -66,6 +69,12 @@ function usage_help
             "disconnect")
                 nImOdisconnect -h
                 ;;
+            "getparams")
+                nImOgetParameters -h
+                ;;
+            "getparamv")
+                nImOgetParameterValue -h
+                ;;
             "help")
                 usage_help
                 ;;
@@ -95,6 +104,9 @@ function usage_help
                 ;;
             "remove")
                 nImOremoveApp -h
+                ;;
+            "setparamv")
+                nImOsetParameterValue -h
                 ;;
             "start")
                 nImOstart -h
@@ -175,6 +187,20 @@ else
                 nImOdisconnect $*
             fi
             ;;
+        "getparams")
+            if [[ $# -eq 0 ]]; then
+                usage_help getparams
+            else
+                nImOgetParameters $*
+            fi
+            ;;
+        "getparamv")
+            if [[ $# -eq 0 ]]; then
+                usage_help getparamv
+            else
+                nImOgetParameterValue $*
+            fi
+            ;;
         "help")
             usage_help $*
             ;;
@@ -231,6 +257,13 @@ else
                 usage_help remove
             else
                 nImOremoveApp $*
+            fi
+            ;;
+        "setparamv")
+            if [[ $# -eq 0 ]]; then
+                usage_help setparamv
+            else
+                nImOsetParameterValue $*
             fi
             ;;
         "start")

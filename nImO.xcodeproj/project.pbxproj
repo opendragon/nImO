@@ -315,6 +315,18 @@
 		F691194A2BF4AF79002B9D4E /* nImOtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOtime.h; path = nImO/BasicTypes/nImOtime.h; sourceTree = "<group>"; };
 		F691194B2BF4AF79002B9D4E /* nImOdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOdate.h; path = nImO/BasicTypes/nImOdate.h; sourceTree = "<group>"; };
 		F691194C2BF4AF79002B9D4E /* nImOdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdate.cpp; path = nImO/BasicTypes/nImOdate.cpp; sourceTree = "<group>"; };
+		F691A31B2EC23112006C08AD /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F691A31D2EC23150006C08AD /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F691A31F2EC23173006C08AD /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F691A3212EC23277006C08AD /* nImOgetParameters.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOgetParameters.rc.in; sourceTree = "<group>"; };
+		F691A3222EC23277006C08AD /* nImOgetParametersMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOgetParametersMain.cpp; sourceTree = "<group>"; };
+		F691A3232EC23277006C08AD /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F691A3252EC234AD006C08AD /* nImOgetParameterValue.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOgetParameterValue.rc.in; sourceTree = "<group>"; };
+		F691A3262EC234AD006C08AD /* nImOgetParameterValueMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOgetParameterValueMain.cpp; sourceTree = "<group>"; };
+		F691A3272EC234AD006C08AD /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F691A3292EC235A8006C08AD /* nImOsetParameterValue.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOsetParameterValue.rc.in; sourceTree = "<group>"; };
+		F691A32A2EC235A8006C08AD /* nImOsetParameterValueMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOsetParameterValueMain.cpp; sourceTree = "<group>"; };
+		F691A32B2EC235A8006C08AD /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F692A43929C0E911003711E9 /* nImOstopMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstopMain.cpp; sourceTree = "<group>"; };
 		F692A43A29C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F692A43B29C0E911003711E9 /* nImOstop.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOstop.rc.in; sourceTree = "<group>"; };
@@ -1434,6 +1446,9 @@
 			isa = PBXGroup;
 			children = (
 				F65DA9A52EC217AE0069ADA9 /* CMakeLists.txt */,
+				F691A31A2EC230F4006C08AD /* GetParameters */,
+				F691A31C2EC2311A006C08AD /* GetParameterValue */,
+				F691A31E2EC2315A006C08AD /* SetParameterValue */,
 				F65DA9A12EC216EE0069ADA9 /* Start */,
 				F65DA9A22EC216F60069ADA9 /* Stop */,
 			);
@@ -1459,6 +1474,9 @@
 		F65DA9A62EC218B40069ADA9 /* Runtime */ = {
 			isa = PBXGroup;
 			children = (
+				F691A3202EC23260006C08AD /* GetParameters */,
+				F691A3242EC23491006C08AD /* GetParameterValue */,
+				F691A3282EC2358D006C08AD /* SetParameterValue */,
 				F6B0A1712BC01296009453D3 /* Start */,
 				F692A43829C0E911003711E9 /* Stop */,
 			);
@@ -1590,6 +1608,60 @@
 				F68F63DC2BBFFDB900E08558 /* CMakeLists.txt */,
 			);
 			name = Log;
+			sourceTree = "<group>";
+		};
+		F691A31A2EC230F4006C08AD /* GetParameters */ = {
+			isa = PBXGroup;
+			children = (
+				F691A31B2EC23112006C08AD /* CMakeLists.txt */,
+			);
+			path = GetParameters;
+			sourceTree = "<group>";
+		};
+		F691A31C2EC2311A006C08AD /* GetParameterValue */ = {
+			isa = PBXGroup;
+			children = (
+				F691A31D2EC23150006C08AD /* CMakeLists.txt */,
+			);
+			path = GetParameterValue;
+			sourceTree = "<group>";
+		};
+		F691A31E2EC2315A006C08AD /* SetParameterValue */ = {
+			isa = PBXGroup;
+			children = (
+				F691A31F2EC23173006C08AD /* CMakeLists.txt */,
+			);
+			path = SetParameterValue;
+			sourceTree = "<group>";
+		};
+		F691A3202EC23260006C08AD /* GetParameters */ = {
+			isa = PBXGroup;
+			children = (
+				F691A3212EC23277006C08AD /* nImOgetParameters.rc.in */,
+				F691A3222EC23277006C08AD /* nImOgetParametersMain.cpp */,
+				F691A3232EC23277006C08AD /* resource.h */,
+			);
+			path = GetParameters;
+			sourceTree = "<group>";
+		};
+		F691A3242EC23491006C08AD /* GetParameterValue */ = {
+			isa = PBXGroup;
+			children = (
+				F691A3252EC234AD006C08AD /* nImOgetParameterValue.rc.in */,
+				F691A3262EC234AD006C08AD /* nImOgetParameterValueMain.cpp */,
+				F691A3272EC234AD006C08AD /* resource.h */,
+			);
+			path = GetParameterValue;
+			sourceTree = "<group>";
+		};
+		F691A3282EC2358D006C08AD /* SetParameterValue */ = {
+			isa = PBXGroup;
+			children = (
+				F691A3292EC235A8006C08AD /* nImOsetParameterValue.rc.in */,
+				F691A32A2EC235A8006C08AD /* nImOsetParameterValueMain.cpp */,
+				F691A32B2EC235A8006C08AD /* resource.h */,
+			);
+			path = SetParameterValue;
 			sourceTree = "<group>";
 		};
 		F692A43729C0E911003711E9 /* SetupSupport */ = {

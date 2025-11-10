@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/Runtime/CMakeLists.txt
+#  File:       non-iOS/Tools/Runtime/GetParameters/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The application support tools for the nImO project.
+#  Contains:   The CMAKE definitions for the GetParameters application.
 #
 #  Written by: Norman Jaffe
 #
@@ -36,10 +36,32 @@
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(GetParameters)
-add_subdirectory(GetParameterValue)
-add_subdirectory(SetParameterValue)
-add_subdirectory(Start)
-add_subdirectory(Stop)
+include_directories("${nImO_SOURCE_DIR}")
+
+set(THIS_TARGET nImOgetParameters)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Runtime/GetParameters)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+# Set up our program
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOgetParametersMain.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+install(TARGETS
+        ${THIS_TARGET}
+        DESTINATION bin
+        COMPONENT applications)
 
 enable_testing()

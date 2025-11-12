@@ -89,7 +89,10 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddOutputChannelCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParametersCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParameterValueCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetParameterValueCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp"
@@ -305,9 +308,12 @@ install(FILES
 install(FILES
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddOutputChannelCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParametersCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParameterValueCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetParameterValueCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h"
@@ -459,8 +465,14 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParametersCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParametersCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParameterValueCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetParameterValueCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetParameterValueCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetParameterValueCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp

@@ -299,12 +299,14 @@ nImO::InputOutputContext::stopInputQueue
 void
 nImO::AddInputOutputHandlers
     (SpInputOutputContext   context,
+     DescriptorVector &     argumentList,
      Ptr(CallbackFunction)  stopCallback,
      Ptr(CallbackFunction)  addInputChannelCallback,
      Ptr(CallbackFunction)  addOutputChannelCallback)
 {
     ODL_ENTER(); //####
-    ODL_P4(context.get(), stopCallback, addInputChannelCallback, addOutputChannelCallback); //####
+    ODL_P4(context.get(), &argumentList, stopCallback, addInputChannelCallback); //####
+    ODL_P1(addOutputChannelCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
     if (context)
     {
@@ -405,6 +407,10 @@ nImO::AddInputOutputHandlers
             {
                 goAhead = false;
             }
+        }
+        if (goAhead)
+        {
+            // add get/set/list property handlers
         }
         if (goAhead)
         {

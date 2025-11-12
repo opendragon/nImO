@@ -128,7 +128,7 @@ main
             {
                 ourContext->findAndLaunchTheRegistry();
             }
-            nImO::AddInputOutputHandlers(ourContext, cleanup);
+            nImO::AddInputOutputHandlers(ourContext, argumentList, cleanup);
             if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};

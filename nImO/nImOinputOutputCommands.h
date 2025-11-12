@@ -94,11 +94,11 @@ namespace nImO
     /*! @brief The 'getParameterValue' response. */
     const std::string   kGetParameterValueResponse{"getParameterValue="s};
 
-    /*! @brief The 'setParameter' request. */
-    const std::string   kSetParameterRequest{"setParameter."s};
+    /*! @brief The 'setParameterValue' request. */
+    const std::string   kSetParameterValueRequest{"setParameterValue."s};
 
-    /*! @brief The 'setParameter' response. */
-    const std::string   kSetParameterResponse{"setParameter="s};
+    /*! @brief The 'setParameterValue' response. */
+    const std::string   kSetParameterValueResponse{"setParameterValue="s};
 
     /*! @brief The 'setUpReceiver' request. */
     const std::string   kSetUpReceiverRequest{"setUpReceiver."s};

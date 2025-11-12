@@ -142,7 +142,7 @@ nImO::Integer::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Integer)   otherPtr{other.asInteger()};
+        auto    otherPtr{other.asInteger()};
 
         if (nullptr != otherPtr)
         {
@@ -188,11 +188,11 @@ nImO::Integer::equalTo
 
     if (&other != this)
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -291,11 +291,11 @@ nImO::Integer::greaterThan
     }
     else
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -333,11 +333,11 @@ nImO::Integer::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -379,11 +379,11 @@ nImO::Integer::lessThan
     }
     else
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -421,11 +421,11 @@ nImO::Integer::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {

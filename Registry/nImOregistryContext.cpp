@@ -103,8 +103,8 @@ announcementServiceCallback
     NIMO_UNUSED_VAR_(recordLength);
     if ((mDNS::kEntryTypeQuestion == entry) && (! lAnnouncerThreadStop))
     {
-        const char                          kDnsSd[]{"_services._dns-sd._udp.local."};
-        CPtr(nImO::AnnounceServiceData)     servicePtr{ReinterpretCast(CPtr(nImO::AnnounceServiceData), userData)};
+        const char  kDnsSd[]{"_services._dns-sd._udp.local."};
+        auto        servicePtr{ReinterpretCast(CPtr(nImO::AnnounceServiceData), userData)};
 
         if (nullptr == servicePtr)
         {
@@ -181,7 +181,7 @@ announcementServiceCallback
                         }
                         // Add TXT records for our service instance name, will be coalesced into
                         // one record with both key-value pair strings by the library
-                        for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                        for (size_t ii{0}; ii < nImO::kNumTxtRecords; ++ii)
                         {
                             additional[additionalCount++] = serviceData._recordTXT[ii];
                         }
@@ -233,7 +233,7 @@ announcementServiceCallback
                             }
                             // Add TXT records for our service instance name, will be coalesced into
                             // one record with both key-value pair strings by the library
-                            for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                            for (size_t ii{0}; ii < nImO::kNumTxtRecords; ++ii)
                             {
                                 additional[additionalCount++] = serviceData._recordTXT[ii];
                             }
@@ -278,7 +278,7 @@ announcementServiceCallback
                                 }
                                 // Add TXT records for our service instance name, will be coalesced into
                                 // one record with both key-value pair strings by the library
-                                for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                                for (size_t ii{0}; ii < nImO::kNumTxtRecords; ++ii)
                                 {
                                     additional[additionalCount++] = serviceData._recordTXT[ii];
                                 }
@@ -319,7 +319,7 @@ announcementServiceCallback
                                     }
                                     // Add TXT records for our service instance name, will be coalesced into
                                     // one record with both key-value pair strings by the library
-                                    for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                                    for (size_t ii{0}; ii < nImO::kNumTxtRecords; ++ii)
                                     {
                                         additional[additionalCount++] = serviceData._recordTXT[ii];
                                     }
@@ -417,7 +417,7 @@ nImO::RegistryContext::executeAnnouncer
         fd_set  readfs;
 
         FD_ZERO(&readfs);
-        for (int isock = 0; isock < owner._numSockets; ++isock)
+        for (int isock{0}; isock < owner._numSockets; ++isock)
         {
             if (lAnnouncerThreadStop)
             {
@@ -442,7 +442,7 @@ nImO::RegistryContext::executeAnnouncer
 
             if (res >= 0)
             {
-                for (int isock = 0; (0 < res) && (isock < owner._numSockets); ++isock)
+                for (int isock{0}; (0 < res) && (isock < owner._numSockets); ++isock)
                 {
                     if (lAnnouncerThreadStop)
                     {
@@ -548,11 +548,11 @@ nImO::RegistryContext::makePortAnnouncement
             {
                 additional[additionalCount++] = _announceData->_recordAAAA;
             }
-            for (size_t ii = 0; ii < kNumTxtRecords; ++ii)
+            for (size_t ii{0}; ii < kNumTxtRecords; ++ii)
             {
                 additional[additionalCount++] = _announceData->_recordTXT[ii];
             }
-            for (int isock = 0; isock < _numSockets; ++isock)
+            for (int isock{0}; isock < _numSockets; ++isock)
             {
                 mDNS::announce_multicast(_sockets[isock], _buffer, kBufferCapacity, _announceData->_recordPTR, nullptr,
                                          0, additional, additionalCount);
@@ -592,12 +592,12 @@ nImO::RegistryContext::removeAnnouncement
             {
                 additional[additionalCount++] = _announceData->_recordAAAA;
             }
-            for (size_t ii = 0; ii < kNumTxtRecords; ++ii)
+            for (size_t ii{0}; ii < kNumTxtRecords; ++ii)
             {
                 additional[additionalCount++] = _announceData->_recordTXT[ii];
             }
             report("mDNS 'goodbyes' sent."s);
-            for (int isock = 0; isock < _numSockets; ++isock)
+            for (int isock{0}; isock < _numSockets; ++isock)
             {
                 mDNS::goodbye_multicast(_sockets[isock], _buffer, kBufferCapacity, _announceData->_recordPTR, 0, 0,
                                         additional, additionalCount);

@@ -143,7 +143,7 @@ nImO::Double::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Double)    otherPtr{other.asDouble()};
+        auto    otherPtr{other.asDouble()};
 
         if (nullptr != otherPtr)
         {
@@ -189,11 +189,11 @@ nImO::Double::equalTo
 
     if (&other != this)
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -244,11 +244,11 @@ nImO::Double::extractValue
     }
     else
     {
-        size_t          size{StaticCast(size_t, toUType(DataKind::DoubleLongCountMask & leadByte) + 1)};
+        auto            size{StaticCast(size_t, toUType(DataKind::DoubleLongCountMask & leadByte) + 1)};
         NumberAsBytes   holder;
         bool            okSoFar{true};
 
-        for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+        for (size_t ii{0}; okSoFar && (size > ii); ++ii)
         {
             int aByte{theMessage.getByte(position, atEnd)};
 
@@ -284,9 +284,9 @@ nImO::Double::extractValue
         {
             result = std::make_shared<Invalid>("Bad count for Double", position);
         }
-        for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
+        for (int64_t ii{0}; okSoFar && (howMany > ii); ++ii)
         {
-            for (size_t jj = 0; okSoFar && (sizeof(int64_t) > jj); ++jj)
+            for (size_t jj{0}; okSoFar && (sizeof(int64_t) > jj); ++jj)
             {
                 int aByte{theMessage.getByte(position, atEnd)};
 
@@ -359,11 +359,11 @@ nImO::Double::greaterThan
     }
     else
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -401,11 +401,11 @@ nImO::Double::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -447,11 +447,11 @@ nImO::Double::lessThan
     }
     else
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {
@@ -489,11 +489,11 @@ nImO::Double::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Double)    doublePtr{other.asDouble()};
+        auto    doublePtr{other.asDouble()};
 
         if (nullptr == doublePtr)
         {
-            CPtr(Integer)   intPtr{other.asInteger()};
+            auto    intPtr{other.asInteger()};
 
             if (nullptr == intPtr)
             {

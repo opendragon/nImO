@@ -478,10 +478,10 @@ doTestBigArrayValue
                 std::string expectedString{kStartArrayChar};
                 char        numBuff[10];
 
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
                     Ptr(uint8_t)    addr{bigBlob.get()};
-                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
+                    auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     if (0 != ii)
                     {
@@ -953,7 +953,7 @@ doTestNonEmptyArrayRandomIterator
             stuff->addValue(std::make_shared<Logical>(true));
             stuff->addValue(std::make_shared<String>("charlie"));
             stuff->addValue(std::make_shared<Integer>(42));
-            for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
+            for (size_t ii{0}, count{2 * stuff->size()}; ii < count; ++ii)
             {
                 if (stuff->end() == stuff->random())
                 {
@@ -1014,7 +1014,7 @@ doTestClearingNonEmptyArrayUsingRandomIterator
             stuff->addValue(std::make_shared<Logical>(true));
             stuff->addValue(std::make_shared<String>("charlie"));
             stuff->addValue(std::make_shared<Integer>(42));
-            for (size_t ii = 0, count = stuff->size(); ii < count; ++ii)
+            for (size_t ii{0}, count{stuff->size()}; ii < count; ++ii)
             {
                 Array::iterator walker(stuff->random());
 
@@ -2029,7 +2029,7 @@ doTestNonEmptyMapRandomIterator
             stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
             stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(1234.5));
             result = 0;
-            for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
+            for (size_t ii{0}, count{2 * stuff->size()}; ii < count; ++ii)
             {
                 if (stuff->end() == stuff->random())
                 {
@@ -2089,7 +2089,7 @@ doTestClearingNonEmptyMapUsingRandomIterator
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
             stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
             stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(1234.5));
-            for (size_t ii = 0, count = stuff->size(); ii < count; ++ii)
+            for (size_t ii{0}, count{stuff->size()}; ii < count; ++ii)
             {
                 Map::iterator walker(stuff->random());
 
@@ -3599,7 +3599,7 @@ doTestNonEmptySetRandomIterator
             stuff->addValue(std::make_shared<String>("beta"));
             stuff->addValue(std::make_shared<String>("epsilon"));
             result = 0;
-            for (size_t ii = 0, count = (2 * stuff->size()); ii < count; ++ii)
+            for (size_t ii{0}, count{2 * stuff->size()}; ii < count; ++ii)
             {
                 if (stuff->end() == stuff->random())
                 {
@@ -3661,7 +3661,7 @@ doTestClearingNonEmptySetUsingRandomIterator
             stuff->addValue(std::make_shared<String>("delta"));
             stuff->addValue(std::make_shared<String>("beta"));
             stuff->addValue(std::make_shared<String>("epsilon"));
-            for (size_t ii = 0, count = stuff->size(); ii < count; ++ii)
+            for (size_t ii{0}, count{stuff->size()}; ii < count; ++ii)
             {
                 Set::iterator walker(stuff->random());
 
@@ -5712,7 +5712,7 @@ doTestValidArrayCompares
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Logical aValue{testSet1l[ii]._testValue};
 
@@ -5754,7 +5754,7 @@ doTestValidArrayCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Logical aValue{testSet1r[ii]._testValue};
 
@@ -5835,7 +5835,7 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Logical>(false));
             stuff.addValue(std::make_shared<Logical>(false));
             stuff.addValue(std::make_shared<Logical>(false));
-            for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 Logical aValue{testSet2l[ii]._testValue};
 
@@ -5877,7 +5877,7 @@ doTestValidArrayCompares
                     }
                 }
             }
-            for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues2r > ii); ++ii)
             {
                 Logical aValue{testSet2r[ii]._testValue};
 
@@ -6079,7 +6079,7 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Double>(-25.0));
             stuff.addValue(std::make_shared<Double>(-60.0));
             stuff.addValue(std::make_shared<Double>(0.0));
-            for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues3l > ii); ++ii)
             {
                 Double  aValue{testSet3l[ii]._testValue};
 
@@ -6121,7 +6121,7 @@ doTestValidArrayCompares
                     }
                 }
             }
-            for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues3r > ii); ++ii)
             {
                 Double  aValue{testSet3r[ii]._testValue};
 
@@ -6249,7 +6249,7 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<String>("abc"));
             stuff.addValue(std::make_shared<String>("def"));
             stuff.addValue(std::make_shared<String>("ghi"));
-            for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues4l > ii); ++ii)
             {
                 String  aValue{testSet4l[ii]._testValue};
 
@@ -6291,7 +6291,7 @@ doTestValidArrayCompares
                     }
                 }
             }
-            for (size_t ii = 0; (0 == result) && (numTestValues4r > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues4r > ii); ++ii)
             {
                 String  aValue{testSet4r[ii]._testValue};
 
@@ -6419,7 +6419,7 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Address>(0x12345678));
             stuff.addValue(std::make_shared<Address>(0x345678AB));
             stuff.addValue(std::make_shared<Address>(0x5678ABCD));
-            for (size_t ii = 0; (0 == result) && (numTestValues5l > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues5l > ii); ++ii)
             {
                 Address aValue{testSet5l[ii]._testValue};
 
@@ -6461,7 +6461,7 @@ doTestValidArrayCompares
                     }
                 }
             }
-            for (size_t ii = 0; (0 == result) && (numTestValues5r > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues5r > ii); ++ii)
             {
                 Address aValue{testSet5r[ii]._testValue};
 
@@ -6588,7 +6588,7 @@ doTestValidLogicalMapCompares
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("abc"));
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("ghi"));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Logical aValue{testSet1l[ii]._testValue};
 
@@ -6630,7 +6630,7 @@ doTestValidLogicalMapCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Logical aValue{testSet1r[ii]._testValue};
 
@@ -6711,7 +6711,7 @@ doTestValidLogicalMapCompares
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("abc"));
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("def"));
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("ghi"));
-            for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 Logical aValue{testSet2l[ii]._testValue};
 
@@ -6753,7 +6753,7 @@ doTestValidLogicalMapCompares
                     }
                 }
             }
-            for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues2r > ii); ++ii)
             {
                 Logical aValue{testSet2r[ii]._testValue};
 
@@ -6990,7 +6990,7 @@ doTestValidIntegerMapCompares
         stuff.addValue(std::make_shared<Integer>(-25), std::make_shared<String>("ghi"));
         stuff.addValue(std::make_shared<Integer>(-60), std::make_shared<String>("jkl"));
         stuff.addValue(std::make_shared<Integer>(0), std::make_shared<String>("mno"));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Integer aValue{testSet1l[ii]._testValue};
 
@@ -7032,7 +7032,7 @@ doTestValidIntegerMapCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Integer aValue{testSet1r[ii]._testValue};
 
@@ -7194,7 +7194,7 @@ doTestValidStringMapCompares
         stuff.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         stuff.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
         stuff.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             String  aValue{testSet1l[ii]._testValue};
 
@@ -7236,7 +7236,7 @@ doTestValidStringMapCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             String  aValue{testSet1r[ii]._testValue};
 
@@ -7362,7 +7362,7 @@ doTestValidLogicalSetCompares
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Logical aValue{testSet1l[ii]._testValue};
 
@@ -7404,7 +7404,7 @@ doTestValidLogicalSetCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Logical aValue{testSet1r[ii]._testValue};
 
@@ -7485,7 +7485,7 @@ doTestValidLogicalSetCompares
             stuff.addValue(std::make_shared<Logical>(false));
             stuff.addValue(std::make_shared<Logical>(false));
             stuff.addValue(std::make_shared<Logical>(false));
-            for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues2l > ii); ++ii)
             {
                 Logical aValue{testSet2l[ii]._testValue};
 
@@ -7527,7 +7527,7 @@ doTestValidLogicalSetCompares
                     }
                 }
             }
-            for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (numTestValues2r > ii); ++ii)
             {
                 Logical aValue{testSet2r[ii]._testValue};
 
@@ -7764,7 +7764,7 @@ doTestValidIntegerSetCompares
         stuff.addValue(std::make_shared<Integer>(-25));
         stuff.addValue(std::make_shared<Integer>(-60));
         stuff.addValue(std::make_shared<Integer>(0));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Integer aValue{testSet1l[ii]._testValue};
 
@@ -7806,7 +7806,7 @@ doTestValidIntegerSetCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Integer aValue{testSet1r[ii]._testValue};
 
@@ -7968,7 +7968,7 @@ doTestValidStringSetCompares
         stuff.addValue(std::make_shared<String>("abc"));
         stuff.addValue(std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<String>("ghi"));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             String  aValue{testSet1l[ii]._testValue};
 
@@ -8010,7 +8010,7 @@ doTestValidStringSetCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             String  aValue{testSet1r[ii]._testValue};
 
@@ -8113,7 +8113,7 @@ doTestInvalidArrayCompares
         leftValue.addValue(std::make_shared<Logical>());
         leftValue.addValue(std::make_shared<Number>());
         leftValue.addValue(std::make_shared<String>());
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -8230,7 +8230,7 @@ doTestInvalidLogicalMapCompares
 
         leftValue.addValue(std::make_shared<Logical>(false), std::make_shared<String>("false"));
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -8347,7 +8347,7 @@ doTestInvalidIntegerMapCompares
         leftValue.addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
         leftValue.addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -8465,7 +8465,7 @@ doTestInvalidStringMapCompares
         leftValue.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         leftValue.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
         leftValue.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -8582,7 +8582,7 @@ doTestInvalidLogicalSetCompares
 
         leftValue.addValue(std::make_shared<Logical>(false));
         leftValue.addValue(std::make_shared<Logical>(true));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -8699,7 +8699,7 @@ doTestInvalidIntegerSetCompares
         leftValue.addValue(std::make_shared<Integer>(42));
         leftValue.addValue(std::make_shared<Integer>(17));
         leftValue.addValue(std::make_shared<Integer>(12));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -8817,7 +8817,7 @@ doTestInvalidStringSetCompares
         leftValue.addValue(std::make_shared<String>("abc"));
         leftValue.addValue(std::make_shared<String>("def"));
         leftValue.addValue(std::make_shared<String>("ghi"));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -9021,7 +9021,7 @@ doTestValidAddressMapCompares
         stuff.addValue(std::make_shared<Address>(0x345678AB), std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<Address>(0x5678ABCD), std::make_shared<String>("ghi"));
         stuff.addValue(std::make_shared<Address>(0x78ABCDEF), std::make_shared<String>("jkl"));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Address aValue{testSet1l[ii]._testValue};
 
@@ -9063,7 +9063,7 @@ doTestValidAddressMapCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Address aValue{testSet1r[ii]._testValue};
 
@@ -9250,7 +9250,7 @@ doTestValidAddressSetCompares
         stuff.addValue(std::make_shared<Address>(0x345678AB));
         stuff.addValue(std::make_shared<Address>(0x5678ABCD));
         stuff.addValue(std::make_shared<Address>(0x78ABCDEF));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Address aValue{testSet1l[ii]._testValue};
 
@@ -9292,7 +9292,7 @@ doTestValidAddressSetCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Address aValue{testSet1r[ii]._testValue};
 
@@ -9393,7 +9393,7 @@ doTestInvalidAddressMapCompares
         leftValue.addValue(std::make_shared<Address>(0x12345678), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Address>(0x345678AB), std::make_shared<Double>(12.345));
         leftValue.addValue(std::make_shared<Address>(0x5678ABCD), std::make_shared<Double>(1234.5));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -9511,7 +9511,7 @@ doTestInvalidAddressSetCompares
         leftValue.addValue(std::make_shared<Address>(0x12345678));
         leftValue.addValue(std::make_shared<Address>(0x345678AB));
         leftValue.addValue(std::make_shared<Address>(0x5678ABCD));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -9722,7 +9722,7 @@ doTestValidDateMapCompares
         stuff.addValue(std::make_shared<Date>(val3), std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<Date>(val5), std::make_shared<String>("ghi"));
         stuff.addValue(std::make_shared<Date>(val6), std::make_shared<String>("jkl"));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Date    aValue{testSet1l[ii]._testValue};
 
@@ -9764,7 +9764,7 @@ doTestValidDateMapCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Date    aValue{testSet1r[ii]._testValue};
 
@@ -9958,7 +9958,7 @@ doTestValidDateSetCompares
         stuff.addValue(std::make_shared<Date>(val3));
         stuff.addValue(std::make_shared<Date>(val5));
         stuff.addValue(std::make_shared<Date>(val6));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Date    aValue{testSet1l[ii]._testValue};
 
@@ -10000,7 +10000,7 @@ doTestValidDateSetCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Date    aValue{testSet1r[ii]._testValue};
 
@@ -10101,7 +10101,7 @@ doTestInvalidDateMapCompares
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(1, 2, 3)), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(2, 3, 4)), std::make_shared<Double>(12.345));
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(3, 4, 5)), std::make_shared<Double>(1234.5));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -10219,7 +10219,7 @@ doTestInvalidDateSetCompares
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(1, 2, 3)));
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(2, 3, 4)));
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(3, 4, 5)));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -10430,7 +10430,7 @@ doTestValidTimeMapCompares
         stuff.addValue(std::make_shared<Time>(val3), std::make_shared<String>("def"));
         stuff.addValue(std::make_shared<Time>(val5), std::make_shared<String>("ghi"));
         stuff.addValue(std::make_shared<Time>(val6), std::make_shared<String>("jkl"));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Time    aValue{testSet1l[ii]._testValue};
 
@@ -10472,7 +10472,7 @@ doTestValidTimeMapCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Time    aValue{testSet1r[ii]._testValue};
 
@@ -10666,7 +10666,7 @@ doTestValidTimeSetCompares
         stuff.addValue(std::make_shared<Time>(val3));
         stuff.addValue(std::make_shared<Time>(val5));
         stuff.addValue(std::make_shared<Time>(val6));
-        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
         {
             Time    aValue{testSet1l[ii]._testValue};
 
@@ -10708,7 +10708,7 @@ doTestValidTimeSetCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
         {
             Time    aValue{testSet1r[ii]._testValue};
 
@@ -10809,7 +10809,7 @@ doTestInvalidTimeMapCompares
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(1, 2, 3, 4)), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(2, 3, 4, 5)), std::make_shared<Double>(12.345));
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(3, 4, 5, 6)), std::make_shared<Double>(1234.5));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -10927,7 +10927,7 @@ doTestInvalidTimeSetCompares
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(1, 2, 3, 4)));
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(2, 3, 4, 5)));
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(3, 4, 5, 6)));
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -12627,10 +12627,10 @@ doTestBigArrayValueAsJSON
                 char        numBuff[10];
 
                 expectedString += ' ';
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
                     Ptr(uint8_t)    addr{bigBlob.get()};
-                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
+                    auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     if (0 != ii)
                     {
@@ -15306,7 +15306,7 @@ doTestKeysFromMapWithLogicalKeys
                     true, false
                 };
 
-                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                for (size_t ii{0}, mm{numElementsInArray(rawKeys)}; ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Logical>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
@@ -15391,7 +15391,7 @@ doTestKeysFromMapWithIntegerKeys
                     -123, 0, 123, 456, -456, 789, -789
                 };
 
-                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                for (size_t ii{0}, mm{numElementsInArray(rawKeys)}; ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Integer>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
@@ -15476,7 +15476,7 @@ doTestKeysFromMapWithAddressKeys
                     0x12345678, 0x345678AB, 0x5678ABCD, 0x78ABCDEF
                 };
 
-                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                for (size_t ii{0}, mm{numElementsInArray(rawKeys)}; ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Address>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
@@ -15561,7 +15561,7 @@ doTestKeysFromMapWithStringKeys
                     "abc"s, "def"s, "ghi", "012345"
                 };
 
-                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                for (size_t ii{0}, mm{numElementsInArray(rawKeys)}; ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<String>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
@@ -15646,7 +15646,7 @@ doTestKeysFromMapWithDateKeys
                     MakeDateValue(8, 9, 10), MakeDateValue(9, 10, 11), MakeDateValue(10, 11, 12), MakeDateValue(11, 12, 13)
                 };
 
-                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                for (size_t ii{0}, mm{numElementsInArray(rawKeys)}; ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Date>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};
@@ -15731,7 +15731,7 @@ doTestKeysFromMapWithTimeKeys
                     MakeTimeValue(8, 9, 10, 60), MakeTimeValue(9, 10, 11, 61), MakeTimeValue(10, 11, 12, 62), MakeTimeValue(11, 12, 13, 63)
                 };
 
-                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                for (size_t ii{0}, mm{numElementsInArray(rawKeys)}; ii < mm; ++ii)
                 {
                     auto    aKey{std::make_shared<Time>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(nImO::RandomDouble())};

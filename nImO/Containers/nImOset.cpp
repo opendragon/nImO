@@ -202,7 +202,7 @@ nImO::Set::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Set)   otherPtr{other.asSet()};
+        auto    otherPtr{other.asSet()};
 
         if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
@@ -792,7 +792,7 @@ nImO::Set::random
 
     if (0 < howMany)
     {
-        for (size_t ii = 0, keyNumber = (nImO::RandomUnsigned() % howMany); ii < keyNumber; ++ii)
+        for (size_t ii{0}, keyNumber{nImO::RandomUnsigned() % howMany}; ii < keyNumber; ++ii)
         {
             ++result;
         }
@@ -811,7 +811,7 @@ nImO::Set::random
 
     if (0 < howMany)
     {
-        for (size_t ii = 0, keyNumber = (nImO::RandomUnsigned() % howMany); ii < keyNumber; ++ii)
+        for (size_t ii{0}, keyNumber{nImO::RandomUnsigned() % howMany}; ii < keyNumber; ++ii)
         {
             ++result;
         }

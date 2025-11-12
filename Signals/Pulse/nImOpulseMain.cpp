@@ -235,7 +235,7 @@ main
                                             if (nImO::gKeepRunning && doAnother)
                                             {
                                                 double  actualValue;
-                                                int     numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
+                                                auto    numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                                 auto    delayTime{boost::posix_time::milliseconds(numMilliseconds) / 2.0};
                                                 double  lowValue{thirdArg->getCurrentValue()};
                                                 double  highValue{fourthArg->getCurrentValue()};

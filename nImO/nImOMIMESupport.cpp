@@ -130,7 +130,7 @@ nImO::DecodeMIMEToBytes
 
     outBytes.clear();
     // First, validate the row sizes.
-    for (size_t ii = 0; okSoFar && (ii < numRows); ++ii)
+    for (size_t ii{0}; okSoFar && (ii < numRows); ++ii)
     {
         line = inValue[ii];
         if (0 == (line.length() % 4))
@@ -147,10 +147,10 @@ nImO::DecodeMIMEToBytes
     {
         outBytes.reserve(newSize);
     }
-    for (size_t ii = 0; okSoFar && (ii < numRows); ++ii)
+    for (size_t ii{0}; okSoFar && (ii < numRows); ++ii)
     {
         line = inValue[ii];
-        for (size_t jj = 0, nn = line.length(); jj < nn; ++jj)
+        for (size_t jj{0}, nn{line.length()}; jj < nn; ++jj)
         {
             char    ch{line[jj]};
 
@@ -164,14 +164,14 @@ nImO::DecodeMIMEToBytes
                 group6[count4s] = ch;
                 if (4 == ++count4s)
                 {
-                    for (size_t kk = 0; kk < 4; ++kk)
+                    for (size_t kk{0}; kk < 4; ++kk)
                     {
                         group6[kk] = strchr(kMIMECharSet, group6[kk]) - kMIMECharSet;
                     }
                     group8[0] = (group6[0] << 2) + ((group6[1] & 0x0030) >> 4);
                     group8[1] = ((group6[1] & 0x000f) << 4) + ((group6[2] & 0x003c) >> 2);
                     group8[2] = ((group6[2] & 0x0003) << 6) + group6[3];
-                    for (size_t kk = 0; kk < 3; ++kk)
+                    for (size_t kk{0}; kk < 3; ++kk)
                     {
                         outBytes.push_back(group8[kk]);
                     }
@@ -186,13 +186,13 @@ nImO::DecodeMIMEToBytes
         }
         if (okSoFar && (count4s > 0))
         {
-            for (size_t jj = count4s; jj < 4; ++jj)
+            for (size_t jj{count4s}; jj < 4; ++jj)
             {
                 group6[jj] = kEndOfString;
             }
-            for (size_t jj = 0; jj < 4; ++jj)
+            for (size_t jj{0}; jj < 4; ++jj)
             {
-                CPtr(char)  offset{strchr(kMIMECharSet, group6[jj])};
+                auto    offset{strchr(kMIMECharSet, group6[jj])};
 
                 if (nullptr == offset)
                 {
@@ -206,7 +206,7 @@ nImO::DecodeMIMEToBytes
             group8[0] = (group6[0] << 2) + ((group6[1] & 0x0030) >> 4);
             group8[1] = ((group6[1] & 0x000f) << 4) + ((group6[2] & 0x003c) >> 2);
             group8[2] = ((group6[2] & 0x0003) << 6) + group6[3];
-            for (size_t jj = 0; jj < (count4s - 1); ++jj)
+            for (size_t jj{0}; jj < (count4s - 1); ++jj)
             {
                 outBytes.push_back(group8[jj]);
             }
@@ -232,11 +232,11 @@ nImO::EncodeBytesAsMIME
      CPtr(void)         inBytes,
      const size_t       numBytes)
 {
-    CPtr(uint8_t)   rawBytes{StaticCast(CPtr(uint8_t), inBytes)};
-    uint8_t         group8[3];
-    uint8_t         group6[4];
-    size_t          count3s{0};
-    std::string     line;
+    auto        rawBytes{StaticCast(CPtr(uint8_t), inBytes)};
+    uint8_t     group8[3];
+    uint8_t     group6[4];
+    size_t      count3s{0};
+    std::string line;
 
     outValue.clear();
     // Calculate the number of rows.
@@ -244,7 +244,7 @@ nImO::EncodeBytesAsMIME
     size_t  numRows{((4 * numQuads) + kMaxMIMELine - 1) / kMaxMIMELine};
 
     outValue.reserve(numRows);
-    for (size_t ii = 0; ii < numBytes; ++ii)
+    for (size_t ii{0}; ii < numBytes; ++ii)
     {
         group8[count3s++] = rawBytes[ii];
         if (3 == count3s)
@@ -253,7 +253,7 @@ nImO::EncodeBytesAsMIME
             group6[1] = ((group8[0] & 0x0003) << 4) + ((group8[1] & 0x00f0) >> 4);
             group6[2] = ((group8[1] & 0x000f) << 2) + ((group8[2] & 0x00c0) >> 6);
             group6[3] = (group8[2] & 0x003f);
-            for (size_t jj = 0; jj < 4; ++jj)
+            for (size_t jj{0}; jj < 4; ++jj)
             {
                 if (kMaxMIMELine <= line.length())
                 {
@@ -267,7 +267,7 @@ nImO::EncodeBytesAsMIME
     }
     if (0 < count3s)
     {
-        for (size_t ii = count3s; ii < 3; ++ii)
+        for (size_t ii{count3s}; ii < 3; ++ii)
         {
             group8[ii] = kEndOfString;
         }
@@ -275,7 +275,7 @@ nImO::EncodeBytesAsMIME
         group6[1] = ((group8[0] & 0x0003) << 4) + ((group8[1] & 0x00f0) >> 4);
         group6[2] = ((group8[1] & 0x000f) << 2) + ((group8[2] & 0x00c0) >> 6);
         group6[3] = (group8[2] & 0x003f);
-        for (size_t ii = 0; ii < (count3s + 1); ++ii)
+        for (size_t ii{0}; ii < (count3s + 1); ++ii)
         {
             if (kMaxMIMELine <= line.length())
             {

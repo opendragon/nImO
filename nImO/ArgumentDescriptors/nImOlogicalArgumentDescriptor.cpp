@@ -308,7 +308,7 @@ LogicalArgumentDescriptor::validate
     ODL_OBJENTER(); //####
     ODL_S1s(value); //####
     bool    boolValue;
-    char    firstChar{StaticCast(char, tolower(value[0]))};
+    auto    firstChar{StaticCast(char, tolower(value[0]))};
 
     if (('0' == firstChar) || ('f' == firstChar) || ('n' == firstChar))
     {

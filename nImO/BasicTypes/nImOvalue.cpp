@@ -137,7 +137,7 @@ nImO::Value::addToExtractionMap
 
     if ((0 != lMask) && (nullptr != theExtractor))
     {
-        for (uint8_t ii = 0; 255 > ii; ++ii)
+        for (uint8_t ii{0}; 255 > ii; ++ii)
         {
             if (lByte == (lMask & ii))
             {
@@ -372,12 +372,12 @@ nImO::Value::extractInt64FromMessage
         else
         {
             ODL_LOG("! (isShort)"); //####
-            size_t          size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
+            auto            size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
             NumberAsBytes   holder;
             bool            atEnd;
             bool            okSoFar{true};
 
-            for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+            for (size_t ii{0}; okSoFar && (size > ii); ++ii)
             {
                 int aByte{theMessage.getByte(position, atEnd)};
 
@@ -420,7 +420,7 @@ nImO::Value::getTypeTag
     const
 {
     ODL_OBJENTER(); //####
-    DataKind    result{StaticCast(DataKind, 0)};
+    auto    result{StaticCast(DataKind, 0)};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -507,7 +507,7 @@ nImO::Value::initialize
     addToReaderMap(Array::getInitialCharacters(), &Array::readFromStringBuffer);
     addToReaderMap(Map::getInitialCharacters(), &Map::readFromStringBuffer);
     addToReaderMap(Set::getInitialCharacters(), &Set::readFromStringBuffer);
-    CPtr(char)  suffixes{Array::getTerminalCharacters()};
+    auto    suffixes{Array::getTerminalCharacters()};
 
     gTerminators = suffixes;
     suffixes = Map::getTerminalCharacters();
@@ -520,8 +520,8 @@ nImO::Value::initialize
     {
         gTerminators += suffixes;
     }
-    DataKind    aByte{StaticCast(DataKind, 0)};
-    DataKind    aMask{StaticCast(DataKind, 0)};
+    auto        aByte{StaticCast(DataKind, 0)};
+    auto        aMask{StaticCast(DataKind, 0)};
     Extractor   theExtractor{Address::getExtractionInfo(aByte, aMask)};
 
     addToExtractionMap(aByte, aMask, theExtractor);

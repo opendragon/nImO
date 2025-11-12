@@ -164,7 +164,7 @@ extractValueAndCheck
     if (0 == result)
     {
         // And now, let's make sure that 'short' messages are handled correctly:
-        for (size_t ii = 1, shortenedSize = (insertedSize - 1); (0 == result) && (shortenedSize > ii); ++ii)
+        for (size_t ii{1}, shortenedSize{insertedSize - 1}; (0 == result) && (shortenedSize > ii); ++ii)
         {
             stuff.open(false);
             stuff.appendBytes(insertedContents, ii);
@@ -3813,7 +3813,7 @@ doTestExtractArrayWithManyDoublesMessage
             constexpr size_t        insertedArrayManyDoublesCount{numElementsInArray(insertedBytesForArrayManyDoubles)};
             Array                   arrayManyDoubles;
 
-            for (size_t ii = 0; numValues > ii; ++ii)
+            for (size_t ii{0}; numValues > ii; ++ii)
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
@@ -5218,7 +5218,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
             auto                arrayWithIntegers{std::make_shared<Array>()};
             int64_t             posValue{1};
 
-            for (size_t ii = 0; kNumValues > ii; ++ii)
+            for (size_t ii{0}; kNumValues > ii; ++ii)
             {
                 arrayWithIntegers->addValue(std::make_shared<Integer>(posValue));
                 posValue *= 10;

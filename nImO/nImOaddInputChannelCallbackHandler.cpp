@@ -96,8 +96,8 @@ nImO::AddInputChannelCallbackHandler::operator()
         {
             _active = true;
             std::string scratch;
-            int64_t     currentNumChannels = _context->getNumberOfInputChannels();
-            int64_t     nextChannelNumber = currentNumChannels + 1;
+            int64_t     currentNumChannels{_context->getNumberOfInputChannels()};
+            int64_t     nextChannelNumber{currentNumChannels + 1};
 
             // Using one greater than the requested number of channels will ensure that all the
             // channel paths will have a number at the end.

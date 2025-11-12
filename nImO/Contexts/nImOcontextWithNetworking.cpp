@@ -175,7 +175,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         }
         _work = std::make_unique<BA::executor_work_guard<BA::io_context::executor_type>>(BA::make_work_guard(*getService()));
         ODL_P1(_work.get()); //####
-        for (int ii = 0; ii < numThreadsInPool; ++ii)
+        for (int ii{0}; ii < numThreadsInPool; ++ii)
         {
             auto    aThread{new boost::thread([this]
                                                 (void)
@@ -404,7 +404,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             }
             else
             {
-                int tempValue{StaticCast(int, asInteger->getIntegerValue())};
+                auto    tempValue{StaticCast(int, asInteger->getIntegerValue())};
 
                 if (0 < tempValue)
                 {
@@ -434,7 +434,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             }
             else
             {
-                int tempValue{StaticCast(int, asInteger->getIntegerValue())};
+                auto    tempValue{StaticCast(int, asInteger->getIntegerValue())};
 
                 if (0 < tempValue)
                 {

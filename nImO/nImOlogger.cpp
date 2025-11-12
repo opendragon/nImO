@@ -180,7 +180,7 @@ nImO::Logger::report
         {
             auto    stringArray{std::make_shared<Array>()};
 
-            for (size_t ii = 0; ii < stringsToSend.size(); ++ii)
+            for (size_t ii{0}; ii < stringsToSend.size(); ++ii)
             {
                 stringArray->addValue(std::make_shared<String>(stringsToSend[ii]));
             }

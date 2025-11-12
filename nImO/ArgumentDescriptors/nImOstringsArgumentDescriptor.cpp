@@ -150,8 +150,8 @@ StringsArgumentDescriptor::describe
 {
     ODL_OBJENTER(); //####
     std::string result{inherited::describe()};
-    int         count = 0;
-    const int   maxCount = 4;
+    int         count{0};
+    const int   maxCount{4};
 
     result += ", a string with a default value of "s + getDefaultValue() + " that is found in the set {"s;
     for (auto & walker : _allowedValues)
@@ -261,7 +261,7 @@ StringsArgumentDescriptor::parseArgString
             if (stringList.npos == indx)
             {
                 // Make sure to strip off any trailing newlines!
-                for (size_t ii = stringList.length(); 0 < ii; --ii)
+                for (size_t ii{stringList.length()}; 0 < ii; --ii)
                 {
                     if (kEndOfLine == stringList[ii - 1])
                     {

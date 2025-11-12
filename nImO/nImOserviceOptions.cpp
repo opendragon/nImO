@@ -356,7 +356,7 @@ nImO::ProcessServiceOptions
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
         usageString += "\n\n"s;
-        for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)
+        for (size_t ii{0}, mm{descriptions.size()}; mm > ii; ++ii)
         {
             if (0 < ii)
             {
@@ -682,7 +682,7 @@ nImO::ProcessServiceOptions
                             }
                             if (keepGoing && (nullptr != arguments))
                             {
-                                for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
+                                for (int ii{0}; ii < parse.nonOptionsCount(); ++ii)
                                 {
                                     arguments->push_back(parse.nonOption(ii));
                                 }
@@ -770,7 +770,7 @@ nImO::ProcessServiceOptions
             }
             else
             {
-                for (size_t ii = 0, mm = argumentDescriptions.size(); mm > ii; ++ii)
+                for (size_t ii{0}, mm{argumentDescriptions.size()}; mm > ii; ++ii)
                 {
                     auto    anArg{argumentDescriptions[ii]};
 

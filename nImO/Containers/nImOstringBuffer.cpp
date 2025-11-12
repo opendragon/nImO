@@ -172,7 +172,7 @@ nImO::StringBuffer::addBytes
     appendChar(kBlobSeparator);
     addLong(numBytes);
     appendChar(kBlobSeparator);
-    for (size_t ii = 0; numBytes > ii; ++ii)
+    for (size_t ii{0}; numBytes > ii; ++ii)
     {
         uint8_t aByte{inBytes[ii]};
 
@@ -331,9 +331,9 @@ nImO::StringBuffer::processCharacters
 
     // First, determine how many of each kind of quote character there are, and if there are
     // 'special' characters - control characters or characters with the high bit set
-    for (size_t ii = 0; length > ii; ++ii)
+    for (size_t ii{0}; length > ii; ++ii)
     {
-        uint8_t aByte{StaticCast(uint8_t, aString[ii])};
+        auto    aByte{StaticCast(uint8_t, aString[ii])};
 
         if ((0x20 > aByte) || (0 != (aByte &0x80)))
         {
@@ -363,12 +363,12 @@ nImO::StringBuffer::processCharacters
     }
     if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
     {
-        uint8_t delimiter{StaticCast(uint8_t, (numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote)};
+        auto    delimiter{StaticCast(uint8_t, (numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote)};
 
         inherited::appendBytes(&delimiter, sizeof(delimiter));
-        for (size_t ii = 0; length > ii; ++ii)
+        for (size_t ii{0}; length > ii; ++ii)
         {
-            uint8_t aByte{StaticCast(uint8_t, aString[ii])};
+            auto    aByte{StaticCast(uint8_t, aString[ii])};
 
             if ((0x20 > aByte) || (0 != (aByte &0x80)))
             {
@@ -536,7 +536,7 @@ nImO::operator<<
 {
     ODL_ENTER(); //###
     ODL_P2(&out, &aBuffer); //####
-    for (size_t ii = 0, num = aBuffer.getNumChunks(); num > ii; ++ii)
+    for (size_t ii{0}, num{aBuffer.getNumChunks()}; num > ii; ++ii)
     {
         Ptr(BufferChunk)    aChunk{aBuffer.getBufferChunk(ii)};
 

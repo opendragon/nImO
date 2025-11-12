@@ -265,10 +265,10 @@ main
                                                     if (contents)
                                                     {
                                                         int64_t numCopies{firstArg->getCurrentValue()};
-                                                        int     numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
+                                                        auto    numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
                                                         auto    delayTime{boost::posix_time::milliseconds(numMilliseconds)};
 
-                                                        for (int64_t ii = 0; ii < numCopies; ++ii)
+                                                        for (int64_t ii{0}; ii < numCopies; ++ii)
                                                         {
                                                             auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
 

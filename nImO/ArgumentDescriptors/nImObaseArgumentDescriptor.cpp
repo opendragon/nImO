@@ -301,7 +301,7 @@ BaseArgumentDescriptor::partitionString
 
     // We need to split the input into fields.
     result.clear();
-    for (size_t fieldNumber = 0; 0 < workingCopy.length(); ++fieldNumber)
+    for (size_t fieldNumber{0}; 0 < workingCopy.length(); ++fieldNumber)
     {
         if ((indexOfDefaultValue == fieldNumber) || ((0 < indexOfListValue) && (indexOfListValue == fieldNumber)))
         {
@@ -348,7 +348,7 @@ BaseArgumentDescriptor::partitionString
             if (workingCopy.npos == indx)
             {
                 // Make sure to strip off any trailing newlines!
-                for (size_t ii = workingCopy.length(); 0 < ii; --ii)
+                for (size_t ii{workingCopy.length()}; 0 < ii; --ii)
                 {
                     if (kEndOfLine == workingCopy[ii - 1])
                     {
@@ -658,12 +658,12 @@ nImO::ProcessArguments
 {
     ODL_ENTER(); //####
     ODL_P3(&arguments, &parseResult, &badArgs); //####
-    bool   result{true};
-    bool   sawExtra{false};
-    bool   sawOptional{false};
-    size_t numArgs{arguments.size()};
-    size_t numValues{StaticCast(size_t, parseResult.nonOptionsCount())};
-    size_t numToCheck{std::min(numArgs, numValues)};
+    bool    result{true};
+    bool    sawExtra{false};
+    bool    sawOptional{false};
+    size_t  numArgs{arguments.size()};
+    auto    numValues{StaticCast(size_t, parseResult.nonOptionsCount())};
+    size_t  numToCheck{std::min(numArgs, numValues)};
 
     ODL_I3(numArgs, numValues, numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.
@@ -713,7 +713,7 @@ nImO::ProcessArguments
     // Check the arguments with matching descriptions, unless it is a placeholder for extra arguments.
     if (result)
     {
-        for (size_t ii = 0; numToCheck > ii; ++ii)
+        for (size_t ii{0}; numToCheck > ii; ++ii)
         {
             auto    anArg{arguments[ii]};
 
@@ -740,7 +740,7 @@ nImO::ProcessArguments
     // Check the unmatched descriptions: if extra, just skip since it is a placeholder for trailing
     // arguments; if optional, use the default and if neither extra nor optional it's mandatory and
     // unsatisfied.
-    for (size_t ii = numToCheck; numArgs > ii; ++ii)
+    for (size_t ii{numToCheck}; numArgs > ii; ++ii)
     {
         auto    anArg{arguments[ii]};
 
@@ -774,7 +774,7 @@ nImO::PromptForValues
     bool    result{true};
     char    inChar;
 
-    for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
+    for (size_t ii{0}, mm{arguments.size()}; mm > ii; ++ii)
     {
         auto    anArg{arguments[ii]};
 

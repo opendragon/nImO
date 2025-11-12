@@ -3885,7 +3885,7 @@ doTestInsertArrayWithManyDoublesMessage
             constexpr size_t        expectedArrayManyDoublesByteCount{numElementsInArray(expectedArrayManyDoublesBytes)};
             auto                    arrayManyDoubles{std::make_shared<Array>()};
 
-            for (size_t ii = 0; numValues > ii; ++ii)
+            for (size_t ii{0}; numValues > ii; ++ii)
             {
                 arrayManyDoubles->addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }

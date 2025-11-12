@@ -168,7 +168,7 @@ nImO::Array::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Array) otherPtr{other.asArray()};
+        auto    otherPtr{other.asArray()};
 
         if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
@@ -661,7 +661,7 @@ nImO::Array::random
 
     if (0 < howMany)
     {
-        for (size_t ii = 0, keyNumber = (nImO::RandomUnsigned() % howMany); ii < keyNumber; ++ii)
+        for (size_t ii{0}, keyNumber{nImO::RandomUnsigned() % howMany}; ii < keyNumber; ++ii)
         {
             ++result;
         }
@@ -680,7 +680,7 @@ nImO::Array::random
 
     if (0 < howMany)
     {
-        for (size_t ii = 0, keyNumber = (nImO::RandomUnsigned() % howMany); ii < keyNumber; ++ii)
+        for (size_t ii{0}, keyNumber{nImO::RandomUnsigned() % howMany}; ii < keyNumber; ++ii)
         {
             ++result;
         }

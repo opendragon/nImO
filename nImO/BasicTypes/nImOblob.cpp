@@ -122,7 +122,7 @@ compareBytes
                 firstCount = leftSize;
             }
             result = 0;
-            for (size_t ii = 0; (0 == result) && (firstCount > ii); ++ii)
+            for (size_t ii{0}; (0 == result) && (firstCount > ii); ++ii)
             {
                 uint8_t leftByte{leftValue[ii]};
                 uint8_t rightByte{rightValue[ii]};
@@ -251,7 +251,7 @@ nImO::Blob::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Blob)  otherPtr{other.asBlob()};
+        auto    otherPtr{other.asBlob()};
 
         if (nullptr != otherPtr)
         {
@@ -285,7 +285,7 @@ nImO::Blob::equalTo
 
     if (&other != this)
     {
-        CPtr(Blob)  otherPtr{other.asBlob()};
+        auto    otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -332,11 +332,11 @@ nImO::Blob::extractValue
     }
     else
     {
-        size_t          size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
+        auto            size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
         NumberAsBytes   holder;
         bool            okSoFar{true};
 
-        for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+        for (size_t ii{0}; okSoFar && (size > ii); ++ii)
         {
             int aByte{theMessage.getByte(position, atEnd)};
 
@@ -364,7 +364,7 @@ nImO::Blob::extractValue
         auto    holder{std::make_unique<uint8_t[]>(numBytes)};
         bool    okSoFar{nullptr != holder};
 
-        for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
+        for (size_t ii{0}; okSoFar && (numBytes > ii); ++ii)
         {
             int aByte{theMessage.getByte(position, atEnd)};
 
@@ -441,7 +441,7 @@ nImO::Blob::greaterThan
     }
     else
     {
-        CPtr(Blob)  otherPtr{other.asBlob()};
+        auto    otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -474,7 +474,7 @@ nImO::Blob::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Blob)  otherPtr{other.asBlob()};
+        auto    otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -511,7 +511,7 @@ nImO::Blob::lessThan
     }
     else
     {
-        CPtr(Blob)  otherPtr{other.asBlob()};
+        auto    otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -544,7 +544,7 @@ nImO::Blob::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Blob)  otherPtr{other.asBlob()};
+        auto    otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {

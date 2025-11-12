@@ -467,9 +467,9 @@ performSQLstatementWithMultipleColumnResults
                             {
                                 nImO::StdStringVector   thisRow;
 
-                                for (int ii = 0; ii < colCount; ++ii)
+                                for (int ii{0}; ii < colCount; ++ii)
                                 {
-                                    CPtr(char)  value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, ii))};
+                                    auto    value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, ii))};
 
                                     ODL_S1(value); //####
                                     if (nullptr == value)
@@ -725,7 +725,7 @@ performSQLstatementWithSingleColumnResults
                             ODL_I1(colCount); //####
                             if (0 < colCount)
                             {
-                                CPtr(char)  value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, 0))};
+                                auto    value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, 0))};
 
                                 ODL_S1(value); //####
                                 if (nullptr != value)
@@ -901,7 +901,7 @@ createTables
             };
             constexpr size_t    numTables{numElementsInArray(tableSQL)};
 
-            for (size_t ii = 0; status.first && (ii < numTables); ++ii)
+            for (size_t ii{0}; status.first && (ii < numTables); ++ii)
             {
                 status = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, tableSQL[ii]);
             }
@@ -927,7 +927,7 @@ sqlLogger
      CPtr(char) message)
 {
     NIMO_UNUSED_VAR_(code);
-    Ptr(nImO::ContextWithNetworking)    owner{StaticCast(Ptr(nImO::ContextWithNetworking), data)};
+    auto    owner{StaticCast(Ptr(nImO::ContextWithNetworking), data)};
 
     if (nullptr != owner)
     {
@@ -2400,7 +2400,7 @@ nImO::Registry::getChannelInUseAndSet
                 if (0 < results.size())
                 {
                     size_t  pos;
-                    int     fieldValue = stoi(results[0], &pos);
+                    int     fieldValue{stoi(results[0], &pos)};
 
                     if (0 == pos)
                     {
@@ -2474,7 +2474,7 @@ nImO::Registry::getChannelInUse
                 if (0 < results.size())
                 {
                     size_t  pos;
-                    int     fieldValue = stoi(results[0], &pos);
+                    int     fieldValue{stoi(results[0], &pos)};
 
                     if (0 == pos)
                     {
@@ -3952,7 +3952,7 @@ nImO::Registry::isChannelPresent
             if (status.first)
             {
                 size_t  pos;
-                int     count = stoi(results[0], &pos);
+                int     count{stoi(results[0], &pos)};
 
                 if (0 == pos)
                 {
@@ -4002,7 +4002,7 @@ nImO::Registry::isMachinePresent
         if (status.first)
         {
             size_t  pos;
-            int     count = stoi(results[0], &pos);
+            int     count{stoi(results[0], &pos)};
 
             if (0 == pos)
             {
@@ -4049,7 +4049,7 @@ nImO::Registry::isNodePresent
             if (status.first)
             {
                 size_t  pos;
-                int     count = stoi(results[0], &pos);
+                int     count{stoi(results[0], &pos)};
 
                 if (0 == pos)
                 {

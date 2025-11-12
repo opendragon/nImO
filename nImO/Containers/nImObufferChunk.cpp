@@ -66,7 +66,7 @@ using namespace nImO;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const size_t nImO::BufferChunk::kBufferSize = 1000;
+const size_t nImO::BufferChunk::kBufferSize{1000};
 
 #if defined(__APPLE__)
 # pragma mark Local functions

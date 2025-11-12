@@ -84,7 +84,7 @@ swapBytes
     (Ptr(uint8_t)   buffer,
      const size_t   bufferSize)
 {
-    for (size_t ii = 0; ii < (bufferSize / 2); ++ii)
+    for (size_t ii{0}; ii < (bufferSize / 2); ++ii)
     {
         std::swap(buffer[ii], buffer[bufferSize - (ii + 1)]);
     }
@@ -168,7 +168,7 @@ nImO::ConvertInt64ToPacketOrder
     else
     {
         // Store the bytes of the value, MSB first.
-        for (size_t ii = sizeof(buffer); ii > 0; --ii)
+        for (size_t ii{sizeof(buffer)}; ii > 0; --ii)
         {
             buffer[ii - 1] = (valueCopy & 0x00FF);
             valueCopy >>= 8;
@@ -176,7 +176,7 @@ nImO::ConvertInt64ToPacketOrder
         // Determine the number of significant bytes.
         if (0 <= value)
         {
-            for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+            for (size_t ii{0}; ii < sizeof(buffer); ++ii)
             {
                 if (0 != buffer[ii])
                 {
@@ -193,7 +193,7 @@ nImO::ConvertInt64ToPacketOrder
         }
         else
         {
-            for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+            for (size_t ii{0}; ii < sizeof(buffer); ++ii)
             {
                 if (0xFF != buffer[ii])
                 {
@@ -271,7 +271,7 @@ nImO::ConvertPacketOrderToInt64
     else
     {
         uint8_t buffer[sizeof(value)];
-        size_t  numBytes = end + 1 - start;
+        auto    numBytes{StaticCast(size_t, end + 1 - start)};
 
         // Fill the buffer, in MSB order.
 #if (NIMO_PACKET_ORDER == BIG_ENDIAN)
@@ -283,18 +283,18 @@ nImO::ConvertPacketOrderToInt64
         // Find the sign bit and perform a sign-extension.
         if (numBytes < sizeof(value))
         {
-            uint8_t aByte = buffer[sizeof(buffer) - numBytes];
+            uint8_t aByte{buffer[sizeof(buffer) - numBytes]};
 
             if (0x80 == (aByte & 0x80))
             {
-                for (size_t ii = 0; ii < (sizeof(buffer) - numBytes); ++ii)
+                for (size_t ii{0}; ii < (sizeof(buffer) - numBytes); ++ii)
                 {
                     buffer[ii] = 0xFF;
                 }
             }
             else
             {
-                for (size_t ii = 0; ii < (sizeof(buffer) - numBytes); ++ii)
+                for (size_t ii{0}; ii < (sizeof(buffer) - numBytes); ++ii)
                 {
                     buffer[ii] = 0x00;
                 }
@@ -302,7 +302,7 @@ nImO::ConvertPacketOrderToInt64
         }
         // Reconstruct the value.
         value = 0;
-        for (size_t ii = 0; ii < sizeof(buffer); ++ii)
+        for (size_t ii{0}; ii < sizeof(buffer); ++ii)
         {
             value = ((value << 8) | buffer[ii]);
         }

@@ -334,7 +334,7 @@ getLocalAddresses
         {
             if (AF_INET == address->ifa_addr->sa_family)
             {
-                struct sockaddr_in &    saddr{*ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr)};
+                auto &  saddr{*ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr)};
 
                 if (nImO::BytesToIPv4Address(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
                 {
@@ -350,7 +350,7 @@ getLocalAddresses
             {
                 if (AF_INET6 == address->ifa_addr->sa_family)
                 {
-                    struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr)};
+                    auto &                  saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr)};
                     static const uint8_t    localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
                     static const uint8_t    localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
                                                                0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
@@ -416,7 +416,7 @@ getLocalAddresses
             {
                 if (AF_INET == unicast->Address.lpSockaddr->sa_family)
                 {
-                    struct sockaddr_in &    saddr{*ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr)};
+                    auto &  saddr{*ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr)};
 
                     if ((saddr.sin_addr.S_un.S_un_b.s_b1 != 127) || (saddr.sin_addr.S_un.S_un_b.s_b2 != 0) ||
                         (saddr.sin_addr.S_un.S_un_b.s_b3 != 0) || (saddr.sin_addr.S_un.S_un_b.s_b4 != 1))
@@ -433,10 +433,10 @@ getLocalAddresses
                 {
                     if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
                     {
-                        struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr)};
-                        static const uchar      localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-                        static const uchar      localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
-                                                                   0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+                        auto &              saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr)};
+                        static const uchar  localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+                        static const uchar  localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
+                                                               0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
 
                         if ((NldsPreferred == unicast->DadState) &&
                             (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
@@ -488,11 +488,11 @@ queryCallback
     NIMO_UNUSED_VAR_(queryId);
     NIMO_UNUSED_VAR_(rClass);
     NIMO_UNUSED_VAR_(nameLength);
-    size_t                      workOffset{nameOffset};
-    mDNS::string_t              fromAddrStr{nImO::IpAddressToMdnsString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen)};
-    mDNS::string_t              entryStr{mDNSP::string_extract(data, size, workOffset, lEntryBuffer, sizeof(lEntryBuffer))};
-    Ptr(nImO::RecordHandler)    handlerPtr{ReinterpretCast(Ptr(nImO::RecordHandler), userData)};
-    nImO::RecordHandler &       handler{*handlerPtr};
+    auto                    workOffset{nameOffset};
+    mDNS::string_t          fromAddrStr{nImO::IpAddressToMdnsString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen)};
+    mDNS::string_t          entryStr{mDNSP::string_extract(data, size, workOffset, lEntryBuffer, sizeof(lEntryBuffer))};
+    auto                    handlerPtr{ReinterpretCast(Ptr(nImO::RecordHandler), userData)};
+    nImO::RecordHandler &   handler{*handlerPtr};
 
     switch (rType)
     {
@@ -562,7 +562,7 @@ queryCallback
         {
             size_t    parsed{mDNS::record_parse_txt(data, size, recordOffset, recordLength, lTxtBuffer, numElementsInArray(lTxtBuffer))};
 
-            for (size_t itxt = 0; itxt < parsed; ++itxt)
+            for (size_t itxt{0}; itxt < parsed; ++itxt)
             {
                 if (0 < ttl)
                 {
@@ -630,7 +630,7 @@ nImO::ContextWithMDNS::closeSockets
     (void)
 {
     ODL_OBJENTER(); //####
-    for (int isock = 0; isock < _numSockets; ++isock)
+    for (int isock{0}; isock < _numSockets; ++isock)
     {
         mDNS::socket_close(_sockets[isock]);
     }
@@ -661,11 +661,11 @@ nImO::ContextWithMDNS::executeBrowser
                 break;
 
             }
-            int     nfds = 0;
+            int     nfds{0};
             fd_set  readfs;
 
             FD_ZERO(&readfs);
-            for (int isock = 0; isock < owner._numSockets; ++isock)
+            for (int isock{0}; isock < owner._numSockets; ++isock)
             {
                 if (lBrowserThreadStop)
                 {
@@ -688,7 +688,7 @@ nImO::ContextWithMDNS::executeBrowser
 
             if (res >= 0)
             {
-                for (int isock = 0; (0 < res) && (isock < owner._numSockets); ++isock)
+                for (int isock{0}; (0 < res) && (isock < owner._numSockets); ++isock)
                 {
                     if (lBrowserThreadStop)
                     {
@@ -713,7 +713,7 @@ nImO::ContextWithMDNS::executeBrowser
                     owner._requestNewScan = false;
                     ODL_B1(owner._requestNewScan); //####
                     owner.report("Sending mDNS query: "s + std::string(NIMO_REGISTRY_SERVICE_NAME) + "."s);
-                    for (int isock = 0; isock < owner._numSockets; ++isock)
+                    for (int isock{0}; isock < owner._numSockets; ++isock)
                     {
                         if (lBrowserThreadStop)
                         {
@@ -860,7 +860,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
                                             });
         ODL_P1(_browserThread); //####
         _pool.add_thread(_browserThread);
-        for (int isock = 0; isock < _numSockets; ++isock)
+        for (int isock{0}; isock < _numSockets; ++isock)
         {
             _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, NIMO_REGISTRY_SERVICE_NAME,
                                                sizeof(NIMO_REGISTRY_SERVICE_NAME) - 1, _buffer, kBufferCapacity, 0);

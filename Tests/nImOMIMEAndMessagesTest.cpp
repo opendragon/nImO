@@ -147,7 +147,7 @@ setValueAndCheck
             if (expectedSize == outVec.size())
             {
                 result = 0;
-                for (size_t ii = 0; (0 == result) && (ii < expectedSize); ++ii)
+                for (size_t ii{0}; (0 == result) && (ii < expectedSize); ++ii)
                 {
                     auto    expectedString{expectedContents[ii]};
                     auto    outString{outVec[ii]};
@@ -195,7 +195,7 @@ extractValueAndCheck
     StdStringVector inVec;
     ByteVector      outBytes;
 
-    for (size_t ii = 0; ii < insertedSize; ++ii)
+    for (size_t ii{0}; ii < insertedSize; ++ii)
     {
         inVec.push_back(insertedContents[ii]);
     }
@@ -293,13 +293,13 @@ doTestMIMEBytesMod3Is0
         ByteVector      inValue;
         ByteVector      outValue;
 
-        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        for (int ii{0}; ii < kMaxMIMETests; ++ii)
         {
             int mm{ii * 3};
 
             inValue.clear();
             inValue.reserve(mm);
-            for (int jj = 0; jj < mm; ++jj)
+            for (int jj{0}; jj < mm; ++jj)
             {
                 inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
@@ -363,13 +363,13 @@ doTestMIMEBytesMod3Is1
         ByteVector      inValue;
         ByteVector      outValue;
 
-        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        for (int ii{0}; ii < kMaxMIMETests; ++ii)
         {
             int mm{(ii * 3) + 1};
 
             inValue.clear();
             inValue.reserve(mm);
-            for (int jj = 0; jj < mm; ++jj)
+            for (int jj{0}; jj < mm; ++jj)
             {
                 inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
@@ -433,13 +433,13 @@ doTestMIMEBytesMod3Is2
         ByteVector      inValue;
         ByteVector      outValue;
 
-        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        for (int ii{0}; ii < kMaxMIMETests; ++ii)
         {
             int mm{(ii * 3) + 2};
 
             inValue.clear();
             inValue.reserve(mm);
-            for (int jj = 0; jj < mm; ++jj)
+            for (int jj{0}; jj < mm; ++jj)
             {
                 inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
@@ -503,13 +503,13 @@ doTestMIMEBytesMod3Is0Packaged
         ByteVector      inValue;
         ByteVector      outValue;
 
-        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        for (int ii{0}; ii < kMaxMIMETests; ++ii)
         {
             int mm{ii * 3};
 
             inValue.clear();
             inValue.reserve(mm);
-            for (int jj = 0; jj < mm; ++jj)
+            for (int jj{0}; jj < mm; ++jj)
             {
                 inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
@@ -576,13 +576,13 @@ doTestMIMEBytesMod3Is1Packaged
         ByteVector      inValue;
         ByteVector      outValue;
 
-        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        for (int ii{0}; ii < kMaxMIMETests; ++ii)
         {
             int mm{(ii * 3) + 1};
 
             inValue.clear();
             inValue.reserve(mm);
-            for (int jj = 0; jj < mm; ++jj)
+            for (int jj{0}; jj < mm; ++jj)
             {
                 inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
@@ -649,13 +649,13 @@ doTestMIMEBytesMod3Is2Packaged
         ByteVector      inValue;
         ByteVector      outValue;
 
-        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        for (int ii{0}; ii < kMaxMIMETests; ++ii)
         {
             int mm{(ii * 3) + 2};
 
             inValue.clear();
             inValue.reserve(mm);
-            for (int jj = 0; jj < mm; ++jj)
+            for (int jj{0}; jj < mm; ++jj)
             {
                 inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
@@ -742,7 +742,7 @@ doTestMIMEInsertEmptyMessage
                     if (expectedLinesCount == outVec.size())
                     {
                         result = 0;
-                        for (size_t ii = 0; (0 == result) && (ii < expectedLinesCount); ++ii)
+                        for (size_t ii{0}; (0 == result) && (ii < expectedLinesCount); ++ii)
                         {
                             if (expectedLines[ii] != outVec[ii])
                             {
@@ -5199,7 +5199,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
                                     "AABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w=="s };
             constexpr size_t    expectedArrayManyDoublesLinesCount{numElementsInArray(expectedArrayManyDoublesLines)};
 
-            for (size_t ii = 0; numValues > ii; ++ii)
+            for (size_t ii{0}; numValues > ii; ++ii)
             {
                 arrayManyDoubles->addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
@@ -5262,7 +5262,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
             constexpr size_t    insertedArrayManyDoublesLinesCount{numElementsInArray(insertedArrayManyDoublesLines)};
             Array               arrayManyDoubles;
 
-            for (size_t ii = 0; numValues > ii; ++ii)
+            for (size_t ii{0}; numValues > ii; ++ii)
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }

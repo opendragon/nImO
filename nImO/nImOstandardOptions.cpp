@@ -284,7 +284,7 @@ nImO::ProcessStandardOptions
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     Option_::Descriptor         usage[13]; // first, autolaunch, config, describe, expanded, help, json, log, machine, nimo, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};
-    int                         argcWork = argc;
+    int                         argcWork{argc};
     Ptr(Ptr(char))              argvWork{argv};
     auto                        usageString{"USAGE: "s};
     auto                        argList{ArgumentsToArgString(argumentDescriptions)};
@@ -309,7 +309,7 @@ nImO::ProcessStandardOptions
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions);
         usageString += "\n\n"s;
-        for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)
+        for (size_t ii{0}, mm{descriptions.size()}; mm > ii; ++ii)
         {
             if (0 < ii)
             {
@@ -447,7 +447,7 @@ nImO::ProcessStandardOptions
                     if (nullptr != arguments)
                     {
                         arguments->clear();
-                        for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
+                        for (int ii{0}; ii < parse.nonOptionsCount(); ++ii)
                         {
                             arguments->emplace_back(parse.nonOption(ii));
                         }

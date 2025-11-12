@@ -260,7 +260,7 @@ main
 
                                                     if (contents)
                                                     {
-                                                        int     numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
+                                                        auto    numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                                         auto    delayTime{boost::posix_time::milliseconds(numMilliseconds)};
                                                         auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
 

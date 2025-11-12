@@ -97,7 +97,7 @@ nImO::ServiceContext::ServiceContext
     ODL_ENTER(); //####
     ODL_S2s(tagForLogging, nodeName); //####
     ODL_B2(logging, startBrowser); //####
-    for (int ii = 0; ii < argc; ++ii)
+    for (int ii{0}; ii < argc; ++ii)
     {
         _commandLine->addValue(std::make_shared<String>(argv[ii]));
     }

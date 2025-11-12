@@ -166,7 +166,7 @@ nImO::Address::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Address)   otherPtr{other.asAddress()};
+        auto    otherPtr{other.asAddress()};
 
         if (nullptr != otherPtr)
         {
@@ -212,7 +212,7 @@ nImO::Address::equalTo
 
     if (&other != this)
     {
-        CPtr(Address)   otherPtr{other.asAddress()};
+        auto    otherPtr{other.asAddress()};
 
         if (nullptr == otherPtr)
         {
@@ -250,9 +250,9 @@ nImO::Address::extractValue
     bool        atEnd{false};
 
     ++position; // We will always accept the lead byte
-    for (int ii = 0; (ii < 4) && (! atEnd); ++ii)
+    for (int ii{0}; (ii < 4) && (! atEnd); ++ii)
     {
-        uint8_t aByte = theMessage.getByte(position, atEnd);
+        auto    aByte{theMessage.getByte(position, atEnd)};
 
         ODL_X1(aByte); //####
         ODL_B1(atEnd); //####
@@ -338,7 +338,7 @@ nImO::Address::greaterThan
     }
     else
     {
-        CPtr(Address)   otherPtr{other.asAddress()};
+        auto    otherPtr{other.asAddress()};
 
         if (nullptr == otherPtr)
         {
@@ -371,7 +371,7 @@ nImO::Address::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Address)   otherPtr{other.asAddress()};
+        auto    otherPtr{other.asAddress()};
 
         if (nullptr == otherPtr)
         {
@@ -408,7 +408,7 @@ nImO::Address::lessThan
     }
     else
     {
-        CPtr(Address)   otherPtr{other.asAddress()};
+        auto    otherPtr{other.asAddress()};
 
         if (nullptr == otherPtr)
         {
@@ -441,7 +441,7 @@ nImO::Address::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Address)   otherPtr{other.asAddress()};
+        auto    otherPtr{other.asAddress()};
 
         if (nullptr == otherPtr)
         {
@@ -509,7 +509,7 @@ nImO::Address::printToStringBuffer
 
     convertToByteArray(bytes, _addressValue);
     outBuffer.appendChar(kStartAddressChar);
-    for (int ii = 0; ii <= 3; ++ii)
+    for (int ii{0}; ii <= 3; ++ii)
     {
         if (0 != ii)
         {
@@ -536,7 +536,7 @@ nImO::Address::printToStringBufferAsJSON
 
     convertToByteArray(bytes, _addressValue);
     outBuffer.appendChar(kDoubleQuote);
-    for (int ii = 0; ii <= 3; ++ii)
+    for (int ii{0}; ii <= 3; ++ii)
     {
         if (0 != ii)
         {
@@ -567,7 +567,7 @@ nImO::Address::readFromStringBuffer
         bool        digitSeen{false};
         IPv4Address totalValue{0};
 
-        for (int ii = 0; ii <= 2; ++ii)
+        for (int ii{0}; ii <= 2; ++ii)
         {
             for ( ; okSoFar; )
             {

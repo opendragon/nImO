@@ -170,7 +170,7 @@ getIPv4Bytes
 {
     bool    okSoFar{true};
 
-    for (size_t ii = 0, mm = numElementsInArray(asBytes); okSoFar && (ii < mm); ++ii)
+    for (size_t ii{0}, mm{numElementsInArray(asBytes)}; okSoFar && (ii < mm); ++ii)
     {
         Ptr(char)   endPtr;
         int64_t     value{strtoll(inString, &endPtr, 10)};
@@ -293,12 +293,12 @@ doTestBufferChunkWithSingleByte
 
         if (stuff)
         {
-            uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
+            auto    data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
-                CPtr(uint8_t) storedData{stuff->getData()};
+                auto    storedData{stuff->getData()};
 
                 if ((nullptr != storedData) && (data == *storedData))
                 {
@@ -363,25 +363,25 @@ doTestFilledBufferChunk
 
             if (1 < howMuch)
             {
-                uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
+                auto    data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
-                for (size_t ii = 0; howMuch > ii; ++ii)
+                for (size_t ii{0}; howMuch > ii; ++ii)
                 {
-                    uint8_t newData{StaticCast(uint8_t, (data + ii) & 0x00FF)};
+                    auto    newData{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    CPtr(uint8_t) storedData{stuff->getData()};
+                    auto    storedData{stuff->getData()};
 
                     if (nullptr != storedData)
                     {
                         result = 0;
-                        for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
+                        for (size_t ii{0}; (0 == result) && (howMuch > ii); ++ii)
                         {
-                            uint8_t aValue{storedData[ii]};
-                            uint8_t expectedValue{StaticCast(uint8_t, (data + ii) & 0x00FF)};
+                            auto    aValue{storedData[ii]};
+                            auto    expectedValue{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                             if (aValue != expectedValue)
                             {
@@ -455,25 +455,25 @@ doTestOverfilledBufferChunk
 
             if (1 < howMuch)
             {
-                uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
+                auto    data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
-                for (size_t ii = 0; howMuch >= ii; ++ii)
+                for (size_t ii{0}; howMuch >= ii; ++ii)
                 {
-                    uint8_t newData{StaticCast(uint8_t, (data + ii) & 0x00FF)};
+                    auto    newData{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    CPtr(uint8_t) storedData{stuff->getData()};
+                    auto    storedData{stuff->getData()};
 
                     if (nullptr != storedData)
                     {
                         result = 0;
-                        for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
+                        for (size_t ii{0}; (0 == result) && (howMuch > ii); ++ii)
                         {
-                            uint8_t aValue{storedData[ii]};
-                            uint8_t expectedValue{StaticCast(uint8_t, (data + ii) & 0x00FF)};
+                            auto    aValue{storedData[ii]};
+                            auto    expectedValue{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                             if (aValue != expectedValue)
                             {
@@ -543,7 +543,7 @@ doTestBufferChunkReset
 
         if (stuff)
         {
-            uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
+            auto    data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -668,10 +668,10 @@ doTestStringBufferWithCharacters
     {
         if (1 < argc)
         {
-            CPtr(char)  inString{*argv};
-            CPtr(char)  outString{argv[1]};
-            size_t      outLength{strlen(outString)};
-            auto        stuff{std::make_unique<StringBuffer>()};
+            auto    inString{*argv};
+            auto    outString{argv[1]};
+            size_t  outLength{strlen(outString)};
+            auto    stuff{std::make_unique<StringBuffer>()};
 
             if (stuff)
             {
@@ -743,8 +743,8 @@ doTestStringBufferWithLogical
     {
         if (1 < argc)
         {
-            CPtr(char)  outString{argv[1]};
-            int64_t     value;
+            auto    outString{argv[1]};
+            int64_t value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
@@ -817,8 +817,8 @@ doTestStringBufferWithInteger
     {
         if (1 < argc)
         {
-            CPtr(char)  outString{argv[1]};
-            int64_t     value;
+            auto    outString{argv[1]};
+            int64_t value;
 
             if (ConvertToInt64(*argv, value))
             {
@@ -889,10 +889,10 @@ doTestStringBufferWithString
     {
         if (1 < argc)
         {
-            CPtr(char)  inString{*argv};
-            CPtr(char)  outString{argv[1]};
-            size_t      outLength{strlen(outString)};
-            auto        stuff{std::make_unique<StringBuffer>()};
+            auto    inString{*argv};
+            auto    outString{argv[1]};
+            size_t  outLength{strlen(outString)};
+            auto    stuff{std::make_unique<StringBuffer>()};
 
             if (stuff)
             {
@@ -1032,8 +1032,8 @@ doTestStringBufferWithDouble
     {
         if (1 < argc)
         {
-            CPtr(char)  outString{argv[1]};
-            double      value;
+            auto    outString{argv[1]};
+            double  value;
 
             if (ConvertToDouble(*argv, value))
             {
@@ -1047,8 +1047,8 @@ doTestStringBufferWithDouble
 
                     for (result = 0; (kEndOfString != *outString) && (kEndOfString != resultString[ii]); ++outString, ++ii)
                     {
-                        char    outChar{StaticCast(char, tolower(*outString))};
-                        char    resultChar{StaticCast(char, tolower(resultString[ii]))};
+                        auto    outChar{StaticCast(char, tolower(*outString))};
+                        auto    resultChar{StaticCast(char, tolower(resultString[ii]))};
 
                         if (outChar != resultChar)
                         {
@@ -1120,7 +1120,7 @@ doTestBigStringBuffer
             CPtr(char)  bigString{"abcdefghijklmnopqrstuvwxyz0123456789"};
             size_t      bigLength{strlen(bigString)};
 
-            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            for (size_t ii{0}; kBigTestSize > ii; ++ii)
             {
                 stuff->addString(bigString);
             }
@@ -1132,7 +1132,7 @@ doTestBigStringBuffer
                 auto bytes{resultString.data()};
 
                 result = 0;
-                for (size_t ii = 0; (0 == result) && (kBigTestSize > ii); ++ii, bytes += bigLength)
+                for (size_t ii{0}; (0 == result) && (kBigTestSize > ii); ++ii, bytes += bigLength)
                 {
                     if (0 != CompareBytes(bigString, bytes, bigLength))
                     {
@@ -1253,10 +1253,10 @@ doTestStringBufferWithSmallBlob
 
             if (smallBlob)
             {
-                for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+                for (size_t ii{0}; kSmallTestSize > ii; ++ii)
                 {
                     Ptr(uint8_t)    addr{smallBlob.get()};
-                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
+                    auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     smallBlob[ii] = aByte;
                 }
@@ -1264,7 +1264,7 @@ doTestStringBufferWithSmallBlob
                 auto    resultString{stuff->getString()};
                 auto    expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
-                for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+                for (size_t ii{0}; kSmallTestSize > ii; ++ii)
                 {
                     uint8_t aByte{smallBlob[ii]};
                     char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
@@ -1337,10 +1337,10 @@ doTestStringBufferWithBigBlob
 
             if (bigBlob)
             {
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
                     Ptr(uint8_t)    addr{bigBlob.get()};
-                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
+                    auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     bigBlob[ii] = aByte;
                 }
@@ -1348,7 +1348,7 @@ doTestStringBufferWithBigBlob
                 auto    resultString{stuff->getString()};
                 auto    expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte{bigBlob[ii]};
                     char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
@@ -1534,8 +1534,8 @@ doTestLogicalValue
     {
         if (1 < argc)
         {
-            CPtr(char)  outString{argv[1]};
-            int64_t     value;
+            auto    outString{argv[1]};
+            int64_t value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
@@ -1658,8 +1658,8 @@ doTestNumberValue
     {
         if (1 < argc)
         {
-            CPtr(char)  outString{argv[1]};
-            int64_t     intValue;
+            auto    outString{argv[1]};
+            int64_t intValue;
 
             if (ConvertToInt64(*argv, intValue))
             {
@@ -1979,9 +1979,9 @@ doTestSmallBlobValue
 
         if (smallBlob)
         {
-            for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+            for (size_t ii{0}; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii)};
+                auto    aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii)};
 
                 smallBlob[ii] = aByte;
             }
@@ -1991,7 +1991,7 @@ doTestSmallBlobValue
             {
                 auto    expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
-                for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+                for (size_t ii{0}; kSmallTestSize > ii; ++ii)
                 {
                     uint8_t aByte{smallBlob[ii]};
                     char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
@@ -2061,9 +2061,9 @@ doTestBigBlobValue
 
         if (bigBlob)
         {
-            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            for (size_t ii{0}; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii)};
+                auto    aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii)};
 
                 bigBlob[ii] = aByte;
             }
@@ -2073,7 +2073,7 @@ doTestBigBlobValue
             {
                 auto    expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
-                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte{bigBlob[ii]};
                     char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
@@ -2477,24 +2477,24 @@ doTestBlobCopyAndAssign
 
         if (bigBlob && smallBlob)
         {
-            for (size_t ii = 0; kBigTestSize > ii; ++ii)
+            for (size_t ii{0}; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii)};
+                auto    aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii)};
 
                 bigBlob[ii] = aByte;
             }
-            for (size_t ii = 0; kSmallTestSize > ii; ++ii)
+            for (size_t ii{0}; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii)};
+                auto    aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii)};
 
                 smallBlob[ii] = aByte;
             }
-            Blob            smallStuff{smallBlob.get(), kSmallTestSize};
-            Blob            bigStuff{bigBlob.get(), kBigTestSize};
-            size_t          smallLength{0};
-            size_t          bigLength{0};
-            CPtr(uint8_t)   smallValue{smallStuff.getValue(smallLength)};
-            CPtr(uint8_t)   bigValue{bigStuff.getValue(bigLength)};
+            Blob    smallStuff{smallBlob.get(), kSmallTestSize};
+            Blob    bigStuff{bigBlob.get(), kBigTestSize};
+            size_t  smallLength{0};
+            size_t  bigLength{0};
+            auto    smallValue{smallStuff.getValue(smallLength)};
+            auto    bigValue{bigStuff.getValue(bigLength)};
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
@@ -2646,7 +2646,7 @@ doTestAddressValue
         if (1 < argc)
         {
             Address::IPv4Bytes  asBytes;
-            CPtr(char)          outString{argv[1]};
+            auto                outString{argv[1]};
 
             if (getIPv4Bytes(asBytes, argv[0]))
             {
@@ -2854,7 +2854,7 @@ doTestDateValue
         if (1 < argc)
         {
             Date::DatePieces    pieces;
-            CPtr(char)          outString{argv[1]};
+            auto                outString{argv[1]};
 
             if (GetDatePieces(pieces, argv[0]))
             {
@@ -3062,7 +3062,7 @@ doTestTimeValue
         if (1 < argc)
         {
             Time::TimePieces    pieces;
-            CPtr(char)          outString{argv[1]};
+            auto                outString{argv[1]};
 
             if (GetTimePieces(pieces, argv[0]))
             {
@@ -3254,7 +3254,7 @@ doTestValidLogicalCompares
         };
         constexpr size_t    numTests{numElementsInArray(testSet)};
 
-        for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests > ii); ++ii)
         {
             Logical leftValue{testSet[ii]._leftValue};
             Logical rightValue{testSet[ii]._rightValue};
@@ -3564,7 +3564,7 @@ doTestValidNumberCompares
         };
         constexpr size_t    numTests4{numElementsInArray(testSet4)};
 
-        for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests1 > ii); ++ii)
         {
             Integer leftValue{testSet1[ii]._leftValue};
             Integer rightValue{testSet1[ii]._rightValue};
@@ -3607,7 +3607,7 @@ doTestValidNumberCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTests2 > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests2 > ii); ++ii)
         {
             Integer leftValue{testSet2[ii]._leftValue};
             Double  rightValue{testSet2[ii]._rightValue};
@@ -3650,7 +3650,7 @@ doTestValidNumberCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTests3 > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests3 > ii); ++ii)
         {
             Double  leftValue{testSet3[ii]._leftValue};
             Integer rightValue{testSet3[ii]._rightValue};
@@ -3693,7 +3693,7 @@ doTestValidNumberCompares
                 }
             }
         }
-        for (size_t ii = 0; (0 == result) && (numTests4 > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests4 > ii); ++ii)
         {
             Double  leftValue{testSet4[ii]._leftValue};
             Double  rightValue{testSet4[ii]._rightValue};
@@ -3838,7 +3838,7 @@ doTestValidStringCompares
         };
         constexpr size_t    numTests{numElementsInArray(testSet)};
 
-        for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests > ii); ++ii)
         {
             String leftValue{testSet[ii]._leftValue};
             String rightValue{testSet[ii]._rightValue};
@@ -3993,7 +3993,7 @@ doTestValidBlobCompares
         };
         constexpr size_t    numTests{numElementsInArray(testSet)};
 
-        for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests > ii); ++ii)
         {
             const Blob &    leftValue{*testSet[ii]._leftValue};
             const Blob &    rightValue{*testSet[ii]._rightValue};
@@ -4084,7 +4084,7 @@ doTestInvalidLogicalCompares
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -4191,7 +4191,7 @@ doTestInvalidNumberCompares
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -4298,7 +4298,7 @@ doTestInvalidStringCompares
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -4405,7 +4405,7 @@ doTestInvalidBlobCompares
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -4560,7 +4560,7 @@ doTestValidAddressCompares
         };
         constexpr size_t    numTests1{numElementsInArray(testSet1)};
 
-        for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests1 > ii); ++ii)
         {
             Address leftValue{testSet1[ii]._leftValue};
             Address rightValue{testSet1[ii]._rightValue};
@@ -4651,7 +4651,7 @@ doTestInvalidAddressCompares
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -4806,7 +4806,7 @@ doTestValidDateCompares
         };
         constexpr size_t    numTests1{numElementsInArray(testSet1)};
 
-        for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests1 > ii); ++ii)
         {
             Date    leftValue{testSet1[ii]._leftValue};
             Date    rightValue{testSet1[ii]._rightValue};
@@ -4897,7 +4897,7 @@ doTestInvalidDateCompares
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -5052,7 +5052,7 @@ doTestValidTimeCompares
         };
         constexpr size_t    numTests1{numElementsInArray(testSet1)};
 
-        for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numTests1 > ii); ++ii)
         {
             Date    leftValue{testSet1[ii]._leftValue};
             Date    rightValue{testSet1[ii]._rightValue};
@@ -5143,7 +5143,7 @@ doTestInvalidTimeCompares
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6 };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
-        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
             Value & aRightValue{*rightValues[ii]};
 
@@ -5293,8 +5293,8 @@ doTestLogicalValueAsJSON
     {
         if (1 < argc)
         {
-            CPtr(char)  outString{argv[1]};
-            int64_t     value;
+            auto    outString{argv[1]};
+            int64_t value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
@@ -5417,8 +5417,8 @@ doTestNumberValueAsJSON
     {
         if (1 < argc)
         {
-            CPtr(char)  outString{argv[1]};
-            int64_t     intValue;
+            auto    outString{argv[1]};
+            int64_t intValue;
 
             if (ConvertToInt64(*argv, intValue))
             {
@@ -5680,7 +5680,7 @@ doTestAddressValueJSON
         if (1 < argc)
         {
             Address::IPv4Bytes  asBytes;
-            CPtr(char)          outString{argv[1]};
+            auto                outString{argv[1]};
 
             if (getIPv4Bytes(asBytes, argv[0]))
             {
@@ -5800,7 +5800,7 @@ doTestDateValueJSON
         if (1 < argc)
         {
             Date::DatePieces    pieces;
-            CPtr(char)          outString{argv[1]};
+            auto                outString{argv[1]};
 
             if (GetDatePieces(pieces, argv[0]))
             {
@@ -5920,7 +5920,7 @@ doTestTimeValueJSON
         if (1 < argc)
         {
             Time::TimePieces    pieces;
-            CPtr(char)          outString{argv[1]};
+            auto                outString{argv[1]};
 
             if (GetTimePieces(pieces, argv[0]))
             {

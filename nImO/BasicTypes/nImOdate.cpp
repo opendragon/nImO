@@ -193,7 +193,7 @@ nImO::Date::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Date)   otherPtr{other.asDate()};
+        auto    otherPtr{other.asDate()};
 
         if (nullptr != otherPtr)
         {
@@ -239,7 +239,7 @@ nImO::Date::equalTo
 
     if (&other != this)
     {
-        CPtr(Date)   otherPtr{other.asDate()};
+        auto    otherPtr{other.asDate()};
 
         if (nullptr == otherPtr)
         {
@@ -277,9 +277,9 @@ nImO::Date::extractValue
     bool            atEnd{false};
 
     ++position; // We will always accept the lead byte
-    for (int ii = 0; (ii < 4) && (! atEnd); ++ii)
+    for (int ii{0}; (ii < 4) && (! atEnd); ++ii)
     {
-        uint8_t aByte = theMessage.getByte(position, atEnd);
+        auto    aByte{theMessage.getByte(position, atEnd)};
 
         ODL_X1(aByte); //####
         ODL_B1(atEnd); //####
@@ -342,7 +342,7 @@ nImO::Date::greaterThan
     }
     else
     {
-        CPtr(Date)   otherPtr{other.asDate()};
+        auto    otherPtr{other.asDate()};
 
         if (nullptr == otherPtr)
         {
@@ -375,7 +375,7 @@ nImO::Date::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Date)   otherPtr{other.asDate()};
+        auto    otherPtr{other.asDate()};
 
         if (nullptr == otherPtr)
         {
@@ -412,7 +412,7 @@ nImO::Date::lessThan
     }
     else
     {
-        CPtr(Date)   otherPtr{other.asDate()};
+        auto    otherPtr{other.asDate()};
 
         if (nullptr == otherPtr)
         {
@@ -445,7 +445,7 @@ nImO::Date::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Date)   otherPtr{other.asDate()};
+        auto    otherPtr{other.asDate()};
 
         if (nullptr == otherPtr)
         {
@@ -587,17 +587,17 @@ nImO::GetDatePieces
     const int       mins[] = { kMinYear, kMinMonth, kMinDay };
     const size_t    numE{numElementsInArray(pieces)};
 
-    for (size_t ii = 0; ii < numE; ++ii)
+    for (size_t ii{0}; ii < numE; ++ii)
     {
         pieces[ii] = mins[ii];
     }
     if (0 < inString.length())
     {
-        CPtr(char)  beginPtr{inString.c_str()};
+        auto        beginPtr{inString.c_str()};
         Ptr(char)   endPtr{nullptr};
-        CPtr(char)  walker{beginPtr};
+        auto        walker{beginPtr};
 
-        for (size_t ii = 0; okSoFar && (ii < numE); ++ii)
+        for (size_t ii{0}; okSoFar && (ii < numE); ++ii)
         {
             int64_t value{strtoll(walker, &endPtr, 10)};
 

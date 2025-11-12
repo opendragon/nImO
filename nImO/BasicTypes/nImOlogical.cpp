@@ -557,7 +557,7 @@ nImO::Logical::readFromStringBuffer
         bool    done{false};
         bool    valid{false};
 
-        for (size_t ii = 1, len = candidate->length(); ! done; )
+        for (size_t ii{1}, len{candidate->length()}; ! done; )
         {
             aChar = tolower(inBuffer.getChar(localIndex, atEnd));
             if (atEnd || isLegalTerminator(aChar))

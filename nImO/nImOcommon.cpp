@@ -161,7 +161,7 @@ nImO::B2I
     {
         holder = 0;
     }
-    for (size_t ii = (sizeof(result) - numBytes); ii < sizeof(result); ++ii)
+    for (size_t ii{sizeof(result) - numBytes}; ii < sizeof(result); ++ii)
     {
         holder.data()[ii] = inString[ii + numBytes - sizeof(result)];
     }
@@ -221,13 +221,13 @@ nImO::CompareBytes
 
     if (memcmp(first, second, numBytes))
     {
-        CPtr(uint8_t)   firstWalker{StaticCast(CPtr(uint8_t), first)};
-        CPtr(uint8_t)   secondWalker{StaticCast(CPtr(uint8_t), second)};
+        auto    firstWalker{StaticCast(CPtr(uint8_t), first)};
+        auto    secondWalker{StaticCast(CPtr(uint8_t), second)};
 
-        for (size_t ii = 0; numBytes > ii; ++ii)
+        for (size_t ii{0}; numBytes > ii; ++ii)
         {
-            uint8_t firstByte{*firstWalker++};
-            uint8_t secondByte{*secondWalker++};
+            auto    firstByte{*firstWalker++};
+            auto    secondByte{*secondWalker++};
 
             if (firstByte != secondByte)
             {
@@ -444,10 +444,10 @@ nImO::DumpMemoryToStandardError
         for ( ; offset < numBytes; offset += bytesPerRow)
         {
             std::cerr << std::hex << std::setw(4) << std::setfill('0') << offset << " : ";
-            for (size_t ii = 0; ii < bytesInNextRow; ++ii)
+            for (size_t ii{0}; ii < bytesInNextRow; ++ii)
             {
-                CPtr(uint8_t)   ptrToByte{ReinterpretCast(CPtr(uint8_t), address) + offset + ii};
-                uint            aByte{*ptrToByte};
+                auto    ptrToByte{ReinterpretCast(CPtr(uint8_t), address) + offset + ii};
+                auto    aByte{*ptrToByte};
 
                 std::cerr << std::setw(2) << std::setfill('0') << aByte << " ";
                 if (3 == (ii % 4))
@@ -457,7 +457,7 @@ nImO::DumpMemoryToStandardError
             }
             if (bytesPerRow > bytesInNextRow)
             {
-                for (size_t ii = bytesInNextRow; ii < bytesPerRow; ++ii)
+                for (size_t ii{bytesInNextRow}; ii < bytesPerRow; ++ii)
                 {
                     std::cerr << "   ";
                     if (3 == (ii % 4))
@@ -466,10 +466,10 @@ nImO::DumpMemoryToStandardError
                     }
                 }
             }
-            for (size_t ii = 0; ii < bytesInNextRow; ++ii)
+            for (size_t ii{0}; ii < bytesInNextRow; ++ii)
             {
-                CPtr(char)  ptrToChar{ReinterpretCast(CPtr(char), address) + offset + ii};
-                char        aChar{*ptrToChar};
+                auto    ptrToChar{ReinterpretCast(CPtr(char), address) + offset + ii};
+                auto    aChar{*ptrToChar};
 
                 if (std::isprint(aChar))
                 {
@@ -538,7 +538,7 @@ nImO::I2B
     memcpy(outString, holder.data(), sizeof(inValue));
     if (0 <= inValue)
     {
-        for (size_t ii = 0; (0 == length) && (sizeof(inValue) > ii); ++ii)
+        for (size_t ii{0}; (0 == length) && (sizeof(inValue) > ii); ++ii)
         {
             if (0x00 != outString[ii])
             {
@@ -558,7 +558,7 @@ nImO::I2B
     }
     else
     {
-        for (size_t ii = 0; (0 == length) && (sizeof(inValue) > ii); ++ii)
+        for (size_t ii{0}; (0 == length) && (sizeof(inValue) > ii); ++ii)
         {
             if (0x0FF != outString[ii])
             {
@@ -623,7 +623,7 @@ nImO::MakeStringFromCommandLine
     if (0 < numArgs)
     {
         result = args[0];
-        for (int ii = 1; ii < numArgs; ++ii)
+        for (int ii{1}; ii < numArgs; ++ii)
         {
             result += "\t"s;
             result += args[ii];
@@ -815,7 +815,7 @@ nImO::OutputDescription
     std::string blanks(indentSize, ' ');
     std::string indent{heading};
 
-    for (size_t ii = 0; ii < descriptionLength; ++ii)
+    for (size_t ii{0}; ii < descriptionLength; ++ii)
     {
         if (kEndOfLine == description[ii])
         {
@@ -907,7 +907,7 @@ nImO::SanitizeString
 
     try
     {
-        for (size_t ii = 0, mm = inString.length(); mm > ii; )
+        for (size_t ii{0}, mm{inString.length()}; mm > ii; )
         {
             char    cc{inString[ii++]};
 

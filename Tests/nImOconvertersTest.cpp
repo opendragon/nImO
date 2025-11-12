@@ -211,7 +211,7 @@ doTestIntegerSize
 
             if (ConvertToInt64(*argv, value) && ConvertToInt64(argv[1], length))
             {
-                size_t  calcLength = ConvertInt64ToPacketOrder(nullptr, nullptr, value);
+                auto    calcLength{ConvertInt64ToPacketOrder(nullptr, nullptr, value)};
 
                 if (StaticCast(int64_t, calcLength) == length)
                 {
@@ -270,9 +270,9 @@ doTestDoubleSize
     {
         double  value{(nImO::RandomUnsigned() % 10000) * 0.1};
         size_t  expectedLength{sizeof(double)};
-        int64_t calcLength{StaticCast(int64_t, ConvertDoubleToPacketOrder(nullptr, nullptr, value))};
+        auto    calcLength{ConvertDoubleToPacketOrder(nullptr, nullptr, value)};
 
-        if (calcLength == StaticCast(int64_t, expectedLength))
+        if (calcLength == expectedLength)
         {
             result = 0;
         }
@@ -321,14 +321,14 @@ doTestIntegerConversion
 
             if (ConvertToInt64(*argv, value))
             {
-                size_t  expectedLength{ConvertInt64ToPacketOrder(nullptr, nullptr, value)};
+                auto    expectedLength{ConvertInt64ToPacketOrder(nullptr, nullptr, value)};
                 uint8_t buffer[kBufferSize];
-                size_t  convLength{ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value)};
+                auto    convLength{ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value)};
 
                 if (expectedLength == convLength)
                 {
                     int64_t newValue;
-                    size_t  newLength{ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue)};
+                    auto    newLength{ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue)};
 
                     if ((newValue == value) && (newLength == convLength))
                     {
@@ -390,12 +390,12 @@ doTestDoubleConversion
 
     try
     {
-        for (int ii = 0; ii < kNumDoubleTests; ++ii)
+        for (int ii{0}; ii < kNumDoubleTests; ++ii)
         {
             double  value{(nImO::RandomUnsigned() % 10000) * 0.1};
-            size_t  expectedLength{ConvertDoubleToPacketOrder(nullptr, nullptr, value)};
+            auto    expectedLength{ConvertDoubleToPacketOrder(nullptr, nullptr, value)};
             uint8_t buffer[kBufferSize];
-            size_t  convLength{ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value)};
+            auto    convLength{ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value)};
 
             if (expectedLength == convLength)
             {

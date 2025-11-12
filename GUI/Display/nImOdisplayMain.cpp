@@ -311,7 +311,7 @@ main
                         }
                         else
                         {
-                            for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
+                            for (size_t ii{0}, numElements{asArray->size()}; ii < numElements; ++ii)
                             {
                                 auto    element{asArray->at(ii)};
                                 auto    asString{element->asString()};
@@ -425,7 +425,7 @@ main
                             }
                             else
                             {
-                                for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
+                                for (size_t ii{0}, numElements{asArray->size()}; ii < numElements; ++ii)
                                 {
                                     auto    element{asArray->at(ii)};
                                     auto    asString{element->asString()};

@@ -103,7 +103,7 @@ nImO::AnnounceServiceData::~AnnounceServiceData
     release_mdns_string(_recordSRV.data.srv.name);
     release_mdns_string(_serviceInstance);
     release_mdns_string(_serviceName);
-    for (size_t ii = 0; ii < kNumTxtRecords; ++ii)
+    for (size_t ii{0}; ii < kNumTxtRecords; ++ii)
     {
         release_mdns_string(_recordTXT[ii].name);
         release_mdns_string(_recordTXT[ii].data.txt.key);

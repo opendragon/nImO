@@ -150,7 +150,7 @@ nImO::String::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(String)    otherPtr{other.asString()};
+        auto    otherPtr{other.asString()};
 
         if (nullptr != otherPtr)
         {
@@ -196,7 +196,7 @@ nImO::String::equalTo
 
     if (&other != this)
     {
-        CPtr(String)    otherPtr{other.asString()};
+        auto    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -243,11 +243,11 @@ nImO::String::extractValue
     }
     else
     {
-        size_t          size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
+        auto            size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
         NumberAsBytes   holder;
         bool            okSoFar{true};
 
-        for (size_t ii = 0; okSoFar && (size > ii); ++ii)
+        for (size_t ii{0}; okSoFar && (size > ii); ++ii)
         {
             int aByte{theMessage.getByte(position, atEnd)};
 
@@ -275,7 +275,7 @@ nImO::String::extractValue
         auto    holder{std::make_unique<char[]>(numBytes + 1)};
         bool    okSoFar{nullptr != holder};
 
-        for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
+        for (size_t ii{0}; okSoFar && (numBytes > ii); ++ii)
         {
             int aByte{theMessage.getByte(position, atEnd)};
 
@@ -364,7 +364,7 @@ nImO::String::greaterThan
     }
     else
     {
-        CPtr(String)    otherPtr{other.asString()};
+        auto    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -397,7 +397,7 @@ nImO::String::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(String)    otherPtr{other.asString()};
+        auto    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -434,7 +434,7 @@ nImO::String::lessThan
     }
     else
     {
-        CPtr(String)    otherPtr{other.asString()};
+        auto    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -467,7 +467,7 @@ nImO::String::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(String)    otherPtr{other.asString()};
+        auto    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -579,7 +579,7 @@ nImO::String::readFromStringBuffer
 
         bool                done{false};
         bool                valid{false};
-        const char          delimiter{StaticCast(char, aChar)};
+        auto                delimiter{StaticCast(char, aChar)};
         int                 octalSum;
         ScanState           state{ScanState::Normal};
         StringBuffer        holding;
@@ -629,7 +629,7 @@ nImO::String::readFromStringBuffer
                         }
                         else
                         {
-                            CPtr(char)  whichEscape{strchr(standardEscapes, aChar)};
+                            auto    whichEscape{strchr(standardEscapes, aChar)};
 
                             if (nullptr == whichEscape)
                             {
@@ -896,9 +896,9 @@ nImO::String::writeToMessage
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
-        for (size_t ii = 0; length > ii; ++ii)
+        for (size_t ii{0}; length > ii; ++ii)
         {
-            uint8_t stuff{StaticCast(uint8_t, _value.at(ii))};
+            auto    stuff{StaticCast(uint8_t, _value.at(ii))};
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }

@@ -114,7 +114,7 @@ nImO::ChunkArray::~ChunkArray
     if (nullptr != _buffers)
     {
         ODL_LOG("(nullptr != _buffers)"); //####
-        for (size_t ii = 0; _numChunks > ii; ++ii)
+        for (size_t ii{0}; _numChunks > ii; ++ii)
         {
             delete _buffers[ii];
         }
@@ -138,11 +138,11 @@ nImO::ChunkArray::appendBytes
     if ((nullptr != data) && (0 < numBytes))
     {
         ODL_LOG("((nullptr != data) && (0 < numBytes))"); //####
-        CPtr(uint8_t)   walker{data};
+        auto    walker{data};
 
         // Invalidate the cache.
         _cachedString.clear();
-        for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
+        for (size_t bytesLeft{numBytes}; 0 < bytesLeft; )
         {
             Ptr(BufferChunk)    lastChunk{_buffers[_numChunks - 1]};
             size_t              available{lastChunk->getAvailableBytes()};
@@ -156,7 +156,7 @@ nImO::ChunkArray::appendBytes
             else
             {
                 ODL_LOG("! (bytesLeft <= available)"); //####
-                Ptr(BufferChunk)    prevChunk{lastChunk};
+                auto    prevChunk{lastChunk};
 
                 lastChunk = new BufferChunk(_buffersArePadded);
                 if (nullptr == lastChunk)
@@ -259,7 +259,7 @@ nImO::ChunkArray::getByte
                 if (offset < aChunk->getDataSize())
                 {
                     ODL_LOG("(offset < aChunk->getDataSize())"); //####
-                    CPtr(uint8_t)   thisData{aChunk->getData()};
+                    auto    thisData{aChunk->getData()};
 
                     result = *(thisData + offset);
                     atEnd = false;
@@ -283,7 +283,7 @@ nImO::ChunkArray::getLength
     if (nullptr != _buffers)
     {
         ODL_LOG("(nullptr != _buffers)"); //####
-        CPtr(BufferChunk)   aChunk{_buffers[_numChunks - 1]};
+        auto    aChunk{_buffers[_numChunks - 1]};
 
         totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
         if (nullptr != aChunk)
@@ -324,16 +324,16 @@ nImO::ChunkArray::getString
     ODL_I2(length, walker); //####
     if (index < length)
     {
-        for (size_t ii = 0; _numChunks > ii; ++ii)
+        for (size_t ii{0}; _numChunks > ii; ++ii)
         {
-            CPtr(BufferChunk)   aChunk{_buffers[ii]};
+            auto    aChunk{_buffers[ii]};
 
             if (nullptr != aChunk)
             {
                 ODL_LOG("(nullptr != aChunk)"); //####
                 auto    data{aChunk->getData()};
 
-                for (size_t jj = 0, nn = aChunk->getDataSize(); nn > jj; ++jj, ++data)
+                for (size_t jj{0}, nn{aChunk->getDataSize()}; nn > jj; ++jj, ++data)
                 {
                     if (walker++ >= index)
                     {
@@ -376,7 +376,7 @@ nImO::ChunkArray::reset
     if (1 < _numChunks)
     {
         ODL_LOG("(1 < _numChunks)"); //####
-        for (size_t ii = 1; _numChunks > ii; ++ii)
+        for (size_t ii{1}; _numChunks > ii; ++ii)
         {
             Ptr(BufferChunk)    aChunk{_buffers[ii]};
 

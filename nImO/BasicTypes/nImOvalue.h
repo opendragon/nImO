@@ -248,10 +248,12 @@ namespace nImO
 
             /*! @brief Return @c true if two Values are structurally identical.
              @param[in] other The Value to be compared with.
+             @param[in] ignoreCase @c true if case-insensitive comparison.
              @return @c true if the two Values are structurally identical. */
             virtual bool
             deeplyEqualTo
-                (const Value &  other)
+                (const Value &  other,
+                 const bool     ignoreCase = false)
                 const;
 
             /*! @brief Write a short description of the Value to a stream.

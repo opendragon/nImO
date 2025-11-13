@@ -41,6 +41,7 @@
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmessage.h>
 #include <Containers/nImOstringBuffer.h>
+#include <nImOcompareStrings.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -141,11 +142,13 @@ nImO::String::asString
 
 bool
 nImO::String::deeplyEqualTo
-    (const Value &  other)
+    (const Value &  other,
+     const bool     ignoreCase)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
+    ODL_B1(ignoreCase); //####
     bool    result{&other == this};
 
     if (! result)
@@ -154,7 +157,16 @@ nImO::String::deeplyEqualTo
 
         if (nullptr != otherPtr)
         {
-            result = (_value == otherPtr->_value);
+            if (ignoreCase)
+            {
+                CompareStrings  comparator;
+
+                result = ((! comparator(this, otherPtr)) && (! comparator(otherPtr, this)));
+            }
+            else
+            {
+                result = (_value == otherPtr->_value);
+            }
         }
     }
     ODL_OBJEXIT_B(result); //####

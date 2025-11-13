@@ -42,6 +42,9 @@
 #include <CommandHandlers/nImOaddOutputChannelCommandHandler.h>
 #include <CommandHandlers/nImOgetChannelLimitsCommandHandler.h>
 #include <CommandHandlers/nImOgetChannelStatisticsCommandHandler.h>
+#include <CommandHandlers/nImOgetParametersCommandHandler.h>
+#include <CommandHandlers/nImOgetParameterValueCommandHandler.h>
+#include <CommandHandlers/nImOsetParameterValueCommandHandler.h>
 #include <CommandHandlers/nImOsetUpReceiverCommandHandler.h>
 #include <CommandHandlers/nImOsetUpSenderCommandHandler.h>
 #include <CommandHandlers/nImOstartReceiverCommandHandler.h>
@@ -409,7 +412,33 @@ nImO::AddInputOutputHandlers
         }
         if (goAhead)
         {
-            // add get/set/list property handlers
+            auto    newHandler11{std::make_shared<GetParametersCommandHandler>(context, argumentList)};
+
+            ODL_P1(newHandler11.get()); //####
+            if (! context->addHandler(kGetParametersRequest, newHandler11))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler12{std::make_shared<GetParameterValueCommandHandler>(context, argumentList)};
+
+            ODL_P1(newHandler12.get()); //####
+            if (! context->addHandler(kGetParameterValueRequest, newHandler12))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler13{std::make_shared<SetParameterValueCommandHandler>(context, argumentList)};
+
+            ODL_P1(newHandler13.get()); //####
+            if (! context->addHandler(kSetParameterValueRequest, newHandler13))
+            {
+                goAhead = false;
+            }
         }
         if (goAhead)
         {

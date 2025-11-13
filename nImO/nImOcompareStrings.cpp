@@ -115,7 +115,7 @@ nImO::CompareStrings::operator()
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2(lhs.get(), rhs.get()); //####
+    ODL_S2s(lhs->getValue(), rhs->getValue()); //####
     std::string lowerLeft{ConvertToLowerCase(lhs->getValue())};
     std::string lowerRight{ConvertToLowerCase(rhs->getValue())};
     bool        result{lowerLeft < lowerRight};

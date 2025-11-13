@@ -138,11 +138,14 @@ nImO::Logical::asLogical
 
 bool
 nImO::Logical::deeplyEqualTo
-    (const Value &    other)
+    (const Value &  other,
+     const bool     ignoreCase)
     const
 {
+    NIMO_UNUSED_VAR_(ignoreCase);
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
+    ODL_B1(ignoreCase); //####
     bool    result{&other == this};
 
     if (! result)

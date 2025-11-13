@@ -152,10 +152,12 @@ namespace nImO
 
             /*! @brief Return @c true if two Values are structurally identical.
              @param[in] other The Value to be compared with.
+             @param[in] ignoreCase @c true if case-insensitive comparison.
              @return @c true if the two Values are structurally identical. */
             bool
             deeplyEqualTo
-                (const Value &  other)
+                (const Value &  other,
+                 const bool     ignoreCase = false)
                 const
                 override;
 

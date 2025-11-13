@@ -104,29 +104,20 @@ nImO::GetChannelLimitsCommandHandler::doIt
      std::string &  reason)
     const
 {
+    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
-    bool    okSoFar{false};
-
     _ownerForInputOutput->report("get channel limits request received."s);
-    if (0 < arguments.size())
-    {
-        int64_t maxInputChannels{0};
-        int64_t maxOutputChannels{0};
+    int64_t maxInputChannels{0};
+    int64_t maxOutputChannels{0};
 
-        _ownerForInputOutput->getChannelLimits(maxInputChannels, maxOutputChannels);
-        auto    infoArray{std::make_shared<Array>()};
+    _ownerForInputOutput->getChannelLimits(maxInputChannels, maxOutputChannels);
+    auto    infoArray{std::make_shared<Array>()};
 
-        infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
-        infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
-        okSoFar = sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray, reason);
-        ODL_B1(okSoFar); //####
-    }
-    else
-    {
-        ODL_LOG("! (0 < arguments.size())"); //####
-        reason = "Missing argument(s)"s;
-    }
+    infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
+    infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
+    bool    okSoFar{sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray, reason)};
+
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::GetChannelLimitsCommandHandler::doIt

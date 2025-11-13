@@ -38,6 +38,9 @@
 
 #include <nImOcompareValues.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <nImOcompareStrings.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -100,17 +103,29 @@ nImO::CompareValues::operator()
 {
     ODL_OBJENTER(); //####
     ODL_P2(lhs.get(), rhs.get()); //####
+    auto    leftString{lhs->asString()};
+    auto    rightString{rhs->asString()};
     bool    result;
 
-    if (lhs->enumerationType() == rhs->enumerationType())
+    if ((nullptr != leftString) && (nullptr != rightString))
     {
-        ComparisonStatus    status{lhs->lessThan(*rhs)};
+        // In Maps and Sets, the key is case-insensitive.
+        CompareStrings  comparator;
 
-        result = (status.value() && status.isValid());
+        result = comparator(leftString, rightString);
     }
     else
     {
-        result = false;
+        if (lhs->enumerationType() == rhs->enumerationType())
+        {
+            ComparisonStatus    status{lhs->lessThan(*rhs)};
+
+            result = (status.value() && status.isValid());
+        }
+        else
+        {
+            result = false;
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;

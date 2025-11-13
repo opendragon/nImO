@@ -98,7 +98,7 @@ main
     auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("period"s, "Number of seconds between pulses"s,
                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, true, tinyValue, false, 0.0)};
     auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random values"s,
-                                                                                       nImO::ArgumentMode::Optional, false)};
+                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, false)};
     auto                    thirdArg{std::make_shared<nImO::DoubleArgumentDescriptor>("minimum"s, "Low value to be sent"s,
                                                                                        nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 0.0, false, 0.0, false, 0.0)};
     auto                    fourthArg{std::make_shared<nImO::DoubleArgumentDescriptor>("maximum"s, "High value to be sent"s,

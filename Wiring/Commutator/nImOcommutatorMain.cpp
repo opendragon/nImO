@@ -98,7 +98,7 @@ main
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numOut"s, "Number of output channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
     auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random routing"s,
-                                                                                        nImO::ArgumentMode::Optional, false)};
+                                                                                        nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, false)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};

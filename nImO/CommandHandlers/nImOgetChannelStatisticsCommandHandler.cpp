@@ -134,7 +134,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
             else
             {
                 ODL_LOG("! (theInputChannel)"); //####
-                auto    theOutputChannel = _ownerForInputOutput->getOutputChannel(asString->getValue());
+                auto    theOutputChannel{_ownerForInputOutput->getOutputChannel(asString->getValue())};
 
                 if (theOutputChannel)
                 {

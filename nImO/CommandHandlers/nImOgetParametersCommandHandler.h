@@ -75,10 +75,10 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning Context.
-             @param[in] callback The function to invoke when the command is received. */
+             @param[in] argumentList The arguments provided to the owning service. */
             GetParametersCommandHandler
                 (SpInputOutputContext   owner,
-                 Ptr(CallbackFunction)  callback = nullptr);
+                 DescriptorVector &     argumentList);
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
@@ -108,8 +108,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief A function to invoke when the command is triggered via doIt(). */
-            Ptr(CallbackFunction)   _callback{nullptr};
+            /*! @brief The arguments provided to the service. */
+            DescriptorVector &  _argumentList;
 
     }; // GetParametersCommandHandler
 

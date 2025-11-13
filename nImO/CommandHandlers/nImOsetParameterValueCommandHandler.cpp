@@ -80,11 +80,11 @@
 
 nImO::SetParameterValueCommandHandler::SetParameterValueCommandHandler
     (SpInputOutputContext   owner,
-     Ptr(CallbackFunction)  callback) :
-        inherited{owner}, _callback(callback)
+     DescriptorVector &     argumentList) :
+        inherited{owner}, _argumentList(argumentList)
 {
     ODL_ENTER(); //####
-    ODL_P2(owner.get(), callback); //####
+    ODL_P2(owner.get(), &argumentList); //####
     ODL_EXIT_P(this); //####
 } // nImO::SetParameterValueCommandHandler::SetParameterValueCommandHandler
 
@@ -99,25 +99,57 @@ nImO::SetParameterValueCommandHandler::doIt
      std::string &  reason)
     const
 {
-    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("set parameter value request received."s);
-    if (nullptr != _callback)
+    if (2 < arguments.size())
     {
-        okSoFar = (*_callback)();
-        ODL_B1(okSoFar); //####
-        if (okSoFar)
+        auto    asString{arguments[1]->asString()};
+        
+        if (nullptr == asString)
         {
-            okSoFar = sendSimpleResponse(socket, kSetParameterValueResponse, "set parameter value"s, true, reason);
-            ODL_B1(okSoFar); //####
+            ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
-            reason = _callback->failureReason();
+            // Find the argument to modify
+            // If not matched, report the error
+            // Check if the single argument is of the correct type
+            // If the type does not match, report the error
+            // If it matches, update the argument list entry
+#if 0
+            auto    infoArray{std::make_shared<Array>()};
+
+            infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
+            infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
+            okSoFar = sendComplexResponse(socket, kSetParametersResponse, "set parameter value"s, infoArray, reason);
+            ODL_B1(okSoFar); //####
+#endif//0
+#if 0
+            if (nullptr != _callback)
+            {
+                okSoFar = (*_callback)();
+                ODL_B1(okSoFar); //####
+                if (okSoFar)
+                {
+                    okSoFar = sendSimpleResponse(socket, kSetParameterValueResponse, "set parameter value"s, true, reason);
+                    ODL_B1(okSoFar); //####
+                }
+                else
+                {
+                    reason = _callback->failureReason();
+                }
+            }
+#endif//0
         }
+    }
+    else
+    {
+        ODL_LOG("! (2 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

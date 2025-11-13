@@ -80,11 +80,11 @@
 
 nImO::GetParametersCommandHandler::GetParametersCommandHandler
     (SpInputOutputContext   owner,
-     Ptr(CallbackFunction)  callback) :
-        inherited{owner}, _callback(callback)
+     DescriptorVector &     argumentList) :
+        inherited{owner}, _argumentList(argumentList)
 {
     ODL_ENTER(); //####
-    ODL_P2(owner.get(), callback); //####
+    ODL_P2(owner.get(), &argumentList); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetParametersCommandHandler::GetParametersCommandHandler
 
@@ -105,20 +105,18 @@ nImO::GetParametersCommandHandler::doIt
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("get parameters request received."s);
-    if (nullptr != _callback)
-    {
-        okSoFar = (*_callback)();
-        ODL_B1(okSoFar); //####
-        if (okSoFar)
-        {
-            okSoFar = sendSimpleResponse(socket, kGetParametersResponse, "get parameters"s, true, reason);
-            ODL_B1(okSoFar); //####
-        }
-        else
-        {
-            reason = _callback->failureReason();
-        }
-    }
+    // Return the argument list entries
+#if 0
+    int64_t maxInputChannels{0};
+    int64_t maxOutputChannels{0};
+
+    _ownerForInputOutput->getChannelLimits(maxInputChannels, maxOutputChannels);
+    auto    infoArray{std::make_shared<Array>()};
+
+    infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
+    infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
+    bool    okSoFar{sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray, reason)};
+#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::GetParametersCommandHandler::doIt

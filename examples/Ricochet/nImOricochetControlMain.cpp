@@ -91,7 +91,7 @@ main
 {
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random path"s,
-                                                                                       nImO::ArgumentMode::Optional, false)};
+                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, false)};
     auto                    secondArg{std::make_shared<nImO::PortArgumentDescriptor>("port"s, "Port for communication"s,
                                                                                      nImO::ArgumentMode::Optional, 2020)};
     nImO::DescriptorVector  argumentList{};

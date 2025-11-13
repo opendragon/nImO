@@ -39,9 +39,7 @@
 #if (! defined(nImOcompareStrings_H_))
 # define nImOcompareStrings_H_ /* Header guard */
 
-# include <nImOcommon.h>
-
-# include <string>
+# include <BasicTypes/nImOstring.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -106,6 +104,16 @@ namespace nImO
             operator()
                 (const std::string &    lhs,
                  const std::string &    rhs)
+                const;
+
+            /*! @brief Compare two Values, returning @c true if the first is less than the second.
+            @param[in] lhs The first string to be compared.
+            @param[in] rhs The second string to be compared.
+            @return @c true if the first string is less than the second. */
+            bool
+            operator()
+                (const String * lhs,
+                 const String * rhs)
                 const;
 
         protected :

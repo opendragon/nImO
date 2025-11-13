@@ -139,7 +139,7 @@ nImO::ServiceContext::addHandler
 
     if (theHandler && (0 < commandName.size()))
     {
-        const auto result = _commandHandlers.insert({commandName, theHandler});
+        const auto result{_commandHandlers.insert({commandName, theHandler})};
 
         okSoFar = result.second;
         ODL_B1(okSoFar); //####

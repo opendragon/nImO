@@ -80,11 +80,11 @@
 
 nImO::GetParameterValueCommandHandler::GetParameterValueCommandHandler
     (SpInputOutputContext   owner,
-     Ptr(CallbackFunction)  callback) :
-        inherited{owner}, _callback(callback)
+     DescriptorVector &     argumentList) :
+        inherited{owner}, _argumentList(argumentList)
 {
     ODL_ENTER(); //####
-    ODL_P2(owner.get(), callback); //####
+    ODL_P2(owner.get(), &argumentList); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetParameterValueCommandHandler::GetParameterValueCommandHandler
 
@@ -99,25 +99,39 @@ nImO::GetParameterValueCommandHandler::doIt
      std::string &  reason)
     const
 {
-    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("get parameter value request received."s);
-    if (nullptr != _callback)
+    if (1 < arguments.size())
     {
-        okSoFar = (*_callback)();
-        ODL_B1(okSoFar); //####
-        if (okSoFar)
+        auto    asString{arguments[1]->asString()};
+
+        if (nullptr == asString)
         {
-            okSoFar = sendSimpleResponse(socket, kGetParameterValueResponse, "get parameter value"s, true, reason);
-            ODL_B1(okSoFar); //####
+            ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
-            reason = _callback->failureReason();
+            // Find the argument to return
+            // If not matched, report the error
+            // If it matches, return the argument value
+#if 0
+            auto    infoArray{std::make_shared<Array>()};
+
+            infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
+            infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
+            okSoFar = sendComplexResponse(socket, kGetParametersResponse, "get parameter value"s, infoArray, reason);
+            ODL_B1(okSoFar); //####
+#endif//0
         }
+    }
+    else
+    {
+        ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -108,6 +108,22 @@ nImO::CompareStrings::operator()
     return result;
 } // nImO::CompareStrings::operator()
 
+bool
+nImO::CompareStrings::operator()
+    (const String * lhs,
+     const String * rhs)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P2(lhs.get(), rhs.get()); //####
+    std::string lowerLeft{ConvertToLowerCase(lhs->getValue())};
+    std::string lowerRight{ConvertToLowerCase(rhs->getValue())};
+    bool        result{lowerLeft < lowerRight};
+
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::CompareStrings::operator()
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

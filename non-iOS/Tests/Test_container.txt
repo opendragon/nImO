@@ -126,7 +126,7 @@ add_test(NAME TestSingularDateMapValue COMMAND ${THIS_TARGET} 68)
 add_test(NAME TestSmallDateMapValue COMMAND ${THIS_TARGET} 69)
 # Test singular map with time keys
 add_test(NAME TestSingularTimeMapValue COMMAND ${THIS_TARGET} 70)
-# Test small map with teim keys
+# Test small map with time keys
 add_test(NAME TestSmallTimeMapValue COMMAND ${THIS_TARGET} 71)
 
 # Test empty set

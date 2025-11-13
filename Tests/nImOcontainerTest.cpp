@@ -11396,6 +11396,23 @@ doTestStringMapSearches
         }
         if (0 == result)
         {
+            iter = stuff.find(std::make_shared<String>("AbC"));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else
+            {
+                if (iter->second != stringOneSeven)
+                {
+                    ODL_LOG("(iter->second != stringOneSeven)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
             iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() != iter)
             {
@@ -11406,7 +11423,24 @@ doTestStringMapSearches
         if (0 == result)
         {
             stringOneTwo = std::make_shared<String>("12");
-            stuff.addValue(std::make_shared<String>("def"), stringOneTwo);
+            stuff.addValue(std::make_shared<String>("DEF"), stringOneTwo);
+            iter = stuff.find(std::make_shared<String>("DEF"));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else
+            {
+                if (iter->second != stringOneTwo)
+                {
+                    ODL_LOG("(iter->second != stringOneTwo)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
             iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() == iter)
             {
@@ -11684,6 +11718,15 @@ doTestStringSetSearches
         }
         if (0 == result)
         {
+            iter = stuff.find(std::make_shared<String>("AbC"));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
             iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() != iter)
             {
@@ -11693,8 +11736,17 @@ doTestStringSetSearches
         }
         if (0 == result)
         {
-            stuff.addValue(std::make_shared<String>("def"));
-            iter = stuff.find(std::make_shared<String>("def"));
+            stuff.addValue(std::make_shared<String>("DEF"));
+            iter = stuff.find(std::make_shared<String>("DEF"));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<String>("dEf"));
             if (stuff.end() == iter)
             {
                 ODL_LOG("(stuff.end() == iter)"); //####

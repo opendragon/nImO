@@ -2844,9 +2844,9 @@ doTestDateValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1(launchPath); //####
-//    ODL_I1(argc); //####
-//    ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -3052,9 +3052,9 @@ doTestTimeValue
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1(launchPath); //####
-//    ODL_I1(argc); //####
-//    ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -5910,9 +5910,9 @@ doTestTimeValueJSON
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-//    ODL_S1(launchPath); //####
-//    ODL_I1(argc); //####
-//    ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try

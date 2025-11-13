@@ -554,9 +554,9 @@ doTestEmptyArraySizeFunction
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-     //ODL_S1(launchPath); //####
-     //ODL_I1(argc); //####
-     //ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -608,9 +608,9 @@ doTestNonEmptyArraySizeFunction
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-     //ODL_S1(launchPath); //####
-     //ODL_I1(argc); //####
-     //ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -663,9 +663,9 @@ doTestEmptyArrayEmptyFunction
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-     //ODL_S1(launchPath); //####
-     //ODL_I1(argc); //####
-     //ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -717,9 +717,9 @@ doTestNonEmptyArrayEmptyFunction
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-     //ODL_S1(launchPath); //####
-     //ODL_I1(argc); //####
-     //ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -772,9 +772,9 @@ doTestEmptyArrayClearFunction
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-     //ODL_S1(launchPath); //####
-     //ODL_I1(argc); //####
-     //ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -827,9 +827,9 @@ doTestNonEmptyArrayClearFunction
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-     //ODL_S1(launchPath); //####
-     //ODL_I1(argc); //####
-     //ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2074,9 +2074,9 @@ doTestClearingNonEmptyMapUsingRandomIterator
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-     //ODL_S1(launchPath); //####
-     //ODL_I1(argc); //####
-     //ODL_P1(argv); //####
+    //ODL_S1(launchPath); //####
+    //ODL_I1(argc); //####
+    //ODL_P1(argv); //####
     int result{1};
 
     try

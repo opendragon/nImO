@@ -81,6 +81,12 @@
 		F62FE69E29FBCF39002D5FE3 /* nImObaseChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImObaseChannel.h; path = nImO/nImObaseChannel.h; sourceTree = "<group>"; };
 		F6351BE929462B1E00A93CA2 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Tests/resource.h; sourceTree = "<group>"; };
 		F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_MIMEAndMessages.txt; path = "non-iOS/Tests/Test_MIMEAndMessages.txt"; sourceTree = "<group>"; };
+		F639E41A2EC611DC0088F313 /* nImOgetParametersResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetParametersResponseHandler.h; path = nImO/ResponseHandlers/nImOgetParametersResponseHandler.h; sourceTree = "<group>"; };
+		F639E41B2EC611DC0088F313 /* nImOgetParametersResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetParametersResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetParametersResponseHandler.cpp; sourceTree = "<group>"; };
+		F639E41C2EC613620088F313 /* nImOgetParameterValueResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetParameterValueResponseHandler.h; path = nImO/ResponseHandlers/nImOgetParameterValueResponseHandler.h; sourceTree = "<group>"; };
+		F639E41D2EC613620088F313 /* nImOgetParameterValueResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetParameterValueResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetParameterValueResponseHandler.cpp; sourceTree = "<group>"; };
+		F639E41E2EC6142A0088F313 /* nImOsetParameterValueResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsetParameterValueResponseHandler.h; path = nImO/ResponseHandlers/nImOsetParameterValueResponseHandler.h; sourceTree = "<group>"; };
+		F639E41F2EC6142A0088F313 /* nImOsetParameterValueResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsetParameterValueResponseHandler.cpp; path = nImO/ResponseHandlers/nImOsetParameterValueResponseHandler.cpp; sourceTree = "<group>"; };
 		F63DDD6D2B56AD4100182B28 /* nimo-services.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "nimo-services.txt"; path = "non-iOS/nimo-services.txt"; sourceTree = "<group>"; };
 		F640ADAD2EC219FE00A83703 /* nImOstart.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOstart.rc.in; path = Start/nImOstart.rc.in; sourceTree = "<group>"; };
 		F640ADAE2EC219FE00A83703 /* nImOstartMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstartMain.cpp; path = Start/nImOstartMain.cpp; sourceTree = "<group>"; };
@@ -816,6 +822,10 @@
 				F6E5108D2A19675600D52E80 /* nImOgetNumberOfNodesResponseHandler.h */,
 				F64885A32B8A41AA00F2E2C9 /* nImOgetNumberOfOutputChannelsOnNodeResponseHandler.cpp */,
 				F64885A42B8A41AA00F2E2C9 /* nImOgetNumberOfOutputChannelsOnNodeResponseHandler.h */,
+				F639E41B2EC611DC0088F313 /* nImOgetParametersResponseHandler.cpp */,
+				F639E41A2EC611DC0088F313 /* nImOgetParametersResponseHandler.h */,
+				F639E41D2EC613620088F313 /* nImOgetParameterValueResponseHandler.cpp */,
+				F639E41C2EC613620088F313 /* nImOgetParameterValueResponseHandler.h */,
 				F6C907282B62CA310007A38F /* nImOgetRunOptionsForAppResponseHandler.cpp */,
 				F6C907272B62CA310007A38F /* nImOgetRunOptionsForAppResponseHandler.h */,
 				F620CB242B569F8F00C7377B /* nImOgetRunParamsForAppResponseHandler.cpp */,
@@ -838,6 +848,8 @@
 				F6E5111D2A198D7F00D52E80 /* nImOresponseHandler.h */,
 				F6D1E6F82A366E7E00931F39 /* nImOsetChannelInUseResponseHandler.cpp */,
 				F6D1E6F62A366E7E00931F39 /* nImOsetChannelInUseResponseHandler.h */,
+				F639E41F2EC6142A0088F313 /* nImOsetParameterValueResponseHandler.cpp */,
+				F639E41E2EC6142A0088F313 /* nImOsetParameterValueResponseHandler.h */,
 				F6A3953C2B39C1B90098CF7C /* nImOsetUpReceiverResponseHandler.cpp */,
 				F6A3953B2B39C1B90098CF7C /* nImOsetUpReceiverResponseHandler.h */,
 				F6A3953D2B39C1B90098CF7C /* nImOsetUpSenderResponseHandler.cpp */,

@@ -161,6 +161,8 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfOutputChannelsOnNodeResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParametersResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParameterValueResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisChannelPresentResponseHandler.cpp"
@@ -172,6 +174,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetParameterValueResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpReceiverResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpSenderResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartAppResponseHandler.cpp"
@@ -394,6 +397,8 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfOutputChannelsOnNodeResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParametersResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParameterValueResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisChannelPresentResponseHandler.h"
@@ -405,6 +410,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetParameterValueResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpReceiverResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpSenderResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartAppResponseHandler.h"
@@ -590,6 +596,10 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfOutputChannelsOnNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfOutputChannelsOnNodeResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParametersResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParametersResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParameterValueResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetParameterValueResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.cpp
@@ -611,6 +621,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetParameterValueResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetParameterValueResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpReceiverResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpReceiverResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpSenderResponseHandler.cpp

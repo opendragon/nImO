@@ -44,6 +44,7 @@
 #include <nImOregistryProxy.h>
 #include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
+#include <ResponseHandlers/nImOgetParameterValueResponseHandler.h>
 
 #include <string>
 

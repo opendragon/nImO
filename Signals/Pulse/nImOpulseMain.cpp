@@ -220,7 +220,6 @@ main
                                         }
                                         std::atomic_bool                doAnother{true};
                                         bool                            sendHigh{false};
-                                        bool                            valueIsRandom{secondArg->getCurrentValue()};
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
                                         if (nImO::gKeepRunning)
@@ -237,6 +236,7 @@ main
                                                 double  actualValue;
                                                 auto    numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                                 auto    delayTime{boost::posix_time::milliseconds(numMilliseconds) / 2.0};
+                                                bool    valueIsRandom{secondArg->getCurrentValue()};
                                                 double  lowValue{thirdArg->getCurrentValue()};
                                                 double  highValue{fourthArg->getCurrentValue()};
 

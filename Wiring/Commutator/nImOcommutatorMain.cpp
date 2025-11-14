@@ -253,13 +253,13 @@ main
                                         std::cout << progName << " ready.\n";
                                         std::cout.flush();
                                     }
-                                    bool    randomRouting{secondArg->getCurrentValue()};
                                     size_t  nextChannel{0};
                                     size_t  maxChannel{outChannels.size()};
 
                                     for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                     {
                                         boost::this_thread::yield();
+                                        bool    randomRouting{secondArg->getCurrentValue()};
                                         auto    nextData{ourContext->getNextMessage()};
 
                                         if (nImO::gKeepRunning)

@@ -249,11 +249,11 @@ main
                                                         connected = outChannel->isConnected();
                                                     }
                                                 }
-                                                auto    numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
-                                                auto    repeatValues{thirdArg->getCurrentValue()};
-
                                                 for ( ; nImO::gKeepRunning; )
                                                 {
+                                                    auto    numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
+                                                    auto    repeatValues{thirdArg->getCurrentValue()};
+
                                                     for (size_t ii{0}; nImO::gKeepRunning && (ii < inValues.size()); ++ii)
                                                     {
                                                         if (! outChannel->send(inValues[ii]))

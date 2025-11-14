@@ -38,9 +38,7 @@
 
 #include <ResponseHandlers/nImOsetParameterValueResponseHandler.h>
 
-//#include <BasicTypes/nImOinteger.h>
-//#include <BasicTypes/nImOlogical.h>
-//#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -99,8 +97,6 @@ nImO::SetParameterValueResponseHandler::doIt
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-#if 0
-    _result._found = false;
     if (1 < stuff.size())
     {
         auto    infoArray{stuff[1]->asArray()};
@@ -111,36 +107,24 @@ nImO::SetParameterValueResponseHandler::doIt
         }
         else
         {
-            if (5 < infoArray->size())
+            if (0 < infoArray->size())
             {
-                auto    foundPtr{(*infoArray)[0]->asLogical()};
-                auto    namePtr{(*infoArray)[1]->asString()};
-                auto    serviceTypePtr{(*infoArray)[2]->asInteger()};
-                auto    addressPtr{(*infoArray)[3]->asInteger()};
-                auto    portPtr{(*infoArray)[4]->asInteger()};
-                auto    transportPtr{(*infoArray)[5]->asInteger()};
+                auto    asString{(*infoArray)[0]->asString()};
 
-                if ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && (nullptr != addressPtr) &&
-                    (nullptr != portPtr) && (nullptr != transportPtr))
+                if (nullptr == asString)
                 {
-                    _result._found = foundPtr->getValue();
-                    _result._name = namePtr->getValue();
-                    _result._serviceType = StaticCast(ServiceType, serviceTypePtr->getIntegerValue());
-                    _result._connection._address = addressPtr->getIntegerValue();
-                    _result._connection._port = portPtr->getIntegerValue();
-                    _result._connection._transport = StaticCast(TransportType, transportPtr->getIntegerValue());
-                    okSoFar = true;
-                    ODL_B1(okSoFar); //####
+                    ODL_LOG("(nullptr == asString)"); //####
                 }
                 else
                 {
-                    ODL_LOG("! ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && (nullptr != addressPtr) && " //####
-                            "(nullptr != portPtr) && (nullptr != transportPtr))"); //####
+                    _result = asString->getValue();
+                    okSoFar = true;
+                    ODL_B1(okSoFar); //####
                 }
             }
             else
             {
-                ODL_LOG("! (5 < infoArray->size())"); //####
+                ODL_LOG("! (0 < infoArray->size())"); //####
             }
         }
     }
@@ -148,7 +132,6 @@ nImO::SetParameterValueResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::SetParameterValueResponseHandler::doIt

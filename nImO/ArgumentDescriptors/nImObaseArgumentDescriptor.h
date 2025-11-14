@@ -549,6 +549,15 @@ namespace nImO
     ConvertStringToDescriptor
         (const std::string &    inString);
 
+    /*! @brief Update the arguments data for an argument from the parsed argument list.
+     @param[in] anArg The argument to process.
+     @param[in] argValue The string to be checked.
+     @return @c true if the value provided is valid for the argument @c false otherwise. */
+    bool
+    ProcessAnArgument
+        (SpBaseArgumentDescriptor   anArg,
+         const std::string &        argValue);
+
     /*! @brief Update the arguments data from the parsed argument list.
      @param[in] arguments The argument sequence.
      @param[out] parseResult The parsed argument list.

@@ -115,7 +115,7 @@ nImO::GetParametersCommandHandler::doIt
 
     infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
     infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
-    bool    okSoFar{sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray, reason)};
+    bool    okSoFar{sendComplexResponse(socket, kGetParametersResponse, "get parameters"s, infoArray, reason)};
 #endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

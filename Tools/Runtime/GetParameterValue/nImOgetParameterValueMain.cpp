@@ -38,8 +38,10 @@
 
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOarray.h>
 #include <Contexts/nImOutilityContext.h>
-#include <nImOcommonCommands.h>
+#include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOrequestResponse.h>
@@ -114,7 +116,7 @@ main
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Get the value of a parameter of a node"s, "nImOgetParameterValue node param"s, 2025,
-                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption |
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | //nImO::kSkipExpandedOption |
                                      nImO::kSkipFlavoursOption | nImO::kSkipMachineOption | nImO::kSkipNodeOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -123,6 +125,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("getParameterValue"s, optionValues._logging)};
             auto                nodeName{firstArg->getCurrentValue()};
+            auto                paramName{secondArg->getCurrentValue()};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
@@ -134,23 +137,27 @@ main
                 {
                     if (statusWithInfo.second._found)
                     {
-                        // Close all connections for services on the node.
-std::cerr << "** Unimplemented **\n";
-#if 0
-                        // Send Stop command to the node.
+                        // Send Get Parameter Value command to the node.
                         if (optionValues._expanded)
                         {
-                            ourContext->report("sending stop request to '"s + nodeName + "'."s);
+                            ourContext->report("sending get parameter value request to '"s + nodeName + "'."s);
                         }
-                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kStopRequest,
-                                                                         nImO::kStopResponse);
-                        auto    statusWithBool{proxy->removeNode(nodeName)};
+                        auto    argArray{std::make_shared<nImO::Array>()};
+                        auto    handler{std::make_unique<nImO::GetParameterValueResponseHandler>()};
 
-                        if (! statusWithBool.first.first)
+                        argArray->addValue(std::make_shared<nImO::String>(paramName));
+                        auto    status{SendRequestWithArgumentsAndNonEmptyResponse(ourContext, statusWithInfo.second._connection, handler.get(), argArray.get(),
+                                                                                   nImO::kGetParameterValueRequest, nImO::kGetParameterValueResponse)};
+
+                        if (status.first)
                         {
-                            std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
+                            std::cout << "Value: "s << handler->result() << "\n";
                         }
-#endif//0
+                        else
+                        {
+                            ourContext->report("Problem getting the value of parameter '"s + paramName + "' on node "s + nodeName + ": "s + status.second + "."s);
+                            exitCode = 1;
+                        }
                     }
                     else
                     {

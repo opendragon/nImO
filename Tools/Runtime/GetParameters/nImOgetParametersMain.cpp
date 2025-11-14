@@ -38,8 +38,10 @@
 
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOarray.h>
 #include <Contexts/nImOutilityContext.h>
-#include <nImOcommonCommands.h>
+#include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOrequestResponse.h>
@@ -129,23 +131,29 @@ main
                 {
                     if (statusWithInfo.second._found)
                     {
-                        // Close all connections for services on the node.
-std::cerr << "** Unimplemented **\n";
-#if 0
-                        // Send Stop command to the node.
+                        // Send Get Parameters command to the node.
                         if (optionValues._expanded)
                         {
-                            ourContext->report("sending stop request to '"s + nodeName + "'."s);
+                            ourContext->report("sending get parameters request to '"s + nodeName + "'."s);
                         }
-                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kStopRequest,
-                                                                         nImO::kStopResponse);
-                        auto    statusWithBool{proxy->removeNode(nodeName)};
+                        auto    handler{std::make_unique<nImO::GetParametersResponseHandler>()};
 
-                        if (! statusWithBool.first.first)
+                        auto    status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, statusWithInfo.second._connection, handler.get(),
+                                                                                           nImO::kGetParametersRequest, nImO::kGetParametersResponse)};
+
+                        if (status.first)
                         {
-                            std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
+std::cerr << "*** unimplemented ***\n";
+//                            nImO::AddressInfo   result{handler->result()};
+//
+//                            receiverAddress = result._address;
+//                            receiverPort = result._port;
                         }
-#endif//0
+                        else
+                        {
+                            ourContext->report("Problem getting the parameters of node "s + nodeName + ": "s + status.second + "."s);
+                            exitCode = 1;
+                        }
                     }
                     else
                     {

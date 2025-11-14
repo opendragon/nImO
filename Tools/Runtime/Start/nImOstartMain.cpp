@@ -412,13 +412,13 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem getting the run parameters for '" << serviceName << "' from '" << launcherName + "'.\n";
+                            std::cerr << "Problem getting the run parameters for '" << serviceName << "' from '" << launcherName << "': " << statusWithBool.second << ".\n";
                             exitCode = 1;
                         }
                     }
                     else
                     {
-                        std::cerr << "Problem getting the run options for '" << serviceName << "' from '" << launcherName + "'.\n";
+                        std::cerr << "Problem getting the run options for '" << serviceName << "' from '" << launcherName << "': " << statusWithBool.second << ".\n";
                         exitCode = 1;
                     }
                     if (0 == exitCode)
@@ -631,7 +631,7 @@ main
                                                                                                    nImO::kStartAppResponse);
                                 if (! statusWithBool.first)
                                 {
-                                    std::cerr << "Problem starting the application '" << serviceName << "' on '" << launcherName + "'.\n";
+                                    std::cerr << "Problem starting the application '" << serviceName << "' on '" << launcherName << "': " << statusWithBool.second << ".\n";
                                     exitCode = 1;
                                 }
                             }

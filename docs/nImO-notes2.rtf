@@ -1,11 +1,11 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2822
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Bold;\f2\fswiss\fcharset0 Helvetica-Bold;
 \f3\fmodern\fcharset0 Courier-BoldOblique;}
-{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red127\green127\blue127;\red0\green0\blue0;
-\red255\green255\blue255;}
-{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;
-\cssrgb\c100000\c100000\c100000;}
-\margl1440\margr1440\vieww24880\viewh22460\viewkind0
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red255\green255\blue255;
+}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;
+}
+\margl1440\margr1440\vieww25680\viewh22460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 application support:\
@@ -33,8 +33,7 @@ examples:\
 * nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order)\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 GUI:\
+GUI:\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf2 * nImOchart ['n'] - graphs values of messages from the 'n' input SIGNAL channels ('n' defaults to 1)\
 * nImOdisplay - like 
@@ -46,10 +45,8 @@ examples:\
 \f0\b0  but GUI-based\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 input output:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 * nImOplayback 'a' ['b' ['c']] - sends messages from a file at a specified rate; 
+input output:\
+* nImOplayback 'a' ['b' ['c']] - sends messages from a file at a specified rate; 
 \f1\b DONE
 \f0\b0 \
 * nImOread \'97 writes out the string representation of messages received; 
@@ -60,11 +57,9 @@ examples:\
 \f0\b0 \
 * nImOwrite \'97 reads the string representation of a message and sends it out a channel; 
 \f1\b DONE\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\b0 \cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 programmable services:\
+\f0\b0 \
+programmable services:\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf2 * nImOjavaScript 'a' ['b' \'85 ] - loads and runs a JavaScript service\
 * nImOlisp 'a' ['b' \'85 ] - loads and runs a Common Lisp service\
@@ -73,11 +68,13 @@ examples:\
 * nImOtcl 'a' ['b' \'85 ] - loads and runs a Tcl service\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
+runtime:\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 runtime:\
-\cf3 * nImOgetParameters 'a' - reports the parameters for node 'a'\
-* nImOgetParameterValue 'a' 'b' - reports the current value of parameter 'b' on node 'a'\
-* nImOsetParameterValue 'a' 'b' 'c' - sets the value of mutable parameter 'b' on node 'a' to 'c'\
+\cf2 * nImOgetParameters 'a' - reports the parameters for node 'a'\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 * nImOgetParameterValue 'a' 'b' - reports the current value of parameter 'b' on node 'a' DONE\
+* nImOsetParameterValue 'a' 'b' 'c' - sets the value of mutable parameter 'b' on node 'a' to 'c' DONE\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 * nImOstart ['a' ['b']] - starts a service via a launcher; 
 \f1\b DONE
 \f0\b0 \
@@ -91,27 +88,31 @@ setup support:\
 * nImOstoreSetup 'a' - stores a setup\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
+signals:\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 signals:\
 \cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0) and discards messages otherwise; initialy discards\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 * nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
 \f1\b DONE
 \f0\b0 \
-\cf4 * nImOpower ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\cf0 ; 
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 * nImOpower ['p'] - raises the value of an input SIGNAL message to a specific power 'p' and sends to the output channel ('p' defaults to 1)\cf0 ; 
 \f1\b DONE
-\f0\b0 \cf4 \
+\f0\b0 \cf3 \
 * nImOproduct ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the product of all the values ('n' defaults to 2)\cf0 ; 
 \f1\b DONE
-\f0\b0 \cf4 \
+\f0\b0 \cf3 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 * nImOpulse ['p' ['r' ['l' ['h']]]] - sends a series of SIGNAL messages with an period of 'p' seconds and a minimum of 'l' and a maximum of 'h' with a random level if 'r' is true ('p' defaults to 1, 'r' defaults to false, 'l' defaults to 0 and 'h' defaults to 1); 
 \f1\b DONE
 \f0\b0 \
-\cf4 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 
-\f1\b DONE
-\f0\b0 \cf4 \
-\cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 tools:\
+\cf3 * nImOsum ['n'] - gathers values from all 'n' input SIGNAL channels and outputs the sum of all the values ('n' defaults to 2)\cf0 ; 
+\f1\b DONE
+\f0\b0 \cf3 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+tools:\
 * nImOaddChannel 'a' ['b'] - add a channel to the node 'a' with 'b' = true adding an output and 'b' = false adding an input ('b' defaults to false); 
 \f1\b DONE
 \f0\b0 \
@@ -141,9 +142,8 @@ setup support:\
 \f0\b0 \
 * nImOversion \'97 reports the versions of the libraries; 
 \f1\b DONE\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\b0 \cf0 \
+\f0\b0 \
 wiring:\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]; 
 \f1\b DONE
@@ -186,10 +186,8 @@ shell script:\
 		nimo read - invokes nImOread\
 		nimo record <a> - invokes nImOrecord <a>\
 		nimo remove <a> - invokes nImOremoveApp <a>\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 		nimo setparamv <a> <b> <c> - invokes nImOgetParameterValue <a> <b> <c>\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 		nimo start <a> <b> - invokes nImOstart <a> <b>\
+		nimo setparamv <a> <b> <c> - invokes nImOgetParameterValue <a> <b> <c>\
+		nimo start <a> <b> - invokes nImOstart <a> <b>\
 		nimo stop <a> - invokes nImOstop <a>\
 		nimo storea <a> - invokes nImOstoreApps <a>\
 		nimo stores <a> - invokes nImOstoreSetup <a>\
@@ -199,7 +197,7 @@ shell script:\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f2\b \cf4 \cb5 \expnd0\expndtw0\kerning0
+\f2\b \cf3 \cb4 \expnd0\expndtw0\kerning0
 fix CMakeLists.txt to use current SWIG commands; check what languages can be generated - currently Python and C#
 \f0\b0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
 1. can Ansible be used for the initial deployment - installing nImOmanage, nImOregistry, nImOlauncher, tools and services plus starting nImOlauncher and nImOregistry?\

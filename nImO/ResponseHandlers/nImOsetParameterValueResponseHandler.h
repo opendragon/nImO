@@ -87,15 +87,15 @@ namespace nImO
                 (const Array &  stuff)
                 override;
 
-//            /*! @brief Return the received value.
-//             @return The received value. */
-//            inline const NodeInfo &
-//            result
-//                (void)
-//                const
-//            {
-//                return _result;
-//            }
+            /*! @brief Return the received value.
+             @return The received value. */
+            inline std::string
+            result
+                (void)
+                const
+            {
+                return _result;
+            }
 
         protected :
             // Protected methods.
@@ -112,8 +112,8 @@ namespace nImO
         private :
             // Private fields.
 
-//            /*! @brief The received value. */
-//            NodeInfo    _result{};
+            /*! @brief The received value. */
+            std::string _result{};
 
     }; // SetParameterValueResponseHandler
 

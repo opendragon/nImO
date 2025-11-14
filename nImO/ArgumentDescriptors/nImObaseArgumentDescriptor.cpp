@@ -651,6 +651,29 @@ nImO::ConvertStringToDescriptor
 } // nImO::ConvertStringToDescriptors
 
 bool
+nImO::ProcessAnArgument
+    (SpBaseArgumentDescriptor   anArg,
+     const std::string &        argValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1(anArg.get()); //####
+    bool    result{true};
+
+    anArg->setToDefaultValue();
+    if (anArg->validate(argValue))
+    {
+        anArg->markSeen();
+    }
+    else
+    {
+        result = false;
+        ODL_B1(result); //####
+    }
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::ProcessAnArgument
+
+bool
 nImO::ProcessArguments
     (const DescriptorVector &   arguments,
      Option_::Parser &          parseResult,

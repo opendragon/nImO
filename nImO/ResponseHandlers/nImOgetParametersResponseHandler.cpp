@@ -100,6 +100,27 @@ nImO::GetParametersResponseHandler::doIt
     bool    okSoFar{false};
 
 #if 0
+    if (1 < stuff.size())
+    {
+        auto    asLogical{stuff[1]->asLogical()};
+
+        if (nullptr == asLogical)
+        {
+            ODL_LOG("(nullptr == asLogical)"); //####
+        }
+        else
+        {
+            _result = asLogical->getValue();
+            okSoFar = true;
+            ODL_B1(okSoFar); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (1 < stuff.size())"); //####
+    }
+#endif//0
+#if 0
     _result._found = false;
     if (1 < stuff.size())
     {

@@ -112,8 +112,8 @@ namespace nImO
             @return @c true if the first string is less than the second. */
             bool
             operator()
-                (const String * lhs,
-                 const String * rhs)
+                (CPtr(String)   lhs,
+                 CPtr(String)   rhs)
                 const;
 
         protected :

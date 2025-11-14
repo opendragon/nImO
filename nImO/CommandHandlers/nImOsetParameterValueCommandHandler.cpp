@@ -38,6 +38,8 @@
 
 #include <CommandHandlers/nImOsetParameterValueCommandHandler.h>
 
+#include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+#include <BasicTypes/nImOstring.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -106,44 +108,61 @@ nImO::SetParameterValueCommandHandler::doIt
     _ownerForInputOutput->report("set parameter value request received."s);
     if (2 < arguments.size())
     {
-        auto    asString{arguments[1]->asString()};
-        
-        if (nullptr == asString)
+        auto    asString1{arguments[1]->asString()};
+        auto    asString2{arguments[2]->asString()};
+
+        if ((nullptr == asString1) || (nullptr == asString2))
         {
-            ODL_LOG("(nullptr == asString)"); //####
+            ODL_LOG("((nullptr == asString1) || (nullptr == asString2))"); //####
             reason = "Invalid argument(s)"s;
         }
         else
         {
-            // Find the argument to modify
-            // If not matched, report the error
-            // Check if the single argument is of the correct type
-            // If the type does not match, report the error
-            // If it matches, update the argument list entry
-#if 0
-            auto    infoArray{std::make_shared<Array>()};
+            std::string paramName{asString1->getValue()};
+            std::string paramValue{asString2->getValue()};
+            bool        found{false};
 
-            infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
-            infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
-            okSoFar = sendComplexResponse(socket, kSetParametersResponse, "set parameter value"s, infoArray, reason);
-            ODL_B1(okSoFar); //####
-#endif//0
-#if 0
-            if (nullptr != _callback)
+            for (SpBaseArgumentDescriptor anArg : _argumentList)
             {
-                okSoFar = (*_callback)();
-                ODL_B1(okSoFar); //####
-                if (okSoFar)
+                if (nullptr != anArg)
                 {
-                    okSoFar = sendSimpleResponse(socket, kSetParameterValueResponse, "set parameter value"s, true, reason);
-                    ODL_B1(okSoFar); //####
-                }
-                else
-                {
-                    reason = _callback->failureReason();
+                    std::string argName{anArg->argumentName()};
+
+                    if (paramName == argName)
+                    {
+                        found = true;
+                        if (anArg->isMutable())
+                        {
+                            auto    oldValue{anArg->getProcessedValue()};
+
+                            if (ProcessAnArgument(anArg, paramValue))
+                            {
+                                auto    infoArray{std::make_shared<Array>()};
+
+                                // Remember the previous value.
+                                infoArray->addValue(std::make_shared<String>(oldValue));
+                                okSoFar = sendComplexResponse(socket, nImO::kSetParameterValueResponse, "set parameter value"s, infoArray, reason);
+                                ODL_B1(okSoFar); //####
+                            }
+                            else
+                            {
+                                reason = "New value is invalid"s;
+                            }
+                        }
+                        else
+                        {
+                            reason = "Parameter is not mutable"s;
+                        }
+                        break;
+
+                    }
                 }
             }
-#endif//0
+            if (! found)
+            {
+                ODL_LOG("! found"); //####
+                reason = "Unknown parameter name"s;
+            }
         }
     }
     else

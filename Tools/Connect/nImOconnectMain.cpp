@@ -481,7 +481,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Problem setting up the channel '"s + toNode + " "s + toPath + "'."s);
+                            ourContext->report("Problem setting up the channel '"s + toNode + " "s + toPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }
@@ -511,7 +511,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Problem setting up the channel '"s + fromNode + " "s + fromPath + "'."s);
+                            ourContext->report("Problem setting up the channel '"s + fromNode + " "s + fromPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }
@@ -529,7 +529,7 @@ main
 
                         if (! status.first)
                         {
-                            ourContext->report("Problem starting the channel '"s + toNode + " "s + toPath + "'."s);
+                            ourContext->report("Problem starting the channel '"s + toNode + " "s + toPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }
@@ -545,7 +545,7 @@ main
 
                         if (! status.first)
                         {
-                            ourContext->report("Problem starting the channel '"s + fromNode + " "s + fromPath + "'."s);
+                            ourContext->report("Problem starting the channel '"s + fromNode + " "s + fromPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }

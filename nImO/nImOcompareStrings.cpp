@@ -110,8 +110,8 @@ nImO::CompareStrings::operator()
 
 bool
 nImO::CompareStrings::operator()
-    (const String * lhs,
-     const String * rhs)
+    (CPtr(String)   lhs,
+     CPtr(String)   rhs)
     const
 {
     ODL_OBJENTER(); //####

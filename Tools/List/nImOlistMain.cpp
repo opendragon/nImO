@@ -687,7 +687,7 @@ listChannels
                                 }
                                 else
                                 {
-                                    std::cerr << "Problem with getting the channel statistics for node '" << node << "'.\n";
+                                    std::cerr << "Problem with getting the channel statistics for node '" << node << "': " << statusWithBool.second << ".\n";
                                     okSoFar = false;
                                     ODL_B1(okSoFar); //####
                                 }

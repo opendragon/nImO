@@ -38,6 +38,8 @@
 
 #include <CommandHandlers/nImOgetParameterValueCommandHandler.h>
 
+#include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+#include <BasicTypes/nImOstring.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -115,17 +117,33 @@ nImO::GetParameterValueCommandHandler::doIt
         }
         else
         {
-            // Find the argument to return
-            // If not matched, report the error
-            // If it matches, return the argument value
-#if 0
-            auto    infoArray{std::make_shared<Array>()};
+            bool        found{false};
+            std::string paramName{asString->getValue()};
 
-            infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
-            infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
-            okSoFar = sendComplexResponse(socket, kGetParametersResponse, "get parameter value"s, infoArray, reason);
-            ODL_B1(okSoFar); //####
-#endif//0
+            for (SpBaseArgumentDescriptor anArg : _argumentList)
+            {
+                if (nullptr != anArg)
+                {
+                    std::string argName{anArg->argumentName()};
+
+                    if (paramName == argName)
+                    {
+                        auto    infoArray{std::make_shared<Array>()};
+
+                        infoArray->addValue(std::make_shared<String>(anArg->getProcessedValue()));
+                        found = true;
+                        okSoFar = sendComplexResponse(socket, kGetParameterValueResponse, "get parameter value"s, infoArray, reason);
+                        ODL_B1(okSoFar); //####
+                        break;
+
+                    }
+                }
+            }
+            if (! found)
+            {
+                ODL_LOG("! found"); //####
+                reason = "Unknown parameter name"s;
+            }
         }
     }
     else

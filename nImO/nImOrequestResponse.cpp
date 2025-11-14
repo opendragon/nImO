@@ -348,7 +348,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         if (asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
-            *status = std::make_pair(false, "asString.empty()"s);
+            *status = std::make_pair(false, "blank request"s);
         }
         else
         {
@@ -400,7 +400,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     else
     {
         ODL_LOG("! (0 < requestToSend.getLength())"); //####
-        *status = std::make_pair(false, "0 >= requestToSend.getLength()"s);
+        *status = std::make_pair(false, "empty request"s);
     }
     ODL_EXIT(); //####
     return *status;

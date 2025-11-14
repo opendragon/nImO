@@ -326,7 +326,7 @@ nImO::StopConnection
 
     if (! statusWithBool.first)
     {
-        ourContext->report("Problem stopping the channel '"s + fromNode + " "s + fromPath + "'."s);
+        ourContext->report("Problem stopping the channel '"s + fromNode + " "s + fromPath + "': "s + statusWithBool.second + "."s);
     }
     auto    argArray2{std::make_shared<nImO::Array>()};
     auto    handler2{std::make_unique<nImO::StopReceiverResponseHandler>()};
@@ -336,6 +336,6 @@ nImO::StopConnection
                                                                  kStopReceiverResponse);
     if (! statusWithBool.first)
     {
-        ourContext->report("Problem stopping the channel '"s + toNode + " "s + toPath + "'."s);
+        ourContext->report("Problem stopping the channel '"s + toNode + " "s + toPath + "': "s + statusWithBool.second + "."s);
     }
 } // nImO::StopConnection

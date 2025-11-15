@@ -76,19 +76,19 @@ namespace nImO
     enum class ArgumentMode : uint8_t
     {
         /*! @brief The argument is required. */
-        Required = 0x00,
+        Required = 0x01,
 
         /*! @brief The argument is optional. */
-        Optional = 0x01,
+        Optional = 0x02,
 
         /*! @brief The argument is a password (not displayable). */
-        Password = 0x02,
+        Password = 0x04,
 
         /*! @brief The argument is case-insensitive. */
-        CaseInsensitive = 0x04,
+        CaseInsensitive = 0x08,
 
         /*! @brief The argument is mutable at run-time. */
-        Mutable = 0x08,
+        Mutable = 0x10,
 
         /*! @brief The argument is both required and is a password. */
         RequiredPassword = (Required | Password),
@@ -97,7 +97,7 @@ namespace nImO
         OptionalPassword = (Optional | Password),
 
         /*! @brief A mask for the available flags. */
-        Mask = (Optional | Password | CaseInsensitive | Mutable),
+        Mask = (Required | Optional | Password | CaseInsensitive | Mutable),
 
         /*! @brief The mode of the argument is undefined. */
         Unknown = 0x00FF
@@ -112,11 +112,11 @@ namespace nImO
         /*! @brief The argument is an IP address. */
         AddressTypeTag = 'A',
 
-        /*! @brief The argument is bool value (true or false). */
-        BoolTypeTag = 'B',
-
         /*! @brief The argument is a channel name. */
         ChannelTypeTag = 'C',
+
+        /*! @brief The argument is a date. */
+        DateTypeTag = 'Y',
 
         /*! @brief The argument is a double value. */
         DoubleTypeTag = 'D',
@@ -130,20 +130,20 @@ namespace nImO
         /*! @brief The argument is an integer value. */
         IntegerTypeTag = 'I',
 
-        /*! @brief The argument is a list of strings. */
-        StringsTypeTag = 'L',
+        /*! @brief The argument is a logical value (true or false). */
+        LogicalTypeTag = 'B',
 
         /*! @brief The argument is a port number. */
         PortTypeTag = 'P',
+
+        /*! @brief The argument is a list of strings. */
+        StringsTypeTag = 'L',
 
         /*! @brief The argument is a string. */
         StringTypeTag = 'S',
 
         /*! @brief The argument is a time. */
-        TimeTypeTag = 'T',
-
-        /*! @brief The argument is a date. */
-        DateTypeTag = 'Y'
+        TimeTypeTag = 'T'
 
     }; // ArgumentTypeTag
 
@@ -214,6 +214,12 @@ namespace nImO
             ~BaseArgumentDescriptor
                 (void);
 
+            /*! @brief Add the fields of the descriptor to a map.
+             @param[in] theMap The map to be updated. */
+            virtual void
+            addFieldsToMap
+                (SpMap  theMap);
+
             /*! @brief Return the description of the command-line argument.
              @return The description of the command-line argument. */
             inline const std::string &
@@ -274,6 +280,13 @@ namespace nImO
             virtual std::string
             getProcessedValue
                 (void) = 0;
+
+            /*! @brief Return the type of the argument.
+             @return The argument type. */
+            virtual ArgumentTypeTag
+            getType
+                (void)
+                const = 0;
 
             /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
              arguments.
@@ -337,7 +350,7 @@ namespace nImO
                 (void)
                 const
             {
-                return ((ArgumentMode::Unknown != _argMode) && (0 == (toUType(_argMode) & toUType(ArgumentMode::Optional))));
+                return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Required))));
             }
 
             /*! @brief Return @c true if the argument is valid and @c false otherwise.

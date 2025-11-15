@@ -163,6 +163,7 @@ install(TARGETS
 
 install(FILES
         "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOargumentParameterKeys.h"
         "${THIS_SOURCE_DIR}/nImOarray.h"
         "${THIS_SOURCE_DIR}/nImOatom.h"
         "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.h"

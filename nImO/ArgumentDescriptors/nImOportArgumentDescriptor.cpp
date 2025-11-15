@@ -39,6 +39,11 @@
 
 #include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
 
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -120,6 +125,18 @@ PortArgumentDescriptor::PortArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+PortArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<String>(getDefaultValue()));
+    theMap->addValue(std::make_shared<String>(kIsSystemPortParameterKey), std::make_shared<Logical>(_isSystemPort));
+    ODL_OBJEXIT(); //####
+} // PortArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 PortArgumentDescriptor::clone
     (void)
@@ -142,6 +159,14 @@ PortArgumentDescriptor::describe
     ODL_OBJEXIT_s(result); //####
     return result;
 } // PortArgumentDescriptor::describe
+
+nImO::ArgumentTypeTag
+PortArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::PortTypeTag;
+} // PortArgumentDescriptor::getType
 
 PortArgumentDescriptor &
 PortArgumentDescriptor::operator=

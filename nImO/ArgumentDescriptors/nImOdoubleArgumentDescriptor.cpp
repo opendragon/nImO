@@ -39,6 +39,12 @@
 
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 
+#include <BasicTypes/nImOdouble.h>
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -126,6 +132,21 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+DoubleArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<Double>(_defaultValue));
+    theMap->addValue(std::make_shared<String>(kHasMaximumParameterKey), std::make_shared<Logical>(_hasMaximumValue));
+    theMap->addValue(std::make_shared<String>(kHasMinimumParameterKey), std::make_shared<Logical>(_hasMinimumValue));
+    theMap->addValue(std::make_shared<String>(kMaximumParameterKey), std::make_shared<Double>(_maximumValue));
+    theMap->addValue(std::make_shared<String>(kMinimumParameterKey), std::make_shared<Double>(_minimumValue));
+    ODL_OBJEXIT(); //####
+} // DoubleArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 DoubleArgumentDescriptor::clone
     (void)
@@ -201,6 +222,14 @@ DoubleArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(result); //####
     return result;
 } // DoubleArgumentDescriptor::getProcessedValue
+
+nImO::ArgumentTypeTag
+DoubleArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::DoubleTypeTag;
+} // DoubleArgumentDescriptor::getType
 
 DoubleArgumentDescriptor &
 DoubleArgumentDescriptor::operator=

@@ -172,6 +172,14 @@ namespace nImO
                 (void)
                 override;
 
+            /*! @brief Return the type of the argument.
+             @return The argument type. */
+            ArgumentTypeTag
+            getType
+                (void)
+                const
+                override;
+
             /*! @brief Return @c true if the argument is a placeholder for zero or more trailing
             arguments.
             @return @c true if the argument is a placeholder for zero of more trailing arguments

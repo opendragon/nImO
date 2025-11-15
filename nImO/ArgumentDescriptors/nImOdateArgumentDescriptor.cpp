@@ -39,6 +39,10 @@
 
 #include <ArgumentDescriptors/nImOdateArgumentDescriptor.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -118,6 +122,17 @@ DateArgumentDescriptor::DateArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+DateArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<String>(getDefaultValue()));
+    ODL_OBJEXIT(); //####
+} // DateArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 DateArgumentDescriptor::clone
     (void)
@@ -174,6 +189,14 @@ DateArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(result); //####
     return result;
 } // DateArgumentDescriptor::getProcessedValue
+
+nImO::ArgumentTypeTag
+DateArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::DateTypeTag;
+} // DateArgumentDescriptor::getType
 
 DateArgumentDescriptor &
 DateArgumentDescriptor::operator=
@@ -240,7 +263,7 @@ DateArgumentDescriptor::setCurrentValue
     ODL_OBJENTER(); //####
     ODL_S1s(newValue); //####
     Date::DatePieces    pieces;
-    bool                okSoFar = GetDatePieces(pieces, newValue);
+    bool                okSoFar{GetDatePieces(pieces, newValue)};
 
     ODL_B1(okSoFar); //####
     if (okSoFar)
@@ -258,7 +281,7 @@ DateArgumentDescriptor::setDefaultValue
     ODL_OBJENTER(); //####
     ODL_S1s(newValue); //####
     Date::DatePieces    pieces;
-    bool                okSoFar = GetDatePieces(pieces, newValue);
+    bool                okSoFar{GetDatePieces(pieces, newValue)};
 
     ODL_B1(okSoFar); //####
     if (okSoFar)

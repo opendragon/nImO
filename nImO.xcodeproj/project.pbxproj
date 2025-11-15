@@ -305,6 +305,7 @@
 		F6815D412DE095E20057BBA9 /* nImOgate.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOgate.rc.in; sourceTree = "<group>"; };
 		F6815D422DE095E20057BBA9 /* nImOgateMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOgateMain.cpp; sourceTree = "<group>"; };
 		F6815D432DE095E20057BBA9 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F682AEA32EC8F2560084C719 /* nImOargumentParameterKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOargumentParameterKeys.h; path = nImO/nImOargumentParameterKeys.h; sourceTree = "<group>"; };
 		F68373EC2404097F0030F969 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = examples/Ricochet/resource.h; sourceTree = "<group>"; };
 		F68373ED2404097F0030F969 /* nImOricochetMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetMain.cpp; path = examples/Ricochet/nImOricochetMain.cpp; sourceTree = "<group>"; };
 		F68373EE2404097F0030F969 /* nImOricochet.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOricochet.rc.in; path = examples/Ricochet/nImOricochet.rc.in; sourceTree = "<group>"; };
@@ -1972,6 +1973,7 @@
 				F6BEEB552CBC004B003167ED /* nImOaddOutputChannelCallbackHandler.h */,
 				F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */,
 				F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */,
+				F682AEA32EC8F2560084C719 /* nImOargumentParameterKeys.h */,
 				F62FE69D29FBCF39002D5FE3 /* nImObaseChannel.cpp */,
 				F62FE69E29FBCF39002D5FE3 /* nImObaseChannel.h */,
 				F66E44A62B5009D50091A1ED /* nImOcallbackFunction.cpp */,

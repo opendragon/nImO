@@ -146,7 +146,8 @@ nImO::Map::addEntries
 nImO::Map::InsertResult
 nImO::Map::addValue
     (SpValue    newKey,
-     SpValue    newValue)
+     SpValue    newValue,
+     const bool replaceIfPresent)
 {
     ODL_OBJENTER(); //####
     ODL_P2(newKey.get(), newValue.get()); //####
@@ -162,6 +163,15 @@ nImO::Map::addValue
         {
             MapValue keyValue{newKey, newValue};
 
+            if (replaceIfPresent)
+            {
+                auto    check{inherited2::find(newKey)};
+
+                if (inherited2::end() != check)
+                {
+                    inherited2::erase(check);
+                }
+            }
             result = inherited2::emplace(keyValue);
         }
         else

@@ -108,6 +108,15 @@ nImO::String::String
 } // nImO::String::String
 
 nImO::String::String
+    (const char initialValue) :
+        inherited{}, _value{1, initialValue}
+{
+    ODL_ENTER(); //####
+    ODL_C1(initialValue); //####
+    ODL_EXIT_P(this); //####
+} // nImO::String::String
+
+nImO::String::String
     (const String & other) :
         inherited{}, _value{other._value}
 {

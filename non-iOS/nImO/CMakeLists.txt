@@ -237,6 +237,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOaddInputChannelCallbackHandler.h"
         "${THIS_SOURCE_DIR}/nImOaddOutputChannelCallbackHandler.h"
         "${THIS_SOURCE_DIR}/nImOannounceServiceData.h"
+        "${THIS_SOURCE_DIR}/nImOargumentParameterKeys.h"
         "${THIS_SOURCE_DIR}/nImObaseChannel.h"
         "${THIS_SOURCE_DIR}/nImOcallbackFunction.h"
         "${THIS_SOURCE_DIR}/nImOchannelName.h"

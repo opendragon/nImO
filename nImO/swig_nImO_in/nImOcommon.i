@@ -129,6 +129,7 @@
 #include "nImOaddInputChannelCallbackHandler.h"
 #include "nImOaddOutputChannelCallbackHandler.h"
 #include "nImOannounceServiceData.h"
+#include "nImOargumentParameterKeys.h"
 #include "nImObaseChannel.h"
 #include "nImOcallbackFunction.h"
 #include "nImOchannelName.h"

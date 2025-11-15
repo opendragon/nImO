@@ -39,6 +39,12 @@
 
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
 
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -126,6 +132,24 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+IntegerArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    if (ArgumentTypeTag::IntegerTypeTag == getType())
+    {
+        theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<Integer>(_defaultValue));
+        theMap->addValue(std::make_shared<String>(kHasMaximumParameterKey), std::make_shared<Logical>(_hasMaximumValue));
+        theMap->addValue(std::make_shared<String>(kHasMinimumParameterKey), std::make_shared<Logical>(_hasMinimumValue));
+        theMap->addValue(std::make_shared<String>(kMaximumParameterKey), std::make_shared<Integer>(_maximumValue));
+        theMap->addValue(std::make_shared<String>(kMinimumParameterKey), std::make_shared<Integer>(_minimumValue));
+    }
+    ODL_OBJEXIT(); //####
+} // IntegerArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 IntegerArgumentDescriptor::clone
     (void)
@@ -201,6 +225,14 @@ IntegerArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(result); //####
     return result;
 } // IntegerArgumentDescriptor::getProcessedValue
+
+nImO::ArgumentTypeTag
+IntegerArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::IntegerTypeTag;
+} // IntegerArgumentDescriptor::getType
 
 IntegerArgumentDescriptor &
 IntegerArgumentDescriptor::operator=

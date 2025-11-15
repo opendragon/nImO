@@ -38,6 +38,9 @@
 
 #include <CommandHandlers/nImOgetParametersCommandHandler.h>
 
+#include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -102,21 +105,22 @@ nImO::GetParametersCommandHandler::doIt
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
-    bool    okSoFar{false};
+    auto    infoArray{std::make_shared<Array>()};
 
     _ownerForInputOutput->report("get parameters request received."s);
     // Return the argument list entries
-#if 0
-    int64_t maxInputChannels{0};
-    int64_t maxOutputChannels{0};
+    for (SpBaseArgumentDescriptor anArg : _argumentList)
+    {
+        if (nullptr != anArg)
+        {
+            auto    argumentMap{std::make_shared<Map>()};
 
-    _ownerForInputOutput->getChannelLimits(maxInputChannels, maxOutputChannels);
-    auto    infoArray{std::make_shared<Array>()};
-
-    infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
-    infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
+            anArg->addFieldsToMap(argumentMap);
+            infoArray->addValue(argumentMap);
+        }
+    }
     bool    okSoFar{sendComplexResponse(socket, kGetParametersResponse, "get parameters"s, infoArray, reason)};
-#endif//0
+
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::GetParametersCommandHandler::doIt

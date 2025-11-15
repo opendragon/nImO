@@ -72,6 +72,7 @@ namespace nImO
 
         /*! @brief An I/O service that only has outputs. */
         OutputService
+        
     }; // ServiceType
 
     /*! @brief The data found in the Registry for an application. */

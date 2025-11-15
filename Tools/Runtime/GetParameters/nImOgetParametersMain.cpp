@@ -137,12 +137,14 @@ main
                             ourContext->report("sending get parameters request to '"s + nodeName + "'."s);
                         }
                         auto    handler{std::make_unique<nImO::GetParametersResponseHandler>()};
-
                         auto    status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, statusWithInfo.second._connection, handler.get(),
                                                                                            nImO::kGetParametersRequest, nImO::kGetParametersResponse)};
 
                         if (status.first)
                         {
+                            nImO::SpArray   result{handler->result()};
+
+                            std::cout << *result << "\n";
 std::cerr << "*** unimplemented ***\n";
 //                            nImO::AddressInfo   result{handler->result()};
 //

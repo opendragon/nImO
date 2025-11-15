@@ -39,6 +39,11 @@
 
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -161,7 +166,7 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
      const std::string &    pathSuffix,
      const bool             forOutput,
      const bool             useRandomPath) :
-        inherited{argName, argDescription, argMode, pathPrefix}, _defaultSet{false}, _forOutput{forOutput},_pathPrefix{pathPrefix}, _pathSuffix{pathSuffix},
+        inherited{argName, argDescription, argMode, pathPrefix}, _defaultSet{false}, _forOutput{forOutput}, _pathPrefix{pathPrefix}, _pathSuffix{pathSuffix},
         _useRandomPath{useRandomPath}
 {
     ODL_ENTER(); //####
@@ -196,6 +201,20 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+FilePathArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kPathPrefixParameterKey), std::make_shared<String>(_pathPrefix));
+    theMap->addValue(std::make_shared<String>(kPathSuffixParameterKey), std::make_shared<String>(_pathSuffix));
+    theMap->addValue(std::make_shared<String>(kForOutputParameterKey), std::make_shared<Logical>(_forOutput));
+    theMap->addValue(std::make_shared<String>(kUseRandomPathParameterKey), std::make_shared<Logical>(_useRandomPath));
+    ODL_OBJEXIT(); //####
+} // FilePathArgumentDescriptor::addFieldsToMap
 
 UpBaseArgumentDescriptor
 FilePathArgumentDescriptor::clone
@@ -254,6 +273,14 @@ FilePathArgumentDescriptor::getPrintableDefaultValue
     ODL_OBJEXIT_s(result); //####
     return result;
 } // FilePathArgumentDescriptor::getPrintableDefaultValue
+
+nImO::ArgumentTypeTag
+FilePathArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::FilePathTypeTag;
+} // FilePathArgumentDescriptor::getType
 
 bool
 FilePathArgumentDescriptor::isForFiles

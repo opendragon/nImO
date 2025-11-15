@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetParametersResponseHandler.h
+//  File:       nImO/nImOargumentParameterKeys.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
+//  Contains:   The type declarations for keys for argument parameters for nImO services.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,16 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2025-11-13
+//  Created:    2025-11-15
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetParametersResponseHandler_H_))
-# define nImOgetParametersResponseHandler_H_ /* Header guard */
+#if (! defined(nImOargumentParameterKeys_H_))
+# define nImOargumentParameterKeys_H_ /* Header guard */
 
-# include <ResponseHandlers/nImOresponseHandler.h>
-
-# include <nImOregistryTypes.h>
+# include <nImOcommon.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -49,74 +47,59 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a functor used with the %nImO request/response mechanism. */
+ @brief The type declarations for commands sent to %nImO services. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class GetParametersResponseHandler final : public ResponseHandler
-    {
 
-        public :
-            // Public type definitions.
+    /*! @brief The key for the allowedValues parameter. */
+    const std::string   kAllowedValuesParameterKey{"allowedValues"s};
 
-        protected :
-            // Protected type definitions.
+    /*! @brief The key for the description parameter. */
+    const std::string   kDefaultParameterKey{"default"s};
 
-        private :
-            // Private type definitions.
+    /*! @brief The key for the description parameter. */
+    const std::string   kDescriptionParameterKey{"description"s};
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = nImO::ResponseHandler;
+    /*! @brief The key for the forOutput parameter. */
+    const std::string   kForOutputParameterKey{"forOutput"s};
 
-        public :
-            // Public methods.
+    /*! @brief The key for the hasMaximum parameter. */
+    const std::string   kHasMaximumParameterKey{"hasMaximum"s};
 
-            /*! @brief The constructor. */
-            GetParametersResponseHandler
-                (void);
+    /*! @brief The key for the hasMinimum parameter. */
+    const std::string   kHasMinimumParameterKey{"hasMinimum"s};
 
-            /*! @brief Handle the response, returning @c true if successful.
-             @param[in] stuff The data included in the response.
-             @return @c true if the response was correctly structured. */
-            bool
-            doIt
-                (const Array &  stuff)
-                override;
+    /*! @brief The key for the isSystemPort parameter. */
+    const std::string   kIsSystemPortParameterKey{"isSystemPort"s};
 
-            /*! @brief Return the received value.
-             @return The received value. */
-            inline SpArray
-            result
-                (void)
-                const
-            {
-                return _result;
-            }
+    /*! @brief The key for the maximum parameter. */
+    const std::string   kMaximumParameterKey{"maximum"s};
 
-        protected :
-            // Protected methods.
+    /*! @brief The key for the minimum parameter. */
+    const std::string   kMinimumParameterKey{"minimum"s};
 
-        private :
-            // Private methods.
+    /*! @brief The key for the name parameter. */
+    const std::string   kNameParameterKey{"name"s};
 
-        public :
-            // Public fields.
+    /*! @brief The key for the mode parameter. */
+    const std::string   kModeParameterKey{"mode"s};
 
-        protected :
-            // Protected fields.
+    /*! @brief The key for the pathPrefix parameter. */
+    const std::string   kPathPrefixParameterKey{"pathPrefix"s};
 
-        private :
-            // Private fields.
+    /*! @brief The key for the pathSuffix parameter. */
+    const std::string   kPathSuffixParameterKey{"pathSuffix"s};
 
-            /*! @brief The received value. */
-            SpArray _result{};
+    /*! @brief The key for the type parameter. */
+    const std::string   kTypeParameterKey{"type"s};
 
-    }; // GetParametersResponseHandler
+    /*! @brief The key for the useRandomPath parameter. */
+    const std::string   kUseRandomPathParameterKey{"useRandomPath"s};
 
 } // nImO
 
-#endif // not defined(nImOgetParametersResponseHandler_H_)
+#endif // not defined(nImOargumentParameterKeys_H_)

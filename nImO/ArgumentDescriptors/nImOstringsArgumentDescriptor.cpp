@@ -39,6 +39,11 @@
 
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <Containers/nImOset.h>
+#include <nImOargumentParameterKeys.h>
+
 #include <string>
 
 //#include <odlEnable.h>
@@ -132,6 +137,24 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+StringsArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<String>(getDefaultValue()));
+    auto    allowed{std::make_shared<Set>()};
+
+    for (auto walker{_allowedValues.begin()}; walker != _allowedValues.end(); ++walker)
+    {
+        allowed->addValue(std::make_shared<String>(*walker));
+    }
+    theMap->addValue(std::make_shared<String>(kAllowedValuesParameterKey), allowed);
+    ODL_OBJEXIT(); //####
+} // StringsArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 StringsArgumentDescriptor::clone
     (void)
@@ -200,6 +223,14 @@ StringsArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(_currentValue); //####
     return _currentValue;
 } // StringsArgumentDescriptor::getProcessedValue
+
+nImO::ArgumentTypeTag
+StringsArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::StringsTypeTag;
+} // StringsArgumentDescriptor::getType
 
 StringsArgumentDescriptor &
 StringsArgumentDescriptor::operator=

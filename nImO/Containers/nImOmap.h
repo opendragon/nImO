@@ -129,12 +129,14 @@ namespace nImO
             /*! @brief Override the standard insert operation to ignore inserting incompatible values.
              @param[in] newKey The key for the Value.
              @param[in] newValue The Value to be inserted.
+             @param[in] replaceIfPresent If @true replace an existing entry else ignore a duplicate key.
              @return A pair<iterator, bool> indicating the success or failure of the insert
              operation. */
             InsertResult
             addValue
                 (SpValue    newKey,
-                 SpValue    newValue);
+                 SpValue    newValue,
+                 const bool replaceIfPresent = false);
 
             /*! @brief Return non-@c nullptr if the object is a Map.
              @return Non-@c nullptr if the object is a Map and @c nullptr otherwise. */

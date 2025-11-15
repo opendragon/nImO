@@ -110,6 +110,13 @@ namespace nImO
                 (StringsArgumentDescriptor &&	other)
                 noexcept;
 
+            /*! @brief Add the fields of the descriptor to a map.
+             @param[in] theMap The map to be updated. */
+            void
+            addFieldsToMap
+                (SpMap  theMap)
+                override;
+
             /*! @brief Convert to a description of the expected values.
              @return A representation of the descriptor that describes the expected values. */
             std::string
@@ -132,6 +139,14 @@ namespace nImO
             std::string
             getDefaultValue
                 (void)
+                override;
+
+            /*! @brief Return the type of the argument.
+             @return The argument type. */
+            ArgumentTypeTag
+            getType
+                (void)
+                const
                 override;
 
             /*! @brief The copy assignment operator.

@@ -39,6 +39,10 @@
 
 #include <ArgumentDescriptors/nImOtimeArgumentDescriptor.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -118,6 +122,17 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+TimeArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<String>(getDefaultValue()));
+    ODL_OBJEXIT(); //####
+} // TimeArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 TimeArgumentDescriptor::clone
     (void)
@@ -174,6 +189,14 @@ TimeArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(result); //####
     return result;
 } // TimeArgumentDescriptor::getProcessedValue
+
+nImO::ArgumentTypeTag
+TimeArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::TimeTypeTag;
+} // TimeArgumentDescriptor::getType
 
 TimeArgumentDescriptor &
 TimeArgumentDescriptor::operator=
@@ -240,7 +263,7 @@ TimeArgumentDescriptor::setCurrentValue
     ODL_OBJENTER(); //####
     ODL_S1s(newValue); //####
     Time::TimePieces    pieces;
-    bool                okSoFar = GetTimePieces(pieces, newValue);
+    bool                okSoFar{GetTimePieces(pieces, newValue)};
 
     ODL_B1(okSoFar); //####
     if (okSoFar)
@@ -258,7 +281,7 @@ TimeArgumentDescriptor::setDefaultValue
     ODL_OBJENTER(); //####
     ODL_S1s(newValue); //####
     Time::TimePieces    pieces;
-    bool                okSoFar = GetTimePieces(pieces, newValue);
+    bool                okSoFar{GetTimePieces(pieces, newValue)};
 
     ODL_B1(okSoFar); //####
     if (okSoFar)

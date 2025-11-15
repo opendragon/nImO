@@ -39,6 +39,9 @@
 
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
 #include <nImOchannelName.h>
 
 //#include <odlEnable.h>
@@ -119,6 +122,17 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+ChannelArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<String>(getDefaultValue()), true);
+    ODL_OBJEXIT(); //####
+} // ChannelArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 ChannelArgumentDescriptor::clone
     (void)
@@ -179,6 +193,14 @@ ChannelArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ChannelArgumentDescriptor::getProcessedValue
+
+nImO::ArgumentTypeTag
+ChannelArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::ChannelTypeTag;
+} // ChannelArgumentDescriptor::getType
 
 ChannelArgumentDescriptor &
 ChannelArgumentDescriptor::operator=

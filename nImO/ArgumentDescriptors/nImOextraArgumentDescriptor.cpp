@@ -170,6 +170,14 @@ ExtraArgumentDescriptor::getProcessedValue
     return result;
 } // ExtraArgumentDescriptor::getProcessedValue
 
+nImO::ArgumentTypeTag
+ExtraArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::ExtraTypeTag;
+} // ExtraArgumentDescriptor::getType
+
 bool
 ExtraArgumentDescriptor::isExtra
     (void)

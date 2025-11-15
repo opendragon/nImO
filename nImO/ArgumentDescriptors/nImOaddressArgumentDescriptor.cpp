@@ -39,6 +39,10 @@
 
 #include <ArgumentDescriptors/nImOaddressArgumentDescriptor.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -122,6 +126,17 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+AddressArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<String>(getDefaultValue()), true);
+    ODL_OBJEXIT(); //####
+} // AddressArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 AddressArgumentDescriptor::clone
     (void)
@@ -145,6 +160,14 @@ AddressArgumentDescriptor::describe
     ODL_OBJEXIT_s(result); //####
     return result;
 } // AddressArgumentDescriptor::describe
+
+nImO::ArgumentTypeTag
+AddressArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::AddressTypeTag;
+} // AddressArgumentDescriptor::getType
 
 AddressArgumentDescriptor &
 AddressArgumentDescriptor::operator=

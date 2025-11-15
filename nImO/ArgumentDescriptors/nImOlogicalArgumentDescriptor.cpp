@@ -39,6 +39,11 @@
 
 #include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -117,6 +122,17 @@ LogicalArgumentDescriptor::LogicalArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+LogicalArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    inherited::addFieldsToMap(theMap);
+    theMap->addValue(std::make_shared<String>(kDefaultParameterKey), std::make_shared<Logical>(_defaultValue));
+    ODL_OBJEXIT(); //####
+} // LogicalArgumentDescriptor::addFieldsToMap
+
 UpBaseArgumentDescriptor
 LogicalArgumentDescriptor::clone
     (void)
@@ -174,6 +190,14 @@ LogicalArgumentDescriptor::getProcessedValue
     return result;
 } // LogicalArgumentDescriptor::getProcessedValue
 
+nImO::ArgumentTypeTag
+LogicalArgumentDescriptor::getType
+    (void)
+    const
+{
+    return ArgumentTypeTag::LogicalTypeTag;
+} // LogicalArgumentDescriptor::getType
+
 bool
 LogicalArgumentDescriptor::isLogical
     (void)
@@ -228,7 +252,7 @@ LogicalArgumentDescriptor::parseArgString
     std::string                 name;
     ArgumentMode                argMode;
 
-    if (partitionString(inString, ArgumentTypeTag::BoolTypeTag, 3, name, argMode, inVector))
+    if (partitionString(inString, ArgumentTypeTag::LogicalTypeTag, 3, name, argMode, inVector))
     {
         bool    okSoFar{true};
         bool    defaultValue;
@@ -295,7 +319,7 @@ LogicalArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    auto    result{prefixFields(ArgumentTypeTag::BoolTypeTag) + suffixFields(getDefaultValue())};
+    auto    result{prefixFields(ArgumentTypeTag::LogicalTypeTag) + suffixFields(getDefaultValue())};
 
     ODL_OBJEXIT_s(result); //####
     return result;

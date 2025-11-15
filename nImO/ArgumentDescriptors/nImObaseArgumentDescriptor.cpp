@@ -51,6 +51,10 @@
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOtimeArgumentDescriptor.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
+#include <nImOargumentParameterKeys.h>
 
 #include <string>
 
@@ -140,6 +144,19 @@ BaseArgumentDescriptor::~BaseArgumentDescriptor
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+BaseArgumentDescriptor::addFieldsToMap
+    (SpMap  theMap)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(theMap.get());
+    theMap->addValue(std::make_shared<String>(kDescriptionParameterKey), std::make_shared<String>(_argDescription));
+    theMap->addValue(std::make_shared<String>(kNameParameterKey), std::make_shared<String>(_argName));
+    theMap->addValue(std::make_shared<String>(kModeParameterKey), std::make_shared<Integer>(toUType(_argMode)));
+    theMap->addValue(std::make_shared<String>(kTypeParameterKey), std::make_shared<String>(toUType(getType())));
+    ODL_OBJEXIT(); //####
+} // BaseArgumentDescriptor::addFieldsToMap
 
 std::string
 BaseArgumentDescriptor::describe

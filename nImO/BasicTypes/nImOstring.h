@@ -87,6 +87,11 @@ namespace nImO
             explicit String
                 (CPtr(char) initialValue);
 
+            /*! @brief The constructor.
+             @param[in] initialValue The initial value for the object. */
+            explicit String
+                (const char initialValue);
+
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
             String

@@ -76,19 +76,19 @@ namespace nImO
     enum class ArgumentMode : uint8_t
     {
         /*! @brief The argument is required. */
-        Required = 0x01,
+        Required = 0x00,
 
         /*! @brief The argument is optional. */
-        Optional = 0x02,
+        Optional = 0x01,
 
         /*! @brief The argument is a password (not displayable). */
-        Password = 0x04,
+        Password = 0x02,
 
         /*! @brief The argument is case-insensitive. */
-        CaseInsensitive = 0x08,
+        CaseInsensitive = 0x04,
 
         /*! @brief The argument is mutable at run-time. */
-        Mutable = 0x10,
+        Mutable = 0x08,
 
         /*! @brief The argument is both required and is a password. */
         RequiredPassword = (Required | Password),
@@ -350,7 +350,7 @@ namespace nImO
                 (void)
                 const
             {
-                return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Required))));
+                return ((ArgumentMode::Unknown != _argMode) && (0 == (toUType(_argMode) & toUType(ArgumentMode::Optional))));
             }
 
             /*! @brief Return @c true if the argument is valid and @c false otherwise.
@@ -527,6 +527,20 @@ namespace nImO
 
     }; // BaseArgumentDescriptor
 
+    /*! @brief Return a type description for a type tag.
+     @param[in] typeTag The argument type tag.
+     @return A string description of the type tag. */
+    std::string
+    ArgTypeTagToArgTypeName
+        (const char typeTag);
+
+    /*! @brief Return a mode description for an argument mode.
+     @param[in] argMode The argument mode.
+     @return A string description of the argument mode. */
+    std::string
+    ArgumentModeToDescription
+        (const ArgumentMode argMode);
+
     /*! @brief Generate the standard 'argument list' description from an argument sequence.
      @param[in] arguments The argument sequence.
      @return A string containing the standard 'argument list' representation of the argument
@@ -589,6 +603,11 @@ namespace nImO
     bool
     PromptForValues
         (const DescriptorVector &   arguments);
+
+    std::string
+    ReformatString
+        (const std::string &    inString,
+         const char             typeChar);
 
 } // nImO
 

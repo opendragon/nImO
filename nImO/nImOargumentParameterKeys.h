@@ -58,6 +58,9 @@ namespace nImO
     /*! @brief The key for the allowedValues parameter. */
     const std::string   kAllowedValuesParameterKey{"allowedValues"s};
 
+    /*! @brief The key for the currentValue parameter. */
+    const std::string   kCurrentValueParameterKey{"currentValue"s};
+
     /*! @brief The key for the description parameter. */
     const std::string   kDefaultParameterKey{"default"s};
 

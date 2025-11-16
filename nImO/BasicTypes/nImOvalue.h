@@ -100,10 +100,10 @@ namespace nImO
              @return @c nullptr if there is a problem with the extraction and non-@c nullptr if
              a Value was found and processed. */
             using Extractor = SpValue (*)
-                (const Message & theMessage,
-                 const int       leadByte,
-                 size_t &        position,
-                 SpArray         parentValue);
+                (const Message &    theMessage,
+                 const int          leadByte,
+                 size_t &           position,
+                 SpArray            parentValue);
 
         private :
             // Private type definitions.

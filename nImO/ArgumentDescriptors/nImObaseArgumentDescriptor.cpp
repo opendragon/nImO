@@ -155,6 +155,7 @@ BaseArgumentDescriptor::addFieldsToMap
     theMap->addValue(std::make_shared<String>(kNameParameterKey), std::make_shared<String>(_argName));
     theMap->addValue(std::make_shared<String>(kModeParameterKey), std::make_shared<Integer>(toUType(_argMode)));
     theMap->addValue(std::make_shared<String>(kTypeParameterKey), std::make_shared<String>(toUType(getType())));
+    theMap->addValue(std::make_shared<String>(kCurrentValueParameterKey), std::make_shared<String>(getProcessedValue()));
     ODL_OBJEXIT(); //####
 } // BaseArgumentDescriptor::addFieldsToMap
 
@@ -470,6 +471,112 @@ BaseArgumentDescriptor::swap
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+std::string
+nImO::ArgTypeTagToArgTypeName
+    (const char typeTag)
+{
+    ODL_ENTER(); //####
+    ODL_C1(typeTag); //####
+    std::string     result;
+    ArgumentTypeTag candidate{typeTag};
+
+    switch (candidate)
+    {
+        case ArgumentTypeTag::AddressTypeTag :
+            result = "Address";
+            break;
+
+        case ArgumentTypeTag::ChannelTypeTag :
+            result = "Channel";
+            break;
+
+        case ArgumentTypeTag::DateTypeTag :
+            result = "Date";
+            break;
+
+        case ArgumentTypeTag::DoubleTypeTag :
+            result = "Double";
+            break;
+
+        case ArgumentTypeTag::ExtraTypeTag :
+            result = "Extra";
+            break;
+
+        case ArgumentTypeTag::FilePathTypeTag :
+            result = "FilePath";
+            break;
+
+        case ArgumentTypeTag::IntegerTypeTag :
+            result = "Integer";
+            break;
+
+        case ArgumentTypeTag::LogicalTypeTag :
+            result = "Logical";
+            break;
+
+        case ArgumentTypeTag::PortTypeTag :
+            result = "Port";
+            break;
+
+        case ArgumentTypeTag::StringsTypeTag :
+            result = "Strings";
+            break;
+
+        case ArgumentTypeTag::StringTypeTag :
+            result = "String";
+            break;
+
+        case ArgumentTypeTag::TimeTypeTag :
+            result = "Time";
+            break;
+
+        default :
+            break;
+
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ArgTypeTagToArgTypeName
+
+std::string
+nImO::ArgumentModeToDescription
+    (const ArgumentMode argMode)
+{
+    ODL_ENTER(); //####
+    ODL_I1(toUType(argMode)); //####
+    std::string result;
+
+    if (ArgumentMode::Unknown == argMode)
+    {
+        result = "Unknown"s;
+    }
+    else
+    {
+        if (ArgumentMode::Optional == (argMode & ArgumentMode::Optional))
+        {
+            result = "Required";
+        }
+        else
+        {
+            result = "Optional";
+        }
+        if (ArgumentMode::Password == (argMode & ArgumentMode::Password))
+        {
+            result += ",Password";
+        }
+        if (ArgumentMode::CaseInsensitive == (argMode & ArgumentMode::CaseInsensitive))
+        {
+            result += ",CaseInsensitive";
+        }
+        if (ArgumentMode::Mutable == (argMode & ArgumentMode::Mutable))
+        {
+            result += ",Mutable";
+        }
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ArgumentModeToDescription
 
 std::string
 nImO::ArgumentsToArgString
@@ -893,3 +1000,37 @@ nImO::PromptForValues
     ODL_EXIT_B(result); //####
     return result;
 } // nImO::PromptForValues
+
+std::string
+nImO::ReformatString
+    (const std::string &    inString,
+     const char             typeChar)
+{
+    ODL_ENTER(); //####
+    ODL_S1s(inString); //####
+    ODL_C1(typeChar); //####
+    std::string result{};
+
+    switch (StaticCast(ArgumentTypeTag, typeChar))
+    {
+        case ArgumentTypeTag::DoubleTypeTag :
+            result = inString;
+            break;
+
+        case ArgumentTypeTag::IntegerTypeTag :
+        case ArgumentTypeTag::PortTypeTag :
+            result = inString;
+            break;
+
+        case ArgumentTypeTag::LogicalTypeTag :
+            result = (('1' == inString[0]) ? "true" : "false");
+            break;
+
+        default :
+            result = CHAR_DOUBLEQUOTE_ + SanitizeString(inString) + CHAR_DOUBLEQUOTE_;
+            break;
+
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ReformatString

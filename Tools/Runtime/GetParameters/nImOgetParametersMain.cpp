@@ -38,9 +38,15 @@
 
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <BasicTypes/nImOdouble.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOvalue.h>
 #include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
 #include <Contexts/nImOutilityContext.h>
+#include <nImOargumentParameterKeys.h>
 #include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
@@ -82,6 +88,435 @@
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief Format a value string based on output mode.
+ @param[in] inString The original string.
+ @param[in] typeString The value type.
+ @param[in] flavour The desired output format.
+ @return The formatted string. */
+static std::string
+adjustValue
+    (const std::string &        inString,
+     const char                 typeChar,
+     const nImO::OutputFlavour  flavour)
+{
+    std::string result{};
+
+    if ((nImO::OutputFlavour::kFlavourNiMo == flavour) || (nImO::OutputFlavour::kFlavourJSON == flavour))
+    {
+        result = nImO::ReformatString(inString, typeChar);
+    }
+    else
+    {
+        result = nImO::SanitizeString(inString);
+    }
+    return result;
+} // adjustValue
+
+/*! @brief Write the argument type dependent fields to standard output.
+ @param[in] aParamMap The fields to be written out.
+ @param[in] typeString The value type.
+ @param[in] flavour The desired output format.
+ @param[in] canHaveQuotes @c true check for double quotes in the value to be written. */
+static void
+writeOutArgTypeDependentFields
+    (CPtr(nImO::Map)            aParamMap,
+     const char                 typeChar,
+     const nImO::OutputFlavour  flavour,
+     const bool                 canHaveQuotes)
+{
+    auto    defaultFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kDefaultParameterKey))};
+    auto    hasMaximumFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kHasMaximumParameterKey))};
+    auto    hasMinimumFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kHasMinimumParameterKey))};
+    auto    maximumFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kMaximumParameterKey))};
+    auto    minimumFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kMinimumParameterKey))};
+
+    switch (StaticCast(nImO::ArgumentTypeTag, typeChar))
+    {
+        case nImO::ArgumentTypeTag::ChannelTypeTag :
+        case nImO::ArgumentTypeTag::DateTypeTag :
+        case nImO::ArgumentTypeTag::StringTypeTag :
+        case nImO::ArgumentTypeTag::TimeTypeTag :
+            // Default is a string-type value
+            if (aParamMap->end() != defaultFieldIter)
+            {
+                auto    defaultString{nImO::SanitizeString(defaultFieldIter->second->asString()->getValue(), canHaveQuotes)};
+
+                switch (flavour)
+                {
+                    case nImO::OutputFlavour::kFlavourNormal :
+                        std::cout << "; default: " << defaultString;
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourJSON :
+                        std::cout << ", " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << defaultString << CHAR_DOUBLEQUOTE_;
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourNiMo :
+                        std::cout << " " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                    defaultString << CHAR_DOUBLEQUOTE_;
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourTabs :
+                        std::cout << "\t" << defaultString;
+                        break;
+
+                    default :
+                        break;
+
+                }
+            }
+            break;
+
+        case nImO::ArgumentTypeTag::DoubleTypeTag :
+            if ((aParamMap->end() != defaultFieldIter) && (aParamMap->end() != hasMaximumFieldIter) && (aParamMap->end() != hasMinimumFieldIter) &&
+                (aParamMap->end() != maximumFieldIter) && (aParamMap->end() != minimumFieldIter))
+            {
+                auto    defaultValue{defaultFieldIter->second->asDouble()->getDoubleValue()};
+                auto    hasMaximum{hasMaximumFieldIter->second->asLogical()->getValue()};
+                auto    hasMaximumString{nImO::Logical::getCanonicalRepresentation(hasMaximum)};
+                auto    hasMinimum{hasMinimumFieldIter->second->asLogical()->getValue()};
+                auto    hasMinimumString{nImO::Logical::getCanonicalRepresentation(hasMinimum)};
+                auto    maximumValue{maximumFieldIter->second->asDouble()->getDoubleValue()};
+                auto    minimumValue{minimumFieldIter->second->asDouble()->getDoubleValue()};
+
+                switch (flavour)
+                {
+                    case nImO::OutputFlavour::kFlavourNormal :
+                        std::cout << "; default: " << defaultValue << "; hasMinimum: " << hasMinimumString;
+                        if (hasMinimum)
+                        {
+                            std::cout << "; minimumValue: " << minimumValue;
+                        }
+                        std::cout << "; hasMaximum: " << hasMaximumString;
+                        if (hasMaximum)
+                        {
+                            std::cout << "; maximumValue: " << maximumValue;
+                        }
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourJSON :
+                        std::cout << ", " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ ": " << defaultValue <<
+                                    ", " CHAR_DOUBLEQUOTE_ "hasMinimum" CHAR_DOUBLEQUOTE_ ": " << hasMinimumString;
+                        if (hasMinimum)
+                        {
+                            std::cout << ", " CHAR_DOUBLEQUOTE_ "minimumValue" CHAR_DOUBLEQUOTE_ ": " << minimumValue;
+                        }
+                        std::cout << ", " CHAR_DOUBLEQUOTE_ "hasMaximum" CHAR_DOUBLEQUOTE_ ": " << hasMaximumString;
+                        if (hasMaximum)
+                        {
+                            std::cout << ", " CHAR_DOUBLEQUOTE_ "maximumValue" CHAR_DOUBLEQUOTE_ ": " << maximumValue;
+                        }
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourNiMo :
+                        std::cout << " " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << defaultValue <<
+                                    " " CHAR_DOUBLEQUOTE_ "hasMinimum" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << hasMinimumString;
+                        if (hasMinimum)
+                        {
+                            std::cout << " " CHAR_DOUBLEQUOTE_ "minimumValue" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << minimumValue;
+                        }
+                        std::cout << " " CHAR_DOUBLEQUOTE_ "hasMaximum" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << hasMaximumString;
+                        if (hasMaximum)
+                        {
+                            std::cout << " " CHAR_DOUBLEQUOTE_ "maximumValue" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << maximumValue;
+                        };
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourTabs :
+                        std::cout << "\t" << defaultValue << "\t" << hasMinimumString << "\t" << minimumValue << "\t" << hasMaximum << "\t" << maximumValue;
+                        break;
+
+                    default :
+                        break;
+
+                }
+            }
+            break;
+
+        case nImO::ArgumentTypeTag::FilePathTypeTag :
+            {
+                auto    pathPrefixFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kPathPrefixParameterKey))};
+                auto    pathSuffixFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kPathSuffixParameterKey))};
+                auto    forOutputFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kForOutputParameterKey))};
+                auto    useRandomPathFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kUseRandomPathParameterKey))};
+
+                if ((aParamMap->end() != pathPrefixFieldIter) && (aParamMap->end() != pathSuffixFieldIter) &&
+                    (aParamMap->end() != forOutputFieldIter) && (aParamMap->end() != useRandomPathFieldIter))
+                {
+                    auto    pathPrefixString{nImO::SanitizeString(pathPrefixFieldIter->second->asString()->getValue(), canHaveQuotes)};
+                    auto    pathSuffixString{nImO::SanitizeString(pathSuffixFieldIter->second->asString()->getValue(), canHaveQuotes)};
+                    auto    forOutputString{nImO::Logical::getCanonicalRepresentation(forOutputFieldIter->second->asLogical()->getValue())};
+                    auto    useRandomPathString{nImO::Logical::getCanonicalRepresentation(useRandomPathFieldIter->second->asLogical()->getValue())};
+
+                    switch (flavour)
+                    {
+                        case nImO::OutputFlavour::kFlavourNormal :
+                            std::cout << "; pathPrefix: " << pathPrefixString << "; pathSuffix: " << pathSuffixString << "; forOutput: " << forOutputString <<
+                                        "; useRandomPath: " << useRandomPathString;
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourJSON :
+                            std::cout << ", " CHAR_DOUBLEQUOTE_ "pathPrefix" CHAR_DOUBLEQUOTE_ ": " << CHAR_DOUBLEQUOTE_ << pathPrefixString <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "pathSuffix" CHAR_DOUBLEQUOTE_ ": " << CHAR_DOUBLEQUOTE_ << pathSuffixString <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "forOutput" CHAR_DOUBLEQUOTE_ ": " << forOutputString <<
+                                        ", " CHAR_DOUBLEQUOTE_ "useRandomPath" CHAR_DOUBLEQUOTE_ ": " << useRandomPathString;
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourNiMo :
+                            std::cout << " " CHAR_DOUBLEQUOTE_ "pathPrefix" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << CHAR_DOUBLEQUOTE_ <<
+                                        pathPrefixString << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "pathSuffix" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " << CHAR_DOUBLEQUOTE_ << pathSuffixString <<
+                                        " " CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "forOutput" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                        " " << forOutputString << " " CHAR_DOUBLEQUOTE_ "useRandomPath" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " << useRandomPathString;
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourTabs :
+                            std::cout << "\t" << pathPrefixString << "\t" << pathSuffixString << "\t" << forOutputString << "\t" << useRandomPathString;
+                            break;
+
+                        default :
+                            break;
+
+                    }
+                }
+            }
+            break;
+
+        case nImO::ArgumentTypeTag::IntegerTypeTag :
+            if ((aParamMap->end() != defaultFieldIter) && (aParamMap->end() != hasMaximumFieldIter) && (aParamMap->end() != hasMinimumFieldIter) &&
+                (aParamMap->end() != maximumFieldIter) && (aParamMap->end() != minimumFieldIter))
+            {
+                auto    defaultValue{defaultFieldIter->second->asInteger()->getIntegerValue()};
+                auto    hasMaximum{hasMaximumFieldIter->second->asLogical()->getValue()};
+                auto    hasMaximumString{nImO::Logical::getCanonicalRepresentation(hasMaximum)};
+                auto    hasMinimum{hasMinimumFieldIter->second->asLogical()->getValue()};
+                auto    hasMinimumString{nImO::Logical::getCanonicalRepresentation(hasMinimum)};
+                auto    maximumValue{maximumFieldIter->second->asInteger()->getIntegerValue()};
+                auto    minimumValue{minimumFieldIter->second->asInteger()->getIntegerValue()};
+
+                switch (flavour)
+                {
+                    case nImO::OutputFlavour::kFlavourNormal :
+                        std::cout << "; default: " << defaultValue << "; hasMinimum: " << hasMinimumString;
+                        if (hasMinimum)
+                        {
+                            std::cout << "; minimumValue: " << minimumValue;
+                        }
+                        std::cout << "; hasMaximum: " << hasMaximumString;
+                        if (hasMaximum)
+                        {
+                            std::cout << "; maximumValue: " << maximumValue;
+                        }
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourJSON :
+                        std::cout << ", " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ ": " << defaultValue <<
+                                    ", " CHAR_DOUBLEQUOTE_ "hasMinimum" CHAR_DOUBLEQUOTE_ ": " << hasMinimumString;
+                        if (hasMinimum)
+                        {
+                            std::cout << ", " CHAR_DOUBLEQUOTE_ "minimumValue" CHAR_DOUBLEQUOTE_ ": " << minimumValue;
+                        }
+                        std::cout << ", " CHAR_DOUBLEQUOTE_ "hasMaximum" CHAR_DOUBLEQUOTE_ ": " << hasMaximumString;
+                        if (hasMaximum)
+                        {
+                            std::cout << ", " CHAR_DOUBLEQUOTE_ "maximumValue" CHAR_DOUBLEQUOTE_ ": " << maximumValue;
+                        }
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourNiMo :
+                        std::cout << " " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << defaultValue <<
+                                    " " CHAR_DOUBLEQUOTE_ "hasMinimum" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << hasMinimumString;
+                        if (hasMinimum)
+                        {
+                            std::cout << " " CHAR_DOUBLEQUOTE_ "minimumValue" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << minimumValue;
+                        }
+                        std::cout << " " CHAR_DOUBLEQUOTE_ "hasMaximum" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << hasMaximumString;
+                        if (hasMaximum)
+                        {
+                            std::cout << " " CHAR_DOUBLEQUOTE_ "maximumValue" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << maximumValue;
+                        };
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourTabs :
+                        std::cout << "\t" << defaultValue << "\t" << hasMinimumString << "\t" << minimumValue << "\t" << hasMaximum << "\t" << maximumValue;
+                        break;
+
+                    default :
+                        break;
+
+                }
+            }
+            break;
+
+        case nImO::ArgumentTypeTag::LogicalTypeTag :
+            // Just default, which is a Logical
+            if (aParamMap->end() != defaultFieldIter)
+            {
+                auto    defaultString{nImO::Logical::getCanonicalRepresentation(defaultFieldIter->second->asLogical()->getValue())};
+
+                switch (flavour)
+                {
+                    case nImO::OutputFlavour::kFlavourNormal :
+                        std::cout << "; default: " << defaultString;
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourJSON :
+                        std::cout << ", " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ ": " << defaultString;
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourNiMo :
+                        std::cout << " " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << defaultString;
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourTabs :
+                        std::cout << "\t" << defaultString;
+                        break;
+
+                    default :
+                        break;
+
+                }
+            }
+            break;
+
+        case nImO::ArgumentTypeTag::PortTypeTag :
+            if (aParamMap->end() != defaultFieldIter)
+            {
+                auto    isSystemPortFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kIsSystemPortParameterKey))};
+
+                if (aParamMap->end() != isSystemPortFieldIter)
+                {
+                    auto    defaultValue{defaultFieldIter->second->asInteger()->getIntegerValue()};
+                    auto    isSystemPortString{nImO::Logical::getCanonicalRepresentation(isSystemPortFieldIter->second->asLogical()->getValue())};
+
+                    switch (flavour)
+                    {
+                        case nImO::OutputFlavour::kFlavourNormal :
+                            std::cout << "; default: " << defaultValue << "; isSystemPort: " << isSystemPortString;
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourJSON :
+                            std::cout << ", " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ ": " << defaultValue <<
+                                        ", " CHAR_DOUBLEQUOTE_ "isSystemPort" CHAR_DOUBLEQUOTE_ ": " << isSystemPortString;
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourNiMo :
+                            std::cout << " " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << defaultValue <<
+                                        " " CHAR_DOUBLEQUOTE_ "isSystemPort" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << isSystemPortString;
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourTabs :
+                            std::cout << "\t" << defaultValue << "\t" << isSystemPortString;
+                            break;
+
+                        default :
+                            break;
+
+                    }
+                }
+            }
+            break;
+
+        case nImO::ArgumentTypeTag::StringsTypeTag :
+            if (aParamMap->end() != defaultFieldIter)
+            {
+                auto    defaultString{nImO::SanitizeString(defaultFieldIter->second->asString()->getValue(), canHaveQuotes)};
+                auto    allowedValuesFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kAllowedValuesParameterKey))};
+
+                if (aParamMap->end() != allowedValuesFieldIter)
+                {
+                    auto    allowedValuesSet{allowedValuesFieldIter->second->asSet()};
+
+                    if (nullptr != allowedValuesSet)
+                    {
+                        bool    firstValue{true};
+
+                        switch (flavour)
+                        {
+                            case nImO::OutputFlavour::kFlavourNormal :
+                                std::cout << "; default: " << defaultString << "; allowedValues: (";
+                                for (auto walker : *allowedValuesSet)
+                                {
+                                    auto    stuff{walker->asString()};
+
+                                    if (nullptr != stuff)
+                                    {
+                                        auto    allowedString{nImO::SanitizeString(stuff->getValue(), canHaveQuotes)};
+
+                                        if (! firstValue)
+                                        {
+                                            std::cout << ", ";
+                                        }
+                                        std::cout << allowedString;
+                                    }
+                                }
+                                std::cout << ")";
+                                break;
+
+                            case nImO::OutputFlavour::kFlavourJSON :
+                                std::cout << ", " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << defaultString <<
+                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "allowedValues" CHAR_DOUBLEQUOTE_ ": [ ";
+                                for (auto walker : *allowedValuesSet)
+                                {
+                                    auto    stuff{walker->asString()};
+
+                                    if (nullptr != stuff)
+                                    {
+                                        auto    allowedString{nImO::SanitizeString(stuff->getValue(), canHaveQuotes)};
+
+                                        if (! firstValue)
+                                        {
+                                            std::cout << ", ";
+                                        }
+                                        std::cout << CHAR_DOUBLEQUOTE_ << allowedString << CHAR_DOUBLEQUOTE_;
+                                    }
+                                }
+                                std::cout << " ]";
+                                break;
+
+                            case nImO::OutputFlavour::kFlavourNiMo :
+                                std::cout << " " CHAR_DOUBLEQUOTE_ "default" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                            defaultString << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "allowedValues" CHAR_DOUBLEQUOTE_ " " <<
+                                            nImO::kKeyValueSeparator << " " << nImO::kStartSetChar << " ";
+                                for (auto walker : *allowedValuesSet)
+                                {
+                                    auto    stuff{walker->asString()};
+
+                                    if (nullptr != stuff)
+                                    {
+                                        auto    allowedString{nImO::SanitizeString(stuff->getValue(), canHaveQuotes)};
+
+                                        if (! firstValue)
+                                        {
+                                            std::cout << " ";
+                                        }
+                                        std::cout << CHAR_DOUBLEQUOTE_ << allowedString << CHAR_DOUBLEQUOTE_;
+                                    }
+                                }
+                                std::cout << " " << nImO::kEndSetChar;
+                                break;
+
+                            case nImO::OutputFlavour::kFlavourTabs :
+                                std::cout << "\t" << defaultString << "\t(";
+                                std::cout << ")";
+                                break;
+
+                            default :
+                                break;
+
+                        }
+                    }
+                }
+            }
+            break;
+
+        default :
+            break;
+
+    }
+} // writeOutArgTypeDependentFields
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -144,12 +579,143 @@ main
                         {
                             nImO::SpArray   result{handler->result()};
 
-                            std::cout << *result << "\n";
-std::cerr << "*** unimplemented ***\n";
-//                            nImO::AddressInfo   result{handler->result()};
-//
-//                            receiverAddress = result._address;
-//                            receiverPort = result._port;
+                            if (nImO::OutputFlavour::kFlavourJSON == optionValues._flavour)
+                            {
+                                std::cout << " [ ";
+                            }
+                            else
+                            {
+                                if (nImO::OutputFlavour::kFlavourNiMo == optionValues._flavour)
+                                {
+                                    std::cout << " " << nImO::kStartArrayChar << " ";
+                                }
+                            }
+                            for (auto walker{result->begin()}; walker != result->end(); )
+                            {
+                                auto    aParamMap{(*walker)->asMap()};
+
+                                if (nullptr == aParamMap)
+                                {
+                                    ODL_LOG("(nullptr == aParamMap)"); //####
+                                }
+                                else
+                                {
+                                    if (nImO::OutputFlavour::kFlavourJSON == optionValues._flavour)
+                                    {
+                                        std::cout << "{ ";
+                                    }
+                                    else
+                                    {
+                                        if (nImO::OutputFlavour::kFlavourNiMo == optionValues._flavour)
+                                        {
+                                            std::cout << nImO::kStartMapChar << " ";
+                                        }
+                                    }
+                                    bool    canHaveQuotes{(nImO::OutputFlavour::kFlavourJSON != optionValues._flavour) &&
+                                                            (nImO::OutputFlavour::kFlavourNiMo != optionValues._flavour)};
+                                    auto    nameFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kNameParameterKey))};
+                                    auto    modeFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kModeParameterKey))};
+                                    auto    typeFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kTypeParameterKey))};
+                                    auto    descriptionFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kDescriptionParameterKey))};
+                                    auto    currentValueFieldIter{aParamMap->find(std::make_shared<nImO::String>(nImO::kCurrentValueParameterKey))};
+
+                                    if ((aParamMap->end() != nameFieldIter) && (aParamMap->end() != modeFieldIter) && (aParamMap->end() != typeFieldIter) &&
+                                        (aParamMap->end() != descriptionFieldIter) && (aParamMap->end() != currentValueFieldIter))
+                                    {
+                                        auto    nameString{nImO::SanitizeString(nameFieldIter->second->asString()->getValue(), canHaveQuotes)};
+                                        auto    modeValue{modeFieldIter->second->asInteger()->getIntegerValue()};
+                                        auto    typeString{typeFieldIter->second->asString()->getValue()};
+                                        auto    descriptionString{nImO::SanitizeString(descriptionFieldIter->second->asString()->getValue(), canHaveQuotes)};
+                                        auto    currentValueString{currentValueFieldIter->second->asString()->getValue()};
+                                        auto    modeString{nImO::ArgumentModeToDescription(StaticCast(nImO::ArgumentMode, modeValue))};
+                                        auto    fullTypeString{nImO::ArgTypeTagToArgTypeName(typeString[1])};
+
+                                        currentValueString = adjustValue(currentValueString, typeString[1], optionValues._flavour);
+                                        switch (optionValues._flavour)
+                                        {
+                                            case nImO::OutputFlavour::kFlavourNormal :
+                                                std::cout << "name: " << nameString << "; type: " << fullTypeString << "; mode: " << modeString <<
+                                                            "; description: " << descriptionString << "; value: " << currentValueString;
+                                                break;
+
+                                            case nImO::OutputFlavour::kFlavourJSON :
+                                                std::cout << CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nameString <<
+                                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "type" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                                            fullTypeString << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "mode" CHAR_DOUBLEQUOTE_ ": "
+                                                            CHAR_DOUBLEQUOTE_ << modeString << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "description"
+                                                            CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << descriptionString <<
+                                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "value" CHAR_DOUBLEQUOTE_ ": " <<
+                                                            currentValueString;
+                                                break;
+
+                                            case nImO::OutputFlavour::kFlavourNiMo :
+                                                std::cout << CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                                            nameString << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "type" CHAR_DOUBLEQUOTE_ " " <<
+                                                            nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << fullTypeString <<
+                                                            CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "mode" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                                            " " CHAR_DOUBLEQUOTE_ << modeString << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "description"
+                                                            CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << descriptionString <<
+                                                            CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "value" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                                            " " << currentValueString;
+                                                break;
+
+                                            case nImO::OutputFlavour::kFlavourTabs :
+                                                std::cout << nameString << "\t" << fullTypeString << "\t" <<    modeString << "\t" << descriptionString << "\t" <<
+                                                            currentValueString;
+                                                break;
+
+                                            default :
+                                                break;
+
+                                        }
+                                        writeOutArgTypeDependentFields(aParamMap, typeString[1], optionValues._flavour, canHaveQuotes);
+                                    }
+                                    if (nImO::OutputFlavour::kFlavourJSON == optionValues._flavour)
+                                    {
+                                        std::cout << " }";
+                                    }
+                                    else
+                                    {
+                                        if (nImO::OutputFlavour::kFlavourNiMo == optionValues._flavour)
+                                        {
+                                            std::cout << " " << nImO::kEndMapChar;
+                                        }
+                                    }
+                                }
+                                ++walker;
+                                if (nImO::OutputFlavour::kFlavourJSON == optionValues._flavour)
+                                {
+                                    if (result->end() != walker)
+                                    {
+                                        std::cout << ",\n";
+                                    }
+                                }
+                                else
+                                {
+                                    if (nImO::OutputFlavour::kFlavourNiMo == optionValues._flavour)
+                                    {
+                                        if (result->end() != walker)
+                                        {
+                                            std::cout << "\n";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cout << "\n";
+                                    }
+                                }
+                            }
+                            if (nImO::OutputFlavour::kFlavourJSON == optionValues._flavour)
+                            {
+                                std::cout << " ]\n";
+                            }
+                            else
+                            {
+                                if (nImO::OutputFlavour::kFlavourNiMo == optionValues._flavour)
+                                {
+                                    std::cout << " " << nImO::kEndArrayChar << "\n";
+                                }
+                            }
                         }
                         else
                         {

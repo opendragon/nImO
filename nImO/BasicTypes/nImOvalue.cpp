@@ -310,7 +310,7 @@ nImO::Value::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result = Enumerable::NotEnumerable;
+    Enumerable  result{Enumerable::NotEnumerable};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;

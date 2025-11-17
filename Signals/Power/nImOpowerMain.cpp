@@ -107,8 +107,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Raise a value of an input to a power"s, "nImOpower 3.5"s, 2025, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipPortOption | nImO::kSkipRemoteOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption))
     {
         try
         {

@@ -119,7 +119,7 @@ main
     argumentList.push_back(fourthArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a pulse out a channel"s, "nImOpulse 5 true 0.25"s, 2025, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipPortOption | nImO::kSkipRemoteOption | nImO::kSkipSignalOption))
+                                    nImO::kSkipSignalOption))
     {
         try
         {

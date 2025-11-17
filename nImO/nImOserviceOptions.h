@@ -73,14 +73,8 @@ namespace nImO
         /*! @brief The data type for output channels. */
         std::string _outType{};
 
-        /*! @brief The port to be used for the bridge-to-bridge connection. */
-        IPv4Port    _port{0};
-
         /*! @brief @c true if the node name is to be randomly generated. */
         bool    _randomNodeName{false};
-
-        /*! @brief The address of the 'remote' end of the bridge-to-bridge connection.*/
-        IPv4Address _remote{0};
 
         /*! @brief @c true if all the channels are SIGNAL type. */
         bool    _signal{false};
@@ -112,8 +106,7 @@ namespace nImO
      The option '-l' / '--log' specifies that the executable is to be logged.
      The option '-n' / '--node' specifies a non-default node name to use.
      The option '-o' / '--outtype' specifies the data type for input channels.
-     The option '-p' / '--port' specifies the port used for bridge-to-bridge connections.
-     The option '-r' / '--remote' specifies the IP address of the 'remote' bridge.
+     The option '-r' / '--random' specifies that the node name should be set to a random string.
      The option '-s' / '--signal' specifies that all channels are to be used for SIGNAL messages.
      The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the service.
      The option '-v' / '--version' displays the version and copyright information and returns @c false.

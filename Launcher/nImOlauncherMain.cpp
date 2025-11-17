@@ -342,8 +342,7 @@ main
     argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launch another service locally"s, "nImOlaunch applications.txt"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
-                                    nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption |
-                                    nImO::kSkipWaitOption))
+                                    nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipWaitOption))
     {
         try
         {

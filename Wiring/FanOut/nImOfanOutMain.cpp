@@ -108,7 +108,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send messages to all output channels from the input channel"s, "nImOfanOut 2"s, 2024, nImO::kCopyrightName,
-                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption, true, true))
+                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, true, true))
     {
         try
         {

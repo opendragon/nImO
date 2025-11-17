@@ -117,8 +117,8 @@ main
     argumentList.push_back(secondArg);
     argumentList.push_back(thirdArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Run a JavaScript program"s, "nImOjavaScript script.js"s, 2024, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption |
-                                    nImO::kSkipRemoteOption | nImO::kSkipWaitOption))
+                                    nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
+                                    nImO::kSkipWaitOption))
     {
         try
         {

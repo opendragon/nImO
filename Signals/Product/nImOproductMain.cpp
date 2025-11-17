@@ -214,7 +214,7 @@ main
     argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send the product of the messages to an output channel from the input SIGNAL channel"s, "nImOproduct 2"s, 2025,
                                     nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
-                                    nImO::kSkipOutTypeOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption, true))
+                                    nImO::kSkipOutTypeOption, true))
     {
         try
         {

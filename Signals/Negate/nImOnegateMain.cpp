@@ -104,7 +104,7 @@ main
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel after negating its value"s, "nImOnegate"s, 2025, nImO::kCopyrightName,
                                     optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipPortOption | nImO::kSkipRemoteOption | nImO::kSkipSignalOption))
+                                    nImO::kSkipSignalOption))
     {
         try
         {

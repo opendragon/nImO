@@ -76,109 +76,6 @@ using namespace nImO;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-/*! @brief Check that an IP address is valid.
- @param[in] option The argument to be checked.
- @param[in] @c true if an error message is to be output if the argument is not legal.
- @return The status of the option - whether it's legal or OK. */
-static Option_::ArgStatus
-checkAddress
-    (const Option_::Option &    option,
-     const bool                 msg)
-{
-    Option_::ArgStatus  result;
-
-    if (nullptr == option.arg)
-    {
-        result = Option_::ARG_ILLEGAL;
-        if (msg)
-        {
-            std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
-
-            std::cerr << "Option '" << actualName << "' requires an argument.\n";
-        }
-    }
-    else
-    {
-        struct in_addr  addrBuff;
-
-#if MAC_OR_LINUX_OR_BSD_
-        if (0 < inet_pton(AF_INET, option.arg, &addrBuff))
-#else // not MAC_OR_LINUX_OR_BSD_
-        if (0 < InetPton(AF_INET, option.arg, &addrBuff))
-#endif // not MAC_OR_LINUX_OR_BSD_
-        {
-            result = Option_::ARG_OK;
-        }
-        else
-        {
-            result = Option_::ARG_ILLEGAL;
-            if (msg)
-            {
-                std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
-
-                std::cerr << "Option '" << actualName << "' requires a valid argument.\n";
-            }
-        }
-    }
-    return result;
-} // checkAddress
-
-/*! @brief Check that a port number is valid.
- @param[in] option The argument to be checked.
- @param[in] @c true if an error message is to be output if the argument is not legal.
- @return The status of the option - whether it's legal or OK. */
-static Option_::ArgStatus
-checkPort
-    (const Option_::Option &    option,
-     const bool                 msg)
-{
-    Option_::ArgStatus  result;
-
-    if (nullptr == option.arg)
-    {
-        result = Option_::ARG_ILLEGAL;
-        if (msg)
-        {
-            std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
-
-            std::cerr << "Option '" << actualName << "' requires an argument.\n";
-        }
-    }
-    else
-    {
-        int64_t intValue;
-
-        if (ConvertToInt64(option.arg, intValue))
-        {
-            if ((kMinimumPortAllowed <= intValue) && (intValue <= kMaximumPortAllowed))
-            {
-                result = Option_::ARG_OK;
-            }
-            else
-            {
-                result = Option_::ARG_ILLEGAL;
-                if (msg)
-                {
-                    std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
-
-                    std::cerr << "Option '" << actualName << "' requires a valid argument.\n";
-                }
-            }
-        }
-        else
-        {
-            result = Option_::ARG_ILLEGAL;
-            if (msg)
-            {
-                std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
-
-                std::cerr << "Option '" << actualName << "' requires a valid argument.\n";
-            }
-        }
-    }
-    return result;
-} // checkPort
-
 /*! @brief Check that a name is valid.
  @param[in] option The argument to be checked.
  @param[in] @c true if an error message is to be output if the argument is not legal.
@@ -259,9 +156,7 @@ nImO::ProcessServiceOptions
         kOptionLOG,
         kOptionNODE,
         kOptionOUTTYPE,
-        kOptionPORT,
         kOptionRANDOMNODE,
-        kOptionREMOTE,
         kOptionSIGNAL,
         kOptionTAG,
         kOptionVERSION,
@@ -310,9 +205,6 @@ nImO::ProcessServiceOptions
     auto                outTypeHelpString2{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecify the data type for output channels"s};
     Option_::Descriptor outTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
                                             outTypeHelpString2.c_str()};
-    auto                portHelpString{"  "s + MakeOption("p"s, "port"s) + " <IP-port> \tSpecify the IP port for the bridge-to-bridge connection"s};
-    Option_::Descriptor portDescriptor{StaticCast(unsigned int, OptionIndex::kOptionPORT), 0, "p", "port", checkPort,
-                                        portHelpString.c_str()};
     auto                randomNodeHelpString{"  "s + MakeOption("r"s, "randomNode"s) + " \tSpecify that a random node name will be used"s};
     Option_::Descriptor randomNodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionRANDOMNODE), 0, "r", "randomnode", Option_::Arg::None,
                                             randomNodeHelpString.c_str()};
@@ -327,9 +219,6 @@ nImO::ProcessServiceOptions
     auto                waitHelpString{"  "s + MakeOption("w"s, "wait"s) + " \tWait for connection(s)"s};
     Option_::Descriptor waitDescriptor{StaticCast(unsigned int, OptionIndex::kOptionWAIT), 0, "w", "wait", Option_::Arg::None,
                                         waitHelpString.c_str()};
-    auto                remoteHelpString{"  "s + MakeOption("x"s, "remote"s) + " <IP-address> \tSpecify the IP address for the other end of the bridge-to-bridge connection"s};
-    Option_::Descriptor remoteDescriptor{StaticCast(unsigned int, OptionIndex::kOptionREMOTE), 0, "x", "remote", checkAddress,
-                                        remoteHelpString.c_str()};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
@@ -413,14 +302,6 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
-    if (0 == (skipOptions & kSkipPortOption))
-    {
-        ++descriptorCount;
-    }
-    if (0 == (skipOptions & kSkipRemoteOption))
-    {
-        ++descriptorCount;
-    }
     if (0 == (skipOptions & kSkipRandomNodeOption))
     {
         ++descriptorCount;
@@ -501,10 +382,6 @@ nImO::ProcessServiceOptions
             memcpy(usageWalker++, &outTypeDescriptor1, sizeof(outTypeDescriptor1));
         }
     }
-    if (0 == (skipOptions & kSkipPortOption))
-    {
-        memcpy(usageWalker++, &portDescriptor, sizeof(portDescriptor));
-    }
     if (0 == (skipOptions & kSkipRandomNodeOption))
     {
         memcpy(usageWalker++, &randomNodeDescriptor, sizeof(randomNodeDescriptor));
@@ -521,10 +398,6 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipWaitOption))
     {
         memcpy(usageWalker++, &waitDescriptor, sizeof(waitDescriptor));
-    }
-    if (0 == (skipOptions & kSkipRemoteOption))
-    {
-        memcpy(usageWalker++, &remoteDescriptor, sizeof(remoteDescriptor));
     }
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
@@ -627,48 +500,9 @@ nImO::ProcessServiceOptions
                                     }
                                 }
                             }
-                            if (0 == (skipOptions & kSkipPortOption))
-                            {
-                                // Use the last 'port' value.
-                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionPORT)]}; nullptr != opt; opt = opt->next())
-                                {
-                                    if (nullptr != opt->arg)
-                                    {
-                                        int64_t intValue;
-
-                                        if (ConvertToInt64(opt->arg, intValue))
-                                        {
-                                            optionValues._port = intValue;
-                                        }
-                                    }
-                                }
-                            }
                             if ((0 == (skipOptions & kSkipRandomNodeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionRANDOMNODE)]))
                             {
                                 optionValues._randomNodeName = true;
-                            }
-                            if (0 == (skipOptions & kSkipRemoteOption))
-                            {
-                                // Use the last 'remote' value.
-                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionREMOTE)]}; nullptr != opt; opt = opt->next())
-                                {
-                                    if (nullptr != opt->arg)
-                                    {
-                                        struct in_addr  addrBuff;
-
-#if MAC_OR_LINUX_OR_BSD_
-                                        if (0 < inet_pton(AF_INET, opt->arg, &addrBuff))
-                                        {
-                                            optionValues._remote = ntohl(addrBuff.s_addr);
-                                        }
-#else // not MAC_OR_LINUX_OR_BSD_
-                                        if (0 < InetPton(AF_INET, opt->arg, &addrBuff))
-                                        {
-                                            optionValues._remote = ntohl(addrBuff.S_un.S_addr);
-                                        }
-#endif // not MAC_OR_LINUX_OR_BSD_
-                                    }
-                                }
                             }
                             if ((0 == (skipOptions & kSkipSignalOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionSIGNAL)]))
                             {
@@ -751,10 +585,6 @@ nImO::ProcessServiceOptions
                         {
                             std::cout << "o";
                         }
-                        if (0 == (skipOptions & kSkipPortOption))
-                        {
-                            std::cout << "p";
-                        }
                         if (0 == (skipOptions & kSkipRandomNodeOption))
                         {
                             std::cout << "r";
@@ -770,10 +600,6 @@ nImO::ProcessServiceOptions
                         if (0 == (skipOptions & kSkipWaitOption))
                         {
                             std::cout << "w";
-                        }
-                        if (0 == (skipOptions & kSkipRemoteOption))
-                        {
-                            std::cout << "x";
                         }
                         std::cout << "\t" << serviceDescription << "\n";
                         keepGoing = false;

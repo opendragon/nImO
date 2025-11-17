@@ -121,7 +121,7 @@ main
     argumentList.push_back(secondArg);
     argumentList.push_back(thirdArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Playback from a file to a channel"s, "nImOplayback recording.txt"s, 2024, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption))
     {
         try
         {

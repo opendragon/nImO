@@ -112,7 +112,7 @@ main
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to one of a set of channels"s, "nImOcommutator 3"s, 2023, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption, false, true))
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, false, true))
     {
         try
         {

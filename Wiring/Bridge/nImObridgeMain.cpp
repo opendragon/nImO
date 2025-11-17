@@ -36,6 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <ArgumentDescriptors/nImOaddressArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOaddInputChannelCallbackHandler.h>
@@ -95,6 +97,13 @@ main
 {
     std::string             thisService{"Bridge"s};
     std::string             progName{*argv};
+    struct in_addr          addrBuff;
+    auto                    firstArg{std::make_shared<nImO::AddressArgumentDescriptor>("remoteAddress"s,
+                                                                                       "The IP address for the other end of the bridge-to-bridge connection"s,
+                                                                                       nImO::ArgumentMode::Required, nImO::kSelfAddressIpAddress, &addrBuff)};
+    auto                    secondArg{std::make_shared<nImO::PortArgumentDescriptor>("remotePort"s,
+                                                                                     "The IP port for the other end of the bridge-to-bridge connection"s,
+                                                                                     nImO::ArgumentMode::Required, 1234, false)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -105,9 +114,10 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Connect two subnets"s, "nImObridge"s, 2016, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
-                                    nImO::kSkipFlavoursOption | nImO::kSkipWaitOption))
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Connect two subnets"s, "nImObridge 1.2.3.4 42"s, 2016, nImO::kCopyrightName, optionValues,
+                                    nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipWaitOption))
     {
         try
         {

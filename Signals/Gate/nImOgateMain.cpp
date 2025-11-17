@@ -106,7 +106,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel when a control signal allows"s, "nImOgate 3.5"s, 2025, nImO::kCopyrightName,
-                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption))
+                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         try
         {

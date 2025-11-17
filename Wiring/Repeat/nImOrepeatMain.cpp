@@ -110,7 +110,7 @@ main
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send copies of a message to a channel after a delay"s, "nImOrepeat 2 3.5"s, 2024, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipPortOption | nImO::kSkipRemoteOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         try
         {

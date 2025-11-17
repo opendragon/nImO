@@ -98,23 +98,17 @@ namespace nImO
         /*! @brief Skip the 'outType' option. */
         kSkipOutTypeOption      = 0x00000800,
 
-        /*! @brief Skip the 'port' option. */
-        kSkipPortOption         = 0x00001000,
-
         /*! @brief Skip the 'randomNodeName' option. */
-        kSkipRandomNodeOption   = 0x00002000,
-
-        /*! @brief Skip the 'remote' option. */
-        kSkipRemoteOption       = 0x00004000,
+        kSkipRandomNodeOption   = 0x00001000,
 
         /*! @brief Skip the 'signal' option. */
-        kSkipSignalOption       = 0x00008000,
+        kSkipSignalOption       = 0x00002000,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x00010000,
+        kSkipTagOption          = 0x00004000,
 
         /*! @brief Skip the 'wait' option. */
-        kSkipWaitOption         = 0x00020000,
+        kSkipWaitOption         = 0x00008000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFFFFFF

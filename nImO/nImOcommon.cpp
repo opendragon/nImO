@@ -245,29 +245,34 @@ nImO::CompareBytes
 std::string
 nImO::ConstructNodeName
     (const std::string &    nameFromOptions,
+     const bool             useRandomNodeName,
      const std::string &    suffixIfNotFromOptions,
      const std::string &    tag,
      const bool             alwaysAddTheSuffix)
 {
     ODL_ENTER(); //####
     ODL_S3s(nameFromOptions, suffixIfNotFromOptions, tag); //####
-    ODL_B1(alwaysAddTheSuffix); //####
+    ODL_B2(useRandomNodeName, alwaysAddTheSuffix); //####
     std::string nodeName{};
 
-    if (nameFromOptions.empty())
+    if (useRandomNodeName)
     {
-        nodeName = nImO::GetShortComputerName() + "-"s + suffixIfNotFromOptions;
+        nodeName = "N"s + GetRandomHexString();
     }
     else
     {
-        if (alwaysAddTheSuffix)
+        if (nameFromOptions.empty())
         {
-            nodeName = nameFromOptions + "-"s + suffixIfNotFromOptions;
+            nodeName = nImO::GetShortComputerName();
         }
         else
         {
             nodeName = nameFromOptions;
         }
+    }
+    if (alwaysAddTheSuffix)
+    {
+        nodeName += "-"s + suffixIfNotFromOptions;
     }
     if (! tag.empty())
     {
@@ -502,7 +507,7 @@ nImO::GetRandomHexString
     std::string         result;
     std::stringstream   buff;
 
-    buff << std::hex << (nImO::RandomUnsigned() % 10000);
+    buff << std::setfill('0') << std::setw(5) << std::hex << (nImO::RandomUnsigned() % 1000000);
     result = buff.str();
     ODL_EXIT_s(result); //####
     return result;

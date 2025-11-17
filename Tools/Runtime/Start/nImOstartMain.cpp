@@ -91,6 +91,7 @@ constructNodeNameFromOptions
 {
     ODL_ENTER(); //####
     ODL_S2s(launcherName, serviceName); //####
+    bool        useRandomName{false};
     std::string nodeName{launcherName};
     std::string tag{};
 
@@ -101,20 +102,27 @@ constructNodeNameFromOptions
             auto    optionChar{walker.substr(0, 1)[0]};
             auto    optionValue{walker.substr(1, walker.length())};
 
-            if ('n' == optionChar)
+            if ('r' == optionChar)
             {
-                nodeName = optionValue;
+                useRandomName = true;
             }
             else
             {
-                if ('t' == optionChar)
+                if ('n' == optionChar)
                 {
-                    tag = optionValue;
+                    nodeName = optionValue;
+                }
+                else
+                {
+                    if ('t' == optionChar)
+                    {
+                        tag = optionValue;
+                    }
                 }
             }
         }
     }
-    std::string result{nImO::ConstructNodeName(nodeName, serviceName, tag, true)};
+    std::string result{nImO::ConstructNodeName(nodeName, useRandomName, serviceName, tag, true)};
 
     ODL_EXIT_s(result); //####
     return result;
@@ -454,7 +462,7 @@ main
                                     break;
 
                                 case 'l' :
-                                    std::cout << "Log the application";
+                                    std::cout << "Log the service";
                                     break;
 
                                 case 'n' :
@@ -465,6 +473,16 @@ main
 
                                 case 'o' :
                                     std::cout << "Specify the data type for the output channel(s)"; // string arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 'p' :
+                                    std::cout << ""; // int arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 'r' :
+                                    std::cout << ""; // string arg required
                                     optionNeedsString.insert(charWalker);
                                     break;
 

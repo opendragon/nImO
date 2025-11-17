@@ -101,20 +101,24 @@ namespace nImO
         /*! @brief Skip the 'port' option. */
         kSkipPortOption         = 0x00001000,
 
+        /*! @brief Skip the 'randomNodeName' option. */
+        kSkipRandomNodeOption   = 0x00002000,
+
         /*! @brief Skip the 'remote' option. */
-        kSkipRemoteOption       = 0x00002000,
+        kSkipRemoteOption       = 0x00004000,
 
         /*! @brief Skip the 'signal' option. */
-        kSkipSignalOption       = 0x00004000,
+        kSkipSignalOption       = 0x00008000,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x00008000,
+        kSkipTagOption          = 0x00010000,
 
         /*! @brief Skip the 'wait' option. */
-        kSkipWaitOption         = 0x00010000,
+        kSkipWaitOption         = 0x00020000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFFFFFF
+
     }; // OptionsMask
 
     /*! @brief The format for the output from command-line tools. */
@@ -192,12 +196,14 @@ namespace nImO
         (const std::string &    configFilePath);
 
     /*! @brief Process the standard options for utility executables.
+     The option '-@' / '--autolaunch' specifies that the Registry is to be launched if not already running.
      The option '-c' / '--config' specifies an alternative configuration file to use.
      The option '-e' / '--expanded' increases the amount of detail presented.
      The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.
      The option '-l' / '--log' specifies that the executable is to be logged.
      The option '-m' / '--machine' specifies the machine to be referenced.
+     The option '-n' / '--nimo' specifies that output is to be in nImO format.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
      The option '-v' / '--version' displays the version and copyright information and returns @c false.
      @param[in] argc The number of arguments in 'argv'.

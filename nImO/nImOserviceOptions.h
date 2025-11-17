@@ -67,7 +67,7 @@ namespace nImO
         /*! @brief The data type for input channels. */
         std::string _inType{};
 
-        /*! @brief The node name set by a command-line option. */
+        /*! @brief The node name set by a command-line option; overridden by the 'random node name' option. */
         std::string _node{};
 
         /*! @brief The data type for output channels. */
@@ -75,6 +75,9 @@ namespace nImO
 
         /*! @brief The port to be used for the bridge-to-bridge connection. */
         IPv4Port    _port{0};
+
+        /*! @brief @c true if the node name is to be randomly generated. */
+        bool    _randomNodeName{false};
 
         /*! @brief The address of the 'remote' end of the bridge-to-bridge connection.*/
         IPv4Address _remote{0};
@@ -98,6 +101,7 @@ namespace nImO
     }; // ServiceOptions
 
     /*! @brief Process the standard options for service executables.
+     The option '-@' / '--autolaunch' specifies that the Registry is to be launched if not already running.
      The option '-a' / '--args' specifies the arguments to the executable.
      The option '-b' / '--base' specifies the base name of the channels for the service.
      The option '-c' / '--config' specifies an alternative configuration file to use.
@@ -106,11 +110,14 @@ namespace nImO
      The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
      The option '-i' / '--intype' specifies the data type for input channels.
      The option '-l' / '--log' specifies that the executable is to be logged.
+     The option '-n' / '--node' specifies a non-default node name to use.
      The option '-o' / '--outtype' specifies the data type for input channels.
      The option '-p' / '--port' specifies the port used for bridge-to-bridge connections.
      The option '-r' / '--remote' specifies the IP address of the 'remote' bridge.
+     The option '-s' / '--signal' specifies that all channels are to be used for SIGNAL messages.
      The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the service.
      The option '-v' / '--version' displays the version and copyright information and returns @c false.
+     The option '-w' / '--wait' specifies that the service is to wait until connections have been made to it.
      @param[in] argc The number of arguments in 'argv'.
      @param[in] argv The arguments to be used with the service.
      @param[in] argumentDescriptions Descriptions of the arguments to the service.

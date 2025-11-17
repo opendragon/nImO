@@ -260,6 +260,7 @@ nImO::ProcessServiceOptions
         kOptionNODE,
         kOptionOUTTYPE,
         kOptionPORT,
+        kOptionRANDOMNODE,
         kOptionREMOTE,
         kOptionSIGNAL,
         kOptionTAG,
@@ -312,9 +313,9 @@ nImO::ProcessServiceOptions
     auto                portHelpString{"  "s + MakeOption("p"s, "port"s) + " <IP-port> \tSpecify the IP port for the bridge-to-bridge connection"s};
     Option_::Descriptor portDescriptor{StaticCast(unsigned int, OptionIndex::kOptionPORT), 0, "p", "port", checkPort,
                                         portHelpString.c_str()};
-    auto                remoteHelpString{"  "s + MakeOption("r"s, "remote"s) + " <IP-address> \tSpecify the IP address for the other end of the bridge-to-bridge connection"s};
-    Option_::Descriptor remoteDescriptor{StaticCast(unsigned int, OptionIndex::kOptionREMOTE), 0, "r", "remote", checkAddress,
-                                        remoteHelpString.c_str()};
+    auto                randomNodeHelpString{"  "s + MakeOption("r"s, "randomNode"s) + " \tSpecify that a random node name will be used"s};
+    Option_::Descriptor randomNodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionRANDOMNODE), 0, "r", "randomnode", Option_::Arg::None,
+                                            randomNodeHelpString.c_str()};
     auto                signalHelpString{"  "s + MakeOption("s"s, "signal"s) + " \tSpecify that all channels are for SIGNAL messages"s};
     Option_::Descriptor signalDescriptor{StaticCast(unsigned int, OptionIndex::kOptionSIGNAL), 0, "s", "signal", Option_::Arg::None,
                                         signalHelpString.c_str()};
@@ -326,6 +327,9 @@ nImO::ProcessServiceOptions
     auto                waitHelpString{"  "s + MakeOption("w"s, "wait"s) + " \tWait for connection(s)"s};
     Option_::Descriptor waitDescriptor{StaticCast(unsigned int, OptionIndex::kOptionWAIT), 0, "w", "wait", Option_::Arg::None,
                                         waitHelpString.c_str()};
+    auto                remoteHelpString{"  "s + MakeOption("x"s, "remote"s) + " <IP-address> \tSpecify the IP address for the other end of the bridge-to-bridge connection"s};
+    Option_::Descriptor remoteDescriptor{StaticCast(unsigned int, OptionIndex::kOptionREMOTE), 0, "x", "remote", checkAddress,
+                                        remoteHelpString.c_str()};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
@@ -417,6 +421,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipRandomNodeOption))
+    {
+        ++descriptorCount;
+    }
     if (0 == (skipOptions & kSkipSignalOption))
     {
         ++descriptorCount;
@@ -497,9 +505,9 @@ nImO::ProcessServiceOptions
     {
         memcpy(usageWalker++, &portDescriptor, sizeof(portDescriptor));
     }
-    if (0 == (skipOptions & kSkipRemoteOption))
+    if (0 == (skipOptions & kSkipRandomNodeOption))
     {
-        memcpy(usageWalker++, &remoteDescriptor, sizeof(remoteDescriptor));
+        memcpy(usageWalker++, &randomNodeDescriptor, sizeof(randomNodeDescriptor));
     }
     if (0 == (skipOptions & kSkipSignalOption))
     {
@@ -513,6 +521,10 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipWaitOption))
     {
         memcpy(usageWalker++, &waitDescriptor, sizeof(waitDescriptor));
+    }
+    if (0 == (skipOptions & kSkipRemoteOption))
+    {
+        memcpy(usageWalker++, &remoteDescriptor, sizeof(remoteDescriptor));
     }
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
@@ -631,6 +643,10 @@ nImO::ProcessServiceOptions
                                     }
                                 }
                             }
+                            if ((0 == (skipOptions & kSkipRandomNodeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionRANDOMNODE)]))
+                            {
+                                optionValues._randomNodeName = true;
+                            }
                             if (0 == (skipOptions & kSkipRemoteOption))
                             {
                                 // Use the last 'remote' value.
@@ -739,7 +755,7 @@ nImO::ProcessServiceOptions
                         {
                             std::cout << "p";
                         }
-                        if (0 == (skipOptions & kSkipRemoteOption))
+                        if (0 == (skipOptions & kSkipRandomNodeOption))
                         {
                             std::cout << "r";
                         }
@@ -754,6 +770,10 @@ nImO::ProcessServiceOptions
                         if (0 == (skipOptions & kSkipWaitOption))
                         {
                             std::cout << "w";
+                        }
+                        if (0 == (skipOptions & kSkipRemoteOption))
+                        {
+                            std::cout << "x";
                         }
                         std::cout << "\t" << serviceDescription << "\n";
                         keepGoing = false;

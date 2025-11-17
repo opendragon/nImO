@@ -148,9 +148,10 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Maintain a registry of services"s, "nImOregistry", 2022, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
-                                    nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipPortOption | nImO::kSkipRemoteOption | nImO::kSkipTagOption | nImO::kSkipWaitOption))
+                                    nImO::kSkipArgsOption | nImO::kSkipAutolaunchOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption |
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption |
+                                    nImO::kSkipOutTypeOption | nImO::kSkipPortOption | nImO::kSkipRandomNodeOption | nImO::kSkipRemoteOption |
+                                    nImO::kSkipSignalOption | nImO::kSkipTagOption | nImO::kSkipWaitOption))
     {
         try
         {

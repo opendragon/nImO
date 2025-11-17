@@ -161,7 +161,7 @@ nImO::StartAppCommandHandler::doIt
 
                                 // Prepend a default node name.
                                 commandLine.push_back(MakeOption("n"));
-                                commandLine.push_back(ConstructNodeName(_ownerForLauncher->getName(), appName->getValue(), "", true));
+                                commandLine.push_back(ConstructNodeName(_ownerForLauncher->getName(), false, appName->getValue(), ""s, true));
                                 for (auto & walker : *appOptionsArray)
                                 {
                                     auto    anOptionString{walker->asString()};

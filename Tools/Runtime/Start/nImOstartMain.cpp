@@ -477,12 +477,12 @@ main
                                     break;
 
                                 case 'p' :
-                                    std::cout << ""; // int arg required
+                                    std::cout << "Specify the IP port for the bridge-to-bridge connection"; // int arg required
                                     optionNeedsString.insert(charWalker);
                                     break;
 
                                 case 'r' :
-                                    std::cout << ""; // string arg required
+                                    std::cout << "Specify that a random node name will be used"; // string arg required
                                     optionNeedsString.insert(charWalker);
                                     break;
 
@@ -494,6 +494,11 @@ main
 
                                 case 'w' :
                                     std::cout << "Wait for connection(s)";
+                                    break;
+
+                                case 'x' :
+                                    std::cout << "Specify the IP address for the other end of the bridge-to-bridge connection"; // string arg required
+                                    optionNeedsString.insert(charWalker);
                                     break;
 
                                 default :

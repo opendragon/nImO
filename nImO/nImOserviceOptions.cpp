@@ -259,13 +259,9 @@ nImO::ProcessServiceOptions
         }
     }
     usageString += "\n\nOptions:"s;
-    // firstDescriptor, helpDescriptor, versionDescriptor, lastDescriptor
-    size_t descriptorCount{4};
+    // firstDescriptor, argsDescriptor, helpDescriptor, versionDescriptor, lastDescriptor
+    size_t descriptorCount{5};
 
-    if (0 == (skipOptions & kSkipArgsOption))
-    {
-        ++descriptorCount;
-    }
     if (0 == (skipOptions & kSkipAutolaunchOption))
     {
         ++descriptorCount;
@@ -327,10 +323,7 @@ nImO::ProcessServiceOptions
     firstDescriptor.help = _strdup(usageString.c_str());
 #endif // not MAC_OR_LINUX_OR_BSD_
     memcpy(usageWalker++, &firstDescriptor, sizeof(firstDescriptor));
-    if (0 == (skipOptions & kSkipArgsOption))
-    {
-        memcpy(usageWalker++, &argsDescriptor, sizeof(argsDescriptor));
-    }
+    memcpy(usageWalker++, &argsDescriptor, sizeof(argsDescriptor));
     if (0 == (skipOptions & kSkipAutolaunchOption))
     {
         memcpy(usageWalker++, &autolaunchDescriptor, sizeof(autolaunchDescriptor));
@@ -552,10 +545,6 @@ nImO::ProcessServiceOptions
                         if (0 == (skipOptions & kSkipAutolaunchOption))
                         {
                             std::cout << "@";
-                        }
-                        if (0 == (skipOptions & kSkipArgsOption))
-                        {
-                            std::cout << "a";
                         }
                         if (0 == (skipOptions & kSkipBaseOption))
                         {

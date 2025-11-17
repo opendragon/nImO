@@ -117,8 +117,7 @@ main
     argumentList.push_back(secondArg);
     argumentList.push_back(thirdArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Run a Lua program"s, "nImOlua script.lua"s, 2025, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
-                                    nImO::kSkipWaitOption))
+                                    nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipWaitOption))
     {
         try
         {

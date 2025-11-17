@@ -62,53 +62,50 @@ namespace nImO
         /*! @brief Skip no options. */
         kSkipNone               = 0x00000000,
 
-        /*! @brief Skip the 'args' option. */
-        kSkipArgsOption         = 0x00000001,
-
         /*! @brief Skip the 'autolaunch' option. */
-        kSkipAutolaunchOption   = 0x00000002,
+        kSkipAutolaunchOption   = 0x00000001,
 
         /*! @brief Skip the 'base' option. */
-        kSkipBaseOption         = 0x00000004,
+        kSkipBaseOption         = 0x00000002,
 
         /*! @brief Skip the 'configFile' option. */
-        kSkipConfigFileOption   = 0x00000008,
+        kSkipConfigFileOption   = 0x00000004,
 
         /*! @brief Skip the 'describe' option. */
-        kSkipDescribeOption     = 0x00000010,
+        kSkipDescribeOption     = 0x00000008,
 
         /*! @brief Skip the 'expanded' option. */
-        kSkipExpandedOption     = 0x00000020,
+        kSkipExpandedOption     = 0x00000010,
 
         /*! @brief Skip the 'flavours' option. */
-        kSkipFlavoursOption     = 0x00000040,
+        kSkipFlavoursOption     = 0x00000020,
 
         /*! @brief Skip the 'inType' option. */
-        kSkipInTypeOption       = 0x00000080,
+        kSkipInTypeOption       = 0x00000040,
 
         /*! @brief Skip the 'logging' option. */
-        kSkipLoggingOption      = 0x00000100,
+        kSkipLoggingOption      = 0x00000080,
 
         /*! @brief Skip the 'machine' option. */
-        kSkipMachineOption      = 0x00000200,
+        kSkipMachineOption      = 0x00000100,
 
         /*! @brief Skip the 'node' option. */
-        kSkipNodeOption         = 0x00000400,
+        kSkipNodeOption         = 0x00000200,
 
         /*! @brief Skip the 'outType' option. */
-        kSkipOutTypeOption      = 0x00000800,
+        kSkipOutTypeOption      = 0x00000400,
 
         /*! @brief Skip the 'randomNodeName' option. */
-        kSkipRandomNodeOption   = 0x00001000,
+        kSkipRandomNodeOption   = 0x00000800,
 
         /*! @brief Skip the 'signal' option. */
-        kSkipSignalOption       = 0x00002000,
+        kSkipSignalOption       = 0x00001000,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x00004000,
+        kSkipTagOption          = 0x00002000,
 
         /*! @brief Skip the 'wait' option. */
-        kSkipWaitOption         = 0x00008000,
+        kSkipWaitOption         = 0x00004000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFFFFFF

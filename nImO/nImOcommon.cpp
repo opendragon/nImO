@@ -257,7 +257,7 @@ nImO::ConstructNodeName
 
     if (useRandomNodeName)
     {
-        nodeName = "N"s + GetRandomHexString();
+        nodeName = "_."s + GetRandomHexString();
     }
     else
     {

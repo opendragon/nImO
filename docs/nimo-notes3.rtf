@@ -22,8 +22,7 @@ Rough logic flow, non-Registry service or utility:\
 8. Proceed with normal activity.\
 \
 Rough logic flow, Registry service:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 1. Send a request to the Registry multicast port, asking for the TCP/IP connection information.\
+1. Send a request to the Registry multicast port, asking for the TCP/IP connection information.\
 2. Wait for the number of seconds of a retry interval.\
 3. If there is no response within the retry interval and there are retry intervals left, go back to the first step.\
 4. If there was no response, perform the mDNS search for a Registry.\
@@ -39,4 +38,7 @@ Note that this is similarly structured to the mDNS code, but is simpler since ve
 The multicast send and receive code already exists as part of nImOlog and nImOpost,\
 \
 Note that ContextWithMDNS is the parent of ServiceContext and UtilityContext and is widely referenced; the initial code should be parallel to the mDNS support.\
+\
+[The oldest creation date in the source files is 2014-02-18!]\
+[As of 2025/11/17, the SLOC report is 129,838 [all] - 2,905 [swig] - 58,469 [tests] = 68,464 and tests are 45% of the total.]\
 }

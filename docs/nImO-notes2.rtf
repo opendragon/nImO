@@ -70,9 +70,15 @@ programmable services:\
 \cf0 \
 runtime:\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf3 * nImOgetParameters 'a' - reports the parameters for node 'a' DONE\
-* nImOgetParameterValue 'a' 'b' - reports the current value of parameter 'b' on node 'a' DONE\
-* nImOsetParameterValue 'a' 'b' 'c' - sets the value of mutable parameter 'b' on node 'a' to 'c' DONE\
+\cf3 * nImOgetParameters 'a' - reports the parameters for node 'a'; 
+\f1\b DONE
+\f0\b0 \
+* nImOgetParameterValue 'a' 'b' - reports the current value of parameter 'b' on node 'a'; 
+\f1\b DONE
+\f0\b0 \
+* nImOsetParameterValue 'a' 'b' 'c' - sets the value of mutable parameter 'b' on node 'a' to 'c'; 
+\f1\b DONE
+\f0\b0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 * nImOstart ['a' ['b']] - starts a service via a launcher; 
 \f1\b DONE
@@ -201,7 +207,9 @@ fix CMakeLists.txt to use current SWIG commands; check what languages can be gen
 \f0\b0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
 1. can Ansible be used for the initial deployment - installing nImOmanage, nImOregistry, nImOlauncher, tools and services plus starting nImOlauncher and nImOregistry?\
 this will allow elimination of the 'App' and 'Setup' programs as they won't be needed\
-2. write the documentation!\
+2. 
+\f3\i\b write the documentation
+\f0\i0\b0 ! [what the Registry does, how non-Registry services and utilities find the Registry, how the Registry starts up]\
 3. create the 3D and Leap applications\
 4. create the 'programmable' applications\
 5. Arduino connection? Raspberry Pi sensors? cameras? AI?\
@@ -209,4 +217,5 @@ this will allow elimination of the 'App' and 'Setup' programs as they won't be n
 \
 
 \f3\i\b\fs28 Note that m+m manager supported the ability to restart a service after changing its configuration - nImOmanage should provide this via a mechanism to send revised options to a service. [refer to the video "m+m manager.mov" for this as well as some of the metrics that are collected.]\
+Also, m+m manager shows that the service needs to be restarted, while nImO allows on-the-fly changes!\
 }

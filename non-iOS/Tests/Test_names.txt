@@ -60,7 +60,7 @@ fix_dynamic_libs(${THIS_TARGET})
 ## Test valid simple node name
 add_test(NAME TestSimpleNodeName COMMAND ${THIS_TARGET} 1 t "thisNode")
 ## Test valid node name with special character
-add_test(NAME TestNodeNameWithSpecialCharacter COMMAND ${THIS_TARGET} 1 t "thi$.node")
+add_test(NAME TestNodeNameWithSpecialCharacter COMMAND ${THIS_TARGET} 1 t "thi-.node")
 ## Test valid node name with pair of special characters
 add_test(NAME TestNodeNameWithPairOfSpecialCharacters COMMAND ${THIS_TARGET} 1 t "this__node")
 ## Test empty node name
@@ -109,7 +109,7 @@ add_test(NAME TestFullChannelNameMissingNodeAndNetwork COMMAND ${THIS_TARGET} 10
 ## Test minimal channel name
 add_test(NAME TestMinimalChannelName COMMAND ${THIS_TARGET} 10 t "/arbitrary-path")
 ## Test channel name with longer path
-add_test(NAME TestChannelNameWithLongerPath COMMAND ${THIS_TARGET} 10 t "/top/level/path/$has_special-chars")
+add_test(NAME TestChannelNameWithLongerPath COMMAND ${THIS_TARGET} 10 t "/top/level/path/_has_special-chars")
 ## Test channel name with out-of-order delimiters
 add_test(NAME TestChannelNameWithOutOfOrderDelimiters COMMAND ${THIS_TARGET} 10 f "this-net#udp/arbitrary-path")
 ## Test channel name with missing path root
@@ -121,7 +121,7 @@ add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetName COMMAND ${THIS_TAR
 ## Test minimal channel name, fetch name
 add_test(NAME TestMinimalChannelNameGetName COMMAND ${THIS_TARGET} 11 t "/arbitrary-path" "/arbitrary-path")
 ## Test channel name with longer path, fetch name
-add_test(NAME TestChannelNameWithLongerPathGetName COMMAND ${THIS_TARGET} 11 t "/top/level/path/$has_special-chars" "/top/level/path/$has_special-chars")
+add_test(NAME TestChannelNameWithLongerPathGetName COMMAND ${THIS_TARGET} 11 t "/top/level/path/_has_special-chars" "/top/level/path/_has_special-chars")
 
 ## Test full channel name with missing network, fetch node
 add_test(NAME TestFullChannelNameMissingNetworkGetNode COMMAND ${THIS_TARGET} 12 t "this-Node/arbitrary-path#udp" "this-Node")
@@ -130,7 +130,7 @@ add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetNode COMMAND ${THIS_TAR
 ## Test minimal channel name, fetch node
 add_test(NAME TestMinimalChannelNameGetNode COMMAND ${THIS_TARGET} 12 t "/arbitrary-path" "")
 ## Test channel name with longer path, fetch node
-add_test(NAME TestChannelNameWithLongerPathGetNode COMMAND ${THIS_TARGET} 12 t "/top/level/path/$has_special-chars" "")
+add_test(NAME TestChannelNameWithLongerPathGetNode COMMAND ${THIS_TARGET} 12 t "/top/level/path/_has_special-chars" "")
 
 ## Test full channel name with missing network, fetch path
 add_test(NAME TestFullChannelNameMissingNetworkGetPath COMMAND ${THIS_TARGET} 13 t "this-node/arbitrary-Path#udp" "/arbitrary-Path")
@@ -139,7 +139,7 @@ add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetPath COMMAND ${THIS_TAR
 ## Test minimal channel name, fetch path
 add_test(NAME TestMinimalChannelNameGetPath COMMAND ${THIS_TARGET} 13 t "/arbitrAry-path" "/arbitrAry-path")
 ## Test channel name with longer path, fetch path
-add_test(NAME TestChannelNameWithLongerPathGetPath COMMAND ${THIS_TARGET} 13 t "/top/level/path/$has_special-chars" "/top/level/path/$has_special-chars")
+add_test(NAME TestChannelNameWithLongerPathGetPath COMMAND ${THIS_TARGET} 13 t "/top/level/path/_has_special-chars" "/top/level/path/_has_special-chars")
 
 ## Test full channel name with missing network, fetch protocol
 add_test(NAME TestFullChannelNameMissingNetworkGetProtocol COMMAND ${THIS_TARGET} 14 t "this-node/arbitrary-path#udp" "udp")
@@ -148,7 +148,7 @@ add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetProtocol COMMAND ${THIS
 ## Test minimal channel name, fetch protocol
 add_test(NAME TestMinimalChannelNameGetProtocol COMMAND ${THIS_TARGET} 14 t "/arbitrary-path" "unknown")
 ## Test channel name with longer path, fetch protocol
-add_test(NAME TestChannelNameWithLongerPathGetProtocol COMMAND ${THIS_TARGET} 14 t "/top/level/path/$has_special-chars" "unknown")
+add_test(NAME TestChannelNameWithLongerPathGetProtocol COMMAND ${THIS_TARGET} 14 t "/top/level/path/_has_special-chars" "unknown")
 
 ## Test generated singular output channel name with default base
 add_test(NAME TestGeneratedSingularOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 15 t "" t 1 1 "/out")
@@ -192,7 +192,7 @@ add_test(NAME TestGeneratedInputChannelNameWithOutOfRangeIndex COMMAND ${THIS_TA
 ## Test single valid character
 add_test(NAME TestValidSingleCharacter COMMAND ${THIS_TARGET} 16 t "a")
 ## Test single invalid character
-add_test(NAME TestInvalidSingleCharacter COMMAND ${THIS_TARGET} 16 f "_")
+add_test(NAME TestInvalidSingleCharacter COMMAND ${THIS_TARGET} 16 f "#")
 ## Test two valid starting characters
 add_test(NAME TestTwoValidCharacters COMMAND ${THIS_TARGET} 16 t "ab")
 ## Test valid character followed by invalid character
@@ -201,7 +201,17 @@ add_test(NAME TestValidCharacterFollowedByInvalidCharacter COMMAND ${THIS_TARGET
 add_test(NAME TestValidCharacterFollowedByValidSeparatorCharacter COMMAND ${THIS_TARGET} 16 t "a_")
 ## Test valid starting character followed by two separator characters
 add_test(NAME TestValidCharacterFollowedByTwoSeparatorCharacters COMMAND ${THIS_TARGET} 16 t "a_.")
-## Test full set of valid starting characters
-add_test(NAME TestAllValidCharacters COMMAND ${THIS_TARGET} 16 t "abcdefghijklmnopqrstuvwxyzABCDEFGHIHKLMNOPQRSTUVWXYZ0123456789$")
+## Test full set of valid characters
+add_test(NAME TestAllValidCharacters COMMAND ${THIS_TARGET} 16 t "abcdefghijklmnopqrstuvwxyzABCDEFGHIHKLMNOPQRSTUVWXYZ0123456789-_.")
 ## Test all separator characters
 add_test(NAME TestAllSeparatorCharacters COMMAND ${THIS_TARGET} 16 t "a-b.c_d")
+## Test valid start character
+add_test(NAME TestValidStartCharacter1 COMMAND ${THIS_TARGET} 16 t "Z")
+## Test valid start character
+add_test(NAME TestValidStartCharacter2 COMMAND ${THIS_TARGET} 16 t "_")
+## Test valid start character
+add_test(NAME TestValidStartCharacter3 COMMAND ${THIS_TARGET} 16 t "5")
+## Test invalid start character
+add_test(NAME TestInvalidStartCharacter1 COMMAND ${THIS_TARGET} 16 f "-")
+## Test invalid start character
+add_test(NAME TestInvalidStartCharacter2 COMMAND ${THIS_TARGET} 16 f ".")

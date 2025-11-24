@@ -762,7 +762,7 @@ nImO::ContextWithMDNS::findAndLaunchTheRegistry
         auto            regOptions{getRegistryLaunchOptions()};
         StdStringVector commandLine{};
 
-        report("Registry was not found so it will be launched");
+        report("Registry was not found so it will be launched.");
         for (auto & walker : regOptions)
         {
             auto    anOptionString{walker->asString()};

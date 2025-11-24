@@ -310,7 +310,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                         }
                                         else
                                         {
-                                            context->report(responseText + " response sent"s);
+                                            context->report(responseText + " response sent."s);
                                             okSoFar = true;
                                             ODL_B1(okSoFar); //####
                                             keepGoing = false;

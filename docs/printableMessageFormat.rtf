@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2639
+{\rtf1\ansi\ansicpg1252\cocoartf2822
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
@@ -8,8 +8,10 @@
 
 \f0\fs28 \cf0 <address> ::= '@' <unsigned-integer> '.' <unsigned-integer> '.' <unsigned-integer> '.' <unsigned-integer>; ## subfields limited to 0..255 \
 <array> ::= '(' <sp>* (<value_list> <sp>*)? ')'; ## empty arrays allowed\
-<atom-list> ::= <atom> (<sp>+ <atom>)*; ## space-separated atomic values\
-<atom> ::= <sign>? <unsigned-number> | <string> | <boolean> | <address> | <date> | <time>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <atom> ::= <sign>? <unsigned-number> | <string> | <boolean> | <address> | <date> | <time>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <atom-list> ::= <atom> (<sp>+ <atom>)*; ## space-separated atomic values\
 <blob> ::= '%' <unsigned-integer> '%' <byte>* '%'; ## number of values == leading integer, >= 0\
 <boolean> ::= 'true' | 'false'; ## Note: case-insensitive, initial substrings accepted\
 <byte> ::= <hex-digit> <hex-digit>;\
@@ -24,8 +26,10 @@
 <double-quoted-string> ::= <double-quote> <non-double-quote-character>* <double-quote>; ## empty strings allowed\
 <escape-character> ::= '\\';\
 <escape-sequence> ::= 'a' | 'b' | 'f' | 'n' | 'r' | 's' | 't' | 'v' | <octal-sequence> | <control-sequence> | <meta-sequence>;\
-<exponent-tag> ::= 'e' | 'E';\
-<exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <exponent-tag> ::= 'e' | 'E';\
 <fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
 <hex-digit> ::= \\d | 'a' .. 'f' | 'A' .. 'F';\
 <hour> ::= <unsigned-integer>; ## limited to 0..23\
@@ -33,8 +37,10 @@
 <low-char> ::= '@' .. '_'; ## map to Ctrl-@ (0x00) through Ctrl-_ (0x1F)\
 <map> ::= '\{' <sp>* (<mapped-value-list> <sp>*)? '\}'; ## the first key seen establishes the type of the remaining keys\
 <map-separator> ::= '>';\
-<mapped-value-list> ::= <mapped-value> (<sp>+ <mapped-value>)*; ## space-separated key/value pairs\
-<mapped-value> ::= <scalar-atom> <sp>* <map-separator> <sp>* <value>; ## floating-point numbers can't be keys\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <mapped-value> ::= <scalar-atom> <sp>* <map-separator> <sp>* <value>; ## floating-point numbers can't be keys\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <mapped-value-list> ::= <mapped-value> (<sp>+ <mapped-value>)*; ## space-separated key/value pairs\
 <meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
 <meta-sequence> ::= 'M-' <meta-char>;\
 <milliseconds> ::= <unsigned-integer>; ## limited to 0..999\
@@ -42,8 +48,10 @@
 <month> ::= <unsigned-integer>; ## limited to 1..12\
 <noise> ::= ',' | ';';\
 <non-double-quote-character> ::= <non-quote-character> | <single-quote>;\
-<non-single-quote-character> ::= <non-quote-character> | <double-quote>;\
-<non-quote-character> ::= <non-special-character> | <escape-character> <special-character>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <non-quote-character> ::= <non-special-character> | <escape-character> <special-character>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <non-single-quote-character> ::= <non-quote-character> | <double-quote>;\
 <non-special-character> ::= ' ' | '!' | '#' .. '&' | '(' .. '.' | '0' .. '~'; ## all printable characters excluding quotes and backslash\
 <octal-digit> ::= '0' .. '7';\
 <octal-sequence> ::= <octal-digit> <octal-digit> <octal-digit>;\
@@ -65,8 +73,10 @@
 <unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
 <unsigned-integer> ::= \\d+;\
 <unsigned-number> ::= <unscaled-number> <exponent>?;\
-<value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
-<value> ::= <atom> | <container> | <blob>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <value> ::= <atom> | <container> | <blob>;\
+\pard\pardeftab720\ri-21372\sl360\partightenfactor0
+\cf0 <value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
 <year> ::= <unsigned-integer>; ## limited to 0..9999\
 \pard\pardeftab720\ri-21372\sl360\partightenfactor0
 \cf0 \expnd0\expndtw0\kerning0

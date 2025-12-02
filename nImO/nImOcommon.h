@@ -557,6 +557,23 @@ namespace nImO
 
     }; // MessageState
 
+    /*! @brief The Regsitry mode to use. */
+    enum class RegistryMode : uint8_t
+    {
+        /*! @brief The Registry mode is unknown. */
+        kUnknown =      0x00,
+
+        /*! @brief Use mDNS for the Registry mode. */
+        kMDNS =         0x01,
+
+        /*! @brief Use multicast for the Registry mode. */
+        kMulticast =    0x02,
+
+        /*! @brief Both Registry modes are allowed. */
+        kBoth =         (kMDNS | kMulticast)
+
+    }; // RegistryMode
+
     /*! @brief The transport mechanism to use. */
     enum class TransportType : uint8_t
     {

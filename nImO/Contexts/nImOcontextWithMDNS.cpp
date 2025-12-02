@@ -211,7 +211,7 @@ namespace nImO
                 {
                     auto    _entryData{mdns_string_to_std_string(entryData)};
 
-                    if (NIMO_REGISTRY_SERVICE_NAME == _entryData)
+                    if (_owner.getRegistryServiceName() == _entryData)
                     {
                         _owner.report("PTR Data"s);
                         _owner._registryTag = firstPartOfPath(mdns_string_to_std_string(ptrData));
@@ -712,7 +712,7 @@ nImO::ContextWithMDNS::executeBrowser
                 {
                     owner._requestNewScan = false;
                     ODL_B1(owner._requestNewScan); //####
-                    owner.report("Sending mDNS query: "s + std::string(NIMO_REGISTRY_SERVICE_NAME) + "."s);
+                    owner.report("Sending mDNS query: "s + owner.getRegistryServiceName() + "."s);
                     for (int isock{0}; isock < owner._numSockets; ++isock)
                     {
                         if (lBrowserThreadStop)
@@ -720,8 +720,8 @@ nImO::ContextWithMDNS::executeBrowser
                             break;
 
                         }
-                        owner._queryId[isock] = mDNS::query_send(owner._sockets[isock], mDNS::kRecordTypePTR, NIMO_REGISTRY_SERVICE_NAME,
-                                                                 sizeof(NIMO_REGISTRY_SERVICE_NAME) - 1, owner._buffer,
+                        owner._queryId[isock] = mDNS::query_send(owner._sockets[isock], mDNS::kRecordTypePTR, owner.getRegistryServiceName().c_str(),
+                                                                 owner.getRegistryServiceName().length(), owner._buffer,
                                                                  nImO::ContextWithMDNS::kBufferCapacity, 0);
                         if (owner._queryId[isock] < 0)
                         {
@@ -862,8 +862,8 @@ nImO::ContextWithMDNS::gatherAnnouncements
         _pool.add_thread(_browserThread);
         for (int isock{0}; isock < _numSockets; ++isock)
         {
-            _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, NIMO_REGISTRY_SERVICE_NAME,
-                                               sizeof(NIMO_REGISTRY_SERVICE_NAME) - 1, _buffer, kBufferCapacity, 0);
+            _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, getRegistryServiceName().c_str(),
+                                               getRegistryServiceName().length(), _buffer, kBufferCapacity, 0);
             if (_queryId[isock] < 0)
             {
                 report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);

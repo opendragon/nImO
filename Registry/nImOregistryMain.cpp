@@ -274,7 +274,7 @@ main
                                                   std::make_shared<nImO::RemoveNodeCommandHandler>(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kSetChannelInUseRequest,
                                                   std::make_shared<nImO::SetChannelInUseCommandHandler>(ourContext, theRegistry));
-                    if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
+                    if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), asRegistryContext->getRegistryServiceName(),
                                                                 nImO::GetShortComputerName(), nImO::kRegistryAddressKey))
                     {
                         std::cout << progName << " ready.\n";

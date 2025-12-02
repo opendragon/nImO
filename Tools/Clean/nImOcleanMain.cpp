@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to remove registry information for a node or a machine.
+//  Contains:   A tool to remove Registry information for a node or a machine.
 //
 //  Written by: Norman Jaffe
 //
@@ -56,7 +56,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to remove registry information for a node or a machine. */
+ @brief A tool to remove the Registry information for a node or a machine. */
 
 /*! @dir Clean
  @brief The set of files that implement the Clean tool. */
@@ -108,7 +108,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove registry information for a node or a machine"s, "nImOclean node"s, 2024,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove Registry information for a node or a machine"s, "nImOclean node"s, 2024,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

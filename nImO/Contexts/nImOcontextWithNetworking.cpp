@@ -71,16 +71,22 @@ static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, nImO
 /*! @brief The multicast connection to be used for the Registry, if none is specified in the configuration file. */
 static nImO::Connection kDefaultRegistryConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1956};
 
-/*! @brief The registry launch options value to be used if none is specified in the configuration file. */
+/*! @brief The Registry launch options value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryLaunchOptions{""s};
 
-/*! @brief The registry launch path value to be used if none is specified in the configuration file. */
+/*! @brief The Registry launch path value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryLaunchPath{"$$/nImOregistry"s};
 
-/*! @brief The registry search retries value to be used if none is specified in the configuration file. */
+/*! @brief The Registry mode value to be used if none is specified in the configuration file. */
+static const nImO::RegistryMode kDefaultRegistryMode{nImO::RegistryMode::kBoth};
+
+/*! @brief The Registry mDNS name value to be used if none is specified in the configuration file. */
+static const std::string    kDefaultRegistryName{"_nimo_registry"s};
+
+/*! @brief The Registry search retries value to be used if none is specified in the configuration file. */
 constexpr int   kDefaultRegistryRetries{5};
 
-/*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
+/*! @brief The Registry search timeout value to be used if none is specified in the configuration file. */
 constexpr int   kDefaultRegistryTimeout{1};
 
 /*! @brief The multicast connection to be used for status reporting, if none is specified in the configuration file. */
@@ -94,6 +100,12 @@ static const std::string    kLoggerPortKey{"logger port"s};
 
 /*! @brief The key for the Registry multicast address in the configuration file. */
 static const std::string    kRegistryAddressKey{"registry address"s};
+
+/*! @brief The key for the mode of the Registry. */
+static const std::string    kRegistryModeKey{"registry mode"s};
+
+/*! @brief The key for the mDNS name of the Registry to support multiple nImO networks on a LAN. */
+static const std::string    kRegistryNameKey{"registry name"s};
 
 /*! @brief The key for the options to apply when autolaunching the Registry. */
 static const std::string    kRegistryOptionsKey{"registry options"s};
@@ -145,7 +157,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
      const bool             logging,
      const int              numReservedThreads) :
         inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _registryConnection{kDefaultRegistryConnection},
-        _statusConnection{kDefaultStatusConnection}
+        _registryMode{kDefaultRegistryMode}, _registryName{kDefaultRegistryName}, _statusConnection{kDefaultStatusConnection}
 {
     ODL_ENTER(); //####
     ODL_S1s(tagForLogging); //####
@@ -340,6 +352,61 @@ nImO::ContextWithNetworking::ContextWithNetworking
             _logger = std::make_shared<Logger>(getService(), tagForLogging, _logConnection);
             ODL_P1(_logger.get()); //####
         }
+        retValue = GetConfiguredValue(kRegistryModeKey);
+        if (retValue)
+        {
+            SpValue actualValue{*retValue};
+            auto    asString{actualValue->asString()};
+
+            if (nullptr == asString)
+            {
+                std::cerr << "Invalid mode (" << kRegistryModeKey << ") in configuration file; using default mode.\n";
+                _registryMode = kDefaultRegistryMode;
+            }
+            else
+            {
+                auto    requested{asString->getValue()};
+
+                if (requested == "mdns"s)
+                {
+                    _registryMode = RegistryMode::kMDNS;
+                }
+                else
+                {
+                    if (requested == "multicast"s)
+                    {
+                        _registryMode = RegistryMode::kMulticast;
+                    }
+                    else
+                    {
+                        if (requested == "both"s)
+                        {
+                            _registryMode = RegistryMode::kBoth;
+                        }
+                        else
+                        {
+                            std::cerr << "Invalid mode (" << kRegistryModeKey << ") in configuration file; using default mode.\n";
+                        }
+                    }
+                }
+            }
+        }
+        retValue = GetConfiguredValue(kRegistryNameKey);
+        if (retValue)
+        {
+            SpValue actualValue{*retValue};
+            auto    asString{actualValue->asString()};
+
+            if (nullptr == asString)
+            {
+                std::cerr << "Invalid name (" << kRegistryNameKey << ") in configuration file; using default name.\n";
+                _registryName = kDefaultRegistryName;
+            }
+            else
+            {
+                _registryName = asString->getValue();
+            }
+        }
         retValue = GetConfiguredValue(kRegistryOptionsKey);
         if (retValue)
         {
@@ -385,7 +452,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             }
             if (3 < _registryLaunchPath.length())
             {
-                if (_registryLaunchPath.substr(0, 3) == "$$/")
+                if (_registryLaunchPath.substr(0, 3) == "$$/"s)
                 {
                     _registryLaunchPath = nImO_BIN_DIR_ + _registryLaunchPath.substr(3);
                 }

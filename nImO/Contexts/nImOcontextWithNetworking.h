@@ -150,6 +150,15 @@ namespace nImO
                 return _registryConnection;
             }
 
+            /*! @brief Return the full mDNS name of the Registry. */
+            inline std::string
+            getRegistryServiceName
+                (void)
+                const
+            {
+                return getRegistryName() + "._tcp.local."s;
+            }
+
             /*! @brief Return the address and port to use for logging.
              @return The address and port to use for logging.. */
             inline Connection
@@ -203,6 +212,24 @@ namespace nImO
                 const
             {
                 return _registryLaunchPath;
+            }
+
+            /*! @brief Return the mode of the Registry. */
+            inline RegistryMode
+            getRegistryMode
+                (void)
+                const
+            {
+                return _registryMode;
+            }
+
+            /*! @brief Return the mDNS name of the Registry. */
+            inline std::string
+            getRegistryName
+                (void)
+                const
+            {
+                return _registryName;
             }
 
             /*! @brief Return the maximum number of retries allowed for the search for an active Registry. */
@@ -268,20 +295,26 @@ namespace nImO
             /*! @brief @c true if logging has been enabled. */
             bool _loggingEnabled{false};
 
+            /*! @brief The multicast connection used for the Registry. */
+            Connection  _registryConnection{};
+
             /*! @brief The options to be applied when launching the Registry automatically. */
             Array   _registryLaunchOptions;
 
             /*! @brief The path to the Registry executable to be used when launching the Registry automatically. */
             std::string _registryLaunchPath;
 
+            /*! @brief The mode of the Registry. */
+            RegistryMode    _registryMode;
+
+            /*! @brief The mDNS name of the Registry. */
+            std::string _registryName;
+
             /*! @brief The maximum number of retries when searching for the Registry. */
             int _registrySearchRetries{0};
 
             /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
             int _registrySearchTimeout{0};
-
-            /*! @brief The multicast connection used for the Registry. */
-            Connection  _registryConnection{};
 
             /*! @brief The multicast connection used for status changes. */
             Connection  _statusConnection{};

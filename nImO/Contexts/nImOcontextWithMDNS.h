@@ -61,9 +61,6 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief The Registry service for MDNS queries. */
-# define NIMO_REGISTRY_SERVICE_NAME  "_nimo_registry._tcp.local."
-
 namespace nImO
 {
     // Forward references

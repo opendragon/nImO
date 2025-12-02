@@ -8,7 +8,7 @@ function list_commands
     echo "    adda       add an application"
     echo "    addc       add a channel to a node"
     echo "    bridge     connect two subnets"
-    echo "    check      return zero if the registry is detected"
+    echo "    check      return zero if the Registry is detected"
     echo "    clean      remove Registry information for a node or a machine"
     echo "    connect    connect two channels together"
     echo "    disconnect break the connection between two channels"

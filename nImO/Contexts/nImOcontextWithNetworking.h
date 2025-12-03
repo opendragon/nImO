@@ -156,7 +156,7 @@ namespace nImO
                 (void)
                 const
             {
-                return getRegistryName() + "._tcp.local."s;
+                return "_nimo_" + getRegistryName() + "._tcp.local."s;
             }
 
             /*! @brief Return the address and port to use for logging.
@@ -250,6 +250,20 @@ namespace nImO
                 return _registrySearchTimeout;
             }
 
+            /*! @brief Returns RegistryMode value corresponding to a name.
+             @param[in] aName The name of the RegistryMode to be converted.
+             @return The RegistryMode value corresponding to the name. */
+            static RegistryMode
+            modeFromName
+                (const std::string &    aName);
+
+            /*! @brief Returns the name corresponding to a RegistryMode value.
+             @param[in] aValue The RegistryMode value to be converted.
+             @return The standard name for the RegistryMode value. */
+            static std::string
+            modeToName
+                (const RegistryMode aValue);
+
             /*! @brief Set the command port for the next message.
              @param[in] port The command port number. */
             void
@@ -331,6 +345,18 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to a ContextWithNetworking. */
     using SpContextWithNetworking = std::shared_ptr<ContextWithNetworking>;
+
+    /*! @brief The standard name for either mode. */
+    extern const std::string    kModeBothName;
+
+    /*! @brief The standard name for the mDNS mode. */
+    extern const std::string    kModeMdnsName;
+
+    /*! @brief The standard name for the multicast mode. */
+    extern const std::string    kModeMulticastName;
+
+    /*! @brief The standard name for an unknown mode. */
+    extern const std::string    kModeUnknownName;
 
 } // nImO
 

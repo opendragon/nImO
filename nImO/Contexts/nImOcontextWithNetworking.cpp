@@ -43,6 +43,9 @@
 #include <BasicTypes/nImOstring.h>
 #include <nImOstandardOptions.h>
 
+#include <regex>
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -65,6 +68,9 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief A regular expression describing the syntax of a Registry name. */
+static std::regex   lNameMatch{"^[[:alnum:]][[:alnum:]_]*$", std::regex::extended};
+
 /*! @brief The multicast connection to be used for logging, if none is specified in the configuration file. */
 static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1954};
 
@@ -81,7 +87,7 @@ static const std::string    kDefaultRegistryLaunchPath{"$$/nImOregistry"s};
 static const nImO::RegistryMode kDefaultRegistryMode{nImO::RegistryMode::kBoth};
 
 /*! @brief The Registry mDNS name value to be used if none is specified in the configuration file. */
-static const std::string    kDefaultRegistryName{"_nimo_registry"s};
+static const std::string    kDefaultRegistryName{"registry_1"s};
 
 /*! @brief The Registry search retries value to be used if none is specified in the configuration file. */
 constexpr int   kDefaultRegistryRetries{5};
@@ -127,6 +133,14 @@ static const std::string    kStatusAddressKey{"status address"s};
 
 /*! @brief The key for the status multicast port in the configuration file. */
 static const std::string    kStatusPortKey{"status port"s};
+
+const std::string   nImO::kModeBothName{"both"s}; // must be lower-case!
+
+const std::string   nImO::kModeMdnsName{"mdns"s}; // must be lower-case!
+
+const std::string   nImO::kModeMulticastName{"multicast"s}; // must be lower-case!
+
+const std::string   nImO::kModeUnknownName{"unknown"s};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -366,28 +380,15 @@ nImO::ContextWithNetworking::ContextWithNetworking
             else
             {
                 auto    requested{asString->getValue()};
+                auto    mode{modeFromName(requested)};
 
-                if (requested == "mdns"s)
+                if (RegistryMode::kUnknown == mode)
                 {
-                    _registryMode = RegistryMode::kMDNS;
+                    std::cerr << "Invalid mode (" << kRegistryModeKey << ") in configuration file; using default mode.\n";
                 }
                 else
                 {
-                    if (requested == "multicast"s)
-                    {
-                        _registryMode = RegistryMode::kMulticast;
-                    }
-                    else
-                    {
-                        if (requested == "both"s)
-                        {
-                            _registryMode = RegistryMode::kBoth;
-                        }
-                        else
-                        {
-                            std::cerr << "Invalid mode (" << kRegistryModeKey << ") in configuration file; using default mode.\n";
-                        }
-                    }
+                    _registryMode = mode;
                 }
             }
         }
@@ -404,7 +405,17 @@ nImO::ContextWithNetworking::ContextWithNetworking
             }
             else
             {
-                _registryName = asString->getValue();
+                auto    candidate{asString->getValue()};
+
+                if (std::regex_match(candidate, lNameMatch))
+                {
+                    _registryName = candidate;
+                }
+                else
+                {
+                    std::cerr << "Invalid name (" << kRegistryNameKey << ") in configuration file; using default name.\n";
+                    _registryName = kDefaultRegistryName;
+                }
             }
         }
         retValue = GetConfiguredValue(kRegistryOptionsKey);
@@ -626,6 +637,68 @@ nImO::ContextWithNetworking::asUtilityContext
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
 } // nImO::ContextWithNetworking::asUtilityContext
+
+nImO::RegistryMode
+nImO::ContextWithNetworking::modeFromName
+    (const std::string &    aName)
+{
+    ODL_ENTER(); //####
+    ODL_S1s(aName); //####
+    auto    mode{RegistryMode::kUnknown};
+    auto    nameToCheck{ConvertToLowerCase(aName)};
+
+    if (nameToCheck == modeToName(RegistryMode::kBoth))
+    {
+        mode = RegistryMode::kBoth;
+    }
+    else
+    {
+        if (nameToCheck == modeToName(RegistryMode::kMDNS))
+        {
+            mode = RegistryMode::kMDNS;
+        }
+        else
+        {
+            if (nameToCheck == modeToName(RegistryMode::kMulticast))
+            {
+                mode = RegistryMode::kMulticast;
+            }
+        }
+    }
+    ODL_EXIT_I(StaticCast(int, mode)); //####
+    return mode;
+} // nImO::ContextWithNetworking::modeFromName
+
+std::string
+nImO::ContextWithNetworking::modeToName
+    (const RegistryMode aValue)
+{
+    ODL_ENTER(); //####
+    ODL_I1(StaticCast(int64_t, aValue)); //####
+    std::string result;
+
+    switch (aValue)
+    {
+        case RegistryMode::kBoth :
+            result = kModeBothName;
+            break;
+
+        case RegistryMode::kMDNS :
+            result = kModeMdnsName;
+            break;
+
+        case RegistryMode::kMulticast :
+            result = kModeMulticastName;
+            break;
+
+        default :
+            result = kModeUnknownName;
+            break;
+
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ContextWithNetworking::modeToName
 
 bool
 nImO::ContextWithNetworking::report

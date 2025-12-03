@@ -63,8 +63,13 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief A regular expression describing the name component of a ChannelName. */
 #define NAME_MATCH_STRING       "([[:alnum:]_][[:alnum:]_.-]*)"
+
+/*! @brief A regular expression describing the path component of a ChannelName. */
 #define PATH_MATCH_STRING       "(/" NAME_MATCH_STRING ")+"
+
+/*! @brief A regular expression describing the transport component of a ChannelName. */
 #define TRANSPORT_MATCH_STRING  "([Uu][Dd][Pp]|[Tt][Cc][Pp]|[Aa][Nn][Yy])"
 
 /*! @brief The character that starts the protocol part of a ChannelName. */
@@ -363,7 +368,7 @@ nImO::ChannelName::transportToName
             result = kProtocolUdpName;
             break;
 
-        case TransportType::kUnknown :
+        default :
             result = kProtocolUnknownName;
             break;
 

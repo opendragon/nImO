@@ -113,6 +113,8 @@ nImO::Logger::Logger
         _commandPort{nullptr}, _connection{logConnection}, _endpoint{BAIP::address_v4(_connection._address), _connection._port},
         _socket{*service, _endpoint.protocol()}
 {
+    ODL_ENTER(); //####
+    ODL_S1s(tagForLogging); //####
     _computerName = std::make_shared<String>(GetShortComputerName());
     _tag = std::make_shared<String>(tagForLogging);
     ODL_EXIT_P(this); //####
@@ -279,6 +281,16 @@ nImO::Logger::setCommandPort
     }
     ODL_OBJEXIT(); //####
 } // nImO::Logger::setCommandPort
+
+void
+nImO::Logger::setTag
+    (const std::string &    newTag)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s(newTag); //####
+    _tag = std::make_shared<String>(newTag);
+    ODL_OBJEXIT(); //####
+} // nImO::Logger::setTag
 
 #if defined(__APPLE__)
 # pragma mark Global functions

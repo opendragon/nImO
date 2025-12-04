@@ -362,13 +362,15 @@ announcementServiceCallback
 #endif // defined(__APPLE__)
 
 nImO::RegistryContext::RegistryContext
-    (const int      argc,
-     Ptr(Ptr(char)) argv,
-     const bool     logging,
-     const bool     startAnnouncer) :
-        inherited{argc, argv, "Registry"s, logging, true}, _startAnnouncer{startAnnouncer}
+    (const int              argc,
+     Ptr(Ptr(char))         argv,
+     const std::string &    tagForLogging,
+     const bool             logging,
+     const bool             startAnnouncer) :
+        inherited{argc, argv, tagForLogging, logging, true}, _startAnnouncer{startAnnouncer}
 {
     ODL_ENTER(); //####
+    ODL_S1s(tagForLogging); //####
     ODL_B1(logging); //####
     try
     {

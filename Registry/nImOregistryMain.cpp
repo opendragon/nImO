@@ -136,6 +136,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
+    std::string             thisService{"Registry"s};
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
@@ -158,9 +159,10 @@ main
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::DisableWaitForRegistry(true);
-            auto    ourContext{std::make_shared<nImO::RegistryContext>(argc, argv, optionValues._logging, true)};
+            auto    ourContext{std::make_shared<nImO::RegistryContext>(argc, argv, thisService + "-"s, optionValues._logging, true)};
             auto    statusConnection{ourContext->getStatusInfo()};
 
+            ourContext->setTag(thisService + "-"s + ourContext->getRegistryName());
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (ourContext->findTheRegistry(true))
             {

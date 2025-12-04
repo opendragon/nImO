@@ -711,8 +711,6 @@ nImO::ContextWithNetworking::report
 
     if (_loggingEnabled)
     {
-        std::lock_guard<std::mutex> loggerGuard{_loggerLock};
-
         if (nullptr == _logger)
         {
             okSoFar = true;
@@ -720,6 +718,8 @@ nImO::ContextWithNetworking::report
         }
         else
         {
+            std::lock_guard<std::mutex> loggerGuard{_loggerLock};
+
             okSoFar = _logger->report(stringToSend);
             ODL_B1(okSoFar); //####
         }
@@ -744,8 +744,6 @@ nImO::ContextWithNetworking::report
 
     if (_loggingEnabled)
     {
-        std::lock_guard<std::mutex> loggerGuard{_loggerLock};
-
         if (nullptr == _logger)
         {
             okSoFar = true;
@@ -753,6 +751,8 @@ nImO::ContextWithNetworking::report
         }
         else
         {
+            std::lock_guard<std::mutex> loggerGuard{_loggerLock};
+
             okSoFar = _logger->report(stringToSend);
             ODL_B1(okSoFar); //####
         }
@@ -777,8 +777,6 @@ nImO::ContextWithNetworking::report
 
     if (_loggingEnabled)
     {
-        std::lock_guard<std::mutex> loggerGuard{_loggerLock};
-
         if (nullptr == _logger)
         {
             okSoFar = true;
@@ -786,6 +784,8 @@ nImO::ContextWithNetworking::report
         }
         else
         {
+            std::lock_guard<std::mutex> loggerGuard{_loggerLock};
+
             okSoFar = _logger->report(stringsToSend);
             ODL_B1(okSoFar); //####
         }
@@ -811,6 +811,19 @@ nImO::ContextWithNetworking::setCommandPort
     }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithNetworking::setCommandPort
+
+void
+nImO::ContextWithNetworking::setTag
+    (const std::string &    newTag)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s(newTag); //####
+    if (_loggingEnabled && (nullptr != _logger))
+    {
+        _logger->setTag(newTag);
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithNetworking::setTag
 
 #if defined(__APPLE__)
 # pragma mark Global functions

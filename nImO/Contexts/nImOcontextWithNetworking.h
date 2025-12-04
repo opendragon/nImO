@@ -150,6 +150,15 @@ namespace nImO
                 return _registryConnection;
             }
 
+            /*! @brief Return the mDNS name of the Registry. */
+            inline std::string
+            getRegistryName
+                (void)
+                const
+            {
+                return _registryName;
+            }
+
             /*! @brief Return the full mDNS name of the Registry. */
             inline std::string
             getRegistryServiceName
@@ -193,6 +202,12 @@ namespace nImO
                 (const StdStringVector &    stringsToSend)
                 const;
 
+            /*! @brief Set the symbolic name for the current process.
+             @param[in] newTag The symbolic name for the current process. */
+            void
+            setTag
+                (const std::string &    newTag);
+
         protected :
             // Protected methods.
 
@@ -221,15 +236,6 @@ namespace nImO
                 const
             {
                 return _registryMode;
-            }
-
-            /*! @brief Return the mDNS name of the Registry. */
-            inline std::string
-            getRegistryName
-                (void)
-                const
-            {
-                return _registryName;
             }
 
             /*! @brief Return the maximum number of retries allowed for the search for an active Registry. */

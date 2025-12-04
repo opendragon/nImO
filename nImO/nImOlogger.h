@@ -127,6 +127,12 @@ namespace nImO
             setCommandPort
                 (const IPv4Port commandPort);
 
+            /*! @brief Set the symbolic name for the current process.
+             @param[in] newTag The symbolic name for the current process. */
+            void
+            setTag
+                (const std::string &    newTag);
+
         protected :
             // Protected methods.
 

@@ -266,10 +266,10 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::ContextWithNetworking             ourContext{"watch"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
-            auto                                    registryConnection{ourContext.getRegistryInfo()};
+            auto                                    registrySearchConnection{ourContext.gerRegistrySearchInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
-            std::shared_ptr<ReceiveOnMessagePort>   registryReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), registryConnection)};
+            std::shared_ptr<ReceiveOnMessagePort>   registrySearchReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), registrySearchConnection)};
             std::shared_ptr<ReceiveOnMessagePort>   statusReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection)};
 
             nImO::SetSpecialBreakObject(new LogBreakHandler());

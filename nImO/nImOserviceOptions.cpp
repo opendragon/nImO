@@ -523,6 +523,10 @@ nImO::ProcessServiceOptions
                                 keepGoing = false;
                                 ODL_B1(keepGoing); //####
                             }
+                            if (keepGoing && optionValues._signal)
+                            {
+                                optionValues._inType = optionValues._outType = kSignalType;
+                            }
                             if (keepGoing && (nullptr != arguments))
                             {
                                 for (int ii{0}; ii < parse.nonOptionsCount(); ++ii)

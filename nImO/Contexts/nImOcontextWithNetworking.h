@@ -131,23 +131,13 @@ namespace nImO
                 const;
 
             /*! @brief Return the address and port to use for logging.
-             @return The address and port to use for logging.. */
+             @return The address and port to use for logging. */
             inline Connection
             getLoggingInfo
                 (void)
                 const
             {
                 return _logConnection;
-            }
-
-            /*! @brief Return the address and port to use for logging.
-             @return The address and port to use for logging.. */
-            inline Connection
-            getRegistryInfo
-                (void)
-                const
-            {
-                return _registryConnection;
             }
 
             /*! @brief Return the mDNS name of the Registry. */
@@ -157,6 +147,16 @@ namespace nImO
                 const
             {
                 return _registryName;
+            }
+
+            /*! @brief Return the address and port to use for locating the Registry.
+             @return The address and port to use for searching for the Registry. */
+            inline Connection
+            gerRegistrySearchInfo
+                (void)
+                const
+            {
+                return _registrySearchConnection;
             }
 
             /*! @brief Return the full mDNS name of the Registry. */
@@ -229,13 +229,13 @@ namespace nImO
                 return _registryLaunchPath;
             }
 
-            /*! @brief Return the mode of the Registry. */
+            /*! @brief Return the search mode of the Registry. */
             inline RegistryMode
-            getRegistryMode
+            getRegistrySearchMode
                 (void)
                 const
             {
-                return _registryMode;
+                return _registrySearchMode;
             }
 
             /*! @brief Return the maximum number of retries allowed for the search for an active Registry. */
@@ -315,20 +315,20 @@ namespace nImO
             /*! @brief @c true if logging has been enabled. */
             bool _loggingEnabled{false};
 
-            /*! @brief The multicast connection used for the Registry. */
-            Connection  _registryConnection{};
-
             /*! @brief The options to be applied when launching the Registry automatically. */
             Array   _registryLaunchOptions;
 
             /*! @brief The path to the Registry executable to be used when launching the Registry automatically. */
             std::string _registryLaunchPath;
 
-            /*! @brief The mode of the Registry. */
-            RegistryMode    _registryMode;
-
             /*! @brief The mDNS name of the Registry. */
             std::string _registryName;
+
+            /*! @brief The multicast search connection used for the Registry. */
+            Connection  _registrySearchConnection{};
+
+            /*! @brief The search mode of the Registry. */
+            RegistryMode    _registrySearchMode;
 
             /*! @brief The maximum number of retries when searching for the Registry. */
             int _registrySearchRetries{0};

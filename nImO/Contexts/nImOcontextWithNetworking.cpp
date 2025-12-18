@@ -74,23 +74,23 @@ static std::regex   lNameMatch{"^[[:alnum:]][[:alnum:]_]*$", std::regex::extende
 /*! @brief The multicast connection to be used for logging, if none is specified in the configuration file. */
 static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1954};
 
-/*! @brief The multicast connection to be used for the Registry, if none is specified in the configuration file. */
-static nImO::Connection kDefaultRegistryConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1956};
-
 /*! @brief The Registry launch options value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryLaunchOptions{""s};
 
 /*! @brief The Registry launch path value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryLaunchPath{"$$/nImOregistry"s};
 
-/*! @brief The Registry mode value to be used if none is specified in the configuration file. */
-static const nImO::RegistryMode kDefaultRegistryMode{nImO::RegistryMode::kBoth};
-
 /*! @brief The Registry mDNS name value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryName{"registry_1"s};
 
+/*! @brief The multicast connection to be used for the search for the Registry, if none is specified in the configuration file. */
+static nImO::Connection kDefaultRegistrySearchConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1956};
+
+/*! @brief The Registry mode value to be used if none is specified in the configuration file. */
+static const nImO::RegistryMode kDefaultRegistrySearchMode{nImO::RegistryMode::kBoth};
+
 /*! @brief The Registry search retries value to be used if none is specified in the configuration file. */
-constexpr int   kDefaultRegistryRetries{5};
+constexpr int   kDefaultRegistrySearchRetries{5};
 
 /*! @brief The Registry search timeout value to be used if none is specified in the configuration file. */
 constexpr int   kDefaultRegistryTimeout{1};
@@ -104,12 +104,6 @@ static const std::string    kLoggerAddressKey{"logger address"s};
 /*! @brief The key for the logger multicast port in the configuration file. */
 static const std::string    kLoggerPortKey{"logger port"s};
 
-/*! @brief The key for the Registry multicast address in the configuration file. */
-static const std::string    kRegistryAddressKey{"registry address"s};
-
-/*! @brief The key for the mode of the Registry. */
-static const std::string    kRegistryModeKey{"registry mode"s};
-
 /*! @brief The key for the mDNS name of the Registry to support multiple nImO networks on a LAN. */
 static const std::string    kRegistryNameKey{"registry name"s};
 
@@ -119,11 +113,17 @@ static const std::string    kRegistryOptionsKey{"registry options"s};
 /*! @brief The key for the path to the Registry executable to use when autolaunching the Registry. */
 static const std::string    kRegistryPathKey{"registry path"s};
 
-/*! @brief The key for the Registry multicast port in the configuration file. */
-static const std::string    kRegistryPortKey{"registry port"s};
-
 /*! @brief The key for the maximum number of attempts to find a running Registry. */
-static const std::string    kRegistryRetriesKey{"registry search retries"s};
+static const std::string    kRegistrySearchRetriesKey{"registry search retries"s};
+
+/*! @brief The key for the Registry search multicast address in the configuration file. */
+static const std::string    kRegistrySearchAddressKey{"registry search address"s};
+
+/*! @brief The key for the search mode of the Registry. */
+static const std::string    kRegistrySearchModeKey{"registry search mode"s};
+
+/*! @brief The key for the Registry multicast search port in the configuration file. */
+static const std::string    kRegistrySearchPortKey{"registry search port"s};
 
 /*! @brief The key for the maximum number of seconds to watch for a running Registry. */
 static const std::string    kRegistryTimeoutKey{"registry search timeout"s};
@@ -170,8 +170,9 @@ nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    tagForLogging,
      const bool             logging,
      const int              numReservedThreads) :
-        inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _registryConnection{kDefaultRegistryConnection},
-        _registryMode{kDefaultRegistryMode}, _registryName{kDefaultRegistryName}, _statusConnection{kDefaultStatusConnection}
+        inherited{}, _logConnection{kDefaultLogConnection}, _loggingEnabled{logging}, _registryName{kDefaultRegistryName},
+        _registrySearchConnection{kDefaultRegistrySearchConnection}, _registrySearchMode{kDefaultRegistrySearchMode},
+        _statusConnection{kDefaultStatusConnection}
 {
     ODL_ENTER(); //####
     ODL_S1s(tagForLogging); //####
@@ -262,8 +263,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
             }
         }
-        // Get the address and port to use for the Registry.
-        retValue = GetConfiguredValue(kRegistryAddressKey);
+        // Get the address and port to use to search for the Registry.
+        retValue = GetConfiguredValue(kRegistrySearchAddressKey);
         if (retValue)
         {
             SpValue actualValue{*retValue};
@@ -271,7 +272,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr == asAddress)
             {
-                std::cerr << "Invalid address (" << kRegistryAddressKey << ") in configuration file; ignored.\n";
+                std::cerr << "Invalid address (" << kRegistrySearchAddressKey << ") in configuration file; ignored.\n";
             }
             else
             {
@@ -279,15 +280,15 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
                 if (239 == (tempValue >> 24))
                 {
-                    _registryConnection._address = tempValue;
+                    _registrySearchConnection._address = tempValue;
                 }
                 else
                 {
-                    std::cerr << "Invalid address (" << kRegistryAddressKey << ") in configuration file; using default address.\n";
+                    std::cerr << "Invalid address (" << kRegistrySearchAddressKey << ") in configuration file; using default address.\n";
                 }
             }
         }
-        retValue = GetConfiguredValue(kRegistryPortKey);
+        retValue = GetConfiguredValue(kRegistrySearchPortKey);
         if (retValue)
         {
             SpValue actualValue{*retValue};
@@ -295,7 +296,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr == asInteger)
             {
-                std::cerr << "Invalid port (" << kRegistryPortKey << ") in configuration file; ignored.\n";
+                std::cerr << "Invalid port (" << kRegistrySearchPortKey << ") in configuration file; ignored.\n";
             }
             else
             {
@@ -303,11 +304,11 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
-                    _registryConnection._port = StaticCast(IPv4Port, tempValue);
+                    _registrySearchConnection._port = StaticCast(IPv4Port, tempValue);
                 }
                 else
                 {
-                    std::cerr << "Invalid port (" << kRegistryPortKey << ") in configuration file; using default port.\n";
+                    std::cerr << "Invalid port (" << kRegistrySearchPortKey << ") in configuration file; using default port.\n";
                 }
             }
         }
@@ -366,7 +367,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             _logger = std::make_shared<Logger>(getService(), tagForLogging, _logConnection);
             ODL_P1(_logger.get()); //####
         }
-        retValue = GetConfiguredValue(kRegistryModeKey);
+        retValue = GetConfiguredValue(kRegistrySearchModeKey);
         if (retValue)
         {
             SpValue actualValue{*retValue};
@@ -374,8 +375,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr == asString)
             {
-                std::cerr << "Invalid mode (" << kRegistryModeKey << ") in configuration file; using default mode.\n";
-                _registryMode = kDefaultRegistryMode;
+                std::cerr << "Invalid mode (" << kRegistrySearchModeKey << ") in configuration file; using default mode.\n";
+                _registrySearchMode = kDefaultRegistrySearchMode;
             }
             else
             {
@@ -384,11 +385,11 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
                 if (RegistryMode::kUnknown == mode)
                 {
-                    std::cerr << "Invalid mode (" << kRegistryModeKey << ") in configuration file; using default mode.\n";
+                    std::cerr << "Invalid mode (" << kRegistrySearchModeKey << ") in configuration file; using default mode.\n";
                 }
                 else
                 {
-                    _registryMode = mode;
+                    _registrySearchMode = mode;
                 }
             }
         }
@@ -469,7 +470,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
             }
         }
-        retValue = GetConfiguredValue(kRegistryRetriesKey);
+        retValue = GetConfiguredValue(kRegistrySearchRetriesKey);
         if (retValue)
         {
             SpValue actualValue{*retValue};
@@ -477,8 +478,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr == asInteger)
             {
-                std::cerr << "Invalid timeout (" << kRegistryRetriesKey << ") in configuration file; using default.\n";
-                _registrySearchRetries = kDefaultRegistryRetries;
+                std::cerr << "Invalid retries (" << kRegistrySearchRetriesKey << ") in configuration file; using default.\n";
+                _registrySearchRetries = kDefaultRegistrySearchRetries;
             }
             else
             {
@@ -490,14 +491,14 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid timeout (" << kRegistryRetriesKey << ") in configuration file; using default.\n";
-                    _registrySearchRetries = kDefaultRegistryRetries;
+                    std::cerr << "Invalid retries (" << kRegistrySearchRetriesKey << ") in configuration file; using default.\n";
+                    _registrySearchRetries = kDefaultRegistrySearchRetries;
                 }
             }
         }
         else
         {
-            _registrySearchRetries = kDefaultRegistryRetries;
+            _registrySearchRetries = kDefaultRegistrySearchRetries;
         }
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
@@ -529,16 +530,16 @@ nImO::ContextWithNetworking::ContextWithNetworking
         {
             _registrySearchTimeout = kDefaultRegistryTimeout;
         }
-        if (_logConnection == _registryConnection)
+        if (_logConnection == _registrySearchConnection)
         {
-            throw "The logging connection and the Registry connection are the same."s;
+            throw "The logging connection and the Registry search connection are the same."s;
 
         }
         else
         {
-            if (_registryConnection == _statusConnection)
+            if (_registrySearchConnection == _statusConnection)
             {
-                throw "The Registry connection and the status connection are the same."s;
+                throw "The Registry search connection and the status connection are the same."s;
 
             }
             else

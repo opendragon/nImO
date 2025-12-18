@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Contexts/nImOcontextWithNetworking.h
+//  File:       nImO/Contexts/nImOnetworkingContext.h
 //
 //  Project:    nImO
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontextWithNetworking_H_))
-# define nImOcontextWithNetworking_H_ /* Header guard */
+#if (! defined(nImOnetworkingContext_H_))
+# define nImOnetworkingContext_H_ /* Header guard */
 
 # include <Containers/nImOarray.h>
 # include <Containers/nImOmessage.h>
@@ -59,7 +59,7 @@ namespace nImO
 {
 
     /*! @brief A class to provide support for an application that uses networking. */
-    class ContextWithNetworking : public Context
+    class NetworkingContext : public Context
     {
 
         public :
@@ -81,13 +81,13 @@ namespace nImO
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] numReservedThreads The number of threads which the application will need for itself. */
-            ContextWithNetworking
+            NetworkingContext
                 (const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const int              numReservedThreads = 0);
 
             /*! @brief The destructor. */
-            ~ContextWithNetworking
+            ~NetworkingContext
                 (void)
                 override;
 
@@ -347,10 +347,10 @@ namespace nImO
             WSADATA _wsaData;
 # endif // not MAC_OR_LINUX_OR_BSD_
 
-    }; // ContextWithNetworking
+    }; // NetworkingContext
 
-    /*! @brief A holder for a shared pointer to a ContextWithNetworking. */
-    using SpContextWithNetworking = std::shared_ptr<ContextWithNetworking>;
+    /*! @brief A holder for a shared pointer to a NetworkingContext. */
+    using SpNetworkingContext = std::shared_ptr<NetworkingContext>;
 
     /*! @brief The standard name for either mode. */
     extern const std::string    kModeBothName;
@@ -366,4 +366,4 @@ namespace nImO
 
 } // nImO
 
-#endif // not defined(nImOcontextWithNetworking_H_)
+#endif // not defined(nImOnetworkingContext_H_)

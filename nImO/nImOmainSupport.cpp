@@ -119,7 +119,7 @@ nImO::CatchSignal
 
 bool
 nImO::CloseConnection
-    (SpContextWithNetworking    context,
+    (SpNetworkingContext    context,
      const std::string &        nodeName,
      SpRegistryProxy            proxy,
      const std::string &        path,
@@ -309,7 +309,7 @@ nImO::SetSpecialBreakObject
 
 void
 nImO::StopConnection
-    (SpContextWithNetworking    ourContext,
+    (SpNetworkingContext    ourContext,
      Connection &               fromConnection,
      const std::string &        fromNode,
      const std::string &        fromPath,

@@ -43,7 +43,6 @@
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
-//#include <Contexts/nImOcontextWithMDNS.h>
 #include <nImOmainSupport.h>
 #include <ResponseHandlers/nImOaddAppToListResponseHandler.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
@@ -135,7 +134,7 @@
 #endif // defined(__APPLE__)
 
 nImO::RegistryProxy::RegistryProxy
-    (SpContextWithNetworking    context,
+    (SpNetworkingContext    context,
      const Connection &         connection) :
         _connection{connection}, _context{context}
 {

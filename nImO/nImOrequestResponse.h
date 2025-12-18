@@ -39,7 +39,7 @@
 #if (! defined(nImOrequestResponse_H_))
 # define nImOrequestResponse_H_ /* Header guard */
 
-# include <Contexts/nImOcontextWithNetworking.h>
+# include <Contexts/nImOnetworkingContext.h>
 # include <ResponseHandlers/nImOresponseHandler.h>
 # include <nImOregistryTypes.h>
 
@@ -66,7 +66,7 @@ namespace nImO
      @return Whether the request succeeded or failed. */
     SuccessOrFailure
     SendRequestWithArgumentsAndNonEmptyResponse
-        (SpContextWithNetworking    context,
+        (SpNetworkingContext    context,
          Connection &               connection,
          Ptr(ResponseHandler)       handler,
          Ptr(Array)                 arguments,
@@ -82,7 +82,7 @@ namespace nImO
      @return Whether the request succeeded or failed. */
     inline SuccessOrFailure
     SendRequestWithArgumentsAndEmptyResponse
-        (SpContextWithNetworking    context,
+        (SpNetworkingContext    context,
          Connection &               connection,
          Ptr(Array)                 arguments,
          const std::string &        requestKey,
@@ -99,7 +99,7 @@ namespace nImO
      @return Whether the request succeeded or failed. */
     inline SuccessOrFailure
     SendRequestWithNoArgumentsAndEmptyResponse
-        (SpContextWithNetworking    context,
+        (SpNetworkingContext    context,
          Connection &               connection,
          const std::string &        requestKey,
          const std::string &        responseKey)
@@ -116,7 +116,7 @@ namespace nImO
      @return Whether the request succeeded or failed. */
     inline SuccessOrFailure
     SendRequestWithNoArgumentsAndNonEmptyResponse
-        (SpContextWithNetworking    context,
+        (SpNetworkingContext    context,
          Connection &               connection,
          Ptr(ResponseHandler)       handler,
          const std::string &        requestKey,

@@ -40,7 +40,7 @@
 # define nImOregistry_H_ /* Header guard */
 
 # include <Containers/nImOset.h>
-# include <Contexts/nImOcontextWithNetworking.h>
+# include <Contexts/nImOnetworkingContext.h>
 # include <nImOregistryTypes.h>
 # include "sqlite3.h"
 
@@ -78,7 +78,7 @@ namespace nImO
              @param[in] owner The Context to be used for logging.
              @param[in] logging @c true if database activity is to be reported. */
             Registry
-                (SpContextWithNetworking    owner,
+                (SpNetworkingContext    owner,
                  const bool                 logging = false);
 
             /*! @brief The copy constructor.
@@ -534,7 +534,7 @@ namespace nImO
             Ptr(sqlite3)    _dbHandle{nullptr};
 
             /*! @brief The owning Context. */
-            SpContextWithNetworking _owner{};
+            SpNetworkingContext _owner{};
 
     }; // Registry
 

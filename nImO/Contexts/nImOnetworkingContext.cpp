@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Contexts/nImOcontextWithNetworking.cpp
+//  File:       nImO/Contexts/nImOnetworkingContext.cpp
 //
 //  Project:    nImO
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Contexts/nImOcontextWithNetworking.h>
+#include <Contexts/nImOnetworkingContext.h>
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOinteger.h>
@@ -146,13 +146,13 @@ const std::string   nImO::kModeUnknownName{"unknown"s};
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-bool nImO::ContextWithNetworking::gHasIpv4{false};
+bool nImO::NetworkingContext::gHasIpv4{false};
 
-bool nImO::ContextWithNetworking::gHasIpv6{false};
+bool nImO::NetworkingContext::gHasIpv6{false};
 
-struct sockaddr_in   nImO::ContextWithNetworking::gServiceAddressIpv4;
+struct sockaddr_in   nImO::NetworkingContext::gServiceAddressIpv4;
 
-struct sockaddr_in6  nImO::ContextWithNetworking::gServiceAddressIpv6;
+struct sockaddr_in6  nImO::NetworkingContext::gServiceAddressIpv6;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -166,7 +166,7 @@ struct sockaddr_in6  nImO::ContextWithNetworking::gServiceAddressIpv6;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ContextWithNetworking::ContextWithNetworking
+nImO::NetworkingContext::NetworkingContext
     (const std::string &    tagForLogging,
      const bool             logging,
      const int              numReservedThreads) :
@@ -559,9 +559,9 @@ nImO::ContextWithNetworking::ContextWithNetworking
         
     }
     ODL_EXIT_P(this); //####
-} // nImO::ContextWithNetworking::ContextWithNetworking
+} // nImO::NetworkingContext::NetworkingContext
 
-nImO::ContextWithNetworking::~ContextWithNetworking
+nImO::NetworkingContext::~NetworkingContext
     (void)
 {
     ODL_OBJENTER(); //####
@@ -576,71 +576,71 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     WSACleanup();
 #endif // not MAC_OR_LINUX_OR_BSD_
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithNetworking::~ContextWithNetworking
+} // nImO::NetworkingContext::~NetworkingContext
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 Ptr(nImO::InputOutputContext)
-nImO::ContextWithNetworking::asInputOutputContext
+nImO::NetworkingContext::asInputOutputContext
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
-} // nImO::ContextWithNetworking::asInputOutputContext
+} // nImO::NetworkingContext::asInputOutputContext
 
 CPtr(nImO::InputOutputContext)
-nImO::ContextWithNetworking::asInputOutputContext
+nImO::NetworkingContext::asInputOutputContext
     (void)
     const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
-} // nImO::ContextWithNetworking::asInputOutputContext
+} // nImO::NetworkingContext::asInputOutputContext
 
 Ptr(nImO::ServiceContext)
-nImO::ContextWithNetworking::asServiceContext
+nImO::NetworkingContext::asServiceContext
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
-} // nImO::ContextWithNetworking::asServiceContext
+} // nImO::NetworkingContext::asServiceContext
 
 CPtr(nImO::ServiceContext)
-nImO::ContextWithNetworking::asServiceContext
+nImO::NetworkingContext::asServiceContext
     (void)
     const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
-} // nImO::ContextWithNetworking::asServiceContext
+} // nImO::NetworkingContext::asServiceContext
 
 Ptr(nImO::UtilityContext)
-nImO::ContextWithNetworking::asUtilityContext
+nImO::NetworkingContext::asUtilityContext
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
-} // nImO::ContextWithNetworking::asUtilityContext
+} // nImO::NetworkingContext::asUtilityContext
 
 CPtr(nImO::UtilityContext)
-nImO::ContextWithNetworking::asUtilityContext
+nImO::NetworkingContext::asUtilityContext
     (void)
     const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
-} // nImO::ContextWithNetworking::asUtilityContext
+} // nImO::NetworkingContext::asUtilityContext
 
 nImO::RegistryMode
-nImO::ContextWithNetworking::modeFromName
+nImO::NetworkingContext::modeFromName
     (const std::string &    aName)
 {
     ODL_ENTER(); //####
@@ -668,10 +668,10 @@ nImO::ContextWithNetworking::modeFromName
     }
     ODL_EXIT_I(StaticCast(int, mode)); //####
     return mode;
-} // nImO::ContextWithNetworking::modeFromName
+} // nImO::NetworkingContext::modeFromName
 
 std::string
-nImO::ContextWithNetworking::modeToName
+nImO::NetworkingContext::modeToName
     (const RegistryMode aValue)
 {
     ODL_ENTER(); //####
@@ -699,10 +699,10 @@ nImO::ContextWithNetworking::modeToName
     }
     ODL_EXIT_s(result); //####
     return result;
-} // nImO::ContextWithNetworking::modeToName
+} // nImO::NetworkingContext::modeToName
 
 bool
-nImO::ContextWithNetworking::report
+nImO::NetworkingContext::report
     (CPtr(char) stringToSend)
     const
 {
@@ -732,10 +732,10 @@ nImO::ContextWithNetworking::report
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ContextWithNetworking::report
+} // nImO::NetworkingContext::report
 
 bool
-nImO::ContextWithNetworking::report
+nImO::NetworkingContext::report
     (const std::string &    stringToSend)
     const
 {
@@ -765,10 +765,10 @@ nImO::ContextWithNetworking::report
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ContextWithNetworking::report
+} // nImO::NetworkingContext::report
 
 bool
-nImO::ContextWithNetworking::report
+nImO::NetworkingContext::report
     (const StdStringVector &    stringsToSend)
     const
 {
@@ -798,10 +798,10 @@ nImO::ContextWithNetworking::report
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ContextWithNetworking::report
+} // nImO::NetworkingContext::report
 
 void
-nImO::ContextWithNetworking::setCommandPort
+nImO::NetworkingContext::setCommandPort
     (const IPv4Port commandPort)
 {
     ODL_OBJENTER(); //####
@@ -811,10 +811,10 @@ nImO::ContextWithNetworking::setCommandPort
         _logger->setCommandPort(commandPort);
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithNetworking::setCommandPort
+} // nImO::NetworkingContext::setCommandPort
 
 void
-nImO::ContextWithNetworking::setTag
+nImO::NetworkingContext::setTag
     (const std::string &    newTag)
 {
     ODL_OBJENTER(); //####
@@ -824,7 +824,7 @@ nImO::ContextWithNetworking::setTag
         _logger->setTag(newTag);
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithNetworking::setTag
+} // nImO::NetworkingContext::setTag
 
 #if defined(__APPLE__)
 # pragma mark Global functions

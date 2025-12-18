@@ -227,7 +227,7 @@ nImO::InChannel::setUp
         _udpSocket->open(inEndpoint.protocol());
         _udpSocket->set_option(BUDP::socket::reuse_address(true));
         _udpSocket->bind(inEndpoint);
-        _connection._address = ntohl(ContextWithNetworking::gServiceAddressIpv4.sin_addr.s_addr);
+        _connection._address = ntohl(NetworkingContext::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket->local_endpoint().port();
         okSoFar = true;
         ODL_B1(okSoFar); //####
@@ -242,7 +242,7 @@ nImO::InChannel::setUp
             _tcpAcceptor = std::make_shared<BTCP::acceptor>(*_context.getService());
             _tcpAcceptor->open(BTCP::v4());
             _tcpAcceptor->listen();
-            _connection._address = ntohl(ContextWithNetworking::gServiceAddressIpv4.sin_addr.s_addr);
+            _connection._address = ntohl(NetworkingContext::gServiceAddressIpv4.sin_addr.s_addr);
             _connection._port = _tcpAcceptor->local_endpoint().port();
 #if defined(nImO_ChattyTcpUdpLogging)
             _context.report("acceptor port = "s + std::to_string(_connection._port) + "."s);

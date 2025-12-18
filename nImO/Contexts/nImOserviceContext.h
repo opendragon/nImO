@@ -39,7 +39,7 @@
 #if (! defined(nImOserviceContext_H_))
 # define nImOserviceContext_H_ /* Header guard */
 
-# include <Contexts/nImOcontextWithMDNS.h>
+# include <Contexts/nImOsearchContext.h>
 # include <nImOcallbackFunction.h>
 
 # if defined(__APPLE__)
@@ -65,7 +65,7 @@ namespace nImO
     using SpCommandSession = std::shared_ptr<CommandSession>;
 
     /*! @brief A class to provide support for an application that uses a command port. */
-    class ServiceContext : public ContextWithMDNS
+    class ServiceContext : public SearchContext
     {
 
         public :
@@ -78,7 +78,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithMDNS;
+            using inherited = SearchContext;
 
         public :
             // Public methods.

@@ -39,7 +39,7 @@
 #include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOarray.h>
-#include <Contexts/nImOcontextWithNetworking.h>
+#include <Contexts/nImOnetworkingContext.h>
 #include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
@@ -114,7 +114,7 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::ContextWithNetworking ourContext{"post"s, optionValues._logging};
+            nImO::NetworkingContext ourContext{"post"s, optionValues._logging};
             auto                        header{secondArg->getCurrentValue()};
             bool                        readFromStdin{firstArg->getCurrentValue()};
 

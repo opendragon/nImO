@@ -577,11 +577,11 @@
 		F6E510AA2A1967CE00D52E80 /* nImOserviceContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOserviceContext.cpp; path = nImO/Contexts/nImOserviceContext.cpp; sourceTree = "<group>"; };
 		F6E510AB2A1967CE00D52E80 /* nImOsinkContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsinkContext.cpp; path = nImO/Contexts/nImOsinkContext.cpp; sourceTree = "<group>"; };
 		F6E510AC2A1967CE00D52E80 /* nImOutilityContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOutilityContext.cpp; path = nImO/Contexts/nImOutilityContext.cpp; sourceTree = "<group>"; };
-		F6E510AD2A1967CE00D52E80 /* nImOcontextWithMDNS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithMDNS.cpp; path = nImO/Contexts/nImOcontextWithMDNS.cpp; sourceTree = "<group>"; };
+		F6E510AD2A1967CE00D52E80 /* nImOsearchContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsearchContext.cpp; path = nImO/Contexts/nImOsearchContext.cpp; sourceTree = "<group>"; };
 		F6E510AE2A1967CE00D52E80 /* nImOinputOutputContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinputOutputContext.cpp; path = nImO/Contexts/nImOinputOutputContext.cpp; sourceTree = "<group>"; };
-		F6E510AF2A1967CE00D52E80 /* nImOcontextWithNetworking.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithNetworking.cpp; path = nImO/Contexts/nImOcontextWithNetworking.cpp; sourceTree = "<group>"; };
+		F6E510AF2A1967CE00D52E80 /* nImOnetworkingContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOnetworkingContext.cpp; path = nImO/Contexts/nImOnetworkingContext.cpp; sourceTree = "<group>"; };
 		F6E510B02A1967CE00D52E80 /* nImOmiscellaneousContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmiscellaneousContext.cpp; path = nImO/Contexts/nImOmiscellaneousContext.cpp; sourceTree = "<group>"; };
-		F6E510B12A1967CE00D52E80 /* nImOcontextWithMDNS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontextWithMDNS.h; path = nImO/Contexts/nImOcontextWithMDNS.h; sourceTree = "<group>"; };
+		F6E510B12A1967CE00D52E80 /* nImOsearchContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsearchContext.h; path = nImO/Contexts/nImOsearchContext.h; sourceTree = "<group>"; };
 		F6E510B22A1967CF00D52E80 /* nImOcontext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontext.cpp; path = nImO/Contexts/nImOcontext.cpp; sourceTree = "<group>"; };
 		F6E510B32A1967CF00D52E80 /* nImOfilterContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOfilterContext.h; path = nImO/Contexts/nImOfilterContext.h; sourceTree = "<group>"; };
 		F6E510B42A1967CF00D52E80 /* nImOcontext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontext.h; path = nImO/Contexts/nImOcontext.h; sourceTree = "<group>"; };
@@ -589,7 +589,7 @@
 		F6E510B62A1967CF00D52E80 /* nImOtestContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOtestContext.cpp; path = nImO/Contexts/nImOtestContext.cpp; sourceTree = "<group>"; };
 		F6E510B72A1967CF00D52E80 /* nImOtestContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOtestContext.h; path = nImO/Contexts/nImOtestContext.h; sourceTree = "<group>"; };
 		F6E510B82A1967CF00D52E80 /* nImOsinkContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsinkContext.h; path = nImO/Contexts/nImOsinkContext.h; sourceTree = "<group>"; };
-		F6E510B92A1967CF00D52E80 /* nImOcontextWithNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontextWithNetworking.h; path = nImO/Contexts/nImOcontextWithNetworking.h; sourceTree = "<group>"; };
+		F6E510B92A1967CF00D52E80 /* nImOnetworkingContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOnetworkingContext.h; path = nImO/Contexts/nImOnetworkingContext.h; sourceTree = "<group>"; };
 		F6E510BA2A1967CF00D52E80 /* nImOmiscellaneousContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmiscellaneousContext.h; path = nImO/Contexts/nImOmiscellaneousContext.h; sourceTree = "<group>"; };
 		F6E510DB2A1968C500D52E80 /* nImOdouble.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdouble.cpp; path = nImO/BasicTypes/nImOdouble.cpp; sourceTree = "<group>"; };
 		F6E510DC2A1968C500D52E80 /* nImOflaw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOflaw.h; path = nImO/BasicTypes/nImOflaw.h; sourceTree = "<group>"; };
@@ -907,16 +907,16 @@
 			children = (
 				F6E510B22A1967CF00D52E80 /* nImOcontext.cpp */,
 				F6E510B42A1967CF00D52E80 /* nImOcontext.h */,
-				F6E510AD2A1967CE00D52E80 /* nImOcontextWithMDNS.cpp */,
-				F6E510B12A1967CE00D52E80 /* nImOcontextWithMDNS.h */,
-				F6E510AF2A1967CE00D52E80 /* nImOcontextWithNetworking.cpp */,
-				F6E510B92A1967CF00D52E80 /* nImOcontextWithNetworking.h */,
+				F6E510AF2A1967CE00D52E80 /* nImOnetworkingContext.cpp */,
+				F6E510B92A1967CF00D52E80 /* nImOnetworkingContext.h */,
 				F6E510A92A1967CE00D52E80 /* nImOfilterContext.cpp */,
 				F6E510B32A1967CF00D52E80 /* nImOfilterContext.h */,
 				F6E510AE2A1967CE00D52E80 /* nImOinputOutputContext.cpp */,
 				F6E510B52A1967CF00D52E80 /* nImOinputOutputContext.h */,
 				F6E510B02A1967CE00D52E80 /* nImOmiscellaneousContext.cpp */,
 				F6E510BA2A1967CF00D52E80 /* nImOmiscellaneousContext.h */,
+				F6E510AD2A1967CE00D52E80 /* nImOsearchContext.cpp */,
+				F6E510B12A1967CE00D52E80 /* nImOsearchContext.h */,
 				F6E510AA2A1967CE00D52E80 /* nImOserviceContext.cpp */,
 				F6E510A52A1967CE00D52E80 /* nImOserviceContext.h */,
 				F6E510AB2A1967CE00D52E80 /* nImOsinkContext.cpp */,

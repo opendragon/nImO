@@ -406,7 +406,7 @@ struct NodeInsertData
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 performSQLstatementWithMultipleColumnResults
-    (nImO::SpContextWithNetworking  owner,
+    (nImO::SpNetworkingContext  owner,
      Ptr(sqlite3)                   dbHandle,
      nImO::StdStringVectorVector &  results,
      CPtr(char)                     sqlStatement,
@@ -518,7 +518,7 @@ performSQLstatementWithMultipleColumnResults
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 performSQLstatementWithNoResults
-    (nImO::SpContextWithNetworking  owner,
+    (nImO::SpNetworkingContext  owner,
      Ptr(sqlite3)                   dbHandle,
      CPtr(char)                     sqlStatement,
      BindFunction                   doBinds = nullptr,
@@ -598,7 +598,7 @@ performSQLstatementWithNoResults
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 performSQLstatementWithNoResultsNoArgs
-    (nImO::SpContextWithNetworking  owner,
+    (nImO::SpNetworkingContext  owner,
      Ptr(sqlite3)                   dbHandle,
      CPtr(char)                     sqlStatement)
 {
@@ -665,7 +665,7 @@ performSQLstatementWithNoResultsNoArgs
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 performSQLstatementWithSingleColumnResults
-    (nImO::SpContextWithNetworking  owner,
+    (nImO::SpNetworkingContext  owner,
      Ptr(sqlite3)                   dbHandle,
      nImO::StdStringVector &        resultList,
      CPtr(char)                     sqlStatement,
@@ -766,7 +766,7 @@ performSQLstatementWithSingleColumnResults
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 doBeginTransaction
-    (nImO::SpContextWithNetworking  owner,
+    (nImO::SpNetworkingContext  owner,
      Ptr(sqlite3)                   dbHandle)
 {
     ODL_ENTER(); //####
@@ -803,7 +803,7 @@ doBeginTransaction
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 doEndTransaction
-    (nImO::SpContextWithNetworking  owner,
+    (nImO::SpNetworkingContext  owner,
      Ptr(sqlite3)                   dbHandle,
      const bool                     wasOK)
 {
@@ -844,7 +844,7 @@ doEndTransaction
  @return @c true if all the tables were successfully created. */
 static nImO::SuccessOrFailure
 createTables
-    (nImO::SpContextWithNetworking  owner,
+    (nImO::SpNetworkingContext  owner,
      const bool                     logging,
      Ptr(sqlite3)                   dbHandle)
 {
@@ -927,7 +927,7 @@ sqlLogger
      CPtr(char) message)
 {
     NIMO_UNUSED_VAR_(code);
-    auto    owner{StaticCast(Ptr(nImO::ContextWithNetworking), data)};
+    auto    owner{StaticCast(Ptr(nImO::NetworkingContext), data)};
 
     if (nullptr != owner)
     {
@@ -1918,7 +1918,7 @@ extractNodeInfoFromVector
 #endif // defined(__APPLE__)
 
 nImO::Registry::Registry
-    (SpContextWithNetworking    owner,
+    (SpNetworkingContext    owner,
      const bool                 logging) :
         _owner{owner}
 {

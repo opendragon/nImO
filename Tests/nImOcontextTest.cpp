@@ -38,10 +38,10 @@
 
 #include "../Launcher/nImOlauncherContext.h"
 #include "../Registry/nImOregistryContext.h"
-#include <Contexts/nImOcontextWithMDNS.h>
-#include <Contexts/nImOcontextWithNetworking.h>
 #include <Contexts/nImOfilterContext.h>
 #include <Contexts/nImOmiscellaneousContext.h>
+#include <Contexts/nImOnetworkingContext.h>
+#include <Contexts/nImOsearchContext.h>
 #include <Contexts/nImOserviceContext.h>
 #include <Contexts/nImOsinkContext.h>
 #include <Contexts/nImOsourceContext.h>
@@ -106,7 +106,7 @@ catchSignal
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateContextWithMDNS
+doTestCreateSearchContext
     (void)
 {
     ODL_ENTER(); //####
@@ -115,7 +115,7 @@ doTestCreateContextWithMDNS
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext{};
+        SearchContext aContext{};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -130,7 +130,7 @@ doTestCreateContextWithMDNS
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateContextWithMDNS
+} // doTestCreateSearchContext
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 02 ***
@@ -139,7 +139,7 @@ doTestCreateContextWithMDNS
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateContextWithNetworking
+doTestCreateNetworkingContext
     (void)
 {
     ODL_ENTER(); //####
@@ -147,7 +147,7 @@ doTestCreateContextWithNetworking
 
     try
     {
-        ContextWithNetworking   aContext{};
+        NetworkingContext   aContext{};
 
         NIMO_UNUSED_VAR_(aContext);
         result = 0;
@@ -160,7 +160,7 @@ doTestCreateContextWithNetworking
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateContextWithNetworking
+} // doTestCreateNetworkingContext
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 03 ***
@@ -460,7 +460,7 @@ doTestCreateLauncherContext
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestKindOfContextForContextWithNetworking
+doTestKindOfContextForNetworkingContext
     (void)
 {
     ODL_ENTER(); //####
@@ -469,7 +469,7 @@ doTestKindOfContextForContextWithNetworking
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext{};
+        NetworkingContext   aContext{};
         auto                    asService{aContext.asServiceContext()};
         auto                    asUtility{aContext.asUtilityContext()};
 
@@ -488,7 +488,7 @@ doTestKindOfContextForContextWithNetworking
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestKindOfContextForContextWithNetworking
+} // doTestKindOfContextForNetworkingContext
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 21 ***
@@ -497,7 +497,7 @@ doTestKindOfContextForContextWithNetworking
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestKindOfContextForContextWithMDNS
+doTestKindOfContextForSearchContext
     (void)
 {
     ODL_ENTER(); //####
@@ -506,7 +506,7 @@ doTestKindOfContextForContextWithMDNS
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext{};
+        SearchContext aContext{};
         auto            asService{aContext.asServiceContext()};
         auto            asUtility{aContext.asUtilityContext()};
 
@@ -525,7 +525,7 @@ doTestKindOfContextForContextWithMDNS
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestKindOfContextForContextWithMDNS
+} // doTestKindOfContextForSearchContext
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 22 ***
@@ -793,7 +793,7 @@ doTestKindOfContextForLauncherContext
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndMDNSContexts
+doTestCreateSearchAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -802,12 +802,12 @@ doTestCreateMDNSAndMDNSContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -829,7 +829,7 @@ doTestCreateMDNSAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndMDNSContexts
+} // doTestCreateSearchAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 101 ***
@@ -838,7 +838,7 @@ doTestCreateMDNSAndMDNSContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndNetworkingContexts
+doTestCreateSearchAndNetworkingContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -847,12 +847,12 @@ doTestCreateMDNSAndNetworkingContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -874,7 +874,7 @@ doTestCreateMDNSAndNetworkingContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndNetworkingContexts
+} // doTestCreateSearchAndNetworkingContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 102 ***
@@ -883,7 +883,7 @@ doTestCreateMDNSAndNetworkingContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndFilterContexts
+doTestCreateSearchAndFilterContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -892,7 +892,7 @@ doTestCreateMDNSAndFilterContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -919,7 +919,7 @@ doTestCreateMDNSAndFilterContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndFilterContexts
+} // doTestCreateSearchAndFilterContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 103 ***
@@ -928,7 +928,7 @@ doTestCreateMDNSAndFilterContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndMiscellaneousContexts
+doTestCreateSearchAndMiscellaneousContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -937,7 +937,7 @@ doTestCreateMDNSAndMiscellaneousContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -964,7 +964,7 @@ doTestCreateMDNSAndMiscellaneousContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndMiscellaneousContexts
+} // doTestCreateSearchAndMiscellaneousContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 104 ***
@@ -973,7 +973,7 @@ doTestCreateMDNSAndMiscellaneousContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndServiceContexts
+doTestCreateSearchAndServiceContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -982,7 +982,7 @@ doTestCreateMDNSAndServiceContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1009,7 +1009,7 @@ doTestCreateMDNSAndServiceContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndServiceContexts
+} // doTestCreateSearchAndServiceContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 105 ***
@@ -1018,7 +1018,7 @@ doTestCreateMDNSAndServiceContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndSinkContexts
+doTestCreateSearchAndSinkContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -1027,7 +1027,7 @@ doTestCreateMDNSAndSinkContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1054,7 +1054,7 @@ doTestCreateMDNSAndSinkContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndSinkContexts
+} // doTestCreateSearchAndSinkContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 106 ***
@@ -1063,7 +1063,7 @@ doTestCreateMDNSAndSinkContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndSourceContexts
+doTestCreateSearchAndSourceContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -1072,7 +1072,7 @@ doTestCreateMDNSAndSourceContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1099,7 +1099,7 @@ doTestCreateMDNSAndSourceContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndSourceContexts
+} // doTestCreateSearchAndSourceContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 107 ***
@@ -1108,7 +1108,7 @@ doTestCreateMDNSAndSourceContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndTestContexts
+doTestCreateSearchAndTestContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -1117,7 +1117,7 @@ doTestCreateMDNSAndTestContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1144,7 +1144,7 @@ doTestCreateMDNSAndTestContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndTestContexts
+} // doTestCreateSearchAndTestContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 108 ***
@@ -1153,7 +1153,7 @@ doTestCreateMDNSAndTestContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndUtilityContexts
+doTestCreateSearchAndUtilityContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -1162,7 +1162,7 @@ doTestCreateMDNSAndUtilityContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1189,7 +1189,7 @@ doTestCreateMDNSAndUtilityContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndUtilityContexts
+} // doTestCreateSearchAndUtilityContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 109 ***
@@ -1198,7 +1198,7 @@ doTestCreateMDNSAndUtilityContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndLauncherContexts
+doTestCreateSearchAndLauncherContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -1207,7 +1207,7 @@ doTestCreateMDNSAndLauncherContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1234,7 +1234,7 @@ doTestCreateMDNSAndLauncherContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndLauncherContexts
+} // doTestCreateSearchAndLauncherContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 110 ***
@@ -1243,7 +1243,7 @@ doTestCreateMDNSAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateNetworkingAndMDNSContexts
+doTestCreateNetworkingAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -1252,12 +1252,12 @@ doTestCreateNetworkingAndMDNSContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1279,7 +1279,7 @@ doTestCreateNetworkingAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateNetworkingAndMDNSContexts
+} // doTestCreateNetworkingAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 111 ***
@@ -1297,12 +1297,12 @@ doTestCreateNetworkingAndNetworkingContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1342,7 +1342,7 @@ doTestCreateNetworkingAndFilterContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1387,7 +1387,7 @@ doTestCreateNetworkingAndMiscellaneousContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1432,7 +1432,7 @@ doTestCreateNetworkingAndServiceContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1477,7 +1477,7 @@ doTestCreateNetworkingAndSinkContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1522,7 +1522,7 @@ doTestCreateNetworkingAndSourceContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1567,7 +1567,7 @@ doTestCreateNetworkingAndTestContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1612,7 +1612,7 @@ doTestCreateNetworkingAndUtilityContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1657,7 +1657,7 @@ doTestCreateNetworkingAndLauncherContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1693,7 +1693,7 @@ doTestCreateNetworkingAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateFilterAndMDNSContexts
+doTestCreateFilterAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -1707,7 +1707,7 @@ doTestCreateFilterAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1729,7 +1729,7 @@ doTestCreateFilterAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateFilterAndMDNSContexts
+} // doTestCreateFilterAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 121 ***
@@ -1752,7 +1752,7 @@ doTestCreateFilterAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2143,7 +2143,7 @@ doTestCreateFilterAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMiscellaneousAndMDNSContexts
+doTestCreateMiscellaneousAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -2157,7 +2157,7 @@ doTestCreateMiscellaneousAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2179,7 +2179,7 @@ doTestCreateMiscellaneousAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMiscellaneousAndMDNSContexts
+} // doTestCreateMiscellaneousAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 131 ***
@@ -2202,7 +2202,7 @@ doTestCreateMiscellaneousAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2593,7 +2593,7 @@ doTestCreateMiscellaneousAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateServiceAndMDNSContexts
+doTestCreateServiceAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -2607,7 +2607,7 @@ doTestCreateServiceAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2629,7 +2629,7 @@ doTestCreateServiceAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateServiceAndMDNSContexts
+} // doTestCreateServiceAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 141 ***
@@ -2652,7 +2652,7 @@ doTestCreateServiceAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3043,7 +3043,7 @@ doTestCreateServiceAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateSinkAndMDNSContexts
+doTestCreateSinkAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -3057,7 +3057,7 @@ doTestCreateSinkAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3079,7 +3079,7 @@ doTestCreateSinkAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateSinkAndMDNSContexts
+} // doTestCreateSinkAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 151 ***
@@ -3102,7 +3102,7 @@ doTestCreateSinkAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3493,7 +3493,7 @@ doTestCreateSinkAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateSourceAndMDNSContexts
+doTestCreateSourceAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -3507,7 +3507,7 @@ doTestCreateSourceAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3529,7 +3529,7 @@ doTestCreateSourceAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateSourceAndMDNSContexts
+} // doTestCreateSourceAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 161 ***
@@ -3552,7 +3552,7 @@ doTestCreateSourceAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3943,7 +3943,7 @@ doTestCreateSourceAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateTestAndMDNSContexts
+doTestCreateTestAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -3957,7 +3957,7 @@ doTestCreateTestAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3979,7 +3979,7 @@ doTestCreateTestAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateTestAndMDNSContexts
+} // doTestCreateTestAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 171 ***
@@ -4002,7 +4002,7 @@ doTestCreateTestAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4393,7 +4393,7 @@ doTestCreateTestAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateUtilityAndMDNSContexts
+doTestCreateUtilityAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -4407,7 +4407,7 @@ doTestCreateUtilityAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4429,7 +4429,7 @@ doTestCreateUtilityAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateUtilityAndMDNSContexts
+} // doTestCreateUtilityAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 181 ***
@@ -4452,7 +4452,7 @@ doTestCreateUtilityAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4843,7 +4843,7 @@ doTestCreateUtilityAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateRegistryAndMDNSContexts
+doTestCreateRegistryAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -4857,7 +4857,7 @@ doTestCreateRegistryAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4879,7 +4879,7 @@ doTestCreateRegistryAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateRegistryAndMDNSContexts
+} // doTestCreateRegistryAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 201 ***
@@ -4902,7 +4902,7 @@ doTestCreateRegistryAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -5338,7 +5338,7 @@ doTestCreateRegistryAndLauncherContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateMDNSAndRegistryContexts
+doTestCreateSearchAndRegistryContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -5347,7 +5347,7 @@ doTestCreateMDNSAndRegistryContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{};
+        SearchContext aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -5374,7 +5374,7 @@ doTestCreateMDNSAndRegistryContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateMDNSAndRegistryContexts
+} // doTestCreateSearchAndRegistryContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 221 ***
@@ -5392,7 +5392,7 @@ doTestCreateNetworkingAndRegistryContexts
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{};
+        NetworkingContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -5743,7 +5743,7 @@ doTestCreateLauncherAndRegistryContexts
 /*! @brief Perform a test case.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCreateLauncherAndMDNSContexts
+doTestCreateLauncherAndSearchContexts
     (void)
 {
     ODL_ENTER(); //####
@@ -5757,7 +5757,7 @@ doTestCreateLauncherAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{};
+            SearchContext aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -5779,7 +5779,7 @@ doTestCreateLauncherAndMDNSContexts
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCreateLauncherAndMDNSContexts
+} // doTestCreateLauncherAndSearchContexts
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 231 ***
@@ -5802,7 +5802,7 @@ doTestCreateLauncherAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{};
+            NetworkingContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -6222,11 +6222,11 @@ main
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestCreateContextWithMDNS();
+                        result = doTestCreateSearchContext();
                         break;
 
                     case 2 :
-                        result = doTestCreateContextWithNetworking();
+                        result = doTestCreateNetworkingContext();
                         break;
 
                     case 3 :
@@ -6266,11 +6266,11 @@ main
                         break;
 
                     case 20 :
-                        result = doTestKindOfContextForContextWithNetworking();
+                        result = doTestKindOfContextForNetworkingContext();
                         break;
 
                     case 21 :
-                        result = doTestKindOfContextForContextWithMDNS();
+                        result = doTestKindOfContextForSearchContext();
                         break;
 
                     case 22 :
@@ -6302,47 +6302,47 @@ main
                         break;
 
                     case 100 :
-                        result = doTestCreateMDNSAndMDNSContexts();
+                        result = doTestCreateSearchAndSearchContexts();
                         break;
 
                     case 101 :
-                        result = doTestCreateMDNSAndNetworkingContexts();
+                        result = doTestCreateSearchAndNetworkingContexts();
                         break;
 
                     case 102 :
-                        result = doTestCreateMDNSAndFilterContexts();
+                        result = doTestCreateSearchAndFilterContexts();
                         break;
 
                     case 103 :
-                        result = doTestCreateMDNSAndMiscellaneousContexts();
+                        result = doTestCreateSearchAndMiscellaneousContexts();
                         break;
 
                     case 104 :
-                        result = doTestCreateMDNSAndServiceContexts();
+                        result = doTestCreateSearchAndServiceContexts();
                         break;
 
                     case 105 :
-                        result = doTestCreateMDNSAndSinkContexts();
+                        result = doTestCreateSearchAndSinkContexts();
                         break;
 
                     case 106 :
-                        result = doTestCreateMDNSAndSourceContexts();
+                        result = doTestCreateSearchAndSourceContexts();
                         break;
 
                     case 107 :
-                        result = doTestCreateMDNSAndTestContexts();
+                        result = doTestCreateSearchAndTestContexts();
                         break;
 
                     case 108 :
-                        result = doTestCreateMDNSAndUtilityContexts();
+                        result = doTestCreateSearchAndUtilityContexts();
                         break;
 
                     case 109 :
-                        result = doTestCreateMDNSAndLauncherContexts();
+                        result = doTestCreateSearchAndLauncherContexts();
                         break;
 
                     case 110 :
-                        result = doTestCreateNetworkingAndMDNSContexts();
+                        result = doTestCreateNetworkingAndSearchContexts();
                         break;
 
                     case 111 :
@@ -6382,7 +6382,7 @@ main
                         break;
 
                     case 120 :
-                        result = doTestCreateFilterAndMDNSContexts();
+                        result = doTestCreateFilterAndSearchContexts();
                         break;
 
                     case 121 :
@@ -6422,7 +6422,7 @@ main
                         break;
 
                     case 130 :
-                        result = doTestCreateMiscellaneousAndMDNSContexts();
+                        result = doTestCreateMiscellaneousAndSearchContexts();
                         break;
 
                     case 131 :
@@ -6462,7 +6462,7 @@ main
                         break;
 
                     case 140 :
-                        result = doTestCreateServiceAndMDNSContexts();
+                        result = doTestCreateServiceAndSearchContexts();
                         break;
 
                     case 141 :
@@ -6502,7 +6502,7 @@ main
                         break;
 
                     case 150 :
-                        result = doTestCreateSinkAndMDNSContexts();
+                        result = doTestCreateSinkAndSearchContexts();
                         break;
 
                     case 151 :
@@ -6542,7 +6542,7 @@ main
                         break;
 
                     case 160 :
-                        result = doTestCreateSourceAndMDNSContexts();
+                        result = doTestCreateSourceAndSearchContexts();
                         break;
 
                     case 161 :
@@ -6582,7 +6582,7 @@ main
                         break;
 
                     case 170 :
-                        result = doTestCreateTestAndMDNSContexts();
+                        result = doTestCreateTestAndSearchContexts();
                         break;
 
                     case 171 :
@@ -6622,7 +6622,7 @@ main
                         break;
 
                     case 180 :
-                        result = doTestCreateUtilityAndMDNSContexts();
+                        result = doTestCreateUtilityAndSearchContexts();
                         break;
 
                     case 181 :
@@ -6662,7 +6662,7 @@ main
                         break;
 
                     case 200 :
-                       result = doTestCreateRegistryAndMDNSContexts();
+                       result = doTestCreateRegistryAndSearchContexts();
                        break;
 
                     case 201 :
@@ -6706,7 +6706,7 @@ main
                        break;
 
                     case 220 :
-                       result = doTestCreateMDNSAndRegistryContexts();
+                       result = doTestCreateSearchAndRegistryContexts();
                        break;
 
                     case 221 :
@@ -6742,7 +6742,7 @@ main
                        break;
 
                     case 230 :
-                       result = doTestCreateLauncherAndMDNSContexts();
+                       result = doTestCreateLauncherAndSearchContexts();
                        break;
 
                     case 231 :

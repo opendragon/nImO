@@ -72,7 +72,7 @@ namespace nImO
      @return @c true if the Connection exists. */
     bool
     CloseConnection
-        (SpContextWithNetworking    context,
+        (SpNetworkingContext    context,
          const std::string &        nodeName,
          SpRegistryProxy            proxy,
          const std::string &        path,
@@ -110,7 +110,7 @@ namespace nImO
      @param[in] toPath The receiver channel path. */
     void
     StopConnection
-        (SpContextWithNetworking    ourContext,
+        (SpNetworkingContext    ourContext,
          Connection &               fromConnection,
          const std::string &        fromNode,
          const std::string &        fromPath,

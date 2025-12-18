@@ -39,7 +39,7 @@
 #if (! defined(nImOregistryProxy_H_))
 # define nImOregistryProxy_H_ /* Header guard */
 
-# include <Contexts/nImOcontextWithNetworking.h>
+# include <Contexts/nImOnetworkingContext.h>
 # include <nImOregistryTypes.h>
 
 # if defined(__APPLE__)
@@ -162,7 +162,7 @@ namespace nImO
              @param[in] connection The IP address and port of the Registry. */
             inline static SpRegistryProxy
             create
-                (SpContextWithNetworking    context,
+                (SpNetworkingContext    context,
                  const Connection &         connection)
             {
                 SpRegistryProxy newProxy{new RegistryProxy{context, connection}};
@@ -483,7 +483,7 @@ namespace nImO
              @param[in] context The application context to use.
              @param[in] connection The IP address and port of the Registry. */
             RegistryProxy
-                (SpContextWithNetworking    context,
+                (SpNetworkingContext    context,
                  const Connection &         connection);
 
         public :
@@ -499,7 +499,7 @@ namespace nImO
             Connection  _connection{};
 
             /*! @brief The application context to use. */
-            SpContextWithNetworking _context{};
+            SpNetworkingContext _context{};
 
     }; // RegistryProxy
 

@@ -39,7 +39,7 @@
 #if (! defined(nImOutilityContext_H_))
 # define nImOutilityContext_H_ /* Header guard */
 
-# include <Contexts/nImOcontextWithMDNS.h>
+# include <Contexts/nImOsearchContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide support for a 'utility' application. */
-    class UtilityContext final : public ContextWithMDNS
+    class UtilityContext final : public SearchContext
     {
 
         public :
@@ -68,7 +68,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithMDNS;
+            using inherited = SearchContext;
 
         public :
             // Public methods.

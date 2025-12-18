@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Contexts/nImOcontextWithMDNS.cpp
+//  File:       nImO/Contexts/nImOsearchContext.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO execution contexts that use mDNS.
+//  Contains:   The class definition for nImO execution contexts that can search for the Registry.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Contexts/nImOcontextWithMDNS.h>
+#include <Contexts/nImOsearchContext.h>
 
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
@@ -62,7 +62,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %nImO execution contexts that use mDNS. */
+ @brief The class definition for %nImO execution contexts that can search for the Registry. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -125,7 +125,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning context. */
             explicit RecordHandler
-                (nImO::ContextWithMDNS &    owner) :
+                (nImO::SearchContext &    owner) :
                     _owner(owner), _processing(false)
             {
             }
@@ -285,7 +285,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The owning context. */
-            nImO::ContextWithMDNS & _owner;
+            nImO::SearchContext & _owner;
 
             /*! @brief @c true if this record is to be processed. */
             bool    _processing;
@@ -298,7 +298,7 @@ namespace nImO
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-char nImO::ContextWithMDNS::gNameBuffer[256];
+char nImO::SearchContext::gNameBuffer[256];
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -340,10 +340,10 @@ getLocalAddresses
                 {
                     if (firstIpv4)
                     {
-                        nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
+                        nImO::SearchContext::gServiceAddressIpv4 = saddr;
                         firstIpv4 = false;
                     }
-                    nImO::ContextWithNetworking::gHasIpv4 = true;
+                    nImO::NetworkingContext::gHasIpv4 = true;
                 }
             }
             else
@@ -361,10 +361,10 @@ getLocalAddresses
                     {
                         if (firstIpv6)
                         {
-                            nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
+                            nImO::SearchContext::gServiceAddressIpv6 = saddr;
                             firstIpv6 = false;
                         }
-                        nImO::ContextWithMDNS::gHasIpv6 = true;
+                        nImO::SearchContext::gHasIpv6 = true;
                     }
                 }
             }
@@ -423,10 +423,10 @@ getLocalAddresses
                     {
                         if (firstIpv4)
                         {
-                            nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
+                            nImO::SearchContext::gServiceAddressIpv4 = saddr;
                             firstIpv4 = false;
                         }
-                        nImO::ContextWithNetworking::gHasIpv4 = true;
+                        nImO::NetworkingContext::gHasIpv4 = true;
                     }
                 }
                 else
@@ -444,10 +444,10 @@ getLocalAddresses
                         {
                             if (firstIpv6)
                             {
-                                nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
+                                nImO::SearchContext::gServiceAddressIpv6 = saddr;
                                 firstIpv6 = false;
                             }
-                            nImO::ContextWithMDNS::gHasIpv6 = true;
+                            nImO::SearchContext::gHasIpv6 = true;
                         }
                     }
                 }
@@ -456,7 +456,7 @@ getLocalAddresses
     }
     free(adapterAddress);
 #endif // not MAC_OR_LINUX_OR_BSD_
-    if ((! nImO::ContextWithNetworking::gHasIpv4) && (! nImO::ContextWithMDNS::gHasIpv6))
+    if ((! nImO::NetworkingContext::gHasIpv4) && (! nImO::SearchContext::gHasIpv6))
     {
         throw "No usable network addresses found."s;
         
@@ -498,8 +498,8 @@ queryCallback
     {
         case mDNS::kRecordTypePTR:
         {
-            mDNS::string_t    nameStr{mDNS::record_parse_ptr(data, size, recordOffset, recordLength, nImO::ContextWithMDNS::gNameBuffer,
-                                                             sizeof(nImO::ContextWithMDNS::gNameBuffer))};
+            mDNS::string_t    nameStr{mDNS::record_parse_ptr(data, size, recordOffset, recordLength, nImO::SearchContext::gNameBuffer,
+                                                             sizeof(nImO::SearchContext::gNameBuffer))};
 
             if (0 < ttl)
             {
@@ -515,8 +515,8 @@ queryCallback
 
         case mDNS::kRecordTypeSRV:
         {
-            mDNS::record_srv_t    srv{mDNS::record_parse_srv(data, size, recordOffset, recordLength, nImO::ContextWithMDNS::gNameBuffer,
-                                                             sizeof(nImO::ContextWithMDNS::gNameBuffer))};
+            mDNS::record_srv_t    srv{mDNS::record_parse_srv(data, size, recordOffset, recordLength, nImO::SearchContext::gNameBuffer,
+                                                             sizeof(nImO::SearchContext::gNameBuffer))};
 
             if (0 < ttl)
             {
@@ -531,7 +531,7 @@ queryCallback
             struct sockaddr_in    addr;
 
             mDNS::record_parse_a(data, size, recordOffset, recordLength, addr);
-            mDNS::string_t    addrStr{nImO::Ipv4AddressToMdnsString(nImO::ContextWithMDNS::gNameBuffer, sizeof(nImO::ContextWithMDNS::gNameBuffer),
+            mDNS::string_t    addrStr{nImO::Ipv4AddressToMdnsString(nImO::SearchContext::gNameBuffer, sizeof(nImO::SearchContext::gNameBuffer),
                                                                     addr, sizeof(addr))};
 
             if (0 < ttl)
@@ -547,7 +547,7 @@ queryCallback
             struct sockaddr_in6    addr;
 
             mDNS::record_parse_aaaa(data, size, recordOffset, recordLength, addr);
-            mDNS::string_t    addrStr{nImO::Ipv6AddressToMdnsString(nImO::ContextWithMDNS::gNameBuffer, sizeof(nImO::ContextWithMDNS::gNameBuffer),
+            mDNS::string_t    addrStr{nImO::Ipv6AddressToMdnsString(nImO::SearchContext::gNameBuffer, sizeof(nImO::SearchContext::gNameBuffer),
                                                                     addr, sizeof(addr))};
 
             if (0 < ttl)
@@ -591,7 +591,7 @@ queryCallback
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ContextWithMDNS::ContextWithMDNS
+nImO::SearchContext::SearchContext
     (const std::string &    tagForLogging,
      const bool             logging,
      const bool             startBrowser) :
@@ -604,9 +604,9 @@ nImO::ContextWithMDNS::ContextWithMDNS
     getLocalAddresses();
     openSockets();
     ODL_EXIT_P(this); //####
-} // nImO::ContextWithMDNS::ContextWithMDNS
+} // nImO::SearchContext::SearchContext
 
-nImO::ContextWithMDNS::~ContextWithMDNS
+nImO::SearchContext::~SearchContext
     (void)
 {
     ODL_OBJENTER(); //####
@@ -619,14 +619,14 @@ nImO::ContextWithMDNS::~ContextWithMDNS
         _buffer = nullptr;
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::~ContextWithMDNS
+} // nImO::SearchContext::~SearchContext
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::ContextWithMDNS::closeSockets
+nImO::SearchContext::closeSockets
     (void)
 {
     ODL_OBJENTER(); //####
@@ -635,11 +635,11 @@ nImO::ContextWithMDNS::closeSockets
         mDNS::socket_close(_sockets[isock]);
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::closeSockets
+} // nImO::SearchContext::closeSockets
 
 void
-nImO::ContextWithMDNS::executeBrowser
-    (ContextWithMDNS &  owner)
+nImO::SearchContext::executeBrowser
+    (SearchContext &  owner)
 {
     ODL_ENTER(); //####
     ODL_P1(&owner); //####
@@ -697,7 +697,7 @@ nImO::ContextWithMDNS::executeBrowser
                     }
                     if (FD_ISSET(owner._sockets[isock], &readfs))
                     {
-                        mDNS::query_recv(owner._sockets[isock], owner._buffer, nImO::ContextWithMDNS::kBufferCapacity, queryCallback, &handler,
+                        mDNS::query_recv(owner._sockets[isock], owner._buffer, nImO::SearchContext::kBufferCapacity, queryCallback, &handler,
                                          owner._queryId[isock]);
                     }
 #if (! MAC_OR_LINUX_OR_BSD_)
@@ -722,7 +722,7 @@ nImO::ContextWithMDNS::executeBrowser
                         }
                         owner._queryId[isock] = mDNS::query_send(owner._sockets[isock], mDNS::kRecordTypePTR, owner.getRegistryServiceName().c_str(),
                                                                  owner.getRegistryServiceName().length(), owner._buffer,
-                                                                 nImO::ContextWithMDNS::kBufferCapacity, 0);
+                                                                 nImO::SearchContext::kBufferCapacity, 0);
                         if (owner._queryId[isock] < 0)
                         {
                             owner.report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
@@ -742,10 +742,10 @@ nImO::ContextWithMDNS::executeBrowser
     ODL_B2(lBrowserThreadStarted, lBrowserThreadStopped); //####
     owner.report("browser thread terminating."s);
     ODL_EXIT(); //####
-} // nImO::ContextWithMDNS::executeBrowser
+} // nImO::SearchContext::executeBrowser
 
 bool
-nImO::ContextWithMDNS::findAndLaunchTheRegistry
+nImO::SearchContext::findAndLaunchTheRegistry
     (void)
 {
     ODL_OBJENTER(); //####
@@ -810,10 +810,10 @@ nImO::ContextWithMDNS::findAndLaunchTheRegistry
     }
     ODL_OBJEXIT_B(launched); //####
     return launched;
-} // nImO::ContextWithMDNS::findAndLaunchTheRegistry
+} // nImO::SearchContext::findAndLaunchTheRegistry
 
 bool
-nImO::ContextWithMDNS::findTheRegistry
+nImO::SearchContext::findTheRegistry
     (Connection &   connection,
      const bool     quietly)
 {
@@ -835,10 +835,10 @@ nImO::ContextWithMDNS::findTheRegistry
     }
     ODL_OBJEXIT_B(found); //####
     return found;
-} // nImO::ContextWithMDNS::findTheRegistry
+} // nImO::SearchContext::findTheRegistry
 
 void
-nImO::ContextWithMDNS::gatherAnnouncements
+nImO::SearchContext::gatherAnnouncements
     (const bool quietly)
 {
     ODL_OBJENTER(); //####
@@ -907,10 +907,10 @@ nImO::ContextWithMDNS::gatherAnnouncements
         stopGatheringAnnouncements();
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::gatherAnnouncements
+} // nImO::SearchContext::gatherAnnouncements
 
 void
-nImO::ContextWithMDNS::openSockets
+nImO::SearchContext::openSockets
     (void)
 {
     ODL_OBJENTER(); //####
@@ -946,10 +946,10 @@ nImO::ContextWithMDNS::openSockets
     }
     ODL_I1(_numSockets);
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::openSockets
+} // nImO::SearchContext::openSockets
 
 void
-nImO::ContextWithMDNS::stopGatheringAnnouncements
+nImO::SearchContext::stopGatheringAnnouncements
     (void)
 {
     ODL_OBJENTER(); //####
@@ -968,10 +968,10 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
         _browserThread = nullptr;
     }
     ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::stopGatheringAnnouncements
+} // nImO::SearchContext::stopGatheringAnnouncements
 
 bool
-nImO::ContextWithMDNS::waitForRegistry
+nImO::SearchContext::waitForRegistry
     (void)
 {
     ODL_OBJENTER(); //####
@@ -995,7 +995,7 @@ nImO::ContextWithMDNS::waitForRegistry
     }
     ODL_OBJEXIT_B(wasFound); //####
     return wasFound;
-} // nImO::ContextWithMDNS::waitForRegistry
+} // nImO::SearchContext::waitForRegistry
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -114,8 +114,8 @@ announcementServiceCallback
         {
             const nImO::AnnounceServiceData &   serviceData{*servicePtr};
             size_t                              offset{nameOffset};
-            mDNS::string_t                      name{mDNSP::string_extract(data, size, offset, nImO::ContextWithMDNS::gNameBuffer,
-                                                                           sizeof(nImO::ContextWithMDNS::gNameBuffer))};
+            mDNS::string_t                      name{mDNSP::string_extract(data, size, offset, nImO::SearchContext::gNameBuffer,
+                                                                           sizeof(nImO::SearchContext::gNameBuffer))};
 
             if (((sizeof(kDnsSd) - 1) == name.length) && (0 == strncmp(name.str, kDnsSd, sizeof(kDnsSd) - 1)))
             {
@@ -507,22 +507,22 @@ nImO::RegistryContext::makePortAnnouncement
                                             });
         ODL_P1(_announcerThread); //####
         _pool.add_thread(_announcerThread);
-        if (nImO::ContextWithNetworking::gHasIpv4)
+        if (nImO::NetworkingContext::gHasIpv4)
         {
             mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
-                                                                  nImO::ContextWithNetworking::gServiceAddressIpv4,
-                                                                  sizeof(nImO::ContextWithNetworking::gServiceAddressIpv4))};
+                                                                  nImO::NetworkingContext::gServiceAddressIpv4,
+                                                                  sizeof(nImO::NetworkingContext::gServiceAddressIpv4))};
 
             hostAddress = addressString.str;
             release_mdns_string(addressString);
         }
         else
         {
-            if (nImO::ContextWithNetworking::gHasIpv6)
+            if (nImO::NetworkingContext::gHasIpv6)
             {
                 mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
-                                                                      nImO::ContextWithNetworking::gServiceAddressIpv6,
-                                                                      sizeof(nImO::ContextWithNetworking::gServiceAddressIpv6))};
+                                                                      nImO::NetworkingContext::gServiceAddressIpv6,
+                                                                      sizeof(nImO::NetworkingContext::gServiceAddressIpv6))};
 
                 hostAddress = addressString.str;
                 release_mdns_string(addressString);

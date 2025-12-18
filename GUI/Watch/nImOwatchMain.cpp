@@ -41,7 +41,7 @@
 #include <BasicTypes/nImOvalue.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
-//#include <Contexts/nImOcontextWithMDNS.h>
+//#include <Contexts/nImOsearchContext.h>
 #include <nImOcallbackFunction.h>
 #include <nImOmainSupport.h>
 #include <nImOreceivedData.h>
@@ -264,7 +264,7 @@ main
         {
 #if 0
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ContextWithNetworking             ourContext{"watch"s, optionValues._logging};
+            nImO::NetworkingContext             ourContext{"watch"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
             auto                                    registrySearchConnection{ourContext.gerRegistrySearchInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};

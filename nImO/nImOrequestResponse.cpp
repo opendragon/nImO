@@ -41,7 +41,6 @@
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmessage.h>
-//#include <Contexts/nImOcontextWithMDNS.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
@@ -189,7 +188,7 @@ handleResponse
 
 static void
 handleWriteCompletion
-    (nImO::SpContextWithNetworking  context,
+    (nImO::SpNetworkingContext  context,
      nImO::SpSocketTCP              socket,
      Ptr(nImO::ResponseHandler)     handler,
      nImO::SpBool                   keepGoing,
@@ -253,7 +252,7 @@ handleWriteCompletion
 
 static void
 handleConnectCompletion
-    (nImO::SpContextWithNetworking  context,
+    (nImO::SpNetworkingContext  context,
      nImO::SpSocketTCP              socket,
      nImO::SpStdString              outString,
      Ptr(nImO::ResponseHandler)     handler,
@@ -319,7 +318,7 @@ handleConnectCompletion
 
 nImO::SuccessOrFailure
 nImO::SendRequestWithArgumentsAndNonEmptyResponse
-    (SpContextWithNetworking    context,
+    (SpNetworkingContext    context,
      Connection &               connection,
      Ptr(ResponseHandler)       handler,
      Ptr(Array)                 arguments,

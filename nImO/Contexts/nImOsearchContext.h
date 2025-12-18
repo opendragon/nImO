@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Contexts/nImOcontextWithMDNS.h
+//  File:       nImO/Contexts/nImOsearchContext.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO execution contexts that use mDNS.
+//  Contains:   The class declaration for nImO execution contexts that can search for the Registry.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontextWithMDNS_H_))
-# define nImOcontextWithMDNS_H_ /* Header guard */
+#if (! defined(nImOsearchContext_H_))
+# define nImOsearchContext_H_ /* Header guard */
 
-# include <Contexts/nImOcontextWithNetworking.h>
+# include <Contexts/nImOnetworkingContext.h>
 
 # if MAC_OR_LINUX_OR_BSD_
 #  pragma GCC diagnostic push
@@ -56,7 +56,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO execution contexts that use mDNS. */
+ @brief The class declaration for %nImO execution contexts that can search for the Registry. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -67,8 +67,8 @@ namespace nImO
     class AnnounceServiceData;
     class RecordHandler;
 
-    /*! @brief A class to provide support for an application that uses mDNS. */
-    class ContextWithMDNS : public ContextWithNetworking
+    /*! @brief A class to provide support for an application that can search for the Registry. */
+    class SearchContext : public NetworkingContext
     {
 
         public :
@@ -84,7 +84,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithNetworking;
+            using inherited = NetworkingContext;
 
             friend class RecordHandler;
 
@@ -95,13 +95,13 @@ namespace nImO
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] startBrowser @c true if the browser thread is to be started. */
-            ContextWithMDNS
+            SearchContext
                 (const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const bool             startBrowser = false);
 
             /*! @brief The destructor. */
-            ~ContextWithMDNS
+            ~SearchContext
                 (void)
                 override;
 
@@ -153,7 +153,7 @@ namespace nImO
              @param[in,out] owner The owning object for the thread. */
             static void
             executeBrowser
-                (ContextWithMDNS &  owner);
+                (SearchContext &  owner);
 
             /*! @brief Collect announcements via mDNS.
              @param[in] quietly @c true if reporting a failure is suppressed. */
@@ -219,7 +219,7 @@ namespace nImO
             /*! @brief @c true if the browser thread is to be launched. */
             bool  _startBrowser{false};
 
-    }; // ContextWithMDNS
+    }; // SearchContext
 
     /*! @brief The key in the mDNS data for the Registry address. */
     const std::string kRegistryAddressKey{"registry_address"};
@@ -286,4 +286,4 @@ namespace nImO
 
 } // nImO
 
-#endif // not defined(nImOcontextWithMDNS_H_)
+#endif // not defined(nImOsearchContext_H_)

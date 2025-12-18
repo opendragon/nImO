@@ -151,7 +151,7 @@ doTestCreateRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -205,7 +205,7 @@ doTestEmptyRegistryForMachines
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -275,7 +275,7 @@ doTestMachineSetWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -347,7 +347,7 @@ doTestFindMachineWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -432,7 +432,7 @@ doTestAddMachineToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -495,7 +495,7 @@ doTestCountMachinesWithRegistryWithOneMachine
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -574,7 +574,7 @@ doTestMachineSetWithRegistryWithOneMachine
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -655,7 +655,7 @@ doTestFindMachineWithRegistryWithOneMachine
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -749,7 +749,7 @@ doTestAddTwoDistinctMachinesToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -820,7 +820,7 @@ doTestCountMachinesWithRegistryWithTwoMachines
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -907,7 +907,7 @@ doTestAddTwoIdenticalMachinesToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -994,7 +994,7 @@ doTestEmptyRegistryForNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1064,7 +1064,7 @@ doTestNodeSetWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1136,7 +1136,7 @@ doTestFindNodeWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1221,7 +1221,7 @@ doTestAddNodeToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1289,7 +1289,7 @@ doTestCountNodesWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1373,7 +1373,7 @@ doTestNodeSetWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1459,7 +1459,7 @@ doTestFindNodeWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1558,7 +1558,7 @@ doTestNodeDataAddedToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1657,7 +1657,7 @@ doTestRemoveNodeFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1733,7 +1733,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1825,7 +1825,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -1919,7 +1919,7 @@ doTestFindNodeWithRegistryNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2011,7 +2011,7 @@ doTestAddTwoDistinctNodesToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2087,7 +2087,7 @@ doTestCountNodesWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2179,7 +2179,7 @@ doTestNodeSetWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2280,7 +2280,7 @@ doTestFindNodeWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2387,7 +2387,7 @@ doTestRemoveNodesFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2479,7 +2479,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2587,7 +2587,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2697,7 +2697,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2820,7 +2820,7 @@ doTestAddTwoIdenticalNodesToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2914,7 +2914,7 @@ doTestNodeInfoWithRegistryWithNoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -2986,7 +2986,7 @@ doTestNodeInfoWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3087,7 +3087,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3261,7 +3261,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3333,7 +3333,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3430,7 +3430,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3577,7 +3577,7 @@ doTestNodeInfoWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3647,7 +3647,7 @@ doTestNodeSetWithEmptyRegistryViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3729,7 +3729,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3816,7 +3816,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -3918,7 +3918,7 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4000,7 +4000,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4102,7 +4102,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4232,7 +4232,7 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4312,7 +4312,7 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4397,7 +4397,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4490,7 +4490,7 @@ doTestCountChannelsWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4560,7 +4560,7 @@ doTestFindChannelWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4645,7 +4645,7 @@ doTestAddChannelToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4724,7 +4724,7 @@ doTestCountChannelsInRegistryWithOneChannel
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4819,7 +4819,7 @@ doTestFindChannelInRegistryWithOneChannel
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -4929,7 +4929,7 @@ doTestAddTwoChannelsToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5024,7 +5024,7 @@ doTestCountChannelsInRegistryWithTwoChannels
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5135,7 +5135,7 @@ doTestFindChannelsInRegistryWithTwoChannels
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5261,7 +5261,7 @@ doTestAddTwoIdenticalChannelsToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5348,7 +5348,7 @@ doTestAddChannelWithBadNodeNameToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5424,7 +5424,7 @@ doTestAddChannelWithBadChannelNameToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5500,7 +5500,7 @@ doTestRemoveAllChannelsFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5595,7 +5595,7 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5706,7 +5706,7 @@ doTestFindChannelWithRegistryAllChannelsRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5832,7 +5832,7 @@ doTestRemoveOneChannelFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -5927,7 +5927,7 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6038,7 +6038,7 @@ doTestFindChannelWithRegistryOneChannelRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6164,7 +6164,7 @@ doTestRemoveNonexistentChannelFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6251,7 +6251,7 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6338,7 +6338,7 @@ doTestGetChannelInfoFromEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6408,7 +6408,7 @@ doTestGetChannelInfoFromRegistryWithOneChannel
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6516,7 +6516,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6665,7 +6665,7 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6751,7 +6751,7 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6828,7 +6828,7 @@ doTestGetChannelSetFromEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -6900,7 +6900,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7008,7 +7008,7 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7146,7 +7146,7 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7292,7 +7292,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7401,7 +7401,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7540,7 +7540,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7687,7 +7687,7 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7781,7 +7781,7 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7876,7 +7876,7 @@ doTestGetChannelInUseWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -7939,7 +7939,7 @@ doTestSetChannelInUseWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8002,7 +8002,7 @@ doTestClearChannelInUseWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8065,7 +8065,7 @@ doTestChannelInUseCanBeSet
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8183,7 +8183,7 @@ doTestChannelInUseCanBeCleared
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8324,7 +8324,7 @@ doTestGetChannelInUseWithBadNodeName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8412,7 +8412,7 @@ doTestSetChannelInUseWithBadNodeName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8499,7 +8499,7 @@ doTestClearChannelInUseWithBadNodeName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8586,7 +8586,7 @@ doTestGetChannelInUseWithBadChannelName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8674,7 +8674,7 @@ doTestSetChannelInUseWithBadChannelName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8761,7 +8761,7 @@ static int
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8848,7 +8848,7 @@ doTestGetAndSetChannelInUse
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -8958,7 +8958,7 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9021,7 +9021,7 @@ doTestGetAndSetChannelInUseWithBadNodeName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9109,7 +9109,7 @@ doTestGetAndSetChannelInUseWithBadChannelName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9197,7 +9197,7 @@ doTestCountConnectionsWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9267,7 +9267,7 @@ doTestAddConnectionToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9371,7 +9371,7 @@ doTestCountConnectionsInRegistryWithOneConnection
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9491,7 +9491,7 @@ doTestAddTwoConnectionsToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9621,7 +9621,7 @@ doTestCountConnectionsInRegistryWithTwoConnections
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9767,7 +9767,7 @@ doTestRemoveOneConnectionFromRegistryViaFrom
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9879,7 +9879,7 @@ doTestRemoveOneConnectionFromRegistryViaTo
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -9991,7 +9991,7 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -10119,7 +10119,7 @@ doTestConnectChannelsWithRegistryWithBadChannelName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -10232,7 +10232,7 @@ doTestConnectChannelsWithRegistryWithBadNodeName
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -10345,7 +10345,7 @@ doTestGetConnectionsFromEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -10417,7 +10417,7 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -10554,7 +10554,7 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -10745,7 +10745,7 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -10936,7 +10936,7 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11073,7 +11073,7 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11265,7 +11265,7 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11337,7 +11337,7 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11409,7 +11409,7 @@ doTestGetConnectionInfoWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11498,7 +11498,7 @@ doTestGetConnectionInfoInRegistryWithOneConnection
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11644,7 +11644,7 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11794,7 +11794,7 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -11944,7 +11944,7 @@ doTestCountApplicationsWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12014,7 +12014,7 @@ TestAddApplicationWithOneLauncherToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12093,7 +12093,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12188,7 +12188,7 @@ doTestAddTwoApplicationsFromOneLauncherToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12275,7 +12275,7 @@ doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12378,7 +12378,7 @@ doTestClearApplicationsWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12441,7 +12441,7 @@ doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12528,7 +12528,7 @@ doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12631,7 +12631,7 @@ doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12734,7 +12734,7 @@ doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12853,7 +12853,7 @@ doTestAddApplicationsFromTwoLaunchersToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -12948,7 +12948,7 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13059,7 +13059,7 @@ doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13170,7 +13170,7 @@ doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13312,7 +13312,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13407,7 +13407,7 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13533,7 +13533,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13641,7 +13641,7 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13770,7 +13770,7 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -13908,7 +13908,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14016,7 +14016,7 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14167,7 +14167,7 @@ doTestGetNodeNamesInRegistryWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14237,7 +14237,7 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14332,7 +14332,7 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14443,7 +14443,7 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14545,7 +14545,7 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14670,7 +14670,7 @@ doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14740,7 +14740,7 @@ doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14810,7 +14810,7 @@ doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14880,7 +14880,7 @@ doTestCountChannelsOnNodeWithOneInputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -14975,7 +14975,7 @@ doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15070,7 +15070,7 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15165,7 +15165,7 @@ doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15260,7 +15260,7 @@ doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15355,7 +15355,7 @@ doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15450,7 +15450,7 @@ doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15553,7 +15553,7 @@ doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15656,7 +15656,7 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15759,7 +15759,7 @@ doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInR
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15870,7 +15870,7 @@ doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChann
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)
@@ -15981,7 +15981,7 @@ doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChan
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
+     nImO::SpNetworkingContext  context,
      const std::string &            execPath,
      const std::string &            currentDir,
      const std::string &            commandLine)

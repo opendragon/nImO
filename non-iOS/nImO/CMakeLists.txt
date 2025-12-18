@@ -109,11 +109,11 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/Containers/nImOset.cpp"
             "${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOcontext.cpp"
-            "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithMDNS.cpp"
-            "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.cpp"
+            "${THIS_SOURCE_DIR}/Contexts/nImOnetworkingContext.cpp"
+            "${THIS_SOURCE_DIR}/Contexts/nImOsearchContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOsourceContext.cpp"
@@ -342,11 +342,11 @@ install(FILES
 
 install(FILES
         "${THIS_SOURCE_DIR}/Contexts/nImOcontext.h"
-        "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithMDNS.h"
-        "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.h"
+        "${THIS_SOURCE_DIR}/Contexts/nImOnetworkingContext.h"
+        "${THIS_SOURCE_DIR}/Contexts/nImOsearchContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOsourceContext.h"
@@ -503,11 +503,11 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/Containers/nImOset.cpp ${THIS_SOURCE_DIR}/Containers/nImOset.h
         ${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.h
         ${THIS_SOURCE_DIR}/Contexts/nImOcontext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontext.h
-        ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithMDNS.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithMDNS.h
-        ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.h
         ${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.h
+        ${THIS_SOURCE_DIR}/Contexts/nImOnetworkingContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOnetworkingContext.h
+        ${THIS_SOURCE_DIR}/Contexts/nImOsearchContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOsearchContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOsourceContext.h

@@ -97,7 +97,6 @@ catchSignal
 /*! @brief Perform a test case.
  @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
  @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidateNodeName
@@ -135,7 +134,6 @@ doTestValidateNodeName
 /*! @brief Perform a test case.
  @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
  @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidatePath
@@ -173,7 +171,6 @@ doTestValidatePath
 /*! @brief Perform a test case.
  @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
  @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestValidateTransport
@@ -211,7 +208,6 @@ doTestValidateTransport
 /*! @brief Perform a test case.
  @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
  @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestParseChannelName
@@ -434,7 +430,7 @@ doTestParseExtractProtocol
 /*! @brief Perform a test case.
  @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
  @param[in] baseString The base path to be used for the test.
- @param[in] forOutputString Whether an output path is to be generated or an input path.
+ @param[in] typeString Whether an input path, output path or control path is to be generated.
  @param[in] numChannelsString The number of channels for output or input.
  @param[in] channelNumberString The index of the channel.
  @param[in] expectedString The expected output from the test.
@@ -525,7 +521,6 @@ doTestGeneratePath
 /*! @brief Perform a test case.
  @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
  @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestName

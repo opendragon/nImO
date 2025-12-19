@@ -67,11 +67,11 @@ namespace nImO
     SuccessOrFailure
     SendRequestWithArgumentsAndNonEmptyResponse
         (SpNetworkingContext    context,
-         Connection &               connection,
-         Ptr(ResponseHandler)       handler,
-         Ptr(Array)                 arguments,
-         const std::string &        requestKey,
-         const std::string &        responseKey);
+         Connection &           connection,
+         Ptr(ResponseHandler)   handler,
+         Ptr(Array)             arguments,
+         const std::string &    requestKey,
+         const std::string &    responseKey);
 
     /*! @brief Send a simple request with arguments and no expected results.
      @param[in] context The context in which the request is being made.
@@ -83,10 +83,10 @@ namespace nImO
     inline SuccessOrFailure
     SendRequestWithArgumentsAndEmptyResponse
         (SpNetworkingContext    context,
-         Connection &               connection,
-         Ptr(Array)                 arguments,
-         const std::string &        requestKey,
-         const std::string &        responseKey)
+         Connection &           connection,
+         Ptr(Array)             arguments,
+         const std::string &    requestKey,
+         const std::string &    responseKey)
     {
         return SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, arguments, requestKey, responseKey);
     }
@@ -100,9 +100,9 @@ namespace nImO
     inline SuccessOrFailure
     SendRequestWithNoArgumentsAndEmptyResponse
         (SpNetworkingContext    context,
-         Connection &               connection,
-         const std::string &        requestKey,
-         const std::string &        responseKey)
+         Connection &           connection,
+         const std::string &    requestKey,
+         const std::string &    responseKey)
     {
         return SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, nullptr, requestKey, responseKey);
     }
@@ -117,10 +117,10 @@ namespace nImO
     inline SuccessOrFailure
     SendRequestWithNoArgumentsAndNonEmptyResponse
         (SpNetworkingContext    context,
-         Connection &               connection,
-         Ptr(ResponseHandler)       handler,
-         const std::string &        requestKey,
-         const std::string &        responseKey)
+         Connection &           connection,
+         Ptr(ResponseHandler)   handler,
+         const std::string &    requestKey,
+         const std::string &    responseKey)
     {
         return SendRequestWithArgumentsAndNonEmptyResponse(context, connection, handler, nullptr, requestKey, responseKey);
     }

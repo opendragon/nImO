@@ -189,11 +189,11 @@ handleResponse
 static void
 handleWriteCompletion
     (nImO::SpNetworkingContext  context,
-     nImO::SpSocketTCP              socket,
-     Ptr(nImO::ResponseHandler)     handler,
-     nImO::SpBool                   keepGoing,
-     const std::string &            responseKey,
-     nImO::SpSuccessOrFailure       status)
+     nImO::SpSocketTCP          socket,
+     Ptr(nImO::ResponseHandler) handler,
+     nImO::SpBool               keepGoing,
+     const std::string &        responseKey,
+     nImO::SpSuccessOrFailure   status)
 {
     ODL_ENTER(); //####
     ODL_P4(context.get(), socket.get(), handler, keepGoing.get()); //####
@@ -253,12 +253,12 @@ handleWriteCompletion
 static void
 handleConnectCompletion
     (nImO::SpNetworkingContext  context,
-     nImO::SpSocketTCP              socket,
-     nImO::SpStdString              outString,
-     Ptr(nImO::ResponseHandler)     handler,
-     nImO::SpBool                   keepGoing,
-     const std::string &            responseKey,
-     nImO::SpSuccessOrFailure       status)
+     nImO::SpSocketTCP          socket,
+     nImO::SpStdString          outString,
+     Ptr(nImO::ResponseHandler) handler,
+     nImO::SpBool               keepGoing,
+     const std::string &        responseKey,
+     nImO::SpSuccessOrFailure   status)
 {
     ODL_ENTER(); //####
     ODL_P4(context.get(), socket.get(), outString.get(), handler); //####
@@ -319,11 +319,11 @@ handleConnectCompletion
 nImO::SuccessOrFailure
 nImO::SendRequestWithArgumentsAndNonEmptyResponse
     (SpNetworkingContext    context,
-     Connection &               connection,
-     Ptr(ResponseHandler)       handler,
-     Ptr(Array)                 arguments,
-     const std::string &        requestKey,
-     const std::string &        responseKey)
+     Connection &           connection,
+     Ptr(ResponseHandler)   handler,
+     Ptr(Array)             arguments,
+     const std::string &    requestKey,
+     const std::string &    responseKey)
 {
     ODL_ENTER(); //####
     ODL_P4(context.get(), &connection, handler, arguments); //####

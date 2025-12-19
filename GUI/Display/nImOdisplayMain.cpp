@@ -262,9 +262,12 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+std::cerr << "** Unimplemented **\n";
+            // TBD
+
 #if 0
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::NetworkingContext             ourContext{"display"s, optionValues._logging};
+            nImO::NetworkingContext                 ourContext{"display"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
             auto                                    registrySearchConnection{ourContext.gerRegistrySearchInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};

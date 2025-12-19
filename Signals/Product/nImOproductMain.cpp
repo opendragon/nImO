@@ -385,7 +385,7 @@ main
                                                         {
                                                             valueCollection->setValue(nextData->_tag, asDouble->getDoubleValue());
                                                             nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(valueCollection->calculate())};
-//
+
                                                             if (! outChannel->send(valueToSend))
                                                             {
                                                                 ourContext->report("problem sending to '"s + outChannelPath + "'."s);

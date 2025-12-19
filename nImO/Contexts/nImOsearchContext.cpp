@@ -125,7 +125,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning context. */
             explicit RecordHandler
-                (nImO::SearchContext &    owner) :
+                (nImO::SearchContext &  owner) :
                     _owner(owner), _processing(false)
             {
             }
@@ -285,7 +285,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The owning context. */
-            nImO::SearchContext & _owner;
+            nImO::SearchContext &   _owner;
 
             /*! @brief @c true if this record is to be processed. */
             bool    _processing;
@@ -639,7 +639,7 @@ nImO::SearchContext::closeSockets
 
 void
 nImO::SearchContext::executeBrowser
-    (SearchContext &  owner)
+    (SearchContext &    owner)
 {
     ODL_ENTER(); //####
     ODL_P1(&owner); //####

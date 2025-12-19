@@ -114,6 +114,9 @@ main
     {
         try
         {
+std::cerr << "** Unimplemented **\n";
+            // TBD
+#if 0
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
@@ -327,7 +330,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+#endif//0
         }
         catch (const std::string &  fault)
         {

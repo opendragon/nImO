@@ -115,7 +115,7 @@ doTestCreateSearchContext
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext{};
+        SearchContext   aContext{};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -470,8 +470,8 @@ doTestKindOfContextForNetworkingContext
     {
         DisableWaitForRegistry();
         NetworkingContext   aContext{};
-        auto                    asService{aContext.asServiceContext()};
-        auto                    asUtility{aContext.asUtilityContext()};
+        auto                asService{aContext.asServiceContext()};
+        auto                asUtility{aContext.asUtilityContext()};
 
         if ((nullptr == asService) && (nullptr == asUtility))
         {
@@ -506,7 +506,7 @@ doTestKindOfContextForSearchContext
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext{};
+        SearchContext   aContext{};
         auto            asService{aContext.asServiceContext()};
         auto            asUtility{aContext.asUtilityContext()};
 
@@ -802,12 +802,12 @@ doTestCreateSearchAndSearchContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -847,7 +847,7 @@ doTestCreateSearchAndNetworkingContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -892,7 +892,7 @@ doTestCreateSearchAndFilterContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -937,7 +937,7 @@ doTestCreateSearchAndMiscellaneousContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -982,7 +982,7 @@ doTestCreateSearchAndServiceContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1027,7 +1027,7 @@ doTestCreateSearchAndSinkContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1072,7 +1072,7 @@ doTestCreateSearchAndSourceContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1117,7 +1117,7 @@ doTestCreateSearchAndTestContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1162,7 +1162,7 @@ doTestCreateSearchAndUtilityContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1207,7 +1207,7 @@ doTestCreateSearchAndLauncherContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1257,7 +1257,7 @@ doTestCreateNetworkingAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1662,7 +1662,7 @@ doTestCreateNetworkingAndLauncherContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            LauncherContext  aContext2{0, nullptr, ""};
+            LauncherContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1707,7 +1707,7 @@ doTestCreateFilterAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2157,7 +2157,7 @@ doTestCreateMiscellaneousAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2607,7 +2607,7 @@ doTestCreateServiceAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3057,7 +3057,7 @@ doTestCreateSinkAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3507,7 +3507,7 @@ doTestCreateSourceAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3957,7 +3957,7 @@ doTestCreateTestAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4407,7 +4407,7 @@ doTestCreateUtilityAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4857,7 +4857,7 @@ doTestCreateRegistryAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -5347,7 +5347,7 @@ doTestCreateSearchAndRegistryContexts
     try
     {
         DisableWaitForRegistry();
-        SearchContext aContext1{};
+        SearchContext   aContext1{};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -5397,7 +5397,7 @@ doTestCreateNetworkingAndRegistryContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            RegistryContext  aContext2{0, nullptr};
+            RegistryContext aContext2{0, nullptr};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -5757,7 +5757,7 @@ doTestCreateLauncherAndSearchContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SearchContext aContext2{};
+            SearchContext   aContext2{};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();

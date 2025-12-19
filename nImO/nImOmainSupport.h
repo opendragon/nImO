@@ -73,11 +73,11 @@ namespace nImO
     bool
     CloseConnection
         (SpNetworkingContext    context,
-         const std::string &        nodeName,
-         SpRegistryProxy            proxy,
-         const std::string &        path,
-         const bool                 isFrom,
-         bool &                     reported);
+         const std::string &    nodeName,
+         SpRegistryProxy        proxy,
+         const std::string &    path,
+         const bool             isFrom,
+         bool &                 reported);
 
     /* @brief Return the path to the executable.
      @return The path to the executable. */
@@ -111,12 +111,12 @@ namespace nImO
     void
     StopConnection
         (SpNetworkingContext    ourContext,
-         Connection &               fromConnection,
-         const std::string &        fromNode,
-         const std::string &        fromPath,
-         Connection &               toConnection,
-         const std::string &        toNode,
-         const std::string &        toPath);
+         Connection &           fromConnection,
+         const std::string &    fromNode,
+         const std::string &    fromPath,
+         Connection &           toConnection,
+         const std::string &    toNode,
+         const std::string &    toPath);
 
     /*! @brief Set to @c false when a SIGINT occurs. */
     extern std::atomic_bool gKeepRunning;

@@ -406,7 +406,7 @@ struct NodeInsertData
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 performSQLstatementWithMultipleColumnResults
-    (nImO::SpNetworkingContext  owner,
+    (nImO::SpNetworkingContext      owner,
      Ptr(sqlite3)                   dbHandle,
      nImO::StdStringVectorVector &  results,
      CPtr(char)                     sqlStatement,
@@ -519,10 +519,10 @@ performSQLstatementWithMultipleColumnResults
 static nImO::SuccessOrFailure
 performSQLstatementWithNoResults
     (nImO::SpNetworkingContext  owner,
-     Ptr(sqlite3)                   dbHandle,
-     CPtr(char)                     sqlStatement,
-     BindFunction                   doBinds = nullptr,
-     CPtr(void)                     data = nullptr)
+     Ptr(sqlite3)               dbHandle,
+     CPtr(char)                 sqlStatement,
+     BindFunction               doBinds = nullptr,
+     CPtr(void)                 data = nullptr)
 {
     ODL_ENTER(); //####
     ODL_P3(owner.get(), dbHandle, data); //####
@@ -599,8 +599,8 @@ performSQLstatementWithNoResults
 static nImO::SuccessOrFailure
 performSQLstatementWithNoResultsNoArgs
     (nImO::SpNetworkingContext  owner,
-     Ptr(sqlite3)                   dbHandle,
-     CPtr(char)                     sqlStatement)
+     Ptr(sqlite3)               dbHandle,
+     CPtr(char)                 sqlStatement)
 {
     ODL_ENTER(); //####
     ODL_P2(owner.get(), dbHandle); //####
@@ -666,11 +666,11 @@ performSQLstatementWithNoResultsNoArgs
 static nImO::SuccessOrFailure
 performSQLstatementWithSingleColumnResults
     (nImO::SpNetworkingContext  owner,
-     Ptr(sqlite3)                   dbHandle,
-     nImO::StdStringVector &        resultList,
-     CPtr(char)                     sqlStatement,
-     BindFunction                   doBinds = nullptr,
-     CPtr(void)                     data = nullptr)
+     Ptr(sqlite3)               dbHandle,
+     nImO::StdStringVector &    resultList,
+     CPtr(char)                 sqlStatement,
+     BindFunction               doBinds = nullptr,
+     CPtr(void)                 data = nullptr)
 {
     ODL_ENTER(); //####
     ODL_P4(owner.get(), dbHandle, &resultList, data); //####
@@ -767,7 +767,7 @@ performSQLstatementWithSingleColumnResults
 static nImO::SuccessOrFailure
 doBeginTransaction
     (nImO::SpNetworkingContext  owner,
-     Ptr(sqlite3)                   dbHandle)
+     Ptr(sqlite3)               dbHandle)
 {
     ODL_ENTER(); //####
     ODL_P2(owner.get(), dbHandle); //####
@@ -804,8 +804,8 @@ doBeginTransaction
 static nImO::SuccessOrFailure
 doEndTransaction
     (nImO::SpNetworkingContext  owner,
-     Ptr(sqlite3)                   dbHandle,
-     const bool                     wasOK)
+     Ptr(sqlite3)               dbHandle,
+     const bool                 wasOK)
 {
     ODL_ENTER(); //####
     ODL_P2(owner.get(), dbHandle); //####
@@ -845,8 +845,8 @@ doEndTransaction
 static nImO::SuccessOrFailure
 createTables
     (nImO::SpNetworkingContext  owner,
-     const bool                     logging,
-     Ptr(sqlite3)                   dbHandle)
+     const bool                 logging,
+     Ptr(sqlite3)               dbHandle)
 {
     ODL_ENTER(); //####
     ODL_P2(owner.get(), dbHandle); //####
@@ -1919,7 +1919,7 @@ extractNodeInfoFromVector
 
 nImO::Registry::Registry
     (SpNetworkingContext    owner,
-     const bool                 logging) :
+     const bool             logging) :
         _owner{owner}
 {
     ODL_ENTER(); //####

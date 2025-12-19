@@ -163,7 +163,7 @@ namespace nImO
             inline static SpRegistryProxy
             create
                 (SpNetworkingContext    context,
-                 const Connection &         connection)
+                 const Connection &     connection)
             {
                 SpRegistryProxy newProxy{new RegistryProxy{context, connection}};
 
@@ -484,7 +484,7 @@ namespace nImO
              @param[in] connection The IP address and port of the Registry. */
             RegistryProxy
                 (SpNetworkingContext    context,
-                 const Connection &         connection);
+                 const Connection &     connection);
 
         public :
             // Public fields.

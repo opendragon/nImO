@@ -263,7 +263,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::NetworkingContext             ourContext{"log"s, optionValues._logging};
+            nImO::NetworkingContext                 ourContext{"log"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
             auto                                    registrySearchConnection{ourContext.gerRegistrySearchInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};

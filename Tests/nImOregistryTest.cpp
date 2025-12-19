@@ -145,16 +145,20 @@ catchSignal
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCreateRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -163,9 +167,10 @@ doTestCreateRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -199,16 +204,20 @@ doTestCreateRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyRegistryForMachines
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -217,9 +226,10 @@ doTestEmptyRegistryForMachines
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -269,16 +279,20 @@ doTestEmptyRegistryForMachines
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMachineSetWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -287,9 +301,10 @@ doTestMachineSetWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -341,16 +356,20 @@ doTestMachineSetWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindMachineWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -359,9 +378,10 @@ doTestFindMachineWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -426,16 +446,20 @@ doTestFindMachineWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddMachineToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -444,9 +468,10 @@ doTestAddMachineToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -489,16 +514,20 @@ doTestAddMachineToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountMachinesWithRegistryWithOneMachine
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -507,9 +536,10 @@ doTestCountMachinesWithRegistryWithOneMachine
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -568,16 +598,20 @@ doTestCountMachinesWithRegistryWithOneMachine
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestMachineSetWithRegistryWithOneMachine
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -586,9 +620,10 @@ doTestMachineSetWithRegistryWithOneMachine
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -649,16 +684,20 @@ doTestMachineSetWithRegistryWithOneMachine
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindMachineWithRegistryWithOneMachine
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -667,9 +706,10 @@ doTestFindMachineWithRegistryWithOneMachine
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -743,16 +783,20 @@ doTestFindMachineWithRegistryWithOneMachine
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoDistinctMachinesToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -761,9 +805,10 @@ doTestAddTwoDistinctMachinesToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -814,16 +859,20 @@ doTestAddTwoDistinctMachinesToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountMachinesWithRegistryWithTwoMachines
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -832,9 +881,10 @@ doTestCountMachinesWithRegistryWithTwoMachines
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -901,16 +951,20 @@ doTestCountMachinesWithRegistryWithTwoMachines
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoIdenticalMachinesToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -919,9 +973,10 @@ doTestAddTwoIdenticalMachinesToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -988,16 +1043,20 @@ doTestAddTwoIdenticalMachinesToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyRegistryForNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1006,9 +1065,10 @@ doTestEmptyRegistryForNodes
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1058,16 +1118,20 @@ doTestEmptyRegistryForNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1076,9 +1140,10 @@ doTestNodeSetWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1130,16 +1195,20 @@ doTestNodeSetWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindNodeWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1148,9 +1217,10 @@ doTestFindNodeWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1215,24 +1285,29 @@ doTestFindNodeWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddNodeToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1283,24 +1358,29 @@ doTestAddNodeToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountNodesWithRegistryWithOneNode
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1367,24 +1447,29 @@ doTestCountNodesWithRegistryWithOneNode
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithOneNode
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1453,24 +1538,29 @@ doTestNodeSetWithRegistryWithOneNode
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindNodeWithRegistryWithOneNode
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1552,24 +1642,29 @@ doTestFindNodeWithRegistryWithOneNode
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeDataAddedToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1651,24 +1746,29 @@ doTestNodeDataAddedToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveNodeFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1727,24 +1827,29 @@ doTestRemoveNodeFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountNodesWithRegistryWithNodeRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1819,24 +1924,29 @@ doTestCountNodesWithRegistryWithNodeRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithNodeRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -1913,24 +2023,29 @@ doTestNodeSetWithRegistryWithNodeRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindNodeWithRegistryNodeRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2005,24 +2120,29 @@ doTestFindNodeWithRegistryNodeRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoDistinctNodesToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2081,24 +2201,29 @@ doTestAddTwoDistinctNodesToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountNodesWithRegistryWithTwoNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2173,24 +2298,29 @@ doTestCountNodesWithRegistryWithTwoNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithTwoNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2274,24 +2404,29 @@ doTestNodeSetWithRegistryWithTwoNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindNodeWithRegistryWithTwoNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2381,24 +2516,29 @@ doTestFindNodeWithRegistryWithTwoNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveNodesFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2473,24 +2613,29 @@ doTestRemoveNodesFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountNodesWithRegistryWithAllNodesRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2581,24 +2726,29 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithAllNodesRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2691,24 +2841,29 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindNodeWithRegistryAllNodesRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2814,24 +2969,29 @@ doTestFindNodeWithRegistryAllNodesRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoIdenticalNodesToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2908,16 +3068,20 @@ doTestAddTwoIdenticalNodesToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeInfoWithRegistryWithNoNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2926,9 +3090,10 @@ doTestNodeInfoWithRegistryWithNoNodes
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -2980,24 +3145,29 @@ doTestNodeInfoWithRegistryWithNoNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeInfoWithRegistryWithOneNode
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3081,24 +3251,29 @@ doTestNodeInfoWithRegistryWithOneNode
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeInfoWithRegistryWithTwoNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3255,16 +3430,20 @@ doTestNodeInfoWithRegistryWithTwoNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLaunchDetailsWithRegistryWithNoNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3273,9 +3452,10 @@ doTestLaunchDetailsWithRegistryWithNoNodes
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3327,24 +3507,29 @@ doTestLaunchDetailsWithRegistryWithNoNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLaunchDetailsWithRegistryWithOneNode
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3424,24 +3609,29 @@ doTestLaunchDetailsWithRegistryWithOneNode
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestLaunchDetailsWithRegistryWithTwoNodes
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3571,16 +3761,20 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeInfoWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3589,9 +3783,10 @@ doTestNodeInfoWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3641,16 +3836,20 @@ doTestNodeInfoWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithEmptyRegistryViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3659,9 +3858,10 @@ doTestNodeSetWithEmptyRegistryViaMachineName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3723,24 +3923,29 @@ doTestNodeSetWithEmptyRegistryViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithOneNodeViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3810,24 +4015,29 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithTwoNodesViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3912,16 +4122,20 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3930,9 +4144,10 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -3994,24 +4209,29 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeInfoWithRegistryWithOneNodeViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4096,24 +4316,29 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4226,16 +4451,20 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4244,9 +4473,10 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4306,24 +4536,29 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountNodesWithRegistryWithOneNodeViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4391,24 +4626,29 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountNodesWithRegistryWithTwoNodesViaMachineName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4484,16 +4724,20 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4502,9 +4746,10 @@ doTestCountChannelsWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4554,16 +4799,20 @@ doTestCountChannelsWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindChannelWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4572,9 +4821,10 @@ doTestFindChannelWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4639,16 +4889,20 @@ doTestFindChannelWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddChannelToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4657,9 +4911,10 @@ doTestAddChannelToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4718,16 +4973,20 @@ doTestAddChannelToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsInRegistryWithOneChannel
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4736,9 +4995,10 @@ doTestCountChannelsInRegistryWithOneChannel
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4813,16 +5073,20 @@ doTestCountChannelsInRegistryWithOneChannel
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindChannelInRegistryWithOneChannel
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4831,9 +5095,10 @@ doTestFindChannelInRegistryWithOneChannel
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -4923,16 +5188,20 @@ doTestFindChannelInRegistryWithOneChannel
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoChannelsToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4941,9 +5210,10 @@ doTestAddTwoChannelsToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5018,16 +5288,20 @@ doTestAddTwoChannelsToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsInRegistryWithTwoChannels
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5036,9 +5310,10 @@ doTestCountChannelsInRegistryWithTwoChannels
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5129,16 +5404,20 @@ doTestCountChannelsInRegistryWithTwoChannels
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindChannelsInRegistryWithTwoChannels
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5147,9 +5426,10 @@ doTestFindChannelsInRegistryWithTwoChannels
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5255,16 +5535,20 @@ doTestFindChannelsInRegistryWithTwoChannels
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoIdenticalChannelsToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5273,9 +5557,10 @@ doTestAddTwoIdenticalChannelsToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5342,24 +5627,29 @@ doTestAddTwoIdenticalChannelsToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddChannelWithBadNodeNameToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5418,24 +5708,29 @@ doTestAddChannelWithBadNodeNameToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddChannelWithBadChannelNameToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5494,16 +5789,20 @@ doTestAddChannelWithBadChannelNameToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveAllChannelsFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5512,9 +5811,10 @@ doTestRemoveAllChannelsFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5589,16 +5889,20 @@ doTestRemoveAllChannelsFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsWithRegistryWithAllChannelsRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5607,9 +5911,10 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5700,16 +6005,20 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindChannelWithRegistryAllChannelsRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5718,9 +6027,10 @@ doTestFindChannelWithRegistryAllChannelsRemoved
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5826,16 +6136,20 @@ doTestFindChannelWithRegistryAllChannelsRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveOneChannelFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5844,9 +6158,10 @@ doTestRemoveOneChannelFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -5921,16 +6236,20 @@ doTestRemoveOneChannelFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsWithRegistryWithOneChannelRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5939,9 +6258,10 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6032,16 +6352,20 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindChannelWithRegistryOneChannelRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6050,9 +6374,10 @@ doTestFindChannelWithRegistryOneChannelRemoved
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6158,16 +6483,20 @@ doTestFindChannelWithRegistryOneChannelRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveNonexistentChannelFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6176,9 +6505,10 @@ doTestRemoveNonexistentChannelFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6245,16 +6575,20 @@ doTestRemoveNonexistentChannelFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveChannelFromNonexistentNodeFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6263,9 +6597,10 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6332,16 +6667,20 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInfoFromEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6350,9 +6689,10 @@ doTestGetChannelInfoFromEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6402,16 +6742,20 @@ doTestGetChannelInfoFromEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInfoFromRegistryWithOneChannel
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6420,9 +6764,10 @@ doTestGetChannelInfoFromRegistryWithOneChannel
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6510,16 +6855,20 @@ doTestGetChannelInfoFromRegistryWithOneChannel
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInfoFromRegistryWithTwoChannels
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6528,9 +6877,10 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6659,24 +7009,29 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInfoWithBadNodeNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6745,24 +7100,29 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInfoWithBadChannelNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6822,16 +7182,20 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetFromEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6840,9 +7204,10 @@ doTestGetChannelSetFromEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -6894,24 +7259,29 @@ doTestGetChannelSetFromEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetForNodeFromRegistryWithOneChannel
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7002,24 +7372,29 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetForNodeFromRegistryWithTwoChannels
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7140,24 +7515,29 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7286,24 +7666,29 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetForMachineFromRegistryWithOneChannel
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7395,24 +7780,29 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetForMachineFromRegistryWithTwoChannels
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7534,24 +7924,29 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7681,24 +8076,29 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetWithBadNodeNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7775,24 +8175,29 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelSetWithBadMachineNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7870,16 +8275,20 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInUseWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7888,9 +8297,10 @@ doTestGetChannelInUseWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7933,16 +8343,20 @@ doTestGetChannelInUseWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSetChannelInUseWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7951,9 +8365,10 @@ doTestSetChannelInUseWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -7996,16 +8411,20 @@ doTestSetChannelInUseWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearChannelInUseWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8014,9 +8433,10 @@ doTestClearChannelInUseWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8059,16 +8479,20 @@ doTestClearChannelInUseWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestChannelInUseCanBeSet
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8077,9 +8501,10 @@ doTestChannelInUseCanBeSet
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8177,16 +8602,20 @@ doTestChannelInUseCanBeSet
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestChannelInUseCanBeCleared
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8195,9 +8624,10 @@ doTestChannelInUseCanBeCleared
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8318,16 +8748,20 @@ doTestChannelInUseCanBeCleared
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInUseWithBadNodeName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8336,9 +8770,10 @@ doTestGetChannelInUseWithBadNodeName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8406,16 +8841,20 @@ doTestGetChannelInUseWithBadNodeName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSetChannelInUseWithBadNodeName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8424,9 +8863,10 @@ doTestSetChannelInUseWithBadNodeName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8493,16 +8933,20 @@ doTestSetChannelInUseWithBadNodeName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearChannelInUseWithBadNodeName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8511,9 +8955,10 @@ doTestClearChannelInUseWithBadNodeName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8580,16 +9025,20 @@ doTestClearChannelInUseWithBadNodeName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetChannelInUseWithBadChannelName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8598,9 +9047,10 @@ doTestGetChannelInUseWithBadChannelName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8668,16 +9118,20 @@ doTestGetChannelInUseWithBadChannelName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestSetChannelInUseWithBadChannelName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8686,9 +9140,10 @@ doTestSetChannelInUseWithBadChannelName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8755,16 +9210,20 @@ doTestSetChannelInUseWithBadChannelName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
     doTestClearChannelInUseWithBadChannelName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8773,9 +9232,10 @@ static int
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8842,16 +9302,20 @@ static int
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetAndSetChannelInUse
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8860,9 +9324,10 @@ doTestGetAndSetChannelInUse
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -8952,16 +9417,20 @@ doTestGetAndSetChannelInUse
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetAndSetChannelInUseWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8970,9 +9439,10 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9015,16 +9485,20 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetAndSetChannelInUseWithBadNodeName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9033,9 +9507,10 @@ doTestGetAndSetChannelInUseWithBadNodeName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9103,16 +9578,20 @@ doTestGetAndSetChannelInUseWithBadNodeName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetAndSetChannelInUseWithBadChannelName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9121,9 +9600,10 @@ doTestGetAndSetChannelInUseWithBadChannelName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9191,16 +9671,20 @@ doTestGetAndSetChannelInUseWithBadChannelName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountConnectionsWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9209,9 +9693,10 @@ doTestCountConnectionsWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9261,16 +9746,20 @@ doTestCountConnectionsWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddConnectionToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9279,9 +9768,10 @@ doTestAddConnectionToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9365,16 +9855,20 @@ doTestAddConnectionToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountConnectionsInRegistryWithOneConnection
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9383,9 +9877,10 @@ doTestCountConnectionsInRegistryWithOneConnection
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9485,16 +9980,20 @@ doTestCountConnectionsInRegistryWithOneConnection
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoConnectionsToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9503,9 +10002,10 @@ doTestAddTwoConnectionsToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9615,16 +10115,20 @@ doTestAddTwoConnectionsToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountConnectionsInRegistryWithTwoConnections
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9633,9 +10137,10 @@ doTestCountConnectionsInRegistryWithTwoConnections
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9761,16 +10266,20 @@ doTestCountConnectionsInRegistryWithTwoConnections
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveOneConnectionFromRegistryViaFrom
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9779,9 +10288,10 @@ doTestRemoveOneConnectionFromRegistryViaFrom
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9873,16 +10383,20 @@ doTestRemoveOneConnectionFromRegistryViaFrom
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveOneConnectionFromRegistryViaTo
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9891,9 +10405,10 @@ doTestRemoveOneConnectionFromRegistryViaTo
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -9985,16 +10500,20 @@ doTestRemoveOneConnectionFromRegistryViaTo
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountConnectionsWithRegistryWithOneConnectionRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10003,9 +10522,10 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -10113,16 +10633,20 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestConnectChannelsWithRegistryWithBadChannelName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10131,9 +10655,10 @@ doTestConnectChannelsWithRegistryWithBadChannelName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -10226,16 +10751,20 @@ doTestConnectChannelsWithRegistryWithBadChannelName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestConnectChannelsWithRegistryWithBadNodeName
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10244,9 +10773,10 @@ doTestConnectChannelsWithRegistryWithBadNodeName
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -10339,16 +10869,20 @@ doTestConnectChannelsWithRegistryWithBadNodeName
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsFromEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10357,9 +10891,10 @@ doTestGetConnectionsFromEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -10411,16 +10946,20 @@ doTestGetConnectionsFromEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsForNodeFromRegistryWithOneConnection
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10429,9 +10968,10 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -10548,16 +11088,20 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsForNodeFromRegistryWithTwoConnections
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10566,9 +11110,10 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -10739,16 +11284,20 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10757,9 +11306,10 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -10930,16 +11480,20 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsForMachineFromRegistryWithOneConnection
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -10948,9 +11502,10 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11067,16 +11622,20 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsForMachineFromRegistryWithTwoConnections
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11085,9 +11644,10 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11259,16 +11819,20 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsWithBadNodeNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11277,9 +11841,10 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11331,16 +11896,20 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionsWithBadMachineNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11349,9 +11918,10 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11403,16 +11973,20 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionInfoWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11421,9 +11995,10 @@ doTestGetConnectionInfoWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11492,16 +12067,21 @@ doTestGetConnectionInfoWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @param[in] context A ServiceContext to use for creating a Registry.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionInfoInRegistryWithOneConnection
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11510,9 +12090,10 @@ doTestGetConnectionInfoInRegistryWithOneConnection
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11638,16 +12219,19 @@ doTestGetConnectionInfoInRegistryWithOneConnection
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionInfoWithBadNodeNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11656,9 +12240,10 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11788,16 +12373,20 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetConnectionInfoWithBadChannelNameFromRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11806,9 +12395,10 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -11938,16 +12528,20 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountApplicationsWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -11956,9 +12550,10 @@ doTestCountApplicationsWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12008,16 +12603,20 @@ doTestCountApplicationsWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 TestAddApplicationWithOneLauncherToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12026,9 +12625,10 @@ TestAddApplicationWithOneLauncherToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12087,16 +12687,20 @@ TestAddApplicationWithOneLauncherToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12105,9 +12709,10 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12182,16 +12787,20 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoApplicationsFromOneLauncherToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12200,9 +12809,10 @@ doTestAddTwoApplicationsFromOneLauncherToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12269,16 +12879,20 @@ doTestAddTwoApplicationsFromOneLauncherToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12287,9 +12901,10 @@ doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12372,16 +12987,20 @@ doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearApplicationsWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12390,9 +13009,10 @@ doTestClearApplicationsWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12435,16 +13055,20 @@ doTestClearApplicationsWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12453,9 +13077,10 @@ doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12522,16 +13147,20 @@ doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12540,9 +13169,10 @@ doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12625,16 +13255,20 @@ doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12643,9 +13277,10 @@ doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12728,16 +13363,20 @@ doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12746,9 +13385,10 @@ doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12847,16 +13487,20 @@ doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddApplicationsFromTwoLaunchersToRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12865,9 +13509,10 @@ doTestAddApplicationsFromTwoLaunchersToRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -12942,16 +13587,20 @@ doTestAddApplicationsFromTwoLaunchersToRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -12960,9 +13609,10 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13053,16 +13703,20 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13071,9 +13725,10 @@ doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13164,16 +13819,20 @@ doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13182,9 +13841,10 @@ doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13306,16 +13966,20 @@ doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13324,9 +13988,10 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13401,16 +14066,20 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13419,9 +14088,10 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13527,16 +14197,20 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13545,9 +14219,10 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13635,16 +14310,20 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13653,9 +14332,10 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13764,16 +14444,20 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13782,9 +14466,10 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -13902,16 +14587,20 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -13920,9 +14609,10 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14010,16 +14700,20 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14028,9 +14722,10 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14161,16 +14856,20 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetNodeNamesInRegistryWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14179,9 +14878,10 @@ doTestGetNodeNamesInRegistryWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14231,16 +14931,20 @@ doTestGetNodeNamesInRegistryWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14249,9 +14953,10 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14326,16 +15031,20 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14344,9 +15053,10 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14437,16 +15147,20 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14455,9 +15169,10 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14539,16 +15254,20 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14557,9 +15276,10 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14664,16 +15384,20 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14682,9 +15406,10 @@ doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14734,16 +15459,20 @@ doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14752,9 +15481,10 @@ doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14804,16 +15534,20 @@ doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14822,9 +15556,10 @@ doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14874,16 +15609,20 @@ doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsOnNodeWithOneInputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14892,9 +15631,10 @@ doTestCountChannelsOnNodeWithOneInputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -14969,16 +15709,20 @@ doTestCountChannelsOnNodeWithOneInputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -14987,9 +15731,10 @@ doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15064,16 +15809,20 @@ doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15082,9 +15831,10 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15159,16 +15909,20 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15177,9 +15931,10 @@ doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15254,16 +16009,20 @@ doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15272,9 +16031,10 @@ doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15349,16 +16109,20 @@ doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15367,9 +16131,9 @@ doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -15444,16 +16208,20 @@ doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15462,9 +16230,10 @@ doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15547,16 +16316,20 @@ doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15565,9 +16338,10 @@ doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15650,16 +16424,20 @@ doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15668,9 +16446,10 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15753,16 +16532,20 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15771,9 +16554,10 @@ doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInR
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15864,16 +16648,20 @@ doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInR
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15882,9 +16670,10 @@ doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChann
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try
@@ -15975,16 +16764,20 @@ doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChann
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
      nImO::SpNetworkingContext  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine)
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -15993,9 +16786,10 @@ doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChan
     NIMO_UNUSED_VAR_(currentDir);
     NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
     int result{1};
 
     try

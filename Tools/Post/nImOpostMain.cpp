@@ -115,8 +115,8 @@ main
         try
         {
             nImO::NetworkingContext ourContext{"post"s, optionValues._logging};
-            auto                        header{secondArg->getCurrentValue()};
-            bool                        readFromStdin{firstArg->getCurrentValue()};
+            auto                    header{secondArg->getCurrentValue()};
+            bool                    readFromStdin{firstArg->getCurrentValue()};
 
             if (readFromStdin)
             {

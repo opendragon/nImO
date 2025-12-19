@@ -120,11 +120,11 @@ nImO::CatchSignal
 bool
 nImO::CloseConnection
     (SpNetworkingContext    context,
-     const std::string &        nodeName,
-     SpRegistryProxy            proxy,
-     const std::string &        path,
-     const bool                 isFrom,
-     bool &                     reported)
+     const std::string &    nodeName,
+     SpRegistryProxy        proxy,
+     const std::string &    path,
+     const bool             isFrom,
+     bool &                 reported)
 {
     ODL_ENTER(); //####
     ODL_P2(context.get(), proxy.get()); //####
@@ -310,12 +310,12 @@ nImO::SetSpecialBreakObject
 void
 nImO::StopConnection
     (SpNetworkingContext    ourContext,
-     Connection &               fromConnection,
-     const std::string &        fromNode,
-     const std::string &        fromPath,
-     Connection &               toConnection,
-     const std::string &        toNode,
-     const std::string &        toPath)
+     Connection &           fromConnection,
+     const std::string &    fromNode,
+     const std::string &    fromPath,
+     Connection &           toConnection,
+     const std::string &    toNode,
+     const std::string &    toPath)
 {
     auto    argArray1{std::make_shared<nImO::Array>()};
     auto    handler1{std::make_unique<nImO::StopSenderResponseHandler>()};

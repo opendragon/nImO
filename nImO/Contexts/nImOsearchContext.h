@@ -153,7 +153,7 @@ namespace nImO
              @param[in,out] owner The owning object for the thread. */
             static void
             executeBrowser
-                (SearchContext &  owner);
+                (SearchContext &    owner);
 
             /*! @brief Collect announcements via mDNS.
              @param[in] quietly @c true if reporting a failure is suppressed. */

@@ -168,9 +168,9 @@ doTestMessageInitialEndTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -224,9 +224,9 @@ doTestMessageTerminalStartTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -281,9 +281,9 @@ doTestEmptyMessageWithContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -341,9 +341,9 @@ doTestNonEmptyMessageWithoutContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -402,9 +402,9 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -466,9 +466,9 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -530,9 +530,9 @@ doTestNonEmptyMessageWithInvalidContentTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -593,9 +593,9 @@ doTestNonEmptyMessageWithZeroDoubleCount
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -658,9 +658,9 @@ doTestNonEmptyMessageWithStringWithInvalidLength
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -724,9 +724,9 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -790,9 +790,9 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -859,9 +859,9 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -928,9 +928,9 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1000,9 +1000,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1074,9 +1074,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1147,9 +1147,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1227,9 +1227,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1310,9 +1310,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1403,9 +1403,9 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1472,9 +1472,9 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1541,9 +1541,9 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1613,9 +1613,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1687,9 +1687,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1760,9 +1760,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1846,9 +1846,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1932,9 +1932,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2015,9 +2015,9 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2084,9 +2084,9 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2153,9 +2153,9 @@ doTestNonEmptyMessageWithEmptySetWithContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2225,9 +2225,9 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2299,9 +2299,9 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2372,9 +2372,9 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2452,9 +2452,9 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try

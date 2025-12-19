@@ -79,7 +79,7 @@ namespace nImO
              @param[in] logging @c true if database activity is to be reported. */
             Registry
                 (SpNetworkingContext    owner,
-                 const bool                 logging = false);
+                 const bool             logging = false);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */

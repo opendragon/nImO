@@ -113,7 +113,7 @@ doTestInvalidArgs
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
+    ODL_S1(launchPath); //####
     ODL_I1(argc); //####
     ODL_P1(argv); //####
     int result{1};
@@ -197,7 +197,7 @@ doTestIntegerSize
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
+    ODL_S1(launchPath); //####
     ODL_I1(argc); //####
     ODL_P1(argv); //####
     int result{1};
@@ -261,9 +261,9 @@ doTestDoubleSize
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -308,7 +308,7 @@ doTestIntegerConversion
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
+    ODL_S1(launchPath); //####
     ODL_I1(argc); //####
     ODL_P1(argv); //####
     int result{1};
@@ -383,9 +383,9 @@ doTestDoubleConversion
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1(launchPath); //####
-    //ODL_I1(argc); //####
-    //ODL_P1(argv); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try

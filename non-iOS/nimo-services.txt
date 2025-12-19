@@ -1,12 +1,12 @@
 {
-"Bridge" > {
-            "path" > "$$/nImObridge"
-            "description" > "Connect two subnets -> unimplemented"
-            }
-"Chart" > {
-            "path" > "$$/nImOchart"
-            "description" > "Present a window that can receive SIGNAL messages and display them -> unimplemented"
-            }
+#"Bridge" > {
+#            "path" > "$$/nImObridge"
+#            "description" > "Connect two subnets -> unimplemented"
+#            }
+#"Chart" > {
+#            "path" > "$$/nImOchart"
+#            "description" > "Present a window that can receive SIGNAL messages and display them -> unimplemented"
+#            }
 "Commutator" > {
             "path" > "$$/nImOcommutator"
             "description" > "Route a message to one of the outputs"
@@ -15,10 +15,10 @@
             "path" > "$$/nImOdelay"
             "description" > "Send a message to a channel after a delay"
             }
-"Display" > {
-            "path" > "$$/nImOdisplay"
-            "description" > "Present a window that can receive messages and display them -> unimplemented"
-            }
+#"Display" > {
+#            "path" > "$$/nImOdisplay"
+#            "description" > "Present a window that can receive messages and display them -> unimplemented"
+#            }
 "FanIn" > {
             "path" > "$$/nImOfanIn"
             "description" > "Send messages to the output channel from any input channel"
@@ -27,52 +27,52 @@
             "path" > "$$/nImOfanIn"
             "description" > "Send messages to all output channels from the input channel"
             }
-"Gate" > {
-            "path" > "$$/nImOgate"
-            "description" > "Pass messages through when a control signal allows -> unimplemented"
-            }
-"JavaScript" > {
-            "path" > "$$/nImOjavaScript"
-            "description" > "Run a JavaScript program -> unimplemented"
-            }
+#"Gate" > {
+#            "path" > "$$/nImOgate"
+#            "description" > "Pass messages through when a control signal allows -> unimplemented"
+#            }
+#"JavaScript" > {
+#            "path" > "$$/nImOjavaScript"
+#            "description" > "Run a JavaScript program -> unimplemented"
+#            }
 "Junction" > {
             "path" > "$$/nImOjunction"
             "description" > "Send messages to all output channels from any input channel"
             }
-"Lisp" > {
-            "path" > "$$/nImOlisp"
-            "description" > "Run a Common Lisp program -> unimplemented"
-            }
-"Lua" > {
-            "path" > "$$/nImOlua"
-            "description" > "Run a Lua program -> unimplemented"
-            }
+#"Lisp" > {
+#            "path" > "$$/nImOlisp"
+#            "description" > "Run a Common Lisp program -> unimplemented"
+#            }
+#"Lua" > {
+#            "path" > "$$/nImOlua"
+#            "description" > "Run a Lua program -> unimplemented"
+#            }
 "Negate" > {
             "path" > "$$/nImOnegate"
             "description" > "Change the sign of a SIGNAL message"
             }
 "Product" > {
             "path" > "$$/nImOproduct"
-            "description" > "Send the product of the input SIGNAL messages -> unimplemented"
+            "description" > "Send the product of the input SIGNAL messages"
             }
 "Pulse" > {
             "path" > "$$/nImOpulse"
             "description" > "Sends a series of SIGNAL messages"
             }
-"Python" > {
-            "path" > "$$/nImOpython"
-            "description" > "Run a Python program -> unimplemented"
-            }
+#"Python" > {
+#            "path" > "$$/nImOpython"
+#            "description" > "Run a Python program -> unimplemented"
+#            }
 "Repeat" > {
             "path" > "$$/nImOrepeat"
             "description" > "Send copies of a message to a channel after a delay"
             }
 "Sum" > {
             "path" > "$$/nImOsum"
-            "description" > "Send the sum of the input SIGNAL messages -> unimplemented"
+            "description" > "Send the sum of the input SIGNAL messages"
             }
-"Tcl" > {
-            "path" > "$$/nImOtcl"
-            "description" > "Run a Tcl program -> unimplemented"
-            }
+#"Tcl" > {
+#            "path" > "$$/nImOtcl"
+#            "description" > "Run a Tcl program -> unimplemented"
+#            }
 }

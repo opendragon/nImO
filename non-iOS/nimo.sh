@@ -5,9 +5,8 @@ THIS_FILE_NAME=$(basename $0)
 function list_commands
 {
     echo "  where <command> is"
-    echo "    adda       add an application"
+#    echo "    adda       add an application"
     echo "    addc       add a channel to a node"
-    echo "    bridge     connect two subnets"
     echo "    check      return zero if the Registry is detected"
     echo "    clean      remove Registry information for a node or a machine"
     echo "    connect    connect two channels together"
@@ -16,20 +15,20 @@ function list_commands
     echo "    getparamv  report the value of a mutable parameter of a node"
     echo "    help       list the available commands"
     echo "    list       list channels, applications, services, et cetera"
-    echo "    loada      load a set of applications"
-    echo "    loads      load a setup"
+#    echo "    loada      load a set of applications"
+#    echo "    loads      load a setup"
     echo "    log        report on nImO"
     echo "    playback   write messages stored in a file"
     echo "    post       write to the log"
     echo "    read       read from a channel"
     echo "    record     write messages received to a file"
-    echo "    remove     remove an application"
+#    echo "    remove     remove an application"
     echo "    setparamv  set the value of a mutable parameter of a node"
     echo "    start      start an application"
     echo "    stop       stop one or all applications except active log programs"
-    echo "    storea     store a set of applications"
-    echo "    stores     store a setup"
-    echo "    update     update an application"
+#    echo "    storea     store a set of applications"
+#    echo "    stores     store a setup"
+#    echo "    update     update an application"
     echo "    version    report the version numbers of the libraries"
     echo "    write      write to a channel"
 }
@@ -48,14 +47,11 @@ function usage_help
     else
         COMMAND=$1
         case $COMMAND in
-            "adda")
-               nImOaddApp -h
-                ;;
+#            "adda")
+#               nImOaddApp -h
+#                ;;
             "addc")
                nImOaddChannel -h
-                ;;
-            "bridge")
-               nImObridge -h
                 ;;
             "check")
                 nImOcheck -h
@@ -69,10 +65,10 @@ function usage_help
             "disconnect")
                 nImOdisconnect -h
                 ;;
-            "getparams")
+            "getps")
                 nImOgetParameters -h
                 ;;
-            "getparamv")
+            "getpv")
                 nImOgetParameterValue -h
                 ;;
             "help")
@@ -81,12 +77,12 @@ function usage_help
             "list")
                 nImOlist -h
                 ;;
-            "loada")
-                nImOloadApps -h
-                ;;
-            "loads")
-                nImOloadSetup -h
-                ;;
+#            "loada")
+#                nImOloadApps -h
+#                ;;
+#            "loads")
+#                nImOloadSetup -h
+#                ;;
             "log")
                 nImOlog -h
                 ;;
@@ -102,10 +98,10 @@ function usage_help
             "record")
                 nImOrecord -h
                 ;;
-            "remove")
-                nImOremoveApp -h
-                ;;
-            "setparamv")
+#            "remove")
+#                nImOremoveApp -h
+#                ;;
+            "setpv")
                 nImOsetParameterValue -h
                 ;;
             "start")
@@ -114,15 +110,15 @@ function usage_help
             "stop")
                 nImOstop -h
                 ;;
-            "storea")
-                nImOstoreApps -h
-                ;;
-            "stores")
-                nImOstoreSetup -h
-                ;;
-            "update")
-                nImOupdateApp -h
-                ;;
+#            "storea")
+#                nImOstoreApps -h
+#                ;;
+#            "stores")
+#                nImOstoreSetup -h
+#                ;;
+#            "update")
+#                nImOupdateApp -h
+#                ;;
             "version")
                 nImOversion -h
                 ;;
@@ -142,25 +138,18 @@ else
     COMMAND=$1
     shift
     case $COMMAND in
-        "adda")
-            if [[ $# -eq 0 ]]; then
-                usage_help adda
-            else
-                nImOaddApp $*
-            fi
-            ;;
+#        "adda")
+#            if [[ $# -eq 0 ]]; then
+#                usage_help adda
+#            else
+#                nImOaddApp $*
+#            fi
+#            ;;
         "addc")
             if [[ $# -eq 0 ]]; then
                 usage_help addc
             else
                 nImOaddChannel $*
-            fi
-            ;;
-        "bridge")
-            if [[ $# -eq 0 ]]; then
-                usage_help bridge
-            else
-                nImObridge $*
             fi
             ;;
         "check")
@@ -187,14 +176,14 @@ else
                 nImOdisconnect $*
             fi
             ;;
-        "getparams")
+        "getps")
             if [[ $# -eq 0 ]]; then
                 usage_help getparams
             else
                 nImOgetParameters $*
             fi
             ;;
-        "getparamv")
+        "getpv")
             if [[ $# -eq 0 ]]; then
                 usage_help getparamv
             else
@@ -211,20 +200,20 @@ else
                 nImOlist $*
             fi
             ;;
-        "loada")
-            if [[ $# -eq 0 ]]; then
-                usage_help loada
-            else
-                nImOloadApps $*
-            fi
-            ;;
-        "loads")
-            if [[ $# -eq 0 ]]; then
-                usage_help loads
-            else
-                nImOloadSetup $*
-            fi
-            ;;
+#        "loada")
+#            if [[ $# -eq 0 ]]; then
+#                usage_help loada
+#            else
+#                nImOloadApps $*
+#            fi
+#            ;;
+#        "loads")
+#            if [[ $# -eq 0 ]]; then
+#                usage_help loads
+#            else
+#                nImOloadSetup $*
+#            fi
+#            ;;
         "log")
             nImOlog $*
             ;;
@@ -252,14 +241,14 @@ else
                 nImOrecord $*
             fi
             ;;
-        "remove")
-            if [[ $# -eq 0 ]]; then
-                usage_help remove
-            else
-                nImOremoveApp $*
-            fi
-            ;;
-        "setparamv")
+#        "remove")
+#            if [[ $# -eq 0 ]]; then
+#                usage_help remove
+#            else
+#                nImOremoveApp $*
+#            fi
+#            ;;
+        "setpv")
             if [[ $# -eq 0 ]]; then
                 usage_help setparamv
             else
@@ -276,27 +265,27 @@ else
         "stop")
             nImOstop $*
             ;;
-        "storea")
-            if [[ $# -eq 0 ]]; then
-                usage_help storea
-            else
-                nImOstoreApps $*
-            fi
-            ;;
-        "stores")
-            if [[ $# -eq 0 ]]; then
-                usage_help stores
-            else
-                nImOstoreSetup $*
-            fi
-            ;;
-        "update")
-            if [[ $# -eq 0 ]]; then
-                usage_help update
-            else
-                nImOupdateApp $*
-            fi
-            ;;
+#        "storea")
+#            if [[ $# -eq 0 ]]; then
+#                usage_help storea
+#            else
+#                nImOstoreApps $*
+#            fi
+#            ;;
+#        "stores")
+#            if [[ $# -eq 0 ]]; then
+#                usage_help stores
+#            else
+#                nImOstoreSetup $*
+#            fi
+#            ;;
+#        "update")
+#            if [[ $# -eq 0 ]]; then
+#                usage_help update
+#            else
+#                nImOupdateApp $*
+#            fi
+#            ;;
         "version")
             nImOversion $*
             ;;

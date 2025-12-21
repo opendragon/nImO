@@ -11,10 +11,8 @@
 Six kinds of data -\
 1) Signed integer\
 2) 64-bit floating point\
-\pard\tx760\tx1237\tx1745\tx2176\tx2639\tx3034\pardeftab720\partightenfactor0
-\cf0 3) Character string / binary blob\
-\pard\tx760\tx1237\tx1745\tx2176\tx2639\tx3034\pardeftab720\partightenfactor0
-\cf0 4) Boolean / Bit field (IPv4 address / Date / Time)\
+3) Character string / binary blob\
+4) Boolean / Bit field (IPv4 address / Date / Time)\
 5) Containers (array / map / set)\
 6) Message\
 \
@@ -24,7 +22,7 @@ Bits are numbered from MSB; bytes are in
 \
 Lead byte:\
 bit0..1\
-	00 Signed integer [Enumerable] \{0x00\}\
+	00 Signed integer [\ul Enumerable\ulnone ] \{0x00\}\
 		bit2=0 Short \{0x00\} value\
 			bit3..7 (-16..15) [bit 3 is the sign bit]\
 		bit2=1 Long \{0x20\} value\
@@ -46,7 +44,7 @@ bit0..1\
 			bit5..7 Number of bytes for count-1 (1..8) [floating-point values (8 bytes/value) are in 
 \f1\b PACKET_ORDER
 \f0\b0 ]\
-	10 String [Enumerable, not NULL-terminated] / Blob [Not Enumerable] \{0x80\}\
+	10 String [\ul Enumerable\ulnone , not NULL-terminated] / Blob [Not Enumerable] \{0x80\}\
 		bit2=0 String \{0x00\}\
 		bit2=1 Blob \{0x20\}\
 		bit3=0 Short \{0x00\} length\
@@ -60,9 +58,10 @@ bit0..1\
 \f0\b0 , bytes follow\
 	11 Other \{0xC0\}\
 		bit2..3\
+\pard\tx760\tx1237\tx1745\tx2176\tx2639\tx3034\pardeftab720\partightenfactor0
 \cf2 			00 Miscellaneous\
 				bit4..5\
-					00 Boolean [Enumerable] \{0x00\}\
+					00 Boolean [\ul Enumerable\ulnone ] \{0x00\}\
 						bit6 
 \f2\i Reserved
 \f0\i0  (set to zero)\
@@ -70,13 +69,13 @@ bit0..1\
 						bit7=1 True \{0x01\}\
 					01 Bitfield \{0x04\}\
 						bit6..7\
-							00 IPv4 address [Enumerable] \{0x00\}; followed by four bytes in 
+							00 IPv4 address [\ul Enumerable\ulnone ] \{0x00\}; followed by four bytes in 
 \f1\b PACKET_ORDER
 \f0\b0  \
-							01 Date [Enumerable] \{0x01\}; followed by four bytes in 
+							01 Date [\ul Enumerable\ulnone ] \{0x01\}; followed by four bytes in 
 \f1\b PACKET_ORDER - zero is 1 January 0
 \f0\b0 \
-							10 Time [Enumerable] \{0x02\}; followed by four bytes in 
+							10 Time [\ul Enumerable\ulnone ] \{0x02\}; followed by four bytes in 
 \f1\b PACKET_ORDER - zero is midnight UTC
 \f0\b0 \
 							11 Reserved \{0x03\}\
@@ -86,6 +85,7 @@ bit0..1\
 					11 
 \f2\i Reserved
 \f0\i0  \{0x0C\}\
+\pard\tx760\tx1237\tx1745\tx2176\tx2639\tx3034\pardeftab720\partightenfactor0
 \cf0 			01 Start of container (sequence of values) [Not Enumerable] \{0x10\}\
 				bit4..5\
 					00 Array \{0x00\}\

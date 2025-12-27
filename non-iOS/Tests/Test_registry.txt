@@ -335,6 +335,10 @@ add_test(NAME TestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndT
 add_test(NAME TestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndNoChannels COMMAND ${THIS_TARGET} 414)
 ## Test get unconnected channels set for nonexistent machine from Registry
 add_test(NAME TestGetUnconnectedChannelsSetForNonexistentMachineFromRegistry COMMAND ${THIS_TARGET} 415)
+## Test get unconnected channels set for node with one connected channel and one unconnected channel
+add_test(NAME TestGetUnconnectedChannelsSetFromRegistryForNodeWithOneConnectedChannelAndOneUnconnectedChannel COMMAND ${THIS_TARGET} 416)
+## Test get unconnected channels set for node with one connected channel and one unconnected channel
+add_test(NAME TestGetUnconnectedChannelsSetFromRegistryForNodeWithOneUnconnectedChannelThatWasConnected COMMAND ${THIS_TARGET} 417)
 
 ## Test count applications with empty Registry
 add_test(NAME TestCountApplicationsWithEmptyRegistry COMMAND ${THIS_TARGET} 500)

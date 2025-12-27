@@ -2093,9 +2093,9 @@ nImO::Registry::addChannel
                 {
                     ChannelInsertData   data{nodeName, path, isOutput, dataType, modes};
                     static CPtr(char)   insertIntoChannels{"INSERT INTO " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ", "
-                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_ ", " CHANNEL_MODES_C_ ") VALUES (@"
-                                                            CHANNEL_NODE_C_ ", @" CHANNEL_PATH_C_ ", @"
-                                                            CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_ ", @" CHANNEL_MODES_C_ ")"};
+                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_ ", " CHANNEL_MODES_C_ ", "
+                                                            CHANNEL_IN_USE_C_ ") VALUES (@" CHANNEL_NODE_C_ ", @" CHANNEL_PATH_C_ ", @"
+                                                            CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_ ", @" CHANNEL_MODES_C_ ", 0)"};
 
                     status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoChannels, setupInsertIntoChannels, &data);
                     doEndTransaction(_owner, _dbHandle, status.first);

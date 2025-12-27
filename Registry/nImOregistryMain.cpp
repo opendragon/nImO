@@ -57,6 +57,9 @@
 #include "CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOgetKeysForAllUnconnectedChannelsCommandHandler.h"
+#include "CommandHandlers/nImOgetKeysForAllUnconnectedChannelsOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOgetKeysForAllUnconnectedChannelsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetLaunchDetailsCommandHandler.h"
 #include "CommandHandlers/nImOgetMachineInformationCommandHandler.h"
 #include "CommandHandlers/nImOgetNamesOfMachinesCommandHandler.h"
@@ -225,6 +228,13 @@ main
                                                   std::make_shared<nImO::GetInformationForAllNodesOnMachineCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesRequest,
                                                   std::make_shared<nImO::GetInformationForAllNodesCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetKeysForAllUnconnectedChannelsOnMachineRequest,
+                                                  std::make_shared<nImO::GetKeysForAllUnconnectedChannelsOnMachineCommandHandler>(ourContext,
+                                                                                                                                  theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetKeysForAllUnconnectedChannelsOnNodeRequest,
+                                                  std::make_shared<nImO::GetKeysForAllUnconnectedChannelsOnNodeCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetKeysForAllUnconnectedChannelsRequest,
+                                                  std::make_shared<nImO::GetKeysForAllUnconnectedChannelsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetLaunchDetailsRequest,
                                                   std::make_shared<nImO::GetLaunchDetailsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetMachineInformationRequest,

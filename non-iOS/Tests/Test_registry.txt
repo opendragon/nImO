@@ -307,6 +307,34 @@ add_test(NAME TestGetConnectionInfoInRegistryWithOneConnection COMMAND ${THIS_TA
 add_test(NAME TestGetConnectionInfoWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET} 400)
 ## Test get connection info with bad channel name from Registry
 add_test(NAME TestGetConnectionInfoWithBadChannelNameFromRegistry COMMAND ${THIS_TARGET} 401)
+## Test remove connection from empty Registry
+add_test(NAME TestRemoveConnectionFromEmptyRegistry COMMAND ${THIS_TARGET} 402)
+## Test remove non-existent connection from Registry with one connection via to
+add_test(NAME TestRemoveNonexistentConnectionFromSmallRegistryViaTo COMMAND ${THIS_TARGET} 403)
+## Test remove non-existent connection from Registry with one connection via from
+add_test(NAME TestRemoveNonexistentConnectionFromSmallRegistryViaFrom COMMAND ${THIS_TARGET} 404)
+## Test get unconnected channels set from empty Registry
+add_test(NAME TestGetUnconnectedChannelsSetFromEmptyRegistry COMMAND ${THIS_TARGET} 405)
+## Test get unconnected channels set from Registry with one node and one channel
+add_test(NAME TestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndOneChannel COMMAND ${THIS_TARGET} 406)
+## Test get unconnected channels set from Registry with one node and two channels
+add_test(NAME TestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndTwoChannels COMMAND ${THIS_TARGET} 407)
+## Test get unconnected channels set for node from Registry with one node and one channel
+add_test(NAME TestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndOneChannel COMMAND ${THIS_TARGET} 408)
+## Test get unconnected channels set for node from Registry with one node and two channels
+add_test(NAME TestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndTwoChannels COMMAND ${THIS_TARGET} 409)
+## Test get unconnected channels set for node from Registry with one node and no channels
+add_test(NAME TestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndNoChannels COMMAND ${THIS_TARGET} 410)
+## Test get unconnected channels set for nonexistent node from Registry
+add_test(NAME TestGetUnconnectedChannelsSetForNonexistentNodeFromRegistry COMMAND ${THIS_TARGET} 411)
+## Test get unconnected channels set for machine from Registry with one node and one channel
+add_test(NAME TestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndOneChannel COMMAND ${THIS_TARGET} 412)
+## Test get unconnected channels set for machine from Registry with one node and two channels
+add_test(NAME TestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndTwoChannels COMMAND ${THIS_TARGET} 413)
+## Test get unconnected channels set for machine from Registry with one node and no channels
+add_test(NAME TestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndNoChannels COMMAND ${THIS_TARGET} 414)
+## Test get unconnected channels set for nonexistent machine from Registry
+add_test(NAME TestGetUnconnectedChannelsSetForNonexistentMachineFromRegistry COMMAND ${THIS_TARGET} 415)
 
 ## Test count applications with empty Registry
 add_test(NAME TestCountApplicationsWithEmptyRegistry COMMAND ${THIS_TARGET} 500)

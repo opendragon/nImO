@@ -65,6 +65,9 @@
 #include <ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h>
+#include <ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnMachineResponseHandler.h>
+#include <ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnNodeResponseHandler.h>
+#include <ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsResponseHandler.h>
 #include <ResponseHandlers/nImOgetLaunchDetailsResponseHandler.h>
 #include <ResponseHandlers/nImOgetMachineInformationResponseHandler.h>
 #include <ResponseHandlers/nImOgetNamesOfMachinesResponseHandler.h>
@@ -536,6 +539,55 @@ nImO::RegistryProxy::getInformationForAllNodesOnMachine
     ODL_OBJEXIT(); //####
     return NodeInfoVectorOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getInformationForAllNodesOnMachine
+
+nImO::ChannelKeysVectorOrFailure
+nImO::RegistryProxy::getKeysForAllUnconnectedChannels
+    (void)
+{
+    ODL_OBJENTER(); //####
+    auto    handler{std::make_unique<GetKeysForAllUnconnectedChannelsResponseHandler>()};
+    auto    status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), kGetKeysForAllUnconnectedChannelsRequest,
+                                                                 kGetKeysForAllUnconnectedChannelsResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ChannelKeysVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getKeysForAllUnconnectedChannels
+
+nImO::ChannelKeysVectorOrFailure
+nImO::RegistryProxy::getKeysForAllUnconnectedChannelsOnMachine
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s(machineName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<GetKeysForAllUnconnectedChannelsOnMachineResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                               kGetKeysForAllUnconnectedChannelsOnMachineRequest,
+                                                               kGetKeysForAllUnconnectedChannelsOnMachineResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ChannelKeysVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getKeysForAllUnconnectedChannelsOnMachine
+
+nImO::ChannelKeysVectorOrFailure
+nImO::RegistryProxy::getKeysForAllUnconnectedChannelsOnNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s(nodeName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<GetKeysForAllUnconnectedChannelsOnNodeResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                               kGetKeysForAllUnconnectedChannelsOnNodeRequest,
+                                                               kGetKeysForAllUnconnectedChannelsOnNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ChannelKeysVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getKeysForAllUnconnectedChannelsOnNode
 
 nImO::LaunchDetailsOrFailure
 nImO::RegistryProxy::getLaunchDetails

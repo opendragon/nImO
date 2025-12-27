@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsResponseHandler.cpp
 //
 //  Project:    nImO
 //
@@ -8,7 +8,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2025 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-05-21
+//  Created:    2025-12-27
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h>
+#include <ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsResponseHandler.h>
 
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
@@ -80,20 +80,20 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::GetInformationForAllChannelsResponseHandler::GetInformationForAllChannelsResponseHandler
+nImO::GetKeysForAllUnconnectedChannelsResponseHandler::GetKeysForAllUnconnectedChannelsResponseHandler
     (void) :
         inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::GetInformationForAllChannelsResponseHandler::GetInformationForAllChannelsResponseHandler
+} // nImO::GetKeysForAllUnconnectedChannelsResponseHandler::GetKeysForAllUnconnectedChannelsResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::GetInformationForAllChannelsResponseHandler::doIt
+nImO::GetKeysForAllUnconnectedChannelsResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -102,67 +102,53 @@ nImO::GetInformationForAllChannelsResponseHandler::doIt
     _result.clear();
     if (1 < stuff.size())
     {
-        auto    infoVector{stuff[1]->asArray()};
+        auto    keysVector{stuff[1]->asArray()};
 
-        if (nullptr == infoVector)
+        if (nullptr == keysVector)
         {
-            ODL_LOG("(nullptr == infoVector)"); //####
+            ODL_LOG("(nullptr == keysVector)"); //####
         }
         else
         {
             okSoFar = true;
             ODL_B1(okSoFar); //####
-            for (auto & walker : *infoVector)
+            for (auto & walker : *keysVector)
             {
-                auto    infoArray{walker->asArray()};
+                auto    keysArray{walker->asArray()};
 
-                if (nullptr == infoArray)
+                if (nullptr == keysArray)
                 {
-                    ODL_LOG("(nullptr == infoArray)"); //####
+                    ODL_LOG("(nullptr == keysArray)"); //####
                     okSoFar = false;
                     ODL_B1(okSoFar); //####
                 }
                 else
                 {
-                    ChannelInfo thisChannel;
+                    ChannelKeys thisChannel;
 
-                    thisChannel._found = false;
-                    if (6 < infoArray->size())
+                    if (2 < keysArray->size())
                     {
-                        auto    foundPtr{(*infoArray)[0]->asLogical()};
-                        auto    nodePtr{(*infoArray)[1]->asString()};
-                        auto    pathPtr{(*infoArray)[2]->asString()};
-                        auto    isOutputPtr{(*infoArray)[3]->asLogical()};
-                        auto    dataTypePtr{(*infoArray)[4]->asString()};
-                        auto    modesPtr{(*infoArray)[5]->asInteger()};
-                        auto    inUsePtr{(*infoArray)[6]->asLogical()};
+                        auto    foundPtr{(*keysArray)[0]->asLogical()};
+                        auto    nodePtr{(*keysArray)[0]->asString()};
+                        auto    pathPtr{(*keysArray)[1]->asString()};
 
-                        if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
-                            (nullptr != dataTypePtr) && (nullptr != modesPtr) && (nullptr != inUsePtr))
+                        if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr))
                         {
                             thisChannel._found = foundPtr->getValue();
                             thisChannel._node = nodePtr->getValue();
                             thisChannel._path = pathPtr->getValue();
-                            thisChannel._isOutput = isOutputPtr->getValue();
-                            thisChannel._dataType = dataTypePtr->getValue();
-                            thisChannel._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
-                            thisChannel._inUse = inUsePtr->getValue();
-                            if (thisChannel._found)
-                            {
-                                _result.push_back(thisChannel);
-                            }
+                            _result.push_back(thisChannel);
                         }
                         else
                         {
-                            ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && " //####
-                                    "(nullptr != dataTypePtr) && (nullptr != modesPtr) && (nullptr != inUsePtr))"); //####
+                            ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr))"); //####
                             okSoFar = false;
                             ODL_B1(okSoFar); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (6 < infoArray->size())"); //####
+                        ODL_LOG("! (2 < keysArray->size())"); //####
                         okSoFar = false;
                         ODL_B1(okSoFar); //####
                     }
@@ -176,7 +162,7 @@ nImO::GetInformationForAllChannelsResponseHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::GetInformationForAllChannelsResponseHandler::doIt
+} // nImO::GetKeysForAllUnconnectedChannelsResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

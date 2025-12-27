@@ -280,6 +280,26 @@ namespace nImO
             getInformationForAllNodesOnMachine
                 (const std::string &    machineName);
 
+            /*! @brief Get keys for all unconnected channels in the Registry.
+             @return @c true and the keys for each channel if the operation was successfully performed and @c false and an error string otherwise. */
+            ChannelKeysVectorOrFailure
+            getKeysForAllUnconnectedChannels
+                (void);
+
+            /*! @brief Get keys for all unconnected channels on a machine in the Registry.
+             @param[in] machineName The name of the node for the channels to be located in the Registry.
+             @return @c true and the keys for each node if the operation was successfully performed and @c false and an error string otherwise. */
+            ChannelKeysVectorOrFailure
+            getKeysForAllUnconnectedChannelsOnMachine
+                (const std::string &    machineName);
+
+            /*! @brief Get keys for all unconnected channels on a node in the Registry.
+             @param[in] nodeName The name of the node for the channels to be located in the Registry.
+             @return @c true and the keys for each node if the operation was successfully performed and @c false and an error string otherwise. */
+            ChannelKeysVectorOrFailure
+            getKeysForAllUnconnectedChannelsOnNode
+                (const std::string &    nodeName);
+
             /*! @brief Get information on how the node was launched.
              @param[in] nodeName The name of the node to be located in the Registry.
              @return @c true and if the node was found and the operation was successfully performed, its data, and @c false and an error string otherwise. */

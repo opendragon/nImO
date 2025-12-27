@@ -95,6 +95,9 @@ static const std::string    kChannelPath1{"/blart/input/1"s};
 /*! @brief The second channel path for testing. */
 static const std::string    kChannelPath2{"/blert/output/2"s};
 
+/*! @brief The third channel path for testing. */
+static const std::string    kChannelPath3{"/blert/control/3"s};
+
 /*! @brief The firsts machine address for testing. */
 static const auto   kMachineAddress1{nImO::BytesToIPv4Address(192, 168, 100, 11)};
 
@@ -112,6 +115,9 @@ static const std::string    kNodeName1{"blort"s};
 
 /*! @brief The second node name for testing. */
 static const std::string    kNodeName2{"blurt"s};
+
+/*! @brief The third node name for testing. */
+static const std::string    kNodeName3{"blirt"s};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -12521,6 +12527,1474 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
 } // doTestGetConnectionInfoWithBadChannelNameFromRegistry
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 402 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestRemoveConnectionFromEmptyRegistry
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->removeConnection(kNodeName1, kChannelPath1, true)};
+
+            if (status.first)
+            {
+                ODL_LOG("(status.first)"); //####
+            }
+            else
+            {
+                status = aRegistry->removeConnection(kNodeName2, kChannelPath2, false);
+                if (status.first)
+                {
+                    ODL_LOG("(status.first)"); //####
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestRemoveConnectionFromEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 403 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestRemoveNonexistentConnectionFromSmallRegistryViaTo
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
+                                                                  nImO::TransportType::kTCP);
+                                if (status.first)
+                                {
+                                    status = aRegistry->removeConnection(kNodeName3, kChannelPath3, false);
+                                    if (status.first)
+                                    {
+                                        ODL_LOG("(status.first)"); //####
+                                    }
+                                    else
+                                    {
+                                        result = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestRemoveNonexistentConnectionFromSmallRegistryViaTo
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 404 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestRemoveNonexistentConnectionFromSmallRegistryViaFrom
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
+                                                                  nImO::TransportType::kTCP);
+                                if (status.first)
+                                {
+                                    status = aRegistry->removeConnection(kNodeName3, kChannelPath3, true);
+                                    if (status.first)
+                                    {
+                                        ODL_LOG("(status.first)"); //####
+                                    }
+                                    else
+                                    {
+                                        result = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestRemoveNonexistentConnectionFromSmallRegistryViaFrom
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 405 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetFromEmptyRegistry
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannels()};
+
+            if (statusWithKeys.first.first)
+            {
+                nImO::ChannelKeysVector &   keysVector{statusWithKeys.second};
+
+                if (0 == keysVector.size())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == keysVector.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithKeys.first.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetFromEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 406 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndOneChannel
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannels()};
+
+                        if (statusWithKeys.first.first)
+                        {
+                            ChannelKeysVector   channels{statusWithKeys.second};
+
+                            if (1 == channels.size())
+                            {
+                                auto &  aChannel{channels[0]};
+
+                                if ((aChannel._found) && (aChannel._node == kNodeName1) && (aChannel._path == kChannelPath1))
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! ((aChannel._found) && (aChannel._node == kNodeName1) && (aChannel._path == kChannelPath1))"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == channels.size())"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithKeys.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndOneChannel
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 407 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndTwoChannels
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannels()};
+
+                            if (statusWithKeys.first.first)
+                            {
+                                ChannelKeysVector   channels{statusWithKeys.second};
+
+                                if (2 == channels.size())
+                                {
+                                    auto &  aChannel{channels[0]};
+                                    auto &  bChannel{channels[1]};
+
+                                    if (aChannel._found && bChannel._found && (aChannel._node == kNodeName1) && (bChannel._node == kNodeName1))
+                                    {
+                                        if ((aChannel._path == kChannelPath1) && (bChannel._path == kChannelPath2))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            if ((aChannel._path == kChannelPath2) && (bChannel._path == kChannelPath1))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! ((aChannel._path == kChannelPath2) && (bChannel._path == kChannelPath1))"); //####
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (aChannel._found && bChannel._found && (aChannel._node == kNodeName1) && (bChannel._node == kNodeName))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (1 == channels.size())"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithKeys.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndTwoChannels
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 408 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndOneChannel
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnNode(kNodeName1)};
+
+                    if (statusWithKeys.first.first)
+                    {
+                        ChannelKeysVector   channels{statusWithKeys.second};
+
+                        if (0 == channels.size())
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == channels.size())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithKeys.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndOneChannel
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 409 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndTwoChannels
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnNode(kNodeName1)};
+
+                            if (statusWithKeys.first.first)
+                            {
+                                ChannelKeysVector   channels{statusWithKeys.second};
+
+                                if (2 == channels.size())
+                                {
+                                    auto &  aChannel{channels[0]};
+                                    auto &  bChannel{channels[1]};
+
+                                    if (aChannel._found && bChannel._found && (aChannel._node == kNodeName1) && (bChannel._node == kNodeName1))
+                                    {
+                                        if ((aChannel._path == kChannelPath1) && (bChannel._path == kChannelPath2))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            if ((aChannel._path == kChannelPath2) && (bChannel._path == kChannelPath1))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! ((aChannel._path == kChannelPath2) && (bChannel._path == kChannelPath1))"); //####
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (aChannel._found && bChannel._found && (aChannel._node == kNodeName1) && (bChannel._node == kNodeName))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (1 == channels.size())"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithKeys.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndTwoChannels
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 410 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndNoChannels
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnNode(kNodeName1)};
+
+                    if (statusWithKeys.first.first)
+                    {
+                        ChannelKeysVector   channels{statusWithKeys.second};
+
+                        if (0 == channels.size())
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == channels.size())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithKeys.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndNoChannels
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 411 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForNonexistentNodeFromRegistry
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnNode(kNodeName2)};
+
+                    if (statusWithKeys.first.first)
+                    {
+                        ChannelKeysVector   channels{statusWithKeys.second};
+
+                        if (0 == channels.size())
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == channels.size())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithKeys.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForNonexistentNodeFromRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 412 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndOneChannel
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnMachine(machineName)};
+
+                    if (statusWithKeys.first.first)
+                    {
+                        ChannelKeysVector   channels{statusWithKeys.second};
+
+                        if (0 == channels.size())
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == channels.size())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithKeys.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndOneChannel
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 413 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndTwoChannels
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnMachine(machineName)};
+
+                            if (statusWithKeys.first.first)
+                            {
+                                ChannelKeysVector   channels{statusWithKeys.second};
+
+                                if (2 == channels.size())
+                                {
+                                    auto &  aChannel{channels[0]};
+                                    auto &  bChannel{channels[1]};
+
+                                    if (aChannel._found && bChannel._found && (aChannel._node == kNodeName1) && (bChannel._node == kNodeName1))
+                                    {
+                                        if ((aChannel._path == kChannelPath1) && (bChannel._path == kChannelPath2))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            if ((aChannel._path == kChannelPath2) && (bChannel._path == kChannelPath1))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! ((aChannel._path == kChannelPath2) && (bChannel._path == kChannelPath1))"); //####
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (aChannel._found && bChannel._found && (aChannel._node == kNodeName1) && (bChannel._node == kNodeName))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (1 == channels.size())"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithKeys.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndTwoChannels
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 414 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndNoChannels
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnMachine(machineName)};
+
+                    if (statusWithKeys.first.first)
+                    {
+                        ChannelKeysVector   channels{statusWithKeys.second};
+
+                        if (0 == channels.size())
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == channels.size())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithKeys.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndNoChannels
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 415 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @param[in] context A ServiceContext to use for creating a Registry.
+ @param[in] execPath The path to the running executable.
+ @param[in] currentDir The current directory.
+ @param[in] commandLine The command-line passed to the executable.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetUnconnectedChannelsSetForNonexistentMachineFromRegistry
+    (CPtr(char)                 launchPath,
+     const int                  argc,
+     Ptr(Ptr(char))             argv,
+     nImO::SpNetworkingContext  context,
+     const std::string &        execPath,
+     const std::string &        currentDir,
+     const std::string &        commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P2(argv, context.get()); //####
+    ODL_S3s(execPath, currentDir, commandLine); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (aRegistry)
+        {
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    auto    statusWithKeys{aRegistry->getKeysForAllUnconnectedChannelsOnMachine(machineName + "-blort"s)};
+
+                    if (statusWithKeys.first.first)
+                    {
+                        ChannelKeysVector   channels{statusWithKeys.second};
+
+                        if (0 == channels.size())
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == channels.size())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithKeys.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetUnconnectedChannelsSetForNonexistentMachineFromRegistry
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 500 ***
 #endif // defined(__APPLE__)
 
@@ -17438,6 +18912,72 @@ main
                     case 401 :
                         result = doTestGetConnectionInfoWithBadChannelNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
                                                                                        commandLine);
+                        break;
+
+                    case 402 :
+                        result = doTestRemoveConnectionFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 403 :
+                        result = doTestRemoveNonexistentConnectionFromSmallRegistryViaTo(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                         commandLine);
+                        break;
+
+                    case 404 :
+                        result = doTestRemoveNonexistentConnectionFromSmallRegistryViaFrom(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                           commandLine);
+                        break;
+
+                    case 405 :
+                        result = doTestGetUnconnectedChannelsSetFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 406 :
+                        result = doTestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                     commandLine);
+                        break;
+
+                    case 407 :
+                        result = doTestGetUnconnectedChannelsSetFromRegistryWithOneNodeAndTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                      commandLine);
+                        break;
+
+                    case 408 :
+                        result = doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                            commandLine);
+                        break;
+
+                    case 409 :
+                        result = doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                             commandLine);
+                        break;
+
+                    case 410 :
+                        result = doTestGetUnconnectedChannelsSetForNodeFromRegistryWithOneNodeAndNoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                            commandLine);
+                        break;
+
+                    case 411 :
+                        result = doTestGetUnconnectedChannelsSetForNonexistentNodeFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 412 :
+                        result = doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                               commandLine);
+                        break;
+
+                    case 413 :
+                        result = doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                                 commandLine);
+                        break;
+
+                    case 414 :
+                        result = doTestGetUnconnectedChannelsSetForMachineFromRegistryWithOneNodeAndNoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                                               commandLine);
+                        break;
+
+                    case 415 :
+                        result = doTestGetUnconnectedChannelsSetForNonexistentMachineFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 500 :

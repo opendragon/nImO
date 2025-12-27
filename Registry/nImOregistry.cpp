@@ -893,7 +893,7 @@ createTables
                 "CREATE INDEX IF NOT EXISTS " CONNECTIONS_I_ " ON " CONNECTIONS_T_ " (" CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
                         CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ")",
                 "CREATE TABLE IF NOT EXISTS " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ ", "
-                        APPLICATIONS_APP_NAME_C_ " "     TEXTNOTNULL_ " " NOCASE_ ", " APPLICATIONS_APP_DESCR_C_ " " TEXTNOTNULL_ " " BINARY_
+                        APPLICATIONS_APP_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " APPLICATIONS_APP_DESCR_C_ " " TEXTNOTNULL_ " " BINARY_
                         ", FOREIGN KEY (" APPLICATIONS_LAUNCHER_NAME_C_ ") REFERENCES " NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY ("
                         APPLICATIONS_LAUNCHER_NAME_C_ ", " APPLICATIONS_APP_NAME_C_ ") ON CONFLICT ABORT)",
                 "CREATE INDEX IF NOT EXISTS " APPLICATIONS_I_ " ON " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ ", "
@@ -1869,6 +1869,30 @@ extractChannelInfoFromVector
     }
     ODL_EXIT(); //####
 } // extractChannelInfoFromVector
+
+/*! @brief Extract the fields for the channel keys from the strings retrieved from the table.
+ @param[out] info The data corresponding to the retrieved strings.
+ @param[in] values The retrieved strings. */
+static void
+extractChannelKeysFromVector
+    (nImO::ChannelKeys &            info,
+     const nImO::StdStringVector &  values)
+{
+    ODL_ENTER(); //####
+    ODL_P1(&info); //####
+    if (1 < values.size())
+    {
+        info._found = true;
+        info._node = values[0];
+        info._path = values[1];
+    }
+    else
+    {
+        info._found = false;
+        ODL_LOG("! (1 < values.size())"); //####
+    }
+    ODL_EXIT(); //####
+} // extractChannelKeysFromVector
 
 /*! @brief Extract the fields for the node information from the strings retrieved from the table.
  @param[out] info The data corresponding to the retrieved strings.
@@ -3178,6 +3202,148 @@ nImO::Registry::getInformationForAllNodesOnMachine
     ODL_OBJEXIT_B(status.first); //####
     return NodeInfoVectorOrFailure{status, nodeData};
 } // nImO::Registry::getInformationForAllNodesOnMachine
+
+nImO::ChannelKeysVectorOrFailure
+nImO::Registry::getKeysForAllUnconnectedChannels
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto                status{doBeginTransaction(_owner, _dbHandle)};
+    ChannelKeysVector   channelData;
+
+    if (status.first)
+    {
+        StdStringVectorVector   results;
+        static CPtr(char)       searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_IN_USE_C_ " = 0 ORDER BY "
+                                                CHANNEL_NODE_C_ "," CHANNEL_PATH_C_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels);
+        if (status.first)
+        {
+            ChannelKeys info;
+
+            for (auto & walker : results)
+            {
+                extractChannelKeysFromVector(info, walker);
+                if (info._found)
+                {
+                    channelData.push_back(info);
+                }
+                else
+                {
+                    ODL_LOG("! (info._found)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT_B(status.first); //####
+    return ChannelKeysVectorOrFailure{status, channelData};
+} // nImO::Registry::getKeysForAllUnconnectedChannels
+
+nImO::ChannelKeysVectorOrFailure
+nImO::Registry::getKeysForAllUnconnectedChannelsOnMachine
+    (const std::string &    machineName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s(machineName); //####
+    auto                status{doBeginTransaction(_owner, _dbHandle)};
+    ChannelKeysVector   channelData;
+
+    if (status.first)
+    {
+        StdStringVectorVector   results;
+        static CPtr(char)       searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ " FROM " CHANNELS_T_ "," NODES_T_
+                                                "," MACHINES_T_ " WHERE " NODES_T_ "." NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_
+                                                " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_
+                                                "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " CHANNEL_IN_USE_C_ " = 0 ORDER BY " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsMachineOnly,
+                                                              &machineName);
+        if (status.first)
+        {
+            ChannelKeys info;
+
+            for (auto & walker : results)
+            {
+                extractChannelKeysFromVector(info, walker);
+                if (info._found)
+                {
+                    channelData.push_back(info);
+                }
+                else
+                {
+                    ODL_LOG("! (info._found)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+    ODL_OBJEXIT_B(status.first); //####
+    return ChannelKeysVectorOrFailure{status, channelData};
+} // nImO::Registry::getKeysForAllUnconnectedChannelsOnMachine
+
+nImO::ChannelKeysVectorOrFailure
+nImO::Registry::getKeysForAllUnconnectedChannelsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s(nodeName); //####
+    auto                status{doBeginTransaction(_owner, _dbHandle)};
+    ChannelKeysVector   channelData;
+
+    if (status.first)
+    {
+        StdStringVectorVector   results;
+        static CPtr(char)       searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_IN_USE_C_ " = 0 AND "
+                                                CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " ORDER BY " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
+        if (status.first)
+        {
+            ChannelKeys info;
+
+            for (auto & walker : results)
+            {
+                extractChannelKeysFromVector(info, walker);
+                if (info._found)
+                {
+                    channelData.push_back(info);
+                }
+                else
+                {
+                    ODL_LOG("! (info._found)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+    ODL_OBJEXIT_B(status.first); //####
+    return ChannelKeysVectorOrFailure{status, channelData};
+} // nImO::Registry::getKeysForAllUnconnectedChannelsOnNode
 
 nImO::LaunchDetailsOrFailure
 nImO::Registry::getLaunchDetails

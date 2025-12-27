@@ -75,6 +75,9 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetKeysForAllUnconnectedChannelsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetKeysForAllUnconnectedChannelsOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetKeysForAllUnconnectedChannelsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetLaunchDetailsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetMachineInformationCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfMachinesCommandHandler.cpp

@@ -144,6 +144,9 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnMachineResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnNodeResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetMachineInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfMachinesResponseHandler.cpp"
@@ -381,6 +384,9 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnMachineResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnNodeResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetMachineInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfMachinesResponseHandler.h"
@@ -563,6 +569,12 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnMachineResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnMachineResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnNodeResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsOnNodeResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetKeysForAllUnconnectedChannelsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetMachineInformationResponseHandler.cpp

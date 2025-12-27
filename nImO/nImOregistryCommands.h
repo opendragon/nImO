@@ -136,6 +136,24 @@ namespace nImO
     /*! @brief The 'disconnectChannels' response. */
     const std::string   kDisconnectChannelsResponse{"disconnectChannels="s};
 
+    /*! @brief The request to get information on all unconnectedchannels in the Registry. */
+    const std::string   kGetAllUnconnectedChannelsRequest{"getAllUnconnectedChannels?"s};
+
+    /*! @brief The 'getAllUnconnectedChannels' response. */
+    const std::string   kGetAllUnconnectedChannelsResponse{"getAllUnconnectedChannels="s};
+
+    /*! @brief The request to get information on all unconnected channels on a machine in the Registry. */
+    const std::string   kGetAllUnconnectedChannelsOnMachineRequest{"getAllUnconnectedChannelsOnMachine?"s};
+
+    /*! @brief The 'getAllUnconnectedChannelsOnMachine' response. */
+    const std::string   kGetAllUnconnectedChannelsOnMachineResponse{"getAllUnconnectedChannelsOnMachine="s};
+
+    /*! @brief The request to get information on all unconnectedchannels on a node in the Registry. */
+    const std::string   kGetAllUnconnectedChannelsOnNodeRequest{"getAllUnconnectedChannelsOnNode?"s};
+
+    /*! @brief The 'getAllConnectedChannelsOnNode' response. */
+    const std::string   kGetAllUnconnectedChannelsOnNodeResponse{"getAllUnconnectedChannelsOnNode="s};
+
     /*! @brief The request to get information on a channel from the Registry. */
     const std::string   kGetChannelInformationRequest{"getChannelInformation?"s};
 
@@ -160,9 +178,6 @@ namespace nImO
     /*! @brief The 'getChannelInUse' response. */
     const std::string   kGetConnectionInformationResponse{"getConnectionInformation="s};
 
-    /*! @brief The request to get information on all channels in the Registry. */
-    const std::string   kGetInformationForAllChannelsRequest{"getInformationForAllChannels?"s};
-
     /*! @brief The 'getInformationForAllApplicationsOnNode' request. */
     const std::string   kGetInformationForAllApplicationsOnNodeRequest{"getInformationForAllApplicationsOnNode?"s};
 
@@ -174,6 +189,9 @@ namespace nImO
 
     /*! @brief The 'getInformationForAllApplications' response. */
     const std::string   kGetInformationForAllApplicationsResponse{"getInformationForAllApplications="s};
+
+    /*! @brief The request to get information on all channels in the Registry. */
+    const std::string   kGetInformationForAllChannelsRequest{"getInformationForAllChannels?"s};
 
     /*! @brief The 'getInformationForAllChannels' response. */
     const std::string   kGetInformationForAllChannelsResponse{"getInformationForAllChannels="s};
@@ -225,6 +243,24 @@ namespace nImO
 
     /*! @brief The 'getInformationForAllNodesOnMachine' response. */
     const std::string   kGetInformationForAllNodesOnMachineResponse{"getInformationForAllNodesOnMachine="s};
+
+    /*! @brief The request to get the keys of all the unconnected channels in the Registry. */
+    const std::string   kGetKeysForAllUnconnectedChannelsRequest{"getKeysForAllUnconnectedChannels?"s};
+
+    /*! @brief The 'getKeysForAllUnconnectedChannels' response. */
+    const std::string   kGetKeysForAllUnconnectedChannelsResponse{"getKeysForAllUnconnectedChannels="s};
+
+    /*! @brief The request to get the keys of all the unconnected channels on a machine in the Registry. */
+    const std::string   kGetKeysForAllUnconnectedChannelsOnMachineRequest{"getKeysForAllUnconnectedChannelsOnMachine?"s};
+
+    /*! @brief The 'getKeysForAllUnconnectedChannelsOnMachine' response. */
+    const std::string   kGetKeysForAllUnconnectedChannelsOnMachineResponse{"getKeysForAllUnconnectedChannelsOnMachine="s};
+
+    /*! @brief The request to get the keys of all the unconnected channels on a node in the Registry. */
+    const std::string   kGetKeysForAllUnconnectedChannelsOnNodeRequest{"getKeysForAllUnconnectedChannelsOnNode?"s};
+
+    /*! @brief The 'getKeysForAllUnconnectedChannelsOnNode' response. */
+    const std::string   kGetKeysForAllUnconnectedChannelsOnNodeResponse{"getKeysForAllUnconnectedChannelsOnNode="s};
 
     /*! @brief The request to get launch details in the Registry. */
     const std::string   kGetLaunchDetailsRequest{"getLaunchDetails?"s};

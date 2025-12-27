@@ -98,14 +98,31 @@ namespace nImO
 
     }; // ApplicationInfo
 
+    /*! @brief The unique keys for a channel. */
+    struct ChannelKeys
+    {
+        /*! @brief @c true if the data is valid. */
+        bool    _found{false};
+
+        /*! @brief The name of the node for the channel. */
+        std::string _node{};
+
+        /*! @brief The path of the channel on the node. */
+        std::string _path{};
+
+        /*! @brief The constructor. */
+        inline ChannelKeys
+            (void)
+        {
+        }
+
+    }; // ChannelKeys
+
     /*! @brief The data found in the Registry for a channel. */
-    struct ChannelInfo final
+    struct ChannelInfo final : ChannelKeys
     {
         /*! @brief The type of data carried by the channel. */
         std::string _dataType{};
-
-        /*! @brief @c true if the data is valid. */
-        bool    _found{false};
 
         /*! @brief @c true if the channel is connected to another channel. */
         bool    _inUse{false};
@@ -115,12 +132,6 @@ namespace nImO
 
         /*! @brief The allowed transport types for the channel. */
         TransportType   _modes{TransportType::kAny};
-
-        /*! @brief The name of the node for the channel. */
-        std::string _node{};
-
-        /*! @brief The path of the channel on the node. */
-        std::string _path{};
 
         /*! @brief The constructor. */
         inline ChannelInfo
@@ -234,6 +245,9 @@ namespace nImO
     /*! @brief Contains a sequence of ChannelInfo values. */
     using ChannelInfoVector = std::vector<ChannelInfo>;
 
+    /*! @brief Contains a sequence of ChannelKey values. */
+    using ChannelKeysVector = std::vector<ChannelKeys>;
+
     /*! @brief Contains a sequence of ConnectionInfo values. */
     using ConnectionInfoVector = std::vector<ConnectionInfo>;
 
@@ -251,6 +265,9 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     using ChannelInfoVectorOrFailure = std::pair<SuccessOrFailure, ChannelInfoVector>;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    using ChannelKeysVectorOrFailure = std::pair<SuccessOrFailure, ChannelKeysVector>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     using ConnectionInfoOrFailure = std::pair<SuccessOrFailure, ConnectionInfo>;

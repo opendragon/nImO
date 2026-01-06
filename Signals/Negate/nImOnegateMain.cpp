@@ -292,7 +292,7 @@ main
                                                             if (! outChannel->send(valueToSend))
                                                             {
                                                                 ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                                std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                                std::cerr << "problem sending to " << outChannelPath << ".\n";
                                                                 exitCode = 1;
                                                                 break;
 
@@ -329,7 +329,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                 }

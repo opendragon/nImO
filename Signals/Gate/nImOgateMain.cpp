@@ -357,7 +357,7 @@ std::cerr << "** Unimplemented **\n";
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -376,7 +376,7 @@ std::cerr << "** Unimplemented **\n";
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                 }

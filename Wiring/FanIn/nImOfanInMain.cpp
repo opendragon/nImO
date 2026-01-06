@@ -266,7 +266,7 @@ main
                                                         if (! outChannel->send(contents))
                                                         {
                                                             ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                            std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                            std::cerr << "problem sending to " << outChannelPath << ".\n";
                                                             exitCode = 1;
                                                             break;
 

@@ -38,6 +38,8 @@
 
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
 #include <BasicTypes/nImOdouble.h>
+#include <BasicTypes/nImOinteger.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOaddInputChannelCallbackHandler.h>
 #include <nImOchannelName.h>
@@ -371,19 +373,38 @@ main
                                                     if (contents)
                                                     {
                                                         auto    asDouble{contents->asDouble()};
+                                                        double  inValue;
 
                                                         if (nullptr == asDouble)
                                                         {
-                                                            std::string scratch;
+                                                            auto    asInteger{contents->asInteger()};
 
-                                                            nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input,
-                                                                                            ourContext->getNumberOfInputChannels(), nextData->_tag + 1, scratch);
-                                                            ourContext->report("incorrect data received from '"s + scratch + "'."s);
-                                                            std::cerr << "incorrect data received from " << scratch << "\n";
+                                                            if (nullptr == asInteger)
+                                                            {
+                                                                std::string         scratch;
+                                                                nImO::StringBuffer  buff;
+
+                                                                contents->printToStringBuffer(buff);
+                                                                auto    valString{buff.getString()};
+
+                                                                nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input,
+                                                                                                ourContext->getNumberOfInputChannels(), nextData->_tag + 1, scratch);
+                                                                ourContext->report("incorrect data '"s + valString + "' received from '"s + scratch + "'."s);
+                                                                std::cerr << "incorrect data '" << valString << "' received from " << scratch << ".\n";
+                                                                exitCode = 1;
+                                                            }
+                                                            else
+                                                            {
+                                                                inValue = asInteger->getIntegerValue();
+                                                            }
                                                         }
                                                         else
                                                         {
-                                                            valueCollection->setValue(nextData->_tag, asDouble->getDoubleValue());
+                                                            inValue = asDouble->getDoubleValue();
+                                                        }
+                                                        if (0 == exitCode)
+                                                        {
+                                                            valueCollection->setValue(nextData->_tag, inValue);
                                                             nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(valueCollection->calculate())};
 
                                                             if (! outChannel->send(valueToSend))

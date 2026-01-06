@@ -187,6 +187,8 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
+                                    bool    isSignal{nImO::kSignalType == optionValues._inType};
+
                                     if (optionValues._waitForConnections)
                                     {
                                         auto    inChannel{ourContext->getInputChannel(inChannelPath)};
@@ -216,12 +218,28 @@ main
                                             if (nextData)
                                             {
                                                 auto                contents{nextData->_receivedMessage};
+                                                bool                okSoFar;
                                                 nImO::StringBuffer  buff;
 
                                                 contents->printToStringBuffer(buff);
                                                 auto    valString{buff.getString()};
 
-                                                std::cout << valString << "\n";
+                                                if (isSignal)
+                                                {
+                                                    okSoFar = (nullptr != contents->asNumber());
+                                                }
+                                                else
+                                                {
+                                                    okSoFar = true;
+                                                }
+                                                if (okSoFar)
+                                                {
+                                                    std::cout << valString << "\n";
+                                                }
+                                                else
+                                                {
+                                                    std::cout << "non-numeric seen '" << valString << "'.\n";
+                                                }
                                             }
                                         }
                                     }

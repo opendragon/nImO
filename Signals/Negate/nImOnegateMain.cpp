@@ -37,6 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <BasicTypes/nImOdouble.h>
+#include <BasicTypes/nImOinteger.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
@@ -257,16 +259,35 @@ main
                                                     if (contents)
                                                     {
                                                         auto    asDouble{contents->asDouble()};
+                                                        double  inValue;
 
                                                         if (nullptr == asDouble)
                                                         {
-                                                            ourContext->report("incorrect data received from '"s + inChannelPath + "'."s);
-                                                            std::cerr << "incorrect data received from " << inChannelPath << "\n";
-                                                            exitCode = 1;
+                                                            auto    asInteger{contents->asInteger()};
+
+                                                            if (nullptr == asInteger)
+                                                            {
+                                                                nImO::StringBuffer  buff;
+
+                                                                contents->printToStringBuffer(buff);
+                                                                auto    valString{buff.getString()};
+
+                                                                ourContext->report("incorrect data '"s + valString + "' received from '"s + inChannelPath + "'."s);
+                                                                std::cerr << "incorrect data '" << valString << "' received from " << inChannelPath << ".\n";
+                                                                exitCode = 1;
+                                                            }
+                                                            else
+                                                            {
+                                                                inValue = asInteger->getIntegerValue();
+                                                            }
                                                         }
                                                         else
                                                         {
-                                                            nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(- asDouble->getDoubleValue())};
+                                                            inValue = asDouble->getDoubleValue();
+                                                        }
+                                                        if (0 == exitCode)
+                                                        {
+                                                            nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(- inValue)};
 
                                                             if (! outChannel->send(valueToSend))
                                                             {

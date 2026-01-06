@@ -225,6 +225,8 @@ main
 
                                     if (outChannel)
                                     {
+                                        bool    isSignal{nImO::kSignalType == optionValues._inType};
+
                                         if (optionValues._waitForConnections)
                                         {
                                             bool    connected{false};
@@ -278,13 +280,40 @@ main
                                                     inBuffer.reset();
                                                     if (nImO::gKeepRunning)
                                                     {
-                                                        if (! outChannel->send(readValue))
-                                                        {
-                                                            ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                            std::cerr << "problem sending to " << outChannelPath << "\n";
-                                                            exitCode = 1;
-                                                            break;
+                                                        bool    okToSend;
 
+                                                        if (isSignal)
+                                                        {
+                                                            if (nullptr == readValue->asNumber())
+                                                            {
+                                                                nImO::StringBuffer  buff;
+
+                                                                readValue->printToStringBuffer(buff);
+                                                                auto    valString{buff.getString()};
+
+                                                                ourContext->report("non-numeric value '"s + valString + "' ignored."s);
+                                                                std::cerr << "non-numeric value '" << valString << "' ignored.\n";
+                                                                okToSend = false;
+                                                            }
+                                                            else
+                                                            {
+                                                                okToSend = true;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            okToSend = true;
+                                                        }
+                                                        if (okToSend)
+                                                        {
+                                                            if (! outChannel->send(readValue))
+                                                            {
+                                                                ourContext->report("problem sending to '"s + outChannelPath + "'."s);
+                                                                std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                                exitCode = 1;
+                                                                break;
+
+                                                            }
                                                         }
                                                     }
                                                 }

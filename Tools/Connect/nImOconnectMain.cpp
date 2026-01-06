@@ -343,7 +343,11 @@ main
                                     }
                                     else
                                     {
-                                        if (fromDataType != toDataType)
+                                        if (fromDataType == toDataType)
+                                        {
+                                            dataType = fromDataType;
+                                        }
+                                        else
                                         {
                                             ourContext->report("channel '"s + fromNode + " "s + fromPath + "("s + fromDataType + ")' does not match '"s  +
                                                                toNode + " "s + toPath + "("s + toDataType + ")'."s);

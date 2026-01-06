@@ -61,11 +61,11 @@ Tests:\
 	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b-3", 30000000, 5100, 2, "/opt/bin/stuff", "/home/charlie", "-n b-3");\
 	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b_4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/delta", "-n b_4");\
 \
-	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b1", "/blart/in", 0, "", 1);\
-	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b.2", "/blirt/out", 1, "simple", 2);\
-	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b.2", "/blirt/in", 0, "simple", 127);\
-	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b-3", "/blert", 0, "complex", 1);\
-	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b_4", "/blort", 0, "vector", 2);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes, inUse) VALUES ("b1", "/blart/in", 0, "", 1, 0);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes, inUse) VALUES ("b.2", "/blirt/out", 1, "simple", 2, 0);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes, inUse) VALUES ("b.2", "/blirt/in", 0, "simple", 127, 0);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes, inUse) VALUES ("b-3", "/blert", 0, "complex", 1, 0);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes, inUse) VALUES ("b_4", "/blort", 0, "vector", 2, 0);\
 \
 	INSERT INTO Connections (fromNode, fromPath, toNode, toPath, dataType, mode) VALUES ("b.2", "/blirt/out", "b_4", "/blort", "", 2);\
 \

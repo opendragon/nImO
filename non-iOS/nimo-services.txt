@@ -1,4 +1,8 @@
 {
+"Adjust" > {
+            "path" > "$$/nImOadjust"
+            "description" > "Send the value of a SIGNAL message after applying a scale and offset"
+            }
 #"Bridge" > {
 #            "path" > "$$/nImObridge"
 #            "description" > "Connect two subnets -> unimplemented"
@@ -7,9 +11,17 @@
 #            "path" > "$$/nImOchart"
 #            "description" > "Present a window that can receive SIGNAL messages and display them -> unimplemented"
 #            }
+"Clamp" > {
+            "path" > "$$/nImOclamp"
+            "description" > "Send the value of a SIGNAL message after limiting it to a range"
+            }
 "Commutator" > {
             "path" > "$$/nImOcommutator"
             "description" > "Route a message to one of the outputs"
+            }
+"Cosine" > {
+            "path" > "$$/nImOcosine"
+            "description" > "Send the cosine of a SIGNAL message"
             }
 "Delay" > {
             "path" > "$$/nImOdelay"
@@ -66,6 +78,10 @@
 "Repeat" > {
             "path" > "$$/nImOrepeat"
             "description" > "Send copies of a message to a channel after a delay"
+            }
+"Sine" > {
+            "path" > "$$/nImOsine"
+            "description" > "Send the sine of a SIGNAL message"
             }
 "Sum" > {
             "path" > "$$/nImOsum"

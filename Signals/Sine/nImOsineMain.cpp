@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOpowerMain.cpp
+//  File:       nImOsineMain.cpp
 //
 //  Project:    nImO
 //
@@ -8,7 +8,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2025 by OpenDragon.
+//  Copyright:  (c) 2026 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,10 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2025-05-23
+//  Created:    2026-01-07
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
 #include <Containers/nImOstringBuffer.h>
@@ -58,8 +57,8 @@
 /*! @file
  @brief A signals application to demonstrate using the nImO library in a program. */
 
-/*! @dir Power
- @brief The set of files that implement the Power application. */
+/*! @dir Sine
+ @brief The set of files that implement the Sine application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -93,10 +92,8 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Power"s};
+    std::string             thisService{"Sine"s};
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("power"s, "The power to raise the input to"s,
-                                                                                      nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, false, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -107,9 +104,9 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Raise a value of an input to a power"s, "nImOpower 3.5"s, 2025, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel with the sine of its value"s, "nImOsine"s, 2026, nImO::kCopyrightName,
+                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
+                                    nImO::kSkipSignalOption))
     {
         try
         {
@@ -229,8 +226,6 @@ main
 
                                     if (outChannel)
                                     {
-                                        auto    power{firstArg->getCurrentValue()};
-
                                         if (optionValues._waitForConnections)
                                         {
                                             auto    inChannel{ourContext->getInputChannel(inChannelPath)};
@@ -264,7 +259,7 @@ main
                                                     if (contents)
                                                     {
                                                         auto    asDouble{contents->asDouble()};
-                                                        double  base;
+                                                        double  inValue;
 
                                                         if (nullptr == asDouble)
                                                         {
@@ -283,73 +278,24 @@ main
                                                             }
                                                             else
                                                             {
-                                                                base = asInteger->getIntegerValue();
+                                                                inValue = asInteger->getIntegerValue();
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            base = asDouble->getDoubleValue();
+                                                            inValue = asDouble->getDoubleValue();
                                                         }
                                                         if (0 == exitCode)
                                                         {
-                                                            bool    goAhead{true};
-                                                            double  result;
+                                                            nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(sin(inValue))};
 
-                                                            // Check for out-of-range values.
-                                                            if (std::isfinite(base) && std::isfinite(power))
+                                                            if (! outChannel->send(valueToSend))
                                                             {
-                                                                if (0.0 > base)
-                                                                {
-                                                                    if (std::ceil(base) == base)
-                                                                    {
-                                                                        result = std::pow(base, power);
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        goAhead = false;
-                                                                    }
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (0.0 == base)
-                                                                    {
-                                                                        if (0.0 <= power)
-                                                                        {
-                                                                            result = 0.0;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            goAhead = false;
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        result = std::pow(base, power);
-                                                                    }
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                goAhead = false;
-                                                            }
-                                                            if (goAhead)
-                                                            {
-                                                                nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(result)};
+                                                                ourContext->report("problem sending to '"s + outChannelPath + "'."s);
+                                                                std::cerr << "problem sending to " << outChannelPath << ".\n";
+                                                                exitCode = 1;
+                                                                break;
 
-                                                                if (! outChannel->send(valueToSend))
-                                                                {
-                                                                    ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                                    std::cerr << "problem sending to " << outChannelPath << ".\n";
-                                                                    exitCode = 1;
-                                                                    break;
-
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                ourContext->report("cannot calculate "s + nImO::ConvertDoubleToString(base) + "**"s +
-                                                                                   nImO::ConvertDoubleToString(power));
-                                                                std::cerr << "cannot calculate " << base << "**" << power << "\n";
                                                             }
                                                         }
                                                     }

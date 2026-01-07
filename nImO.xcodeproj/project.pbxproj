@@ -438,6 +438,22 @@
 		F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOatomicTest.rc.in; path = Tests/nImOatomicTest.rc.in; sourceTree = "<group>"; };
 		F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainerTest.cpp; path = Tests/nImOcontainerTest.cpp; sourceTree = "<group>"; };
 		F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcontainerTest.rc.in; path = Tests/nImOcontainerTest.rc.in; sourceTree = "<group>"; };
+		F6BCD1692F0EE7E80032E88D /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6BCD16B2F0EE7E80032E88D /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6BCD16D2F0EE81D0032E88D /* nImOcosine.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOcosine.rc.in; sourceTree = "<group>"; };
+		F6BCD16E2F0EE81D0032E88D /* nImOcosineMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOcosineMain.cpp; sourceTree = "<group>"; };
+		F6BCD16F2F0EE81D0032E88D /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6BCD1712F0EE81D0032E88D /* nImOsine.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOsine.rc.in; sourceTree = "<group>"; };
+		F6BCD1722F0EE81D0032E88D /* nImOsineMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOsineMain.cpp; sourceTree = "<group>"; };
+		F6BCD1732F0EE81D0032E88D /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6BCD1752F0EF7A30032E88D /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6BCD1772F0EF7EE0032E88D /* nImOadjust.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOadjust.rc.in; sourceTree = "<group>"; };
+		F6BCD1782F0EF7EE0032E88D /* nImOadjustMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOadjustMain.cpp; sourceTree = "<group>"; };
+		F6BCD1792F0EF7EE0032E88D /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F6BCD17B2F0EFBB30032E88D /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F6BCD17D2F0EFBCB0032E88D /* nImOclamp.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOclamp.rc.in; sourceTree = "<group>"; };
+		F6BCD17E2F0EFBCB0032E88D /* nImOclampMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOclampMain.cpp; sourceTree = "<group>"; };
+		F6BCD17F2F0EFBCB0032E88D /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F6BE1C242973491F009828BF /* nImOcommandSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandSession.h; path = nImO/nImOcommandSession.h; sourceTree = "<group>"; };
 		F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandSession.cpp; path = nImO/nImOcommandSession.cpp; sourceTree = "<group>"; };
 		F6BEEB522CBBFF61003167ED /* nImOaddInputChannelCallbackHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddInputChannelCallbackHandler.cpp; path = nImO/nImOaddInputChannelCallbackHandler.cpp; sourceTree = "<group>"; };
@@ -1143,12 +1159,16 @@
 		F64EECD12DC6218B0070A8FF /* Signals */ = {
 			isa = PBXGroup;
 			children = (
+				F6BCD17C2F0EFBB30032E88D /* Clamp */,
+				F6BCD1762F0EF7A30032E88D /* Adjust */,
+				F6BCD16A2F0EE7E80032E88D /* Cosine */,
 				F6815D402DE0957A0057BBA9 /* Gate */,
 				F64EECD22DC621FB0070A8FF /* CMakeLists.txt */,
 				F64EECD32DC622060070A8FF /* Negate */,
 				F6484BF22DE08E120078F729 /* Power */,
 				F6484BF02DE08CF90078F729 /* Product */,
 				F64EECD42DC622170070A8FF /* Pulse */,
+				F6BCD16C2F0EE7E80032E88D /* Sine */,
 				F6484BE62DE086CB0078F729 /* Sum */,
 			);
 			name = Signals;
@@ -1174,11 +1194,15 @@
 		F64EECD72DC6229B0070A8FF /* Signals */ = {
 			isa = PBXGroup;
 			children = (
+				F6BCD17A2F0EF7EE0032E88D /* Adjust */,
+				F6BCD1802F0EFBCB0032E88D /* Clamp */,
+				F6BCD1702F0EE81D0032E88D /* Cosine */,
 				F6815D442DE095E20057BBA9 /* Gate */,
 				F64EECD82DC622AF0070A8FF /* Negate */,
 				F6484BF62DE08FE10078F729 /* Power */,
 				F6484BEE2DE08C880078F729 /* Product */,
 				F64EECD92DC622BD0070A8FF /* Pulse */,
+				F6BCD1742F0EE81D0032E88D /* Sine */,
 				F6484BEA2DE0875A0078F729 /* Sum */,
 			);
 			path = Signals;
@@ -2057,6 +2081,78 @@
 			);
 			name = nImO;
 			sourceTree = SOURCE_ROOT;
+		};
+		F6BCD16A2F0EE7E80032E88D /* Cosine */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD1692F0EE7E80032E88D /* CMakeLists.txt */,
+			);
+			path = Cosine;
+			sourceTree = "<group>";
+		};
+		F6BCD16C2F0EE7E80032E88D /* Sine */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD16B2F0EE7E80032E88D /* CMakeLists.txt */,
+			);
+			path = Sine;
+			sourceTree = "<group>";
+		};
+		F6BCD1702F0EE81D0032E88D /* Cosine */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD16D2F0EE81D0032E88D /* nImOcosine.rc.in */,
+				F6BCD16E2F0EE81D0032E88D /* nImOcosineMain.cpp */,
+				F6BCD16F2F0EE81D0032E88D /* resource.h */,
+			);
+			path = Cosine;
+			sourceTree = "<group>";
+		};
+		F6BCD1742F0EE81D0032E88D /* Sine */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD1712F0EE81D0032E88D /* nImOsine.rc.in */,
+				F6BCD1722F0EE81D0032E88D /* nImOsineMain.cpp */,
+				F6BCD1732F0EE81D0032E88D /* resource.h */,
+			);
+			path = Sine;
+			sourceTree = "<group>";
+		};
+		F6BCD1762F0EF7A30032E88D /* Adjust */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD1752F0EF7A30032E88D /* CMakeLists.txt */,
+			);
+			path = Adjust;
+			sourceTree = "<group>";
+		};
+		F6BCD17A2F0EF7EE0032E88D /* Adjust */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD1772F0EF7EE0032E88D /* nImOadjust.rc.in */,
+				F6BCD1782F0EF7EE0032E88D /* nImOadjustMain.cpp */,
+				F6BCD1792F0EF7EE0032E88D /* resource.h */,
+			);
+			path = Adjust;
+			sourceTree = "<group>";
+		};
+		F6BCD17C2F0EFBB30032E88D /* Clamp */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD17B2F0EFBB30032E88D /* CMakeLists.txt */,
+			);
+			path = Clamp;
+			sourceTree = "<group>";
+		};
+		F6BCD1802F0EFBCB0032E88D /* Clamp */ = {
+			isa = PBXGroup;
+			children = (
+				F6BCD17D2F0EFBCB0032E88D /* nImOclamp.rc.in */,
+				F6BCD17E2F0EFBCB0032E88D /* nImOclampMain.cpp */,
+				F6BCD17F2F0EFBCB0032E88D /* resource.h */,
+			);
+			path = Clamp;
+			sourceTree = "<group>";
 		};
 		F6CA16742CD94F1200BA78EB /* ProgrammableServices */ = {
 			isa = PBXGroup;

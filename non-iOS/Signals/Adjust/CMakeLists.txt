@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Signals/CMakeLists.txt
+#  File:       non-iOS/Signals/Adjust/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The signal applications for the nImO project.
+#  Contains:   The CMAKE definitions for the Adjust application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2025 by OpenDragon.
+#  Copyright:  (c) 2026 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,19 +32,36 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2025-05-03
+#  Created:    2026-01-07
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(Adjust)
-add_subdirectory(Clamp)
-add_subdirectory(Cosine)
-add_subdirectory(Gate)
-add_subdirectory(Negate)
-add_subdirectory(Power)
-add_subdirectory(Product)
-add_subdirectory(Pulse)
-add_subdirectory(Sine)
-add_subdirectory(Sum)
+include_directories("${nImO_SOURCE_DIR}")
+
+set(THIS_TARGET nImOadjust)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Signals/Adjust)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+# Set up our program
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/nImOadjustMain.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+install(TARGETS
+        ${THIS_TARGET}
+        DESTINATION bin
+        COMPONENT applications)
 
 enable_testing()

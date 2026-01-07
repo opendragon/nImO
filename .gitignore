@@ -74,6 +74,15 @@ non-iOS/ProgrammableServices/Tcl/nImOtcl.rc
 non-iOS/Registry/nImOregistry
 non-iOS/Registry/nImOregistry.dir/
 non-iOS/Registry/nImOregistry.rc
+non-iOS/Signals/Adjust/nImOadjust
+non-iOS/Signals/Adjust/nImOadjust.dir/
+non-iOS/Signals/Adjust/nImOadjust.rc
+non-iOS/Signals/Clamp/nImOclamp
+non-iOS/Signals/Clamp/nImOclamp.dir/
+non-iOS/Signals/Clamp/nImOclamp.rc
+non-iOS/Signals/Cosine/nImOcosine
+non-iOS/Signals/Cosine/nImOcosine.dir/
+non-iOS/Signals/Cosine/nImOcosine.rc
 non-iOS/Signals/Gate/nImOgate
 non-iOS/Signals/Gate/nImOgate.dir/
 non-iOS/Signals/Gate/nImOgate.rc
@@ -89,6 +98,9 @@ non-iOS/Signals/Product/nImOproduct.rc
 non-iOS/Signals/Pulse/nImOpulse
 non-iOS/Signals/Pulse/nImOpulse.dir/
 non-iOS/Signals/Pulse/nImOpulse.rc
+non-iOS/Signals/Sine/nImOsine
+non-iOS/Signals/Sine/nImOsine.dir/
+non-iOS/Signals/Sine/nImOsine.rc
 non-iOS/Signals/Sum/nImOsum
 non-iOS/Signals/Sum/nImOsum.dir/
 non-iOS/Signals/Sum/nImOsum.rc

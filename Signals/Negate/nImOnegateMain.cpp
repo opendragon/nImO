@@ -37,8 +37,6 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <BasicTypes/nImOdouble.h>
-#include <BasicTypes/nImOinteger.h>
-#include <BasicTypes/nImOlogical.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>

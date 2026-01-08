@@ -407,7 +407,7 @@ nImO::RegistryContext::executeAnnouncer
 
     timeout.tv_sec = 2;
     timeout.tv_usec = 0;
-    owner.report("announcer thread starting."s);
+    owner.report("Announcer thread starting."s);
     for ( ; ; )
     {
         if (lAnnouncerThreadStop)
@@ -472,7 +472,7 @@ nImO::RegistryContext::executeAnnouncer
             }
         }
     }
-    owner.report("announcer thread terminating."s);
+    owner.report("Announcer thread terminating."s);
     ODL_EXIT(); //####
 } // nImO::RegistryContext::executeAnnouncer
 

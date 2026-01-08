@@ -107,7 +107,7 @@ nImO::GetChannelLimitsCommandHandler::doIt
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
-    _ownerForInputOutput->report("get channel limits request received."s);
+    _ownerForInputOutput->report("Get channel limits request received."s);
     int64_t maxInputChannels{0};
     int64_t maxOutputChannels{0};
 

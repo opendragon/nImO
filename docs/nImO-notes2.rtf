@@ -5,7 +5,7 @@
 }
 {\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;
 }
-\margl1440\margr1440\vieww25680\viewh22460\viewkind0
+\margl1440\margr1440\vieww28660\viewh22460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 application support:\
@@ -93,9 +93,19 @@ setup support:\
 * nImOstoreSetup 'a' - stores a setup\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \
-signals:\
+signals: [note that SIGNAL channels can carry integer, logical or double values]\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0) and discards messages otherwise; initialy discards\
+\cf3 * nImOadjust ['m' ['a']] - multiplies an input SIGNAL message by 'm' and adds 'a' ('m' defaults to 1 and 'a' defaults to 0); 
+\f1\b DONE
+\f0\b0  \
+* nImOclamp ['l' ['h']] - limits an input SIGNAL message to between 'l' and 'h' ('l' defaults to 0 and 'h' defaults to 1); 
+\f1\b DONE
+\f0\b0 \
+* nImOcosine - outputs the cosine of an input SIGNAL message; 
+\f1\b DONE
+\f0\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 * nImOgate ['t'] - passes messages through when a control SIGNAL channel exceeds a specific value 't' ('t' defaults to 0) and discards messages otherwise; initially discards\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 * nImOnegate - changes the sign of an input SIGNAL message before sending to the output channel; 
 \f1\b DONE
@@ -108,7 +118,11 @@ signals:\
 \f1\b DONE
 \f0\b0 \cf3 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 * nImOpulse ['p' ['r' ['l' ['h']]]] - sends a series of SIGNAL messages with an period of 'p' seconds and a minimum of 'l' and a maximum of 'h' with a random level if 'r' is true ('p' defaults to 1, 'r' defaults to false, 'l' defaults to 0 and 'h' defaults to 1); 
+\cf0 * nImOpulse ['p' ['r' ['l' ['h']]]] - sends a series of SIGNAL messages with a period of 'p' seconds and a minimum of 'l' and a maximum of 'h' with a random level if 'r' is true ('p' defaults to 1, 'r' defaults to false, 'l' defaults to 0 and 'h' defaults to 1); 
+\f1\b DONE
+\f0\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 * nImOsine - outputs the sine of an input SIGNAL message; 
 \f1\b DONE
 \f0\b0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0

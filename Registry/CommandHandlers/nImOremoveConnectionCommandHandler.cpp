@@ -108,7 +108,7 @@ nImO::RemoveConnectionCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("remove channel request received."s);
+    _owner->report("Remove channel request received."s);
     if (3 < arguments.size())
     {
         auto    asString1{arguments[1]->asString()};

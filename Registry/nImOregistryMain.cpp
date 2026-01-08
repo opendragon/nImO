@@ -306,7 +306,7 @@ main
                 }
             }
             nImO::EnableWaitForRegistry();
-            ourContext->report("exiting."s);
+            ourContext->report("Exiting."s);
         }
         catch (const std::string &  fault)
         {

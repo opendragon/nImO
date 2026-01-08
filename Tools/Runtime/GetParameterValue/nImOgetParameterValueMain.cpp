@@ -140,7 +140,7 @@ main
                         // Send Get Parameter Value command to the node.
                         if (optionValues._expanded)
                         {
-                            ourContext->report("sending get parameter value request to '"s + nodeName + "'."s);
+                            ourContext->report("Sending get parameter value request to '"s + nodeName + "'."s);
                         }
                         auto    argArray{std::make_shared<nImO::Array>()};
                         auto    handler{std::make_unique<nImO::GetParameterValueResponseHandler>()};
@@ -175,7 +175,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s, false);
+            ourContext->report("Exiting."s, false);
         }
         catch (const std::string &  fault)
         {

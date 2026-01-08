@@ -108,7 +108,7 @@ nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get number of nodes on machine request received."s);
+    _owner->report("Get number of nodes on machine request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

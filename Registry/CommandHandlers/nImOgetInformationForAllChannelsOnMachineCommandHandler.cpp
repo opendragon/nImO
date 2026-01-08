@@ -109,7 +109,7 @@ nImO::GetInformationForAllChannelsOnMachineCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all channels on machine request received."s);
+    _owner->report("Get information for all channels on machine request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

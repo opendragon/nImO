@@ -109,7 +109,7 @@ nImO::GetNamesOfNodesCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get names of nodes request received."s);
+    _owner->report("Get names of nodes request received."s);
     if (0 < arguments.size())
     {
         auto    statusWithSet{_registry->getNamesOfNodes()};

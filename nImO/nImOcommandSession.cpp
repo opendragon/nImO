@@ -198,7 +198,7 @@ nImO::CommandSession::~CommandSession
 {
     ODL_OBJENTER(); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    _owner->report("session being freed."s);
+    _owner->report("Session being freed."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::~CommandSession
@@ -215,7 +215,7 @@ nImO::CommandSession::start
     std::atomic_bool    keepGoing{true};
 
 #if defined(nImO_ChattyTcpUdpLogging)
-    _owner->report("retrieving request"s);
+    _owner->report("Retrieving request"s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     BA::async_read_until(*_socket, _buffer, MatchMessageSeparator,
                                     [this, &keepGoing]
@@ -228,13 +228,13 @@ nImO::CommandSession::start
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                _owner->report("async_read_until() operation cancelled."s);
+                                                _owner->report("Async_read_until() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                _owner->report("async_read_until() failed -> "s + ec.message() + "."s);
+                                                _owner->report("Async_read_until() failed -> "s + ec.message() + "."s);
                                             }
                                         }
                                         else
@@ -242,7 +242,7 @@ nImO::CommandSession::start
                                             std::string reason{};
 
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            _owner->report("got request."s);
+                                            _owner->report("Got request."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()), buffers_end(_buffer.data())}, reason))
                                             {

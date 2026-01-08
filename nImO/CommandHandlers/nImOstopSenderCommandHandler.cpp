@@ -106,7 +106,7 @@ nImO::StopSenderCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("stop sender request received."s);
+    _ownerForInputOutput->report("Stop sender request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

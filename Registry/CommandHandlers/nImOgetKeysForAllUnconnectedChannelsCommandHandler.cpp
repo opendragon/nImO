@@ -109,7 +109,7 @@ nImO::GetKeysForAllUnconnectedChannelsCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get keys for all unconnected channels request received."s);
+    _owner->report("Get keys for all unconnected channels request received."s);
     if (0 < arguments.size())
     {
         auto    statusWithKeysVector{_registry->getKeysForAllUnconnectedChannels()};

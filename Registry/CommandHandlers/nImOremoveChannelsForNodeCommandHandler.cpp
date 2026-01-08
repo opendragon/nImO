@@ -107,7 +107,7 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("remove channels for node request received."s);
+    _owner->report("Remove channels for node request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

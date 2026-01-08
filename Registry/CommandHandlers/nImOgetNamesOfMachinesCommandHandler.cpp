@@ -109,7 +109,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get names of machines request received."s);
+    _owner->report("Get names of machines request received."s);
     if (0 < arguments.size())
     {
         auto    statusWithSet{_registry->getNamesOfMachines()};

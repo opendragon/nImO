@@ -39,7 +39,9 @@
 #include <nImOcommon.h>
 
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
-#include <BasicTypes/nImOvalue.h>
+#include <BasicTypes/nImOdouble.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
 #include <Contexts/nImOcontext.h>
 
 #include <boost/version.hpp>
@@ -317,6 +319,54 @@ nImO::ConvertDoubleToString
     ODL_EXIT_s(result); //####
     return result;
 } // nImO::ConvertDoubleToString
+
+bool
+nImO::ConvertSignalToValue
+    (SpValue    inValue,
+     double &   outValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1(inValue.get()); //####
+    bool    result{true};
+
+    if (inValue)
+    {
+        auto    asDouble{inValue->asDouble()};
+
+        if (nullptr == asDouble)
+        {
+            auto    asInteger{inValue->asInteger()};
+
+            if (nullptr == asInteger)
+            {
+                auto    asLogical{inValue->asLogical()};
+
+                if (nullptr == asLogical)
+                {
+                    result = false;
+                }
+                else
+                {
+                    outValue = (asLogical->getValue() ? kCanonicalTrueValue : kCanonicalFalseValue);
+                }
+            }
+            else
+            {
+                outValue = asInteger->getIntegerValue();
+            }
+        }
+        else
+        {
+            outValue = asDouble->getDoubleValue();
+        }
+    }
+    else
+    {
+        result = false;
+    }
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::ConvertSignalToValue
 
 bool
 nImO::ConvertToDouble

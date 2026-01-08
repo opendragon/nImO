@@ -200,7 +200,7 @@ handleWriteCompletion
     ODL_P1(status.get()); //####
     ODL_S1s(responseKey); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    context->report("command sent."s);
+    context->report("Command sent."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     auto    rB{std::make_shared<BA::streambuf>()};
 
@@ -215,7 +215,7 @@ handleWriteCompletion
                                         if (BAErr::operation_aborted == ec3)
                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            context->report("async_read_until() operation cancelled."s);
+                                            context->report("Async_read_until() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec3)"); //####
                                         }
@@ -232,7 +232,7 @@ handleWriteCompletion
                                         std::string handleThis{buffers_begin(rB->data()), buffers_end(rB->data())};
 
 #if defined(nImO_ChattyTcpUdpLogging)
-                                        context->report("got response."s);
+                                        context->report("Got response."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         if (nullptr != handler)
                                         {
@@ -265,7 +265,7 @@ handleConnectCompletion
     ODL_P2(keepGoing.get(), status.get()); //####
     ODL_S1s(responseKey); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    context->report("command connection request accepted."s);
+    context->report("Command connection request accepted."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     BA::async_write(*socket, BA::buffer(outString->c_str(), outString->length()),
                               [socket, context, handler, keepGoing, &responseKey, status]
@@ -278,7 +278,7 @@ handleConnectCompletion
                                     if (BAErr::operation_aborted == ec2)
                                     {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                        context->report("async_write() operation cancelled."s);
+                                        context->report("Async_write() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         ODL_LOG("(BAErr::operation_aborted == ec2)"); //####
                                     }
@@ -371,7 +371,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                         if (BAErr::operation_aborted == ec1)
                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            context->report("async_connect() operation cancelled."s);
+                                            context->report("Async_connect() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                         }

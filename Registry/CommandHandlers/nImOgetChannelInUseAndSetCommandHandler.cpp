@@ -109,7 +109,7 @@ nImO::GetChannelInUseAndSetCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get channel in use and set request received."s);
+    _owner->report("Get channel in use and set request received."s);
     if (2 < arguments.size())
     {
         auto    asString1{arguments[1]->asString()};

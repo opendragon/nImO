@@ -877,7 +877,7 @@ nImO::SearchContext::gatherAnnouncements
             BAD_t               timeOutTimer{*getService()};
             int                 maxTime{getRegistrySearchTimeout() * getRegistrySearchRetries()};
 
-            report("timeout = "s + std::to_string(maxTime) + " seconds."s);
+            report("Timeout = "s + std::to_string(maxTime) + " seconds."s);
             timeOutTimer.expires_from_now(boost::posix_time::seconds(maxTime));
             timeOutTimer.async_wait([this, quietly, &timedOut]
                                    (const BSErr &   error)
@@ -886,14 +886,14 @@ nImO::SearchContext::gatherAnnouncements
                                        {
                                            if (! quietly)
                                            {
-                                               report("timed out!"s);
+                                               report("Timed out!"s);
                                            }
                                            timedOut = true;
                                        }
                                    });
             if (! quietly)
             {
-                report("waiting..."s);
+                report("Waiting..."s);
             }
             for ( ; (! timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
             {

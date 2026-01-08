@@ -107,7 +107,7 @@ nImO::GetParametersCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     auto    infoArray{std::make_shared<Array>()};
 
-    _ownerForInputOutput->report("get parameters request received."s);
+    _ownerForInputOutput->report("Get parameters request received."s);
     // Return the argument list entries
     for (SpBaseArgumentDescriptor anArg : _argumentList)
     {

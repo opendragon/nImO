@@ -103,7 +103,7 @@ nImO::StopCommandHandler::doIt
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
-    _owner->report("stop request received."s);
+    _owner->report("Stop request received."s);
     // Send the response to the requestor.
     bool    okSoFar{sendSimpleResponse(socket, kStopResponse, "stop"s, true, reason)};
 

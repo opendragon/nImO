@@ -107,7 +107,7 @@ nImO::IsChannelPresentCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("is channel present request received."s);
+    _owner->report("Is channel present request received."s);
     if (2 < arguments.size())
     {
         auto    asString1{arguments[1]->asString()};

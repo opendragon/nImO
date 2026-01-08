@@ -1,7 +1,7 @@
 {
 "Adjust" > {
             "path" > "$$/nImOadjust"
-            "description" > "Send the value of a SIGNAL message after applying a scale and offset"
+            "description" > "Send the value of a SIGNAL message after applying a scale and an offset"
             }
 #"Bridge" > {
 #            "path" > "$$/nImObridge"

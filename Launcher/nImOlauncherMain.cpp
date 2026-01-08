@@ -405,7 +405,7 @@ main
                                         }
                                         if (0 == exitCode)
                                         {
-                                            ourContext->report("waiting for requests."s);
+                                            ourContext->report("Waiting for requests."s);
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                             for ( ; nImO::gKeepRunning; )
@@ -473,7 +473,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("Exiting."s);
         }
         catch (const std::string &  fault)
         {

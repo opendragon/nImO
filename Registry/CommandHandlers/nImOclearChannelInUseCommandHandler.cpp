@@ -109,7 +109,7 @@ nImO::ClearChannelInUseCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("clear channel inUse request received."s);
+    _owner->report("Clear channel inUse request received."s);
     if (2 < arguments.size())
     {
         auto    asString1{arguments[1]->asString()};

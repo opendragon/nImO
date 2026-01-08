@@ -828,6 +828,12 @@ namespace nImO
     /*! @brief The character that is used with Time data formatting. */
     constexpr char  kTimeSeparator{':'};
 
+    /*! @brief The numeric value corresponding to a false logical value. */
+    constexpr double    kCanonicalFalseValue{0};
+
+    /*! @brief The numeric value corresponding to a true logical value. */
+    constexpr double    kCanonicalTrueValue{1};
+
     /*! @brief The maximum count representable in a short integer for a sequence of floating point values. */
     constexpr int   kDataKindDoubleShortCountMaxValue{32};
 
@@ -1107,6 +1113,15 @@ namespace nImO
     std::string
     ConvertDoubleToString
         (const double   value);
+
+    /*! @brief Convert a value contained in a SIGNAL message to a number.
+     @param[in] inValue The value to be converted.
+     @param[out] outValue The number contained in the value.
+     @return @c true if the value was numeric or logical or @c false otherwise. */
+    bool
+    ConvertSignalToValue
+        (SpValue    inValue,
+         double &   outValue);
 
     /*! @brief Convert a string to a double value.
      @param[in] startPtr The string to be converted.

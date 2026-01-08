@@ -862,7 +862,7 @@ createTables
     {
         if ((nullptr != owner) && logging)
         {
-            owner->report("creating tables."s);
+            owner->report("Creating tables."s);
         }
         status = doBeginTransaction(owner, dbHandle);
         if (status.first)

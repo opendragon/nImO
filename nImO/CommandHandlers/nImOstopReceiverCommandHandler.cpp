@@ -106,7 +106,7 @@ nImO::StopReceiverCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("stop receiver request received."s);
+    _ownerForInputOutput->report("Stop receiver request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

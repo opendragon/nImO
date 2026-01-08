@@ -109,7 +109,7 @@ nImO::AddConnectionCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("add connection request received."s);
+    _owner->report("Add connection request received."s);
     if (6 < arguments.size())
     {
         auto    fromNodeNameString{arguments[1]->asString()};

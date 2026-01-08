@@ -127,7 +127,7 @@ main
                 {
                     if (nodeName.empty())
                     {
-                        ourContext->report("no machine or node specified."s);
+                        ourContext->report("No machine or node specified."s);
                     }
                     else
                     {
@@ -140,7 +140,7 @@ main
                                 // Close all connections for services on the node.
                                 if (optionValues._expanded)
                                 {
-                                    ourContext->report("closing all connections to node '"s + nodeName + "'."s);
+                                    ourContext->report("Closing all connections to node '"s + nodeName + "'."s);
                                 }
                                 auto    statusWithAllConnections{proxy->getInformationForAllConnectionsOnNode(nodeName)};
 
@@ -278,7 +278,7 @@ main
                         }
                         if (optionValues._expanded)
                         {
-                            ourContext->report("closing all connections on machine '"s + optionValues._machine + "'."s);
+                            ourContext->report("Closing all connections on machine '"s + optionValues._machine + "'."s);
                         }
                         auto    statusWithAllConnections{proxy->getInformationForAllConnectionsOnMachine(optionValues._machine)};
 
@@ -400,7 +400,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s, false);
+            ourContext->report("Exiting."s, false);
         }
         catch (const std::string &  fault)
         {

@@ -60,15 +60,15 @@ Channels have an associated 'type' that represents the format of the data that t
 If the type is not specified or is blank, the service can handle any properly-formatted messages.\
 It the type is specified, the channel can only be connected to a channel of the same type or a channel with no type specified\'85 this may lead to problems, as the type information is lost across services that can accept any type of message. \
 ServiceContext objects set up a command port; the destructor closes the command port.\
-ContextWithMDNS objects start an mDNS scan/post thread; the destructor stops the mDNS scan/post thread.\
-ContextWithNetworking objects provide the logging mechanism and basic networking setup and shutdown.\
+SearchContext objects start an mDNS scan/post thread; the destructor stops the mDNS scan/post thread.\
+NetworkingContext objects provide the logging mechanism and basic networking setup and shutdown.\
 \
-Application role = Source, Sink, Filter, Service, Utility, Test or Miscellaneous - this determines whether a command port is to be used and if the mDNS scan/post thread is needed.\
+Application role = Source, Sink, Filter, Service, Utility, Test or Miscellaneous - this determines whether a command port is to be used and if the mDNS scan/post thread or multicast search thread is needed.\
 Test and Miscellaneous contexts won't need a command port; Source, Sink, Filter and Service contexts will respond on the command port while Utility contexts may send requests to a command port.\
 Source, Sink and Filter contexts will have one or more channels.\
-The non-registry applications use the command port of the Registry to get and set information.\
+The non-Registry applications use the command port of the Registry service to get and set information.\
 \
-mDNS contexts: <an intermediate context class>\
+Search contexts: <an intermediate context class>\
 Input/Output contexts: <an intermediate context class>\
 Networking contexts: nImOlog, nImOpost\
 Utility contexts: 
@@ -116,21 +116,21 @@ context-free: nImOcheckRegistry, nImOversion\
 \
 A 'client' nImObridge connects to a 'server' nImObridge; both have single input and output channels and the 'client' service specifies the IP address of the 'server'.\
 \
-nImOlauncher reports its node name and its command port and IP address to the registry when starting and deletes the node name from the registry on exit.\
+nImOlauncher reports its node name and its command port and IP address to the Registry service when starting and deletes the node name from the Registry on exit.\
 \
 InputOutputContext <- FilterContext, SinkContext, SourceContext\
 ServiceContext <- InputOutputContext, RegistryContext\
-ContextWithMDNS <- ServiceContext, UtilityContext\
-ContextWithNetworking <- ContextWithMDNS\
-Context <- ContextWithNetworking, MiscellaneousContext, TestContext\
+SearchContext <- ServiceContext, UtilityContext\
+NetworkingContext <- SearchContext\
+Context <- NetworkingContext, MiscellaneousContext, TestContext\
 \
-When a ContextWithMDNS is constructed, it will locate the Registry via mDNS, unless 'told not to'.\
+When a SearchContext is constructed, it will locate the Registry service via mDNS or custom multicast messages, unless 'told not to'.\
 //Locating an application will require determining the path to the running executable or some form of configuration file\'85 https://stackoverflow.com/questions/1528298/get-path-of-executable\
 \
 A RegistryProxy is used to formulate requests and handle responses from a Registry service; a Registry service owns a Registry and responds to the requests.\
 This will allow unit testing of a Registry, since it will not require a command port.\
 \
-The configuration file will specify the IP address and port for logging as well as the amount of time to wait for a response from the Registry before restarting the mDNS scan, amongst other things.\
+The configuration file will specify the IP address and port for logging as well as the amount of time to wait for a response from the Registry service before restarting the mDNS scan, amongst other things.\
 Use boost::optional when retrieving a value for a key from the configuration.\
 \
 Each service can optionally provide an icon to be used with the graphical interface instead of the generic symbol for an entity.}

@@ -108,7 +108,7 @@ nImO::AddNodeCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("add node request received."s);
+    _owner->report("Add node request received."s);
     if (6 < arguments.size())
     {
         auto        machineNameString{arguments[1]->asString()};

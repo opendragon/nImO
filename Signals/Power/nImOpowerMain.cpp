@@ -39,6 +39,7 @@
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
@@ -236,8 +237,8 @@ main
                                             auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                             bool    connected{false};
 
-                                            std::cout << "waiting for connection(s).\n";
-                                            ourContext->report("waiting for connection(s)."s);
+                                            std::cout << "Waiting for connection(s).\n";
+                                            ourContext->report("Waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {
                                                 boost::this_thread::yield();
@@ -246,7 +247,7 @@ main
                                         }
                                         if (nImO::gKeepRunning)
                                         {
-                                            ourContext->report("waiting for messages."s);
+                                            ourContext->report("Waiting for messages."s);
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
@@ -260,49 +261,34 @@ main
                                                 if (nextData)
                                                 {
                                                     auto    contents{nextData->_receivedMessage};
+                                                    double  inValue;
 
-                                                    if (contents)
+                                                    if (nImO::ConvertSignalToValue(contents, inValue))
                                                     {
-                                                        auto    asDouble{contents->asDouble()};
-                                                        double  base;
+                                                        bool    goAhead{true};
+                                                        double  result;
 
-                                                        if (nullptr == asDouble)
+                                                        // Check for out-of-range values.
+                                                        if (std::isfinite(inValue) && std::isfinite(power))
                                                         {
-                                                            auto    asInteger{contents->asInteger()};
-
-                                                            if (nullptr == asInteger)
+                                                            if (0.0 > inValue)
                                                             {
-                                                                nImO::StringBuffer  buff;
-
-                                                                contents->printToStringBuffer(buff);
-                                                                auto    valString{buff.getString()};
-
-                                                                ourContext->report("incorrect data '"s + valString + "' received from '"s + inChannelPath + "'."s);
-                                                                std::cerr << "incorrect data '" << valString << "' received from " << inChannelPath << ".\n";
-                                                                exitCode = 1;
+                                                                if (std::ceil(inValue) == inValue)
+                                                                {
+                                                                    result = std::pow(inValue, power);
+                                                                }
+                                                                else
+                                                                {
+                                                                    goAhead = false;
+                                                                }
                                                             }
                                                             else
                                                             {
-                                                                base = asInteger->getIntegerValue();
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            base = asDouble->getDoubleValue();
-                                                        }
-                                                        if (0 == exitCode)
-                                                        {
-                                                            bool    goAhead{true};
-                                                            double  result;
-
-                                                            // Check for out-of-range values.
-                                                            if (std::isfinite(base) && std::isfinite(power))
-                                                            {
-                                                                if (0.0 > base)
+                                                                if (0.0 == inValue)
                                                                 {
-                                                                    if (std::ceil(base) == base)
+                                                                    if (0.0 <= power)
                                                                     {
-                                                                        result = std::pow(base, power);
+                                                                        result = 0.0;
                                                                     }
                                                                     else
                                                                     {
@@ -311,47 +297,49 @@ main
                                                                 }
                                                                 else
                                                                 {
-                                                                    if (0.0 == base)
-                                                                    {
-                                                                        if (0.0 <= power)
-                                                                        {
-                                                                            result = 0.0;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            goAhead = false;
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        result = std::pow(base, power);
-                                                                    }
+                                                                    result = std::pow(inValue, power);
                                                                 }
-                                                            }
-                                                            else
-                                                            {
-                                                                goAhead = false;
-                                                            }
-                                                            if (goAhead)
-                                                            {
-                                                                nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(result)};
-
-                                                                if (! outChannel->send(valueToSend))
-                                                                {
-                                                                    ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                                    std::cerr << "problem sending to " << outChannelPath << ".\n";
-                                                                    exitCode = 1;
-                                                                    break;
-
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                ourContext->report("cannot calculate "s + nImO::ConvertDoubleToString(base) + "**"s +
-                                                                                   nImO::ConvertDoubleToString(power));
-                                                                std::cerr << "cannot calculate " << base << "**" << power << "\n";
                                                             }
                                                         }
+                                                        else
+                                                        {
+                                                            goAhead = false;
+                                                        }
+                                                        if (goAhead)
+                                                        {
+                                                            nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(result)};
+
+                                                            if (! outChannel->send(valueToSend))
+                                                            {
+                                                                ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
+                                                                std::cerr << "Problem sending to " << outChannelPath << ".\n";
+                                                                exitCode = 1;
+                                                                break;
+
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            ourContext->report("Cannot calculate "s + nImO::ConvertDoubleToString(inValue) + "**"s +
+                                                                               nImO::ConvertDoubleToString(power));
+                                                            std::cerr << "Cannot calculate " << inValue << "**" << power << "\n";
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        nImO::StringBuffer  buff;
+
+                                                        if (contents)
+                                                        {
+                                                            contents->printToStringBuffer(buff);
+                                                        }
+                                                        auto    valString{buff.getString()};
+
+                                                        ourContext->report("Incorrect data '"s + valString + "' received from '"s + inChannelPath + "'."s);
+                                                        std::cerr << "Incorrect data '" << valString << "' received from " << inChannelPath << ".\n";
+                                                        exitCode = 1;
+                                                        break;
+
                                                     }
                                                 }
                                             }
@@ -451,7 +439,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("Exiting."s);
         }
         catch (const std::string &  fault)
         {

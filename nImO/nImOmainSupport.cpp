@@ -196,10 +196,10 @@ nImO::CloseConnection
                 {
                     if (! statusWithBool.second)
                     {
-                        context->report("channel '"s + nodeName + " "s + path + "' could not be disconnected."s);
+                        context->report("Channel '"s + nodeName + " "s + path + "' could not be disconnected."s);
                         if (! reported)
                         {
-                            std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
+                            std::cerr << "Channel '" << nodeName << " " << path << "' could not be disconnected.\n";
                         }
                     }
                 }

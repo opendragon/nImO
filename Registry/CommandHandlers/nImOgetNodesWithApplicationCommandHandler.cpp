@@ -109,7 +109,7 @@ nImO::GetNodesWithApplicationCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get nodes with application request received."s);
+    _owner->report("Get nodes with application request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

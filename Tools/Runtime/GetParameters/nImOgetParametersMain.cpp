@@ -569,7 +569,7 @@ main
                         // Send Get Parameters command to the node.
                         if (optionValues._expanded)
                         {
-                            ourContext->report("sending get parameters request to '"s + nodeName + "'."s);
+                            ourContext->report("Sending get parameters request to '"s + nodeName + "'."s);
                         }
                         auto    handler{std::make_unique<nImO::GetParametersResponseHandler>()};
                         auto    status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, statusWithInfo.second._connection, handler.get(),
@@ -739,7 +739,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s, false);
+            ourContext->report("Exiting."s, false);
         }
         catch (const std::string &  fault)
         {

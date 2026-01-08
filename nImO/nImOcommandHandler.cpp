@@ -172,7 +172,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
             ODL_S1(outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpUdpLogging)
-            context->report("sending response."s);
+            context->report("Sending response."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             BA::async_write(socket, BA::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText, &reason]
@@ -185,14 +185,14 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                context->report("async_write() operation cancelled."s);
+                                                context->report("Async_write() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                 reason = "Operation cancelled"s;
                                             }
                                             else
                                             {
-                                                context->report("async_write() failed -> "s + ec.message() + "."s);
+                                                context->report("Async_write() failed -> "s + ec.message() + "."s);
                                                 reason = "async_write() failed"s;
                                             }
                                             keepGoing = false;
@@ -282,7 +282,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
             ODL_S1(outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpUdpLogging)
-            context->report("sending response"s);
+            context->report("Sending response"s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             BA::async_write(socket, BA::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText, &reason]
@@ -295,14 +295,14 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                context->report("async_write() operation cancelled"s);
+                                                context->report("Async_write() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                 reason = "async_write() operation cancelled"s;
                                             }
                                             else
                                             {
-                                                context->report("async_write() failed -> "s + ec.message());
+                                                context->report("Async_write() failed -> "s + ec.message());
                                                 reason = "async_write() failed"s;
                                             }
                                             keepGoing = false;

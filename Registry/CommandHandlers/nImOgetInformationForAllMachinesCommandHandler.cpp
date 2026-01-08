@@ -109,7 +109,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all machines request received."s);
+    _owner->report("Get information for all machines request received."s);
     if (0 < arguments.size())
     {
         auto     statusWithInfoVector{_registry->getInformationForAllMachines()};

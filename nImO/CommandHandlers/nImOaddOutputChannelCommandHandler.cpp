@@ -104,7 +104,7 @@ nImO::AddOutputChannelCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("add output channel request received."s);
+    _ownerForInputOutput->report("Add output channel request received."s);
     if (nullptr != _callback)
     {
         okSoFar = (*_callback)();

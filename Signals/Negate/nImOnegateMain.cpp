@@ -38,6 +38,7 @@
 
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
@@ -231,8 +232,8 @@ main
                                             auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                             bool    connected{false};
 
-                                            std::cout << "waiting for connection(s).\n";
-                                            ourContext->report("waiting for connection(s)."s);
+                                            std::cout << "Waiting for connection(s).\n";
+                                            ourContext->report("Waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {
                                                 boost::this_thread::yield();
@@ -241,7 +242,7 @@ main
                                         }
                                         if (nImO::gKeepRunning)
                                         {
-                                            ourContext->report("waiting for messages."s);
+                                            ourContext->report("Waiting for messages."s);
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
@@ -255,49 +256,36 @@ main
                                                 if (nextData)
                                                 {
                                                     auto    contents{nextData->_receivedMessage};
+                                                    double  inValue;
 
-                                                    if (contents)
+                                                    if (nImO::ConvertSignalToValue(contents, inValue))
                                                     {
-                                                        auto    asDouble{contents->asDouble()};
-                                                        double  inValue;
+                                                        nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(- inValue)};
 
-                                                        if (nullptr == asDouble)
+                                                        if (! outChannel->send(valueToSend))
                                                         {
-                                                            auto    asInteger{contents->asInteger()};
+                                                            ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
+                                                            std::cerr << "Problem sending to " << outChannelPath << ".\n";
+                                                            exitCode = 1;
+                                                            break;
 
-                                                            if (nullptr == asInteger)
-                                                            {
-                                                                nImO::StringBuffer  buff;
-
-                                                                contents->printToStringBuffer(buff);
-                                                                auto    valString{buff.getString()};
-
-                                                                ourContext->report("incorrect data '"s + valString + "' received from '"s + inChannelPath + "'."s);
-                                                                std::cerr << "incorrect data '" << valString << "' received from " << inChannelPath << ".\n";
-                                                                exitCode = 1;
-                                                            }
-                                                            else
-                                                            {
-                                                                inValue = asInteger->getIntegerValue();
-                                                            }
                                                         }
-                                                        else
+                                                    }
+                                                    else
+                                                    {
+                                                        nImO::StringBuffer  buff;
+
+                                                        if (contents)
                                                         {
-                                                            inValue = asDouble->getDoubleValue();
+                                                            contents->printToStringBuffer(buff);
                                                         }
-                                                        if (0 == exitCode)
-                                                        {
-                                                            nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(- inValue)};
+                                                        auto    valString{buff.getString()};
 
-                                                            if (! outChannel->send(valueToSend))
-                                                            {
-                                                                ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                                std::cerr << "problem sending to " << outChannelPath << ".\n";
-                                                                exitCode = 1;
-                                                                break;
+                                                        ourContext->report("Incorrect data '"s + valString + "' received from '"s + inChannelPath + "'."s);
+                                                        std::cerr << "Incorrect data '" << valString << "' received from " << inChannelPath << ".\n";
+                                                        exitCode = 1;
+                                                        break;
 
-                                                            }
-                                                        }
                                                     }
                                                 }
                                             }
@@ -397,7 +385,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("Exiting."s);
         }
         catch (const std::string &  fault)
         {

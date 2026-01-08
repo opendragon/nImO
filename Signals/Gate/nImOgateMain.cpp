@@ -270,8 +270,8 @@ main
                                             auto    gateChannel{ourContext->getInputChannel(gateChannelPath)};
                                             bool    connected{false};
 
-                                            std::cout << "waiting for connection(s).\n";
-                                            ourContext->report("waiting for connection(s)."s);
+                                            std::cout << "Waiting for connection(s).\n";
+                                            ourContext->report("Waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {
                                                 boost::this_thread::yield();
@@ -280,7 +280,7 @@ main
                                         }
                                         if (nImO::gKeepRunning)
                                         {
-                                            ourContext->report("waiting for messages."s);
+                                            ourContext->report("Waiting for messages."s);
                                             std::cout << progName << " ready.\n";
                                             std::cout.flush();
                                         }
@@ -315,7 +315,7 @@ std::cerr << "** Unimplemented **\n";
                                                                                 {
                                                                                     if (! outChannel->send(contents))
                                                                                     {
-                                                                                        ourContext->report("problem sending to '"s + outChannelPath +
+                                                                                        ourContext->report("Problem sending to '"s + outChannelPath +
                                                                                                            "'."s);
                                                                                     }
                                                                                 }
@@ -444,7 +444,7 @@ std::cerr << "** Unimplemented **\n";
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("Exiting."s);
         }
         catch (const std::string &  fault)
         {

@@ -108,7 +108,7 @@ nImO::GetNumberOfApplicationsCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get number of applications request received."s);
+    _owner->report("Get number of applications request received."s);
     if (0 < arguments.size())
     {
         auto    statusWithInt{_registry->getNumberOfApplications()};

@@ -231,15 +231,15 @@ main
                                         {
                                             bool    connected{false};
 
-                                            std::cout << "waiting for connection(s).\n";
-                                            ourContext->report("waiting for connection(s)."s);
+                                            std::cout << "Waiting for connection(s).\n";
+                                            ourContext->report("Waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {
                                                 boost::this_thread::yield();
                                                 connected = outChannel->isConnected();
                                             }
                                         }
-                                        ourContext->report("waiting for input."s);
+                                        ourContext->report("Waiting for input."s);
                                         nImO::StringBuffer  inBuffer;
                                         std::string         inLine;
                                         auto                aThread{new boost::thread([&inLine]
@@ -286,14 +286,21 @@ main
                                                         {
                                                             if (nullptr == readValue->asNumber())
                                                             {
-                                                                nImO::StringBuffer  buff;
+                                                                if (nullptr == readValue->asLogical())
+                                                                {
+                                                                    nImO::StringBuffer  buff;
 
-                                                                readValue->printToStringBuffer(buff);
-                                                                auto    valString{buff.getString()};
+                                                                    readValue->printToStringBuffer(buff);
+                                                                    auto    valString{buff.getString()};
 
-                                                                ourContext->report("non-numeric value '"s + valString + "' ignored."s);
-                                                                std::cerr << "non-numeric value '" << valString << "' ignored.\n";
-                                                                okToSend = false;
+                                                                    ourContext->report("Value '"s + valString + "' cannot be used with SIGNAL channels; ignored."s);
+                                                                    std::cerr << "Value '" << valString << "' cannot be used with SIGNAL channels; ignored.\n";
+                                                                    okToSend = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    okToSend = true;
+                                                                }
                                                             }
                                                             else
                                                             {
@@ -308,8 +315,8 @@ main
                                                         {
                                                             if (! outChannel->send(readValue))
                                                             {
-                                                                ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                                std::cerr << "problem sending to " << outChannelPath << ".\n";
+                                                                ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
+                                                                std::cerr << "Problem sending to " << outChannelPath << ".\n";
                                                                 exitCode = 1;
                                                                 break;
 
@@ -394,7 +401,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("Exiting."s);
         }
         catch (const std::string &  fault)
         {

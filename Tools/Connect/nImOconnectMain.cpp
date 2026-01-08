@@ -170,7 +170,7 @@ main
                 {
                     if (! statusWithBool.second)
                     {
-                        ourContext->report("channel '"s + fromNode + " "s + fromPath + "' not registered."s);
+                        ourContext->report("Channel '"s + fromNode + fromPath + "' not registered."s);
                         exitCode = 1;
                     }
                 }
@@ -186,7 +186,7 @@ main
                     {
                         if (! statusWithBool.second)
                         {
-                            ourContext->report("channel '"s + toNode + " "s + toPath + "' not registered."s);
+                            ourContext->report("Channel '"s + toNode + toPath + "' not registered."s);
                             exitCode = 1;
                         }
                     }
@@ -200,7 +200,7 @@ main
                 {
                     if (fromNode == toNode)
                     {
-                        ourContext->report("node '"s + toNode + "' cannot be connected directly to itself."s);
+                        ourContext->report("Node '"s + toNode + "' cannot be connected directly to itself."s);
                         exitCode = 1;
                     }
                 }
@@ -239,14 +239,14 @@ main
                     // Check if we now have exclusive access to the two channels.
                     if (previousStateForFrom)
                     {
-                        ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is already connected."s);
+                        ourContext->report("Channel '"s + fromNode + fromPath + "' is already connected."s);
                         exitCode = 1;
                     }
                     else
                     {
                         if (previousStateForTo)
                         {
-                            ourContext->report("channel '"s + toNode + " "s + toPath + "' is already connected."s);
+                            ourContext->report("Channel '"s + toNode + toPath + "' is already connected."s);
                             exitCode = 1;
                         }
                     }
@@ -274,7 +274,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' was not found."s);
+                            ourContext->report("Channel '"s + fromNode + fromPath + "' was not found."s);
                             exitCode = 1;
                         }
                     }
@@ -296,7 +296,7 @@ main
                             }
                             else
                             {
-                                ourContext->report("channel '"s + toNode + " "s + toPath + "' was not found."s);
+                                ourContext->report("Channel '"s + toNode + toPath + "' was not found."s);
                                 exitCode = 1;
                             }
                         }
@@ -323,7 +323,7 @@ main
                     {
                         if (toIsOutput)
                         {
-                            ourContext->report("channel '"s + toNode + " "s + toPath + "' is an output!"s);
+                            ourContext->report("Channel '"s + toNode + toPath + "' is an output."s);
                             exitCode = 1;
                         }
                         else
@@ -333,7 +333,12 @@ main
                                 // Do the data types match up? Set 'dataType'.
                                 if (fromDataType.empty())
                                 {
-                                    dataType = toDataType;
+                                    if (! toDataType.empty())
+                                    {
+                                        ourContext->report("Channel '"s + fromNode + fromPath + " ("s + fromDataType + ")' cannot be connected to '"s  +
+                                                           toNode + toPath + " ("s + toDataType + ")'."s);
+                                        exitCode = 1;
+                                    }
                                 }
                                 else
                                 {
@@ -349,8 +354,8 @@ main
                                         }
                                         else
                                         {
-                                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "("s + fromDataType + ")' does not match '"s  +
-                                                               toNode + " "s + toPath + "("s + toDataType + ")'."s);
+                                            ourContext->report("Channel '"s + fromNode + fromPath + " ("s + fromDataType + ")' does not match '"s  +
+                                                               toNode + toPath + " ("s + toDataType + ")'."s);
                                             exitCode = 1;
                                         }
                                     }
@@ -362,9 +367,8 @@ main
                                     ODL_I1(resolvedMode); //####
                                     if (nImO::TransportType::kUnknown == resolvedMode)
                                     {
-                                        ourContext->report("channel '"s + fromNode + " "s + fromPath +
-                                                           "' has incompatible transport mode with '"s +
-                                                           toNode + " "s + toPath + "'."s);
+                                        ourContext->report("Channel '"s + fromNode + fromPath + "' has incompatible transport mode with '"s +
+                                                           toNode + toPath + "'."s);
                                         exitCode = 1;
                                     }
                                 }
@@ -375,15 +379,15 @@ main
                                     ODL_I1(resolvedMode); //####
                                     if (nImO::TransportType::kUnknown == resolvedMode)
                                     {
-                                        ourContext->report("requested transport mode is incompatible with '"s + fromNode + " "s + fromPath +
-                                                           "' and '"s + toNode + " "s + toPath + "'."s);
+                                        ourContext->report("Requested transport mode is incompatible with '"s + fromNode + fromPath +
+                                                           "' and '"s + toNode + toPath + "'."s);
                                         exitCode = 1;
                                     }
                                     else
                                     {
                                         if (nImO::TransportType::kAny == resolvedMode)
                                         {
-                                            ourContext->report("requested transport mode is ambiguous."s);
+                                            ourContext->report("Requested transport mode is ambiguous."s);
                                             exitCode = 1;
                                         }
                                     }
@@ -391,7 +395,7 @@ main
                             }
                             else
                             {
-                                ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is an input!"s);
+                                ourContext->report("Channel '"s + fromNode + fromPath + "' is an input."s);
                                 exitCode = 1;
                             }
                         }
@@ -406,8 +410,7 @@ main
                     {
                         if (! statusWithBool.second)
                         {
-                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' could not be connected to '"s  + toNode + " "s +
-                                               toPath + "'."s);
+                            ourContext->report("Channel '"s + fromNode + fromPath + "' could not be connected to '"s  + toNode + toPath + "'."s);
                             exitCode = 1;
                         }
                     }
@@ -485,7 +488,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Problem setting up the channel '"s + toNode + " "s + toPath + "': "s + status.second + "."s);
+                            ourContext->report("Problem setting up the channel '"s + toNode + toPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }
@@ -515,7 +518,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Problem setting up the channel '"s + fromNode + " "s + fromPath + "': "s + status.second + "."s);
+                            ourContext->report("Problem setting up the channel '"s + fromNode + fromPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }
@@ -533,7 +536,7 @@ main
 
                         if (! status.first)
                         {
-                            ourContext->report("Problem starting the channel '"s + toNode + " "s + toPath + "': "s + status.second + "."s);
+                            ourContext->report("Problem starting the channel '"s + toNode + toPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }
@@ -549,7 +552,7 @@ main
 
                         if (! status.first)
                         {
-                            ourContext->report("Problem starting the channel '"s + fromNode + " "s + fromPath + "': "s + status.second + "."s);
+                            ourContext->report("Problem starting the channel '"s + fromNode + fromPath + "': "s + status.second + "."s);
                             exitCode = 1;
                         }
                     }
@@ -585,7 +588,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s, false);
+            ourContext->report("Exiting."s, false);
         }
         catch (const std::string &  fault)
         {

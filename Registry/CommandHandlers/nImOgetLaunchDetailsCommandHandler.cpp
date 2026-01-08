@@ -109,7 +109,7 @@ nImO::GetLaunchDetailsCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get launch details request received."s);
+    _owner->report("Get launch details request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

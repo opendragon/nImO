@@ -105,7 +105,7 @@ nImO::SetParameterValueCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("set parameter value request received."s);
+    _ownerForInputOutput->report("Set parameter value request received."s);
     if (2 < arguments.size())
     {
         auto    asString1{arguments[1]->asString()};

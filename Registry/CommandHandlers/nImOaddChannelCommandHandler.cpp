@@ -109,7 +109,7 @@ nImO::AddChannelCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("add channel request received."s);
+    _owner->report("Add channel request received."s);
     if (5 < arguments.size())
     {
         auto    nodeNameString{arguments[1]->asString()};

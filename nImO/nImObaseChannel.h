@@ -169,7 +169,7 @@ namespace nImO
             std::string _name{};
 
             /*! @brief The transfer statistics for the channel. */
-            ChannelStatistics    _statistics{};
+            ChannelStatistics   _statistics{};
 
             /*! @brief @c true once a TCP connection has been established. */
             std::atomic_bool    _tcpConnected{false};

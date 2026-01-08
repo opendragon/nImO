@@ -138,7 +138,7 @@ main
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                                 {
-                                    ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                    ourContext->report("Sending stop request to '"s + walker._name + "'."s);
                                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
                                                                                      nImO::kStopResponse);
                                     // Give the service time to inform the Registry.
@@ -153,7 +153,7 @@ main
                             }
                             if (optionValues._expanded)
                             {
-                                ourContext->report("closing all connections"s);
+                                ourContext->report("Closing all connections"s);
                             }
                             auto    statusWithAllConnections{proxy->getInformationForAllConnections()};
 
@@ -225,7 +225,7 @@ main
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                                 {
-                                    ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                    ourContext->report("Sending stop request to '"s + walker._name + "'."s);
                                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
                                                                                      nImO::kStopResponse);
                                     // Give the service time to inform the Registry.
@@ -246,7 +246,7 @@ main
                         }
                         // Give the Registry time to handle pending requests.
                         nImO::ConsumeSomeTime(ourContext.get(), 20);
-                        ourContext->report("sending stop request to Registry."s);
+                        ourContext->report("Sending stop request to Registry."s);
                         // Send Stop command to Registry.
                         nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kStopRequest,
                                                                          nImO::kStopResponse);
@@ -262,7 +262,7 @@ main
                                 // Close all connections for services on the node.
                                 if (optionValues._expanded)
                                 {
-                                    ourContext->report("closing all connections to node '"s + nodeName + "'."s);
+                                    ourContext->report("Closing all connections to node '"s + nodeName + "'."s);
                                 }
                                 auto    statusWithAllConnections{proxy->getInformationForAllConnectionsOnNode(nodeName)};
 
@@ -350,7 +350,7 @@ main
                                 // Send Stop command to the node.
                                 if (optionValues._expanded)
                                 {
-                                    ourContext->report("sending stop request to '"s + nodeName + "'."s);
+                                    ourContext->report("Sending stop request to '"s + nodeName + "'."s);
                                 }
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kStopRequest,
                                                                                  nImO::kStopResponse);
@@ -386,7 +386,7 @@ main
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
-                                ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                ourContext->report("Sending stop request to '"s + walker._name + "'."s);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
                                                                                  nImO::kStopResponse);
                                 // Give the service time to inform the Registry.
@@ -405,7 +405,7 @@ main
                         }
                         if (optionValues._expanded)
                         {
-                            ourContext->report("closing all connections on machine '"s + optionValues._machine + "'."s);
+                            ourContext->report("Closing all connections on machine '"s + optionValues._machine + "'."s);
                         }
                         auto    statusWithAllConnections{proxy->getInformationForAllConnectionsOnMachine(optionValues._machine)};
 
@@ -495,7 +495,7 @@ main
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                             {
-                                ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                ourContext->report("Sending stop request to '"s + walker._name + "'."s);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
                                                                                  nImO::kStopResponse);
                                 // Give the service time to inform the Registry.
@@ -525,7 +525,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s, false);
+            ourContext->report("Exiting."s, false);
         }
         catch (const std::string &  fault)
         {

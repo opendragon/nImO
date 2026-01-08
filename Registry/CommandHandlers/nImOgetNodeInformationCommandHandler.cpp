@@ -109,7 +109,7 @@ nImO::GetNodeInformationCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _owner->report("get node information request received."s);
+    _owner->report("Get node information request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

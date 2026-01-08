@@ -145,7 +145,7 @@ main
                         // Send Set Parameter Value command to the node.
                         if (optionValues._expanded)
                         {
-                            ourContext->report("sending set parameter value request to '"s + nodeName + "'."s);
+                            ourContext->report("Sending set parameter value request to '"s + nodeName + "'."s);
                         }
                         auto    argArray{std::make_shared<nImO::Array>()};
                         auto    handler{std::make_unique<nImO::SetParameterValueResponseHandler>()};
@@ -182,7 +182,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s, false);
+            ourContext->report("Exiting."s, false);
         }
         catch (const std::string &  fault)
         {

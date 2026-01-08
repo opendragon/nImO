@@ -107,7 +107,7 @@ nImO::SetUpReceiverCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("set up receiver request received."s);
+    _ownerForInputOutput->report("Set up receiver request received."s);
     if (3 < arguments.size())
     {
         auto    pathString{arguments[1]->asString()};

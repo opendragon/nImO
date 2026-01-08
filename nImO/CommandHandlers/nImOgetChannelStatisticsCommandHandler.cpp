@@ -108,7 +108,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("get channel statistics request received."s);
+    _ownerForInputOutput->report("Get channel statistics request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

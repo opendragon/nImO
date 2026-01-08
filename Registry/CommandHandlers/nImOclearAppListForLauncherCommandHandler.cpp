@@ -125,7 +125,7 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kClearAppListForLauncherResponse, "clear app list for launcher"s, true, reason);
+                okSoFar = sendSimpleResponse(socket, kClearAppListForLauncherResponse, "Clear app list for launcher"s, true, reason);
                 ODL_B1(okSoFar); //####
 if (okSoFar)
                 {

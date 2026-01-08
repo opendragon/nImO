@@ -132,7 +132,7 @@ nImO::GetLaunchDetailsCommandHandler::doIt
                 detailsArray->addValue(std::make_shared<String>(theDetails._execPath));
                 detailsArray->addValue(std::make_shared<String>(theDetails._launchDirectory));
                 detailsArray->addValue(std::make_shared<String>(theDetails._commandLine));
-                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "get launch details"s, detailsArray, reason);
+                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "Get launch details"s, detailsArray, reason);
                 ODL_B1(okSoFar); //####
             }
             else

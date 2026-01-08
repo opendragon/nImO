@@ -399,11 +399,11 @@ nImO::CommandHandler::SendBadResponse
 
     if (reason.empty())
     {
-        sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown"s, false, localReason);
+        sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "Unknown"s, false, localReason);
     }
     else
     {
-        sendSimpleResponseWithContext(context, *socket.get(), reason, "unknown"s, false, localReason);
+        sendSimpleResponseWithContext(context, *socket.get(), reason, "Unknown"s, false, localReason);
     }
     ODL_EXIT(); //####
 } // nImO::CommandHandler::SendBadResponse

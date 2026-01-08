@@ -111,7 +111,7 @@ nImO::AddOutputChannelCommandHandler::doIt
         ODL_B1(okSoFar); //####
         if (okSoFar)
         {
-            okSoFar = sendSimpleResponse(socket, kAddOutputChannelResponse, "add output channel"s, true, reason);
+            okSoFar = sendSimpleResponse(socket, kAddOutputChannelResponse, "Add output channel"s, true, reason);
             ODL_B1(okSoFar); //####
         }
         else

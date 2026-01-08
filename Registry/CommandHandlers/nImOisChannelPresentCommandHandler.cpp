@@ -119,7 +119,7 @@ nImO::IsChannelPresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsChannelPresentResponse, "is channel present"s, statusWithBool.second, reason);
+                okSoFar = sendSimpleResponse(socket, kIsChannelPresentResponse, "Is channel present"s, statusWithBool.second, reason);
                 ODL_B1(okSoFar); //####
             }
             else

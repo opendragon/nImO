@@ -221,7 +221,7 @@ nImO::StartAppCommandHandler::doIt
                                 BP::child   cc{appPath, BP::args(commandLine), BP::std_out > BP::null, aGroup};
 
                                 cc.detach();
-                                okSoFar = sendSimpleResponse(socket, kStartAppResponse, "start app"s, true, reason);
+                                okSoFar = sendSimpleResponse(socket, kStartAppResponse, "Start app"s, true, reason);
                                 ODL_B1(okSoFar); //####
                             }
                             else

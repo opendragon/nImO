@@ -123,7 +123,7 @@ nImO::IsMachinePresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "is machine present"s, statusWithBool.second, reason);
+                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "Is machine present"s, statusWithBool.second, reason);
                 ODL_B1(okSoFar); //####
             }
             else

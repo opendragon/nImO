@@ -126,7 +126,7 @@ nImO::GetNumberOfInputChannelsOnNodeCommandHandler::doIt
             {
                 auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-                okSoFar = sendComplexResponse(socket, kGetNumberOfInputChannelsOnNodeResponse, "get number of input channels on node"s, count, reason);
+                okSoFar = sendComplexResponse(socket, kGetNumberOfInputChannelsOnNodeResponse, "Get number of input channels on node"s, count, reason);
                 ODL_B1(okSoFar); //####
             }
             else

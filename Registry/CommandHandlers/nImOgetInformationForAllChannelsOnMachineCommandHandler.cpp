@@ -140,7 +140,7 @@ nImO::GetInformationForAllChannelsOnMachineCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Logical>(walker._inUse));
                     channelArray->addValue(infoArray);
                 }
-                okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnMachineResponse, "get information for all channels on machine"s,
+                okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnMachineResponse, "Get information for all channels on machine"s,
                                               channelArray, reason);
                 ODL_B1(okSoFar); //####
             }

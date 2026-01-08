@@ -139,7 +139,7 @@ nImO::GetInformationForAllNodesOnMachineCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, walker._connection._transport)));
                     nodeArray->addValue(infoArray);
                 }
-                okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesOnMachineResponse, "get information for all nodes on machine"s,
+                okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesOnMachineResponse, "Get information for all nodes on machine"s,
                                               nodeArray, reason);
                 ODL_B1(okSoFar); //####
             }

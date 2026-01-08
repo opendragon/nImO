@@ -133,7 +133,7 @@ nImO::SetUpSenderCommandHandler::doIt
 
                     infoArray->addValue(std::make_shared<Address>(theConnection._address));
                     infoArray->addValue(std::make_shared<Integer>(theConnection._port));
-                    okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender"s, infoArray, reason);
+                    okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "Set up sender"s, infoArray, reason);
                     ODL_B1(okSoFar); //####
                 }
                 else

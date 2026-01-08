@@ -130,7 +130,7 @@ nImO::AddChannelCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddChannelResponse, "add channel"s, true, reason);
+                okSoFar = sendSimpleResponse(socket, kAddChannelResponse, "Add channel"s, true, reason);
                 ODL_B1(okSoFar); //####
                 if (okSoFar)
                 {

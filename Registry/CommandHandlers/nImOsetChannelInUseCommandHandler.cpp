@@ -121,7 +121,7 @@ nImO::SetChannelInUseCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kSetChannelInUseResponse, "set channel inUse"s, true, reason);
+                okSoFar = sendSimpleResponse(socket, kSetChannelInUseResponse, "Set channel inUse"s, true, reason);
                 ODL_B1(okSoFar); //####
             }
             else

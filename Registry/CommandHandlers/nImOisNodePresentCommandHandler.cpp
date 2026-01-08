@@ -123,7 +123,7 @@ nImO::IsNodePresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "is node present"s, statusWithBool.second, reason);
+                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "Is node present"s, statusWithBool.second, reason);
                 ODL_B1(okSoFar); //####
             }
             else

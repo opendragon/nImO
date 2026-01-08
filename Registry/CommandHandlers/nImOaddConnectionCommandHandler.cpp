@@ -132,7 +132,7 @@ nImO::AddConnectionCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddConnectionResponse, "add connection"s, true, reason);
+                okSoFar = sendSimpleResponse(socket, kAddConnectionResponse, "Add connection"s, true, reason);
                 ODL_B1(okSoFar); //####
                 if (okSoFar)
                 {

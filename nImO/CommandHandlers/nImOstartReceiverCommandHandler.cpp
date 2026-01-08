@@ -124,7 +124,7 @@ nImO::StartReceiverCommandHandler::doIt
                 auto    senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
 
                 // Send the response to the requestor.
-                okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver"s, theChannel->start(senderAddress, senderPort), reason);
+                okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "Start receiver"s, theChannel->start(senderAddress, senderPort), reason);
                 ODL_B1(okSoFar); //####
             }
             else

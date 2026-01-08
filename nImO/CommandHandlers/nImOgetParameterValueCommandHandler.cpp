@@ -132,7 +132,7 @@ nImO::GetParameterValueCommandHandler::doIt
 
                         infoArray->addValue(std::make_shared<String>(anArg->getProcessedValue()));
                         found = true;
-                        okSoFar = sendComplexResponse(socket, kGetParameterValueResponse, "get parameter value"s, infoArray, reason);
+                        okSoFar = sendComplexResponse(socket, kGetParameterValueResponse, "Get parameter value"s, infoArray, reason);
                         ODL_B1(okSoFar); //####
                         break;
 

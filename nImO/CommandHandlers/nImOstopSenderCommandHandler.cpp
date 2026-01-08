@@ -122,7 +122,7 @@ nImO::StopSenderCommandHandler::doIt
 
             if (theChannel)
             {
-                okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "stop sender"s, theChannel->stop(), reason);
+                okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "Stop sender"s, theChannel->stop(), reason);
                 ODL_B1(okSoFar); //####
             }
             else

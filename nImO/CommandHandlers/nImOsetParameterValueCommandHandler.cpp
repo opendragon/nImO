@@ -141,7 +141,7 @@ nImO::SetParameterValueCommandHandler::doIt
 
                                 // Remember the previous value.
                                 infoArray->addValue(std::make_shared<String>(oldValue));
-                                okSoFar = sendComplexResponse(socket, nImO::kSetParameterValueResponse, "set parameter value"s, infoArray, reason);
+                                okSoFar = sendComplexResponse(socket, nImO::kSetParameterValueResponse, "Set parameter value"s, infoArray, reason);
                                 ODL_B1(okSoFar); //####
                             }
                             else

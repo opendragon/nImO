@@ -117,7 +117,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
         {
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "get number of channels"s, count, reason);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "Get number of channels"s, count, reason);
             ODL_B1(okSoFar); //####
         }
         else

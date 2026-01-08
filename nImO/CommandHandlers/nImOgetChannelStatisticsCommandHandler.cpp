@@ -154,7 +154,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
 
                 infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
                 infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
-                okSoFar = sendComplexResponse(socket, kGetChannelStatisticsResponse, "get channel statistics"s, infoArray, reason);
+                okSoFar = sendComplexResponse(socket, kGetChannelStatisticsResponse, "Get channel statistics"s, infoArray, reason);
                 ODL_B1(okSoFar); //####
             }
         }

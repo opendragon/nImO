@@ -140,7 +140,7 @@ nImO::GetInformationForAllConnectionsOnNodeCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Integer>(StaticCast(int, walker._mode)));
                     connectionArray->addValue(infoArray);
                 }
-                okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsOnNodeResponse, "get information for all connections on node"s,
+                okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsOnNodeResponse, "Get information for all connections on node"s,
                                               connectionArray, reason);
                 ODL_B1(okSoFar); //####
             }

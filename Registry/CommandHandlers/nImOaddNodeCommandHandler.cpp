@@ -160,7 +160,7 @@ nImO::AddNodeCommandHandler::doIt
                 status = _registry->addNode(nodeName, execPath, launchDirectory, commandLine, theType, theConnection);
                 if (status.first)
                 {
-                    okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node"s, true, reason);
+                    okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "Add node"s, true, reason);
                     ODL_B1(okSoFar); //####
                     if (okSoFar)
                     {

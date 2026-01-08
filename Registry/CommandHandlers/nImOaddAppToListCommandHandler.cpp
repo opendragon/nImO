@@ -125,7 +125,7 @@ nImO::AddAppToListCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddAppToListResponse, "add app to list"s, true, reason);
+                okSoFar = sendSimpleResponse(socket, kAddAppToListResponse, "Add app to list"s, true, reason);
                 ODL_B1(okSoFar); //####
                 if (okSoFar)
                 {

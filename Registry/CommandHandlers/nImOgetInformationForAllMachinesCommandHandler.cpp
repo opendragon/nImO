@@ -127,7 +127,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(walker._address));
                 machineArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "get information for all machines"s, machineArray, reason);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "Get information for all machines"s, machineArray, reason);
             ODL_B1(okSoFar); //####
         }
         else

@@ -131,7 +131,7 @@ nImO::GetMachineInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._name));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
-                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "get machine information"s, infoArray, reason);
+                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "Get machine information"s, infoArray, reason);
                 ODL_B1(okSoFar); //####
             }
             else

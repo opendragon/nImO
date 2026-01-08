@@ -123,7 +123,7 @@ nImO::StartSenderCommandHandler::doIt
             if (theChannel)
             {
                 // Send the response to the requestor.
-                okSoFar = sendSimpleResponse(socket, kStartSenderResponse, "start sender"s, theChannel->start(), reason);
+                okSoFar = sendSimpleResponse(socket, kStartSenderResponse, "Start sender"s, theChannel->start(), reason);
                 ODL_B1(okSoFar); //####
             }
             else

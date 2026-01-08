@@ -105,7 +105,7 @@ nImO::StopCommandHandler::doIt
     ODL_P3(&socket, &arguments, &reason); //####
     _owner->report("Stop request received."s);
     // Send the response to the requestor.
-    bool    okSoFar{sendSimpleResponse(socket, kStopResponse, "stop"s, true, reason)};
+    bool    okSoFar{sendSimpleResponse(socket, kStopResponse, "Stop"s, true, reason)};
 
     // Signal to the application that it should terminate.
     gPendingStop = true;

@@ -124,7 +124,7 @@ nImO::RemoveNodeCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveNodeResponse, "remove node"s, true, reason);
+                okSoFar = sendSimpleResponse(socket, kRemoveNodeResponse, "Remove node"s, true, reason);
                 ODL_B1(okSoFar); //####
                 if (okSoFar)
                 {

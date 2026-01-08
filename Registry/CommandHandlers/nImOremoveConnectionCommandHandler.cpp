@@ -124,7 +124,7 @@ nImO::RemoveConnectionCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel"s, true, reason);
+                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "Remove channel"s, true, reason);
                 ODL_B1(okSoFar); //####
                 if (okSoFar)
                 {

@@ -119,7 +119,7 @@ nImO::GetParametersCommandHandler::doIt
             infoArray->addValue(argumentMap);
         }
     }
-    bool    okSoFar{sendComplexResponse(socket, kGetParametersResponse, "get parameters"s, infoArray, reason)};
+    bool    okSoFar{sendComplexResponse(socket, kGetParametersResponse, "Get parameters"s, infoArray, reason)};
 
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

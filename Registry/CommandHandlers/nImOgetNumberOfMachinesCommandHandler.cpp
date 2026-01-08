@@ -117,7 +117,7 @@ nImO::GetNumberOfMachinesCommandHandler::doIt
         {
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "get number of machines"s, count, reason);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "Get number of machines"s, count, reason);
             ODL_B1(okSoFar); //####
         }
         else

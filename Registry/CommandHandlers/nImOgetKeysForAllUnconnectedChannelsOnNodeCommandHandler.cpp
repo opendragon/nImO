@@ -135,7 +135,7 @@ nImO::GetKeysForAllUnconnectedChannelsOnNodeCommandHandler::doIt
                     keysArray->addValue(std::make_shared<String>(walker._path));
                     channelArray->addValue(keysArray);
                 }
-                okSoFar = sendComplexResponse(socket, kGetKeysForAllUnconnectedChannelsOnNodeResponse, "get keys for all unconnected channels on node"s,
+                okSoFar = sendComplexResponse(socket, kGetKeysForAllUnconnectedChannelsOnNodeResponse, "Get keys for all unconnected channels on node"s,
                                               channelArray, reason);
                 ODL_B1(okSoFar); //####
             }

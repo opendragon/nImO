@@ -136,7 +136,7 @@ nImO::GetInformationForAllApplicationsOnNodeCommandHandler::doIt
                     infoArray->addValue(std::make_shared<String>(walker._appDescription));
                     applicationArray->addValue(infoArray);
                 }
-                okSoFar = sendComplexResponse(socket, kGetInformationForAllApplicationsOnNodeResponse, "get information for all applications on node"s,
+                okSoFar = sendComplexResponse(socket, kGetInformationForAllApplicationsOnNodeResponse, "Get information for all applications on node"s,
                                               applicationArray, reason);
                 ODL_B1(okSoFar); //####
             }

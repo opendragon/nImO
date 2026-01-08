@@ -165,7 +165,7 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                             {
                                 runOptions = line.substr(0, tabIndex);
                             }
-                            okSoFar = sendComplexResponse(socket, kGetRunOptionsForAppResponse, "get run options for app"s,
+                            okSoFar = sendComplexResponse(socket, kGetRunOptionsForAppResponse, "Get run options for app"s,
                                                           std::make_shared<String>(runOptions), reason);
                             ODL_B1(okSoFar); //####
                         }

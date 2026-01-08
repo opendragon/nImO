@@ -37,6 +37,7 @@
 #--------------------------------------------------------------------------------------------------
 
 add_subdirectory(Adjust)
+add_subdirectory(Bang)
 add_subdirectory(Clamp)
 add_subdirectory(Cosine)
 add_subdirectory(Gate)

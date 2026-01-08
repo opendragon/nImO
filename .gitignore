@@ -77,6 +77,9 @@ non-iOS/Registry/nImOregistry.rc
 non-iOS/Signals/Adjust/nImOadjust
 non-iOS/Signals/Adjust/nImOadjust.dir/
 non-iOS/Signals/Adjust/nImOadjust.rc
+non-iOS/Signals/Bang/nImObang
+non-iOS/Signals/Bang/nImObang.dir/
+non-iOS/Signals/Bang/nImObang.rc
 non-iOS/Signals/Clamp/nImOclamp
 non-iOS/Signals/Clamp/nImOclamp.dir/
 non-iOS/Signals/Clamp/nImOclamp.rc

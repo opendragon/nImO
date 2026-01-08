@@ -3,6 +3,10 @@
             "path" > "$$/nImOadjust"
             "description" > "Send the value of a SIGNAL message after applying a scale and an offset"
             }
+#"Bang" > {
+#            "path" > "$$/nImObang"
+#            "description" > "Send a SIGNAL message when an input message arrives -> unimplemented"
+#            }
 #"Bridge" > {
 #            "path" > "$$/nImObridge"
 #            "description" > "Connect two subnets -> unimplemented"

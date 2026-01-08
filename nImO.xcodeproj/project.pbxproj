@@ -11,6 +11,10 @@
 		F6004B0929D8852700F07D3B /* nImOregistryContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryContext.h; path = Registry/nImOregistryContext.h; sourceTree = "<group>"; };
 		F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOannounceServiceData.cpp; path = nImO/nImOannounceServiceData.cpp; sourceTree = "<group>"; };
 		F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOannounceServiceData.h; path = nImO/nImOannounceServiceData.h; sourceTree = "<group>"; };
+		F60835A72F0FD53500FEB39C /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F60835A92F0FD56D00FEB39C /* nImObang.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImObang.rc.in; sourceTree = "<group>"; };
+		F60835AA2F0FD56D00FEB39C /* nImObangMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImObangMain.cpp; sourceTree = "<group>"; };
+		F60835AB2F0FD56D00FEB39C /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F608EFCD2A37274D003600A6 /* nImOgetChannelInUseAndSetResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetChannelInUseAndSetResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.cpp; sourceTree = "<group>"; };
 		F608EFCE2A37274D003600A6 /* nImOgetChannelInUseAndSetResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetChannelInUseAndSetResponseHandler.h; path = nImO/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h; sourceTree = "<group>"; };
 		F608EFCF2A37277B003600A6 /* nImOgetChannelInUseAndSetCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetChannelInUseAndSetCommandHandler.h; path = Registry/CommandHandlers/nImOgetChannelInUseAndSetCommandHandler.h; sourceTree = "<group>"; };
@@ -731,6 +735,24 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		F60835A82F0FD53500FEB39C /* Bang */ = {
+			isa = PBXGroup;
+			children = (
+				F60835A72F0FD53500FEB39C /* CMakeLists.txt */,
+			);
+			path = Bang;
+			sourceTree = "<group>";
+		};
+		F60835AC2F0FD56D00FEB39C /* Bang */ = {
+			isa = PBXGroup;
+			children = (
+				F60835A92F0FD56D00FEB39C /* nImObang.rc.in */,
+				F60835AA2F0FD56D00FEB39C /* nImObangMain.cpp */,
+				F60835AB2F0FD56D00FEB39C /* resource.h */,
+			);
+			path = Bang;
+			sourceTree = "<group>";
+		};
 		F613D15E288D82FB008712C9 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1159,8 +1181,9 @@
 		F64EECD12DC6218B0070A8FF /* Signals */ = {
 			isa = PBXGroup;
 			children = (
-				F6BCD17C2F0EFBB30032E88D /* Clamp */,
 				F6BCD1762F0EF7A30032E88D /* Adjust */,
+				F60835A82F0FD53500FEB39C /* Bang */,
+				F6BCD17C2F0EFBB30032E88D /* Clamp */,
 				F6BCD16A2F0EE7E80032E88D /* Cosine */,
 				F6815D402DE0957A0057BBA9 /* Gate */,
 				F64EECD22DC621FB0070A8FF /* CMakeLists.txt */,
@@ -1195,6 +1218,7 @@
 			isa = PBXGroup;
 			children = (
 				F6BCD17A2F0EF7EE0032E88D /* Adjust */,
+				F60835AC2F0FD56D00FEB39C /* Bang */,
 				F6BCD1802F0EFBCB0032E88D /* Clamp */,
 				F6BCD1702F0EE81D0032E88D /* Cosine */,
 				F6815D442DE095E20057BBA9 /* Gate */,

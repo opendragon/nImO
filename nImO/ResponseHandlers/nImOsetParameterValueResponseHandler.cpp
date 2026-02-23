@@ -99,9 +99,7 @@ nImO::SetParameterValueResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    infoArray{stuff[1]->asArray()};
-
-        if (nullptr == infoArray)
+        if (auto infoArray{stuff[1]->asArray()}; nullptr == infoArray)
         {
             ODL_LOG("(nullptr == infoArray)"); //####
         }
@@ -109,9 +107,7 @@ nImO::SetParameterValueResponseHandler::doIt
         {
             if (0 < infoArray->size())
             {
-                auto    asString{(*infoArray)[0]->asString()};
-
-                if (nullptr == asString)
+                if (auto asString{(*infoArray)[0]->asString()}; nullptr == asString)
                 {
                     ODL_LOG("(nullptr == asString)"); //####
                 }

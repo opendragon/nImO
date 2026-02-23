@@ -79,6 +79,9 @@ namespace nImO
         /*! @brief @c true if all the channels are SIGNAL type. */
         bool    _signal{false};
 
+        /*! @brief @c true if the standard suffix is not applied when constructing a node name. */
+        bool    _suppressStandardSuffix{false};
+
         /*! @brief The tag modifier set by a command-line option. */
         std::string _tag{};
 
@@ -111,6 +114,7 @@ namespace nImO
      The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the service.
      The option '-v' / '--version' displays the version and copyright information and returns @c false.
      The option '-w' / '--wait' specifies that the service is to wait until connections have been made to it.
+     The option '-x' / '--nosuffix' specifies that the default suffix for the node name is not to be applied.
      @param[in] argc The number of arguments in 'argv'.
      @param[in] argv The arguments to be used with the service.
      @param[in] argumentDescriptions Descriptions of the arguments to the service.

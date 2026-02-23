@@ -145,9 +145,7 @@ nImO::Integer::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asInteger()};
-
-        if (nullptr != otherPtr)
+        if (auto otherPtr{other.asInteger()}; nullptr != otherPtr)
         {
             result = (_intValue == otherPtr->_intValue);
         }
@@ -191,13 +189,9 @@ nImO::Integer::equalTo
 
     if (&other != this)
     {
-        auto    doublePtr{other.asDouble()};
-
-        if (nullptr == doublePtr)
+        if (auto doublePtr{other.asDouble()}; nullptr == doublePtr)
         {
-            auto    intPtr{other.asInteger()};
-
-            if (nullptr == intPtr)
+            if (auto intPtr{other.asInteger()}; nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
                 {
@@ -294,13 +288,9 @@ nImO::Integer::greaterThan
     }
     else
     {
-        auto    doublePtr{other.asDouble()};
-
-        if (nullptr == doublePtr)
+        if (auto doublePtr{other.asDouble()}; nullptr == doublePtr)
         {
-            auto    intPtr{other.asInteger()};
-
-            if (nullptr == intPtr)
+            if (auto intPtr{other.asInteger()}; nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
                 {
@@ -336,13 +326,9 @@ nImO::Integer::greaterThanOrEqual
 
     if (&other != this)
     {
-        auto    doublePtr{other.asDouble()};
-
-        if (nullptr == doublePtr)
+        if (auto doublePtr{other.asDouble()}; nullptr == doublePtr)
         {
-            auto    intPtr{other.asInteger()};
-
-            if (nullptr == intPtr)
+            if (auto intPtr{other.asInteger()}; nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
                 {
@@ -382,13 +368,9 @@ nImO::Integer::lessThan
     }
     else
     {
-        auto    doublePtr{other.asDouble()};
-
-        if (nullptr == doublePtr)
+        if (auto doublePtr{other.asDouble()}; nullptr == doublePtr)
         {
-            auto    intPtr{other.asInteger()};
-
-            if (nullptr == intPtr)
+            if (auto intPtr{other.asInteger()}; nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
                 {
@@ -424,13 +406,9 @@ nImO::Integer::lessThanOrEqual
 
     if (&other != this)
     {
-        auto    doublePtr{other.asDouble()};
-
-        if (nullptr == doublePtr)
+        if (auto doublePtr{other.asDouble()}; nullptr == doublePtr)
         {
-            auto    intPtr{other.asInteger()};
-
-            if (nullptr == intPtr)
+            if (auto intPtr{other.asInteger()}; nullptr == intPtr)
             {
                 if (nullptr == other.asContainer())
                 {

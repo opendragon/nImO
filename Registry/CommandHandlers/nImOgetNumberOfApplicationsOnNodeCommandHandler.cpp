@@ -111,9 +111,7 @@ nImO::GetNumberOfApplicationsOnNodeCommandHandler::doIt
     _owner->report("Get number of applications on node request received."s);
     if (1 < arguments.size())
     {
-        auto    asString{arguments[1]->asString()};
-
-        if (nullptr == asString)
+        if (auto asString{arguments[1]->asString()}; nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
             reason = "Invalid argument(s)"s;

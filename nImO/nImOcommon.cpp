@@ -272,7 +272,7 @@ nImO::ConstructNodeName
             nodeName = nameFromOptions;
         }
     }
-    if (alwaysAddTheSuffix)
+    if (alwaysAddTheSuffix && (! suffixIfNotFromOptions.empty()))
     {
         nodeName += "-"s + suffixIfNotFromOptions;
     }
@@ -331,17 +331,11 @@ nImO::ConvertSignalToValue
 
     if (inValue)
     {
-        auto    asDouble{inValue->asDouble()};
-
-        if (nullptr == asDouble)
+        if (auto asDouble{inValue->asDouble()}; nullptr == asDouble)
         {
-            auto    asInteger{inValue->asInteger()};
-
-            if (nullptr == asInteger)
+            if (auto asInteger{inValue->asInteger()}; nullptr == asInteger)
             {
-                auto    asLogical{inValue->asLogical()};
-
-                if (nullptr == asLogical)
+                if (auto asLogical{inValue->asLogical()}; nullptr == asLogical)
                 {
                     result = false;
                 }

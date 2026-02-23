@@ -124,13 +124,15 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
+                                                                 ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
             auto                addOutputChannelCallback{new nImO::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
+            auto                longName{progName + " ["s + nodeName + "]"s};
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(nImO::kUnlimitedChannels, nImO::kUnlimitedChannels);

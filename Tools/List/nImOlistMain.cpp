@@ -277,7 +277,6 @@ listApplications
             for (auto walker{applicationMap->begin()}; walker != applicationMap->end(); )
             {
                 auto    launcherName{nImO::SanitizeString(walker->first->asString()->getValue(), shouldSanitize)};
-                auto    appSubMap{walker->second->asMap()};
 
                 switch (options._flavour)
                 {
@@ -300,7 +299,7 @@ listApplications
                         break;
 
                 }
-                if (appSubMap->empty())
+                if (auto appSubMap{walker->second->asMap()}; appSubMap->empty())
                 {
                     if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
                     {
@@ -1646,7 +1645,7 @@ main
     lChoiceMap.insert({"mach", ChoiceInfo{Choice::kMach, "active machines"}});
     lChoiceMap.insert({"node", ChoiceInfo{Choice::kNode, "active nodes"}});
     lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
-    nImO::StdStringSet  choiceSet;
+    nImO::StdStringSet  choiceSet{};
 
     for (auto & walker : lChoiceMap)
     {
@@ -1677,10 +1676,9 @@ main
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto    choice{firstArg->getCurrentValue()};
-                auto    match{lChoiceMap.find(choice)};
                 bool    shouldSanitize{nImO::OutputFlavour::kFlavourJSON == optionValues._flavour};
 
-                if (match != lChoiceMap.end())
+                if (auto match{lChoiceMap.find(choice)}; match != lChoiceMap.end())
                 {
                     auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
 

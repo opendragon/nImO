@@ -99,9 +99,7 @@ nImO::GetRunOptionsForAppResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    asString{stuff[1]->asString()};
-
-        if (nullptr == asString)
+        if (auto asString{stuff[1]->asString()}; nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
         }

@@ -165,9 +165,7 @@ nImO::Map::addValue
 
             if (replaceIfPresent)
             {
-                auto    check{inherited2::find(newKey)};
-
-                if (inherited2::end() != check)
+                if (auto check{inherited2::find(newKey)}; inherited2::end() != check)
                 {
                     inherited2::erase(check);
                 }
@@ -221,9 +219,7 @@ nImO::Map::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asMap()};
-
-        if ((nullptr != otherPtr) && (size() == otherPtr->size()))
+        if (auto otherPtr{other.asMap()}; (nullptr != otherPtr) && (size() == otherPtr->size()))
         {
             auto    thisWalker{inherited2::begin()};
             auto    otherWalker{otherPtr->inherited2::begin()};

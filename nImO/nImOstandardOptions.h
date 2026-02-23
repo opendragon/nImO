@@ -107,6 +107,9 @@ namespace nImO
         /*! @brief Skip the 'wait' option. */
         kSkipWaitOption         = 0x00004000,
 
+        /*! @brief Skip the 'nosuffix' option. */
+        kSkipNoSuffixOption     = 0x00008000,
+
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFFFFFF
 

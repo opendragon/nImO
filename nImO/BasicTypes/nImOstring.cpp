@@ -162,9 +162,7 @@ nImO::String::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asString()};
-
-        if (nullptr != otherPtr)
+        if (auto otherPtr{other.asString()}; nullptr != otherPtr)
         {
             if (ignoreCase)
             {
@@ -217,9 +215,7 @@ nImO::String::equalTo
 
     if (&other != this)
     {
-        auto    otherPtr{other.asString()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asString()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -385,9 +381,7 @@ nImO::String::greaterThan
     }
     else
     {
-        auto    otherPtr{other.asString()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asString()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -418,9 +412,7 @@ nImO::String::greaterThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asString()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asString()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -455,9 +447,7 @@ nImO::String::lessThan
     }
     else
     {
-        auto    otherPtr{other.asString()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asString()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -488,9 +478,7 @@ nImO::String::lessThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asString()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asString()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {

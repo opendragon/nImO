@@ -113,67 +113,68 @@ nImO::GetRunParamsForAppCommandHandler::doIt
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
-    auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
     _ownerForLauncher->report("Get run params for app request received."s);
-    if (0 < appList.size())
+    if (auto appList{_ownerForLauncher->getAppList()->asMap()}; nullptr == appList)
     {
-        if (1 < arguments.size())
+        ODL_LOG("(nullptr == appList)"); //####
+        reason = "Invalid argument"s;
+    }
+    else
+    {
+        if (0 < appList->size())
         {
-            auto    appListIterator{appList.find(arguments[1])};
-
-            if (appList.end() == appListIterator)
+            if (1 < arguments.size())
             {
-                ODL_LOG("(appList.end() == appListIterator)"); //####
-                reason = "Application name is unknown"s;
-            }
-            else
-            {
-                auto    appInfoMap{appListIterator->second->asMap()};
-
-                if (nullptr == appInfoMap)
+                if (auto appListIterator{appList->find(arguments[1])}; appList->end() == appListIterator)
                 {
-                    ODL_LOG("(nullptr == appInfoMap)"); //####
-                    reason = "Internal structure invalid - not a map"s;
+                    ODL_LOG("(appList->end() == appListIterator)"); //####
+                    reason = "Application name is unknown"s;
                 }
                 else
                 {
-                    auto    appPathIterator{appInfoMap->find(std::make_shared<nImO::String>(nImO::kPathKey))};
-
-                    if (appInfoMap->end() == appPathIterator)
+                    if (auto appInfoMap{appListIterator->second->asMap()}; nullptr == appInfoMap)
                     {
-                        ODL_LOG("(appInfoMap->end() == appPathIterator)"); //####
-                        reason = "Internal structure invalid - key missing"s;
+                        ODL_LOG("(nullptr == appInfoMap)"); //####
+                        reason = "Internal structure invalid - not a map"s;
                     }
                     else
                     {
-                        auto            appPath{appPathIterator->second->asString()->getValue()};
-                        BP::ipstream    pipeStream{};
-                        BP::child       cc{StdStringVector{appPath, MakeOption("a"s)}, BP::std_out > pipeStream};
-                        std::string     line{};
-                        auto            params{std::make_shared<Array>()};
-
-                        for ( ; getline(pipeStream, line); )
+                        if (auto appPathIterator{appInfoMap->find(std::make_shared<nImO::String>(nImO::kPathKey))}; appInfoMap->end() == appPathIterator)
                         {
-                            params->addValue(std::make_shared<String>(line));
+                            ODL_LOG("(appInfoMap->end() == appPathIterator)"); //####
+                            reason = "Internal structure invalid - key missing"s;
                         }
-                        okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "Get run params for app"s, params, reason);
-                        ODL_B1(okSoFar); //####
-                        cc.wait();
+                        else
+                        {
+                            auto            appPath{appPathIterator->second->asString()->getValue()};
+                            BP::ipstream    pipeStream{};
+                            BP::child       cc{StdStringVector{appPath, MakeOption("a"s)}, BP::std_out > pipeStream};
+                            std::string     line{};
+                            auto            params{std::make_shared<Array>()};
+
+                            for ( ; getline(pipeStream, line); )
+                            {
+                                params->addValue(std::make_shared<String>(line));
+                            }
+                            okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "Get run params for app"s, params, reason);
+                            ODL_B1(okSoFar); //####
+                            cc.wait();
+                        }
                     }
                 }
+            }
+            else
+            {
+                ODL_LOG("! (1 < arguments.size())"); //####
+                reason = "Missing argument(s)"s;
             }
         }
         else
         {
-            ODL_LOG("! (1 < arguments.size())"); //####
-            reason = "Missing argument(s)"s;
+            ODL_LOG("! (0 < appList->size())"); //####
+            reason = "Empty applications list"s;
         }
-    }
-    else
-    {
-        ODL_LOG("! (0 < appList.size())"); //####
-        reason = "Empty applications list"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

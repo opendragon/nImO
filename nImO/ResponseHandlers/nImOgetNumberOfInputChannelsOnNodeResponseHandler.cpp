@@ -99,9 +99,7 @@ nImO::GetNumberOfInputChannelsOnNodeResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    asInteger{stuff[1]->asInteger()};
-
-        if (nullptr == asInteger)
+        if (auto asInteger{stuff[1]->asInteger()}; nullptr == asInteger)
         {
             ODL_LOG("(nullptr == asInteger)"); //####
         }

@@ -205,9 +205,7 @@ nImO::Set::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asSet()};
-
-        if ((nullptr != otherPtr) && (size() == otherPtr->size()))
+        if (auto otherPtr{other.asSet()}; (nullptr != otherPtr) && (size() == otherPtr->size()))
         {
             auto    thisWalker{inherited2::begin()};
             auto    otherWalker{otherPtr->inherited2::begin()};

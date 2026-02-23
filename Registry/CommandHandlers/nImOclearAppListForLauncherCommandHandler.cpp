@@ -112,9 +112,7 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
     _owner->report("Clear app list for launcher request received."s);
     if (1 < arguments.size())
     {
-        auto    launcherNodeNameString{arguments[1]->asString()};
-
-        if (nullptr == launcherNodeNameString)
+        if (auto launcherNodeNameString{arguments[1]->asString()}; nullptr == launcherNodeNameString)
         {
             ODL_LOG("(nullptr == launcherNodeNameString)"); //####
         }
@@ -127,7 +125,7 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
             {
                 okSoFar = sendSimpleResponse(socket, kClearAppListForLauncherResponse, "Clear app list for launcher"s, true, reason);
                 ODL_B1(okSoFar); //####
-if (okSoFar)
+                if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kAppListClearedStatus + kStatusSeparator + launcherNodeName);
                 }

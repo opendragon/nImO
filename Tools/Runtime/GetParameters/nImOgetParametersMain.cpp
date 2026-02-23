@@ -427,9 +427,7 @@ writeOutArgTypeDependentFields
 
                 if (aParamMap->end() != allowedValuesFieldIter)
                 {
-                    auto    allowedValuesSet{allowedValuesFieldIter->second->asSet()};
-
-                    if (nullptr != allowedValuesSet)
+                    if (auto allowedValuesSet{allowedValuesFieldIter->second->asSet()}; nullptr != allowedValuesSet)
                     {
                         bool    firstValue{true};
 
@@ -439,9 +437,7 @@ writeOutArgTypeDependentFields
                                 std::cout << "; default: " << defaultString << "; allowedValues: (";
                                 for (auto walker : *allowedValuesSet)
                                 {
-                                    auto    stuff{walker->asString()};
-
-                                    if (nullptr != stuff)
+                                    if (auto stuff{walker->asString()}; nullptr != stuff)
                                     {
                                         auto    allowedString{nImO::SanitizeString(stuff->getValue(), canHaveQuotes)};
 
@@ -460,9 +456,7 @@ writeOutArgTypeDependentFields
                                             CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "allowedValues" CHAR_DOUBLEQUOTE_ ": [ ";
                                 for (auto walker : *allowedValuesSet)
                                 {
-                                    auto    stuff{walker->asString()};
-
-                                    if (nullptr != stuff)
+                                    if (auto stuff{walker->asString()}; nullptr != stuff)
                                     {
                                         auto    allowedString{nImO::SanitizeString(stuff->getValue(), canHaveQuotes)};
 
@@ -482,9 +476,7 @@ writeOutArgTypeDependentFields
                                             nImO::kKeyValueSeparator << " " << nImO::kStartSetChar << " ";
                                 for (auto walker : *allowedValuesSet)
                                 {
-                                    auto    stuff{walker->asString()};
-
-                                    if (nullptr != stuff)
+                                    if (auto stuff{walker->asString()}; nullptr != stuff)
                                     {
                                         auto    allowedString{nImO::SanitizeString(stuff->getValue(), canHaveQuotes)};
 
@@ -592,9 +584,7 @@ main
                             }
                             for (auto walker{result->begin()}; walker != result->end(); )
                             {
-                                auto    aParamMap{(*walker)->asMap()};
-
-                                if (nullptr == aParamMap)
+                                if (auto aParamMap{(*walker)->asMap()}; nullptr == aParamMap)
                                 {
                                     ODL_LOG("(nullptr == aParamMap)"); //####
                                 }

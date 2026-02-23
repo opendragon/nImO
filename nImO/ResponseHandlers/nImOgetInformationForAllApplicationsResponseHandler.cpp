@@ -101,9 +101,7 @@ nImO::GetInformationForAllApplicationsResponseHandler::doIt
     _result.clear();
     if (1 < stuff.size())
     {
-        auto    infoVector{stuff[1]->asArray()};
-
-        if (nullptr == infoVector)
+        if (auto infoVector{stuff[1]->asArray()}; nullptr == infoVector)
         {
             ODL_LOG("(nullptr == infoVector)"); //####
         }
@@ -113,9 +111,7 @@ nImO::GetInformationForAllApplicationsResponseHandler::doIt
             ODL_B1(okSoFar); //####
             for (auto & walker : *infoVector)
             {
-                auto    infoArray{walker->asArray()};
-
-                if (nullptr == infoArray)
+                if (auto infoArray{walker->asArray()}; nullptr == infoArray)
                 {
                     ODL_LOG("(nullptr == infoArray)"); //####
                     okSoFar = false;

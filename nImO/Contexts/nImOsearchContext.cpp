@@ -765,9 +765,7 @@ nImO::SearchContext::findAndLaunchTheRegistry
         report("Registry was not found so it will be launched.");
         for (auto & walker : regOptions)
         {
-            auto    anOptionString{walker->asString()};
-
-            if (nullptr == anOptionString)
+            if (auto anOptionString{walker->asString()}; nullptr == anOptionString)
             {
                 ODL_LOG("(nullptr == anOptionString)"); //####
             }

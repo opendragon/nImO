@@ -154,9 +154,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     responseToSend.close();
     if (0 < responseToSend.getLength())
     {
-        auto    asString{responseToSend.getString()};
-
-        if (asString.empty())
+        if (auto asString{responseToSend.getString()}; asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
             reason = "Empty response"s;
@@ -264,9 +262,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     responseToSend.close();
     if (0 < responseToSend.getLength())
     {
-        auto    asString{responseToSend.getString()};
-
-        if (asString.empty())
+        if (auto asString{responseToSend.getString()}; asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
             reason = "Empty response"s;
@@ -352,9 +348,7 @@ nImO::CommandHandler::sendStatusReport
     messageToSend.close();
     if (0 < messageToSend.getLength())
     {
-        auto    asString{messageToSend.getString()};
-
-        if (asString.empty())
+        if (auto asString{messageToSend.getString()}; asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
         }

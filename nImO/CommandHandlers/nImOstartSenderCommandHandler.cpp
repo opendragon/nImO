@@ -110,9 +110,7 @@ nImO::StartSenderCommandHandler::doIt
     _ownerForInputOutput->report("Start sender request received."s);
     if (1 < arguments.size())
     {
-        auto    pathString{arguments[1]->asString()};
-
-        if (nullptr == pathString)
+        if (auto pathString{arguments[1]->asString()}; nullptr == pathString)
         {
             ODL_LOG("(nullptr == pathString)"); //####
         }

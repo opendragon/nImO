@@ -1089,7 +1089,7 @@ namespace nImO
      @param[in] useRandomNodeName If @c true, ignore nameFromOptions and generate a random node name.
      @param[in] suffixIfNotFromOptions If nameFromOptions is blank, construct a name with this as the suffix.
      @param[in] tag The tag to be applied to the name.
-     @param[in] alwaysAddTheSuffix If @c true, the suffixIfNotFromOptions is applied even when nameFromOptions is supplied.
+     @param[in] alwaysAddTheSuffix If @c true, the suffixIfNotFromOptions is applied if non-blank.
      @return The constructed node name. */
     std::string
     ConstructNodeName
@@ -1097,7 +1097,7 @@ namespace nImO
          const bool             useRandomNodeName,
          const std::string &    suffixIfNotFromOptions,
          const std::string &    tag,
-         const bool             alwaysAddTheSuffix = false);
+         const bool             alwaysAddTheSuffix);
 
     /*! @brief Introduce some delay in processing.
      @param[in] context The active runtime environment.

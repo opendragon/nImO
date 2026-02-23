@@ -254,9 +254,7 @@ nImO::Blob::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asBlob()};
-
-        if (nullptr != otherPtr)
+        if (auto otherPtr{other.asBlob()}; nullptr != otherPtr)
         {
             result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
@@ -288,9 +286,7 @@ nImO::Blob::equalTo
 
     if (&other != this)
     {
-        auto    otherPtr{other.asBlob()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asBlob()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -444,9 +440,7 @@ nImO::Blob::greaterThan
     }
     else
     {
-        auto    otherPtr{other.asBlob()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asBlob()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -477,9 +471,7 @@ nImO::Blob::greaterThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asBlob()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asBlob()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -514,9 +506,7 @@ nImO::Blob::lessThan
     }
     else
     {
-        auto    otherPtr{other.asBlob()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asBlob()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -547,9 +537,7 @@ nImO::Blob::lessThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asBlob()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asBlob()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {

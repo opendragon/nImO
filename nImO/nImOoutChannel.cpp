@@ -140,9 +140,7 @@ nImO::OutChannel::send
             messageToSend.close();
             if (0 < messageToSend.getLength())
             {
-                auto    asString{messageToSend.getString()};
-
-                if (asString.empty())
+                if (auto asString{messageToSend.getString()}; asString.empty())
                 {
                     ODL_LOG("(asString.empty())"); //####
                 }

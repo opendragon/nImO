@@ -102,9 +102,7 @@ nImO::GetKeysForAllUnconnectedChannelsOnMachineResponseHandler::doIt
     _result.clear();
     if (1 < stuff.size())
     {
-        auto    keysVector{stuff[1]->asArray()};
-
-        if (nullptr == keysVector)
+        if (auto keysVector{stuff[1]->asArray()}; nullptr == keysVector)
         {
             ODL_LOG("(nullptr == keysVector)"); //####
         }
@@ -114,9 +112,7 @@ nImO::GetKeysForAllUnconnectedChannelsOnMachineResponseHandler::doIt
             ODL_B1(okSoFar); //####
             for (auto & walker : *keysVector)
             {
-                auto    keysArray{walker->asArray()};
-
-                if (nullptr == keysArray)
+                if (auto keysArray{walker->asArray()}; nullptr == keysArray)
                 {
                     ODL_LOG("(nullptr == keysArray)"); //####
                     okSoFar = false;

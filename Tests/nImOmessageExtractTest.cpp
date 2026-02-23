@@ -131,9 +131,7 @@ extractValueAndCheck
     stuff.close();
     if (extractedValue)
     {
-        auto    asFlaw{extractedValue->asFlaw()};
-
-        if (nullptr == asFlaw)
+        if (auto asFlaw{extractedValue->asFlaw()}; nullptr == asFlaw)
         {
             if (stuff.readAtEnd())
             {
@@ -173,9 +171,7 @@ extractValueAndCheck
             stuff.close();
             if (extractedValue)
             {
-                auto    asFlaw{extractedValue->asFlaw()};
-
-                if (nullptr == asFlaw)
+                if (auto asFlaw{extractedValue->asFlaw()}; nullptr == asFlaw)
                 {
                     ODL_LOG("(nullptr == asFlaw)");
                     ODL_I1(ii); //####
@@ -238,9 +234,7 @@ doTestExtractEmptyMessage
             {
                 if (extractedValue)
                 {
-                    auto    asFlaw{extractedValue->asFlaw()};
-
-                    if (nullptr != asFlaw)
+                    if (auto asFlaw{extractedValue->asFlaw()}; nullptr != asFlaw)
                     {
                         ODL_LOG(asFlaw->getDescription().c_str()); //####
                         stuff->open(true);
@@ -5240,9 +5234,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                 ODL_P1(extractedValue.get()); //####
                 if (extractedValue)
                 {
-                    auto    asFlaw{extractedValue->asFlaw()};
-
-                    if (nullptr == asFlaw)
+                    if (auto asFlaw{extractedValue->asFlaw()}; nullptr == asFlaw)
                     {
                         if (stuff->readAtEnd())
                         {

@@ -119,12 +119,14 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
+                                                                 ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addOutputChannelCallback{new nImO::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
+            auto                longName{progName + " ["s + nodeName + "]"s};
 
             if (! basePath.empty())
             {
@@ -250,7 +252,7 @@ main
                                     if (nImO::gKeepRunning)
                                     {
                                         ourContext->report("Waiting for messages."s);
-                                        std::cout << progName << " ready.\n";
+                                        std::cout << longName << " ready.\n";
                                         std::cout.flush();
                                     }
                                     size_t  nextChannel{0};
@@ -316,7 +318,7 @@ main
                                         }
                                         nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                     }
-                                    std::cout << progName << " done.\n";
+                                    std::cout << longName << " done.\n";
                                     std::cout.flush();
                                 }
                                 if (inValid)

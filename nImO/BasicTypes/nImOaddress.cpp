@@ -169,9 +169,7 @@ nImO::Address::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asAddress()};
-
-        if (nullptr != otherPtr)
+        if (auto otherPtr{other.asAddress()}; nullptr != otherPtr)
         {
             result = (_addressValue == otherPtr->_addressValue);
         }
@@ -215,9 +213,7 @@ nImO::Address::equalTo
 
     if (&other != this)
     {
-        auto    otherPtr{other.asAddress()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asAddress()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -341,9 +337,7 @@ nImO::Address::greaterThan
     }
     else
     {
-        auto    otherPtr{other.asAddress()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asAddress()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -374,9 +368,7 @@ nImO::Address::greaterThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asAddress()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asAddress()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -411,9 +403,7 @@ nImO::Address::lessThan
     }
     else
     {
-        auto    otherPtr{other.asAddress()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asAddress()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -444,9 +434,7 @@ nImO::Address::lessThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asAddress()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asAddress()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {

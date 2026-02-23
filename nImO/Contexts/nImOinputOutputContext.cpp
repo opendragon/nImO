@@ -227,9 +227,8 @@ nImO::InputOutputContext::getInputChannel
     ODL_OBJENTER(); //####
     ODL_S1s(path); //####
     SpInChannel result;
-    auto        match{_inputChannelMap.find(ConvertToLowerCase(path))};
 
-    if (_inputChannelMap.end() != match)
+    if (auto match{_inputChannelMap.find(ConvertToLowerCase(path))}; _inputChannelMap.end() != match)
     {
         result = match->second;
     }
@@ -260,9 +259,8 @@ nImO::InputOutputContext::getOutputChannel
     ODL_OBJENTER(); //####
     ODL_S1s(path); //####
     SpOutChannel    result;
-    auto            match{_outputChannelMap.find(ConvertToLowerCase(path))};
 
-    if (_outputChannelMap.end() != match)
+    if (auto match{_outputChannelMap.find(ConvertToLowerCase(path))}; _outputChannelMap.end() != match)
     {
         result = match->second;
     }

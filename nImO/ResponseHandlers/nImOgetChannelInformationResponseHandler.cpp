@@ -102,9 +102,7 @@ nImO::GetChannelInformationResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        auto    infoArray{stuff[1]->asArray()};
-
-        if (nullptr == infoArray)
+        if (auto infoArray{stuff[1]->asArray()}; nullptr == infoArray)
         {
             ODL_LOG("(nullptr == infoArray)"); //####
         }

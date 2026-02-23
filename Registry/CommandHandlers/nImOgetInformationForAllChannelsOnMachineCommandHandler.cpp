@@ -112,9 +112,7 @@ nImO::GetInformationForAllChannelsOnMachineCommandHandler::doIt
     _owner->report("Get information for all channels on machine request received."s);
     if (1 < arguments.size())
     {
-        auto    asString{arguments[1]->asString()};
-
-        if (nullptr == asString)
+        if (auto asString{arguments[1]->asString()}; nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
             reason = "Invalid argument(s)"s;

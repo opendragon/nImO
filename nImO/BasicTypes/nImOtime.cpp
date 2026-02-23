@@ -214,9 +214,7 @@ nImO::Time::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asTime()};
-
-        if (nullptr != otherPtr)
+        if (auto otherPtr{other.asTime()}; nullptr != otherPtr)
         {
             result = (_dateTimeValue == otherPtr->_dateTimeValue);
         }
@@ -260,9 +258,7 @@ nImO::Time::equalTo
 
     if (&other != this)
     {
-        auto    otherPtr{other.asTime()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asTime()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -363,9 +359,7 @@ nImO::Time::greaterThan
     }
     else
     {
-        auto    otherPtr{other.asTime()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asTime()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -396,9 +390,7 @@ nImO::Time::greaterThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asTime()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asTime()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -445,9 +437,7 @@ nImO::Time::lessThan
     }
     else
     {
-        auto    otherPtr{other.asTime()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asTime()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -478,9 +468,7 @@ nImO::Time::lessThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asTime()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asTime()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {

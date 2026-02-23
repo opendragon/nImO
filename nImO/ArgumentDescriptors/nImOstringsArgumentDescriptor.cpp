@@ -282,7 +282,7 @@ StringsArgumentDescriptor::parseArgString
         auto            defaultString{inVector[0]};
         auto            stringList{inVector[1]};
         auto            description{inVector[2]};
-        StdStringSet    allowedValues;
+        StdStringSet    allowedValues{};
 
         // We need to split the input into keys.
         for ( ; 0 < stringList.length(); )

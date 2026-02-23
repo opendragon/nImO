@@ -150,9 +150,7 @@ nImO::Logical::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asLogical()};
-
-        if (nullptr != otherPtr)
+        if (auto otherPtr{other.asLogical()}; nullptr != otherPtr)
         {
             result = (_value == otherPtr->_value);
         }
@@ -196,9 +194,7 @@ nImO::Logical::equalTo
 
     if (&other != this)
     {
-        auto    otherPtr{other.asLogical()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asLogical()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -306,9 +302,7 @@ nImO::Logical::greaterThan
     }
     else
     {
-        auto    otherPtr{other.asLogical()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asLogical()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -339,9 +333,7 @@ nImO::Logical::greaterThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asLogical()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asLogical()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -376,9 +368,7 @@ nImO::Logical::lessThan
     }
     else
     {
-        auto    otherPtr{other.asLogical()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asLogical()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -409,9 +399,7 @@ nImO::Logical::lessThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asLogical()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asLogical()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {

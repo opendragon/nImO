@@ -285,24 +285,19 @@ std::cerr << "** Unimplemented **\n";
                 {
                     time_t              rawTime;
                     std::string         nowAsString;
-                    auto                asMap{nextData->_receivedMessage->asMap()};
                     BAIP::address_v4    sender{nextData->_receivedAddress};
                     char                timeBuffer[80];
                     auto                addressString{"["s + sender.to_string() + "]"s};
 
                     time(&rawTime);
                     strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
-                    if (nullptr == asMap)
+                    if (auto asMap{nextData->_receivedMessage->asMap()}; nullptr == asMap)
                     {
-                        auto    asArray{nextData->_receivedMessage->asArray()};
-
                         // 'old' style or a status message
-                        if (nullptr == asArray)
+                        if (auto asArray{nextData->_receivedMessage->asArray()}; nullptr == asArray)
                         {
-                            auto    asString{nextData->_receivedMessage->asString()};
-
                             std::cout << addressString << timeBuffer;
-                            if (nullptr == asString)
+                            if (auto asString{nextData->_receivedMessage->asString()}; nullptr == asString)
                             {
                                 std::cout << *nextData->_receivedMessage;
                             }
@@ -317,10 +312,9 @@ std::cerr << "** Unimplemented **\n";
                             for (size_t ii{0}, numElements{asArray->size()}; ii < numElements; ++ii)
                             {
                                 auto    element{asArray->at(ii)};
-                                auto    asString{element->asString()};
 
                                 std::cout << addressString << timeBuffer;
-                                if (nullptr == asString)
+                                if (auto asString{element->asString()}; nullptr == asString)
                                 {
                                     std::cout << *element;
                                 }
@@ -339,12 +333,11 @@ std::cerr << "** Unimplemented **\n";
                         auto            tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
                         auto            messageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
                         // Get the computer name
-                        auto            anIterator{asMap->find(computerNameKey)};
                         nImO::SpValue   theComputerName;
                         nImO::SpValue   theCommandPort;
                         nImO::SpValue   theTag;
 
-                        if (anIterator == asMap->end())
+                        if (auto anIterator{asMap->find(computerNameKey)}; anIterator == asMap->end())
                         {
                             theComputerName = nullptr;
                         }
@@ -353,8 +346,7 @@ std::cerr << "** Unimplemented **\n";
                             theComputerName = anIterator->second;
                         }
                         // Get the command port
-                        anIterator = asMap->find(commandPortKey);
-                        if (anIterator == asMap->end())
+                        if (auto anIterator{asMap->find(commandPortKey)}; anIterator == asMap->end())
                         {
                             theCommandPort = nullptr;
                         }
@@ -363,8 +355,7 @@ std::cerr << "** Unimplemented **\n";
                             theCommandPort = anIterator->second;
                         }
                         // Get the tag
-                        anIterator = asMap->find(tagKey);
-                        if (anIterator == asMap->end())
+                        if (auto anIterator{asMap->find(tagKey)}; anIterator == asMap->end())
                         {
                             theTag = nullptr;
                         }
@@ -373,50 +364,40 @@ std::cerr << "** Unimplemented **\n";
                             theTag = anIterator->second;
                         }
                         // Get the message
-                        anIterator = asMap->find(messageKey);
-                        if (anIterator != asMap->end())
+                        if (auto anIterator{asMap->find(messageKey)}; anIterator != asMap->end())
                         {
                             auto        theMessage{anIterator->second};
-                            auto        asArray{theMessage->asArray()};
                             std::string tagText;
                             std::string computerNameText;
                             std::string commandPortText;
 
                             if (theTag)
                             {
-                                auto    asString{theTag->asString()};
-
-                                if (nullptr != asString)
+                                if (auto asString{theTag->asString()}; nullptr != asString)
                                 {
                                     tagText = "#"s + asString->getValue();
                                 }
                             }
                             if (theComputerName)
                             {
-                                auto    asString{theComputerName->asString()};
-
-                                if (nullptr != asString)
+                                if (auto asString{theComputerName->asString()}; nullptr != asString)
                                 {
                                     computerNameText = asString->getValue();
                                 }
                             }
                             if (theCommandPort)
                             {
-                                auto    asInteger{theCommandPort->asInteger()};
-
-                                if (nullptr != asInteger)
+                                if (auto asInteger{theCommandPort->asInteger()}; nullptr != asInteger)
                                 {
                                     commandPortText = "-"s + std::to_string(asInteger->getIntegerValue());
                                 }
                             }
                             auto    prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};
 
-                            if (nullptr == asArray)
+                            if (auto asArray{theMessage->asArray()}; nullptr == asArray)
                             {
-                                auto    asString{theMessage->asString()};
-
                                 std::cout << prefix;
-                                if (nullptr == asString)
+                                if (auto asString{theMessage->asString()}; nullptr == asString)
                                 {
                                     std::cout << *theMessage;
                                 }
@@ -431,10 +412,9 @@ std::cerr << "** Unimplemented **\n";
                                 for (size_t ii{0}, numElements{asArray->size()}; ii < numElements; ++ii)
                                 {
                                     auto    element{asArray->at(ii)};
-                                    auto    asString{element->asString()};
 
                                     std::cout << prefix;
-                                    if (nullptr == asString)
+                                    if (auto asString{element->asString()}; nullptr == asString)
                                     {
                                         std::cout << *element;
                                     }

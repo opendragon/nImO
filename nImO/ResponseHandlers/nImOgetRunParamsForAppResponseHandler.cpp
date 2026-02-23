@@ -99,9 +99,7 @@ nImO::GetRunParamsForAppResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    asArray{stuff[1]->asArray()};
-
-        if (nullptr == asArray)
+        if (auto asArray{stuff[1]->asArray()}; nullptr == asArray)
         {
             ODL_LOG("(nullptr == asArray)"); //####
         }
@@ -113,9 +111,7 @@ nImO::GetRunParamsForAppResponseHandler::doIt
             {
                 if (walker)
                 {
-                    auto    asString{walker->asString()};
-
-                    if (nullptr == asString)
+                    if (auto asString{walker->asString()}; nullptr == asString)
                     {
                         ODL_LOG("(nullptr == asString)"); //####
                         okSoFar = false;

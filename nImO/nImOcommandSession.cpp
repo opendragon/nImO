@@ -112,22 +112,16 @@ processRequest
             stuff->close();
             if (stuff->readAtEnd() && (nullptr != contents))
             {
-                auto    asArray{contents->asArray()};
-
-                if ((nullptr != asArray) && (0 < asArray->size()))
+                if (auto asArray{contents->asArray()}; (nullptr != asArray) && (0 < asArray->size()))
                 {
-                    auto    request{(*asArray)[0]->asString()};
-
-                    if (nullptr == request)
+                    if (auto request{(*asArray)[0]->asString()}; nullptr == request)
                     {
                         ODL_LOG("(nullptr == request)"); //####
                         reason = "Message did not contain a string"s;
                     }
                     else
                     {
-                        auto    handler{owner->getHandler(request->getValue())};
-
-                        if (nullptr == handler)
+                        if (auto handler{owner->getHandler(request->getValue())}; nullptr == handler)
                         {
                             ODL_LOG("(nullptr == handler)"); //####
                             reason = "Request not recognized"s;

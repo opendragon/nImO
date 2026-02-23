@@ -136,13 +136,9 @@ nImO::GetConfiguredValue
 
     if ((! key.empty()) && (nullptr != lConfigurationValues))
     {
-        auto    asMapValue{lConfigurationValues->asMap()};
-
-        if (nullptr != asMapValue)
+        if (auto asMapValue{lConfigurationValues->asMap()}; nullptr != asMapValue)
         {
-            auto    iter{asMapValue->find(std::make_shared<String>(key))};
-
-            if (asMapValue->end() != iter)
+            if (auto iter{asMapValue->find(std::make_shared<String>(key))}; asMapValue->end() != iter)
             {
                 retVal = iter->second;
             }

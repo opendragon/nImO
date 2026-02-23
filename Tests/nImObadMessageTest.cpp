@@ -128,9 +128,7 @@ attemptExtractValueAndCheck
     stuff.close();
     if (extractedValue)
     {
-        auto    asFlaw{extractedValue->asFlaw()};
-
-        if (nullptr != asFlaw)
+        if (auto asFlaw{extractedValue->asFlaw()}; nullptr != asFlaw)
         {
             ODL_LOG(asFlaw->getDescription().c_str()); //####
             if (asFlaw->getDescription() == expectedFlawString)

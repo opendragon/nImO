@@ -111,42 +111,43 @@ nImO::AddNodeCommandHandler::doIt
     _owner->report("Add node request received."s);
     if (6 < arguments.size())
     {
-        auto        machineNameString{arguments[1]->asString()};
-        auto        nodeNameString{arguments[2]->asString()};
-        auto        execPathString{arguments[3]->asString()};
-        auto        launchDirectoryString{arguments[4]->asString()};
-        auto        commandLineString{arguments[5]->asString()};
-        auto        connArray{arguments[6]->asArray()};
-        Connection  theConnection;
-        ServiceType theType;
+        auto    machineNameString{arguments[1]->asString()};
+        auto    nodeNameString{arguments[2]->asString()};
+        auto    execPathString{arguments[3]->asString()};
+        auto    launchDirectoryString{arguments[4]->asString()};
+        auto    commandLineString{arguments[5]->asString()};
+        auto    connArray{arguments[6]->asArray()};
 
-        if (3 < connArray->size())
-        {
-            auto    addressValue{(*connArray)[0]->asInteger()};
-            auto    portValue{(*connArray)[1]->asInteger()};
-            auto    transportValue{(*connArray)[2]->asInteger()};
-            auto    typeValue{(*connArray)[3]->asInteger()};
-
-            if (nullptr != addressValue)
-            {
-                theConnection._address = addressValue->getIntegerValue();
-            }
-            if (nullptr != portValue)
-            {
-                theConnection._port = portValue->getIntegerValue();
-            }
-            if (nullptr != transportValue)
-            {
-                theConnection._transport = StaticCast(TransportType, transportValue->getIntegerValue());
-            }
-            if (nullptr != typeValue)
-            {
-                theType = StaticCast(ServiceType, typeValue->getIntegerValue());
-            }
-        }
         if ((nullptr != machineNameString) && (nullptr != nodeNameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) &&
             (nullptr != commandLineString) && (nullptr != connArray))
         {
+            Connection  theConnection;
+            ServiceType theType;
+
+            if (3 < connArray->size())
+            {
+                auto    addressValue{(*connArray)[0]->asInteger()};
+                auto    portValue{(*connArray)[1]->asInteger()};
+                auto    transportValue{(*connArray)[2]->asInteger()};
+                auto    typeValue{(*connArray)[3]->asInteger()};
+
+                if (nullptr != addressValue)
+                {
+                    theConnection._address = addressValue->getIntegerValue();
+                }
+                if (nullptr != portValue)
+                {
+                    theConnection._port = portValue->getIntegerValue();
+                }
+                if (nullptr != transportValue)
+                {
+                    theConnection._transport = StaticCast(TransportType, transportValue->getIntegerValue());
+                }
+                if (nullptr != typeValue)
+                {
+                    theType = StaticCast(ServiceType, typeValue->getIntegerValue());
+                }
+            }
             auto    address{theConnection._address};
             auto    status{_registry->addMachine(machineNameString->getValue(), address)};
 

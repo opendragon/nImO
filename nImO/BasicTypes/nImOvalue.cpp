@@ -440,9 +440,8 @@ nImO::Value::getValueFromMessage
     ODL_P3(&inMessage, &position, parent.get()); //####
     ODL_X1(leadByte); //####
     SpValue result;
-    auto    match{gExtractors.find(StaticCast(uint8_t, leadByte))};
 
-    if (gExtractors.end() == match)
+    if (auto match{gExtractors.find(StaticCast(uint8_t, leadByte))}; gExtractors.end() == match)
     {
         ODL_LOG("(gExtractors.end() == match)"); //####
         result = std::make_shared<Invalid>("Unexpected character in Message", position);
@@ -669,9 +668,7 @@ nImO::Value::readFromStringBuffer
     }
     else
     {
-        auto    match{gReaders.find(aChar)};
-
-        if (gReaders.end() == match)
+        if (auto match{gReaders.find(aChar)}; gReaders.end() == match)
         {
             ODL_LOG("(gReaders.end() == match)"); //####
         }

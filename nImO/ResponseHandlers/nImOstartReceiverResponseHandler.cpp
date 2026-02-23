@@ -101,9 +101,7 @@ nImO::StartReceiverResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    asLogical{stuff[1]->asLogical()};
-
-        if (nullptr == asLogical)
+        if (auto asLogical{stuff[1]->asLogical()}; nullptr == asLogical)
         {
             ODL_LOG("(nullptr == asLogical)"); //####
         }

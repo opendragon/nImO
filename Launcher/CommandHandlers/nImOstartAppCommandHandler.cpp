@@ -113,135 +113,131 @@ nImO::StartAppCommandHandler::doIt
     ODL_OBJENTER(); //####
     ODL_P3(&socket, &arguments, &reason); //####
     bool    okSoFar{false};
-    auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
     _ownerForLauncher->report("Start app request received."s);
-    if (0 < appList.size())
+    if (auto appList{_ownerForLauncher->getAppList()->asMap()}; nullptr == appList)
     {
-        if (3 < arguments.size())
+        ODL_LOG("(nullptr == appList)"); //####
+        reason = "Invalid argument"s;
+    }
+    else
+    {
+        if (0 < appList->size())
         {
-            auto    appListIterator{appList.find(arguments[1])};
-
-            if (appList.end() == appListIterator)
+            if (3 < arguments.size())
             {
-                ODL_LOG("(appList.end() == appListIterator)"); //####
-            }
-            else
-            {
-                auto    appName{arguments[1]->asString()};
-                auto    appInfoMap{appListIterator->second->asMap()};
-
-                if (nullptr == appName)
+                if (auto appListIterator{appList->find(arguments[1])}; appList->end() == appListIterator)
                 {
-                    ODL_LOG("(nullptr == appName)"); //####
+                    ODL_LOG("(appList->end() == appListIterator)"); //####
                 }
                 else
                 {
-                    if (nullptr == appInfoMap)
+                    if (auto appName{arguments[1]->asString()}; nullptr == appName)
                     {
-                        ODL_LOG("(nullptr == appInfoMap)"); //####
+                        ODL_LOG("(nullptr == appName)"); //####
                     }
                     else
                     {
-                        auto    appPathIterator{appInfoMap->find(std::make_shared<nImO::String>(nImO::kPathKey))};
-
-                        if (appInfoMap->end() == appPathIterator)
+                        if (auto appInfoMap{appListIterator->second->asMap()}; nullptr == appInfoMap)
                         {
-                            ODL_LOG("(appInfoMap->end() == appPathIterator)"); //####
+                            ODL_LOG("(nullptr == appInfoMap)"); //####
                         }
                         else
                         {
-                            auto    appPath{appPathIterator->second->asString()->getValue()};
-                            auto    appOptionsArray{arguments[2]->asArray()};
-                            auto    appParametersArray{arguments[3]->asArray()};
-
-                            if ((nullptr != appOptionsArray) && (nullptr != appParametersArray))
+                            if (auto appPathIterator{appInfoMap->find(std::make_shared<nImO::String>(nImO::kPathKey))}; appInfoMap->end() == appPathIterator)
                             {
-                                StdStringVector commandLine{};
-
-                                // Prepend a default node name.
-                                commandLine.push_back(MakeOption("n"));
-                                commandLine.push_back(ConstructNodeName(_ownerForLauncher->getName(), false, appName->getValue(), ""s, true));
-                                for (auto & walker : *appOptionsArray)
-                                {
-                                    auto    anOptionString{walker->asString()};
-
-                                    if (nullptr == anOptionString)
-                                    {
-                                        ODL_LOG("(nullptr == anOptionString)"); //####
-                                    }
-                                    else
-                                    {
-                                        auto    anOption{anOptionString->getValue()};
-
-                                        if (0 < anOption.length())
-                                        {
-                                            auto    optionChar{anOption.substr(0, 1)};
-                                            auto    optionValue{anOption.substr(1, anOption.length())};
-
-                                            commandLine.push_back(MakeOption(optionChar));
-                                            if (! optionValue.empty())
-                                            {
-                                                commandLine.push_back(optionValue);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            ODL_LOG("! (0 < anOption.length())"); //####
-                                        }
-                                    }
-                                }
-                                for (auto & walker : *appParametersArray)
-                                {
-                                    auto    aParameterString{walker->asString()};
-
-                                    if (nullptr == aParameterString)
-                                    {
-                                        ODL_LOG("(nullptr == aParameterString)"); //####
-                                    }
-                                    else
-                                    {
-                                        auto    aParameter{aParameterString->getValue()};
-
-                                        if (0 < aParameter.length())
-                                        {
-                                            commandLine.push_back(aParameter);
-                                        }
-                                        else
-                                        {
-                                            ODL_LOG("! (0 < aParameter.length())"); //####
-                                        }
-                                    }
-                                }
-                                // We need to put the new process in it's own group so that it will be fully detached.
-                                BP::group   aGroup;
-
-                                aGroup.detach();
-                                // Make sure to 'throw away' any standard output from the child process.
-                                BP::child   cc{appPath, BP::args(commandLine), BP::std_out > BP::null, aGroup};
-
-                                cc.detach();
-                                okSoFar = sendSimpleResponse(socket, kStartAppResponse, "Start app"s, true, reason);
-                                ODL_B1(okSoFar); //####
+                                ODL_LOG("(appInfoMap->end() == appPathIterator)"); //####
                             }
                             else
                             {
-                                ODL_LOG("! ((nullptr != appOptionsArray) && (nullptr != appParametersArray))"); //####
-                                reason = "One or more invalid arguments"s;
+                                auto    appPath{appPathIterator->second->asString()->getValue()};
+                                auto    appOptionsArray{arguments[2]->asArray()};
+                                auto    appParametersArray{arguments[3]->asArray()};
+
+                                if ((nullptr != appOptionsArray) && (nullptr != appParametersArray))
+                                {
+                                    StdStringVector commandLine{};
+
+                                    // Prepend a default node name.
+                                    commandLine.push_back(MakeOption("n"));
+                                    commandLine.push_back(ConstructNodeName(_ownerForLauncher->getName(), false, appName->getValue(), ""s, true));
+                                    for (auto & walker : *appOptionsArray)
+                                    {
+                                        if (auto anOptionString{walker->asString()}; nullptr == anOptionString)
+                                        {
+                                            ODL_LOG("(nullptr == anOptionString)"); //####
+                                        }
+                                        else
+                                        {
+                                            auto    anOption{anOptionString->getValue()};
+
+                                            if (0 < anOption.length())
+                                            {
+                                                auto    optionChar{anOption.substr(0, 1)};
+                                                auto    optionValue{anOption.substr(1, anOption.length())};
+
+                                                commandLine.push_back(MakeOption(optionChar));
+                                                if (! optionValue.empty())
+                                                {
+                                                    commandLine.push_back(optionValue);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (0 < anOption.length())"); //####
+                                            }
+                                        }
+                                    }
+                                    for (auto & walker : *appParametersArray)
+                                    {
+                                        if (auto aParameterString{walker->asString()}; nullptr == aParameterString)
+                                        {
+                                            ODL_LOG("(nullptr == aParameterString)"); //####
+                                        }
+                                        else
+                                        {
+                                            auto    aParameter{aParameterString->getValue()};
+
+                                            if (0 < aParameter.length())
+                                            {
+                                                commandLine.push_back(aParameter);
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (0 < aParameter.length())"); //####
+                                            }
+                                        }
+                                    }
+                                    // We need to put the new process in it's own group so that it will be fully detached.
+                                    BP::group   aGroup;
+
+                                    aGroup.detach();
+                                    // Make sure to 'throw away' any standard output from the child process.
+                                    BP::child   cc{appPath, BP::args(commandLine), BP::std_out > BP::null, aGroup};
+
+                                    cc.detach();
+                                    okSoFar = sendSimpleResponse(socket, kStartAppResponse, "Start app"s, true, reason);
+                                    ODL_B1(okSoFar); //####
+                                }
+                                else
+                                {
+                                    ODL_LOG("! ((nullptr != appOptionsArray) && (nullptr != appParametersArray))"); //####
+                                    reason = "One or more invalid arguments"s;
+                                }
                             }
                         }
                     }
                 }
+            }
+            else
+            {
+                ODL_LOG("! (3 < argments.size())"); //####
             }
         }
         else
         {
-            ODL_LOG("! (3 < argments.size())"); //####
+            ODL_LOG("! (0 < appList->size())"); //####
         }
-    }
-    else
-    {
-        ODL_LOG("! (0 < appList.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

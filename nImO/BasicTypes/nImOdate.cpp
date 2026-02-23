@@ -196,9 +196,7 @@ nImO::Date::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asDate()};
-
-        if (nullptr != otherPtr)
+        if (auto otherPtr{other.asDate()}; nullptr != otherPtr)
         {
             result = (_dateTimeValue == otherPtr->_dateTimeValue);
         }
@@ -242,9 +240,7 @@ nImO::Date::equalTo
 
     if (&other != this)
     {
-        auto    otherPtr{other.asDate()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asDate()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -345,9 +341,7 @@ nImO::Date::greaterThan
     }
     else
     {
-        auto    otherPtr{other.asDate()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asDate()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -378,9 +372,7 @@ nImO::Date::greaterThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asDate()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asDate()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -415,9 +407,7 @@ nImO::Date::lessThan
     }
     else
     {
-        auto    otherPtr{other.asDate()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asDate()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {
@@ -448,9 +438,7 @@ nImO::Date::lessThanOrEqual
 
     if (&other != this)
     {
-        auto    otherPtr{other.asDate()};
-
-        if (nullptr == otherPtr)
+        if (auto otherPtr{other.asDate()}; nullptr == otherPtr)
         {
             if (nullptr == other.asContainer())
             {

@@ -128,10 +128,12 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
+                                                                 ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::SourceBreakHandler{}};
+            auto                longName{progName + " ["s + nodeName + "]"s};
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(0, 1);

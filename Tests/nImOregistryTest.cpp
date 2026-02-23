@@ -646,7 +646,7 @@ doTestMachineSetWithRegistryWithOneMachine
 
                 if (statusWithStrings.first.first)
                 {
-                    StdStringSet    machines = statusWithStrings.second;
+                    StdStringSet    machines{statusWithStrings.second};
 
                     if (machines.end() == machines.find(kMachineName1))
                     {

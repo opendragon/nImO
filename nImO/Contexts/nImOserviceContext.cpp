@@ -248,9 +248,7 @@ nImO::ServiceContext::forgetSession
     ODL_OBJENTER(); //####
     ODL_P1(aSession.get()); //####
     // Drop the finished session.
-    auto    found{_sessions.find(aSession)};
-
-    if (_sessions.end() != found)
+    if (auto found{_sessions.find(aSession)}; _sessions.end() != found)
     {
         _sessions.erase(found);
     }
@@ -282,9 +280,7 @@ nImO::ServiceContext::getHandler
 
     if (0 < commandName.size())
     {
-        auto match{_commandHandlers.find(commandName)};
-
-        if (_commandHandlers.end() != match)
+        if (auto match{_commandHandlers.find(commandName)}; _commandHandlers.end() != match)
         {
             handler = match->second;
         }
@@ -367,9 +363,7 @@ nImO::ServiceContext::removeHandler
 
     if (0 < commandName.size())
     {
-        auto match{_commandHandlers.find(commandName)};
-
-        if (_commandHandlers.end() != match)
+        if (auto match{_commandHandlers.find(commandName)}; _commandHandlers.end() != match)
         {
             okSoFar = (1 == _commandHandlers.erase(commandName));
             ODL_B1(okSoFar); //####

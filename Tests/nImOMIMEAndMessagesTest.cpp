@@ -133,9 +133,7 @@ setValueAndCheck
 
     if (0 < stuff.getLength())
     {
-        auto    asString{stuff.getString()};
-
-        if (asString.empty())
+        if (auto asString{stuff.getString()}; asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
         }
@@ -213,9 +211,7 @@ extractValueAndCheck
             {
                 if (extractedValue)
                 {
-                    auto    asFlaw{extractedValue->asFlaw()};
-
-                    if (nullptr == asFlaw)
+                    if (auto asFlaw{extractedValue->asFlaw()}; nullptr == asFlaw)
                     {
                         if (stuff.readAtEnd())
                         {
@@ -726,9 +722,7 @@ doTestMIMEInsertEmptyMessage
             stuff->close();
             if (0 < stuff->getLength())
             {
-                auto    asString{stuff->getString()};
-
-                if (asString.empty())
+                if (auto asString{stuff->getString()}; asString.empty())
                 {
                     ODL_LOG("(asString.empty())"); //####
                 }
@@ -825,9 +819,7 @@ doTestMIMEExtractEmptyMessage
                     {
                         if (extractedValue)
                         {
-                            auto    asFlaw{extractedValue->asFlaw()};
-
-                            if (nullptr == asFlaw)
+                            if (auto asFlaw{extractedValue->asFlaw()}; nullptr == asFlaw)
                             {
                                 ODL_LOG("(nullptr == asFlaw)"); //####
                             }

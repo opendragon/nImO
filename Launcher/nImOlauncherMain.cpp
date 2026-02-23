@@ -177,9 +177,7 @@ loadApplicationInformation
 
             if (readValue)
             {
-                auto    asMap{readValue->asMap()};
-
-                if (nullptr == asMap)
+                if (auto asMap{readValue->asMap()}; nullptr == asMap)
                 {
                     std::cerr << "Application file list file did not have the correct structure.\n";
                 }
@@ -194,9 +192,7 @@ loadApplicationInformation
 
                         for (auto & walker : *asMap)
                         {
-                            auto    readSubMap{walker.second->asMap()};
-
-                            if (nullptr == readSubMap)
+                            if (auto readSubMap{walker.second->asMap()}; nullptr == readSubMap)
                             {
                                 // Ignore entries that aren't Maps, rather than rejecting the whole file.
                                 std::cerr << "Warning: value with key " << walker.first << " is not a map.\n";
@@ -205,31 +201,25 @@ loadApplicationInformation
                             {
                                 if (nImO::Enumerable::String == readSubMap->getKeyKind())
                                 {
-                                    auto    descriptionEntry{readSubMap->find(descriptionKey)};
-                                    auto    pathEntry{readSubMap->find(pathKey)};
-
-                                    if (readSubMap->end() == descriptionEntry)
+                                    if (auto descriptionEntry{readSubMap->find(descriptionKey)}; readSubMap->end() == descriptionEntry)
                                     {
                                         std::cerr << "Warning: value with key '" << *walker.first << "' is missing a description.\n";
                                     }
                                     else
                                     {
-                                        if (readSubMap->end() == pathEntry)
+                                        if (auto pathEntry{readSubMap->find(pathKey)}; readSubMap->end() == pathEntry)
                                         {
                                             std::cerr << "Warning: value with key '" << *walker.first << "' is missing a path.\n";
                                         }
                                         else
                                         {
-                                            auto    descriptionAsString{descriptionEntry->second->asString()};
-                                            auto    pathAsString{pathEntry->second->asString()};
-
-                                            if (nullptr == descriptionAsString)
+                                            if (auto descriptionAsString{descriptionEntry->second->asString()}; nullptr == descriptionAsString)
                                             {
                                                 std::cerr << "Warning: description for value with key '" << *walker.first << "' is invalid.\n";
                                             }
                                             else
                                             {
-                                                if (nullptr == pathAsString)
+                                                if (auto pathAsString{pathEntry->second->asString()}; nullptr == pathAsString)
                                                 {
                                                     std::cerr << "Warning: path for value with key '" << *walker.first << "' is invalid.\n";
                                                 }
@@ -349,10 +339,11 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag, false)};
             auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new LauncherBreakHandler};
+            auto                longName{progName + " ["s + nodeName + "]"s};
 
             nImO::SetSpecialBreakObject(cleanup);
             nImO::AddLauncherHandlers(ourContext, cleanup);
@@ -406,13 +397,13 @@ main
                                         if (0 == exitCode)
                                         {
                                             ourContext->report("Waiting for requests."s);
-                                            std::cout << progName << " ready.\n";
+                                            std::cout << longName << " ready.\n";
                                             std::cout.flush();
                                             for ( ; nImO::gKeepRunning; )
                                             {
                                                 boost::this_thread::yield();
                                             }
-                                            std::cout << progName << " done.\n";
+                                            std::cout << longName << " done.\n";
                                             std::cout.flush();
                                         }
                                     }

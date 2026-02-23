@@ -126,10 +126,12 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
+                                                                 ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::SourceBreakHandler{}};
+            auto                longName{progName + " ["s + nodeName + "]"s};
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(0, 1);
@@ -225,7 +227,7 @@ main
                                         if (nImO::gKeepRunning)
                                         {
                                             ourContext->report("Sending messages."s);
-                                            std::cout << progName << " ready.\n";
+                                            std::cout << longName << " ready.\n";
                                             std::cout.flush();
                                         }
                                         for ( ; nImO::gKeepRunning; )
@@ -292,7 +294,7 @@ main
                                             nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                         }
-                                        std::cout << progName << " done.\n";
+                                        std::cout << longName << " done.\n";
                                         std::cout.flush();
                                     }
                                 }

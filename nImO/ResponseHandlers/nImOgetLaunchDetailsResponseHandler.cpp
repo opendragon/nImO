@@ -102,9 +102,7 @@ nImO::GetLaunchDetailsResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        auto    detailsArray{stuff[1]->asArray()};
-
-        if (nullptr == detailsArray)
+        if (auto detailsArray{stuff[1]->asArray()}; nullptr == detailsArray)
         {
             ODL_LOG("(nullptr == detailsArray)"); //####
         }

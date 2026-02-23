@@ -171,9 +171,7 @@ nImO::Array::deeplyEqualTo
 
     if (! result)
     {
-        auto    otherPtr{other.asArray()};
-
-        if ((nullptr != otherPtr) && (size() == otherPtr->size()))
+        if (auto otherPtr{other.asArray()}; (nullptr != otherPtr) && (size() == otherPtr->size()))
         {
             auto    thisWalker{inherited2::begin()};
             auto    otherWalker{otherPtr->inherited2::begin()};
@@ -802,9 +800,7 @@ nImO::Array::writeToMessage
             if (walker)
             {
                 // Check for sequences of Double values
-                auto    doubleValue{walker->asDouble()};
-
-                if (nullptr == doubleValue)
+                if (auto doubleValue{walker->asDouble()}; nullptr == doubleValue)
                 {
                     Double::writeValuesToMessage(doublesSeen, outMessage);
                     walker->writeToMessage(outMessage);

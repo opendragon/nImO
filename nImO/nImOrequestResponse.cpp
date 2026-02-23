@@ -128,13 +128,9 @@ handleResponse
                 stuff->close();
                 if (stuff->readAtEnd() && contents)
                 {
-                    auto    asArray{contents->asArray()};
-
-                    if ((nullptr != asArray) && (0 < asArray->size()))
+                    if (auto asArray{contents->asArray()}; (nullptr != asArray) && (0 < asArray->size()))
                     {
-                        auto    response{(*asArray)[0]->asString()};
-
-                        if (nullptr == response)
+                        if (auto response{(*asArray)[0]->asString()}; nullptr == response)
                         {
                             ODL_LOG("(nullptr == response)"); //####
                             failureReason = "Message did not contain a string"s;
@@ -342,9 +338,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     requestToSend.close();
     if (0 < requestToSend.getLength())
     {
-        auto    asString{requestToSend.getString()};
-
-        if (asString.empty())
+        if (auto asString{requestToSend.getString()}; asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
             *status = std::make_pair(false, "blank request"s);

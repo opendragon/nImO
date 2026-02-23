@@ -99,9 +99,7 @@ nImO::GetNamesOfNodesOnMachineResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    asSet{stuff[1]->asSet()};
-
-        if (nullptr == asSet)
+        if (auto asSet{stuff[1]->asSet()}; nullptr == asSet)
         {
             ODL_LOG("(nullptr == asSet)"); //####
         }

@@ -219,9 +219,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asAddress{actualValue->asAddress()};
 
-            if (nullptr == asAddress)
+            if (auto asAddress{actualValue->asAddress()}; nullptr == asAddress)
             {
                 std::cerr << "Invalid address (" << kLoggerAddressKey << ") in configuration file; ignored.\n";
             }
@@ -243,9 +242,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asInteger{actualValue->asInteger()};
 
-            if (nullptr == asInteger)
+            if (auto asInteger{actualValue->asInteger()}; nullptr == asInteger)
             {
                 std::cerr << "Invalid port (" << kLoggerPortKey << ") in configuration file; ignored.\n";
             }
@@ -268,9 +266,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asAddress{actualValue->asAddress()};
 
-            if (nullptr == asAddress)
+            if (auto asAddress{actualValue->asAddress()}; nullptr == asAddress)
             {
                 std::cerr << "Invalid address (" << kRegistrySearchAddressKey << ") in configuration file; ignored.\n";
             }
@@ -292,9 +289,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asInteger{actualValue->asInteger()};
 
-            if (nullptr == asInteger)
+            if (auto asInteger{actualValue->asInteger()}; nullptr == asInteger)
             {
                 std::cerr << "Invalid port (" << kRegistrySearchPortKey << ") in configuration file; ignored.\n";
             }
@@ -316,9 +312,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asAddress{actualValue->asAddress()};
 
-            if (nullptr == asAddress)
+            if (auto asAddress{actualValue->asAddress()}; nullptr == asAddress)
             {
                 std::cerr << "Invalid address (" << kStatusAddressKey << ") in configuration file; ignored.\n";
             }
@@ -340,9 +335,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asInteger{actualValue->asInteger()};
 
-            if (nullptr == asInteger)
+            if (auto asInteger{actualValue->asInteger()}; nullptr == asInteger)
             {
                 std::cerr << "Invalid port (" << kStatusPortKey << ") in configuration file; ignored.\n";
             }
@@ -371,9 +365,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asString{actualValue->asString()};
 
-            if (nullptr == asString)
+            if (auto asString{actualValue->asString()}; nullptr == asString)
             {
                 std::cerr << "Invalid mode (" << kRegistrySearchModeKey << ") in configuration file; using default mode.\n";
                 _registrySearchMode = kDefaultRegistrySearchMode;
@@ -397,9 +390,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asString{actualValue->asString()};
 
-            if (nullptr == asString)
+            if (auto asString{actualValue->asString()}; nullptr == asString)
             {
                 std::cerr << "Invalid name (" << kRegistryNameKey << ") in configuration file; using default name.\n";
                 _registryName = kDefaultRegistryName;
@@ -423,10 +415,9 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asArray{actualValue->asArray()};
 
             _registryLaunchOptions.clear();
-            if (nullptr == asArray)
+            if (auto asArray{actualValue->asArray()}; nullptr == asArray)
             {
                 std::cerr << "Invalid options (" << kRegistryOptionsKey << ") in configuration file; ignored.\n";
             }
@@ -434,9 +425,7 @@ nImO::NetworkingContext::NetworkingContext
             {
                 for (auto & walker : *asArray)
                 {
-                    auto    anOptionString{walker->asString()};
-
-                    if (nullptr == anOptionString)
+                    if (auto anOptionString{walker->asString()}; nullptr == anOptionString)
                     {
                         ODL_LOG("(nullptr == anOptionString)"); //####
                     }
@@ -451,9 +440,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asString{actualValue->asString()};
 
-            if (nullptr == asString)
+            if (auto asString{actualValue->asString()}; nullptr == asString)
             {
                 std::cerr << "Invalid path (" << kRegistryPathKey << ") in configuration file; using default path.\n";
                 _registryLaunchPath = kDefaultRegistryLaunchPath;
@@ -474,9 +462,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asInteger{actualValue->asInteger()};
 
-            if (nullptr == asInteger)
+            if (auto asInteger{actualValue->asInteger()}; nullptr == asInteger)
             {
                 std::cerr << "Invalid retries (" << kRegistrySearchRetriesKey << ") in configuration file; using default.\n";
                 _registrySearchRetries = kDefaultRegistrySearchRetries;
@@ -504,9 +491,8 @@ nImO::NetworkingContext::NetworkingContext
         if (retValue)
         {
             SpValue actualValue{*retValue};
-            auto    asInteger{actualValue->asInteger()};
 
-            if (nullptr == asInteger)
+            if (auto asInteger{actualValue->asInteger()}; nullptr == asInteger)
             {
                 std::cerr << "Invalid timeout (" << kRegistryTimeoutKey << ") in configuration file; using default.\n";
                 _registrySearchTimeout = kDefaultRegistryTimeout;

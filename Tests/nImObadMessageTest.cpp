@@ -173,9 +173,7 @@ doTestMessageInitialEndTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -229,9 +227,7 @@ doTestMessageTerminalStartTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -286,9 +282,7 @@ doTestEmptyMessageWithContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -346,9 +340,7 @@ doTestNonEmptyMessageWithoutContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -407,9 +399,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -471,9 +461,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -535,9 +523,7 @@ doTestNonEmptyMessageWithInvalidContentTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -598,9 +584,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -663,9 +647,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -729,9 +711,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -795,9 +775,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -864,9 +842,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -933,9 +909,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1005,9 +979,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1079,9 +1051,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1152,9 +1122,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1232,9 +1200,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1315,9 +1281,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1408,9 +1372,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1477,9 +1439,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1546,9 +1506,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1618,9 +1576,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1692,9 +1648,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1765,9 +1719,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1851,9 +1803,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1937,9 +1887,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2020,9 +1968,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2089,9 +2035,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2158,9 +2102,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2230,9 +2172,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2304,9 +2244,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2377,9 +2315,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2457,9 +2393,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {

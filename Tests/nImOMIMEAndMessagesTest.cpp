@@ -714,9 +714,7 @@ doTestMIMEInsertEmptyMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             stuff->open(true);
             stuff->close();
@@ -797,9 +795,7 @@ doTestMIMEExtractEmptyMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             StdStringVector inVec;
             ByteVector      outBytes;
@@ -891,9 +887,7 @@ doTestMIMEInsertLogicalMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                falseValue{std::make_shared<Logical>(false)};
             auto                trueValue{std::make_shared<Logical>(true)};
@@ -949,9 +943,7 @@ doTestMIMEExtractLogicalMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedTrueLines[]{ "98H/"s };
             constexpr size_t    insertedTrueLinesCount{numElementsInArray(insertedTrueLines)};
@@ -1007,9 +999,7 @@ doTestMIMEInsertTinyIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                minus12Value{std::make_shared<Integer>(-12)};
             auto                zeroValue{std::make_shared<Integer>()};
@@ -1072,9 +1062,7 @@ doTestMIMEExtractTinyIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedMinus12Lines[]{ "9BT8"s };
             constexpr size_t    insertedMinus12LinesCount{numElementsInArray(insertedMinus12Lines)};
@@ -1137,9 +1125,7 @@ doTestMIMEInsertSmallIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                minus144Value{std::make_shared<Integer>(-144)};
             auto                plus144Value{std::make_shared<Integer>(144)};
@@ -1195,9 +1181,7 @@ doTestMIMEExtractSmallIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedMinus144Lines[]{ "9CH/cPw="s };
             constexpr size_t    insertedMinus144LinesCount{numElementsInArray(insertedMinus144Lines)};
@@ -1253,9 +1237,7 @@ doTestMIMEInsertMediumIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                minus1234567Value{std::make_shared<Integer>(-1234567)};
             auto                plus1234567Value{std::make_shared<Integer>(1234567)};
@@ -1311,9 +1293,7 @@ doTestMIMEExtractMediumIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedMinus1234567Lines[]{ "9CLtKXn8"s };
             constexpr size_t    insertedMinus1234567LinesCount{numElementsInArray(insertedMinus1234567Lines)};
@@ -1369,9 +1349,7 @@ doTestMIMEInsertBigIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                minusBigNumberValue{std::make_shared<Integer>(-20015998343868)};
             auto                plusBigNumberValue{std::make_shared<Integer>(20015998343868)};
@@ -1427,9 +1405,7 @@ doTestMIMEExtractBigIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedMinusBigNumberLines[]{ "9CXty6mHZUT8"s };
             constexpr size_t    insertedMinusBigNumberLinesCount{numElementsInArray(insertedMinusBigNumberLines)};
@@ -1485,9 +1461,7 @@ doTestMIMEInsertEmptyStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                emptyStringValue{std::make_shared<String>()};
             std::string         expectedEmptyStringLines[]{ "9oD+"s };
@@ -1536,9 +1510,7 @@ doTestMIMEExtractEmptyStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedEmptyStringLines[]{ "9oD+"s };
             constexpr size_t    insertedEmptyStringLinesCount{numElementsInArray(insertedEmptyStringLines)};
@@ -1587,9 +1559,7 @@ doTestMIMEInsertShortStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                shortStringValue{std::make_shared<String>("abcdef"s)};
             std::string         expectedShortStringLines[]{ "9oZhYmNkZWb+"s };
@@ -1638,9 +1608,7 @@ doTestMIMEExtractShortStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedShortStringLines[]{ "9oZhYmNkZWb+"s };
             constexpr size_t    insertedShortStringLinesCount{numElementsInArray(insertedShortStringLines)};
@@ -1689,9 +1657,7 @@ doTestMIMEInsertMediumStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                mediumStringValue{std::make_shared<String>("abcdefabcdefabcdefabcdefabcdefabcdefabcdef"s)};
             std::string         expectedMediumStringLines[]{ "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g=="s };
@@ -1740,9 +1706,7 @@ doTestMIMEExtractMediumStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedMediumStringLines[]{ "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g=="s };
             constexpr size_t    insertedMediumStringLinesCount{numElementsInArray(insertedMediumStringLines)};
@@ -1791,9 +1755,7 @@ doTestMIMEInsertEmptyBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                emptyBlobValue{std::make_shared<Blob>()};
             std::string         expectedEmptyBlobLines[]{ "9qD+"s };
@@ -1842,9 +1804,7 @@ doTestMIMEExtractEmptyBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedEmptyBlobLines[]{ "9qD+"s };
             constexpr size_t    insertedEmptyBlobLinesCount{numElementsInArray(insertedEmptyBlobLines)};
@@ -1893,9 +1853,7 @@ doTestMIMEInsertSmallBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const uint8_t    actualData[]
             {
@@ -1949,9 +1907,7 @@ doTestMIMEExtractSmallBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string             insertedSmallBlobLines[]{ "9qYSIzRFVmf+"s };
             constexpr size_t        insertedSmallBlobLinesCount{numElementsInArray(insertedSmallBlobLines)};
@@ -2005,9 +1961,7 @@ doTestMIMEInsertMediumBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const uint8_t    actualData[]
             {
@@ -2067,9 +2021,7 @@ doTestMIMEExtractMediumBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string             insertedMediumBlobLines[]{ "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g=="s };
             constexpr size_t        insertedMediumBlobLinesCount{numElementsInArray(insertedMediumBlobLines)};
@@ -2129,9 +2081,7 @@ doTestMIMEInsertSingleDoubleMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                plus42Point5Value{std::make_shared<Double>(42.5)};
             auto                minus42Point5Value{std::make_shared<Double>(-42.5)};
@@ -2187,9 +2137,7 @@ doTestMIMEExtractSingleDoubleMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedPlus42Point5Lines[]{ "9UBARUAAAAAAAP0="s };
             constexpr size_t    insertedPlus42Point5LinesCount{numElementsInArray(insertedPlus42Point5Lines)};
@@ -2245,9 +2193,7 @@ doTestMIMEInsertAddressMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                addressValue{std::make_shared<Address>(0x12345678)};
             std::string         expectedAddressLines[]{ "98QSNFZ4/w=="s };
@@ -2296,9 +2242,7 @@ doTestMIMEExtractAddressMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedAddressLines[]{ "98QSNFZ4/w=="s };
             constexpr size_t    insertedAddressLinesCount{numElementsInArray(insertedAddressLines)};
@@ -2347,9 +2291,7 @@ doTestMIMEInsertDateMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             auto                            dateValue{std::make_shared<Date>(MakeDateValue(aDate))};
@@ -2399,9 +2341,7 @@ doTestMIMEExtractDateMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             std::string                     insertedDateLines[]{ "98UAABTq/w=="s };
@@ -2451,9 +2391,7 @@ doTestMIMEInsertTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             auto                            timeValue{std::make_shared<Time>(MakeTimeValue(aTime))};
@@ -2503,9 +2441,7 @@ doTestMIMEExtractTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             std::string                     insertedTimeLines[]{ "98YCnWc5/w=="s };
@@ -2555,9 +2491,7 @@ doTestMIMEInsertEmptyArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                emptyArray{std::make_shared<Array>()};
             std::string         expectedEmptyArrayLines[]{ "99Dg/w=="s };
@@ -2606,9 +2540,7 @@ doTestMIMEExtractEmptyArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedEmptyArrayLines[]{ "99Dg/w=="s };
             constexpr size_t    insertedEmptyArrayLinesCount{numElementsInArray(insertedEmptyArrayLines)};
@@ -2657,9 +2589,7 @@ doTestMIMEInsertEmptyMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                emptyMap{std::make_shared<Map>()};
             std::string         expectedEmptyMapLines[]{ "99Tk/w=="s };
@@ -2708,9 +2638,7 @@ doTestMIMEExtractEmptyMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedEmptyMapLines[]{ "99Tk/w=="s };
             constexpr size_t    insertedEmptyMapLinesCount{numElementsInArray(insertedEmptyMapLines)};
@@ -2759,9 +2687,7 @@ doTestMIMEInsertEmptySetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                emptySet{std::make_shared<Set>()};
             std::string         expectedEmptySetLines[]{ "99jo/w=="s };
@@ -2810,9 +2736,7 @@ doTestMIMEExtractEmptySetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedEmptySetLines[]{ "99jo/w=="s };
             constexpr size_t    insertedEmptySetLinesCount{numElementsInArray(insertedEmptySetLines)};
@@ -2861,9 +2785,7 @@ doTestMIMEInsertArrayOneLogicalMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneLogical{std::make_shared<Array>()};
             std::string         expectedArrayOneLogicalLines[]{ "99EQwOH/"s };
@@ -2913,9 +2835,7 @@ doTestMIMEExtractArrayOneLogicalMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneLogicalLines[]{ "99EQwOH/"s };
             constexpr size_t    insertedArrayOneLogicalLinesCount{numElementsInArray(insertedArrayOneLogicalLines)};
@@ -2965,9 +2885,7 @@ doTestMIMEInsertArrayOneIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneInteger{std::make_shared<Array>()};
             std::string         expectedArrayOneIntegerLines[]{ "99EQAOH/"s };
@@ -3017,9 +2935,7 @@ doTestMIMEExtractArrayOneIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneIntegerLines[]{ "99EQAOH/"s };
             constexpr size_t    insertedArrayOneIntegerLinesCount{numElementsInArray(insertedArrayOneIntegerLines)};
@@ -3069,9 +2985,7 @@ doTestMIMEInsertArrayOneDoubleMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneDouble{std::make_shared<Array>()};
             std::string         expectedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8="s };
@@ -3121,9 +3035,7 @@ doTestMIMEExtractArrayOneDoubleMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8="s };
             constexpr size_t    insertedArrayOneDoubleLinesCount{numElementsInArray(insertedArrayOneDoubleLines)};
@@ -3173,9 +3085,7 @@ doTestMIMEInsertArrayOneStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneString{std::make_shared<Array>()};
             std::string         expectedArrayOneStringLines[]{ "99EQgOH/"s };
@@ -3225,9 +3135,7 @@ doTestMIMEExtractArrayOneStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneStringLines[]{ "99EQgOH/"s };
             constexpr size_t    insertedArrayOneStringLinesCount{numElementsInArray(insertedArrayOneStringLines)};
@@ -3277,9 +3185,7 @@ doTestMIMEInsertArrayOneBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneBlob{std::make_shared<Array>()};
             std::string         expectedArrayOneBlobLines[]{ "99EQoOH/"s };
@@ -3329,9 +3235,7 @@ doTestMIMEExtractArrayOneBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneBlobLines[]{ "99EQoOH/"s };
             constexpr size_t    insertedArrayOneBlobLinesCount{numElementsInArray(insertedArrayOneBlobLines)};
@@ -3381,9 +3285,7 @@ doTestMIMEInsertArrayOneArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneArray{std::make_shared<Array>()};
             std::string         expectedArrayOneArrayLines[]{ "99EQ0ODh/w=="s };
@@ -3433,9 +3335,7 @@ doTestMIMEExtractArrayOneArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneArrayLines[]{ "99EQ0ODh/w=="s };
             constexpr size_t    insertedArrayOneArrayLinesCount{numElementsInArray(insertedArrayOneArrayLines)};
@@ -3485,9 +3385,7 @@ doTestMIMEInsertArrayOneMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneMap{std::make_shared<Array>()};
             std::string         expectedArrayOneMapLines[]{ "99EQ1OTh/w=="s };
@@ -3537,9 +3435,7 @@ doTestMIMEExtractArrayOneMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneMapLines[]{ "99EQ1OTh/w=="s };
             constexpr size_t    insertedArrayOneMapLinesCount{numElementsInArray(insertedArrayOneMapLines)};
@@ -3589,9 +3485,7 @@ doTestMIMEInsertArrayOneSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneSet{std::make_shared<Array>()};
             std::string         expectedArrayOneSetLines[]{ "99EQ2Ojh/w=="s };
@@ -3641,9 +3535,7 @@ doTestMIMEExtractArrayOneSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneSetLines[]{ "99EQ2Ojh/w=="s };
             constexpr size_t    insertedArrayOneSetLinesCount{numElementsInArray(insertedArrayOneSetLines)};
@@ -3693,9 +3585,7 @@ doTestMIMEInsertArrayWithOneAddressMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneAddress{std::make_shared<Array>()};
             std::string         expectedArrayOneAddressLines[]{ "99EQxDRWeKvh/w=="s };
@@ -3745,9 +3635,7 @@ doTestMIMEExtractArrayWithOneAddressMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneAddressLines[]{ "99EQxDRWeKvh/w=="s };
             constexpr size_t    insertedArrayOneAddressLinesCount{numElementsInArray(insertedArrayOneAddressLines)};
@@ -3797,9 +3685,7 @@ doTestMIMEInsertArrayWithOneDateMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             auto                            arrayOneDate{std::make_shared<Array>()};
@@ -3850,9 +3736,7 @@ doTestMIMEExtractArrayWithOneDateMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             std::string                     insertedArrayOneDateLines[]{ "99EQxQAAFOrh/w=="s };
@@ -3903,9 +3787,7 @@ doTestMIMEInsertArrayWithOneTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             auto                            arrayOneTime{std::make_shared<Array>()};
@@ -3956,9 +3838,7 @@ doTestMIMEExtractArrayWithOneTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             std::string                     insertedArrayOneTimeLines[]{ "99EQxgKdZznh/w=="s };
@@ -4009,9 +3889,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoLogicals{std::make_shared<Array>()};
             std::string         expectedArrayTwoLogicalsLines[]{ "99ERwMDh/w=="s };
@@ -4062,9 +3940,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoLogicalsLines[]{ "99ERwMDh/w=="s };
             constexpr size_t    insertedArrayTwoLogicalsLinesCount{numElementsInArray(insertedArrayTwoLogicalsLines)};
@@ -4115,9 +3991,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoIntegers{std::make_shared<Array>()};
             std::string         expectedArrayTwoIntegersLines[]{ "99ERAADh/w=="s };
@@ -4168,9 +4042,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoIntegersLines[]{ "99ERAADh/w=="s };
             constexpr size_t    insertedArrayTwoIntegersLinesCount{numElementsInArray(insertedArrayTwoIntegersLines)};
@@ -4221,9 +4093,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoDoubles{std::make_shared<Array>()};
             std::string         expectedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w=="s };
@@ -4274,9 +4144,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w=="s };
             constexpr size_t    insertedArrayTwoDoublesLinesCount{numElementsInArray(insertedArrayTwoDoublesLines)};
@@ -4327,9 +4195,7 @@ doTestMIMEInsertArrayTwoStringsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoStrings{std::make_shared<Array>()};
             std::string         expectedArrayTwoStringsLines[]{ "99ERgIDh/w=="s };
@@ -4380,9 +4246,7 @@ doTestMIMEExtractArrayTwoStringsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoStringsLines[]{ "99ERgIDh/w=="s };
             constexpr size_t    insertedArrayTwoStringsLinesCount{numElementsInArray(insertedArrayTwoStringsLines)};
@@ -4433,9 +4297,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoBlobs{std::make_shared<Array>()};
             std::string         expectedArrayTwoBlobsLines[]{ "99ERoKDh/w=="s };
@@ -4486,9 +4348,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoBlobsLines[]{ "99ERoKDh/w=="s };
             constexpr size_t    insertedArrayTwoBlobsLinesCount{numElementsInArray(insertedArrayTwoBlobsLines)};
@@ -4539,9 +4399,7 @@ doTestMIMEInsertArrayTwoArraysMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoArrays{std::make_shared<Array>()};
             std::string         expectedArrayTwoArraysLines[]{ "99ER0ODQ4OH/"s };
@@ -4592,9 +4450,7 @@ doTestMIMEExtractArrayTwoArraysMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoArraysLines[]{ "99ER0ODQ4OH/"s };
             constexpr size_t    insertedArrayTwoArraysLinesCount{numElementsInArray(insertedArrayTwoArraysLines)};
@@ -4645,9 +4501,7 @@ doTestMIMEInsertArrayTwoMapsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoMaps{std::make_shared<Array>()};
             std::string         expectedArrayTwoMapsLines[]{ "99ER1OTU5OH/"s };
@@ -4698,9 +4552,7 @@ doTestMIMEExtractArrayTwoMapsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoMapsLines[]{ "99ER1OTU5OH/"s };
             constexpr size_t    insertedArrayTwoMapsLinesCount{numElementsInArray(insertedArrayTwoMapsLines)};
@@ -4751,9 +4603,7 @@ doTestMIMEInsertArrayTwoSetsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoSets{std::make_shared<Array>()};
             std::string         expectedArrayTwoSetsLines[]{ "99ER2OjY6OH/"s };
@@ -4804,9 +4654,7 @@ doTestMIMEExtractArrayTwoSetsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoSetsLines[]{ "99ER2OjY6OH/"s };
             constexpr size_t    insertedArrayTwoSetsLinesCount{numElementsInArray(insertedArrayTwoSetsLines)};
@@ -4857,9 +4705,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneArrayOneMap{std::make_shared<Array>()};
             std::string         expectedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/"s };
@@ -4910,9 +4756,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/"s };
             constexpr size_t    insertedArrayOneArrayOneMapLinesCount{numElementsInArray(insertedArrayOneArrayOneMapLines)};
@@ -4963,9 +4807,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneMapOneSet{std::make_shared<Array>()};
             std::string         expectedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/"s };
@@ -5016,9 +4858,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/"s };
             constexpr size_t    insertedArrayOneMapOneSetLinesCount{numElementsInArray(insertedArrayOneMapOneSetLines)};
@@ -5069,9 +4909,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayOneSetOneArray{std::make_shared<Array>()};
             std::string         expectedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/"s };
@@ -5122,9 +4960,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/"s };
             constexpr size_t    insertedArrayOneSetOneArrayLinesCount{numElementsInArray(insertedArrayOneSetOneArrayLines)};
@@ -5175,9 +5011,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             constexpr size_t    numValues{43};
             auto                arrayManyDoubles{std::make_shared<Array>()};
@@ -5238,9 +5072,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             constexpr size_t    numValues{43};
             std::string         insertedArrayManyDoublesLines[]{
@@ -5301,9 +5133,7 @@ doTestMIMEInsertArrayWithTwoAddressesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayTwoAddresses{std::make_shared<Array>()};
             std::string         expectedArrayTwoAddressesLines[]{ "99ERxBI0VnjENFZ4q+H/"s };
@@ -5354,9 +5184,7 @@ doTestMIMEExtractArrayWithTwoAddressesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayTwoAddressesLines[]{ "99ERxBI0VnjENFZ4q+H/"s };
             constexpr size_t    insertedArrayTwoAddressesLinesCount{numElementsInArray(insertedArrayTwoAddressesLines)};
@@ -5407,9 +5235,7 @@ doTestMIMEInsertArrayWithTwoDatesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate1{12, 11, 10};
             static const Date::DatePieces   aDate2{11, 10, 9};
@@ -5462,9 +5288,7 @@ doTestMIMEExtractArrayWithTwoDatesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate1{12, 11, 10};
             static const Date::DatePieces   aDate2{11, 10, 9};
@@ -5517,9 +5341,7 @@ doTestMIMEInsertArrayWithTwoTimesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime1{12, 11, 10, 9};
             static const Time::TimePieces   aTime2{11, 10, 9, 8};
@@ -5572,9 +5394,7 @@ doTestMIMEExtractArrayWithTwoTimesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime1{12, 11, 10, 9};
             static const Time::TimePieces   aTime2{11, 10, 9, 8};
@@ -5627,9 +5447,7 @@ doTestMIMEInsertArrayWithOneDateOneTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             static const Time::TimePieces   aTime{12, 11, 10, 9};
@@ -5682,9 +5500,7 @@ doTestMIMEExtractArrayWithOneDateOneTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             static const Time::TimePieces   aTime{12, 11, 10, 9};
@@ -5737,9 +5553,7 @@ doTestMIMEInsertLogicalMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                logicalMap{std::make_shared<Map>()};
             std::string         expectedLogicalMapLines[]{ "99UQwA3l/w=="s };
@@ -5789,9 +5603,7 @@ doTestMIMEExtractLogicalMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedLogicalMapLines[]{ "99UQwA3l/w=="s };
             constexpr size_t    insertedLogicalMapLinesCount{numElementsInArray(insertedLogicalMapLines)};
@@ -5841,9 +5653,7 @@ doTestMIMEInsertIntegerMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                integerMap{std::make_shared<Map>()};
             std::string         expectedIntegerMapLines[]{ "99UQAA3l/w=="s };
@@ -5893,9 +5703,7 @@ doTestMIMEExtractIntegerMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedIntegerMapLines[]{ "99UQAA3l/w=="s };
             constexpr size_t    insertedIntegerMapLinesCount{numElementsInArray(insertedIntegerMapLines)};
@@ -5945,9 +5753,7 @@ doTestMIMEInsertStringMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                stringMap{std::make_shared<Map>()};
             std::string         expectedStringMapLines[]{ "99UQgA3l/w=="s };
@@ -5997,9 +5803,7 @@ doTestMIMEExtractStringMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedStringMapLines[]{ "99UQgA3l/w=="s };
             constexpr size_t    insertedStringMapLinesCount{numElementsInArray(insertedStringMapLines)};
@@ -6049,9 +5853,7 @@ doTestMIMEInsertLogicalSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                logicalSet{std::make_shared<Set>()};
             std::string         expectedLogicalSetLines[]{ "99kQwOn/"s };
@@ -6101,9 +5903,7 @@ doTestMIMEExtractLogicalSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedLogicalSetLines[]{ "99kQwOn/"s };
             constexpr size_t    insertedLogicalSetLinesCount{numElementsInArray(insertedLogicalSetLines)};
@@ -6153,9 +5953,7 @@ doTestMIMEInsertIntegerSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                integerSet{std::make_shared<Set>()};
             std::string         expectedIntegerSetLines[]{ "99kQAOn/"s };
@@ -6205,9 +6003,7 @@ doTestMIMEExtractIntegerSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedIntegerSetLines[]{ "99kQAOn/"s };
             constexpr size_t    insertedIntegerSetLinesCount{numElementsInArray(insertedIntegerSetLines)};
@@ -6257,9 +6053,7 @@ doTestMIMEInsertStdStringSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                stringSet{std::make_shared<Set>()};
             std::string         expectedStdStringSetLines[]{ "99kQgOn/"s };
@@ -6309,9 +6103,7 @@ doTestMIMEExtractStdStringSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedStdStringSetLines[]{ "99kQgOn/"s };
             constexpr size_t    insertedStdStringSetLinesCount{numElementsInArray(insertedStdStringSetLines)};
@@ -6361,9 +6153,7 @@ doTestMIMEInsertAddressMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                addressMap{std::make_shared<Map>()};
             std::string         expectedAddressMapLines[]{ "99UQxAAAAAAN5f8="s };
@@ -6413,9 +6203,7 @@ doTestMIMEExtractAddressMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedAddressMapLines[]{ "99UQxAAAAAAN5f8="s };
             constexpr size_t    insertedAddressMapLinesCount{numElementsInArray(insertedAddressMapLines)};
@@ -6465,9 +6253,7 @@ doTestMIMEInsertAddressSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                addressSet{std::make_shared<Set>()};
             std::string         expectedAddressSetLines[]{ "99kQxAAAAADp/w=="s };
@@ -6517,9 +6303,7 @@ doTestMIMEExtractAddressSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedAddressSetLines[]{ "99kQxAAAAADp/w=="s };
             constexpr size_t    insertedAddressSetLinesCount{numElementsInArray(insertedAddressSetLines)};
@@ -6569,9 +6353,7 @@ doTestMIMEInsertDateMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             auto                            dateMap{std::make_shared<Map>()};
@@ -6622,9 +6404,7 @@ doTestMIMEExtractDateMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             std::string                     insertedDateMapLines[]{ "99UQxQAAFOoN5f8="s };
@@ -6675,9 +6455,7 @@ doTestMIMEInsertDateSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             auto                            dateSet{std::make_shared<Set>()};
@@ -6728,9 +6506,7 @@ doTestMIMEExtractDateSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             std::string                     insertedDateSetLines[]{ "99kQxQAAFOrp/w=="s };
@@ -6781,9 +6557,7 @@ doTestMIMEInsertTimeMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             auto                            timeMap{std::make_shared<Map>()};
@@ -6834,9 +6608,7 @@ doTestMIMEExtractTimeMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             std::string                     insertedTimeMapLines[]{ "99UQxgKdZzkN5f8="s };
@@ -6887,9 +6659,7 @@ doTestMIMEInsertTimeSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             auto                            timeSet{std::make_shared<Set>()};
@@ -6940,9 +6710,7 @@ doTestMIMEExtractTimeSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             std::string                     insertedTimeSetLines[]{ "99kQxgKdZznp/w=="s };
@@ -6993,9 +6761,7 @@ doTestMIMEInsertArrayWithRangeOfIntegers
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             auto                arrayWithRangeOfIntegers{std::make_shared<Array>()};
             std::string         expectedArrayWithRangeOfIntegersLines[]{
@@ -7085,9 +6851,7 @@ doTestMIMEExtractArrayWithRangeOfIntegers
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             std::string         insertedArrayWithRangeOfIntegersLines[]{
                                     "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSl"s,

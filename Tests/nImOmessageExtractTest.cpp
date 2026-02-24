@@ -214,9 +214,7 @@ doTestExtractEmptyMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -318,9 +316,7 @@ doTestExtractLogicalMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForTrue[]
             {
@@ -402,9 +398,7 @@ doTestExtractTinyIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForMinus12[]
             {
@@ -506,9 +500,7 @@ doTestExtractSmallIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForMinus144[]
             {
@@ -592,9 +584,7 @@ doTestExtractMediumIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForMinus1234567[]
             {
@@ -680,9 +670,7 @@ doTestExtractBigIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForMinusBigNumber[]
             {
@@ -770,9 +758,7 @@ doTestExtractEmptyStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForEmptyString[]
             {
@@ -835,9 +821,7 @@ doTestExtractShortStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForShortString[]
             {
@@ -903,9 +887,7 @@ doTestExtractMediumStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForMediumString[]
             {
@@ -990,9 +972,7 @@ doTestExtractEmptyBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForEmptyBlob[]
             {
@@ -1055,9 +1035,7 @@ doTestExtractSmallBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForSmallBlob[]
             {
@@ -1128,9 +1106,7 @@ doTestExtractMediumBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForMediumBlob[]
             {
@@ -1226,9 +1202,7 @@ doTestExtractSingleDoubleMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForPlus42Point5[]
             {
@@ -1320,9 +1294,7 @@ doTestExtractAddressMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForAddress[]
             {
@@ -1388,9 +1360,7 @@ doTestExtractDateMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             static const DataKind           insertedBytesForDate[]
@@ -1457,9 +1427,7 @@ doTestExtractTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             static const DataKind           insertedBytesForTime[]
@@ -1526,9 +1494,7 @@ doTestExtractEmptyArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForEmptyArray[]
             {
@@ -1595,9 +1561,7 @@ doTestExtractEmptyMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForEmptyMap[]
             {
@@ -1664,9 +1628,7 @@ doTestExtractEmptySetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForEmptySet[]
             {
@@ -1733,9 +1695,7 @@ doTestExtractArrayOneLogicalMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneLogical[]
             {
@@ -1811,9 +1771,7 @@ doTestExtractArrayOneIntegerMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneInteger[]
             {
@@ -1889,9 +1847,7 @@ doTestExtractArrayOneDoubleMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneDouble[]
             {
@@ -1972,9 +1928,7 @@ doTestExtractArrayOneStringMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneString[]
             {
@@ -2051,9 +2005,7 @@ doTestExtractArrayOneBlobMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneBlob[]
             {
@@ -2130,9 +2082,7 @@ doTestExtractArrayOneArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneArray[]
             {
@@ -2213,9 +2163,7 @@ doTestExtractArrayOneMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneMap[]
             {
@@ -2296,9 +2244,7 @@ doTestExtractArrayOneSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneSet[]
             {
@@ -2379,9 +2325,7 @@ doTestExtractArrayWithOneAddressMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneAddress[]
             {
@@ -2461,9 +2405,7 @@ doTestExtractArrayWithOneDateMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             static const DataKind           insertedBytesForArrayOneDate[]
@@ -2544,9 +2486,7 @@ doTestExtractArrayWithOneTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             static const DataKind           insertedBytesForArrayOneTime[]
@@ -2627,9 +2567,7 @@ doTestExtractArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoLogicals[]
             {
@@ -2709,9 +2647,7 @@ doTestExtractArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoIntegers[]
             {
@@ -2791,9 +2727,7 @@ doTestExtractArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoDoubles[]
             {
@@ -2879,9 +2813,7 @@ doTestExtractArrayTwoStringsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoStrings[]
             {
@@ -2963,9 +2895,7 @@ doTestExtractArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoBlobs[]
             {
@@ -3047,9 +2977,7 @@ doTestExtractArrayTwoArraysMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoArrays[]
             {
@@ -3139,9 +3067,7 @@ doTestExtractArrayTwoMapsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoMaps[]
             {
@@ -3231,9 +3157,7 @@ doTestExtractArrayTwoSetsMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoSets[]
             {
@@ -3323,9 +3247,7 @@ doTestExtractArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneArrayOneMap[]
             {
@@ -3415,9 +3337,7 @@ doTestExtractArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneMapOneSet[]
             {
@@ -3507,9 +3427,7 @@ doTestExtractArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayOneSetOneArray[]
             {
@@ -3599,9 +3517,7 @@ doTestExtractArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             constexpr size_t        numValues{43};
             static const DataKind   insertedBytesForArrayManyDoubles[]
@@ -3854,9 +3770,7 @@ doTestExtractArrayWithTwoAddressesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForArrayTwoAddresses[]
             {
@@ -3944,9 +3858,7 @@ doTestExtractArrayWithTwoDatesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate1{12, 11, 10};
             static const Date::DatePieces   aDate2{11, 10, 9};
@@ -4036,9 +3948,7 @@ doTestExtractArrayWithTwoTimesMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime1{12, 11, 10, 9};
             static const Time::TimePieces   aTime2{11, 10, 9, 8};
@@ -4128,9 +4038,7 @@ doTestExtractArrayWithOneDateOneTimeMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             static const Time::TimePieces   aTime{12, 11, 10, 9};
@@ -4220,9 +4128,7 @@ doTestExtractLogicalMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForLogicalMap[]
             {
@@ -4301,9 +4207,7 @@ doTestExtractIntegerMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForIntegerMap[]
             {
@@ -4382,9 +4286,7 @@ doTestExtractStringMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForStringMap[]
             {
@@ -4464,9 +4366,7 @@ doTestExtractLogicalSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForLogicalSet[]
             {
@@ -4542,9 +4442,7 @@ doTestExtractIntegerSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForIntegerSet[]
             {
@@ -4620,9 +4518,7 @@ doTestExtractStdStringSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForStdStringSet[]
             {
@@ -4699,9 +4595,7 @@ doTestExtractAddressMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForAddressMap[]
             {
@@ -4784,9 +4678,7 @@ doTestExtractAddressSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const DataKind   insertedBytesForAddressSet[]
             {
@@ -4866,9 +4758,7 @@ doTestExtractDateMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             static const DataKind           insertedBytesForDateMap[]
@@ -4952,9 +4842,7 @@ doTestExtractDateSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Date::DatePieces   aDate{12, 11, 10};
             static const DataKind           insertedBytesForDateSet[]
@@ -5035,9 +4923,7 @@ doTestExtractTimeMapMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             static const DataKind           insertedBytesForTimeMap[]
@@ -5121,9 +5007,7 @@ doTestExtractTimeSetMessage
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             static const Time::TimePieces   aTime{12, 11, 10, 9};
             static const DataKind           insertedBytesForTimeSet[]
@@ -5204,9 +5088,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
 
     try
     {
-        auto    stuff{std::make_unique<Message>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Message>()}; stuff)
         {
             constexpr size_t    kNumValues{18};
             auto                arrayWithIntegers{std::make_shared<Array>()};

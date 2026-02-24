@@ -1177,11 +1177,8 @@ doTestStringsArgumentDescriptors
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
-        StdStringSet                allowable{};
+        StdStringSet                allowable{"abc", "def", "$%@"};
 
-        allowable.insert("abc");
-        allowable.insert("def");
-        allowable.insert("$%@");
         // 1) test that 'reasonable' parameters successfully build a descriptor that accepts the default value
         // 2) if there are 'unreasonable' parameters possible, test that using the default value fails
         // 3) for a range of 'reasonable' parameters, compare the descriptor description with the expected description

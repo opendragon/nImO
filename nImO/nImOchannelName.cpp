@@ -337,11 +337,8 @@ nImO::ChannelName::transportNames
     (void)
 {
     ODL_ENTER(); //####
-    StdStringSet    result{};
+    StdStringSet    result{kProtocolAnyName, kProtocolUdpName, kProtocolTcpName};
 
-    result.insert(kProtocolAnyName);
-    result.insert(kProtocolUdpName);
-    result.insert(kProtocolTcpName);
     ODL_EXIT(); //####
     return result;
 } // nImO::ChannelName::transportNames

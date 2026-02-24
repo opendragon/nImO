@@ -231,9 +231,7 @@ doTestEmptyArrayValue
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -303,9 +301,7 @@ doTestSingularArrayValue
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -380,9 +376,7 @@ doTestSmallArrayValue
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -466,9 +460,7 @@ doTestBigArrayValue
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
@@ -561,9 +553,7 @@ doTestEmptyArraySizeFunction
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             if (0 == stuff->size())
             {
@@ -615,9 +605,7 @@ doTestNonEmptyArraySizeFunction
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             if (1 == stuff->size())
@@ -670,9 +658,7 @@ doTestEmptyArrayEmptyFunction
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             if (stuff->empty())
             {
@@ -724,9 +710,7 @@ doTestNonEmptyArrayEmptyFunction
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             if (stuff->empty())
@@ -779,9 +763,7 @@ doTestEmptyArrayClearFunction
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -834,9 +816,7 @@ doTestNonEmptyArrayClearFunction
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             stuff->clear();
@@ -890,9 +870,7 @@ doTestEmptyArrayRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             if (stuff->end() == stuff->random())
             {
@@ -944,9 +922,7 @@ doTestNonEmptyArrayRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -1005,9 +981,7 @@ doTestClearingNonEmptyArrayUsingRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -1077,9 +1051,7 @@ doTestEmptyMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -1149,9 +1121,7 @@ doTestSingularLogicalMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -1228,9 +1198,7 @@ doTestSingularIntegerMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -1305,9 +1273,7 @@ doTestSingularStringMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -1384,9 +1350,7 @@ doTestSmallLogicalMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -1466,9 +1430,7 @@ doTestSmallIntegerMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -1549,9 +1511,7 @@ doTestSmallStringMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -1638,9 +1598,7 @@ doTestEmptyMapSizeFunction
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             if (0 == stuff->size())
             {
@@ -1692,9 +1650,7 @@ doTestNonEmptyMapSizeFunction
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             if (1 == stuff->size())
@@ -1747,9 +1703,7 @@ doTestEmptyMapEmptyFunction
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             if (stuff->empty())
             {
@@ -1801,9 +1755,7 @@ doTestNonEmptyMapEmptyFunction
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             if (stuff->empty())
@@ -1856,9 +1808,7 @@ doTestEmptyMapClearFunction
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -1911,9 +1861,7 @@ doTestNonEmptyMapClearFunction
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             stuff->clear();
@@ -1967,9 +1915,7 @@ doTestEmptyMapRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             if (stuff->end() == stuff->random())
             {
@@ -2021,9 +1967,7 @@ doTestNonEmptyMapRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
             stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
@@ -2081,9 +2025,7 @@ doTestClearingNonEmptyMapUsingRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
@@ -2152,9 +2094,7 @@ doTestSingularAddressMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2226,9 +2166,7 @@ doTestSmallAddressMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2315,9 +2253,7 @@ doTestSingularDateMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2389,9 +2325,7 @@ doTestSmallDateMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2478,9 +2412,7 @@ doTestSingularTimeMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2552,9 +2484,7 @@ doTestSmallTimeMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2641,9 +2571,7 @@ doTestEmptySetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2713,9 +2641,7 @@ doTestSingularLogicalSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2790,9 +2716,7 @@ doTestSingularIntegerSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2867,9 +2791,7 @@ doTestSingularStringSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -2944,9 +2866,7 @@ doTestSmallLogicalSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -3026,9 +2946,7 @@ doTestSmallIntegerSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -3116,9 +3034,7 @@ doTestSmallStringSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -3206,9 +3122,7 @@ doTestEmptySetSizeFunction
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             if (0 == stuff->size())
             {
@@ -3260,9 +3174,7 @@ doTestNonEmptySetSizeFunction
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true));
             if (1 == stuff->size())
@@ -3315,9 +3227,7 @@ doTestEmptySetEmptyFunction
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             if (stuff->empty())
             {
@@ -3369,9 +3279,7 @@ doTestNonEmptySetEmptyFunction
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true));
             if (stuff->empty())
@@ -3424,9 +3332,7 @@ doTestEmptySetClearFunction
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -3479,9 +3385,7 @@ doTestNonEmptySetClearFunction
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             stuff->addValue(std::make_shared<Logical>(true));
             stuff->clear();
@@ -3535,9 +3439,7 @@ doTestEmptySetRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             if (stuff->end() == stuff->random())
             {
@@ -3589,9 +3491,7 @@ doTestNonEmptySetRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             stuff->addValue(std::make_shared<String>("gamma"));
             stuff->addValue(std::make_shared<String>("alpha"));
@@ -3651,9 +3551,7 @@ doTestClearingNonEmptySetUsingRandomIterator
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             result = 0;
             stuff->addValue(std::make_shared<String>("gamma"));
@@ -3724,9 +3622,7 @@ doTestSingularAddressSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -3801,9 +3697,7 @@ doTestSmallAddressSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -3887,9 +3781,7 @@ doTestSingularDateSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -3964,9 +3856,7 @@ doTestSmallDateSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4052,9 +3942,7 @@ doTestSingularTimeSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4129,9 +4017,7 @@ doTestSmallTimeSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4215,9 +4101,7 @@ doTestArrayWithArrayValue
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4292,9 +4176,7 @@ doTestArrayWithMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4369,9 +4251,7 @@ doTestArrayWithSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4446,9 +4326,7 @@ doTestMapWithArrayValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4525,9 +4403,7 @@ doTestMapWithMapValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4604,9 +4480,7 @@ doTestMapWithSetValue
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4683,9 +4557,7 @@ doTestLogicalMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4766,9 +4638,7 @@ doTestIntegerMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4847,9 +4717,7 @@ doTestStringMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -4930,9 +4798,7 @@ doTestLogicalSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5011,9 +4877,7 @@ doTestIntegerSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5092,9 +4956,7 @@ doTestStringSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5173,9 +5035,7 @@ doTestAddressMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5256,9 +5116,7 @@ doTestAddressSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5337,9 +5195,7 @@ doTestDateMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5420,9 +5276,7 @@ doTestDateSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5501,9 +5355,7 @@ doTestTimeMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -5584,9 +5436,7 @@ doTestTimeSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -12431,9 +12281,7 @@ doTestEmptyArrayValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -12503,9 +12351,7 @@ doTestSingularArrayValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -12580,9 +12426,7 @@ doTestSmallArrayValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -12666,9 +12510,7 @@ doTestBigArrayValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
@@ -12758,9 +12600,7 @@ doTestEmptyMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -12830,9 +12670,7 @@ doTestSingularLogicalMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -12909,9 +12747,7 @@ doTestSingularIntegerMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -12986,9 +12822,7 @@ doTestSingularStringMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13065,9 +12899,7 @@ doTestSmallLogicalMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13147,9 +12979,7 @@ doTestSmallIntegerMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13230,9 +13060,7 @@ doTestSmallStringMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13319,9 +13147,7 @@ doTestSingularAddressMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13398,9 +13224,7 @@ doTestSmallAddressMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13487,9 +13311,7 @@ doTestSingularDateMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13566,9 +13388,7 @@ doTestSmallDateMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13655,9 +13475,7 @@ doTestSingularTimeMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13734,9 +13552,7 @@ doTestSmallTimeMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13823,9 +13639,7 @@ doTestEmptySetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13895,9 +13709,7 @@ doTestSingularLogicalSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -13972,9 +13784,7 @@ doTestSingularIntegerSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14049,9 +13859,7 @@ doTestSingularStringSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14126,9 +13934,7 @@ doTestSmallLogicalSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14208,9 +14014,7 @@ doTestSmallIntegerSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14298,9 +14102,7 @@ doTestSmallStringSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14388,9 +14190,7 @@ doTestSingularAddressSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14465,9 +14265,7 @@ doTestSmallAddressSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14551,9 +14349,7 @@ doTestSingularDateSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14628,9 +14424,7 @@ doTestSmallDateSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14714,9 +14508,7 @@ doTestSingularTimeSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14791,9 +14583,7 @@ doTestSmallTimeSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Set>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Set>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14877,9 +14667,7 @@ doTestArrayWithArrayValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -14954,9 +14742,7 @@ doTestArrayWithMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -15031,9 +14817,7 @@ doTestArrayWithSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Array>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Array>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -15108,9 +14892,7 @@ doTestMapWithArrayValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -15187,9 +14969,7 @@ doTestMapWithMapValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -15266,9 +15046,7 @@ doTestMapWithSetValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             static const char   expectedSquishedString[]
             {
@@ -15345,9 +15123,7 @@ doTestKeysFromMapWithLogicalKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             auto    otherStuff{std::make_unique<Set>()};
 
@@ -15430,9 +15206,7 @@ doTestKeysFromMapWithIntegerKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             auto    otherStuff{std::make_unique<Set>()};
 
@@ -15515,9 +15289,7 @@ doTestKeysFromMapWithAddressKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             auto    otherStuff{std::make_unique<Set>()};
 
@@ -15600,9 +15372,7 @@ doTestKeysFromMapWithStringKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             auto    otherStuff{std::make_unique<Set>()};
 
@@ -15685,9 +15455,7 @@ doTestKeysFromMapWithDateKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             auto    otherStuff{std::make_unique<Set>()};
 
@@ -15770,9 +15538,7 @@ doTestKeysFromMapWithTimeKeys
 
     try
     {
-        auto    stuff{std::make_unique<Map>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Map>()}; stuff)
         {
             auto    otherStuff{std::make_unique<Set>()};
 

@@ -235,9 +235,7 @@ doTestEmptyBufferChunk
 
     try
     {
-        auto    stuff{std::make_unique<BufferChunk>(false)};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<BufferChunk>(false)}; stuff)
         {
             if (0 == stuff->getDataSize())
             {
@@ -289,9 +287,7 @@ doTestBufferChunkWithSingleByte
 
     try
     {
-        auto    stuff{std::make_unique<BufferChunk>(false)};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<BufferChunk>(false)}; stuff)
         {
             auto    data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
@@ -355,9 +351,7 @@ doTestFilledBufferChunk
 
     try
     {
-        auto    stuff{std::make_unique<BufferChunk>(false)};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<BufferChunk>(false)}; stuff)
         {
             size_t  howMuch{stuff->getAvailableBytes()};
 
@@ -447,9 +441,7 @@ doTestOverfilledBufferChunk
 
     try
     {
-        auto    stuff{std::make_unique<BufferChunk>(false)};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<BufferChunk>(false)}; stuff)
         {
             size_t  howMuch{stuff->getAvailableBytes()};
 
@@ -539,9 +531,7 @@ doTestBufferChunkReset
 
     try
     {
-        auto    stuff{std::make_unique<BufferChunk>(false)};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<BufferChunk>(false)}; stuff)
         {
             auto    data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
@@ -604,9 +594,7 @@ doTestEmptyStringBuffer
 
     try
     {
-        auto    stuff{std::make_unique<StringBuffer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
             if (0 == stuff->getLength())
             {
@@ -671,9 +659,7 @@ doTestStringBufferWithCharacters
             auto    inString{*argv};
             auto    outString{argv[1]};
             size_t  outLength{strlen(outString)};
-            auto    stuff{std::make_unique<StringBuffer>()};
-
-            if (stuff)
+            if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
             {
                 stuff->addString(inString);
                 size_t  resultLength{stuff->getLength()};
@@ -748,9 +734,7 @@ doTestStringBufferWithLogical
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff{std::make_unique<StringBuffer>()};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
                 {
                     bool asBool{0 != value};
 
@@ -822,9 +806,7 @@ doTestStringBufferWithInteger
 
             if (ConvertToInt64(*argv, value))
             {
-                auto    stuff{std::make_unique<StringBuffer>()};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
                 {
                     stuff->addLong(value);
                     auto    resultString{stuff->getString()};
@@ -892,9 +874,7 @@ doTestStringBufferWithString
             auto    inString{*argv};
             auto    outString{argv[1]};
             size_t  outLength{strlen(outString)};
-            auto    stuff{std::make_unique<StringBuffer>()};
-
-            if (stuff)
+            if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
             {
                 stuff->addString(inString, true);
                 size_t  resultLength{stuff->getLength()};
@@ -966,9 +946,7 @@ doTestStringBufferWithSpecialCharacters
         CPtr(char)  inString{"abc\tdef\f\rghi\302"};
         CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
         size_t      outLength{strlen(outString)};
-        auto        stuff{std::make_unique<StringBuffer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
             stuff->addString(inString, true);
             size_t  resultLength{stuff->getLength()};
@@ -1037,9 +1015,7 @@ doTestStringBufferWithDouble
 
             if (ConvertToDouble(*argv, value))
             {
-                auto    stuff{std::make_unique<StringBuffer>()};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
                 {
                     stuff->addDouble(value);
                     auto    resultString{stuff->getString()};
@@ -1113,9 +1089,7 @@ doTestBigStringBuffer
 
     try
     {
-        auto    stuff{std::make_unique<StringBuffer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
             CPtr(char)  bigString{"abcdefghijklmnopqrstuvwxyz0123456789"};
             size_t      bigLength{strlen(bigString)};
@@ -1187,9 +1161,7 @@ doTestStringBufferWithEmptyBlob
 
     try
     {
-        auto    stuff{std::make_unique<StringBuffer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
             stuff->addBytes(nullptr, 0);
             auto        resultString{stuff->getString()};
@@ -1245,9 +1217,7 @@ doTestStringBufferWithSmallBlob
 
     try
     {
-        auto    stuff{std::make_unique<StringBuffer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
             auto    smallBlob{std::make_unique<uint8_t[]>(kSmallTestSize)};
 
@@ -1329,9 +1299,7 @@ doTestStringBufferWithBigBlob
 
     try
     {
-        auto    stuff{std::make_unique<StringBuffer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
             auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
@@ -1413,9 +1381,7 @@ doTestStringBufferReset
 
     try
     {
-        auto    stuff{std::make_unique<StringBuffer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
             stuff->addString("abcdef");
             stuff->reset();
@@ -1480,9 +1446,7 @@ doTestDefaultLogicalValue
 
     try
     {
-        auto    stuff{std::make_unique<Logical>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Logical>()}; stuff)
         {
             if (0 == compareValueWithString(*stuff, "false"))
             {
@@ -1539,9 +1503,7 @@ doTestLogicalValue
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff{std::make_unique<Logical>(0 != value)};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Logical>(0 != value)}; stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -1603,9 +1565,7 @@ doTestDefaultIntegerValue
 
     try
     {
-        auto    stuff{std::make_unique<Integer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Integer>()}; stuff)
         {
             if ((0 == compareValueWithString(*stuff, "0")) && (nullptr != stuff->asInteger()))
             {
@@ -1663,9 +1623,7 @@ doTestNumberValue
 
             if (ConvertToInt64(*argv, intValue))
             {
-                auto    stuff{std::make_unique<Integer>(intValue)};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Integer>(intValue)}; stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -1687,9 +1645,7 @@ doTestNumberValue
 
                 if (ConvertToDouble(*argv, floatValue))
                 {
-                    auto    stuff{std::make_unique<Double>(floatValue)};
-
-                    if (stuff)
+                    if (auto stuff{std::make_unique<Double>(floatValue)}; stuff)
                     {
                         if (0 == compareValueWithString(*stuff, outString))
                         {
@@ -1752,9 +1708,7 @@ doTestDefaultStringValue
 
     try
     {
-        auto    stuff{std::make_unique<String>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<String>()}; stuff)
         {
             if (0 == compareValueWithString(*stuff, "\"\""))
             {
@@ -1806,9 +1760,7 @@ doTestStringValue
     {
         if (1 < argc)
         {
-            auto    stuff{std::make_unique<String>(*argv)};
-
-            if (stuff)
+            if (auto stuff{std::make_unique<String>(*argv)}; stuff)
             {
                 if (0 == compareValueWithString(*stuff, argv[1]))
                 {
@@ -1867,9 +1819,7 @@ doTestStringValueWithEscapes
     {
         CPtr(char)  inString{"abc\tdef\f\rghi\302"};
         CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
-        auto        stuff{std::make_unique<String>(inString)};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<String>(inString)}; stuff)
         {
             if (0 == compareValueWithString(*stuff, outString))
             {
@@ -1921,9 +1871,7 @@ doTestDefaultBlobValue
 
     try
     {
-        auto    stuff{std::make_unique<Blob>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Blob>()}; stuff)
         {
             if (0 == compareValueWithString(*stuff, "%0%%"))
             {
@@ -1985,9 +1933,7 @@ doTestSmallBlobValue
 
                 smallBlob[ii] = aByte;
             }
-            auto    stuff{std::make_unique<Blob>(smallBlob.get(), kSmallTestSize)};
-
-            if (stuff)
+            if (auto stuff{std::make_unique<Blob>(smallBlob.get(), kSmallTestSize)}; stuff)
             {
                 auto    expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
@@ -2067,9 +2013,7 @@ doTestBigBlobValue
 
                 bigBlob[ii] = aByte;
             }
-            auto    stuff{std::make_unique<Blob>(bigBlob.get(), kBigTestSize)};
-
-            if (stuff)
+            if (auto stuff{std::make_unique<Blob>(bigBlob.get(), kBigTestSize)}; stuff)
             {
                 auto    expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
@@ -2590,9 +2534,7 @@ doTestDefaultAddressValue
 
     try
     {
-        auto    stuff{std::make_unique<Address>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Address>()}; stuff)
         {
             if ((0 == compareValueWithString(*stuff, "@0.0.0.0")) && (nullptr != stuff->asAddress()))
             {
@@ -2650,9 +2592,7 @@ doTestAddressValue
 
             if (getIPv4Bytes(asBytes, argv[0]))
             {
-                auto    stuff{std::make_unique<Address>(asBytes)};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Address>(asBytes)}; stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -2798,9 +2738,7 @@ doTestDefaultDateValue
 
     try
     {
-        auto    stuff{std::make_unique<Date>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Date>()}; stuff)
         {
             if ((0 == compareValueWithString(*stuff, "^d0/0/0")) && (nullptr != stuff->asDate()))
             {
@@ -2858,9 +2796,7 @@ doTestDateValue
 
             if (GetDatePieces(pieces, argv[0]))
             {
-                auto    stuff{std::make_unique<Date>(MakeDateValue(pieces))};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Date>(MakeDateValue(pieces))}; stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -3006,9 +2942,7 @@ doTestDefaultTimeValue
 
     try
     {
-        auto    stuff{std::make_unique<Time>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Time>()}; stuff)
         {
             if ((0 == compareValueWithString(*stuff, "^t00:00:00.000")) && (nullptr != stuff->asTime()))
             {
@@ -3066,9 +3000,7 @@ doTestTimeValue
 
             if (GetTimePieces(pieces, argv[0]))
             {
-                auto    stuff{std::make_unique<Time>(MakeTimeValue(pieces))};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Time>(MakeTimeValue(pieces))}; stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -5239,9 +5171,7 @@ doTestDefaultLogicalValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Logical>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Logical>()}; stuff)
         {
             if (0 == compareValueWithStringAsJSON(*stuff, "false"))
             {
@@ -5298,9 +5228,7 @@ doTestLogicalValueAsJSON
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff{std::make_unique<Logical>(0 != value)};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Logical>(0 != value)}; stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {
@@ -5362,9 +5290,7 @@ doTestDefaultIntegerValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<Integer>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Integer>()}; stuff)
         {
             if ((0 == compareValueWithStringAsJSON(*stuff, "0")) && (nullptr != stuff->asInteger()))
             {
@@ -5422,9 +5348,7 @@ doTestNumberValueAsJSON
 
             if (ConvertToInt64(*argv, intValue))
             {
-                auto    stuff{std::make_unique<Integer>(intValue)};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Integer>(intValue)}; stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {
@@ -5446,9 +5370,7 @@ doTestNumberValueAsJSON
 
                 if (ConvertToDouble(*argv, floatValue))
                 {
-                    auto    stuff{std::make_unique<Double>(floatValue)};
-
-                    if (stuff)
+                    if (auto stuff{std::make_unique<Double>(floatValue)}; stuff)
                     {
                         if (0 == compareValueWithStringAsJSON(*stuff, outString))
                         {
@@ -5511,9 +5433,7 @@ doTestDefaultStringValueAsJSON
 
     try
     {
-        auto    stuff{std::make_unique<String>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<String>()}; stuff)
         {
             if (0 == compareValueWithStringAsJSON(*stuff, "\"\""))
             {
@@ -5565,9 +5485,7 @@ doTestStringValueAsJSON
     {
         if (1 < argc)
         {
-            auto    stuff{std::make_unique<String>(*argv)};
-
-            if (stuff)
+            if (auto stuff{std::make_unique<String>(*argv)}; stuff)
             {
                 if (0 == compareValueWithStringAsJSON(*stuff, argv[1]))
                 {
@@ -5624,9 +5542,7 @@ doTestDefaultAddressValueJSON
 
     try
     {
-        auto    stuff{std::make_unique<Address>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Address>()}; stuff)
         {
             if ((0 == compareValueWithStringAsJSON(*stuff, "\"0.0.0.0\"")) && (nullptr != stuff->asAddress()))
             {
@@ -5684,9 +5600,7 @@ doTestAddressValueJSON
 
             if (getIPv4Bytes(asBytes, argv[0]))
             {
-                auto    stuff{std::make_unique<Address>(asBytes)};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Address>(asBytes)}; stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {
@@ -5744,9 +5658,7 @@ doTestDefaultDateValueJSON
 
     try
     {
-        auto    stuff{std::make_unique<Date>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Date>()}; stuff)
         {
             if ((0 == compareValueWithStringAsJSON(*stuff, "\"0/0/0\"")) && (nullptr != stuff->asDate()))
             {
@@ -5804,9 +5716,7 @@ doTestDateValueJSON
 
             if (GetDatePieces(pieces, argv[0]))
             {
-                auto    stuff{std::make_unique<Date>(MakeDateValue(pieces))};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Date>(MakeDateValue(pieces))}; stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {
@@ -5864,9 +5774,7 @@ doTestDefaultTimeValueJSON
 
     try
     {
-        auto    stuff{std::make_unique<Time>()};
-
-        if (stuff)
+        if (auto stuff{std::make_unique<Time>()}; stuff)
         {
             if ((0 == compareValueWithStringAsJSON(*stuff, "\"00:00:00.000\"")) && (nullptr != stuff->asTime()))
             {
@@ -5924,9 +5832,7 @@ doTestTimeValueJSON
 
             if (GetTimePieces(pieces, argv[0]))
             {
-                auto    stuff{std::make_unique<Time>(MakeTimeValue(pieces))};
-
-                if (stuff)
+                if (auto stuff{std::make_unique<Time>(MakeTimeValue(pieces))}; stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {

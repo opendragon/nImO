@@ -231,9 +231,7 @@ main
                                                 for ( ; getline(inStream, inLine); )
                                                 {
                                                     inBuffer.addString("\n" + inLine);
-                                                    auto    readValue{inBuffer.convertToValue()};
-
-                                                    if (readValue)
+                                                    if (auto readValue{inBuffer.convertToValue()}; readValue)
                                                     {
                                                         inBuffer.reset();
                                                         inValues.addValue(readValue);

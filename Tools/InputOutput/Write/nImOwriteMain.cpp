@@ -275,9 +275,7 @@ main
                                             {
                                                 inBuffer.addString("\n" + inLine);
                                                 inLine.clear();
-                                                auto    readValue{inBuffer.convertToValue()};
-
-                                                if (readValue)
+                                                if (auto readValue{inBuffer.convertToValue()}; readValue)
                                                 {
                                                     inBuffer.reset();
                                                     if (nImO::gKeepRunning)

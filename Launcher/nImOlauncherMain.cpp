@@ -173,9 +173,7 @@ loadApplicationInformation
             nImO::StringBuffer  readString{};
 
             inStream >> readString;
-            auto    readValue{readString.convertToValue()};
-
-            if (readValue)
+            if (auto readValue{readString.convertToValue()}; readValue)
             {
                 if (auto asMap{readValue->asMap()}; nullptr == asMap)
                 {

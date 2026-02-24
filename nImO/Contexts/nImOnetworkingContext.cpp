@@ -69,7 +69,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief A regular expression describing the syntax of a Registry name. */
-static std::regex   lNameMatch{"^[[:alnum:]][[:alnum:]_]*$", std::regex::extended};
+static const std::regex kNameMatch{"^[[:alnum:]][[:alnum:]_]*$", std::regex::extended};
 
 /*! @brief The multicast connection to be used for logging, if none is specified in the configuration file. */
 static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1954};
@@ -400,7 +400,7 @@ nImO::NetworkingContext::NetworkingContext
             {
                 auto    candidate{asString->getValue()};
 
-                if (std::regex_match(candidate, lNameMatch))
+                if (std::regex_match(candidate, kNameMatch))
                 {
                     _registryName = candidate;
                 }

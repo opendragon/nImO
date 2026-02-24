@@ -142,49 +142,46 @@ doTestParseLogicalValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asLogical())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asLogical())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asLogical())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -219,49 +216,46 @@ doTestParseNumberValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asNumber())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asNumber())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asNumber())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -296,49 +290,46 @@ doTestParseStringValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asString())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asString())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asString())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -373,49 +364,46 @@ doTestParseAddressValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asAddress())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asAddress())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asAddress())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -450,49 +438,46 @@ doTestParseDateValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asDate())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asDate())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asDate())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -527,49 +512,46 @@ doTestParseTimeValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asTime())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asTime())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asTime())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -604,49 +586,46 @@ doTestParseArrayValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asArray())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asArray())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asArray())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -681,49 +660,46 @@ doTestParseSetValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asSet())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asSet())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asSet())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -758,49 +734,46 @@ doTestParseMapValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asMap())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asMap())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asMap())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)
@@ -835,49 +808,46 @@ doTestParseImplicitArrayValue
 
     try
     {
-        StringBuffer    buff;
+        StringBuffer    buff{inString};
 
-        buff.addString(inString);
-        auto    readValue{buff.convertToValue()};
-
-        if ((nullptr != readValue) == expected)
+        if (auto readValue{buff.convertToValue()}; readValue)
         {
-            result = 0;
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != readValue) == expected)"); //####
-        }
-        if (readValue)
-        {
-            if (nullptr == readValue->asArray())
+            if (expected)
             {
-                if (expected)
+                if (nullptr == readValue->asArray())
                 {
-                    ODL_LOG("(expected)"); //####
+                    ODL_LOG("(nullptr == readValue->asArray())"); //####
                     result = 1;
                 }
                 else
                 {
-                    result = 0; // wrong type returned, but it was not expected to succeed
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (0 == compareValueWithString(*readValue, expectedString))
-                {
-                    result = 0;
-                }
-                else
-                {
-                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
-                    result = 1;
-                }
+                result = 0;
             }
         }
         else
         {
-            ODL_LOG("! (readValue)"); //####
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
         }
     }
     catch (...)

@@ -64,28 +64,28 @@
 #endif // defined(__APPLE__)
 
 /*! @brief A regular expression describing the name component of a ChannelName. */
-#define NAME_MATCH_STRING       "([[:alnum:]_][[:alnum:]_.-]*)"
+#define NAME_MATCH_STRING_      "([[:alnum:]_][[:alnum:]_.-]*)"
 
 /*! @brief A regular expression describing the path component of a ChannelName. */
-#define PATH_MATCH_STRING       "(/" NAME_MATCH_STRING ")+"
+#define PATH_MATCH_STRING_      "(/" NAME_MATCH_STRING_ ")+"
 
 /*! @brief A regular expression describing the transport component of a ChannelName. */
-#define TRANSPORT_MATCH_STRING  "([Uu][Dd][Pp]|[Tt][Cc][Pp]|[Aa][Nn][Yy])"
+#define TRANSPORT_MATCH_STRING_ "([Uu][Dd][Pp]|[Tt][Cc][Pp]|[Aa][Nn][Yy])"
 
 /*! @brief The character that starts the protocol part of a ChannelName. */
 constexpr char  kStartProtocol{'#'};
 
 /*! @brief A regular expression describing the syntax of a channel name. */
-static std::regex   lChannelNameMatch{"^(" NAME_MATCH_STRING ")?(" PATH_MATCH_STRING ")(#" TRANSPORT_MATCH_STRING ")?$", std::regex::extended};
+static const std::regex   kChannekNameMatch{"^(" NAME_MATCH_STRING_ ")?(" PATH_MATCH_STRING_ ")(#" TRANSPORT_MATCH_STRING_ ")?$", std::regex::extended};
 
 /*! @brief A regular expression describing the syntax of a name. */
-static std::regex   lNameMatch{"^" NAME_MATCH_STRING "$", std::regex::extended};
+static const std::regex   kNameMatch{"^" NAME_MATCH_STRING_ "$", std::regex::extended};
 
 /*! @brief A regular expression describing the syntax of a path. */
-static std::regex   lPathMatch{"^" PATH_MATCH_STRING "$", std::regex::extended};
+static const std::regex   kPathMatch{"^" PATH_MATCH_STRING_ "$", std::regex::extended};
 
 /*! @brief A regular expression describing the syntax of a transport value. */
-static std::regex   lTransportMatch{"^" TRANSPORT_MATCH_STRING "$", std::regex::extended};
+static const std::regex   kTransportMatch{"^" TRANSPORT_MATCH_STRING_ "$", std::regex::extended};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -267,7 +267,7 @@ nImO::ChannelName::parse
     std::string     path;
     std::smatch     matches;
     TransportType   protocol{TransportType::kUnknown};
-    bool            okSoFar{std::regex_match(input, matches, lChannelNameMatch)};
+    bool            okSoFar{std::regex_match(input, matches, kChannekNameMatch)};
 
     if (okSoFar)
     {
@@ -380,7 +380,7 @@ nImO::ChannelName::validNode
 {
     ODL_ENTER(); //####
     ODL_S1s(input); //####
-    bool    result{std::regex_match(input, lNameMatch)};
+    bool    result{std::regex_match(input, kNameMatch)};
 
     ODL_EXIT_B(result); //####
     return result;
@@ -392,7 +392,7 @@ nImO::ChannelName::validPath
 {
     ODL_ENTER(); //####
     ODL_S1s(input); //####
-    bool    result{std::regex_match(input, lPathMatch)};
+    bool    result{std::regex_match(input, kPathMatch)};
 
     ODL_EXIT_B(result); //####
     return result;
@@ -404,7 +404,7 @@ nImO::ChannelName::validTransport
 {
     ODL_ENTER(); //####
     ODL_S1s(input); //####
-    bool    result{std::regex_match(input, lTransportMatch)};
+    bool    result{std::regex_match(input, kTransportMatch)};
 
     ODL_EXIT_B(result); //####
     return result;
@@ -420,7 +420,7 @@ nImO::ValidNameSegment
 {
     ODL_ENTER(); //####
     ODL_S1s(inString); //####
-    bool    result{std::regex_match(inString, lNameMatch)};
+    bool    result{std::regex_match(inString, kNameMatch)};
 
     ODL_EXIT_B(result); //####
     return result;

@@ -123,10 +123,26 @@ static CPtr(char)   kCanonicalControl[]
 #endif // defined(__APPLE__)
 
 nImO::StringBuffer::StringBuffer
-    (void) :
+    (CPtr(char) aString,
+     const bool addQuotes) :
         inherited{true}
 {
     ODL_ENTER(); //####
+    ODL_S1(aString); //####
+    ODL_B1(addQuotes); //####
+    if (nullptr != aString)
+    {
+        size_t  length{strlen(aString)};
+
+        if (addQuotes)
+        {
+            processCharacters(aString, length);
+        }
+        else
+        {
+            inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), aString), length * sizeof(*aString));
+        }
+    }
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 

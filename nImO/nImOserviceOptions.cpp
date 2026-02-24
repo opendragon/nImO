@@ -165,7 +165,7 @@ nImO::ProcessServiceOptions
     }; // OptionIndex
 
     bool                keepGoing{true};
-    Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
+    Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, nullptr};
     auto                autolaunchHelpString{"  "s + MakeOption("@"s, "autolaunch"s) + " \tAutolaunch the Registry"s};
     Option_::Descriptor autolaunchDescriptor{StaticCast(unsigned int, OptionIndex::kOptionAUTOLAUNCH), 0, "@", "autolaunch", Option_::Arg::None,
                                                 autolaunchHelpString.c_str()};

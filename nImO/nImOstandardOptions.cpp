@@ -164,46 +164,33 @@ nImO::LoadConfiguration
     {
         workingPath = configFilePath;
     }
-#if MAC_OR_LINUX_OR_BSD_
-    if (0 == access(workingPath.c_str(), R_OK))
-#else // not MAC_OR_LINUX_OR_BSD_
-    if (0 == _access(workingPath.c_str(), 4))
-#endif // not MAC_OR_LINUX_OR_BSD_
+    std::ifstream   inStream{workingPath};
+
+    if (inStream)
     {
-        std::ifstream   inStream{workingPath};
+        nImO::StringBuffer  readString{};
 
-        if (inStream)
+        inStream >> readString;
+        if (auto readValue{readString.convertToValue()}; readValue)
         {
-            nImO::StringBuffer  readString{};
-
-            inStream >> readString;
-            auto    readValue{readString.convertToValue()};
-
-            if (readValue && (nullptr != readValue->asMap()))
+            if (nullptr == readValue->asMap())
+            {
+                std::cerr << "Warning: configuration file did not have the correct structure.\n";
+            }
+            else
             {
                 // Check the structure of the value read.
                 lConfigurationValues = readValue;
             }
-            else
-            {
-                if (readValue)
-                {
-                    std::cerr << "Warning: configuration file did not have the correct structure.\n";
-                }
-                else
-                {
-                    std::cerr << "Warning: could not parse contents of configuration file.\n";
-                }
-            }
         }
         else
         {
-            std::cerr << "Warning: configuration file could not be read.\n";
+            std::cerr << "Warning: could not parse contents of configuration file.\n";
         }
     }
     else
     {
-        std::cerr << "Warning: configuration file could not be found.\n";
+        std::cerr << "Warning: configuration file could not be read.\n";
     }
     ODL_EXIT(); //####
 } // LoadConfiguration

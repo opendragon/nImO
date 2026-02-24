@@ -73,9 +73,12 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor. */
+            /*! @brief The constructor.
+             @param[in] aString The value to initialize with.
+             @param[in] addQuotes @c true if the string is to be delimited by quote characters. */
             StringBuffer
-                (void);
+                (CPtr(char) aString = nullptr,
+                 const bool addQuotes = false);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */

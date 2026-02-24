@@ -93,22 +93,22 @@ else()
 endif()
 
 set(CMAKE_CXX_FLAGS "-DNCURSES_NOMACROS -Wno-unknown-warning-option -fPIC -Wall -Wextra -Wno-deprecated-builtins" CACHE STRING "Fixes linking error for nImO" FORCE)
+set(E_PATH "@executable_path")
 if(APPLE)
-    set(E_PATH "@executable_path")
     set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
         FORCE)
     set(CMAKE_INSTALL_RPATH
-"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../antlr4;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
         CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 elseif(LINUX)
     set(CMAKE_INSTALL_RPATH
-"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../antlr4;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
         CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 elseif(UNIX)
     set(CMAKE_INSTALL_RPATH
-"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../antlr4;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../../nImO;${E_PATH}/../../odl;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib"
         CACHE STRING "Fixes rpath" FORCE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 else()

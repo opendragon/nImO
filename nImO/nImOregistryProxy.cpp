@@ -685,14 +685,14 @@ nImO::RegistryProxy::getNodeInformation
 
 nImO::StdStringSetOrFailure
 nImO::RegistryProxy::getNodesWithApplication
-    (const std::string &    machineName)
+    (const std::string &    applicationName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s(machineName); //####
+    ODL_S1s(applicationName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetNodesWithApplicationResponseHandler>()};
 
-    argArray->addValue(std::make_shared<String>(machineName));
+    argArray->addValue(std::make_shared<String>(applicationName));
     auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kGetNodesWithApplicationRequest,
                                                                kGetNodesWithApplicationResponse)};
 

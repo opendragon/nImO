@@ -313,7 +313,6 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Launcher"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("appList"s, "File containing a list of applications"s,
                                                                                         nImO::ArgumentMode::Optional, ""s, kDefaultAppListFilePath)};
@@ -337,6 +336,7 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Launcher"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag, false)};
             auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};

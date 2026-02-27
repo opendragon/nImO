@@ -100,7 +100,7 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
 ChannelArgumentDescriptor::ChannelArgumentDescriptor
     (const ChannelArgumentDescriptor &  other) :
-        inherited{other}, _defaultValue{other._defaultValue}
+        inherited{other}, _currentValue{other._currentValue}, _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -236,7 +236,7 @@ ChannelArgumentDescriptor::operator=
 } // ChannelArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-ChannelArgumentDescriptor::parseArgString
+ChannelArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

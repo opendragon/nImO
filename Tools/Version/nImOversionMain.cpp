@@ -127,13 +127,13 @@ main
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipConfigFileOption |
                                      nImO::kSkipExpandedOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
-        std::string mdnsVersionString;
-        std::string nImOversionString;
-        std::string odlVersionString;
-        std::string sqlVersionString{SQLITE_VERSION};
-
         try
         {
+            std::string mdnsVersionString;
+            std::string nImOversionString;
+            std::string odlVersionString;
+            std::string sqlVersionString{SQLITE_VERSION};
+
             switch (optionValues._flavour)
             {
                 case nImO::OutputFlavour::kFlavourTabs :

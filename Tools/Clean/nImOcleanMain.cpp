@@ -148,10 +148,9 @@ main
                                 {
                                     for (auto & walker : statusWithAllConnections.second)
                                     {
-                                        bool    okSoFar{true};
-
                                         if (walker._found)
                                         {
+                                            bool                okSoFar{true};
                                             auto                fromNode{walker._fromNode};
                                             auto                fromPath{walker._fromPath};
                                             auto                toNode{walker._toNode};
@@ -260,7 +259,7 @@ main
                     {
                         auto    nodes{statusWithAllNodes.second};
 
-                        for (auto & walker : nodes)
+                        for (const auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
@@ -286,10 +285,9 @@ main
                         {
                             for (auto & walker : statusWithAllConnections.second)
                             {
-                                bool    okSoFar{true};
-
                                 if (walker._found)
                                 {
+                                    bool                okSoFar{true};
                                     auto                fromNode{walker._fromNode};
                                     auto                fromPath{walker._fromPath};
                                     auto                toNode{walker._toNode};
@@ -363,7 +361,7 @@ main
                                         ".\n";
                             exitCode = 1;
                         }
-                        for (auto & walker : nodes)
+                        for (const auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                             {

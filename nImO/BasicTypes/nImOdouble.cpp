@@ -228,7 +228,7 @@ nImO::Double::extractValue
     ODL_P3(&theMessage, &position, parentValue.get()); //####
     ODL_X1(leadByte); //####
     SpValue result;
-    bool    atEnd;
+    bool    atEnd{false};
     bool    isShort{DataKind::DoubleShortCount == (DataKind::DoubleCountMask & leadByte)};
     int64_t howMany;
 
@@ -304,9 +304,9 @@ nImO::Double::extractValue
             if (okSoFar)
             {
                 result = std::make_shared<Double>(B2D(holder));
-                if (parentValue && result)
+                if (parentValue)
                 {
-                    ODL_LOG("(parentValue && result)"); //####
+                    ODL_LOG("(parentValue)"); //####
                     parentValue->addValue(result);
                 }
             }
@@ -584,12 +584,11 @@ nImO::Double::writeValuesToMessage
 {
     ODL_ENTER(); //####
     ODL_P2(&values, &outMessage); //####
-    NumberAsBytes   numBuff;
-    size_t          numValues{values.size()};
-
     // First, the count.
-    if (0 < numValues)
+    if (auto numValues{values.size()}; 0 < numValues)
     {
+        NumberAsBytes   numBuff;
+
         ODL_LOG("(0 < numValues)"); //####
         if (StaticCast(size_t, kDataKindDoubleShortCountMaxValue) < numValues)
         {

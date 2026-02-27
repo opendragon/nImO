@@ -75,7 +75,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] theContext The sink context that is active. */
-            SinkBreakHandler
+            explicit SinkBreakHandler
                 (Ptr(SinkContext)   theContext);
 
         protected :

@@ -260,11 +260,10 @@ nImO::StringBuffer::convertToValue
     if (result)
     {
         bool    atEnd{false};
-        bool    done{false};
         bool    valid{true};
         SpArray holder;
 
-        for ( ; ! done; )
+        for (bool done{false}; ! done; )
         {
             int aChar;
 
@@ -554,16 +553,16 @@ nImO::operator<<
     ODL_P2(&out, &aBuffer); //####
     for (size_t ii{0}, num{aBuffer.getNumChunks()}; num > ii; ++ii)
     {
-        Ptr(BufferChunk)    aChunk{aBuffer.getBufferChunk(ii)};
+        CPtr(BufferChunk)   aChunk{aBuffer.getBufferChunk(ii)};
 
         if (nullptr != aChunk)
         {
             size_t   nn{aChunk->getDataSize()};
 
-           if (0 < nn)
-           {
+            if (0 < nn)
+            {
                out.write(ReinterpretCast(CPtr(char), aChunk->getData()), nn);
-           }
+            }
         }
     }
     ODL_EXIT_P(&out); //####

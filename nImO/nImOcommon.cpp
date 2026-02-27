@@ -452,12 +452,9 @@ nImO::ConvertToLowerCase
 {
     ODL_ENTER(); //####
     ODL_S1s(aString); //####
-    std::string result;
+    std::string result{aString};
 
-    for (auto walker : aString)
-    {
-        result.push_back(tolower(walker));
-    }
+    std::transform(aString.cbegin(), aString.cend(), result.begin(), [](auto walker){ return std::tolower(walker);});
     ODL_EXIT_s(result); //####
     return result;
 } // nImO::ConvertToLowerCase
@@ -465,7 +462,7 @@ nImO::ConvertToLowerCase
 void
 nImO::D2B
     (const double       inValue,
-     NumberAsBytes &    outString)
+     NumberAsBytes &    outString) // cppcheck-suppress constParameterReference
 {
     ODL_ENTER(); //####
     ODL_D1(inValue); //####
@@ -576,7 +573,7 @@ nImO::GetShortComputerName
 size_t
 nImO::I2B
     (const int64_t      inValue,
-     NumberAsBytes &    outString)
+     NumberAsBytes &    outString) // cppcheck-suppress constParameterReference
 {
     ODL_ENTER(); //####
     ODL_X1(inValue); //####

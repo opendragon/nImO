@@ -157,6 +157,7 @@ endif()
 list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
 
 set(nImO_SQLITE_DIR "${PROJECT_SOURCE_DIR}/../SQLite")
+set(nImO_THIRD_PARTY_DIR "${PROJECT_SOURCE_DIR}/../ThirdParty")
 
 if(WIN32)
     set(nImO_RUN_CONFIG_DIR_ "C:/nImO/")
@@ -169,6 +170,7 @@ configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
                 ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake @ONLY)
 
 include_directories("${nImO_SOURCE_DIR}/nImO")
+include_directories("${nImO_THIRD_PARTY_DIR}")
 
 if(WIN32)
     set(BONJOUR_DIR "C:/Program Files/Bonjour SDK")

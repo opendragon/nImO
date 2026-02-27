@@ -280,7 +280,6 @@ main
                 if (nImO::gKeepRunning)
                 {
                     time_t              rawTime;
-                    std::string         nowAsString;
                     BAIP::address_v4    sender{nextData->_receivedAddress};
                     char                timeBuffer[80];
                     auto                addressString{"["s + sender.to_string() + "]"s};

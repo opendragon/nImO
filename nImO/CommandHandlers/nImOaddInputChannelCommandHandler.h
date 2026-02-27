@@ -76,7 +76,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.
              @param[in] callback The function to invoke when the command is received. */
-            AddInputChannelCommandHandler
+            AddInputChannelCommandHandler // cppcheck-suppress noExplicitConstructor
                 (SpInputOutputContext   owner,
                  Ptr(CallbackFunction)  callback = nullptr);
 

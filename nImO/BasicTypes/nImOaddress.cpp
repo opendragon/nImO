@@ -540,7 +540,7 @@ nImO::Address::printToStringBufferAsJSON
 } // nImO::Address::printToStringBufferAsJSON
 
 nImO::SpValue
-nImO::Address::readFromStringBuffer
+nImO::Address::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
@@ -548,7 +548,7 @@ nImO::Address::readFromStringBuffer
     ODL_P2(&inBuffer, &position); //####
     SpValue result;
     size_t  localIndex{position};
-    bool    atEnd;
+    bool    atEnd{false};
     int     aChar{inBuffer.getChar(localIndex++, atEnd)};
 
     if ((! atEnd) && (kStartAddressChar == aChar))

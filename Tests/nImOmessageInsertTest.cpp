@@ -5099,6 +5099,7 @@ doTestInsertTimeSetMessage
                   DataKind::OtherContainerTypeSet |
                   DataKind::OtherContainerNonEmptyValue,
                 // Signed Integer
+                // cppcheck-suppress duplicateExpression
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
                   ((1 + kDataKindIntegerShortValueMinValue - 1) &
@@ -5438,8 +5439,7 @@ main
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        throw;
-        
+        result = -1;
     }
     ODL_EXIT_I(result); //####
     return result;

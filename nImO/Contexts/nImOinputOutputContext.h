@@ -141,7 +141,8 @@ namespace nImO
              @peram[out] outChannels A vector which will contain all the available output channels. */
             void
             collectOutputChannels
-                (OutChannelVector & outChannels);
+                (OutChannelVector & outChannels)
+                const;
 
             /*! @brief Retrieve the maximum number of allowed input and output channels.
              @param[out] maxInputChannels The maximum number of allowed input channels, @c -1 if unrestricted.

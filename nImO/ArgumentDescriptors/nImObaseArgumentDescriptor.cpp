@@ -190,6 +190,8 @@ char
 BaseArgumentDescriptor::identifyDelimiter
     (const std::string &    valueToCheck)
 {
+    ODL_ENTER(); //####
+    ODL_S1s(valueToCheck); //####
     static const char possibles[]{"~!@#$%^&*_-+=|;\"'?./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrtuvwxyz0123456789"};
     char              charToUse{possibles[0]};
 
@@ -206,6 +208,7 @@ BaseArgumentDescriptor::identifyDelimiter
             }
         }
     }
+    ODL_EXIT_C(charToUse); //####
     return charToUse;
 } // BaseArgumentDescriptor::identifyDelimiter
 
@@ -275,6 +278,7 @@ BaseArgumentDescriptor::operator=
         _argMode = other._argMode;
         _argName = other._argName;
         _valid = other._valid;
+        _wasSeen = other._wasSeen;
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -335,7 +339,7 @@ BaseArgumentDescriptor::partitionString
             }
             size_t  innerIndx{workingCopy.find(innerChar, 0)};
 
-            if (workingCopy.npos == innerIndx)
+            if (workingCopy.npos == innerIndx) // cppcheck-suppress knownConditionTrueFalse
             {
                 // Badly formatted - the matching delimiter is missing!
                 break;
@@ -343,7 +347,7 @@ BaseArgumentDescriptor::partitionString
             }
             result.emplace_back(workingCopy.substr(0, innerIndx));
             workingCopy = workingCopy.substr(innerIndx + 1);
-            if (! workingCopy.empty())
+            if (! workingCopy.empty()) // cppcheck-suppress knownConditionTrueFalse
             {
                 if (0 == workingCopy.find(_parameterSeparator))
                 {

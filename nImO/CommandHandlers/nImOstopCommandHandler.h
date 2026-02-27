@@ -77,7 +77,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.
              @param[in] callback The function to invoke when the command is received. */
-            StopCommandHandler
+            StopCommandHandler // cppcheck-suppress noExplicitConstructor
                 (SpServiceContext       owner,
                  Ptr(CallbackFunction)  callback = nullptr);
 

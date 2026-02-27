@@ -247,7 +247,7 @@ nImO::Message::getValue
         ODL_LOG("((MessageState::OpenForReading == _state) || (allowClosed && " //####
                 "(MessageState::Closed == _state)))"); //####
         size_t  savedPosition{_readPosition};
-        bool    atEnd;
+        bool    atEnd{false};
         int     aByte{getByte(_readPosition, atEnd)};
 
         ODL_X1(aByte); //####

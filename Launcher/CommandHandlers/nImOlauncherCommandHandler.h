@@ -76,7 +76,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning LauncherContext. */
-            LauncherCommandHandler
+            explicit LauncherCommandHandler
                 (SpLauncherContext  owner);
 
         protected :

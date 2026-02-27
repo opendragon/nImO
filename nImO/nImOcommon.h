@@ -110,6 +110,7 @@ using namespace std::string_literals;
 # include <map>
 # include <memory>
 # include <mutex>
+# include <numeric>
 # include <queue>
 # include <set>
 # include <sstream>
@@ -179,31 +180,31 @@ using namespace std::string_literals;
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }
- @tparam Type The type of value being converted.
+ @tparam Type_ The type of value being converted.
  @param[in] enumerator The value to be converted.
  @return The input value as its underlying type. */
 template
-    <typename   Type>
-constexpr typename std::underlying_type<Type>::type
+    <typename   Type_>
+constexpr typename std::underlying_type<Type_>::type
 toUType
-    (Type  enumerator)
+    (Type_  enumerator)
     noexcept
 {
-    return StaticCast(typename std::underlying_type<Type>::type, enumerator);
+    return StaticCast(typename std::underlying_type<Type_>::type, enumerator);
 }
 
 /*! @brief Return the number of elements in a fixed array.
- @tparam Type The type of the contents of the array.
- @tparam Num The declared number of elements in the array.
+ @tparam Type_ The type of the contents of the array.
+ @tparam Num_ The declared number of elements in the array.
  @return The number of elements in the array. */
 template
-    <typename       Type,
-     std::size_t    Num>
+    <typename       Type_,
+     std::size_t    Num_>
 constexpr std::size_t
 numElementsInArray
-    (const Type (&)[Num])
+    (const Type_ (&)[Num_])
 {
-    return Num;
+    return Num_;
 }
 
 namespace BA = boost::asio;
@@ -610,7 +611,7 @@ namespace nImO
         IPv4Port    _port{0};
 
         /*! @brief The constructor. */
-        inline AddressInfo
+        inline AddressInfo // cppcheck-suppress noExplicitConstructor
             (const IPv4Address  address = 0,
              const IPv4Port     port = 0) :
                 _address(address), _port(port)
@@ -675,7 +676,7 @@ namespace nImO
          @param[in] address The IP address for the connection.
          @param[in] port The port for the connection.
          @param[in] transport The transport mechanism for the connection. */
-        inline Connection
+        inline Connection // cppcheck-suppress noExplicitConstructor
             (const IPv4Address      address = 0,
              const IPv4Port         port = 0,
              const TransportType    transport = TransportType::kTCP) :

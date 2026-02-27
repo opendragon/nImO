@@ -170,6 +170,7 @@ namespace nImO
             processAData
                 (const mDNS::string_t &    entryData,
                  const mDNS::string_t &    aData)
+                const
             {
                 NIMO_UNUSED_VAR_(entryData);
                 NIMO_UNUSED_VAR_(aData);
@@ -187,6 +188,7 @@ namespace nImO
             processAaaaData
                 (const mDNS::string_t &    entryData,
                  const mDNS::string_t &    aaaaData)
+                const
             {
                 NIMO_UNUSED_VAR_(entryData);
                 NIMO_UNUSED_VAR_(aaaaData);
@@ -410,13 +412,13 @@ getLocalAddresses
             continue;
 
         }
-        for (Ptr(IP_ADAPTER_UNICAST_ADDRESS) unicast{adapter->FirstUnicastAddress}; nullptr != unicast; unicast = unicast->Next)
+        for (CPtr(IP_ADAPTER_UNICAST_ADDRESS) unicast{adapter->FirstUnicastAddress}; nullptr != unicast; unicast = unicast->Next)
         {
             if (nullptr != unicast->Address.lpSockaddr)
             {
                 if (AF_INET == unicast->Address.lpSockaddr->sa_family)
                 {
-                    auto &  saddr{*ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr)};
+                    const auto &    saddr{*ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr)};
 
                     if ((saddr.sin_addr.S_un.S_un_b.s_b1 != 127) || (saddr.sin_addr.S_un.S_un_b.s_b2 != 0) ||
                         (saddr.sin_addr.S_un.S_un_b.s_b3 != 0) || (saddr.sin_addr.S_un.S_un_b.s_b4 != 1))
@@ -433,7 +435,7 @@ getLocalAddresses
                 {
                     if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
                     {
-                        auto &              saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr)};
+                        const auto &        saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr)};
                         static const uchar  localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
                         static const uchar  localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
                                                                0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
@@ -628,6 +630,7 @@ nImO::SearchContext::~SearchContext
 void
 nImO::SearchContext::closeSockets
     (void)
+    const
 {
     ODL_OBJENTER(); //####
     for (int isock{0}; isock < _numSockets; ++isock)

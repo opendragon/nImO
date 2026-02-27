@@ -95,7 +95,6 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Bridge"s};
     std::string             progName{*argv};
     struct in_addr          addrBuff;
     auto                    firstArg{std::make_shared<nImO::AddressArgumentDescriptor>("remoteAddress"s,
@@ -124,6 +123,7 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Bridge"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
@@ -167,7 +167,6 @@ main
                                     bool        outValid{false};
                                     std::string inChannelPath;
                                     std::string outChannelPath;
-                                    auto        basePath{optionValues._base};
 
                                     if (! basePath.empty())
                                     {

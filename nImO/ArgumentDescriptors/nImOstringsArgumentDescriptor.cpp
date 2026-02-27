@@ -101,7 +101,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
     ODL_I1(argMode); //####
     if (_caseInsensitive)
     {
-        for (auto & walker : allowedValues)
+        for (const auto & walker : allowedValues)
         {
             _allowedValues.insert(ConvertToLowerCase(walker));
         }
@@ -115,7 +115,8 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (const StringsArgumentDescriptor &   other) :
-        inherited{other}, _allowedValues{other._allowedValues}, _caseInsensitive{other._caseInsensitive}, _defaultValue{other._defaultValue}
+        inherited{other}, _allowedValues{other._allowedValues}, _caseInsensitive{other._caseInsensitive}, _currentValue{other._currentValue},
+        _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -126,7 +127,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
     (StringsArgumentDescriptor &&   other)
     noexcept :
         inherited{std::move(other)}, _allowedValues{std::move(other._allowedValues)}, _caseInsensitive{std::exchange(other._caseInsensitive, false)},
-        _defaultValue{std::move(other._defaultValue)}
+        _currentValue{std::move(other._currentValue)}, _defaultValue{std::move(other._defaultValue)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -177,7 +178,7 @@ StringsArgumentDescriptor::describe
     const int   maxCount{4};
 
     result += ", a string with a default value of "s + getDefaultValue() + " that is found in the set {"s;
-    for (auto & walker : _allowedValues)
+    for (const auto & walker : _allowedValues)
     {
         result += " "s;
         if (maxCount < ++count)
@@ -259,6 +260,7 @@ StringsArgumentDescriptor::operator=
     {
         inherited::operator=(std::move(other));
         _caseInsensitive = std::exchange(other._caseInsensitive, false);
+        _currentValue = std::move(other._currentValue);
         _defaultValue = std::move(other._defaultValue);
         _allowedValues = std::move(other._allowedValues);
     }
@@ -267,7 +269,7 @@ StringsArgumentDescriptor::operator=
 } // StringsArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-StringsArgumentDescriptor::parseArgString
+StringsArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
@@ -351,7 +353,7 @@ StringsArgumentDescriptor::toString
     auto        result{prefixFields(ArgumentTypeTag::StringsTypeTag) + getParameterSeparator()};
     std::string scratch{};
 
-    for (auto & walker : _allowedValues)
+    for (const auto & walker : _allowedValues)
     {
         scratch += walker;
     }

@@ -119,7 +119,8 @@ checkFilePath
         }
         else
         {
-            dirPath = dirPath.substr(0, lastDelim);
+            //dirPath = dirPath.substr(0, lastDelim);
+            dirPath.resize(lastDelim);
 #if MAC_OR_LINUX_OR_BSD_
             okSoFar = (0 == access(dirPath.c_str(), W_OK));
 #else // not MAC_OR_LINUX_OR_BSD_
@@ -331,7 +332,7 @@ FilePathArgumentDescriptor::operator=
 } // FilePathArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-FilePathArgumentDescriptor::parseArgString
+FilePathArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

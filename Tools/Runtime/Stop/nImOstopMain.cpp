@@ -161,10 +161,9 @@ main
                             {
                                 for (auto & walker : statusWithAllConnections.second)
                                 {
-                                    bool    okSoFar{true};
-
                                     if (walker._found)
                                     {
+                                        bool                okSoFar{true};
                                         auto                fromNode{walker._fromNode};
                                         auto                fromPath{walker._fromPath};
                                         auto                toNode{walker._toNode};
@@ -270,10 +269,9 @@ main
                                 {
                                     for (auto & walker : statusWithAllConnections.second)
                                     {
-                                        bool    okSoFar{true};
-
                                         if (walker._found)
                                         {
+                                            bool                okSoFar{true};
                                             auto                fromNode{walker._fromNode};
                                             auto                fromPath{walker._fromPath};
                                             auto                toNode{walker._toNode};
@@ -413,10 +411,9 @@ main
                         {
                             for (auto & walker : statusWithAllConnections.second)
                             {
-                                bool    okSoFar{true};
-
                                 if (walker._found)
                                 {
+                                    bool                okSoFar{true};
                                     auto                fromNode{walker._fromNode};
                                     auto                fromPath{walker._fromPath};
                                     auto                toNode{walker._toNode};

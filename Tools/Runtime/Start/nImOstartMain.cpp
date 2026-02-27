@@ -95,7 +95,7 @@ constructNodeNameFromOptions
     std::string nodeName{launcherName};
     std::string tag{};
 
-    for (auto & walker : theOptions)
+    for (const auto & walker : theOptions)
     {
         if (0 < walker.length())
         {
@@ -209,7 +209,7 @@ main
                             int selection{0};
 
                             std::cout << "\t0 : <select none and leave>\n";
-                            for (auto & walker : launchers)
+                            for (const auto & walker : launchers)
                             {
                                 ++count;
                                 std::cout << "\t" << count << " : " << walker << "\n";
@@ -230,20 +230,17 @@ main
                             else
                             {
                                 count = 0;
-                                for (auto & walker : launchers)
+                                for (const auto & walker : launchers)
                                 {
                                     ++count;
                                     if (selection == count)
                                     {
                                         launcherName = walker;
-                                        for (auto & subWalker : nodes)
+                                        if (auto subWalker{std::find_if(nodes.begin(), nodes.end(),
+                                                                        [launcherName](const auto aNode){ return (aNode._name == launcherName);})};
+                                            nodes.end() != subWalker)
                                         {
-                                            if (subWalker._name == launcherName)
-                                            {
-                                                launcherConnection = subWalker._connection;
-                                                break;
-
-                                            }
+                                            launcherConnection = subWalker->_connection;
                                         }
                                         break;
 
@@ -303,7 +300,7 @@ main
                             int selection{0};
 
                             std::cout << "\t0 : <select none and leave>\n";
-                            for (auto & walker : applicationsInfo)
+                            for (const auto & walker : applicationsInfo)
                             {
                                 if (walker._found)
                                 {
@@ -328,7 +325,7 @@ main
                             {
 
                                 count = 0;
-                                for (auto & walker : applicationsInfo)
+                                for (const auto & walker : applicationsInfo)
                                 {
                                     ++count;
                                     if (selection == count)
@@ -342,18 +339,8 @@ main
                         }
                         else
                         {
-                            bool    found{false};
-
-                            for (auto & walker : applicationsInfo)
-                            {
-                                if (walker._found && (walker._appName == serviceName))
-                                {
-                                    found = true;
-                                    break;
-
-                                }
-                            }
-                            if (! found)
+                            if (! std::any_of(applicationsInfo.begin(), applicationsInfo.end(),
+                                                [serviceName](const auto & walker) { return (walker._found && (walker._appName == serviceName)); }))
                             {
                                 ourContext->report("Unknown service: '"s + serviceName + "' on launcher '" + launcherName + "'."s);
                                 exitCode = 1;
@@ -368,24 +355,22 @@ main
                 }
                 if (0 == exitCode)
                 {
-                    nImO::DescriptorVector  appDescriptors{};
-                    auto                    argArray1{std::make_shared<nImO::Array>()};
-                    auto                    handler1{std::make_unique<nImO::GetRunOptionsForAppResponseHandler>()};
+                    auto    argArray1{std::make_shared<nImO::Array>()};
+                    auto    handler1{std::make_unique<nImO::GetRunOptionsForAppResponseHandler>()};
 
                     argArray1->addValue(std::make_shared<nImO::String>(serviceName));
                     auto            statusWithBool{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler1.get(),
                                                                                                      argArray1.get(),
                                                                                                      nImO::kGetRunOptionsForAppRequest,
                                                                                                      nImO::kGetRunOptionsForAppResponse)};
-                    std::set<char>  availableOptions{};
-                    std::set<char>  optionNeedsName{};
-                    std::set<char>  optionNeedsString{};
 
                     if (statusWithBool.first)
                     {
-                        for (auto & walker : handler1->result())
+                        std::set<char>  availableOptions{};
+
+                        for (const auto & walker : handler1->result())
                         {
-                            auto    aChar{tolower(walker)};
+                            auto    aChar{std::tolower(walker)};
 
                             if ('a' != aChar)
                             {
@@ -403,7 +388,9 @@ main
 
                         if (statusWithBool.first)
                         {
-                            for (auto & walker : handler2->result())
+                            nImO::DescriptorVector  appDescriptors{};
+
+                            for (const auto & walker : handler2->result())
                             {
                                 auto    descriptor{nImO::ConvertStringToDescriptor(walker)};
 
@@ -414,6 +401,235 @@ main
                                 else
                                 {
                                     ourContext->report("Bad argument descriptor: '" + walker + "'.");
+                                    exitCode = 1;
+                                }
+                            }
+                            if (0 == exitCode)
+                            {
+                                std::set<char>  optionNeedsName{};
+                                std::set<char>  optionNeedsString{};
+
+                                std::cout << "Options for '" << serviceName << "' on '" << launcherName << "':\n";
+                                for (auto charWalker : availableOptions)
+                                {
+                                    std::cout << "\t" << charWalker << "\t";
+                                    switch (charWalker)
+                                    {
+                                        case 'a' :
+                                            // Ignore this option if it appears!
+                                            break;
+
+                                        case 'b' :
+                                            std::cout << "Specify the base name for channels"; // string arg required
+                                            optionNeedsName.insert(charWalker);
+                                            optionNeedsString.insert(charWalker);
+                                            break;
+
+                                        case 'c' :
+                                            std::cout << "Specify the path to the configuration file"; // file path arg required
+                                            optionNeedsString.insert(charWalker);
+                                            break;
+
+                                        case 'e' :
+                                            std::cout << "Display more details";
+                                            break;
+
+                                        case 'i' :
+                                            std::cout << "Specify the data type for the input channel(s)"; // string arg required
+                                            optionNeedsString.insert(charWalker);
+                                            break;
+
+                                        case 'l' :
+                                            std::cout << "Log the service";
+                                            break;
+
+                                        case 'n' :
+                                            std::cout << "Specify a non-default node name to be used"; // string arg required
+                                            optionNeedsName.insert(charWalker);
+                                            optionNeedsString.insert(charWalker);
+                                            break;
+
+                                        case 'o' :
+                                            std::cout << "Specify the data type for the output channel(s)"; // string arg required
+                                            optionNeedsString.insert(charWalker);
+                                            break;
+
+                                        case 'r' :
+                                            std::cout << "Specify that a random node name will be used"; // string arg required
+                                            optionNeedsString.insert(charWalker);
+                                            break;
+
+                                        case 't' :
+                                            std::cout << "Specify the tag to be used as part of the service name"; // string arg required
+                                            optionNeedsName.insert(charWalker);
+                                            optionNeedsString.insert(charWalker);
+                                            break;
+
+                                        case 'w' :
+                                            std::cout << "Wait for connection(s)";
+                                            break;
+
+                                        default :
+                                            std::cout << "<unexpected option '" << charWalker << "'";
+                                            break;
+
+                                    }
+                                    std::cout << "\n";
+                                }
+                                std::string             optionsSoFar{};
+                                nImO::StdStringVector   optionsToApply{};
+
+                                // Build up the option list:
+                                for ( ; ; )
+                                {
+                                    if (! optionsSoFar.empty())
+                                    {
+                                        std::cout << "Selected options: " << optionsSoFar << "\n";
+                                    }
+                                    std::cout << "Option to apply (empty line when finished): ";
+                                    std::cout.flush();
+                                    std::string inLine{};
+
+                                    if (getline(std::cin, inLine))
+                                    {
+                                        // Trim down the input
+                                        inLine = nImO::LeftTrim(inLine);
+                                        if (inLine.empty())
+                                        {
+                                            break;
+
+                                        }
+                                        auto    aChar{StaticCast(char, std::tolower(inLine[0]))};
+
+                                        if (availableOptions.end() == availableOptions.find(aChar))
+                                        {
+                                            std::cout << "No such option.\n";
+                                            std::cout.flush();
+                                        }
+                                        else
+                                        {
+                                            std::string newOption{aChar};
+
+                                            if (optionNeedsString.end() == optionNeedsString.find(aChar))
+                                            {
+                                                optionsSoFar += " "s + aChar;
+                                                optionsToApply.push_back(newOption);
+                                            }
+                                            else
+                                            {
+                                                std::cout << "Argument for the option: ";
+                                                std::cout.flush();
+                                                if (getline(std::cin, inLine))
+                                                {
+                                                    // Trim down the input
+                                                    inLine = nImO::LeftTrim(inLine);
+                                                    if (inLine.empty())
+                                                    {
+                                                        std::cout << "Empty argument. Option ignored.\n";
+                                                        std::cout.flush();
+                                                    }
+                                                    else
+                                                    {
+                                                        inLine = nImO::RightTrim(inLine);
+                                                        if (optionNeedsName.end() == optionNeedsName.find(aChar))
+                                                        {
+                                                            optionsSoFar += " "s + aChar;
+                                                            newOption += inLine;
+                                                            optionsToApply.push_back(newOption);
+                                                        }
+                                                        else
+                                                        {
+                                                            if (nImO::ValidNameSegment(inLine))
+                                                            {
+                                                                optionsSoFar += " "s + aChar;
+                                                                newOption += inLine;
+                                                                optionsToApply.push_back(newOption);
+                                                            }
+                                                            else
+                                                            {
+                                                                std::cout << "Invalid argument. Option ignored.\n";
+                                                                std::cout.flush();
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    // EOF - just exit the loop.
+                                                    break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // EOF - just exit the loop.
+                                        break;
+
+                                    }
+                                }
+                                // Check if the application already has been registered!
+                                auto    newNodeName{constructNodeNameFromOptions(launcherName, serviceName, optionsToApply)};
+                                auto    statusWithInfo{proxy->getNodeInformation(newNodeName)};
+
+                                if (statusWithInfo.first.first)
+                                {
+                                    if (statusWithInfo.second._found)
+                                    {
+                                        ourContext->report("Node '"s + newNodeName + "' already present."s);
+                                        exitCode = 1;
+                                    }
+                                    else
+                                    {
+                                        if (! appDescriptors.empty())
+                                        {
+                                            std::cout << "Parameters for '" << serviceName << "' on '" << launcherName << "':\n";
+                                            for (auto & walker : appDescriptors)
+                                            {
+                                                std::cout << "\t" << walker->describe() << "\n";
+                                            }
+                                            do
+                                            {
+                                                std::cout << "Values for parameters:\n";
+                                                if (PromptForValues(appDescriptors))
+                                                {
+                                                    break;
+
+                                                }
+                                                std::cout << "A parameter failed to be set.\n";
+                                            }
+                                            while (true);
+                                        }
+                                        auto    argArray3{std::make_shared<nImO::Array>()};
+                                        auto    handler3{std::make_unique<nImO::StartAppResponseHandler>()};
+                                        auto    optionsArray{std::make_shared<nImO::Array>()};
+                                        auto    parametersArray{std::make_shared<nImO::Array>()};
+
+                                        for (auto & option : optionsToApply)
+                                        {
+                                            optionsArray->addValue(std::make_shared<nImO::String>(option));
+                                        }
+                                        for (auto & walker : appDescriptors)
+                                        {
+                                            parametersArray->addValue(std::make_shared<nImO::String>(walker->getProcessedValue()));
+                                        }
+                                        argArray3->addValue(std::make_shared<nImO::String>(serviceName));
+                                        argArray3->addValue(optionsArray);
+                                        argArray3->addValue(parametersArray);
+                                        statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler3.get(),
+                                                                                                           argArray3.get(), nImO::kStartAppRequest,
+                                                                                                           nImO::kStartAppResponse);
+                                        if (! statusWithBool.first)
+                                        {
+                                            std::cerr << "Problem starting the application '" << serviceName << "' on '" << launcherName << "': " << statusWithBool.second << ".\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << ".\n";
                                     exitCode = 1;
                                 }
                             }
@@ -428,232 +644,6 @@ main
                     {
                         std::cerr << "Problem getting the run options for '" << serviceName << "' from '" << launcherName << "': " << statusWithBool.second << ".\n";
                         exitCode = 1;
-                    }
-                    if (0 == exitCode)
-                    {
-                        std::cout << "Options for '" << serviceName << "' on '" << launcherName << "':\n";
-                        for (auto charWalker : availableOptions)
-                        {
-                            std::cout << "\t" << charWalker << "\t";
-                            switch (charWalker)
-                            {
-                                case 'a' :
-                                    // Ignore this option if it appears!
-                                    break;
-
-                                case 'b' :
-                                    std::cout << "Specify the base name for channels"; // string arg required
-                                    optionNeedsName.insert(charWalker);
-                                    optionNeedsString.insert(charWalker);
-                                    break;
-
-                                case 'c' :
-                                    std::cout << "Specify the path to the configuration file"; // file path arg required
-                                    optionNeedsString.insert(charWalker);
-                                    break;
-
-                                case 'e' :
-                                    std::cout << "Display more details";
-                                    break;
-
-                                case 'i' :
-                                    std::cout << "Specify the data type for the input channel(s)"; // string arg required
-                                    optionNeedsString.insert(charWalker);
-                                    break;
-
-                                case 'l' :
-                                    std::cout << "Log the service";
-                                    break;
-
-                                case 'n' :
-                                    std::cout << "Specify a non-default node name to be used"; // string arg required
-                                    optionNeedsName.insert(charWalker);
-                                    optionNeedsString.insert(charWalker);
-                                    break;
-
-                                case 'o' :
-                                    std::cout << "Specify the data type for the output channel(s)"; // string arg required
-                                    optionNeedsString.insert(charWalker);
-                                    break;
-
-                                case 'r' :
-                                    std::cout << "Specify that a random node name will be used"; // string arg required
-                                    optionNeedsString.insert(charWalker);
-                                    break;
-
-                                case 't' :
-                                    std::cout << "Specify the tag to be used as part of the service name"; // string arg required
-                                    optionNeedsName.insert(charWalker);
-                                    optionNeedsString.insert(charWalker);
-                                    break;
-
-                                case 'w' :
-                                    std::cout << "Wait for connection(s)";
-                                    break;
-
-                                default :
-                                    std::cout << "<unexpected option '" << charWalker << "'";
-                                    break;
-
-                            }
-                            std::cout << "\n";
-                        }
-                        std::string             optionsSoFar{};
-                        nImO::StdStringVector   optionsToApply{};
-
-                        // Build up the option list:
-                        for ( ; ; )
-                        {
-                            if (! optionsSoFar.empty())
-                            {
-                                std::cout << "Selected options: " << optionsSoFar << "\n";
-                            }
-                            std::cout << "Option to apply (empty line when finished): ";
-                            std::cout.flush();
-                            std::string inLine{};
-
-                            if (getline(std::cin, inLine))
-                            {
-                                // Trim down the input
-                                inLine = nImO::LeftTrim(inLine);
-                                if (inLine.empty())
-                                {
-                                    break;
-
-                                }
-                                auto    aChar{StaticCast(char, tolower(inLine[0]))};
-
-                                if (availableOptions.end() == availableOptions.find(aChar))
-                                {
-                                    std::cout << "No such option.\n";
-                                    std::cout.flush();
-                                }
-                                else
-                                {
-                                    std::string newOption{aChar};
-
-                                    if (optionNeedsString.end() == optionNeedsString.find(aChar))
-                                    {
-                                        optionsSoFar += " "s + aChar;
-                                        optionsToApply.push_back(newOption);
-                                    }
-                                    else
-                                    {
-                                        std::cout << "Argument for the option: ";
-                                        std::cout.flush();
-                                        if (getline(std::cin, inLine))
-                                        {
-                                            // Trim down the input
-                                            inLine = nImO::LeftTrim(inLine);
-                                            if (inLine.empty())
-                                            {
-                                                std::cout << "Empty argument. Option ignored.\n";
-                                                std::cout.flush();
-                                            }
-                                            else
-                                            {
-                                                inLine = nImO::RightTrim(inLine);
-                                                if (optionNeedsName.end() == optionNeedsName.find(aChar))
-                                                {
-                                                    optionsSoFar += " "s + aChar;
-                                                    newOption += inLine;
-                                                    optionsToApply.push_back(newOption);
-                                                }
-                                                else
-                                                {
-                                                    if (nImO::ValidNameSegment(inLine))
-                                                    {
-                                                        optionsSoFar += " "s + aChar;
-                                                        newOption += inLine;
-                                                        optionsToApply.push_back(newOption);
-                                                    }
-                                                    else
-                                                    {
-                                                        std::cout << "Invalid argument. Option ignored.\n";
-                                                        std::cout.flush();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            // EOF - just exit the loop.
-                                            break;
-
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // EOF - just exit the loop.
-                                break;
-
-                            }
-                        }
-                        // Check if the application already has been registered!
-                        auto    newNodeName{constructNodeNameFromOptions(launcherName, serviceName, optionsToApply)};
-                        auto    statusWithInfo{proxy->getNodeInformation(newNodeName)};
-
-                        if (statusWithInfo.first.first)
-                        {
-                            if (statusWithInfo.second._found)
-                            {
-                                ourContext->report("Node '"s + newNodeName + "' already present."s);
-                                exitCode = 1;
-                            }
-                            else
-                            {
-                                if (! appDescriptors.empty())
-                                {
-                                    std::cout << "Parameters for '" << serviceName << "' on '" << launcherName << "':\n";
-                                    for (auto & walker : appDescriptors)
-                                    {
-                                        std::cout << "\t" << walker->describe() << "\n";
-                                    }
-                                    do
-                                    {
-                                        std::cout << "Values for parameters:\n";
-                                        if (PromptForValues(appDescriptors))
-                                        {
-                                            break;
-
-                                        }
-                                        std::cout << "A parameter failed to be set.\n";
-                                    }
-                                    while (true);
-                                }
-                                auto    argArray2{std::make_shared<nImO::Array>()};
-                                auto    handler2{std::make_unique<nImO::StartAppResponseHandler>()};
-                                auto    optionsArray{std::make_shared<nImO::Array>()};
-                                auto    parametersArray{std::make_shared<nImO::Array>()};
-
-                                for (auto & option : optionsToApply)
-                                {
-                                    optionsArray->addValue(std::make_shared<nImO::String>(option));
-                                }
-                                for (auto & walker : appDescriptors)
-                                {
-                                    parametersArray->addValue(std::make_shared<nImO::String>(walker->getProcessedValue()));
-                                }
-                                argArray2->addValue(std::make_shared<nImO::String>(serviceName));
-                                argArray2->addValue(optionsArray);
-                                argArray2->addValue(parametersArray);
-                                statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler2.get(),
-                                                                                                   argArray2.get(), nImO::kStartAppRequest,
-                                                                                                   nImO::kStartAppResponse);
-                                if (! statusWithBool.first)
-                                {
-                                    std::cerr << "Problem starting the application '" << serviceName << "' on '" << launcherName << "': " << statusWithBool.second << ".\n";
-                                    exitCode = 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << ".\n";
-                            exitCode = 1;
-                        }
                     }
                 }
             }

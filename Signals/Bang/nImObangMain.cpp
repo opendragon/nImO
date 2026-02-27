@@ -94,7 +94,6 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Bang"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numIn"s, "Number of input channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
@@ -120,6 +119,7 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Bang"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
@@ -294,15 +294,11 @@ main
                                             bool    alreadyReported{false};
 
                                             nImO::gKeepRunning = true; // So that the calls to 'CloseConnection' and 'getInputChannelNames' won't fail...
-                                            if (! nImO::gPendingStop)
-                                            {
-                                                nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
-                                                nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
-                                            }
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                             nImO::StdStringVector   inChannelPaths;
 
                                             ourContext->getInputChannelNames(inChannelPaths);
-                                            for (auto & walker : inChannelPaths)
+                                            for (const auto & walker : inChannelPaths)
                                             {
                                                 nImO::CloseConnection(ourContext, nodeName, proxy, walker, false, alreadyReported);
                                             }
@@ -333,7 +329,7 @@ main
                                 nImO::StdStringVector   inChannelPaths;
 
                                 ourContext->getInputChannelNames(inChannelPaths);
-                                for (auto & walker : inChannelPaths)
+                                for (const auto & walker : inChannelPaths)
                                 {
                                     statusWithBool = proxy->removeChannel(nodeName, walker);
                                     if (statusWithBool.first.first)

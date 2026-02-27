@@ -411,7 +411,6 @@ nImO::ProcessServiceOptions
     auto            options{std::make_unique<Option_::Option[]>(stats.options_max)};
     auto            buffer{std::make_unique<Option_::Option[]>(stats.buffer_max)};
     Option_::Parser parse{usage, argcWork, argvWork, options.get(), buffer.get(), 1};
-    std::string     badArgs{};
 
     if (parse.error())
     {
@@ -436,6 +435,8 @@ nImO::ProcessServiceOptions
                 {
                     if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
                     {
+                        std::string badArgs{};
+
                         if (ProcessArguments(argumentDescriptions, parse, badArgs))
                         {
                             if ((0 == (skipOptions & kSkipAutolaunchOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionAUTOLAUNCH)]))

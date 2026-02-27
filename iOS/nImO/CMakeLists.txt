@@ -96,7 +96,7 @@ add_library(${TARGET_ONE}
             "${THIS_SOURCE_DIR}/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfService.cpp"
-            "${THIS_SOURCE_DIR}/optionparser.cpp")
+            "${nImO_THIRD_PARTY_DIR}/optionparser.cpp")
 #target_include_directories(${TARGET_ONE} PUBLIC
 #                            $<BUILD_INTERFACE:${nImO_SOURCE_DIR}> # for headers when building
 #                            $<INSTALL_INTERFACE:${INCLUDE_DEST}> # for client in install mode
@@ -149,7 +149,7 @@ add_library(${TARGET_TWO}
             "${THIS_SOURCE_DIR}/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfClient.cpp"
             "${THIS_SOURCE_DIR}/nImOzeroConfService.cpp"
-            "${THIS_SOURCE_DIR}/optionparser.cpp")
+            "${nImO_THIRD_PARTY_DIR}/optionparser.cpp")
 add_framework(Foundation ${TARGET_TWO})
 #target_include_directories(${TARGET_TWO} PUBLIC
 #                            $<BUILD_INTERFACE:${nImO_SOURCE_DIR}> # for headers when building
@@ -200,7 +200,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOvalue.h"
         "${THIS_SOURCE_DIR}/nImOzeroConfClient.h"
         "${THIS_SOURCE_DIR}/nImOzeroConfService.h"
-        "${THIS_SOURCE_DIR}/optionparser.h"
+        "${nImO_THIRD_PARTY_DIR}/optionparser.h"
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
 

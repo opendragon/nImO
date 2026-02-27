@@ -2652,7 +2652,7 @@ nImO::Registry::getInformationForAllApplications
         {
             ApplicationInfo info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractApplicationInfoFromVector(info, walker);
                 if (info._found)
@@ -2697,7 +2697,7 @@ nImO::Registry::getInformationForAllApplicationsOnNode
         {
             ApplicationInfo info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractApplicationInfoFromVector(info, walker);
                 if (info._found)
@@ -2741,7 +2741,7 @@ nImO::Registry::getInformationForAllChannels
         {
             ChannelInfo info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractChannelInfoFromVector(info, walker);
                 if (info._found)
@@ -2789,7 +2789,7 @@ nImO::Registry::getInformationForAllChannelsOnMachine
         {
             ChannelInfo info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractChannelInfoFromVector(info, walker);
                 if (info._found)
@@ -2838,7 +2838,7 @@ nImO::Registry::getInformationForAllChannelsOnNode
         {
             ChannelInfo info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractChannelInfoFromVector(info, walker);
                 if (info._found)
@@ -3134,7 +3134,7 @@ nImO::Registry::getInformationForAllNodes
         {
             NodeInfo    info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractNodeInfoFromVector(info, walker);
                 if (info._found)
@@ -3180,7 +3180,7 @@ nImO::Registry::getInformationForAllNodesOnMachine
         {
             NodeInfo    info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractNodeInfoFromVector(info, walker);
                 if (info._found)
@@ -3223,7 +3223,7 @@ nImO::Registry::getKeysForAllUnconnectedChannels
         {
             ChannelKeys info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractChannelKeysFromVector(info, walker);
                 if (info._found)
@@ -3270,7 +3270,7 @@ nImO::Registry::getKeysForAllUnconnectedChannelsOnMachine
         {
             ChannelKeys info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractChannelKeysFromVector(info, walker);
                 if (info._found)
@@ -3318,7 +3318,7 @@ nImO::Registry::getKeysForAllUnconnectedChannelsOnNode
         {
             ChannelKeys info;
 
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 extractChannelKeysFromVector(info, walker);
                 if (info._found)
@@ -3411,7 +3411,7 @@ nImO::Registry::getLaunchDetails
 
 nImO::MachineInfoOrFailure
 nImO::Registry::getMachineInformation
-    (const std::string &    nodeName)
+    (const std::string &    machineName)
     const
 {
     ODL_OBJENTER(); //####
@@ -3419,7 +3419,7 @@ nImO::Registry::getMachineInformation
     SuccessOrFailure    status;
     MachineInfo         info;
 
-    if (ChannelName::validNode(nodeName))
+    if (ChannelName::validNode(machineName))
     {
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
@@ -3428,14 +3428,14 @@ nImO::Registry::getMachineInformation
             static CPtr(char)       searchMachines{"SELECT DISTINCT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @"
                                                     MACHINE_NAME_C_};
 
-            status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &nodeName);
+            status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
             if (status.first)
             {
                 if (0 < results.size())
                 {
                     auto    values{results[0]};
 
-                    info._name = nodeName;
+                    info._name = machineName;
                     if (0 < values.size())
                     {
                         size_t  pos;

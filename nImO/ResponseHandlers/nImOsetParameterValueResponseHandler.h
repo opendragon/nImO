@@ -89,7 +89,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            inline std::string
+            inline const std::string &
             result
                 (void)
                 const

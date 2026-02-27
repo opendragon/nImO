@@ -93,7 +93,6 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Commutator"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numOut"s, "Number of output channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
@@ -119,6 +118,7 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Commutator"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
@@ -261,7 +261,6 @@ main
                                     for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                     {
                                         boost::this_thread::yield();
-                                        bool    randomRouting{secondArg->getCurrentValue()};
                                         auto    nextData{ourContext->getNextMessage()};
 
                                         if (nImO::gKeepRunning)
@@ -278,6 +277,7 @@ main
                                                 if (contents)
                                                 {
                                                     size_t  thisChannel;
+                                                    bool    randomRouting{secondArg->getCurrentValue()};
 
                                                     if (randomRouting)
                                                     {
@@ -344,7 +344,7 @@ main
 
                                 nImO::gKeepRunning = true; // So that the calls to 'getOutputChannelNames' and 'removeChannel' won't fail...
                                 ourContext->getOutputChannelNames(outChannelPaths);
-                                for (auto & walker : outChannelPaths)
+                                for (const auto & walker : outChannelPaths)
                                 {
                                     statusWithBool = proxy->removeChannel(nodeName, walker);
                                     if (statusWithBool.first.first)

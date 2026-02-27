@@ -188,7 +188,7 @@ namespace nImO
 
             /*! @brief Returns the name of the service.
              @return The name of the service. */
-            inline std::string
+            inline const std::string &
             getName
                 (void)
                 const

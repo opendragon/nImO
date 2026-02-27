@@ -95,7 +95,6 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Tcl"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("script"s, "File containing the Tcl code"s,
                                                                                         nImO::ArgumentMode::Optional)};
@@ -124,6 +123,7 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Tcl"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};

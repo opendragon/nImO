@@ -201,7 +201,7 @@ PortArgumentDescriptor::operator=
 } // PortArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-PortArgumentDescriptor::parseArgString
+PortArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

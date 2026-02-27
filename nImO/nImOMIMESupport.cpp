@@ -192,7 +192,7 @@ nImO::DecodeMIMEToBytes
             }
             for (size_t jj{0}; jj < 4; ++jj)
             {
-                auto    offset{strchr(kMIMECharSet, group6[jj])};
+                auto    offset{strchr(kMIMECharSet, group6[jj])}; // cppcheck-suppress constVariablePointer
 
                 if (nullptr == offset)
                 {

@@ -75,7 +75,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning Context. */
-            StopReceiverCommandHandler
+            explicit StopReceiverCommandHandler
                 (SpInputOutputContext   owner);
 
             /*! @brief Handle the command, returning @c true if successful.

@@ -81,7 +81,7 @@ namespace nImO
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] numReservedThreads The number of threads which the application will need for itself. */
-            NetworkingContext
+            NetworkingContext // cppcheck-suppress noExplicitConstructor
                 (const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const int              numReservedThreads = 0);
@@ -141,7 +141,7 @@ namespace nImO
             }
 
             /*! @brief Return the mDNS name of the Registry. */
-            inline std::string
+            inline const std::string &
             getRegistryName
                 (void)
                 const
@@ -221,7 +221,7 @@ namespace nImO
             }
 
             /*! @brief Return the path to the executable to be used when launching the Registry automatically. */
-            inline std::string
+            inline const std::string &
             getRegistryLaunchPath
                 (void)
                 const

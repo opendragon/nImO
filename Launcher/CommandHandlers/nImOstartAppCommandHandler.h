@@ -75,7 +75,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning Context. */
-            StartAppCommandHandler
+            explicit StartAppCommandHandler
                 (SpLauncherContext  owner);
 
             /*! @brief Handle the command, returning @c true if successful.

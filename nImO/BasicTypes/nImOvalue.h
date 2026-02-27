@@ -351,6 +351,7 @@ namespace nImO
             inline bool
             operator<
                 (const Value &  other)
+                const
             {
                 ComparisonStatus    result{lessThan(other)};
 
@@ -363,6 +364,7 @@ namespace nImO
             inline bool
             operator>
                 (const Value &  other)
+                const
             {
                 ComparisonStatus    result{greaterThan(other)};
 
@@ -375,6 +377,7 @@ namespace nImO
             inline bool
             operator<=
                 (const Value &  other)
+                const
             {
                 ComparisonStatus    result{lessThanOrEqual(other)};
 
@@ -387,6 +390,7 @@ namespace nImO
             inline bool
             operator>=
                 (const Value &  other)
+                const
             {
                 ComparisonStatus    result{greaterThanOrEqual(other)};
 
@@ -399,6 +403,7 @@ namespace nImO
             inline bool
             operator==
                 (const Value &  other)
+                const
             {
                 ComparisonStatus    result{equalTo(other)};
 
@@ -411,6 +416,7 @@ namespace nImO
             inline bool
             operator!=
                 (const Value &  other)
+                const
             {
                 ComparisonStatus    result{equalTo(other)};
 

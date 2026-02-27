@@ -95,6 +95,7 @@ void
 nImO::ChannelStatistics::get
     (int64_t &  numberOfBytes,
      int64_t &  numberOfMessages)
+    const
 {
     std::lock_guard<std::mutex> guard{_lock};
 

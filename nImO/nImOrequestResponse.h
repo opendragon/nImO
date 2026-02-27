@@ -69,7 +69,7 @@ namespace nImO
         (SpNetworkingContext    context,
          Connection &           connection,
          Ptr(ResponseHandler)   handler,
-         Ptr(Array)             arguments,
+         CPtr(Array)            arguments,
          const std::string &    requestKey,
          const std::string &    responseKey);
 
@@ -84,7 +84,7 @@ namespace nImO
     SendRequestWithArgumentsAndEmptyResponse
         (SpNetworkingContext    context,
          Connection &           connection,
-         Ptr(Array)             arguments,
+         CPtr(Array)            arguments,
          const std::string &    requestKey,
          const std::string &    responseKey)
     {

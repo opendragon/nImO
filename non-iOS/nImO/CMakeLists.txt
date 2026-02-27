@@ -212,8 +212,8 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOsinkBreakHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOsourceBreakHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOstandardOptions.cpp"
-            "${THIS_SOURCE_DIR}/optionparser.cpp"
-            "${THIS_SOURCE_DIR}/whereami.c")
+            "${nImO_THIRD_PARTY_DIR}/optionparser.cpp"
+            "${nImO_THIRD_PARTY_DIR}/whereami.c")
 
 target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
 
@@ -272,8 +272,8 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOsinkBreakHandler.h"
         "${THIS_SOURCE_DIR}/nImOsourceBreakHandler.h"
         "${THIS_SOURCE_DIR}/nImOstandardOptions.h"
-        "${THIS_SOURCE_DIR}/optionparser.hpp"
-        "${THIS_SOURCE_DIR}/whereami.h"
+        "${nImO_THIRD_PARTY_DIR}/optionparser.hpp"
+        "${nImO_THIRD_PARTY_DIR}/whereami.h"
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
 

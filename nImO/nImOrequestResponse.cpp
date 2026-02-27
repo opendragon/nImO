@@ -317,7 +317,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     (SpNetworkingContext    context,
      Connection &           connection,
      Ptr(ResponseHandler)   handler,
-     Ptr(Array)             arguments,
+     CPtr(Array)            arguments,
      const std::string &    requestKey,
      const std::string &    responseKey)
 {

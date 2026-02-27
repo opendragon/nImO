@@ -135,7 +135,7 @@ nImO::CloseConnection
 
     if (statusWithInfo.first.first)
     {
-        nImO::ConnectionInfo &  theConnection{statusWithInfo.second};
+        const auto &    theConnection{statusWithInfo.second};
 
         if (theConnection._found)
         {

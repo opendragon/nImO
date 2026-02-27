@@ -150,7 +150,7 @@ nImO::Number::operator=
 } // nImO::Number::operator=
 
 nImO::SpValue
-nImO::Number::readFromStringBuffer
+nImO::Number::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
@@ -182,9 +182,9 @@ nImO::Number::readFromStringBuffer
     SpValue     result;
     size_t      localIndex{position};
 
-    for (int aChar; (! done); )
+    for (int aChar; ! done; )
     {
-        aChar = tolower(inBuffer.getChar(localIndex++, atEnd));
+        aChar = std::tolower(inBuffer.getChar(localIndex++, atEnd));
         ODL_I2(aChar, localIndex); //####
         ODL_B1(atEnd); //####
         switch (currentState)

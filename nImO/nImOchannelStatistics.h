@@ -91,7 +91,8 @@ namespace nImO
             void
             get
                 (int64_t &  numberOfBytes,
-                 int64_t &  numberOfMessages);
+                 int64_t &  numberOfMessages)
+                const;
 
             /*! @brief Update the statistics.
              @param[in] additionalBytes The number of bytes transferred. */

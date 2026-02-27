@@ -93,7 +93,6 @@ main
      Ptr(Ptr(char)) argv)
 {
     constexpr double        tinyValue{1e-6};
-    std::string             thisService{"Pulse"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("period"s, "Number of seconds between pulses"s,
                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, true, tinyValue, false, 0.0)};
@@ -126,6 +125,7 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Pulse"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};
@@ -257,30 +257,26 @@ main
                                                     sendHigh = (! sendHigh);
                                                 }
                                                 nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(actualValue)};
+                                                auto            aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
 
-                                                if (valueToSend)
-                                                {
-                                                    auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
-
-                                                    timers.insert(aTimer);
-                                                    aTimer->expires_from_now(delayTime);
-                                                    aTimer->async_wait([&outChannel, &ourContext, valueToSend, outChannelPath, aTimer, &doAnother]
-                                                                       (const BSErr & error)
-                                                                       {
-                                                                            if ((! error) && nImO::gKeepRunning)
+                                                timers.insert(aTimer);
+                                                aTimer->expires_from_now(delayTime);
+                                                aTimer->async_wait([&outChannel, &ourContext, valueToSend, outChannelPath, aTimer, &doAnother]
+                                                                   (const BSErr & error)
+                                                                   {
+                                                                        if ((! error) && nImO::gKeepRunning)
+                                                                        {
+                                                                            if (outChannel->send(valueToSend))
                                                                             {
-                                                                                if (outChannel->send(valueToSend))
-                                                                                {
-                                                                                    doAnother = true;
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    ourContext->report("Problem sending to '"s + outChannelPath +
-                                                                                                       "'."s);
-                                                                                }
+                                                                                doAnother = true;
                                                                             }
-                                                                        });
-                                                }
+                                                                            else
+                                                                            {
+                                                                                ourContext->report("Problem sending to '"s + outChannelPath +
+                                                                                                   "'."s);
+                                                                            }
+                                                                        }
+                                                                    });
                                            }
                                         }
                                         for (auto & walker : timers)

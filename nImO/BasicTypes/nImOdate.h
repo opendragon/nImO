@@ -100,12 +100,12 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
-            Date
+            explicit Date
                 (const DateTimeValue    initialValue);
 
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
-            Date
+            explicit Date
                 (const DateTimeBytes &  initialValue);
 
             /*! @brief The copy constructor.

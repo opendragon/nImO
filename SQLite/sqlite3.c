@@ -19944,7 +19944,7 @@ SQLITE_PRIVATE   int sqlite3CorruptPgnoError(int,Pgno);
 # define sqlite3Isalpha(x)   isalpha((unsigned char)(x))
 # define sqlite3Isdigit(x)   isdigit((unsigned char)(x))
 # define sqlite3Isxdigit(x)  isxdigit((unsigned char)(x))
-# define sqlite3Tolower(x)   tolower((unsigned char)(x))
+# define sqlite3Tolower(x)   std::tolower((unsigned char)(x))
 # define sqlite3Isquote(x)   ((x)=='"'||(x)=='\''||(x)=='['||(x)=='`')
 #endif
 SQLITE_PRIVATE int sqlite3IsIdChar(u8);
@@ -22081,8 +22081,8 @@ SQLITE_PRIVATE const unsigned char *sqlite3aGTb = &sqlite3UpperToLower[256+12-OP
 **
 **   (x & ~(map[x]&0x20))
 **
-** The equivalent of tolower() is implemented using the sqlite3UpperToLower[]
-** array. tolower() is used more often than toupper() by SQLite.
+** The equivalent of std::tolower() is implemented using the sqlite3UpperToLower[]
+** array. std::tolower() is used more often than toupper() by SQLite.
 **
 ** Bit 0x40 is set if the character is non-alphanumeric and can be used in an
 ** SQLite identifier.  Identifiers are alphanumerics, "_", "$", and any
@@ -208209,7 +208209,7 @@ static void icuCaseFunc16(sqlite3_context *p, int nArg, sqlite3_value **apArg){
   int nInput;                     /* Size of utf-16 input string in bytes */
   int nOut;                       /* Size of output buffer in bytes */
   int cnt;
-  int bToUpper;                   /* True for toupper(), false for tolower() */
+  int bToUpper;                   /* True for toupper(), false for std::tolower() */
   UErrorCode status;
   const char *zLocale = 0;
 

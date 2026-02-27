@@ -184,7 +184,7 @@ nImO::DateTime::operator=
 } // nImO::DateTime::operator=
 
 nImO::SpValue
-nImO::DateTime::readFromStringBuffer
+nImO::DateTime::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
@@ -192,7 +192,7 @@ nImO::DateTime::readFromStringBuffer
     ODL_P2(&inBuffer, &position); //####
     SpValue result;
     size_t  localIndex{position};
-    bool    atEnd;
+    bool    atEnd{false};
     int     aChar{inBuffer.getChar(localIndex++, atEnd)};
 
     if ((! atEnd) && (kStartDateTimeChar == aChar))

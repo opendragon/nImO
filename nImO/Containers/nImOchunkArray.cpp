@@ -118,7 +118,7 @@ nImO::ChunkArray::~ChunkArray
         {
             delete _buffers[ii];
         }
-        delete[] _buffers;
+        delete[] _buffers; // cppcheck-suppress mismatchAllocDealloc
     }
     ODL_OBJEXIT(); //####
 } // nImO::ChunkArray::~ChunkArray
@@ -177,7 +177,7 @@ nImO::ChunkArray::appendBytes
                     else
                     {
                         memcpy(newBuffers, _buffers, sizeof(*_buffers) * _numChunks);
-                        delete[] _buffers;
+                        delete[] _buffers; // cppcheck-suppress mismatchAllocDealloc
                         _buffers = newBuffers;
                         ODL_P1(_buffers); //####
                         _buffers[_numChunks++] = lastChunk;
@@ -212,7 +212,7 @@ nImO::ChunkArray::atEnd
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
-            Ptr(BufferChunk)    aChunk{_buffers[chunkNumber]};
+            CPtr(BufferChunk)   aChunk{_buffers[chunkNumber]};
 
             if (nullptr != aChunk)
             {
@@ -251,7 +251,7 @@ nImO::ChunkArray::getByte
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
-            Ptr(BufferChunk)    aChunk{_buffers[chunkNumber]};
+            CPtr(BufferChunk)   aChunk{_buffers[chunkNumber]};
 
             if (nullptr != aChunk)
             {
@@ -319,12 +319,11 @@ nImO::ChunkArray::getString
     ODL_I1(index); //####
     std::string result;
     size_t      length{getLength()};
-    size_t      walker{0};
 
-    ODL_I2(length, walker); //####
+    ODL_I1(length); //####
     if (index < length)
     {
-        for (size_t ii{0}; _numChunks > ii; ++ii)
+        for (size_t ii{0}, walker{0}; _numChunks > ii; ++ii)
         {
             auto    aChunk{_buffers[ii]};
 

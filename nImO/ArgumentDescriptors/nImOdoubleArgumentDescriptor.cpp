@@ -108,8 +108,8 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
     (const DoubleArgumentDescriptor &   other) :
-        inherited{other}, _defaultValue{other._defaultValue}, _hasMaximumValue{other._hasMaximumValue}, _hasMinimumValue{other._hasMinimumValue},
-        _maximumValue{other._maximumValue}, _minimumValue{other._minimumValue}
+        inherited{other}, _currentValue{other._currentValue}, _defaultValue{other._defaultValue}, _hasMaximumValue{other._hasMaximumValue},
+        _hasMinimumValue{other._hasMinimumValue}, _maximumValue{other._maximumValue}, _minimumValue{other._minimumValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -119,7 +119,7 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
     (DoubleArgumentDescriptor &&    other)
     noexcept :
-        inherited{std::move(other)}, _defaultValue{std::exchange(other._defaultValue, 0)},
+        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)}, _defaultValue{std::exchange(other._defaultValue, 0)},
         _hasMaximumValue{std::exchange(other._hasMaximumValue, false)}, _hasMinimumValue{std::exchange(other._hasMinimumValue, false)},
         _maximumValue{std::exchange(other._maximumValue, 0)}, _minimumValue{std::exchange(other._minimumValue, 0)}
 {
@@ -265,7 +265,7 @@ DoubleArgumentDescriptor::operator=
 } // DoubleArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-DoubleArgumentDescriptor::parseArgString
+DoubleArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

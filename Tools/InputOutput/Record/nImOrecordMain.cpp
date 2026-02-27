@@ -91,7 +91,6 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Record"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("output"s, "File to write to"s,
                                                                                         nImO::ArgumentMode::Required, ""s, ""s, true)};
@@ -114,6 +113,7 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Record"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::SinkContext>(argc, argv, thisService, optionValues._logging, nodeName)};

@@ -472,7 +472,7 @@ doTestBigArrayValue
 
                 for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr{bigBlob.get()};
+                    CPtr(uint8_t)   addr{bigBlob.get()};
                     auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     if (0 != ii)
@@ -7965,7 +7965,7 @@ doTestInvalidArrayCompares
         leftValue.addValue(std::make_shared<String>());
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -8082,7 +8082,7 @@ doTestInvalidLogicalMapCompares
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -8199,7 +8199,7 @@ doTestInvalidIntegerMapCompares
         leftValue.addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -8317,7 +8317,7 @@ doTestInvalidStringMapCompares
         leftValue.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -8434,7 +8434,7 @@ doTestInvalidLogicalSetCompares
         leftValue.addValue(std::make_shared<Logical>(true));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -8551,7 +8551,7 @@ doTestInvalidIntegerSetCompares
         leftValue.addValue(std::make_shared<Integer>(12));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -8669,7 +8669,7 @@ doTestInvalidStringSetCompares
         leftValue.addValue(std::make_shared<String>("ghi"));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -9245,7 +9245,7 @@ doTestInvalidAddressMapCompares
         leftValue.addValue(std::make_shared<Address>(0x5678ABCD), std::make_shared<Double>(1234.5));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -9363,7 +9363,7 @@ doTestInvalidAddressSetCompares
         leftValue.addValue(std::make_shared<Address>(0x5678ABCD));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -9953,7 +9953,7 @@ doTestInvalidDateMapCompares
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(3, 4, 5)), std::make_shared<Double>(1234.5));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -10071,7 +10071,7 @@ doTestInvalidDateSetCompares
         leftValue.addValue(std::make_shared<Date>(MakeDateValue(3, 4, 5)));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -10661,7 +10661,7 @@ doTestInvalidTimeMapCompares
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(3, 4, 5, 6)), std::make_shared<Double>(1234.5));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -10779,7 +10779,7 @@ doTestInvalidTimeSetCompares
         leftValue.addValue(std::make_shared<Time>(MakeTimeValue(3, 4, 5, 6)));
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -12523,7 +12523,7 @@ doTestBigArrayValueAsJSON
                 expectedString += ' ';
                 for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr{bigBlob.get()};
+                    CPtr(uint8_t)   addr{bigBlob.get()};
                     auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     if (0 != ii)
@@ -16290,8 +16290,7 @@ main
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        throw;
-        
+        result = -1;        
     }
     ODL_EXIT_I(result); //####
     return result;

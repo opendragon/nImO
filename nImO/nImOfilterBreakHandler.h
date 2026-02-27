@@ -75,7 +75,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] theContext The filter context that is active. */
-            FilterBreakHandler
+            explicit FilterBreakHandler
                 (Ptr(FilterContext) theContext);
 
         protected :

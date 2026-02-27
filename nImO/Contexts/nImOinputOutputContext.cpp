@@ -208,13 +208,14 @@ nImO::InputOutputContext::anOutputChannelIsConnected
 void
 nImO::InputOutputContext::collectOutputChannels
     (OutChannelVector & outChannels)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_P1(&outChannels); //####
     outChannels.clear();
-    for (auto & walker : _outputChannelMap)
+    for (const auto & walker : _outputChannelMap)
     {
-        outChannels.push_back(walker.second);
+        outChannels.push_back(walker.second); // cppcheck-suppress useStlAlgorithm
     }
     ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::collectOutputChannels
@@ -246,7 +247,7 @@ nImO::InputOutputContext::getInputChannelNames
     names.clear();
     for (auto & walker : _inputChannelMap)
     {
-        names.push_back(walker.second->getName());
+        names.push_back(walker.second->getName()); // cppcheck-suppress useStlAlgorithm
     }
     ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::getInputChannelNames
@@ -278,7 +279,7 @@ nImO::InputOutputContext::getOutputChannelNames
     names.clear();
     for (auto & walker : _outputChannelMap)
     {
-        names.push_back(walker.second->getName());
+        names.push_back(walker.second->getName()); // cppcheck-suppress useStlAlgorithm
     }
     ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames

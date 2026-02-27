@@ -2646,8 +2646,7 @@ main
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        throw;
-        
+        result = -1;        
     }
     ODL_EXIT_I(result); //####
     return result;

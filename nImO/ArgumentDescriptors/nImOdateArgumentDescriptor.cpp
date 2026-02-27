@@ -101,7 +101,7 @@ DateArgumentDescriptor::DateArgumentDescriptor
 
 DateArgumentDescriptor::DateArgumentDescriptor
     (const DateArgumentDescriptor &  other) :
-        inherited{other}, _currentValue(other._currentValue)
+        inherited{other}, _currentValue(other._currentValue), _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -111,7 +111,8 @@ DateArgumentDescriptor::DateArgumentDescriptor
 DateArgumentDescriptor::DateArgumentDescriptor
     (DateArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)}
+        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)},
+        _defaultValue{std::exchange(other._defaultValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -228,7 +229,7 @@ DateArgumentDescriptor::operator=
 } // DateArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-DateArgumentDescriptor::parseArgString
+DateArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

@@ -108,7 +108,7 @@ namespace nImO
             @param[in] data The bytes to be added.
             @param[in] numBytes The number of bytes to add. */
             inline void
-            appendBytes
+            appendBytes // cppcheck-suppress duplInheritedMember
                 (CPtr(DataKind) data,
                  const size_t   numBytes)
             {

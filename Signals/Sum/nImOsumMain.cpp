@@ -74,7 +74,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief A class to accumulate received values. */
-class ValueCollector final : public nImO::CallbackFunction
+class SumValueCollector final : public nImO::CallbackFunction
 {
     public :
         // Public type definitions.
@@ -92,7 +92,7 @@ class ValueCollector final : public nImO::CallbackFunction
         // Public methods.
 
         /*! @brief The constructor. */
-        inline ValueCollector
+        inline SumValueCollector
             (void) :
                 inherited()
         {
@@ -105,13 +105,8 @@ class ValueCollector final : public nImO::CallbackFunction
             (void)
         {
             std::lock_guard<std::mutex>  lock{_valuesLock};
-            double  result{0};
 
-            for (auto aValue : _values)
-            {
-                result += aValue;
-            }
-            return result;
+            return std::accumulate(_values.begin(), _values.end(), 0);
         }
 
         /*! @brief Increase the size of the collection of values. */
@@ -175,7 +170,7 @@ class ValueCollector final : public nImO::CallbackFunction
         /*! @brief Used to protect the collected values. */
         std::mutex  _valuesLock{};
 
-}; // ValueCollector
+}; // SumValueCollector
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -198,7 +193,6 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             thisService{"Sum"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numIn"s, "Number of input channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
@@ -222,13 +216,14 @@ main
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string         thisService{"Sum"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
-            auto                valueCollection{std::make_shared<ValueCollector>()};
+            auto                valueCollection{std::make_shared<SumValueCollector>()};
             auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath, valueCollection.get()}};
             auto                longName{progName + " ["s + nodeName + "]"s};
 
@@ -419,15 +414,11 @@ main
                                             bool    alreadyReported{false};
 
                                             nImO::gKeepRunning = true; // So that the calls to 'CloseConnection' and 'getInputChannelNames' won't fail...
-                                            if (! nImO::gPendingStop)
-                                            {
-                                                nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
-                                                nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
-                                            }
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                             nImO::StdStringVector   inChannelPaths;
 
                                             ourContext->getInputChannelNames(inChannelPaths);
-                                            for (auto & walker : inChannelPaths)
+                                            for (const auto & walker : inChannelPaths)
                                             {
                                                 nImO::CloseConnection(ourContext, nodeName, proxy, walker, false, alreadyReported);
                                             }
@@ -458,7 +449,7 @@ main
                                 nImO::StdStringVector   inChannelPaths;
 
                                 ourContext->getInputChannelNames(inChannelPaths);
-                                for (auto & walker : inChannelPaths)
+                                for (const auto & walker : inChannelPaths)
                                 {
                                     statusWithBool = proxy->removeChannel(nodeName, walker);
                                     if (statusWithBool.first.first)

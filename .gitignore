@@ -275,3 +275,7 @@ non-iOS/Wiring/Repeat/nImOrepeat
 non-iOS/Wiring/Repeat/nImOrepeat.dir/
 non-iOS/Wiring/Repeat/nImOrepeat.rc
 Testing
+check.txt
+compile_commands.json
+build_cppcheck
+checkers_report.txt

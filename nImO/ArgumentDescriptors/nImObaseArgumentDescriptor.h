@@ -419,7 +419,7 @@ namespace nImO
 
             /*! @brief Return the parameter separator.
              @return The parameter separator. */
-            inline static std::string
+            inline static const std::string &
             getParameterSeparator
                 (void)
             {

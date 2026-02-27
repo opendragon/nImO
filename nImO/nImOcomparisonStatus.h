@@ -81,7 +81,7 @@ namespace nImO
             }
 
             /*! @brief The constructor. */
-            inline ComparisonStatus
+            inline ComparisonStatus // cppcheck-suppress noExplicitConstructor
                 (const bool result = true,
                  const bool valid = true) :
                     _result{result}, _valid{valid}

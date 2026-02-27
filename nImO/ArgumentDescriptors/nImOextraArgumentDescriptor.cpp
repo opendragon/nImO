@@ -217,7 +217,7 @@ ExtraArgumentDescriptor::operator=
 } // ExtraArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-ExtraArgumentDescriptor::parseArgString
+ExtraArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
@@ -229,7 +229,7 @@ ExtraArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::ExtraTypeTag, 3, name, argMode, inVector))
     {
-        auto    defaultString{inVector[0]}; // ignored
+//      auto    defaultString{inVector[0]}; // ignored
         auto    description{inVector[1]};
 
         result = std::make_shared<ExtraArgumentDescriptor>(name, description);

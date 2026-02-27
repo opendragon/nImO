@@ -123,6 +123,7 @@ namespace nImO
             inline bool
             isActive
                 (void)
+                const
             {
                 return _active;
             }

@@ -327,7 +327,7 @@ doTestIntegerConversion
 
                 if (expectedLength == convLength)
                 {
-                    int64_t newValue;
+                    int64_t newValue{nImO::RandomUnsigned() % 10000};
                     auto    newLength{ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue)};
 
                     if ((newValue == value) && (newLength == convLength))
@@ -392,14 +392,14 @@ doTestDoubleConversion
     {
         for (int ii{0}; ii < kNumDoubleTests; ++ii)
         {
-            double  value{(nImO::RandomUnsigned() % 10000) * 0.1};
+            double  value{(nImO::RandomUnsigned() % 10000) / 10.0};
             auto    expectedLength{ConvertDoubleToPacketOrder(nullptr, nullptr, value)};
             uint8_t buffer[kBufferSize];
             auto    convLength{ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value)};
 
             if (expectedLength == convLength)
             {
-                double  newValue;
+                double  newValue{(nImO::RandomUnsigned() % 10000) / 10.0};
                 size_t  newLength{ConvertPacketOrderToDouble(buffer, buffer + convLength - 1, newValue)};
 
                 if ((newValue == value) && (newLength == convLength))
@@ -524,8 +524,7 @@ main
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        throw;
-        
+        result = -1;        
     }
     ODL_EXIT_I(result); //####
     return result;

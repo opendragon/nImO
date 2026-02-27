@@ -514,13 +514,13 @@ nImO::Logical::printToStringBufferAsJSON
 } // nImO::Logical::printToStringBufferAsJSON
 
 nImO::SpValue
-nImO::Logical::readFromStringBuffer
+nImO::Logical::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2(&inBuffer, &position); //####
-    bool                atEnd;
+    bool                atEnd{false};
     bool                candidateValue{false};
     SpValue             result;
     size_t              localIndex{position};
@@ -550,7 +550,7 @@ nImO::Logical::readFromStringBuffer
 
         for (size_t ii{1}, len{candidate->length()}; ! done; )
         {
-            aChar = tolower(inBuffer.getChar(localIndex, atEnd));
+            aChar = std::tolower(inBuffer.getChar(localIndex, atEnd));
             if (atEnd || isLegalTerminator(aChar))
             {
                 done = valid = true; // the character seen is a valid terminator

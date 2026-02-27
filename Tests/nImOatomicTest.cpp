@@ -943,11 +943,12 @@ doTestStringBufferWithSpecialCharacters
 
     try
     {
-        CPtr(char)  inString{"abc\tdef\f\rghi\302"};
-        CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
-        size_t      outLength{strlen(outString)};
         if (auto stuff{std::make_unique<StringBuffer>()}; stuff)
         {
+            CPtr(char)  inString{"abc\tdef\f\rghi\302"};
+            CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
+            size_t      outLength{strlen(outString)};
+
             stuff->addString(inString, true);
             size_t  resultLength{stuff->getLength()};
 
@@ -1023,8 +1024,8 @@ doTestStringBufferWithDouble
 
                     for (result = 0; (kEndOfString != *outString) && (kEndOfString != resultString[ii]); ++outString, ++ii)
                     {
-                        auto    outChar{StaticCast(char, tolower(*outString))};
-                        auto    resultChar{StaticCast(char, tolower(resultString[ii]))};
+                        auto    outChar{StaticCast(char, std::tolower(*outString))};
+                        auto    resultChar{StaticCast(char, std::tolower(resultString[ii]))};
 
                         if (outChar != resultChar)
                         {
@@ -1225,7 +1226,7 @@ doTestStringBufferWithSmallBlob
             {
                 for (size_t ii{0}; kSmallTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr{smallBlob.get()};
+                    CPtr(uint8_t)   addr{smallBlob.get()};
                     auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     smallBlob[ii] = aByte;
@@ -1307,7 +1308,7 @@ doTestStringBufferWithBigBlob
             {
                 for (size_t ii{0}; kBigTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr{bigBlob.get()};
+                    CPtr(uint8_t)   addr{bigBlob.get()};
                     auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     bigBlob[ii] = aByte;
@@ -1498,7 +1499,7 @@ doTestLogicalValue
     {
         if (1 < argc)
         {
-            auto    outString{argv[1]};
+            auto    outString{argv[1]}; // cppcheck-suppress constVariablePointer
             int64_t value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
@@ -1618,7 +1619,7 @@ doTestNumberValue
     {
         if (1 < argc)
         {
-            auto    outString{argv[1]};
+            auto    outString{argv[1]}; // cppcheck-suppress constVariablePointer
             int64_t intValue;
 
             if (ConvertToInt64(*argv, intValue))
@@ -1818,9 +1819,11 @@ doTestStringValueWithEscapes
     try
     {
         CPtr(char)  inString{"abc\tdef\f\rghi\302"};
-        CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
+
         if (auto stuff{std::make_unique<String>(inString)}; stuff)
         {
+            CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
+
             if (0 == compareValueWithString(*stuff, outString))
             {
                 result = 0;
@@ -2588,7 +2591,7 @@ doTestAddressValue
         if (1 < argc)
         {
             Address::IPv4Bytes  asBytes;
-            auto                outString{argv[1]};
+            auto                outString{argv[1]}; // cppcheck-suppress constVariablePointer
 
             if (getIPv4Bytes(asBytes, argv[0]))
             {
@@ -2792,7 +2795,7 @@ doTestDateValue
         if (1 < argc)
         {
             Date::DatePieces    pieces;
-            auto                outString{argv[1]};
+            auto                outString{argv[1]}; // cppcheck-suppress constVariablePointer
 
             if (GetDatePieces(pieces, argv[0]))
             {
@@ -2996,7 +2999,7 @@ doTestTimeValue
         if (1 < argc)
         {
             Time::TimePieces    pieces;
-            auto                outString{argv[1]};
+            auto                outString{argv[1]}; // cppcheck-suppress constVariablePointer
 
             if (GetTimePieces(pieces, argv[0]))
             {
@@ -4018,7 +4021,7 @@ doTestInvalidLogicalCompares
 
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -4125,7 +4128,7 @@ doTestInvalidNumberCompares
 
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -4232,7 +4235,7 @@ doTestInvalidStringCompares
 
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -4339,7 +4342,7 @@ doTestInvalidBlobCompares
 
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -4585,7 +4588,7 @@ doTestInvalidAddressCompares
 
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -4831,7 +4834,7 @@ doTestInvalidDateCompares
 
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -5077,7 +5080,7 @@ doTestInvalidTimeCompares
 
         for (size_t ii{0}; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue{*rightValues[ii]};
+            const Value &   aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.isValid())
@@ -5223,7 +5226,7 @@ doTestLogicalValueAsJSON
     {
         if (1 < argc)
         {
-            auto    outString{argv[1]};
+            auto    outString{argv[1]}; // cppcheck-suppress constVariablePointer
             int64_t value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
@@ -5343,7 +5346,7 @@ doTestNumberValueAsJSON
     {
         if (1 < argc)
         {
-            auto    outString{argv[1]};
+            auto    outString{argv[1]}; // cppcheck-suppress constVariablePointer
             int64_t intValue;
 
             if (ConvertToInt64(*argv, intValue))
@@ -5596,7 +5599,7 @@ doTestAddressValueJSON
         if (1 < argc)
         {
             Address::IPv4Bytes  asBytes;
-            auto                outString{argv[1]};
+            auto                outString{argv[1]}; // cppcheck-suppress constVariablePointer
 
             if (getIPv4Bytes(asBytes, argv[0]))
             {
@@ -5712,7 +5715,7 @@ doTestDateValueJSON
         if (1 < argc)
         {
             Date::DatePieces    pieces;
-            auto                outString{argv[1]};
+            auto                outString{argv[1]}; // cppcheck-suppress constVariablePointer
 
             if (GetDatePieces(pieces, argv[0]))
             {
@@ -5828,7 +5831,7 @@ doTestTimeValueJSON
         if (1 < argc)
         {
             Time::TimePieces    pieces;
-            auto                outString{argv[1]};
+            auto                outString{argv[1]}; // cppcheck-suppress constVariablePointer
 
             if (GetTimePieces(pieces, argv[0]))
             {
@@ -6203,8 +6206,7 @@ main
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        throw;
-        
+        result = -1;        
     }
     ODL_EXIT_I(result); //####
     return result;

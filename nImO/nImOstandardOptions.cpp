@@ -92,7 +92,7 @@ static nImO::SpValue    lConfigurationValues{};
 
 void
 nImO::CheckArgumentDescriptions
-    (DescriptorVector &    argumentList)
+    (const DescriptorVector &   argumentList)
 {
     ODL_ENTER(); //####
     ODL_P1(&argumentList); //####
@@ -197,17 +197,17 @@ nImO::LoadConfiguration
 
 bool
 nImO::ProcessStandardOptions
-    (const int              argc,
-     Ptr(Ptr(char))         argv,
-     DescriptorVector &     argumentDescriptions,
-     const std::string &    utilityDescription,
-     const std::string &    utilityExample,
-     const int              year,
-     const std::string &    copyrightHolder,
-     StandardOptions &      optionValues,
-     HelpFunction           helper,
-     const OptionsMask      optionsToIgnore,
-     Ptr(StdStringVector)   arguments)
+    (const int                  argc,
+     Ptr(Ptr(char))             argv,
+     const DescriptorVector &   argumentDescriptions,
+     const std::string &        utilityDescription,
+     const std::string &        utilityExample,
+     const int                  year,
+     const std::string &        copyrightHolder,
+     StandardOptions &          optionValues,
+     HelpFunction               helper,
+     const OptionsMask          optionsToIgnore,
+     Ptr(StdStringVector)       arguments)
 {
     ODL_ENTER(); //####
     ODL_I2(argc, year); //####
@@ -332,9 +332,6 @@ nImO::ProcessStandardOptions
     if (0 == (kSkipFlavoursOption & optionsToIgnore))
     {
         memcpy(usageWalker++, &nimoDescriptor, sizeof(nimoDescriptor));
-    }
-    if (0 == (kSkipFlavoursOption & optionsToIgnore))
-    {
         memcpy(usageWalker++, &tabsDescriptor, sizeof(tabsDescriptor));
     }
     memcpy(usageWalker++, &versionDescriptor, sizeof(versionDescriptor));
@@ -345,7 +342,6 @@ nImO::ProcessStandardOptions
     auto            options{std::make_unique<Option_::Option[]>(stats.options_max)};
     auto            buffer{std::make_unique<Option_::Option[]>(stats.buffer_max)};
     Option_::Parser parse{usage, argcWork, argvWork, options.get(), buffer.get(), 1};
-    std::string     badArgs;
 
     if (parse.error())
     {
@@ -369,6 +365,8 @@ nImO::ProcessStandardOptions
         {
             if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
             {
+                std::string badArgs;
+
                 if (ProcessArguments(argumentDescriptions, parse, badArgs))
                 {
                     if (0 == (kSkipFlavoursOption & optionsToIgnore))

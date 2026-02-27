@@ -76,7 +76,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] aString The value to initialize with.
              @param[in] addQuotes @c true if the string is to be delimited by quote characters. */
-            StringBuffer
+            StringBuffer // cppcheck-suppress noExplicitConstructor
                 (CPtr(char) aString = nullptr,
                  const bool addQuotes = false);
 

@@ -199,7 +199,7 @@ AddressArgumentDescriptor::operator=
 } // AddressArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-AddressArgumentDescriptor::parseArgString
+AddressArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

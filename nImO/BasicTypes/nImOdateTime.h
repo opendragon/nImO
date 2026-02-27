@@ -130,7 +130,7 @@ namespace nImO
              @param[out] position Where in the buffer to start.
              @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
             static SpValue
-            readFromStringBuffer
+            readFromStringBuffer // cppcheck-suppress duplInheritedMember
                 (const StringBuffer &   inBuffer,
                  size_t &               position);
 
@@ -151,12 +151,12 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
-            DateTime
+            explicit DateTime
                 (const DateTimeValue    initialValue);
 
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
-            DateTime
+            explicit DateTime
                 (const DateTimeBytes &  initialValue);
 
             /*! @brief The copy constructor.

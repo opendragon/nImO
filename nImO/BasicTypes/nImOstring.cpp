@@ -557,7 +557,7 @@ nImO::String::printToStringBufferAsJSON
 } // nImO::String::printToStringBufferAsJSON
 
 nImO::SpValue
-nImO::String::readFromStringBuffer
+nImO::String::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
@@ -565,7 +565,7 @@ nImO::String::readFromStringBuffer
     ODL_P2(&inBuffer, &position); //####
     SpValue result;
     size_t  localIndex{position};
-    bool    atEnd;
+    bool    atEnd{false};
     int     aChar{inBuffer.getChar(localIndex++, atEnd)};
 
     if ((! atEnd) && ((kSingleQuote == aChar) || (kDoubleQuote == aChar)))
@@ -586,7 +586,6 @@ nImO::String::readFromStringBuffer
             SawEscapeBigMminusEscapeBigCminus
         }; // ScanState
 
-        bool                done{false};
         bool                valid{false};
         auto                delimiter{StaticCast(char, aChar)};
         int                 octalSum;
@@ -595,7 +594,7 @@ nImO::String::readFromStringBuffer
         static CPtr(char)   standardEscapes{"abtnvfrs"};
         static CPtr(char)   standardEscapesActual{"\a\b\t\n\v\f\r "};
 
-        for ( ; ! done; )
+        for (bool done{false}; ! done; )
         {
             aChar = inBuffer.getChar(localIndex++, atEnd);
             if (atEnd)
@@ -638,7 +637,7 @@ nImO::String::readFromStringBuffer
                         }
                         else
                         {
-                            auto    whichEscape{strchr(standardEscapes, aChar)};
+                            auto    whichEscape{strchr(standardEscapes, aChar)}; // cppcheck-suppress constVariablePointer
 
                             if (nullptr == whichEscape)
                             {
@@ -847,10 +846,7 @@ nImO::String::readFromStringBuffer
         if (valid)
         {
             result = std::make_shared<String>(holding.getString());
-            if (result)
-            {
-                position = localIndex;
-            }
+            position = localIndex;
         }
         else
         {
@@ -872,16 +868,16 @@ nImO::String::writeToMessage
 {
     ODL_ENTER(); //####
     ODL_P1(&outMessage); //####
-    size_t length{_value.length()};
+    size_t theLength{_value.length()};
 
-    if (0 < length)
+    if (0 < theLength)
     {
-        ODL_LOG("(0 < length)"); //####
-        if (kDataKindStringOrBlobShortLengthMaxValue < length)
+        ODL_LOG("(0 < theLength)"); //####
+        if (kDataKindStringOrBlobShortLengthMaxValue < theLength)
         {
-            ODL_LOG("(kDataKindStringOrBlobShortLengthMaxValue < length)"); //####
+            ODL_LOG("(kDataKindStringOrBlobShortLengthMaxValue < theLength)"); //####
             NumberAsBytes   numBuff;
-            size_t          numBytes{I2B(length, numBuff)};
+            size_t          numBytes{I2B(theLength, numBuff)};
 
             if (0 < numBytes)
             {
@@ -897,15 +893,15 @@ nImO::String::writeToMessage
         }
         else
         {
-            ODL_LOG("! (kDataKindStringOrBlobShortLengthMaxValue < length)"); //####
+            ODL_LOG("! (kDataKindStringOrBlobShortLengthMaxValue < theLength)"); //####
             DataKind    stuff{DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
                                 DataKind::StringOrBlobShortLengthValue |
                                 (DataKind::StringOrBlobShortLengthMask &
-                                 StaticCast(DataKind, length))};
+                                 StaticCast(DataKind, theLength))};
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
-        for (size_t ii{0}; length > ii; ++ii)
+        for (size_t ii{0}; theLength > ii; ++ii)
         {
             auto    stuff{StaticCast(uint8_t, _value.at(ii))};
 
@@ -914,7 +910,7 @@ nImO::String::writeToMessage
     }
     else
     {
-        ODL_LOG("! (0 < length)"); //####
+        ODL_LOG("! (0 < theLength)"); //####
         DataKind    stuff{DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
                             DataKind::StringOrBlobShortLengthValue |
                             (DataKind::StringOrBlobShortLengthMask & 0)};

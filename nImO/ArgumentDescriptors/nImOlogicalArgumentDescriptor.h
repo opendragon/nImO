@@ -167,7 +167,7 @@ namespace nImO
              @param[in] inString The input string in 'arguments' format.
              @return A valid descriptor or @c nullptr if the input is not recognized. */
             static SpBaseArgumentDescriptor
-            parseArgString
+            parseArgString // cppcheck-suppress duplInheritedMember
                 (const std::string &    inString);
 
             /*! @brief Exchanges the contents of the object with those of other.

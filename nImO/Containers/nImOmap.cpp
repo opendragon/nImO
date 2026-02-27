@@ -510,7 +510,7 @@ nImO::Map::extractValue
                             {
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
-                                okSoFar = false;
+                                okSoFar = false; // cppcheck-suppress unreadVariable
                                 ODL_B1(okSoFar); //####
                             }
                             else
@@ -530,7 +530,7 @@ nImO::Map::extractValue
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result = std::make_shared<Invalid>("Non-empty Map with incorrect end tag", position);
-                                    okSoFar = false;
+                                    okSoFar = false; // cppcheck-suppress unreadVariable
                                     ODL_B1(okSoFar); //####
                                 }
                             }
@@ -776,7 +776,7 @@ nImO::Map::operator<<
     ODL_OBJENTER(); //####
     ODL_P1(&out); //####
     out << kStartMapChar;
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         out << " " << *walker.first << " " << kKeyValueSeparator << " " << *walker.second;
     }
@@ -915,14 +915,13 @@ nImO::Map::random
 } /* nImO::Map::random */
 
 nImO::SpValue
-nImO::Map::readFromStringBuffer
+nImO::Map::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2(&inBuffer, &position); //####
-    bool    atEnd;
-    bool    done{false};
+    bool    atEnd{false};
     bool    valid{false};
     auto    result{std::make_shared<Map>()};
     size_t  localIndex{position};
@@ -934,7 +933,7 @@ nImO::Map::readFromStringBuffer
     ODL_I1(localIndex); //####
     if ((! atEnd) && (kStartMapChar == aChar))
     {
-        for ( ; ! done; )
+        for (bool done{false}; ! done; )
         {
             inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
             ODL_I1(localIndex); //####

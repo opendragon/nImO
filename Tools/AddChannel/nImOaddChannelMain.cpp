@@ -133,13 +133,13 @@ main
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    nodeName{firstArg->getCurrentValue()};
-                bool    forOutput{secondArg->getCurrentValue()};
                 auto    statusWithInfo{proxy->getNodeInformation(nodeName)};
 
                 if (statusWithInfo.first.first)
                 {
                     if (statusWithInfo.second._found)
                     {
+                        bool    forOutput{secondArg->getCurrentValue()};
                         int64_t existingChannelCount{0};
 
                         if (forOutput)
@@ -173,8 +173,6 @@ main
                         if (0 == exitCode)
                         {
                             nImO::Connection    nodeConnection{statusWithInfo.second._connection};
-                            int64_t             maxInputChannels;
-                            int64_t             maxOutputChannels;
                             auto                handler1{std::make_unique<nImO::GetChannelLimitsResponseHandler>()};
                             auto                statusWithLimits{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, nodeConnection,
                                                                                                                      handler1.get(),
@@ -183,6 +181,9 @@ main
 
                             if (statusWithLimits.first)
                             {
+                                int64_t maxInputChannels;
+                                int64_t maxOutputChannels;
+
                                 handler1->result(maxInputChannels, maxOutputChannels);
                                 if (forOutput)
                                 {

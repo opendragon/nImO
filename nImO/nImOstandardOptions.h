@@ -161,7 +161,7 @@ namespace nImO
 
         /*! @brief The constructor.
          @param[in] loggingOnByDefault @c true if logging should be enabled. */
-        StandardOptions
+        explicit StandardOptions
             (const bool loggingOnByDefault = false) :
                 _logging{loggingOnByDefault}
         {
@@ -174,7 +174,7 @@ namespace nImO
      Throws an exception if the list of argument descriptions is invalid. */
     void
     CheckArgumentDescriptions
-        (DescriptorVector &    argumentList);
+        (const DescriptorVector &   argumentList);
 
     /*! @brief Get a value associated with the provided key in the configuration data.
      @param[in] key The key took look up in the configuration data.
@@ -214,17 +214,17 @@ namespace nImO
      @return @c true if the program should continue and @c false if it should leave. */
     bool
     ProcessStandardOptions
-        (const int              argc,
-         Ptr(Ptr(char))         argv,
-         DescriptorVector &     argumentDescriptions,
-         const std::string &    utilityDescription,
-         const std::string &    utilityExample,
-         const int              year,
-         const std::string &    copyrightHolder,
-         StandardOptions &      optionValues,
-         HelpFunction           helper = nullptr,
-         const OptionsMask      optionsToIgnore = kSkipNone,
-         Ptr(StdStringVector)   arguments = nullptr);
+        (const int                  argc,
+         Ptr(Ptr(char))             argv,
+         const DescriptorVector &   argumentDescriptions,
+         const std::string &        utilityDescription,
+         const std::string &        utilityExample,
+         const int                  year,
+         const std::string &        copyrightHolder,
+         StandardOptions &          optionValues,
+         HelpFunction               helper = nullptr,
+         const OptionsMask          optionsToIgnore = kSkipNone,
+         Ptr(StdStringVector)       arguments = nullptr);
 
 } // nImO
 

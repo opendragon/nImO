@@ -130,7 +130,7 @@ nImO::Array::addEntries
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    for (auto & walker : other)
+    for (const auto & walker : other)
     {
         addValue(walker);
     }
@@ -362,7 +362,7 @@ nImO::Array::extractValue
                             {
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
-                                okSoFar = false;
+                                okSoFar = false; // cppcheck-suppress unreadVariable
                                 ODL_B1(okSoFar); //####
                             }
                             else
@@ -565,7 +565,7 @@ nImO::Array::operator<<
     ODL_OBJENTER(); //####
     ODL_P1(&out); //####
     out << kStartArrayChar;
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -691,14 +691,13 @@ nImO::Array::random
 } /* nImO::Array::random */
 
 nImO::SpValue
-nImO::Array::readFromStringBuffer
+nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2(&inBuffer, &position); //####
-    bool    atEnd;
-    bool    done{false};
+    bool    atEnd{false};
     bool    valid{false};
     auto    result{std::make_shared<Array>()};
     size_t  localIndex{position};
@@ -710,7 +709,7 @@ nImO::Array::readFromStringBuffer
     ODL_B1(atEnd); //####
     if ((! atEnd) && (kStartArrayChar == aChar))
     {
-        for ( ; ! done; )
+        for (bool done{false}; ! done; )
         {
             inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
             ODL_I1(localIndex); //####

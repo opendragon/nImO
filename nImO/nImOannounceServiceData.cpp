@@ -78,13 +78,25 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::AnnounceServiceData::AnnounceServiceData
+nImO::AnnounceServiceData::AnnounceServiceData // cppcheck-suppress uninitMemberVar
     (const struct sockaddr_in &     addressIpv4,
      const struct sockaddr_in6 &    addressIpv6) :
         _addressIpv4{addressIpv4}, _addressIpv6{addressIpv6}
 {
     ODL_ENTER(); //####
     ODL_P2(&addressIpv4, &addressIpv6); //####
+    _hostName.init();
+    _hostNameQualified.init();
+    _serviceInstance.init();
+    _serviceName.init();
+    _recordA.init();
+    _recordAAAA.init();
+    _recordPTR.init();
+    _recordSRV.init();
+    for (size_t ii{0}; ii < kNumTxtRecords; ++ii)
+    {
+        _recordTXT[ii].init();
+    }
     ODL_EXIT_P(this); //####
 } // nImO::AnnounceServiceData::AnnounceServiceData
 
@@ -127,7 +139,7 @@ nImO::AnnounceServiceData::setServiceData
     ODL_OBJENTER(); //####
     ODL_I1(port); //####
     ODL_S4s(serviceName, hostName, dataKey, hostAddress); //####
-    bool    okSoFar;
+    bool    okSoFar{false};
     size_t  serviceNameLength{serviceName.length()};
     size_t  hostNameLength{hostName.length()};
 
@@ -135,70 +147,68 @@ nImO::AnnounceServiceData::setServiceData
     {
         _port = port;
         _serviceNameBuffer = StaticCast(Ptr(char), malloc(serviceNameLength + 2));
-        memcpy(_serviceNameBuffer, serviceName.c_str(), serviceNameLength);
-        if (_serviceNameBuffer[serviceNameLength - 1] != '.')
+        if (nullptr != _serviceNameBuffer)
         {
-            _serviceNameBuffer[serviceNameLength++] = '.';
+            memcpy(_serviceNameBuffer, serviceName.c_str(), serviceNameLength);
+            if (_serviceNameBuffer[serviceNameLength - 1] != '.')
+            {
+                _serviceNameBuffer[serviceNameLength++] = '.';
+            }
+            _serviceNameBuffer[serviceNameLength] = kEndOfString;
+            std::string     scratchName{_serviceNameBuffer};
+            mDNS::string_t  serviceString{make_mdns_string(scratchName.c_str(), scratchName.length())};
+            mDNS::string_t  hostNameString{make_mdns_string(hostName.c_str(), hostNameLength)};
+            // Build the service instance "<hostname>.<_service-name>._tcp.local." string
+            std::string     serviceInstanceBuffer{hostNameString.str};
+
+            serviceInstanceBuffer += "-"s + std::to_string(_port) + "."s;
+            serviceInstanceBuffer += serviceString.str;
+            mDNS::string_t  serviceInstanceString{make_mdns_string(serviceInstanceBuffer.c_str())};
+            // Build the "<hostname>.local." string
+            std::string     qualifiedHostnameBuffer{hostNameString.str};
+
+            qualifiedHostnameBuffer += ".local."s;
+            mDNS::string_t hostnameQualifiedQtring{make_mdns_string(qualifiedHostnameBuffer.c_str())};
+
+            _serviceName = make_mdns_string(serviceString);
+            _hostName = make_mdns_string(hostNameString);
+            _serviceInstance = make_mdns_string(serviceInstanceString);
+            _hostNameQualified = make_mdns_string(hostnameQualifiedQtring);
+            release_mdns_string(serviceString);
+            release_mdns_string(hostNameString);
+            release_mdns_string(serviceInstanceString);
+            release_mdns_string(hostnameQualifiedQtring);
+            // Setup our mDNS records
+
+            // PTR record reverse mapping "<_service-name>._tcp.local." to
+            // "<hostname>.<_service-name>._tcp.local."
+            _recordPTR.name = make_mdns_string(_serviceName);
+            _recordPTR.type = mDNS::kRecordTypePTR;
+            _recordPTR.data.ptr.name = make_mdns_string(_serviceInstance);
+            // SRV record mapping "<hostname>.<_service-name>._tcp.local." to
+            // "<hostname>.local." with port. Set weight & priority to 0.
+            _recordSRV.name = make_mdns_string(_serviceInstance);
+            _recordSRV.type = mDNS::kRecordTypeSRV;
+            _recordSRV.data.srv.name = make_mdns_string(_hostNameQualified);
+            _recordSRV.data.srv.port = _port;
+            _recordSRV.data.srv.priority = 0;
+            _recordSRV.data.srv.weight = 0;
+            // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
+            _recordA.name = make_mdns_string(_hostNameQualified);
+            _recordA.type = mDNS::kRecordTypeA;
+            _recordA.data.a.addr = _addressIpv4;
+            _recordAAAA.name = make_mdns_string(_hostNameQualified);
+            _recordAAAA.type = mDNS::kRecordTypeAAAA;
+            _recordAAAA.data.aaaa.addr = _addressIpv6;
+            // Add TXT records for our service instance name, will be coalesced into
+            // one record with both key-value pair strings by the library
+            _recordTXT[0].name = make_mdns_string(_serviceInstance);
+            _recordTXT[0].type = mDNS::kRecordTypeTXT;
+            _recordTXT[0].data.txt.key = make_mdns_string(dataKey.c_str(), dataKey.length());
+            _recordTXT[0].data.txt.value = make_mdns_string(hostAddress.c_str(), hostAddress.length());
+            okSoFar = true;
+            ODL_B1(okSoFar); //####
         }
-        _serviceNameBuffer[serviceNameLength] = kEndOfString;
-        std::string     scratchName{_serviceNameBuffer};
-        mDNS::string_t  serviceString{make_mdns_string(scratchName.c_str(), scratchName.length())};
-        mDNS::string_t  hostNameString{make_mdns_string(hostName.c_str(), hostNameLength)};
-        // Build the service instance "<hostname>.<_service-name>._tcp.local." string
-        std::string     serviceInstanceBuffer{hostNameString.str};
-
-        serviceInstanceBuffer += "-"s + std::to_string(_port) + "."s;
-        serviceInstanceBuffer += serviceString.str;
-        mDNS::string_t  serviceInstanceString{make_mdns_string(serviceInstanceBuffer.c_str())};
-        // Build the "<hostname>.local." string
-        std::string     qualifiedHostnameBuffer{hostNameString.str};
-
-        qualifiedHostnameBuffer += ".local."s;
-        mDNS::string_t hostnameQualifiedQtring{make_mdns_string(qualifiedHostnameBuffer.c_str())};
-
-        _serviceName = make_mdns_string(serviceString);
-        _hostName = make_mdns_string(hostNameString);
-        _serviceInstance = make_mdns_string(serviceInstanceString);
-        _hostNameQualified = make_mdns_string(hostnameQualifiedQtring);
-        release_mdns_string(serviceString);
-        release_mdns_string(hostNameString);
-        release_mdns_string(serviceInstanceString);
-        release_mdns_string(hostnameQualifiedQtring);
-        // Setup our mDNS records
-
-        // PTR record reverse mapping "<_service-name>._tcp.local." to
-        // "<hostname>.<_service-name>._tcp.local."
-        _recordPTR.name = make_mdns_string(_serviceName);
-        _recordPTR.type = mDNS::kRecordTypePTR;
-        _recordPTR.data.ptr.name = make_mdns_string(_serviceInstance);
-        // SRV record mapping "<hostname>.<_service-name>._tcp.local." to
-        // "<hostname>.local." with port. Set weight & priority to 0.
-        _recordSRV.name = make_mdns_string(_serviceInstance);
-        _recordSRV.type = mDNS::kRecordTypeSRV;
-        _recordSRV.data.srv.name = make_mdns_string(_hostNameQualified);
-        _recordSRV.data.srv.port = _port;
-        _recordSRV.data.srv.priority = 0;
-        _recordSRV.data.srv.weight = 0;
-        // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
-        _recordA.name = make_mdns_string(_hostNameQualified);
-        _recordA.type = mDNS::kRecordTypeA;
-        _recordA.data.a.addr = _addressIpv4;
-        _recordAAAA.name = make_mdns_string(_hostNameQualified);
-        _recordAAAA.type = mDNS::kRecordTypeAAAA;
-        _recordAAAA.data.aaaa.addr = _addressIpv6;
-        // Add TXT records for our service instance name, will be coalesced into
-        // one record with both key-value pair strings by the library
-        _recordTXT[0].name = make_mdns_string(_serviceInstance);
-        _recordTXT[0].type = mDNS::kRecordTypeTXT;
-        _recordTXT[0].data.txt.key = make_mdns_string(dataKey.c_str(), dataKey.length());
-        _recordTXT[0].data.txt.value = make_mdns_string(hostAddress.c_str(), hostAddress.length());
-        okSoFar = true;
-        ODL_B1(okSoFar); //####
-    }
-    else
-    {
-        okSoFar = false;
-        ODL_B1(okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -95,7 +95,7 @@ namespace nImO
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] startBrowser @c true if the browser thread is to be started. */
-            SearchContext
+            SearchContext // cppcheck-suppress noExplicitConstructor
                 (const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const bool             startBrowser = false);
@@ -147,7 +147,8 @@ namespace nImO
             /*! @brief Close the open sockets. */
             void
             closeSockets
-                (void);
+                (void)
+                const;
 
             /*! @brief The browset thread function.
              @param[in,out] owner The owning object for the thread. */

@@ -185,10 +185,10 @@ helpForList
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listApplications
-    (nImO::SpRegistryProxy      proxy,
-     nImO::StandardOptions &    options,
-     const bool                 shouldSanitize,
-     const Placement            thePlacement = Placement::kSolitary)
+    (nImO::SpRegistryProxy          proxy,
+     const nImO::StandardOptions &  options,
+     const bool                     shouldSanitize,
+     const Placement                thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
     auto    statusWithAllApplications{proxy->getInformationForAllApplications()};
@@ -232,7 +232,7 @@ listApplications
                 std::cout << "Applications:\n";
             }
         }
-        nImO::ApplicationInfoVector &   applications{statusWithAllApplications.second};
+        const auto &    applications{statusWithAllApplications.second};
 
         if (applications.empty())
         {
@@ -479,11 +479,11 @@ listApplications
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listChannels
-    (nImO::SpUtilityContext     ourContext,
-     nImO::SpRegistryProxy      proxy,
-     nImO::StandardOptions &    options,
-     const bool                 shouldSanitize,
-     const Placement            thePlacement = Placement::kSolitary)
+    (nImO::SpUtilityContext         ourContext,
+     nImO::SpRegistryProxy          proxy,
+     const nImO::StandardOptions &  options,
+     const bool                     shouldSanitize,
+     const Placement                thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
     auto    statusWithAllChannels{proxy->getInformationForAllChannels()};
@@ -527,7 +527,7 @@ listChannels
                 std::cout << "Channels:\n";
             }
         }
-        nImO::ChannelInfoVector &   channels{statusWithAllChannels.second};
+        const auto &    channels{statusWithAllChannels.second};
 
         if (channels.empty())
         {
@@ -824,10 +824,10 @@ listChannels
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listConnections
-    (nImO::SpRegistryProxy      proxy,
-     nImO::StandardOptions &    options,
-     const bool                 shouldSanitize,
-     const Placement            thePlacement = Placement::kSolitary)
+    (nImO::SpRegistryProxy          proxy,
+     const nImO::StandardOptions &  options,
+     const bool                     shouldSanitize,
+     const Placement                thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
     auto    statusWithAllConnections{proxy->getInformationForAllConnections()};
@@ -871,7 +871,7 @@ listConnections
                 std::cout << "Connections:\n";
             }
         }
-        nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
+        const auto &    connections{statusWithAllConnections.second};
 
         if (connections.empty())
         {
@@ -1093,10 +1093,10 @@ listConnections
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listMachines
-    (nImO::SpRegistryProxy      proxy,
-     nImO::StandardOptions &    options,
-     const bool                 shouldSanitize,
-     const Placement            thePlacement = Placement::kSolitary)
+    (nImO::SpRegistryProxy          proxy,
+     const nImO::StandardOptions &  options,
+     const bool                     shouldSanitize,
+     const Placement                thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
     auto    statusWithAllMachines{proxy->getInformationForAllMachines()};
@@ -1140,7 +1140,7 @@ listMachines
                 std::cout << "Machines:\n";
             }
         }
-        nImO::MachineInfoVector &   machines{statusWithAllMachines.second};
+        const auto &    machines{statusWithAllMachines.second};
 
         if (machines.empty())
         {
@@ -1346,10 +1346,10 @@ mapServiceTypeToString
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listNodes
-    (nImO::SpRegistryProxy      proxy,
-     nImO::StandardOptions &    options,
-     const bool                 shouldSanitize,
-     const Placement            thePlacement = Placement::kSolitary)
+    (nImO::SpRegistryProxy          proxy,
+     const nImO::StandardOptions &  options,
+     const bool                     shouldSanitize,
+     const Placement                thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
     auto    statusWithAllNodes{proxy->getInformationForAllNodes()};
@@ -1488,7 +1488,7 @@ listNodes
 
                         if (statusWithDetails.first.first)
                         {
-                            nImO::LaunchDetails &   details{statusWithDetails.second};
+                            const auto &    details{statusWithDetails.second};
 
                             switch (options._flavour)
                             {

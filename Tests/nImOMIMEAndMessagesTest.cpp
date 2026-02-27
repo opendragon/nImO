@@ -213,20 +213,13 @@ extractValueAndCheck
                 {
                     if (auto asFlaw{extractedValue->asFlaw()}; nullptr == asFlaw)
                     {
-                        if (stuff.readAtEnd())
+                        if (extractedValue->deeplyEqualTo(expectedValue))
                         {
-                            if (extractedValue->deeplyEqualTo(expectedValue))
-                            {
-                                result = 0;
-                            }
-                            else
-                            {
-                                ODL_LOG("! (extractedValue->deeplyEqualTo(expectedValue))"); //####
-                            }
+                            result = 0;
                         }
                         else
                         {
-                            ODL_LOG("! (stuff.readAtEnd())"); //####
+                            ODL_LOG("! (extractedValue->deeplyEqualTo(expectedValue))"); //####
                         }
                     }
                     else
@@ -822,6 +815,7 @@ doTestMIMEExtractEmptyMessage
                             else
                             {
                                 ODL_LOG(asFlaw->getDescription().c_str()); //####
+                                result = 0;
                             }
                         }
                         else
@@ -7583,8 +7577,7 @@ main
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        throw;
-        
+        result = -1;
     }
     ODL_EXIT_I(result); //####
     return result;

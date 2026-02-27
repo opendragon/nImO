@@ -97,7 +97,7 @@ helpForConnect
     nImO::StdStringSet  modes{nImO::ChannelName::transportNames()};
 
     outStream << "Available modes:\n";
-    for (auto & walker : modes)
+    for (const auto & walker : modes)
     {
         outStream << "  " << walker << "\n";
     }
@@ -252,8 +252,6 @@ main
                     }
                 }
                 // We now 'own' the two channels, so we need to resolve if they can be connected.
-                bool                fromIsOutput{false};
-                bool                toIsOutput{false};
                 std::string         fromDataType{};
                 std::string         toDataType{};
                 nImO::TransportType fromModes{nImO::TransportType::kUnknown};
@@ -262,6 +260,8 @@ main
 
                 if (0 == exitCode)
                 {
+                    bool    fromIsOutput{false};
+                    bool    toIsOutput{false};
                     auto    statusWithChannelInfo{proxy->getChannelInformation(fromNode, fromPath)};
 
                     if (statusWithChannelInfo.first.first)
@@ -318,9 +318,6 @@ main
                             std::swap(fromNode, toNode);
                             std::swap(fromPath, toPath);
                         }
-                    }
-                    if (0 == exitCode)
-                    {
                         if (toIsOutput)
                         {
                             ourContext->report("Channel '"s + toNode + toPath + "' is an output."s);

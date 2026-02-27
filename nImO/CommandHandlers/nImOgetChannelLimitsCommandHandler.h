@@ -75,7 +75,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning Context. */
-            GetChannelLimitsCommandHandler
+            explicit GetChannelLimitsCommandHandler
                 (SpInputOutputContext   owner);
 
             /*! @brief Handle the command, returning @c true if successful.

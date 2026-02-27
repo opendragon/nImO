@@ -101,7 +101,7 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
 
 TimeArgumentDescriptor::TimeArgumentDescriptor
     (const TimeArgumentDescriptor &  other) :
-        inherited{other}, _currentValue{other._currentValue}
+        inherited{other}, _currentValue{other._currentValue}, _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -111,7 +111,7 @@ TimeArgumentDescriptor::TimeArgumentDescriptor
 TimeArgumentDescriptor::TimeArgumentDescriptor
     (TimeArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)}
+        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)}, _defaultValue{std::exchange(other._defaultValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -222,13 +222,14 @@ TimeArgumentDescriptor::operator=
     {
         inherited::operator=(std::move(other));
         _currentValue = std::exchange(other._currentValue, 0);
+        _defaultValue = std::exchange(other._defaultValue, 0);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // TimeArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-TimeArgumentDescriptor::parseArgString
+TimeArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

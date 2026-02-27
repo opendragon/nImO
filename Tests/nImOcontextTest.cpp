@@ -470,8 +470,8 @@ doTestKindOfContextForNetworkingContext
     {
         DisableWaitForRegistry();
         NetworkingContext   aContext{};
-        auto                asService{aContext.asServiceContext()};
-        auto                asUtility{aContext.asUtilityContext()};
+        auto                asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto                asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr == asService) && (nullptr == asUtility))
         {
@@ -507,8 +507,8 @@ doTestKindOfContextForSearchContext
     {
         DisableWaitForRegistry();
         SearchContext   aContext{};
-        auto            asService{aContext.asServiceContext()};
-        auto            asUtility{aContext.asUtilityContext()};
+        auto            asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto            asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr == asService) && (nullptr == asUtility))
         {
@@ -544,8 +544,8 @@ doTestKindOfContextForServiceContext
     {
         DisableWaitForRegistry();
         ServiceContext  aContext{0, nullptr};
-        auto            asService{aContext.asServiceContext()};
-        auto            asUtility{aContext.asUtilityContext()};
+        auto            asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto            asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -581,8 +581,8 @@ doTestKindOfContextForUtilityContext
     {
         DisableWaitForRegistry();
         UtilityContext  aContext{};
-        auto            asService{aContext.asServiceContext()};
-        auto            asUtility{aContext.asUtilityContext()};
+        auto            asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto            asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr == asService) && (nullptr != asUtility))
         {
@@ -618,8 +618,8 @@ doTestKindOfContextForFilterContext
     {
         DisableWaitForRegistry();
         FilterContext   aContext{0, nullptr};
-        auto            asService{aContext.asServiceContext()};
-        auto            asUtility{aContext.asUtilityContext()};
+        auto            asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto            asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -655,8 +655,8 @@ doTestKindOfContextForSinkContext
     {
         DisableWaitForRegistry();
         SinkContext aContext{0, nullptr};
-        auto        asService{aContext.asServiceContext()};
-        auto        asUtility{aContext.asUtilityContext()};
+        auto        asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto        asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -692,8 +692,8 @@ doTestKindOfContextForSourceContext
     {
         DisableWaitForRegistry();
         SourceContext   aContext{0, nullptr};
-        auto            asService{aContext.asServiceContext()};
-        auto            asUtility{aContext.asUtilityContext()};
+        auto            asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto            asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -729,8 +729,8 @@ doTestKindOfContextForRegistryContext
     {
         DisableWaitForRegistry();
         RegistryContext aContext{0, nullptr};
-        auto            asService{aContext.asServiceContext()};
-        auto            asUtility{aContext.asUtilityContext()};
+        auto            asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto            asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -766,8 +766,8 @@ doTestKindOfContextForLauncherContext
     {
         DisableWaitForRegistry();
         LauncherContext aContext{0, nullptr};
-        auto            asService{aContext.asServiceContext()};
-        auto            asUtility{aContext.asUtilityContext()};
+        auto            asService{aContext.asServiceContext()}; // cppcheck-suppress constVariablePointer
+        auto            asUtility{aContext.asUtilityContext()}; // cppcheck-suppress constVariablePointer
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -6809,8 +6809,7 @@ main
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        throw;
-        
+        result = -1;        
     }
     ODL_EXIT_I(result); //####
     return result;

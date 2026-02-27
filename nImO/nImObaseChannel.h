@@ -89,7 +89,7 @@ namespace nImO
 
             /*! @brief Return the name.
              @return The name. */
-            inline std::string
+            inline const std::string &
             getName
                 (void)
                 const
@@ -104,6 +104,7 @@ namespace nImO
             getStatistics
                 (int64_t &  numberOfBytes,
                  int64_t &  numberOfMessages)
+                const
             {
                 _statistics.get(numberOfBytes, numberOfMessages);
             }

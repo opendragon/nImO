@@ -108,7 +108,7 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
 
 IntegerArgumentDescriptor::IntegerArgumentDescriptor
     (const IntegerArgumentDescriptor &  other) :
-        inherited{other}, _defaultValue{other._defaultValue}, _hasMaximumValue{other._hasMaximumValue},
+        inherited{other}, _currentValue{other._currentValue}, _defaultValue{other._defaultValue}, _hasMaximumValue{other._hasMaximumValue},
         _hasMinimumValue{other._hasMinimumValue}, _maximumValue{other._maximumValue}, _minimumValue{other._minimumValue}
 {
     ODL_ENTER(); //####
@@ -119,9 +119,9 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
 IntegerArgumentDescriptor::IntegerArgumentDescriptor
     (IntegerArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _defaultValue{std::exchange(other._defaultValue, 0)}, _hasMaximumValue{std::exchange(other._hasMaximumValue, false)},
-        _hasMinimumValue{std::exchange(other._hasMinimumValue, false)}, _maximumValue{std::exchange(other._maximumValue, 0)},
-        _minimumValue{std::exchange(other._minimumValue, 0)}
+        inherited{std::move(other)}, _currentValue{std::exchange(other._currentValue, 0)}, _defaultValue{std::exchange(other._defaultValue, 0)},
+        _hasMaximumValue{std::exchange(other._hasMaximumValue, false)}, _hasMinimumValue{std::exchange(other._hasMinimumValue, false)},
+        _maximumValue{std::exchange(other._maximumValue, 0)}, _minimumValue{std::exchange(other._minimumValue, 0)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
@@ -257,6 +257,7 @@ IntegerArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
+        _currentValue = std::exchange(other._currentValue, 0);
         _defaultValue = std::exchange(other._defaultValue, 0);
         _maximumValue = std::exchange(other._maximumValue, 0);
         _minimumValue = std::exchange(other._minimumValue, 0);
@@ -268,7 +269,7 @@ IntegerArgumentDescriptor::operator=
 } // IntegerArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-IntegerArgumentDescriptor::parseArgString
+IntegerArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMember
     (const std::string &    inString)
 {
     ODL_ENTER(); //####

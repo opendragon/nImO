@@ -76,7 +76,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning InputOutputContext. */
-            InputOutputCommandHandler
+            explicit InputOutputCommandHandler
                 (SpInputOutputContext   owner);
 
         protected :

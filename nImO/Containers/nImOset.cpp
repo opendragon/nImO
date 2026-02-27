@@ -132,7 +132,7 @@ nImO::Set::addEntries
     ODL_P1(&other); //####
     if ((other._keyKind == _keyKind) || (Enumerable::Unknown == _keyKind))
     {
-        for (auto & walker : other)
+        for (const auto & walker : other)
         {
             addValue(walker);
         }
@@ -446,7 +446,7 @@ nImO::Set::extractValue
                             {
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
-                                okSoFar = false;
+                                okSoFar = false; // cppcheck-suppress unreadVariable
                                 ODL_B1(okSoFar); //####
                             }
                             else
@@ -466,7 +466,7 @@ nImO::Set::extractValue
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result = std::make_shared<Invalid>("Non-empty Set with incorrect end tag", position);
-                                    okSoFar = false;
+                                    okSoFar = false; // cppcheck-suppress unreadVariable
                                     ODL_B1(okSoFar); //####
                                 }
                             }
@@ -696,7 +696,7 @@ nImO::Set::operator<<
     ODL_OBJENTER(); //####
     ODL_P1(&out); //####
     out << kStartSetChar;
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -822,14 +822,13 @@ nImO::Set::random
 } /* nImO::Set::random */
 
 nImO::SpValue
-nImO::Set::readFromStringBuffer
+nImO::Set::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2(&inBuffer, &position); //####
-    bool    atEnd;
-    bool    done{false};
+    bool    atEnd{false};
     bool    valid{false};
     auto    result{std::make_shared<Set>()};
     size_t  localIndex{position};
@@ -841,7 +840,7 @@ nImO::Set::readFromStringBuffer
     ODL_I1(localIndex); //####
     if ((! atEnd) && (kStartSetChar == aChar))
     {
-        for ( ; ! done; )
+        for (bool done{false}; ! done; )
         {
             inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
             ODL_I1(localIndex); //####

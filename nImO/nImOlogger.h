@@ -152,7 +152,7 @@ namespace nImO
             SpInteger   _commandPort{};
 
             /*! @brief The name of the computer. */
-            SpString    _computerName{};
+            SpString    _computerName;
 
             /*! @brief The multicast connection used for logging. */
             Connection  _connection{};
@@ -164,7 +164,7 @@ namespace nImO
             BUDP::socket    _socket;
 
             /*! @brief The symbolic name for the current process. */
-            SpString    _tag{};
+            SpString    _tag;
 
     }; // Logger
 

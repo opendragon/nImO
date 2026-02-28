@@ -213,10 +213,11 @@ nImO::InputOutputContext::collectOutputChannels
     ODL_OBJENTER(); //####
     ODL_P1(&outChannels); //####
     outChannels.clear();
-    for (const auto & walker : _outputChannelMap)
-    {
-        outChannels.push_back(walker.second); // cppcheck-suppress useStlAlgorithm
-    }
+    std::for_each(_outputChannelMap.begin(), _outputChannelMap.end(),
+                  [&](const auto & walker)
+                  {
+                    outChannels.push_back(walker.second);
+                  });
     ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::collectOutputChannels
 
@@ -245,10 +246,11 @@ nImO::InputOutputContext::getInputChannelNames
     ODL_OBJENTER(); //####
     ODL_P1(&names); //####
     names.clear();
-    for (auto & walker : _inputChannelMap)
-    {
-        names.push_back(walker.second->getName()); // cppcheck-suppress useStlAlgorithm
-    }
+    std::for_each(_inputChannelMap.begin(), _inputChannelMap.end(),
+                  [&](const auto & walker)
+                  {
+                    names.push_back(walker.second->getName());
+                  });
     ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::getInputChannelNames
 
@@ -277,10 +279,11 @@ nImO::InputOutputContext::getOutputChannelNames
     ODL_OBJENTER(); //####
     ODL_P1(&names); //####
     names.clear();
-    for (auto & walker : _outputChannelMap)
-    {
-        names.push_back(walker.second->getName()); // cppcheck-suppress useStlAlgorithm
-    }
+    std::for_each(_outputChannelMap.begin(), _outputChannelMap.end(),
+                  [&](const auto & walker)
+                  {
+                    names.push_back(walker.second->getName());
+                  });
     ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames
 

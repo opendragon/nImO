@@ -237,7 +237,10 @@ main
                                     {
                                         launcherName = walker;
                                         if (auto subWalker{std::find_if(nodes.begin(), nodes.end(),
-                                                                        [launcherName](const auto aNode){ return (aNode._name == launcherName);})};
+                                                                        [launcherName](const auto aNode)
+                                                                        {
+                                                                            return (aNode._name == launcherName);
+                                                                        })};
                                             nodes.end() != subWalker)
                                         {
                                             launcherConnection = subWalker->_connection;
@@ -340,7 +343,10 @@ main
                         else
                         {
                             if (! std::any_of(applicationsInfo.begin(), applicationsInfo.end(),
-                                                [serviceName](const auto & walker) { return (walker._found && (walker._appName == serviceName)); }))
+                                                [serviceName](const auto & walker)
+                                                {
+                                                    return (walker._found && (walker._appName == serviceName));
+                                                }))
                             {
                                 ourContext->report("Unknown service: '"s + serviceName + "' on launcher '" + launcherName + "'."s);
                                 exitCode = 1;

@@ -452,9 +452,13 @@ nImO::ConvertToLowerCase
 {
     ODL_ENTER(); //####
     ODL_S1s(aString); //####
-    std::string result{aString};
-
-    std::transform(aString.cbegin(), aString.cend(), result.begin(), [](auto walker){ return std::tolower(walker);});
+    std::string result;
+    
+    std::for_each(aString.begin(), aString.end(),
+                  [&](auto walker)
+                  {
+                    result.push_back(std::tolower(walker));
+                  });
     ODL_EXIT_s(result); //####
     return result;
 } // nImO::ConvertToLowerCase

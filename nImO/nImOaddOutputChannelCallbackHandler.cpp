@@ -115,7 +115,7 @@ nImO::AddOutputChannelCallbackHandler::operator()
                             {
                                 (*_secondaryFunction)();
                             }
-                            result = true;
+                            _added = result = true;
                         }
                     }
                     else

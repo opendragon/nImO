@@ -266,7 +266,7 @@ nImO::String::extractValue
 
         for (size_t ii{0}; okSoFar && (size > ii); ++ii)
         {
-            int aByte{theMessage.getByte(position, atEnd)};
+            auto    aByte{theMessage.getByte(position, atEnd)};
 
             if (atEnd)
             {
@@ -294,7 +294,7 @@ nImO::String::extractValue
 
         for (size_t ii{0}; okSoFar && (numBytes > ii); ++ii)
         {
-            int aByte{theMessage.getByte(position, atEnd)};
+            auto    aByte{theMessage.getByte(position, atEnd)};
 
             if (atEnd)
             {
@@ -566,7 +566,7 @@ nImO::String::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     SpValue result;
     size_t  localIndex{position};
     bool    atEnd{false};
-    int     aChar{inBuffer.getChar(localIndex++, atEnd)};
+    auto    aChar{inBuffer.getChar(localIndex++, atEnd)};
 
     if ((! atEnd) && ((kSingleQuote == aChar) || (kDoubleQuote == aChar)))
     {

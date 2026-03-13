@@ -429,7 +429,7 @@ performSQLstatementWithMultipleColumnResults
         else
         {
             Ptr(sqlite3_stmt)   prepared{nullptr};
-            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
+            auto                sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, StaticCast(int, strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -460,7 +460,7 @@ performSQLstatementWithMultipleColumnResults
                         if (SQLITE_ROW == sqlRes)
                         {
                             // Gather the column data...
-                            int colCount{sqlite3_column_count(prepared)};
+                            auto    colCount{sqlite3_column_count(prepared)};
 
                             ODL_I1(colCount); //####
                             if (0 < colCount)
@@ -540,7 +540,7 @@ performSQLstatementWithNoResults
         else
         {
             Ptr(sqlite3_stmt)   prepared{nullptr};
-            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
+            auto                sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, StaticCast(int, strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -617,7 +617,7 @@ performSQLstatementWithNoResultsNoArgs
         else
         {
             Ptr(sqlite3_stmt)   prepared{nullptr};
-            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
+            auto                sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, StaticCast(int, strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -689,7 +689,7 @@ performSQLstatementWithSingleColumnResults
         else
         {
             Ptr(sqlite3_stmt)   prepared{nullptr};
-            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
+            auto                sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, StaticCast(int, strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1(sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -720,7 +720,7 @@ performSQLstatementWithSingleColumnResults
                         if (SQLITE_ROW == sqlRes)
                         {
                             // Gather the column data...
-                            int colCount{sqlite3_column_count(prepared)};
+                            auto    colCount{sqlite3_column_count(prepared)};
 
                             ODL_I1(colCount); //####
                             if (0 < colCount)
@@ -950,7 +950,7 @@ setupCountApplications
 
     try
     {
-        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
+        auto    nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
 
         if (0 < nodeNameIndex)
         {
@@ -992,7 +992,7 @@ setupCountChannels
 
     try
     {
-        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
+        auto    nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
 
         if (0 < nodeNameIndex)
         {
@@ -1034,9 +1034,9 @@ setupInsertIntoApplications
 
     try
     {
-        int launcherNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
-        int appNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_NAME_C_)};
-        int appDescrIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_DESCR_C_)};
+        auto    launcherNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
+        auto    appNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_NAME_C_)};
+        auto    appDescrIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_DESCR_C_)};
 
         if ((0 < launcherNameIndex) && (0 < appNameIndex) && (0 < appDescrIndex))
         {
@@ -1089,11 +1089,11 @@ setupInsertIntoChannels
 
     try
     {
-        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
-        int pathIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_PATH_C_)};
-        int isOutputIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_IS_OUTPUT_C_)};
-        int dataTypeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_DATA_TYPE_C_)};
-        int modesIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_MODES_C_)};
+        auto    nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
+        auto    pathIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_PATH_C_)};
+        auto    isOutputIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_IS_OUTPUT_C_)};
+        auto    dataTypeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_DATA_TYPE_C_)};
+        auto    modesIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_MODES_C_)};
 
         if ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex))
         {
@@ -1156,12 +1156,12 @@ setupInsertIntoConnections
 
     try
     {
-        int fromNodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
-        int fromPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_PATH_C_)};
-        int toNodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
-        int toPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_PATH_C_)};
-        int dataTypeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_DATA_TYPE_C_)};
-        int modeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_MODE_C_)};
+        auto    fromNodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
+        auto    fromPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_PATH_C_)};
+        auto    toNodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
+        auto    toPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_PATH_C_)};
+        auto    dataTypeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_DATA_TYPE_C_)};
+        auto    modeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_MODE_C_)};
 
         if ((0 < fromNodeNameIndex) && (0 < fromPathIndex) && (0 < toNodeNameIndex) && (0 < toPathIndex) && (0 < dataTypeIndex) && (0 < modeIndex))
         {
@@ -1230,8 +1230,8 @@ setupInsertIntoMachines
 
     try
     {
-        int machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
-        int machineAddressIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_ADDRESS_C_)};
+        auto    machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
+        auto    machineAddressIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_ADDRESS_C_)};
 
         if ((0 < machineNameIndex) && (0 < machineAddressIndex))
         {
@@ -1279,13 +1279,13 @@ setupInsertIntoNodes
 
     try
     {
-        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_)};
-        int nodeAddressIndex{sqlite3_bind_parameter_index(statement, "@" NODE_ADDRESS_C_)};
-        int nodePortIndex{sqlite3_bind_parameter_index(statement, "@" NODE_PORT_C_)};
-        int nodeServiceTypeIndex{sqlite3_bind_parameter_index(statement, "@" NODE_SERVICE_TYPE_C_)};
-        int nodeExecPathIndex{sqlite3_bind_parameter_index(statement, "@" NODE_EXEC_PATH_C_)};
-        int nodeLaunchDirectoryIndex{sqlite3_bind_parameter_index(statement, "@" NODE_LAUNCH_DIRECTORY_C_)};
-        int nodeCommandLineIndex{sqlite3_bind_parameter_index(statement, "@" NODE_COMMAND_LINE_C_)};
+        auto    nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_)};
+        auto    nodeAddressIndex{sqlite3_bind_parameter_index(statement, "@" NODE_ADDRESS_C_)};
+        auto    nodePortIndex{sqlite3_bind_parameter_index(statement, "@" NODE_PORT_C_)};
+        auto    nodeServiceTypeIndex{sqlite3_bind_parameter_index(statement, "@" NODE_SERVICE_TYPE_C_)};
+        auto    nodeExecPathIndex{sqlite3_bind_parameter_index(statement, "@" NODE_EXEC_PATH_C_)};
+        auto    nodeLaunchDirectoryIndex{sqlite3_bind_parameter_index(statement, "@" NODE_LAUNCH_DIRECTORY_C_)};
+        auto    nodeCommandLineIndex{sqlite3_bind_parameter_index(statement, "@" NODE_COMMAND_LINE_C_)};
 
         if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex) && (0 < nodeServiceTypeIndex) && (0 < nodeExecPathIndex) &&
             (0 < nodeLaunchDirectoryIndex) && (0 < nodeCommandLineIndex))
@@ -1359,7 +1359,7 @@ setupSearchApplicationsNodeOnly
 
     try
     {
-        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
+        auto    nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
 
         if (0 < nodeNameIndex)
         {
@@ -1401,8 +1401,8 @@ setupSearchChannels
 
     try
     {
-        int channelNodeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
-        int channelPathIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_PATH_C_)};
+        auto    channelNodeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
+        auto    channelPathIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_PATH_C_)};
 
         if ((0 < channelNodeIndex) && (0 < channelPathIndex))
         {
@@ -1450,7 +1450,7 @@ setupSearchChannelsMachineOnly
 
     try
     {
-        int machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
+        auto    machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
 
         if (0 < machineNameIndex)
         {
@@ -1492,7 +1492,7 @@ setupSearchChannelsNodeOnly
 
     try
     {
-        int channelNodeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
+        auto    channelNodeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
 
         if (0 < channelNodeIndex)
         {
@@ -1534,8 +1534,8 @@ setupSearchConnectionsViaFrom
 
     try
     {
-        int fromNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
-        int fromPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_PATH_C_)};
+        auto    fromNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
+        auto    fromPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_PATH_C_)};
 
         if ((0 < fromNodeIndex) && (0 < fromPathIndex))
         {
@@ -1583,8 +1583,8 @@ setupSearchConnectionsViaTo
 
     try
     {
-        int toNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
-        int toPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_PATH_C_)};
+        auto    toNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
+        auto    toPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_PATH_C_)};
 
         if ((0 < toNodeIndex) && (0 < toPathIndex))
         {
@@ -1632,7 +1632,7 @@ setupSearchMachines
 
     try
     {
-        int machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
+        auto    machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
 
         if (0 < machineNameIndex)
         {
@@ -1674,8 +1674,8 @@ setupSearchNodeConnections
 
     try
     {
-        int fromNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
-        int toNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
+        auto    fromNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
+        auto    toNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
 
         if ((0 < fromNodeIndex) && (0 < toNodeIndex))
         {
@@ -1721,7 +1721,7 @@ setupSearchNodes
 
     try
     {
-        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_)};
+        auto    nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_)};
 
         if (0 < nodeNameIndex)
         {
@@ -1763,7 +1763,7 @@ setupSearchNodesForApplication
 
     try
     {
-        int appNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_NAME_C_)};
+        auto    appNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_NAME_C_)};
 
         if (0 < appNameIndex)
         {
@@ -1953,9 +1953,9 @@ nImO::Registry::Registry
     {
         sqlite3_config(SQLITE_CONFIG_LOG, sqlLogger, _owner.get());
     }
-    int result{sqlite3_open_v2("nImO_registry", &_dbHandle,
-                               SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE,
-                               nullptr)};
+    auto    result{sqlite3_open_v2("nImO_registry", &_dbHandle,
+                                   SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE,
+                                   nullptr)};
 
     if (SQLITE_OK == result)
     {
@@ -2424,7 +2424,7 @@ nImO::Registry::getChannelInUseAndSet
                 if (0 < results.size())
                 {
                     size_t  pos;
-                    int     fieldValue{stoi(results[0], &pos)};
+                    auto    fieldValue{stoi(results[0], &pos)};
 
                     if (0 == pos)
                     {
@@ -2498,7 +2498,7 @@ nImO::Registry::getChannelInUse
                 if (0 < results.size())
                 {
                     size_t  pos;
-                    int     fieldValue{stoi(results[0], &pos)};
+                    auto    fieldValue{stoi(results[0], &pos)};
 
                     if (0 == pos)
                     {
@@ -4118,7 +4118,7 @@ nImO::Registry::isChannelPresent
             if (status.first)
             {
                 size_t  pos;
-                int     count{stoi(results[0], &pos)};
+                auto    count{stoi(results[0], &pos)};
 
                 if (0 == pos)
                 {
@@ -4168,7 +4168,7 @@ nImO::Registry::isMachinePresent
         if (status.first)
         {
             size_t  pos;
-            int     count{stoi(results[0], &pos)};
+            auto    count{stoi(results[0], &pos)};
 
             if (0 == pos)
             {
@@ -4215,7 +4215,7 @@ nImO::Registry::isNodePresent
             if (status.first)
             {
                 size_t  pos;
-                int     count{stoi(results[0], &pos)};
+                auto    count{stoi(results[0], &pos)};
 
                 if (0 == pos)
                 {

@@ -440,7 +440,7 @@ nImO::RegistryContext::executeAnnouncer
         }
         if (! lAnnouncerThreadStop)
         {
-            int    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
+            auto    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
 
             if (res >= 0)
             {

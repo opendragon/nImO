@@ -194,7 +194,7 @@ nImO::NetworkingContext::NetworkingContext
     {
         // The number of threads requested should be one less than the number possible, to account for the main thread
         // and the reserved threads.
-        int numThreadsInPool{std::max(static_cast<int>(boost::thread::hardware_concurrency()), 1) - 1};
+        auto    numThreadsInPool{std::max(StaticCast(int, boost::thread::hardware_concurrency()), 1) - 1};
 
         if ((0 < numReservedThreads) && ((numReservedThreads + 1) < numThreadsInPool))
         {

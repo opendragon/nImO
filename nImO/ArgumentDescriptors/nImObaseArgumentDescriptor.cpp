@@ -638,7 +638,7 @@ nImO::ArgumentsToDescriptionArray
     {
         if (nullptr != anArg)
         {
-            int len{StaticCast(int, anArg->argumentName().length())};
+            auto    len{StaticCast(int, anArg->argumentName().length())};
 
             if (nameSize < len)
             {

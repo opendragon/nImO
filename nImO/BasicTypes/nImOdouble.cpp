@@ -247,7 +247,7 @@ nImO::Double::extractValue
 
         for (size_t ii{0}; okSoFar && (size > ii); ++ii)
         {
-            int aByte{theMessage.getByte(position, atEnd)};
+            auto    aByte{theMessage.getByte(position, atEnd)};
 
             if (atEnd)
             {
@@ -285,7 +285,7 @@ nImO::Double::extractValue
         {
             for (size_t jj{0}; okSoFar && (sizeof(int64_t) > jj); ++jj)
             {
-                int aByte{theMessage.getByte(position, atEnd)};
+                auto    aByte{theMessage.getByte(position, atEnd)};
 
                 if (atEnd)
                 {

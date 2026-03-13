@@ -337,7 +337,7 @@ nImO::Blob::extractValue
 
         for (size_t ii{0}; okSoFar && (size > ii); ++ii)
         {
-            int aByte{theMessage.getByte(position, atEnd)};
+            auto    aByte{theMessage.getByte(position, atEnd)};
 
             if (atEnd)
             {
@@ -365,7 +365,7 @@ nImO::Blob::extractValue
 
         for (size_t ii{0}; okSoFar && (numBytes > ii); ++ii)
         {
-            int aByte{theMessage.getByte(position, atEnd)};
+            auto    aByte{theMessage.getByte(position, atEnd)};
 
             if (atEnd)
             {

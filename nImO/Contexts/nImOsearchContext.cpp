@@ -687,7 +687,7 @@ nImO::SearchContext::executeBrowser
 # pragma option pop
 #endif /* not MAC_OR_LINUX_OR_BSD_ */
             }
-            int    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
+            auto    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
 
             if (res >= 0)
             {
@@ -923,7 +923,7 @@ nImO::SearchContext::openSockets
         sock_addr.sin_family = AF_INET;
         sock_addr.sin_addr.s_addr = INADDR_ANY;
         sock_addr.sin_port = htons(MDNS_PORT);
-        int    sock{mDNS::socket_open_ipv4(sock_addr)};
+        auto    sock{mDNS::socket_open_ipv4(sock_addr)};
 
         if (sock >= 0)
         {
@@ -938,7 +938,7 @@ nImO::SearchContext::openSockets
         sock_addr.sin6_family = AF_INET6;
         sock_addr.sin6_addr = in6addr_any;
         sock_addr.sin6_port = htons(MDNS_PORT);
-        int    sock{mDNS::socket_open_ipv6(sock_addr)};
+        auto    sock{mDNS::socket_open_ipv6(sock_addr)};
 
         if (sock >= 0)
         {
@@ -1059,7 +1059,7 @@ nImO::Ipv4AddressToMdnsString
 {
     char    host[NI_MAXHOST]{ 0 };
     char    service[NI_MAXSERV]{ 0 };
-    int     ret{getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
+    auto    ret{getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
                             NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST)};
     int     len{0};
 
@@ -1103,7 +1103,7 @@ nImO::Ipv6AddressToMdnsString
 {
     char    host[NI_MAXHOST]{ 0 };
     char    service[NI_MAXSERV]{ 0 };
-    int     ret{getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
+    auto    ret{getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
                             NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST)};
     int     len{0};
 

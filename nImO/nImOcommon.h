@@ -1010,7 +1010,7 @@ namespace nImO
     /*! @brief A pointer to a handler for system signals.
      @param[in] theSignal The signal of interest. */
     using SignalHandler = void (*)
-       (const int theSignal);
+       (const int   theSignal);
 
     /*! @brief A sequence of strings. */
     using StdStringVector = std::vector<std::string>;

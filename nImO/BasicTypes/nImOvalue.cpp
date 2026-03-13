@@ -382,7 +382,7 @@ nImO::Value::extractInt64FromMessage
 
             for (size_t ii{0}; okSoFar && (size > ii); ++ii)
             {
-                int aByte{theMessage.getByte(position, atEnd)};
+                auto    aByte{theMessage.getByte(position, atEnd)};
 
                 if (atEnd)
                 {

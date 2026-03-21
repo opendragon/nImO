@@ -110,8 +110,8 @@ main
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel after limiting it to a range"s, "nImOclamp 100 200"s,
-                                    2026, nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
-                                    nImO::kSkipOutTypeOption | nImO::kSkipSignalOption))
+                                    2026, nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipInTypeOption |
+                                    nImO::kSkipMissingOption | nImO::kSkipOutTypeOption | nImO::kSkipSignalOption))
     {
         try
         {
@@ -121,7 +121,7 @@ main
             std::string         thisService{"Clamp"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                lowerBound{firstArg->getCurrentValue()};

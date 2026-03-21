@@ -40,6 +40,7 @@
 
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 #include <nImOchannelName.h>
+#include <nImOinChannel.h>
 #include <nImOmainSupport.h>
 
 #include <string>
@@ -75,6 +76,49 @@ using namespace nImO;
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief Check that a 'missing' mode is valid.
+ @param[in] option The argument to be checked.
+ @param[in] @c true if an error message is to be output if the argument is not legal.
+ @return The status of the option - whether it's legal or OK. */
+static Option_::ArgStatus
+checkMissingMode
+    (const Option_::Option &    option,
+     const bool                 msg)
+{
+    Option_::ArgStatus  result;
+
+    if (nullptr == option.arg)
+    {
+        result = Option_::ARG_ILLEGAL;
+        if (msg)
+        {
+            std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
+
+            std::cerr << "Option '" << actualName << "' requires an argument.\n";
+        }
+    }
+    else
+    {
+        auto    modeNames{nImO::InChannel::missingModeNames()};
+
+        if (modeNames.find(ConvertToLowerCase(option.arg)) == modeNames.end())
+        {
+            result = Option_::ARG_ILLEGAL;
+            if (msg)
+            {
+                std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
+
+                std::cerr << "Option '" << actualName << "' requires a valid argument.\n";
+            }
+        }
+        else
+        {
+            result = Option_::ARG_OK;
+        }
+    }
+    return result;
+} // checkMissingMode
 
 /*! @brief Check that a name is valid.
  @param[in] option The argument to be checked.
@@ -154,6 +198,7 @@ nImO::ProcessServiceOptions
         kOptionHELP,
         kOptionINTYPE,
         kOptionLOG,
+        kOptionMISSING,
         kOptionNODE,
         kOptionNOSUFFIX,
         kOptionOUTTYPE,
@@ -197,6 +242,9 @@ nImO::ProcessServiceOptions
     auto                logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog the application"s};
     Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
                                         logHelpString.c_str()};
+    auto                missingHelpString{"  "s + MakeOption("m"s, "missing"s) + " <mode> \tSpecify the behaviour for missing input on an input channel"s};
+    Option_::Descriptor missingDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMISSING), 0, "m", "missing", checkMissingMode,
+                                            missingHelpString.c_str()};
     auto                nodeHelpString{"  "s + MakeOption("n"s, "node"s) + " <name> \tSpecify a non-default node name to be used"s};
     Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", checkRequiredName,
                                         nodeHelpString.c_str()};
@@ -294,6 +342,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipMissingOption))
+    {
+        ++descriptorCount;
+    }
     if (0 == (skipOptions & kSkipNodeOption))
     {
         ++descriptorCount;
@@ -368,6 +420,10 @@ nImO::ProcessServiceOptions
     {
         memcpy(usageWalker++, &logDescriptor, sizeof(logDescriptor));
     }
+    if (0 == (skipOptions & kSkipMissingOption))
+    {
+        memcpy(usageWalker++, &missingDescriptor, sizeof(missingDescriptor));
+    }
     if (0 == (skipOptions & kSkipNodeOption))
     {
         memcpy(usageWalker++, &nodeDescriptor, sizeof(nodeDescriptor));
@@ -439,6 +495,7 @@ nImO::ProcessServiceOptions
 
                         if (ProcessArguments(argumentDescriptions, parse, badArgs))
                         {
+                            optionValues._missingMode = MissingModeType::kIgnore;
                             if ((0 == (skipOptions & kSkipAutolaunchOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionAUTOLAUNCH)]))
                             {
                                 optionValues._autolaunch = true;
@@ -481,6 +538,17 @@ nImO::ProcessServiceOptions
                                     if (nullptr != opt->arg)
                                     {
                                         optionValues._inType = opt->arg;
+                                    }
+                                }
+                            }
+                            if (0 == (skipOptions & kSkipMissingOption))
+                            {
+                                // Use the last 'missing' value.
+                                for (Ptr(Option_::Option) opt{options[StaticCast(size_t, OptionIndex::kOptionMISSING)]}; nullptr != opt; opt = opt->next())
+                                {
+                                    if (nullptr != opt->arg)
+                                    {
+                                        optionValues._missingMode = InChannel::missingModeFromName(opt->arg);
                                     }
                                 }
                             }
@@ -586,6 +654,10 @@ nImO::ProcessServiceOptions
                         if (0 == (skipOptions & kSkipLoggingOption))
                         {
                             std::cout << "l";
+                        }
+                        if (0 == (skipOptions & kSkipMissingOption))
+                        {
+                            std::cout << "m";
                         }
                         if (0 == (skipOptions & kSkipNodeOption))
                         {

@@ -104,8 +104,8 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel after a delay"s, "nImOdelay 3.5"s, 2023, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel after a delay"s, "nImOdelay 3.5"s, 2023, nImO::kCopyrightName,
+                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipMissingOption))
     {
         try
         {
@@ -115,7 +115,7 @@ main
             std::string         thisService{"Delay"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                longName{progName + " ["s + nodeName + "]"s};

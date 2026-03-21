@@ -109,7 +109,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Chart values from the input SIGNAL channels"s, "nImOchart 2"s, 2025, nImO::kCopyrightName,
-                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption, true))
+                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipInTypeOption, true))
     {
         try
         {

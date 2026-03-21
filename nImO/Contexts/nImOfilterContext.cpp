@@ -79,10 +79,11 @@
 nImO::FilterContext::FilterContext
     (const int              argc,
      Ptr(Ptr(char))         argv,
+     const MissingModeType  missingMode,
      const std::string &    tagForLogging,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited{argc, argv, tagForLogging, logging, nodeName}
+        inherited{argc, argv, missingMode, tagForLogging, logging, nodeName}
 {
     ODL_ENTER(); //####
     ODL_S2s(tagForLogging, nodeName); //####

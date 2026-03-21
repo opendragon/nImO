@@ -102,9 +102,9 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel with the cosine of its value"s, "nImOcosine"s, 2026, nImO::kCopyrightName,
-                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipSignalOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel with the cosine of its value"s, "nImOcosine"s, 2026,
+                                    nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipInTypeOption | nImO::kSkipMissingOption |
+                                    nImO::kSkipOutTypeOption | nImO::kSkipSignalOption))
     {
         try
         {
@@ -114,7 +114,7 @@ main
             std::string         thisService{"Cosine"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                longName{progName + " ["s + nodeName + "]"s};

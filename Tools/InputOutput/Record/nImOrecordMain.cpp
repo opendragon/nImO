@@ -106,7 +106,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Record to a file from a channel"s, "nImOrecord recording.txt"s, 2024, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipOutTypeOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipMissingOption | nImO::kSkipOutTypeOption))
     {
         try
         {

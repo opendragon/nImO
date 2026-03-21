@@ -239,12 +239,14 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] argc The number of arguments in 'argv'.
              @param[in] argv The command-line arguments provided to the application.
+             @param[in] missingMode The behaviour to apply when an input channel is inactive.
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             InputOutputContext
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
+                 const MissingModeType  missingMode,
                  const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const std::string &    nodeName = ""s);
@@ -272,6 +274,9 @@ namespace nImO
 
             /*! @brief The maximum number of output channels allowed. */
             int64_t _maxOutputChannels{0};
+
+            /*! @brief The behaviour to be applied when an input channel is inactive. */
+            MissingModeType _missingMode;
 
             /*! @brief The sequence of received packages. */
             ReceiveQueue    _receiveQueue;

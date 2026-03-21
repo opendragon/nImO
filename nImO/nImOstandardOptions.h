@@ -89,26 +89,29 @@ namespace nImO
         /*! @brief Skip the 'machine' option. */
         kSkipMachineOption      = 0x00000100,
 
+        /*! @brief Skip the 'missing' option. */
+        kSkipMissingOption      = 0x00000200,
+
         /*! @brief Skip the 'node' option. */
-        kSkipNodeOption         = 0x00000200,
-
-        /*! @brief Skip the 'outType' option. */
-        kSkipOutTypeOption      = 0x00000400,
-
-        /*! @brief Skip the 'randomNodeName' option. */
-        kSkipRandomNodeOption   = 0x00000800,
-
-        /*! @brief Skip the 'signal' option. */
-        kSkipSignalOption       = 0x00001000,
-
-        /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x00002000,
-
-        /*! @brief Skip the 'wait' option. */
-        kSkipWaitOption         = 0x00004000,
+        kSkipNodeOption         = 0x00000400,
 
         /*! @brief Skip the 'nosuffix' option. */
-        kSkipNoSuffixOption     = 0x00008000,
+        kSkipNoSuffixOption     = 0x00000800,
+
+        /*! @brief Skip the 'outType' option. */
+        kSkipOutTypeOption      = 0x00001000,
+
+        /*! @brief Skip the 'randomNodeName' option. */
+        kSkipRandomNodeOption   = 0x00002000,
+
+        /*! @brief Skip the 'signal' option. */
+        kSkipSignalOption       = 0x00004000,
+
+        /*! @brief Skip the 'tag' option. */
+        kSkipTagOption          = 0x00008000,
+
+        /*! @brief Skip the 'wait' option. */
+        kSkipWaitOption         = 0x00010000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFFFFFF

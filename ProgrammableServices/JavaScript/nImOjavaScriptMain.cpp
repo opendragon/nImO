@@ -116,7 +116,7 @@ main
     argumentList.push_back(secondArg);
     argumentList.push_back(thirdArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Run a JavaScript program"s, "nImOjavaScript script.js"s, 2024, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipWaitOption))
+                                    nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipWaitOption, true, true))
     {
         try
         {
@@ -127,7 +127,7 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath}};

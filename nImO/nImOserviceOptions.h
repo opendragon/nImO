@@ -40,6 +40,7 @@
 # define nImOserviceOptions_H_ /* Header guard */
 
 # include <nImOstandardOptions.h>
+# include <nImOinChannel.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -66,6 +67,9 @@ namespace nImO
 
         /*! @brief The data type for input channels. */
         std::string _inType{};
+
+        /*! @brief The name of the behaviour to use when an input channel has missing values. */
+        MissingModeType _missingMode{MissingModeType::kIgnore};
 
         /*! @brief The node name set by a command-line option; overridden by the 'random node name' option. */
         std::string _node{};
@@ -99,7 +103,7 @@ namespace nImO
 
     /*! @brief Process the standard options for service executables.
      The option '-@' / '--autolaunch' specifies that the Registry is to be launched if not already running.
-     The option '-a' / '--args' specifies the arguments to the executable.
+     The option '-a' / '--args' describes the arguments to the executable.
      The option '-b' / '--base' specifies the base name of the channels for the service.
      The option '-c' / '--config' specifies an alternative configuration file to use.
      The option '-d' / '--describe' displays the type of the executable, the available options and the description of the executable and returns @c false.
@@ -107,8 +111,9 @@ namespace nImO
      The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
      The option '-i' / '--intype' specifies the data type for input channels.
      The option '-l' / '--log' specifies that the executable is to be logged.
+     The option '-m' / '--missing' specifies how to handle missing input channel connections.
      The option '-n' / '--node' specifies a non-default node name to use.
-     The option '-o' / '--outtype' specifies the data type for input channels.
+     The option '-o' / '--outtype' specifies the data type for output channels.
      The option '-r' / '--random' specifies that the node name should be set to a random string.
      The option '-s' / '--signal' specifies that all channels are to be used for SIGNAL messages.
      The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the service.

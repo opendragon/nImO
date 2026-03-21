@@ -181,7 +181,7 @@ namespace nImO
             swap
                 (ChannelName &  other);
 
-            /*! @brief Returns TransportType value corresponding to a name.
+            /*! @brief Returns the TransportType value corresponding to a name.
              @param[in] aName The name of the TransportType to be converted.
              @return The TransportType value corresponding to the name. */
             static TransportType

@@ -76,12 +76,14 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] argc The number of arguments in 'argv'.
              @param[in] argv The command-line arguments provided to the application.
+             @param[in] missingMode The behaviour to apply when an input channel is inactive.
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             FilterContext
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
+                 const MissingModeType  missingMode = MissingModeType::kIgnore,
                  const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const std::string &    nodeName = ""s);

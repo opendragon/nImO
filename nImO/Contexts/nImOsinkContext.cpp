@@ -82,7 +82,7 @@ nImO::SinkContext::SinkContext
      const std::string &    tagForLogging,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited{argc, argv, tagForLogging, logging, nodeName}
+        inherited{argc, argv, MissingModeType::kIgnore, tagForLogging, logging, nodeName}
 {
     ODL_ENTER(); //####
     ODL_S2s(tagForLogging, nodeName); //####

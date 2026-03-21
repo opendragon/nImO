@@ -327,9 +327,9 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launch another service locally"s, "nImOlaunch applications.txt"s, 2023, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
-                                    nImO::kSkipOutTypeOption | nImO::kSkipWaitOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launch another service locally"s, "nImOlaunch applications.txt"s, 2023, nImO::kCopyrightName,
+                                    optionValues, nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipInTypeOption |
+                                    nImO::kSkipMissingOption | nImO::kSkipOutTypeOption | nImO::kSkipWaitOption))
     {
         try
         {

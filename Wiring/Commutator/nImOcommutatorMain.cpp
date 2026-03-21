@@ -110,8 +110,8 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to one of a set of channels"s, "nImOcommutator 3"s, 2023, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, false, true))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to one of a set of channels"s, "nImOcommutator 3"s, 2023, nImO::kCopyrightName,
+                                    optionValues, nImO::kSkipExpandedOption | nImO::kSkipMissingOption, false, true))
     {
         try
         {
@@ -122,7 +122,7 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addOutputChannelCallback{new nImO::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};

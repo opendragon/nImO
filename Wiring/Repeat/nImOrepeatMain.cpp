@@ -108,8 +108,8 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send copies of a message to a channel after a delay"s, "nImOrepeat 2 3.5"s, 2024, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send copies of a message to a channel after a delay"s, "nImOrepeat 2 3.5"s, 2024,
+                                    nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipMissingOption))
     {
         try
         {
@@ -119,7 +119,7 @@ main
             std::string         thisService{"Repeat"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                longName{progName + " ["s + nodeName + "]"s};

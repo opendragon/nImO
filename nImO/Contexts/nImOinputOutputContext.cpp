@@ -94,10 +94,11 @@
 nImO::InputOutputContext::InputOutputContext
     (const int              argc,
      Ptr(Ptr(char))         argv,
+     const MissingModeType  missingMode,
      const std::string &    tagForLogging,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited{argc, argv, tagForLogging, logging, true, nodeName}
+        inherited{argc, argv, tagForLogging, logging, true, nodeName}, _missingMode{missingMode}
 {
     ODL_ENTER(); //####
     ODL_S2s(tagForLogging, nodeName); //####
@@ -125,7 +126,8 @@ nImO::InputOutputContext::addInputChannel
     ODL_OBJENTER(); //####
     ODL_S1s(path); //####
     auto        adjustedName{ConvertToLowerCase(path)};
-    const auto  result{_inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName, _inputChannelMap.size())})};
+    const auto  result{_inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName, _missingMode,
+                                                                                          _inputChannelMap.size())})};
 
     ODL_OBJEXIT_B(result.second); //####
     return result.second;

@@ -207,8 +207,8 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send the sum of the messages to an output channel from the input SIGNAL channel"s, "nImOsum 2"s, 2025,
-                                    nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send the sum of the messages to an output channel from the input SIGNAL channel"s, "nImOsum 2"s,
+                                    2025, nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipInTypeOption |
                                     nImO::kSkipOutTypeOption, true))
     {
         try
@@ -220,7 +220,7 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                valueCollection{std::make_shared<SumValueCollector>()};

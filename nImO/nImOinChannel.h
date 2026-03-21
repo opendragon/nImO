@@ -61,9 +61,6 @@ namespace nImO
         /*! @brief The behaviour with disconnected input channels is unknown. */
         kUnknown,
 
-        /*! @brief Block output until all input channels have provided messages; disconnections stop the service from proceeding. */
-        kBlock,
-
         /*! @brief Only active input channels are involved in generating output messages. */
         kIgnore,
 
@@ -226,9 +223,6 @@ namespace nImO
             bool    _unfiltered{false};
 
     }; // InChannel
-
-    /*! @brief The standard name for blocking until all inputs have provided messages. */
-    extern const std::string    kMissingModeBlock;
 
     /*! @brief The standard name for only using active input connections. */
     extern const std::string    kMissingModeIgnore;

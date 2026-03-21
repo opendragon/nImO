@@ -67,8 +67,6 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const std::string   nImO::kMissingModeBlock{"block"s}; // must be lower-case!
-
 const std::string   nImO::kMissingModeIgnore{"ignore"s}; // must be lower-case!
 
 const std::string   nImO::kMissingModeRetain{"retain"s}; // must be lower-case!
@@ -124,22 +122,15 @@ nImO::InChannel::missingModeFromName
     auto    mode{MissingModeType::kUnknown};
     auto    nameToCheck{ConvertToLowerCase(aName)};
 
-    if (nameToCheck == missingModeToName(MissingModeType::kBlock))
+    if (nameToCheck == missingModeToName(MissingModeType::kIgnore))
     {
-        mode = MissingModeType::kBlock;
+        mode = MissingModeType::kIgnore;
     }
     else
     {
-        if (nameToCheck == missingModeToName(MissingModeType::kIgnore))
+        if (nameToCheck == missingModeToName(MissingModeType::kRetain))
         {
-            mode = MissingModeType::kIgnore;
-        }
-        else
-        {
-            if (nameToCheck == missingModeToName(MissingModeType::kRetain))
-            {
-                mode = MissingModeType::kRetain;
-            }
+            mode = MissingModeType::kRetain;
         }
     }
     ODL_EXIT_I(StaticCast(int, mode)); //####
@@ -151,7 +142,7 @@ nImO::InChannel::missingModeNames
     (void)
 {
     ODL_ENTER(); //####
-    StdStringSet    result{kMissingModeBlock, kMissingModeIgnore, kMissingModeRetain};
+    StdStringSet    result{kMissingModeIgnore, kMissingModeRetain};
 
     ODL_EXIT(); //####
     return result;
@@ -167,10 +158,6 @@ nImO::InChannel::missingModeToName
 
     switch (aValue)
     {
-        case MissingModeType::kBlock :
-            result = kMissingModeBlock;
-            break;
-
         case MissingModeType::kIgnore :
             result = kMissingModeIgnore;
             break;

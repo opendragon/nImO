@@ -115,7 +115,7 @@ namespace nImO
             /*! @brief Return the behaviour to apply when the channel is inactive.
              @return The behaviour to apply when the channel is inactive. */
             inline MissingModeType
-            getMissingMode
+            missingMode
                 (void)
                 const
             {
@@ -180,6 +180,16 @@ namespace nImO
                 (void)
                 override;
 
+            /*! @brief Return whether a message has been received.
+             @return @c true if a message has been received. */
+            inline bool
+            wasReceived
+                (void)
+                const
+            {
+                return _wasReceived;
+            }
+
         protected :
             // Protected methods.
 
@@ -221,6 +231,9 @@ namespace nImO
 
             /*! @brief @c true if the sender address and port are ignored. */
             bool    _unfiltered{false};
+
+            /*! @brief @c true if a message has been received. */
+            bool    _wasReceived{false};
 
     }; // InChannel
 

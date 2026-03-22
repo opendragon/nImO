@@ -217,6 +217,7 @@ nImO::InChannel::receiveTcpMessages
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             _inQueue.addRawBytesAsMessage(_index, trimmed);
                                             _statistics.update(trimmed.length());
+                                            _wasReceived = true;
                                             receiveTcpMessages();
                                         }
                                     });
@@ -269,6 +270,7 @@ nImO::InChannel::receiveUdpMessages
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                    _inQueue.addRawBytesAsMessage(_index, senderAddress, senderPort, trimmed);
                                                    _statistics.update(trimmed.length());
+                                                   _wasReceived = true;
                                                }
                                                receiveUdpMessages();
                                            }

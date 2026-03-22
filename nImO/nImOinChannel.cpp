@@ -67,12 +67,6 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const std::string   nImO::kMissingModeIgnore{"ignore"s}; // must be lower-case!
-
-const std::string   nImO::kMissingModeRetain{"retain"s}; // must be lower-case!
-
-const std::string   nImO::kMissingModeUnknown{"unknown"s};
-
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -89,9 +83,8 @@ nImO::InChannel::InChannel
     (ReceiveQueue &         inQueue,
      InputOutputContext &   context,
      const std::string &    path,
-     const MissingModeType  missingMode,
      const int              index) :
-        inherited{context, path, index}, _inQueue(inQueue), _missingMode(missingMode)
+        inherited{context, path, index}, _inQueue(inQueue)
 {
     ODL_ENTER(); //####
     ODL_P2(&inQueue, &context); //####
@@ -112,68 +105,6 @@ nImO::InChannel::~InChannel
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
-
-nImO::MissingModeType
-nImO::InChannel::missingModeFromName
-    (const std::string &    aName)
-{
-    ODL_ENTER(); //####
-    ODL_S1s(aName); //####
-    auto    mode{MissingModeType::kUnknown};
-    auto    nameToCheck{ConvertToLowerCase(aName)};
-
-    if (nameToCheck == missingModeToName(MissingModeType::kIgnore))
-    {
-        mode = MissingModeType::kIgnore;
-    }
-    else
-    {
-        if (nameToCheck == missingModeToName(MissingModeType::kRetain))
-        {
-            mode = MissingModeType::kRetain;
-        }
-    }
-    ODL_EXIT_I(StaticCast(int, mode)); //####
-    return mode;
-} // nImO::InChannel::missingModeFromName
-
-nImO::StdStringSet
-nImO::InChannel::missingModeNames
-    (void)
-{
-    ODL_ENTER(); //####
-    StdStringSet    result{kMissingModeIgnore, kMissingModeRetain};
-
-    ODL_EXIT(); //####
-    return result;
-} // nImO::InChannel::missingModeNames
-
-std::string
-nImO::InChannel::missingModeToName
-    (const MissingModeType  aValue)
-{
-    ODL_ENTER(); //####
-    ODL_I1(StaticCast(int64_t, aValue)); //####
-    std::string result;
-
-    switch (aValue)
-    {
-        case MissingModeType::kIgnore :
-            result = kMissingModeIgnore;
-            break;
-
-        case MissingModeType::kRetain :
-            result = kMissingModeRetain;
-            break;
-
-        default :
-            result = kMissingModeUnknown;
-            break;
-
-    }
-    ODL_EXIT_s(result); //####
-    return result;
-} // nImO::InChannel::missingModeToName
 
 void
 nImO::InChannel::receiveTcpMessages

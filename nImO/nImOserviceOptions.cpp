@@ -39,6 +39,7 @@
 #include <nImOserviceOptions.h>
 
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+#include <Contexts/nImOinputOutputContext.h>
 #include <nImOchannelName.h>
 #include <nImOinChannel.h>
 #include <nImOmainSupport.h>
@@ -100,7 +101,7 @@ checkMissingMode
     }
     else
     {
-        auto    modeNames{nImO::InChannel::missingModeNames()};
+        auto    modeNames{nImO::InputOutputContext::missingModeNames()};
 
         if (modeNames.find(ConvertToLowerCase(option.arg)) == modeNames.end())
         {
@@ -548,7 +549,7 @@ nImO::ProcessServiceOptions
                                 {
                                     if (nullptr != opt->arg)
                                     {
-                                        optionValues._missingMode = InChannel::missingModeFromName(opt->arg);
+                                        optionValues._missingMode = InputOutputContext::missingModeFromName(opt->arg);
                                     }
                                 }
                             }

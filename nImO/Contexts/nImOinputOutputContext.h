@@ -216,6 +216,36 @@ namespace nImO
                 (StdStringVector &  names)
                 const;
 
+            /*! @brief Return the behaviour to apply when an input channel is inactive.
+             @return The behaviour to apply when an input channel is inactive. */
+            inline MissingModeType
+            missingMode
+                (void)
+                const
+            {
+                return _missingMode;
+            }
+
+            /*! @brief Returns the MissingModeType value corresponding to a name.
+             @param[in] aName The name of the MissingModeType to be converted.
+             @return The MissingMode value corresponding to the name. */
+            static MissingModeType
+            missingModeFromName
+                (const std::string &    aName);
+
+            /*! @brief Returns the set of names for MissingModeType values.
+             @return The standard names for the MissingMode values. */
+            static StdStringSet
+            missingModeNames
+                (void);
+
+            /*! @brief Returns the name corresponding to a MissingModeType value.
+             @param[in] aValue The MissingModeType value to be converted.
+             @return The standard name for the MissingModeType value. */
+            static std::string
+            missingModeToName
+                (const MissingModeType  aValue);
+
             /*! @brief Specify the maximum number of allowed input and output channels.
              @param[in] maxInputChannels The maximum number of allowed input channels, @c -1 if unrestricted.
              @param[in] maxOutputChannels The maximum number of allowed output channels, @c -1 if unrestricted. */
@@ -297,6 +327,15 @@ namespace nImO
          Ptr(CallbackFunction)  stopCallback,
          Ptr(CallbackFunction)  addInputChannelCallback = nullptr,
          Ptr(CallbackFunction)  addOutputChannelCallback = nullptr);
+
+    /*! @brief The standard name for only using active input connections. */
+    extern const std::string    kMissingModeIgnore;
+
+    /*! @brief The standard name for using the last value of a disconnected input connection. */
+    extern const std::string    kMissingModeRetain;
+
+    /*! @brief The standard name for an unknown mode. */
+    extern const std::string    kMissingModeUnknown;
 
 } // nImO
 

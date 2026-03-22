@@ -79,6 +79,12 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+const std::string   nImO::kMissingModeIgnore{"ignore"s}; // must be lower-case!
+
+const std::string   nImO::kMissingModeRetain{"retain"s}; // must be lower-case!
+
+const std::string   nImO::kMissingModeUnknown{"unknown"s};
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -126,7 +132,7 @@ nImO::InputOutputContext::addInputChannel
     ODL_OBJENTER(); //####
     ODL_S1s(path); //####
     auto        adjustedName{ConvertToLowerCase(path)};
-    const auto  result{_inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName, _missingMode,
+    const auto  result{_inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName,
                                                                                           _inputChannelMap.size())})};
 
     ODL_OBJEXIT_B(result.second); //####
@@ -288,6 +294,68 @@ nImO::InputOutputContext::getOutputChannelNames
                   });
     ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames
+
+nImO::MissingModeType
+nImO::InputOutputContext::missingModeFromName
+    (const std::string &    aName)
+{
+    ODL_ENTER(); //####
+    ODL_S1s(aName); //####
+    auto    mode{MissingModeType::kUnknown};
+    auto    nameToCheck{ConvertToLowerCase(aName)};
+
+    if (nameToCheck == missingModeToName(MissingModeType::kIgnore))
+    {
+        mode = MissingModeType::kIgnore;
+    }
+    else
+    {
+        if (nameToCheck == missingModeToName(MissingModeType::kRetain))
+        {
+            mode = MissingModeType::kRetain;
+        }
+    }
+    ODL_EXIT_I(StaticCast(int, mode)); //####
+    return mode;
+} // nImO::InputOutputContext::missingModeFromName
+
+nImO::StdStringSet
+nImO::InputOutputContext::missingModeNames
+    (void)
+{
+    ODL_ENTER(); //####
+    StdStringSet    result{kMissingModeIgnore, kMissingModeRetain};
+
+    ODL_EXIT(); //####
+    return result;
+} // nImO::InputOutputContext::missingModeNames
+
+std::string
+nImO::InputOutputContext::missingModeToName
+    (const MissingModeType  aValue)
+{
+    ODL_ENTER(); //####
+    ODL_I1(StaticCast(int64_t, aValue)); //####
+    std::string result;
+
+    switch (aValue)
+    {
+        case MissingModeType::kIgnore :
+            result = kMissingModeIgnore;
+            break;
+
+        case MissingModeType::kRetain :
+            result = kMissingModeRetain;
+            break;
+
+        default :
+            result = kMissingModeUnknown;
+            break;
+
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::InputOutputContext::missingModeToName
 
 void
 nImO::InputOutputContext::stopInputQueue

@@ -7,7 +7,7 @@ sloccount ../examples ../GUI ../Launcher ../nImO ../ProgrammableServices ../Regi
 echo ---------------
 echo Subtract the following -
 echo ---------------
-sloccount ../nImO/swig_nImO_in ../nImO/swig_nImO_out_python
+sloccount ../nImO/swig_nImO_in
 echo ---------------
 echo Tests
 echo ---------------

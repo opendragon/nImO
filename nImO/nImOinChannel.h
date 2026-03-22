@@ -97,7 +97,6 @@ namespace nImO
                 (ReceiveQueue &         inQueue,
                  InputOutputContext &   context,
                  const std::string &    path,
-                 const MissingModeType  missingMode = MissingModeType::kUnknown,
                  const int              index = 0);
 
             /*! @brief The move constructor.
@@ -111,36 +110,6 @@ namespace nImO
             ~InChannel
                 (void)
                 override;
-
-            /*! @brief Return the behaviour to apply when the channel is inactive.
-             @return The behaviour to apply when the channel is inactive. */
-            inline MissingModeType
-            missingMode
-                (void)
-                const
-            {
-                return _missingMode;
-            }
-
-            /*! @brief Returns the MissingModeType value corresponding to a name.
-             @param[in] aName The name of the MissingModeType to be converted.
-             @return The MissingMode value corresponding to the name. */
-            static MissingModeType
-            missingModeFromName
-                (const std::string &    aName);
-
-            /*! @brief Returns the set of names for MissingModeType values.
-             @return The standard names for the MissingMode values. */
-            static StdStringSet
-            missingModeNames
-                (void);
-
-            /*! @brief Returns the name corresponding to a MissingModeType value.
-             @param[in] aValue The MissingModeType value to be converted.
-             @return The standard name for the MissingModeType value. */
-            static std::string
-            missingModeToName
-                (const MissingModeType  aValue);
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
@@ -214,9 +183,6 @@ namespace nImO
             /*! @brief The source port to match against. */
             IPv4Port    _matchPort{0};
 
-            /*! @brief The behaviour to use when the channel is not active. */
-            MissingModeType _missingMode{MissingModeType::kUnknown};
-
             /*! @brief A buffer for the raw message data. */
             std::array<char, 2048>  _rawData{};
 
@@ -236,15 +202,6 @@ namespace nImO
             bool    _wasReceived{false};
 
     }; // InChannel
-
-    /*! @brief The standard name for only using active input connections. */
-    extern const std::string    kMissingModeIgnore;
-
-    /*! @brief The standard name for using the last value of a disconnected input connection. */
-    extern const std::string    kMissingModeRetain;
-
-    /*! @brief The standard name for an unknown mode. */
-    extern const std::string    kMissingModeUnknown;
 
 } // nImO
 

@@ -107,7 +107,6 @@ class MaximumValueCollector final : public nImO::CallbackFunction
         }
 
         /*! @brief Calculate the maximum of the values.
-         @param[in] missingMode What to do with missing values.
          @param[in] ourContext The active Context.
          @return The maximum of the values. */
         inline double

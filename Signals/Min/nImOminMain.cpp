@@ -107,7 +107,6 @@ class MinimumValueCollector final : public nImO::CallbackFunction
         }
 
         /*! @brief Calculate the minimum of the values.
-         @param[in] missingMode What to do with missing values.
          @param[in] ourContext The active Context.
          @return The minimum of the values. */
         inline double

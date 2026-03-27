@@ -63,6 +63,14 @@
 #            "path" > "$$/nImOlua"
 #            "description" > "Run a Lua program -> unimplemented"
 #            }
+"Max" > {
+            "path" > "$$/nImOmax"
+            "description" > "Send the maximum of the input SIGNAL messages"
+            }
+"Min" > {
+            "path" > "$$/nImOmin"
+            "description" > "Send the minimum of the input SIGNAL messages"
+            }
 "Negate" > {
             "path" > "$$/nImOnegate"
             "description" > "Change the sign of a SIGNAL message"

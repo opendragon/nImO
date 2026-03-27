@@ -107,7 +107,6 @@ class ProductValueCollector final : public nImO::CallbackFunction
         }
 
         /*! @brief Calculate the product of the values.
-         @param[in] missingMode What to do with missing values.
          @param[in] ourContext The active Context.
          @return The product of the values. */
         inline double

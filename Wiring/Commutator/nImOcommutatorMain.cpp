@@ -239,14 +239,17 @@ main
                                     if (optionValues._waitForConnections)
                                     {
                                         auto    inChannel{ourContext->getInputChannel(inChannelPath)};
-                                        bool    connected{false};
 
-                                        std::cout << "Waiting for connection(s).\n";
-                                        ourContext->report("Waiting for connection(s)."s);
-                                        for ( ; nImO::gKeepRunning && (! connected); )
+                                        std::cout << "Waiting for connections.\n";
+                                        ourContext->report("Waiting for connections."s);
+                                        for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
-                                            connected = (ourContext->anOutputChannelIsConnected() && inChannel->isConnected());
+                                            if (ourContext->anOutputChannelIsConnected() && inChannel->isConnected())
+                                            {
+                                                break;
+
+                                            }
                                         }
                                     }
                                     if (nImO::gKeepRunning)

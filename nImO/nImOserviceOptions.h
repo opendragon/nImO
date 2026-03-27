@@ -40,7 +40,7 @@
 # define nImOserviceOptions_H_ /* Header guard */
 
 # include <nImOstandardOptions.h>
-# include <nImOinChannel.h>
+# include <Contexts/nImOinputOutputContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

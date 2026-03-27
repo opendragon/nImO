@@ -60,6 +60,20 @@ namespace nImO
 {
     class RegistryProxy;    // needed due to circular references.
 
+    /*! @brief The behaviour to use when handling missing input connections. */
+    enum class MissingModeType
+    {
+        /*! @brief The behaviour with disconnected input channels is unknown. */
+        kUnknown,
+
+        /*! @brief Only active input channels are involved in generating output messages. */
+        kIgnore,
+
+        /*! @brief The last value on a disconnected input channel is used; the initial state is like kIgnore. */
+        kRetain
+
+    }; // MissingModeType
+
     /*! @brief A holder for a shared pointer to an input channel. */
     using SpInChannel = std::shared_ptr<InChannel>;
 
@@ -87,6 +101,12 @@ namespace nImO
 
         private :
             // Private type definitions.
+
+            /*! @brief A vector of input channels. */
+            using InChannelVector = std::vector<SpInChannel>;
+
+            /*! @brief A vector of input channels. */
+            using OutChannelVector = std::vector<SpOutChannel>;
 
             /*! @brief The class that this class is derived from. */
             using inherited = ServiceContext;
@@ -158,6 +178,17 @@ namespace nImO
             }
 
             /*! @brief Get an input channel.
+             @param[in] index The index of the channel.
+             @return The input channel with the provided index. */
+            SpInChannel
+            getInputChannel
+                (const size_t   index)
+                const
+            {
+                return _inputChannelVector.at(index);
+            }
+
+            /*! @brief Get an input channel.
              @param[in] path The path associated with the channel.
              @return The input channel with the provided name. */
             SpInChannel
@@ -199,6 +230,17 @@ namespace nImO
                 const
             {
                 return _outputChannelMap.size();
+            }
+
+            /*! @brief Get an output channel.
+             @param[in] index The index of the channel.
+             @return The output channel with the provided index. */
+            SpOutChannel
+            getOutputChannel
+                (const size_t   index)
+                const
+            {
+                return _outputChannelVector.at(index);
             }
 
             /*! @brief Get an output channel.
@@ -299,6 +341,9 @@ namespace nImO
         private :
             // Private fields.
 
+            /*@ @brief The input channels for the service. */
+            InChannelVector _inputChannelVector{};
+
             /*! @brief The maximum number of input channels allowed. */
             int64_t _maxInputChannels{0};
 
@@ -307,6 +352,9 @@ namespace nImO
 
             /*! @brief The behaviour to be applied when an input channel is inactive. */
             MissingModeType _missingMode;
+
+            /*! @brief The output channels for the service. */
+            OutChannelVector    _outputChannelVector{};
 
             /*! @brief The sequence of received packages. */
             ReceiveQueue    _receiveQueue;

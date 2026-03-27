@@ -196,6 +196,14 @@
 		F65AE4532A1A773200457BD4 /* nImOremoveChannelResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOremoveChannelResponseHandler.h; path = nImO/ResponseHandlers/nImOremoveChannelResponseHandler.h; sourceTree = "<group>"; };
 		F65AE4542A1A773200457BD4 /* nImOremoveChannelsForNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOremoveChannelsForNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h; sourceTree = "<group>"; };
 		F65AE4552A1A773200457BD4 /* nImOremoveChannelResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOremoveChannelResponseHandler.cpp; path = nImO/ResponseHandlers/nImOremoveChannelResponseHandler.cpp; sourceTree = "<group>"; };
+		F65BD6972F768C9E00043EDB /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F65BD6992F768CB400043EDB /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F65BD69C2F768E6000043EDB /* nImOmax.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOmax.rc.in; sourceTree = "<group>"; };
+		F65BD69E2F768E6000043EDB /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F65BD69F2F768E9C00043EDB /* nImOmin.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOmin.rc.in; sourceTree = "<group>"; };
+		F65BD6A12F768E9C00043EDB /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F65BD6A22F768F8800043EDB /* nImOmaxMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOmaxMain.cpp; sourceTree = "<group>"; };
+		F65BD6A32F768F9900043EDB /* nImOminMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOminMain.cpp; sourceTree = "<group>"; };
 		F65C4A3F2985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A722985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A742985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -1189,6 +1197,8 @@
 				F6BCD16A2F0EE7E80032E88D /* Cosine */,
 				F6815D402DE0957A0057BBA9 /* Gate */,
 				F64EECD22DC621FB0070A8FF /* CMakeLists.txt */,
+				F65BD6962F768C6100043EDB /* Max */,
+				F65BD6982F768CA300043EDB /* Min */,
 				F64EECD32DC622060070A8FF /* Negate */,
 				F6484BF22DE08E120078F729 /* Power */,
 				F6484BF02DE08CF90078F729 /* Product */,
@@ -1224,6 +1234,8 @@
 				F6BCD1802F0EFBCB0032E88D /* Clamp */,
 				F6BCD1702F0EE81D0032E88D /* Cosine */,
 				F6815D442DE095E20057BBA9 /* Gate */,
+				F65BD69A2F768D6400043EDB /* Max */,
+				F65BD69B2F768D6C00043EDB /* Min */,
 				F64EECD82DC622AF0070A8FF /* Negate */,
 				F6484BF62DE08FE10078F729 /* Power */,
 				F6484BEE2DE08C880078F729 /* Product */,
@@ -1299,6 +1311,42 @@
 				F65A7B0F2995DA05009BA794 /* resource.h */,
 			);
 			path = LoadApplications;
+			sourceTree = "<group>";
+		};
+		F65BD6962F768C6100043EDB /* Max */ = {
+			isa = PBXGroup;
+			children = (
+				F65BD6972F768C9E00043EDB /* CMakeLists.txt */,
+			);
+			path = Max;
+			sourceTree = "<group>";
+		};
+		F65BD6982F768CA300043EDB /* Min */ = {
+			isa = PBXGroup;
+			children = (
+				F65BD6992F768CB400043EDB /* CMakeLists.txt */,
+			);
+			path = Min;
+			sourceTree = "<group>";
+		};
+		F65BD69A2F768D6400043EDB /* Max */ = {
+			isa = PBXGroup;
+			children = (
+				F65BD69C2F768E6000043EDB /* nImOmax.rc.in */,
+				F65BD6A22F768F8800043EDB /* nImOmaxMain.cpp */,
+				F65BD69E2F768E6000043EDB /* resource.h */,
+			);
+			path = Max;
+			sourceTree = "<group>";
+		};
+		F65BD69B2F768D6C00043EDB /* Min */ = {
+			isa = PBXGroup;
+			children = (
+				F65BD69F2F768E9C00043EDB /* nImOmin.rc.in */,
+				F65BD6A32F768F9900043EDB /* nImOminMain.cpp */,
+				F65BD6A12F768E9C00043EDB /* resource.h */,
+			);
+			path = Min;
 			sourceTree = "<group>";
 		};
 		F65C4A3D2985620100430284 /* Tools */ = {

@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Signals/Sum/CMakeLists.txt
+#  File:       non-iOS/Signals/Min/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Sum application.
+#  Contains:   The CMAKE definitions for the Power application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2025 by OpenDragon.
+#  Copyright:  (c) 2026 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2025-05-23
+#  Created:    2026-05-27
 #
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOsum)
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Signals/Sum)
+set(THIS_TARGET nImOmin)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Signals/Min)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,8 +50,8 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOsumMain.cpp
-               ${VERS_RESOURCE})
+                ${THIS_SOURCE_DIR}/nImOminMain.cpp
+                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
 # processed once.

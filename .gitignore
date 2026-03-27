@@ -89,6 +89,12 @@ non-iOS/Signals/Cosine/nImOcosine.rc
 non-iOS/Signals/Gate/nImOgate
 non-iOS/Signals/Gate/nImOgate.dir/
 non-iOS/Signals/Gate/nImOgate.rc
+non-iOS/Signals/Max/nImOmax
+non-iOS/Signals/Max/nImOmax.dir/
+non-iOS/Signals/Max/nImOmax.rc
+non-iOS/Signals/Min/nImOmin
+non-iOS/Signals/Min/nImOmin.dir/
+non-iOS/Signals/Min/nImOmin.rc
 non-iOS/Signals/Negate/nImOnegate
 non-iOS/Signals/Negate/nImOnegate.dir/
 non-iOS/Signals/Negate/nImOnegate.rc

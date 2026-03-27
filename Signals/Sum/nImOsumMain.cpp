@@ -99,14 +99,39 @@ class SumValueCollector final : public nImO::CallbackFunction
         }
 
         /*! @brief Calculate the sum of the values.
+         @param[in] ourContext The active Context.
          @return The sum of the values. */
         inline double
         calculate
-            (void)
+            (nImO::SpFilterContext  ourContext)
         {
-            std::lock_guard<std::mutex>  lock{_valuesLock};
+            std::lock_guard<std::mutex> lock{_valuesLock};
+            double                      result;
+            bool                        hasResult{false};
 
-            return std::accumulate(_values.begin(), _values.end(), 0);
+            for (size_t ii(0), maxI(_values.size()); ii < maxI; ++ii)
+            {
+                auto    aChannel{ourContext->getInputChannel(ii)};
+
+                if (aChannel->isConnected() || (nImO::MissingModeType::kRetain == ourContext->missingMode()))
+                {
+                    if (_present[ii])
+                    {
+                        auto    newValue{_values[ii]};
+
+                        if (hasResult)
+                        {
+                            result += newValue;
+                        }
+                        else
+                        {
+                            result = newValue;
+                            hasResult = true;
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
         /*! @brief Increase the size of the collection of values. */
@@ -115,9 +140,12 @@ class SumValueCollector final : public nImO::CallbackFunction
             (void)
         {
             ODL_OBJENTER(); //####
-            std::lock_guard<std::mutex>  lock{_valuesLock};
+            std::lock_guard<std::mutex> lock{_valuesLock};
+            auto                        newSize{_values.size() + 1};
 
-            _values.resize(_values.size() + 1);
+            _values.resize(newSize);
+            _present.resize(newSize);
+            _present[newSize - 1] = false;
             ODL_OBJEXIT(); //####
         }
 
@@ -130,9 +158,10 @@ class SumValueCollector final : public nImO::CallbackFunction
              const double   newValue)
         {
             ODL_OBJENTER(); //####
-            std::lock_guard<std::mutex>  lock{_valuesLock};
+            std::lock_guard<std::mutex> lock{_valuesLock};
 
             _values[index] = newValue;
+            _present[index] = true;
             ODL_OBJEXIT(); //####
         }
 
@@ -166,6 +195,9 @@ class SumValueCollector final : public nImO::CallbackFunction
 
         /*! @brief The collected values. */
         std::vector<double> _values{};
+
+        /*! @brief Flags to indicate a value has been set. */
+        std::vector<bool>   _present{};
 
         /*! @brief Used to protect the collected values. */
         std::mutex  _valuesLock{};
@@ -339,14 +371,16 @@ main
                                     {
                                         if (optionValues._waitForConnections)
                                         {
-                                            bool    connected{false};
-
-                                            std::cout << "Waiting for connection(s).\n";
-                                            ourContext->report("Waiting for connection(s)."s);
-                                            for ( ; nImO::gKeepRunning && (! connected); )
+                                            std::cout << "Waiting for connections.\n";
+                                            ourContext->report("Waiting for connections."s);
+                                            for ( ; nImO::gKeepRunning; )
                                             {
                                                 boost::this_thread::yield();
-                                                connected = (outChannel->isConnected() && ourContext->anInputChannelIsConnected());
+                                                if (outChannel->isConnected() && ourContext->anInputChannelIsConnected())
+                                                {
+                                                    break;
+                                                    
+                                                }
                                             }
                                         }
                                         if (nImO::gKeepRunning)
@@ -370,7 +404,7 @@ main
                                                     if (nImO::ConvertSignalToValue(contents, inValue))
                                                     {
                                                         valueCollection->setValue(nextData->_tag, inValue);
-                                                        nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(valueCollection->calculate())};
+                                                        nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(valueCollection->calculate(ourContext))};
 
                                                         if (! outChannel->send(valueToSend))
                                                         {

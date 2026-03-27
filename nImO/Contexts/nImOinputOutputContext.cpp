@@ -132,9 +132,13 @@ nImO::InputOutputContext::addInputChannel
     ODL_OBJENTER(); //####
     ODL_S1s(path); //####
     auto        adjustedName{ConvertToLowerCase(path)};
-    const auto  result{_inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName,
-                                                                                          _inputChannelMap.size())})};
+    auto        newChannel{std::make_shared<InChannel>(_receiveQueue, *this, adjustedName, _inputChannelMap.size())};
+    const auto  result{_inputChannelMap.insert({adjustedName, newChannel})};
 
+    if (result.second)
+    {
+        _inputChannelVector.push_back(newChannel);
+    }
     ODL_OBJEXIT_B(result.second); //####
     return result.second;
 } // nImO::InputOutputContext::addInputChannel
@@ -146,8 +150,13 @@ nImO::InputOutputContext::addOutputChannel
     ODL_OBJENTER(); //####
     ODL_S1s(path); //####
     auto        adjustedName{ConvertToLowerCase(path)};
-    const auto  result{_outputChannelMap.insert({adjustedName, std::make_shared<OutChannel>(*this, adjustedName, _outputChannelMap.size())})};
+    auto        newChannel{std::make_shared<OutChannel>(*this, adjustedName, _outputChannelMap.size())};
+    const auto  result{_outputChannelMap.insert({adjustedName, newChannel})};
 
+    if (result.second)
+    {
+        _outputChannelVector.push_back(newChannel);
+    }
     ODL_OBJEXIT_B(result.second); //####
     return result.second;
 } // nImO::InputOutputContext::addOutputChannel

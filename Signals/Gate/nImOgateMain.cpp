@@ -270,14 +270,17 @@ main
                                         {
                                             auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                             auto    gateChannel{ourContext->getInputChannel(gateChannelPath)};
-                                            bool    connected{false};
 
-                                            std::cout << "Waiting for connection(s).\n";
-                                            ourContext->report("Waiting for connection(s)."s);
-                                            for ( ; nImO::gKeepRunning && (! connected); )
+                                            std::cout << "Waiting for connections.\n";
+                                            ourContext->report("Waiting for connections."s);
+                                            for ( ; nImO::gKeepRunning; )
                                             {
                                                 boost::this_thread::yield();
-                                                connected = (inChannel->isConnected() && outChannel->isConnected() && gateChannel->isConnected());
+                                                if (inChannel->isConnected() && outChannel->isConnected() && gateChannel->isConnected())
+                                                {
+                                                    break;
+
+                                                }
                                             }
                                         }
                                         if (nImO::gKeepRunning)

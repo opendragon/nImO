@@ -55,20 +55,6 @@
 
 namespace nImO
 {
-    /*! @brief The behaviour to use when handling missing connections. */
-    enum class MissingModeType
-    {
-        /*! @brief The behaviour with disconnected input channels is unknown. */
-        kUnknown,
-
-        /*! @brief Only active input channels are involved in generating output messages. */
-        kIgnore,
-
-        /*! @brief The last value on a disconnected input channel is used; the initial state is like kIgnore. */
-        kRetain
-
-    }; // MissingModeType
-
     /*! @brief A class to provide incoming connections to services. */
     class InChannel final : public BaseChannel
     {

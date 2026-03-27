@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOrepeatMain.cpp
+//  File:       nImOminMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A wiring application to demonstrate using the nImO library in a program.
+//  Contains:   A signals application to demonstrate using the nImO library in a program.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2024 by OpenDragon.
+//  Copyright:  (c) 2025 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,15 +32,18 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-11-04
+//  Created:    2025-05-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
+#include <BasicTypes/nImOdouble.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOfilterContext.h>
+#include <nImOaddInputChannelCallbackHandler.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
+#include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
@@ -54,10 +57,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A wiring application to demonstrate using the nImO library in a program. */
+ @brief A signals application to demonstrate using the nImO library in a program. */
 
-/*! @dir Repeat
- @brief The set of files that implement the Repeat application. */
+/*! @dir Product
+ @brief The set of files that implement the Min application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,6 +81,138 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief A class to accumulate received values. */
+class MinimumValueCollector final : public nImO::CallbackFunction
+{
+    public :
+        // Public type definitions.
+
+    protected :
+        // Protected type definitions.
+
+    private :
+        // Private type definitions.
+
+        /*! @brief The class that this class is derived from. */
+        using inherited = CallbackFunction;
+
+    public :
+        // Public methods.
+
+        /*! @brief The constructor. */
+        inline MinimumValueCollector
+            (void) :
+                inherited()
+        {
+        }
+
+        /*! @brief Calculate the minimum of the values.
+         @param[in] missingMode What to do with missing values.
+         @param[in] ourContext The active Context.
+         @return The minimum of the values. */
+        inline double
+        calculate
+            (nImO::SpFilterContext  ourContext)
+        {
+            std::lock_guard<std::mutex> lock{_valuesLock};
+            double                      result;
+            bool                        hasResult{false};
+
+            for (size_t ii(0), maxI(_values.size()); ii < maxI; ++ii)
+            {
+                auto    aChannel{ourContext->getInputChannel(ii)};
+
+                if (aChannel->isConnected() || (nImO::MissingModeType::kRetain == ourContext->missingMode()))
+                {
+                    if (_present[ii])
+                    {
+                        auto    newValue{_values[ii]};
+
+                        if (hasResult)
+                        {
+                            result = std::min(result, newValue);
+                        }
+                        else
+                        {
+                            result = newValue;
+                            hasResult = true;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        /*! @brief Increase the size of the collection of values. */
+        inline void
+        resize
+            (void)
+        {
+            ODL_OBJENTER(); //####
+            std::lock_guard<std::mutex> lock{_valuesLock};
+            auto                        newSize{_values.size() + 1};
+
+            _values.resize(newSize);
+            _present.resize(newSize);
+            _present[newSize - 1] = false;
+            ODL_OBJEXIT(); //####
+        }
+
+        /*! @brief Set a value in the collection.
+         @param[in] index The item in the collection to be updated.
+         @param[in] newValue The value to be placed in the collection. */
+        inline void
+        setValue
+            (const int      index,
+             const double   newValue)
+        {
+            ODL_OBJENTER(); //####
+            std::lock_guard<std::mutex> lock{_valuesLock};
+
+            _values[index] = newValue;
+            _present[index] = true;
+            ODL_OBJEXIT(); //####
+        }
+
+    protected :
+        // Protected methods.
+
+    private :
+        // Private methods.
+
+        /*! @brief Process an add request.
+         @return @c true on success. */
+        bool
+        operator()
+            (void)
+            override
+        {
+            ODL_OBJENTER(); //####
+            resize();
+            ODL_OBJEXIT_B(true); //####
+            return true;
+        }
+
+    public :
+        // Public fields.
+
+    protected :
+        // Protected fields.
+
+    private :
+        // Private fields.
+
+        /*! @brief The collected values. */
+        std::vector<double> _values{};
+
+        /*! @brief Flags to indicate a value has been set. */
+        std::vector<bool>   _present{};
+
+        /*! @brief Used to protect the collected values. */
+        std::mutex  _valuesLock{};
+
+}; // ProductValueCollector
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -92,10 +227,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("repeats"s, "Number of copies of the input message"s,
-                                                                                       nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1, true, 1, false, 0)};
-    auto                    secondArg{std::make_shared<nImO::DoubleArgumentDescriptor>("delay"s, "Number of seconds between duplicated messages"s,
-                                                                                      nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, true, 0.0, false, 0.0)};
+    auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numIn"s, "Number of input channels"s,
+                                                                                       nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -107,30 +240,40 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send copies of a message to a channel after a delay"s, "nImOrepeat 2 3.5"s, 2024,
-                                    nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipMissingOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send the minimum of the messages to an output channel from the input SIGNAL channel"s,
+                                    "nImOmin 2"s, 2025, nImO::kCopyrightName, optionValues, nImO::kSkipExpandedOption | nImO::kSkipInTypeOption |
+                                    nImO::kSkipOutTypeOption, true))
     {
         try
         {
             nImO::CheckArgumentDescriptions(argumentList);
             nImO::LoadConfiguration(optionValues._configFilePath);
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         thisService{"Repeat"s};
+            std::string         thisService{"Product"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
+            auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
+            auto                valueCollection{std::make_shared<MinimumValueCollector>()};
+            auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath, valueCollection.get()}};
             auto                longName{progName + " ["s + nodeName + "]"s};
 
+            if (! basePath.empty())
+            {
+                if ('/' != basePath[0])
+                {
+                    basePath = "/"s + basePath;
+                }
+            }
             nImO::SetSpecialBreakObject(cleanup);
-            ourContext->setChannelLimits(1, 1);
+            ourContext->setChannelLimits(nImO::kUnlimitedChannels, 1);
             if (optionValues._autolaunch)
             {
                 ourContext->findAndLaunchTheRegistry();
             }
-            nImO::AddInputOutputHandlers(ourContext, argumentList, cleanup);
+            nImO::AddInputOutputHandlers(ourContext, argumentList, cleanup, addInputChannelCallback);
             if (ourContext->findTheRegistry(registryConnection))
             {
                 auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
@@ -152,22 +295,48 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                bool        inValid{false};
-                                bool        outValid{false};
-                                std::string inChannelPath;
-                                std::string outChannelPath;
-                                auto        basePath{optionValues._base};
-
-                                if (! basePath.empty())
+                                for (int ii{1}, mm{firstArg->getCurrentValue()}; (ii <= mm) && (0 == exitCode); ++ii)
                                 {
-                                    if ('/' != basePath[0])
+                                    std::string scratch;
+
+                                    // Using one greater than the requested number of channels will ensure that all the
+                                    // channel paths will have a number at the end.
+                                    if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input, mm + 1, ii, scratch))
                                     {
-                                        basePath = "/"s + basePath;
+                                        statusWithBool = proxy->addChannel(nodeName, scratch, false, nImO::kSignalType,
+                                                                           nImO::TransportType::kAny);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (statusWithBool.second)
+                                            {
+                                                ourContext->addInputChannel(scratch);
+                                                valueCollection->resize();
+                                            }
+                                            else
+                                            {
+                                                ourContext->report(scratch + " already registered."s);
+                                                std::cerr << scratch << " already registered.\n";
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << ".\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
+                                        exitCode = 1;
                                     }
                                 }
+                                bool        outValid{false};
+                                std::string outChannelPath;
+
                                 if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Output, 1, 1, outChannelPath))
                                 {
-                                    statusWithBool = proxy->addChannel(nodeName, outChannelPath, true, optionValues._outType,
+                                    statusWithBool = proxy->addChannel(nodeName, outChannelPath, true, nImO::kSignalType,
                                                                        nImO::TransportType::kAny);
                                     if (statusWithBool.first.first)
                                     {
@@ -196,52 +365,19 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input, 1, 1, inChannelPath))
-                                    {
-                                        statusWithBool = proxy->addChannel(nodeName, inChannelPath, false, optionValues._inType,
-                                                                           nImO::TransportType::kAny);
-                                        if (statusWithBool.first.first)
-                                        {
-                                            if (statusWithBool.second)
-                                            {
-                                                ourContext->addInputChannel(inChannelPath);
-                                                inValid = true;
-                                            }
-                                            else
-                                            {
-                                                ourContext->report(inChannelPath + " already registered."s);
-                                                std::cerr << inChannelPath << " already registered.\n";
-                                                exitCode = 1;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << ".\n";
-                                            exitCode = 1;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
-                                        exitCode = 1;
-                                    }
-                                }
-                                if (0 == exitCode)
-                                {
+                                    addInputChannelCallback->enable(nodeName, proxy, optionValues._inType);
                                     auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
                                     if (outChannel)
                                     {
                                         if (optionValues._waitForConnections)
                                         {
-                                            auto    inChannel{ourContext->getInputChannel(inChannelPath)};
-
                                             std::cout << "Waiting for connections.\n";
                                             ourContext->report("Waiting for connections."s);
                                             for ( ; nImO::gKeepRunning; )
                                             {
                                                 boost::this_thread::yield();
-                                                if (inChannel->isConnected() && outChannel->isConnected())
+                                                if (outChannel->isConnected() && ourContext->anInputChannelIsConnected())
                                                 {
                                                     break;
 
@@ -254,9 +390,7 @@ main
                                             std::cout << longName << " ready.\n";
                                             std::cout.flush();
                                         }
-                                        std::set<nImO::SpDeadlineTimer> timers{};
-
-                                        for ( ; nImO::gKeepRunning; )
+                                        for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                         {
                                             boost::this_thread::yield();
                                             auto    nextData{ourContext->getNextMessage()};
@@ -266,70 +400,67 @@ main
                                                 if (nextData)
                                                 {
                                                     auto    contents{nextData->_receivedMessage};
+                                                    double  inValue;
 
-                                                    if (contents)
+                                                    if (nImO::ConvertSignalToValue(contents, inValue))
                                                     {
-                                                        int64_t numCopies{firstArg->getCurrentValue()};
-                                                        auto    numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
-                                                        auto    delayTime{boost::posix_time::milliseconds(numMilliseconds)};
+                                                        valueCollection->setValue(nextData->_tag, inValue);
+                                                        nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(valueCollection->calculate(ourContext))};
 
-                                                        for (int64_t ii{0}; ii < numCopies; ++ii)
+                                                        if (! outChannel->send(valueToSend))
                                                         {
-                                                            auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+                                                            ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
+                                                            std::cerr << "Problem sending to " << outChannelPath << ".\n";
+                                                            exitCode = 1;
+                                                            break;
 
-                                                            timers.insert(aTimer);
-                                                            aTimer->expires_from_now(delayTime * (ii + 1));
-                                                            aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
-                                                                               (const BSErr & error)
-                                                                               {
-                                                                                    if ((! error) && nImO::gKeepRunning)
-                                                                                    {
-                                                                                        if (! outChannel->send(contents))
-                                                                                        {
-                                                                                            ourContext->report("Problem sending to '"s + outChannelPath +
-                                                                                                               "'."s);
-                                                                                        }
-                                                                                    }
-                                                                                });
                                                         }
+                                                    }
+                                                    else
+                                                    {
+                                                        std::string         scratch;
+                                                        nImO::StringBuffer  buff;
+
+                                                        if (contents)
+                                                        {
+                                                            contents->printToStringBuffer(buff);
+                                                        }
+                                                        auto    valString{buff.getString()};
+
+                                                        nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input,
+                                                                                        ourContext->getNumberOfInputChannels(), nextData->_tag + 1, scratch);
+                                                        ourContext->report("Incorrect data '"s + valString + "' received from '"s + scratch + "'."s);
+                                                        std::cerr << "Incorrect data '" << valString << "' received from " << scratch << ".\n";
+                                                        exitCode = 1;
+                                                        break;
+
                                                     }
                                                 }
                                             }
                                         }
-                                        for (auto & walker : timers)
+                                        addInputChannelCallback->disable();
+                                        // Wait for the callbacks to finish
+                                        for ( ; addInputChannelCallback->isActive() && nImO::gKeepRunning; )
                                         {
-                                            walker->cancel();
+                                            boost::this_thread::yield();
                                         }
                                         if (! nImO::gPendingStop)
                                         {
                                             bool    alreadyReported{false};
 
-                                            nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
+                                            nImO::gKeepRunning = true; // So that the calls to 'CloseConnection' and 'getInputChannelNames' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
-                                            nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
-                                        }
-                                        std::cout << longName << " done.\n";
-                                        std::cout.flush();
-                                    }
-                                }
-                                if (inValid)
-                                {
-                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                    statusWithBool = proxy->removeChannel(nodeName, inChannelPath);
-                                    if (statusWithBool.first.first)
-                                    {
-                                        if (! statusWithBool.second)
-                                        {
-                                            ourContext->report(inChannelPath + " already unregistered."s);
-                                            std::cerr << inChannelPath << " already unregistered.\n";
-                                            exitCode = 1;
+                                            nImO::StdStringVector   inChannelPaths;
+
+                                            ourContext->getInputChannelNames(inChannelPaths);
+                                            for (const auto & walker : inChannelPaths)
+                                            {
+                                                nImO::CloseConnection(ourContext, nodeName, proxy, walker, false, alreadyReported);
+                                            }
                                         }
                                     }
-                                    else
-                                    {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
-                                        exitCode = 1;
-                                    }
+                                    std::cout << longName << " done.\n";
+                                    std::cout.flush();
                                 }
                                 if (outValid)
                                 {
@@ -341,6 +472,27 @@ main
                                         {
                                             ourContext->report(outChannelPath + " already unregistered."s);
                                             std::cerr << outChannelPath << " already unregistered.\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
+                                        exitCode = 1;
+                                    }
+                                }
+                                nImO::StdStringVector   inChannelPaths;
+
+                                ourContext->getInputChannelNames(inChannelPaths);
+                                for (const auto & walker : inChannelPaths)
+                                {
+                                    statusWithBool = proxy->removeChannel(nodeName, walker);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
+                                        {
+                                            ourContext->report(walker + " already unregistered."s);
+                                            std::cerr << walker << " already unregistered.\n";
                                             exitCode = 1;
                                         }
                                     }

@@ -69,15 +69,19 @@
 namespace nImO
 {
 
+    class FilterContext;
     class InputOutputContext;
     class ServiceContext;
     class UtilityContext;
 
-    /*! @brief A holder for a shared pointer to an Asio context (service). */
-    using SPservice = std::shared_ptr<BA::io_context>;
+    /*! @brief A holder for a shared pointer to a FilterContext. */
+    using SpFilterContext = std::shared_ptr<FilterContext>;
 
     /*! @brief A holder for a shared pointer to an InputOutputContext. */
     using SpInputOutputContext = std::shared_ptr<InputOutputContext>;
+
+    /*! @brief A holder for a shared pointer to an Asio context (service). */
+    using SPservice = std::shared_ptr<BA::io_context>;
 
     /*! @brief A holder for a shared pointer to a ServiceContext. */
     using SpServiceContext = std::shared_ptr<ServiceContext>;

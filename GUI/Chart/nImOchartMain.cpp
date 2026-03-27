@@ -204,14 +204,16 @@ std::cerr << "** Unimplemented **\n";
                                     addInputChannelCallback->enable(nodeName, proxy, optionValues._inType);
                                     if (optionValues._waitForConnections)
                                     {
-                                        bool    connected{false};
-
-                                        std::cout << "Waiting for connection(s).\n";
-                                        ourContext->report("Waiting for connection(s)."s);
-                                        for ( ; nImO::gKeepRunning && (! connected); )
+                                        std::cout << "Waiting for connection.\n";
+                                        ourContext->report("Waiting for connection."s);
+                                        for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
-                                            connected = ourContext->anInputChannelIsConnected();
+                                            if (ourContext->anInputChannelIsConnected())
+                                            {
+                                                break;
+
+                                            }
                                         }
                                     }
                                     if (nImO::gKeepRunning)

@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Wiring/Product/CMakeLists.txt
+#  File:       non-iOS/Signals/Product/CMakeLists.txt
 #
 #  Project:    nImO
 #

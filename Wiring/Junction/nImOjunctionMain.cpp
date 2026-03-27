@@ -243,14 +243,16 @@ main
                                     addOutputChannelCallback->enable(nodeName, proxy, optionValues._outType);
                                     if (optionValues._waitForConnections)
                                     {
-                                        bool    connected{false};
-
-                                        std::cout << "Waiting for connection(s).\n";
-                                        ourContext->report("Waiting for connection(s)."s);
-                                        for ( ; nImO::gKeepRunning && (! connected); )
+                                        std::cout << "Waiting for connections.\n";
+                                        ourContext->report("Waiting for connections."s);
+                                        for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
-                                            connected = (ourContext->anOutputChannelIsConnected() && ourContext->anInputChannelIsConnected());
+                                            if (ourContext->anOutputChannelIsConnected() && ourContext->anInputChannelIsConnected())
+                                            {
+                                                break;
+                                                
+                                            }
                                         }
                                     }
                                     if (nImO::gKeepRunning)

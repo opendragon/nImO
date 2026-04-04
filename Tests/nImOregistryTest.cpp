@@ -83,6 +83,12 @@ static const std::string    kAppName1{"ApplicationOne"s};
 /*! @brief The second application name for testing. */
 static const std::string    kAppName2{"ApplicationTwo"s};
 
+/*! @brief The first application category for testing. */
+static const std::string    kAppCateg1{"CategoryOne"s};
+
+/*! @brief The second application category for testing. */
+static const std::string    kAppCateg2{"CategoryTwo"s};
+
 /*! @brief The first application description for testing. */
 static const std::string    kAppDescr1{"first app"s};
 
@@ -14484,7 +14490,7 @@ TestAddApplicationWithOneLauncherToRegistry
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         result = 0;
@@ -14568,7 +14574,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         auto    statusWithInt{aRegistry->getNumberOfApplications()};
@@ -14668,10 +14674,10 @@ doTestAddTwoApplicationsFromOneLauncherToRegistry
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppCateg2, kAppDescr2);
                         if (status.first)
                         {
                             result = 0;
@@ -14760,10 +14766,10 @@ doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppCateg2, kAppDescr2);
                         if (status.first)
                         {
                             auto    statusWithInt{aRegistry->getNumberOfApplications()};
@@ -14936,7 +14942,7 @@ doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         status = aRegistry->clearAppListForLauncher(kNodeName1);
@@ -15028,7 +15034,7 @@ doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         status = aRegistry->clearAppListForLauncher(kNodeName1);
@@ -15136,13 +15142,13 @@ doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         status = aRegistry->clearAppListForLauncher(kNodeName1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 status = aRegistry->clearAppListForLauncher(kNodeName1);
@@ -15244,13 +15250,13 @@ doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         status = aRegistry->clearAppListForLauncher(kNodeName1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 status = aRegistry->clearAppListForLauncher(kNodeName1);
@@ -15371,10 +15377,10 @@ doTestAddApplicationsFromTwoLaunchersToRegistry
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 result = 0;
@@ -15471,10 +15477,10 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 auto    statusWithInt{aRegistry->getNumberOfApplications()};
@@ -15587,10 +15593,10 @@ doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 status = aRegistry->clearAppListForLauncher(kNodeName1);
@@ -15703,10 +15709,10 @@ doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 status = aRegistry->clearAppListForLauncher(kNodeName1);
@@ -15847,7 +15853,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         auto    statusWithInt{aRegistry->getNumberOfApplicationsOnNode(kNodeName1)};
@@ -15950,10 +15956,10 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 auto    statusWithInt{aRegistry->getNumberOfApplicationsOnNode(kNodeName1)};
@@ -16078,7 +16084,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         auto    statusWithInfo{aRegistry->getInformationForAllApplications()};
@@ -16092,14 +16098,15 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
                                 auto    walker{*infoVector.begin()};
 
                                 if (walker._found && (kNodeName1 == walker._launcherName) && (kAppName1 == walker._appName) &&
-                                    (kAppDescr1 == walker._appDescription))
+                                    (kAppCateg1 == walker._appCategory) && (kAppDescr1 == walker._appDescription))
                                 {
                                     result = 0;
                                 }
                                 else
                                 {
                                     ODL_LOG("! (walker._found && (kNodeName1 == walker._launcherName) && " //####
-                                            "(kAppName1 == walker._appName) && (kAppDescr1 == walker._appDescription))"); //####
+                                            "(kAppName1 == walker._appName) && (kAppCateg1 == walker._appCategory) && " //####
+                                            "(kAppDescr1 == walker._appDescription))"); //####
                                 }
                             }
                             else
@@ -16191,10 +16198,10 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                 {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppCateg2, kAppDescr2);
                         if (status.first)
                         {
                             auto    statusWithInfo{aRegistry->getInformationForAllApplications()};
@@ -16209,25 +16216,28 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
                                     auto    elem2{infoVector[1]};
 
                                     if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
-                                        (kAppDescr1 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
-                                        (kAppName2 == elem2._appName) && (kAppDescr2 == elem2._appDescription))
+                                        (kAppCateg1 == elem1._appCategory) && (kAppDescr1 == elem1._appDescription) &&
+                                        elem2._found && (kNodeName1 == elem2._launcherName) && (kAppName2 == elem2._appName) &&
+                                        (kAppCateg2 == elem2._appCategory) && (kAppDescr2 == elem2._appDescription))
                                     {
                                         result = 0;
                                     }
                                     else
                                     {
                                         if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
-                                            (kAppDescr2 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
-                                            (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
+                                            (kAppCateg2 == elem1._appCategory) && (kAppDescr2 == elem1._appDescription) &&
+                                            elem2._found && (kNodeName1 == elem2._launcherName) && (kAppName1 == elem2._appName) &&
+                                            (kAppCateg1 == elem2._appCategory) && (kAppDescr1 == elem2._appDescription))
                                         {
                                             result = 0;
                                         }
                                         else
                                         {
                                             ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
-                                                    "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
-                                                    "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
-                                                    "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                                    "(kAppName2 == elem1._appName) && (kAppCateg2 == elem1._appCategory) && " //####
+                                                    "(kAppDescr2 == elem1._appDescription) && elem2._found && " //####
+                                                    "(kNodeName1 == elem2._launcherName) && (kAppName1 == elem2._appName) && " //####
+                                                    "(kAppCateg1 == elem2._appCategory) && (kAppDescr1 == elem2._appDescription))"); //####
                                         }
                                     }
                                 }
@@ -16328,10 +16338,10 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 auto    statusWithInfo{aRegistry->getInformationForAllApplications()};
@@ -16346,26 +16356,28 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
                                         auto    elem2{infoVector[1]};
 
                                         if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
-                                            (kAppDescr1 == elem1._appDescription) && elem2._found && (kNodeName2 == elem2._launcherName) &&
-                                            (kAppName2 == elem2._appName) && (kAppDescr2 == elem2._appDescription))
+                                            (kAppDescr1 == elem1._appDescription) && (kAppCateg1 == elem1._appCategory) && elem2._found &&
+                                            (kNodeName2 == elem2._launcherName) && (kAppName2 == elem2._appName) &&
+                                            (kAppCateg2 == elem2._appCategory) && (kAppDescr2 == elem2._appDescription))
                                         {
                                             result = 0;
                                         }
                                         else
                                         {
                                             if (elem1._found && (kNodeName2 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
-                                                (kAppDescr2 == elem1._appDescription) && elem2._found &&
-                                                (kNodeName1 == elem2._launcherName) &&
-                                                (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
+                                                (kAppCateg2 == elem1._appCategory) && (kAppDescr2 == elem1._appDescription) && elem2._found &&
+                                                (kNodeName1 == elem2._launcherName) && (kAppName1 == elem2._appName) &&
+                                                (kAppCateg1 == elem2._appCategory) && (kAppDescr1 == elem2._appDescription))
                                             {
                                                 result = 0;
                                             }
                                             else
                                             {
                                                 ODL_LOG("! (elem1._found && (kNodeName2 == elem1._launcherName) && " //####
-                                                        "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
-                                                        "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
-                                                        "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                                        "(kAppName2 == elem1._appName) && (kAppCateg2 == elem1._appCategory) && " //####
+                                                        "(kAppDescr2 == elem1._appDescription) && elem2._found && " //####
+                                                        "(kNodeName1 == elem2._launcherName) && (kAppName1 == elem2._appName) && " //####
+                                                        "(kAppCateg1 == elem2._appCategory) && (kAppDescr1 == elem2._appDescription))"); //####
                                             }
                                         }
                                     }
@@ -16468,7 +16480,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         auto    statusWithInfo{aRegistry->getInformationForAllApplicationsOnNode(kNodeName1)};
@@ -16482,14 +16494,15 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
                                 auto    elem1{infoVector[0]};
 
                                 if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
-                                    (kAppDescr1 == elem1._appDescription))
+                                    (kAppCateg1 == elem1._appCategory) && (kAppDescr1 == elem1._appDescription))
                                 {
                                     result = 0;
                                 }
                                 else
                                 {
                                     ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
-                                            "(kAppName1 == elem1._appName) && (kAppDescr1 == elem1._appDescription))"); //####
+                                            "(kAppName1 == elem1._appName) && (kAppCateg1 == elem1._appCategory) && " //####
+                                            "(kAppDescr1 == elem1._appDescription))"); //####
                                 }
                             }
                             else
@@ -16584,10 +16597,10 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppCateg2, kAppDescr2);
                             if (status.first)
                             {
                                 auto    statusWithInfo{aRegistry->getInformationForAllApplicationsOnNode(kNodeName1)};
@@ -16601,7 +16614,7 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
                                         auto    elem1{infoVector[0]};
 
                                         if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
-                                            (kAppDescr1 == elem1._appDescription))
+                                            (kAppCateg1 == elem1._appCategory) && (kAppDescr1 == elem1._appDescription))
                                         {
                                             statusWithInfo = aRegistry->getInformationForAllApplicationsOnNode(kNodeName2);
                                             if (statusWithInfo.first.first)
@@ -16612,14 +16625,15 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
                                                     auto    elem2{infoVector[0]};
 
                                                     if (elem2._found && (kNodeName2 == elem2._launcherName) && (kAppName2 == elem2._appName) &&
-                                                        (kAppDescr2 == elem2._appDescription))
+                                                        (kAppCateg2 == elem2._appCategory) && (kAppDescr2 == elem2._appDescription))
                                                     {
                                                         result = 0;
                                                     }
                                                     else
                                                     {
                                                         ODL_LOG("! (elem2._found && (kNodeName2 == elem2._launcherName) && " //####
-                                                                "(kAppName2 == elem2._appName) && (kAppDescr2 == elem2._appDescription))"); //####
+                                                                "(kAppName2 == elem2._appName) && (kAppCateg2 == elem2._appCategory) && " //####
+                                                                "(kAppDescr2 == elem2._appDescription))"); //####
                                                     }
                                                 }
                                                 else
@@ -16635,7 +16649,8 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
                                         else
                                         {
                                             ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
-                                                    "(kAppName1 == elem1._appName) && (kAppDescr1 == elem1._appDescription))"); //####
+                                                    "(kAppName1 == elem1._appName) && (kAppCateg1 == elem1._appCategory) && " //####
+                                                    "(kAppDescr1 == elem1._appDescription))"); //####
                                         }
                                     }
                                     else
@@ -16812,7 +16827,7 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         auto    statusWithNames{aRegistry->getNodesWithApplication(kAppName2)};
@@ -16915,10 +16930,10 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName1, kAppDescr1);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName1, kAppCateg1, kAppDescr1);
                             if (status.first)
                             {
                                 auto    statusWithNames{aRegistry->getNodesWithApplication(kAppName2)};
@@ -17028,7 +17043,7 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
                 status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                 if (status.first)
                 {
-                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                     if (status.first)
                     {
                         auto    statusWithNames{aRegistry->getNodesWithApplication(kAppName1)};
@@ -17138,10 +17153,10 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
                     status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
                     if (status.first)
                     {
-                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppCateg1, kAppDescr1);
                         if (status.first)
                         {
-                            status = aRegistry->addAppToList(kNodeName2, kAppName1, kAppDescr1);
+                            status = aRegistry->addAppToList(kNodeName2, kAppName1, kAppCateg1, kAppDescr1);
                             if (status.first)
                             {
                                 auto    statusWithNames{aRegistry->getNodesWithApplication(kAppName1)};

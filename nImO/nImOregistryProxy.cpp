@@ -162,15 +162,17 @@ nImO::BoolOrFailure
 nImO::RegistryProxy::addAppToList
     (const std::string &    nodeName,
      const std::string &    applicationName,
+     const std::string &    applicationCategory,
      const std::string &    applicationDescription)
 {
     ODL_OBJENTER(); //####
-    ODL_S3s(nodeName, applicationName, applicationDescription); //####
+    ODL_S4s(nodeName, applicationName, applicationCategory, applicationDescription); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<AddChannelResponseHandler>()};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     argArray->addValue(std::make_shared<String>(applicationName));
+    argArray->addValue(std::make_shared<String>(applicationCategory));
     argArray->addValue(std::make_shared<String>(applicationDescription));
     auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kAddAppToListRequest,
                                                                kAddAppToListResponse)};

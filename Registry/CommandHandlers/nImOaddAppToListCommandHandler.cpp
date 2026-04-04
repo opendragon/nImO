@@ -110,18 +110,21 @@ nImO::AddAppToListCommandHandler::doIt
     bool    okSoFar{false};
 
     _owner->report("Add app to list received."s);
-    if (3 < arguments.size())
+    if (4 < arguments.size())
     {
         auto    launcherNodeNameString{arguments[1]->asString()};
         auto    applicationNameString{arguments[2]->asString()};
-        auto    applicationDescriptionString{arguments[3]->asString()};
+        auto    applicationCategoryString{arguments[3]->asString()};
+        auto    applicationDescriptionString{arguments[4]->asString()};
 
-        if ((nullptr != launcherNodeNameString) && (nullptr != applicationNameString) && (nullptr != applicationDescriptionString))
+        if ((nullptr != launcherNodeNameString) && (nullptr != applicationNameString) && (nullptr != applicationCategoryString) &&
+            (nullptr != applicationDescriptionString))
         {
             auto    launcherNodeName{launcherNodeNameString->getValue()};
             auto    applicationName{applicationNameString->getValue()};
+            auto    applicationCategory{applicationCategoryString->getValue()};
             auto    applicationDescription{applicationDescriptionString->getValue()};
-            auto    status{_registry->addAppToList(launcherNodeName, applicationName, applicationDescription)};
+            auto    status{_registry->addAppToList(launcherNodeName, applicationName, applicationCategory, applicationDescription)};
 
             if (status.first)
             {
@@ -141,7 +144,7 @@ nImO::AddAppToListCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != launcherNodeNameString) && (nullptr != applicationNameString) && " //####
-                    "(nullptr != applicationDescriptionString))"); //####
+                    "(nullptr != applicationCategoryString) && (nullptr != applicationDescriptionString))"); //####
             reason = "One or more invalid arguments"s;
         }
     }

@@ -85,12 +85,14 @@ namespace nImO
             /*! @brief Add an application to the Registry.
              @param[in] nodeName The name of the Launcher managing the application.
              @param[in] applicationName The name to display for the application.
+             @param[in] applicationCategory The category of the application.
              @param[in] applicationDescription The description of the application.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
             BoolOrFailure
             addAppToList
                 (const std::string &    nodeName,
                  const std::string &    applicationName,
+                 const std::string &    applicationCategory,
                  const std::string &    applicationDescription);
 
             /*! @brief Add a channel to the Registry.

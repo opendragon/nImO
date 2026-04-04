@@ -55,6 +55,9 @@
 namespace nImO
 {
 
+    /*! @brief The key for the category field of the map for an application. */
+    const std::string   kCategoryKey{"category"s};
+
     /*! @brief The key for the description field of the map for an application. */
     const std::string   kDescriptionKey{"description"s};
 

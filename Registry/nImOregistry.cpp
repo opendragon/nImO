@@ -77,11 +77,14 @@
 /*! @brief The named parameter for the 'launcherName' column of the 'Applications' table. */
 #define APPLICATIONS_LAUNCHER_NAME_C_ "launcherName"
 
-/*! @brief The named parameter for the 'appName' column of the 'Applications' table. */
-#define APPLICATIONS_APP_NAME_C_ "appName"
+/*! @brief The named parameter for the 'appCategory' column of the 'Applications' table. */
+#define APPLICATIONS_APP_CATEG_C_ "appCategory"
 
 /*! @brief The named parameter for the 'appDescription' column of the 'Applications' table. */
 #define APPLICATIONS_APP_DESCR_C_ "appDescription"
+
+/*! @brief The named parameter for the 'appName' column of the 'Applications' table. */
+#define APPLICATIONS_APP_NAME_C_ "appName"
 
 /*! @brief The name of the index for the 'launcherName' and 'appName' columns of the 'Applications' table. */
 #define APPLICATIONS_I_ "Applications_idx"
@@ -187,6 +190,9 @@ using BindFunction = int (*)
 /*! @brief The data used to update the Applications table. */
 struct ApplicationInsertData
 {
+    /*! @brief The category for this application. */
+    std::string _appCategory;
+
     /*! @brief The description for this application. */
     std::string _appDescription;
 
@@ -199,12 +205,15 @@ struct ApplicationInsertData
     /*! @brief The constructor.
      @param[in] launcherName The name of the Launcher node for the application.
      @param[in] appName The application name.
+     @param[in] appCategory The application category.
      @param[in] appDescription The application description. */
     inline ApplicationInsertData
         (const std::string &    launcherName,
          const std::string &    appName,
+         const std::string &    appCategory,
          const std::string &    appDescription) :
-            _appDescription(appDescription), _appName(appName), _launcherName(launcherName)
+            _appCategory(appCategory), _appDescription(appDescription), _appName(appName),
+            _launcherName(launcherName)
     {
     }
 
@@ -893,9 +902,9 @@ createTables
                 "CREATE INDEX IF NOT EXISTS " CONNECTIONS_I_ " ON " CONNECTIONS_T_ " (" CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
                         CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ")",
                 "CREATE TABLE IF NOT EXISTS " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ ", "
-                        APPLICATIONS_APP_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " APPLICATIONS_APP_DESCR_C_ " " TEXTNOTNULL_ " " BINARY_
-                        ", FOREIGN KEY (" APPLICATIONS_LAUNCHER_NAME_C_ ") REFERENCES " NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY ("
-                        APPLICATIONS_LAUNCHER_NAME_C_ ", " APPLICATIONS_APP_NAME_C_ ") ON CONFLICT ABORT)",
+                        APPLICATIONS_APP_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " APPLICATIONS_APP_CATEG_C_ " " TEXTNOTNULL_ " " BINARY_ ", "
+                        APPLICATIONS_APP_DESCR_C_ " " TEXTNOTNULL_ " " BINARY_ ", FOREIGN KEY (" APPLICATIONS_LAUNCHER_NAME_C_ ") REFERENCES "
+                        NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY (" APPLICATIONS_LAUNCHER_NAME_C_ ", " APPLICATIONS_APP_NAME_C_ ") ON CONFLICT ABORT)",
                 "CREATE INDEX IF NOT EXISTS " APPLICATIONS_I_ " ON " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ ", "
                         APPLICATIONS_APP_NAME_C_ ")"
             };
@@ -1036,19 +1045,25 @@ setupInsertIntoApplications
     {
         auto    launcherNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
         auto    appNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_NAME_C_)};
+        auto    appCategIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_CATEG_C_)};
         auto    appDescrIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_DESCR_C_)};
 
-        if ((0 < launcherNameIndex) && (0 < appNameIndex) && (0 < appDescrIndex))
+        if ((0 < launcherNameIndex) && (0 < appNameIndex) && (0 < appCategIndex) && (0 < appDescrIndex))
         {
             auto    appData{StaticCast(CPtr(ApplicationInsertData), stuff)};
             auto    launcherName{appData->_launcherName};
             auto    appName{appData->_appName};
+            auto    appCateg{appData->_appCategory};
             auto    appDescr{appData->_appDescription};
 
             result = sqlite3_bind_text(statement, launcherNameIndex, launcherName.c_str(), StaticCast(int, launcherName.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
             {
                 result = sqlite3_bind_text(statement, appNameIndex, appName.c_str(), StaticCast(int, appName.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, appCategIndex, appCateg.c_str(), StaticCast(int, appCateg.length()), SQLITE_TRANSIENT);
             }
             if (SQLITE_OK == result)
             {
@@ -1061,7 +1076,7 @@ setupInsertIntoApplications
         }
         else
         {
-            ODL_LOG("! ((0 < launcherNameIndex) && (0 < appNameIndex) && (0 < appDescrIndex))"); //####
+            ODL_LOG("! ((0 < launcherNameIndex) && (0 < appNameIndex) && (0 < appCategIndex) && (0 < appDescrIndex))"); //####
         }
     }
     catch (...)
@@ -1800,17 +1815,18 @@ extractApplicationInfoFromVector
 {
     ODL_ENTER(); //####
     ODL_P1(&info); //####
-    if (2 < values.size())
+    if (3 < values.size())
     {
         info._found = true;
         info._launcherName = values[0];
         info._appName = values[1];
-        info._appDescription = values[2];
+        info._appCategory = values[2];
+        info._appDescription = values[3];
     }
     else
     {
         info._found = false;
-        ODL_LOG("! (2 < values.size())"); //####
+        ODL_LOG("! (3 < values.size())"); //####
     }
     ODL_EXIT(); //####
 } // extractApplicationInfoFromVector
@@ -2004,14 +2020,16 @@ nImO::SuccessOrFailure
 nImO::Registry::addAppToList
     (const std::string &    nodeName,
      const std::string &    applicationName,
+     const std::string &    applicationCategory,
      const std::string &    applicationDescription)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S3s(nodeName, applicationName, applicationDescription); //####
+    ODL_S4s(nodeName, applicationName, applicationCategory, applicationDescription); //####
     SuccessOrFailure    status;
 
-    if (ChannelName::validNode(nodeName) && (! applicationName.empty()) && (! applicationDescription.empty()))
+    if (ChannelName::validNode(nodeName) && (! applicationName.empty()) && (! applicationCategory.empty()) &&
+        (! applicationDescription.empty()))
     {
         auto    statusWithNodeInfo{getNodeInformation(nodeName)};
 
@@ -2024,11 +2042,12 @@ nImO::Registry::addAppToList
                     status = doBeginTransaction(_owner, _dbHandle);
                     if (status.first)
                     {
-                        ApplicationInsertData   data{nodeName, applicationName, applicationDescription};
+                        ApplicationInsertData   data{nodeName, applicationName, applicationCategory, applicationDescription};
                         static CPtr(char)       insertIntoApplications{"INSERT INTO " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ ", "
-                                                                        APPLICATIONS_APP_NAME_C_ ", " APPLICATIONS_APP_DESCR_C_ ") VALUES (@"
-                                                                        APPLICATIONS_LAUNCHER_NAME_C_ ", @" APPLICATIONS_APP_NAME_C_ ", @"
-                                                                        APPLICATIONS_APP_DESCR_C_ ")"};
+                                                                        APPLICATIONS_APP_NAME_C_ ", " APPLICATIONS_APP_CATEG_C_ ", "
+                                                                        APPLICATIONS_APP_DESCR_C_ ") VALUES (@" APPLICATIONS_LAUNCHER_NAME_C_
+                                                                        ", @" APPLICATIONS_APP_NAME_C_ ", @" APPLICATIONS_APP_CATEG_C_
+                                                                        ", @" APPLICATIONS_APP_DESCR_C_ ")"};
 
                         status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoApplications, setupInsertIntoApplications, &data);
                         doEndTransaction(_owner, _dbHandle, status.first);
@@ -2058,8 +2077,9 @@ nImO::Registry::addAppToList
     }
     else
     {
-        ODL_LOG("! (ChannelName::validName(nodeName) && (! applicationName.empty()) && (! applicationDescription.empty()))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or empty application name or description"s);
+        ODL_LOG("! (ChannelName::validName(nodeName) && (! applicationName.empty()) && (! applicationCategory.empty()) && " //####
+                "(! applicationDescription.empty()))"); //####
+        status = SuccessOrFailure(false, "Invalid node name or empty application name, category or description"s);
     }
     ODL_OBJEXIT_B(status.first); //####
     return status;
@@ -2644,8 +2664,8 @@ nImO::Registry::getInformationForAllApplications
     {
         StdStringVectorVector   results;
         static CPtr(char)       searchApplications{"SELECT DISTINCT " APPLICATIONS_LAUNCHER_NAME_C_ "," APPLICATIONS_APP_NAME_C_ ","
-                                                    APPLICATIONS_APP_DESCR_C_ " FROM " APPLICATIONS_T_ " ORDER BY " APPLICATIONS_LAUNCHER_NAME_C_ ","
-                                                    APPLICATIONS_APP_NAME_C_};
+                                                    APPLICATIONS_APP_CATEG_C_ "," APPLICATIONS_APP_DESCR_C_ " FROM " APPLICATIONS_T_
+                                                    " ORDER BY " APPLICATIONS_LAUNCHER_NAME_C_ "," APPLICATIONS_APP_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchApplications);
         if (status.first)
@@ -2688,8 +2708,9 @@ nImO::Registry::getInformationForAllApplicationsOnNode
     {
         StdStringVectorVector   results;
         static CPtr(char)       searchApplications{"SELECT DISTINCT " APPLICATIONS_LAUNCHER_NAME_C_ "," APPLICATIONS_APP_NAME_C_ ","
-                                                    APPLICATIONS_APP_DESCR_C_ " FROM " APPLICATIONS_T_ " WHERE " APPLICATIONS_LAUNCHER_NAME_C_
-                                                    " = @" APPLICATIONS_LAUNCHER_NAME_C_" ORDER BY " APPLICATIONS_APP_NAME_C_};
+                                                    APPLICATIONS_APP_CATEG_C_ "," APPLICATIONS_APP_DESCR_C_ " FROM " APPLICATIONS_T_
+                                                    " WHERE " APPLICATIONS_LAUNCHER_NAME_C_ " = @" APPLICATIONS_LAUNCHER_NAME_C_
+                                                    " ORDER BY " APPLICATIONS_APP_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchApplications, setupSearchApplicationsNodeOnly,
                                                               &nodeName);
@@ -3415,7 +3436,7 @@ nImO::Registry::getMachineInformation
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s(nodeName); //####
+    ODL_S1s(machineName); //####
     SuccessOrFailure    status;
     MachineInfo         info;
 

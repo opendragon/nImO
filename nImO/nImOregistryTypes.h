@@ -78,6 +78,9 @@ namespace nImO
     /*! @brief The data found in the Registry for an application. */
     struct ApplicationInfo final
     {
+        /*! @brief The category of the application. */
+        std::string _appCategory{};
+
         /*! @brief The description of the application. */
         std::string _appDescription{};
 

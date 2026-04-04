@@ -185,6 +185,7 @@ loadApplicationInformation
                     if (nImO::Enumerable::String == asMap->getKeyKind())
                     {
                         auto    writeMap{std::make_shared<nImO::Map>()};
+                        auto    categoryKey{std::make_shared<nImO::String>(nImO::kCategoryKey)};
                         auto    descriptionKey{std::make_shared<nImO::String>(nImO::kDescriptionKey)};
                         auto    pathKey{std::make_shared<nImO::String>(nImO::kPathKey)};
 
@@ -199,64 +200,79 @@ loadApplicationInformation
                             {
                                 if (nImO::Enumerable::String == readSubMap->getKeyKind())
                                 {
-                                    if (auto descriptionEntry{readSubMap->find(descriptionKey)}; readSubMap->end() == descriptionEntry)
+                                    if (auto categoryEntry{readSubMap->find(categoryKey)}; readSubMap->end() == categoryEntry)
                                     {
-                                        std::cerr << "Warning: value with key '" << *walker.first << "' is missing a description.\n";
+                                        std::cerr << "Warning: value with key '" << *walker.first << "' is missing a category.\n";
                                     }
                                     else
                                     {
-                                        if (auto pathEntry{readSubMap->find(pathKey)}; readSubMap->end() == pathEntry)
+                                        if (auto descriptionEntry{readSubMap->find(descriptionKey)}; readSubMap->end() == descriptionEntry)
                                         {
-                                            std::cerr << "Warning: value with key '" << *walker.first << "' is missing a path.\n";
+                                            std::cerr << "Warning: value with key '" << *walker.first << "' is missing a description.\n";
                                         }
                                         else
                                         {
-                                            if (auto descriptionAsString{descriptionEntry->second->asString()}; nullptr == descriptionAsString)
+                                            if (auto pathEntry{readSubMap->find(pathKey)}; readSubMap->end() == pathEntry)
                                             {
-                                                std::cerr << "Warning: description for value with key '" << *walker.first << "' is invalid.\n";
+                                                std::cerr << "Warning: value with key '" << *walker.first << "' is missing a path.\n";
                                             }
                                             else
                                             {
-                                                if (auto pathAsString{pathEntry->second->asString()}; nullptr == pathAsString)
+                                                if (auto categoryAsString{categoryEntry->second->asString()}; nullptr == categoryAsString)
                                                 {
-                                                    std::cerr << "Warning: path for value with key '" << *walker.first << "' is invalid.\n";
+                                                    std::cerr << "Warning: category for value with key '" << *walker.first << "' is invalid.\n";
                                                 }
                                                 else
                                                 {
-                                                    auto    writeSubMap{std::make_shared<nImO::Map>()};
-                                                    bool    useOriginal{true};
-                                                    auto    pathValue{pathAsString->getValue()};
-
-                                                    if (3 < pathValue.length())
+                                                    if (auto descriptionAsString{descriptionEntry->second->asString()}; nullptr == descriptionAsString)
                                                     {
-                                                        if (pathValue.substr(0, 3) == "$$/")
-                                                        {
-                                                            pathValue = nImO_BIN_DIR_ + pathValue.substr(3);
-                                                            useOriginal = false;
-                                                        }
-                                                    }
-                                                    // Check if the path exists!
-#if MAC_OR_LINUX_OR_BSD_
-                                                    if (0 == access(pathValue.c_str(), R_OK))
-#else // not MAC_OR_LINUX_OR_BSD_
-                                                    if (0 == _access(pathValue.c_str(), 4))
-#endif // not MAC_OR_LINUX_OR_BSD_
-                                                    {
-                                                        writeSubMap->addValue(descriptionKey, descriptionEntry->second);
-                                                        if (useOriginal)
-                                                        {
-                                                            writeSubMap->addValue(pathKey, pathEntry->second);
-                                                        }
-                                                        else
-                                                        {
-                                                            writeSubMap->addValue(pathKey, std::make_shared<nImO::String>(pathValue));
-                                                        }
-                                                        writeMap->addValue(walker.first, writeSubMap);
+                                                        std::cerr << "Warning: description for value with key '" << *walker.first << "' is invalid.\n";
                                                     }
                                                     else
                                                     {
-                                                        std::cerr << "Warning: file at path for value with key '" << *walker.first <<
-                                                                    "' could not be found.\n";
+                                                        if (auto pathAsString{pathEntry->second->asString()}; nullptr == pathAsString)
+                                                        {
+                                                            std::cerr << "Warning: path for value with key '" << *walker.first << "' is invalid.\n";
+                                                        }
+                                                        else
+                                                        {
+                                                            auto    writeSubMap{std::make_shared<nImO::Map>()};
+                                                            bool    useOriginal{true};
+                                                            auto    pathValue{pathAsString->getValue()};
+
+                                                            if (3 < pathValue.length())
+                                                            {
+                                                                if (pathValue.substr(0, 3) == "$$/")
+                                                                {
+                                                                    pathValue = nImO_BIN_DIR_ + pathValue.substr(3);
+                                                                    useOriginal = false;
+                                                                }
+                                                            }
+                                                            // Check if the path exists!
+#if MAC_OR_LINUX_OR_BSD_
+                                                            if (0 == access(pathValue.c_str(), R_OK))
+#else // not MAC_OR_LINUX_OR_BSD_
+                                                            if (0 == _access(pathValue.c_str(), 4))
+#endif // not MAC_OR_LINUX_OR_BSD_
+                                                            {
+                                                                writeSubMap->addValue(categoryKey, categoryEntry->second);
+                                                                writeSubMap->addValue(descriptionKey, descriptionEntry->second);
+                                                                if (useOriginal)
+                                                                {
+                                                                    writeSubMap->addValue(pathKey, pathEntry->second);
+                                                                }
+                                                                else
+                                                                {
+                                                                    writeSubMap->addValue(pathKey, std::make_shared<nImO::String>(pathValue));
+                                                                }
+                                                                writeMap->addValue(walker.first, writeSubMap);
+                                                            }
+                                                            else
+                                                            {
+                                                                std::cerr << "Warning: file at path for value with key '" << *walker.first <<
+                                                                            "' could not be found.\n";
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -380,10 +396,12 @@ main
                                         {
                                             auto    keyValue{walker.first->asString()};
                                             auto    readSubMap{walker.second->asMap()};
+                                            auto    categoryIterator{readSubMap->find(std::make_shared<nImO::String>(nImO::kCategoryKey))};
+                                            auto    categoryValue{categoryIterator->second->asString()};
                                             auto    descriptionIterator{readSubMap->find(std::make_shared<nImO::String>(nImO::kDescriptionKey))};
                                             auto    descriptionValue{descriptionIterator->second->asString()};
 
-                                            statusWithBool = proxy->addAppToList(nodeName, keyValue->getValue(), descriptionValue->getValue());
+                                            statusWithBool = proxy->addAppToList(nodeName, keyValue->getValue(), categoryValue->getValue(), descriptionValue->getValue());
                                             if (! statusWithBool.first.first)
                                             {
                                                 std::cerr << "Problem with 'addAppToList': " << statusWithBool.first.second << ".\n";

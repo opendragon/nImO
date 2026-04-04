@@ -1026,8 +1026,11 @@ nImO::ConvertApplicationListToMap
                 }
                 nodeName = walker._launcherName;
             }
-            applicationSubMap->addValue(std::make_shared<String>(walker._appName),
-                                        std::make_shared<String>(walker._appDescription));
+            auto    infoArray{std::make_shared<Array>()};
+
+            infoArray->addValue(std::make_shared<String>(walker._appCategory));
+            infoArray->addValue(std::make_shared<String>(walker._appDescription));
+            applicationSubMap->addValue(std::make_shared<String>(walker._appName), infoArray);
         }
     }
     if (! applicationSubMap->empty())

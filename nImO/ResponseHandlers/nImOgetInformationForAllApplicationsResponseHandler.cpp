@@ -122,18 +122,21 @@ nImO::GetInformationForAllApplicationsResponseHandler::doIt
                     ApplicationInfo thisApp;
 
                     thisApp._found = false;
-                    if (3 < infoArray->size())
+                    if (4 < infoArray->size())
                     {
                         auto    foundPtr{(*infoArray)[0]->asLogical()};
                         auto    launcherNamePtr{(*infoArray)[1]->asString()};
                         auto    appNamePtr{(*infoArray)[2]->asString()};
-                        auto    appDescrPtr{(*infoArray)[3]->asString()};
+                        auto    appCategPtr{(*infoArray)[3]->asString()};
+                        auto    appDescrPtr{(*infoArray)[4]->asString()};
 
-                        if ((nullptr != foundPtr) && (nullptr != launcherNamePtr) && (nullptr != appNamePtr) && (nullptr != appDescrPtr))
+                        if ((nullptr != foundPtr) && (nullptr != launcherNamePtr) && (nullptr != appNamePtr) &&
+                            (nullptr != appCategPtr) && (nullptr != appDescrPtr))
                         {
                             thisApp._found = foundPtr->getValue();
                             thisApp._launcherName = launcherNamePtr->getValue();
                             thisApp._appName = appNamePtr->getValue();
+                            thisApp._appCategory = appCategPtr->getValue();
                             thisApp._appDescription = appDescrPtr->getValue();
                             if (thisApp._found)
                             {
@@ -143,14 +146,14 @@ nImO::GetInformationForAllApplicationsResponseHandler::doIt
                         else
                         {
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != launcherNamePtr) && (nullptr != appNamePtr) && " //####
-                                    "(nullptr != appDescrPtr))"); //####
+                                    "(nullptr != appCategPtr) && (nullptr != appDescrPtr))"); //####
                             okSoFar = false;
                             ODL_B1(okSoFar); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (3 < infoArray->size())"); //####
+                        ODL_LOG("! (4 < infoArray->size())"); //####
                         okSoFar = false;
                         ODL_B1(okSoFar); //####
                     }

@@ -131,6 +131,7 @@ nImO::GetInformationForAllApplicationsOnNodeCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Logical>(walker._found));
                     infoArray->addValue(std::make_shared<String>(walker._launcherName));
                     infoArray->addValue(std::make_shared<String>(walker._appName));
+                    infoArray->addValue(std::make_shared<String>(walker._appCategory));
                     infoArray->addValue(std::make_shared<String>(walker._appDescription));
                     applicationArray->addValue(infoArray);
                 }

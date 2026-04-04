@@ -133,7 +133,8 @@ nImO::AddAppToListCommandHandler::doIt
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kApplicationAddedStatus + kStatusSeparator + launcherNodeName +
-                                     kStatusSeparator + applicationName + kStatusSeparator + applicationDescription);
+                                     kStatusSeparator + applicationCategory + kStatusSeparator +applicationName + kStatusSeparator + 
+                                     applicationDescription);
                 }
             }
             else

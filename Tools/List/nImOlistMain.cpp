@@ -329,33 +329,48 @@ listApplications
                     for (auto subWalker{appSubMap->begin()}; subWalker != appSubMap->end(); )
                     {
                         auto    appName{nImO::SanitizeString(subWalker->first->asString()->getValue(), shouldSanitize)};
-                        auto    appDescr{nImO::SanitizeString(subWalker->second->asString()->getValue(), shouldSanitize)};
+                        auto    appInfoArray{subWalker->second->asArray()};
 
-                        switch (options._flavour)
+                        if (nullptr != appInfoArray)
                         {
-                            case nImO::OutputFlavour::kFlavourNormal :
-                                std::cout << "\t\t" << appName << "\t" << appDescr;
-                                break;
+                            auto    appInfoCategPtr{appInfoArray->at(0)};
+                            auto    appInfoDescPtr{appInfoArray->at(1)};
 
-                            case nImO::OutputFlavour::kFlavourJSON :
-                                std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << appName <<
-                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "description" CHAR_DOUBLEQUOTE_ ": "
-                                            CHAR_DOUBLEQUOTE_ << appDescr << CHAR_DOUBLEQUOTE_ " }";
-                                break;
+                            if (appInfoCategPtr && appInfoDescPtr)
+                            {
+                                auto    appCateg{nImO::SanitizeString(appInfoCategPtr->asString()->getValue(), shouldSanitize)};
+                                auto    appDescr{nImO::SanitizeString(appInfoDescPtr->asString()->getValue(), shouldSanitize)};
 
-                            case nImO::OutputFlavour::kFlavourNiMo :
-                                std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " "
-                                            CHAR_DOUBLEQUOTE_ << appName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "description" CHAR_DOUBLEQUOTE_ " " <<
-                                            nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << appDescr << CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
-                                break;
+                                switch (options._flavour)
+                                {
+                                    case nImO::OutputFlavour::kFlavourNormal :
+                                        std::cout << "\t\t" << appName << "\t" << appCateg << "\t" << appDescr;
+                                        break;
 
-                            case nImO::OutputFlavour::kFlavourTabs :
-                                std::cout << launcherName << "\t" << appName << "\t" << appDescr;
-                                break;
+                                    case nImO::OutputFlavour::kFlavourJSON :
+                                        std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << appName <<
+                                                    CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "category" CHAR_DOUBLEQUOTE_ ": "
+                                                    CHAR_DOUBLEQUOTE_ << appCateg << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_
+                                                    "description" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << appDescr << CHAR_DOUBLEQUOTE_ " }";
+                                        break;
 
-                            default :
-                                break;
+                                    case nImO::OutputFlavour::kFlavourNiMo :
+                                        std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " "
+                                                    CHAR_DOUBLEQUOTE_ << appName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "category" CHAR_DOUBLEQUOTE_ " " <<
+                                                    nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << appCateg << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_
+                                                    "description" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << appDescr <<
+                                                    CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
+                                        break;
 
+                                    case nImO::OutputFlavour::kFlavourTabs :
+                                        std::cout << launcherName << "\t" << appName << "\t" << appCateg << "\t" << appDescr;
+                                        break;
+
+                                    default :
+                                        break;
+
+                                }
+                            }
                         }
                         ++subWalker;
                         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)

@@ -299,6 +299,7 @@ namespace nImO
     class String;
     class StringBuffer;
     class Value;
+    class Vector;
 
     // Type definitions.
 
@@ -445,8 +446,8 @@ namespace nImO
             /*! @brief The Container is a Set. */
             OtherContainerTypeSet = 0x0008,
 
-            /*! @brief An unimplemented value for the Container type. */
-            OtherContainerTypeReserved = 0x000C,
+            /*! @brief The Container is a Vector. */
+            OtherContainerTypeVector = 0x000C,
 
             /*! @brief The mask for the empty / non-empty state of the Container. */
             OtherContainerEmptyMask = 0x0001,
@@ -508,7 +509,7 @@ namespace nImO
         EndOfMessageValue = (Other | OtherMessage | OtherMessageEndValue),
 
         /*! @brief A value that will not normally appear in a Message. */
-        EscapeValue = (Other | OtherContainerStart | OtherContainerTypeReserved)
+        EscapeValue = (Other | OtherMiscellaneous | OtherMiscellaneousTypeReserved2)
 
     }; // DataKind
 
@@ -793,11 +794,14 @@ namespace nImO
     /*! @brief The character that ends a Set value. */
     constexpr char  kEndSetChar{']'};
 
+    /*! @brief The character that ends a Vector value. */
+    constexpr char  kEndVectorChar{'>'};
+
     /*! @brief The character that starts a special character sequence. */
     constexpr char  kEscapeChar{'\\'};
 
     /*! @brief The character that separates a key from a value in a key/value pair. */
-    constexpr char  kKeyValueSeparator{'>'};
+    constexpr char  kKeyValueSeparator{'='};
 
     /*! @brief The character that indicates a Date value. */
     constexpr char  kSecondCharForDate{'d'};
@@ -825,6 +829,9 @@ namespace nImO
 
     /*! @brief The character that starts a Set value. */
     constexpr char  kStartSetChar{'['};
+
+    /*! @brief The character that starts a Vector value. */
+    constexpr char  kStartVectorChar{'<'};
 
     /*! @brief The character that is used with Time data formatting. */
     constexpr char  kTimeSeparator{':'};

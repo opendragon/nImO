@@ -345,7 +345,7 @@ main
                                     }
                                     else
                                     {
-                                        if (fromDataType == toDataType)
+                                        if (nImO::ConvertToLowerCase(fromDataType) == nImO::ConvertToLowerCase(toDataType))
                                         {
                                             dataType = fromDataType;
                                         }

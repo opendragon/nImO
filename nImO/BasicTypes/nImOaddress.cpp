@@ -155,6 +155,18 @@ nImO::Address::asAddress
     return this;
 } // nImO::Address::asAddress
 
+nImO::BasicType
+nImO::Address::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::Address};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Address::basicType
+
 bool
 nImO::Address::deeplyEqualTo
     (const Value &  other,
@@ -196,7 +208,7 @@ nImO::Address::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::Address};
+    auto    result{Enumerable::Address};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -238,7 +250,7 @@ nImO::Address::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     NIMO_UNUSED_VAR_(leadByte);
     ODL_ENTER(); //####
@@ -275,11 +287,7 @@ nImO::Address::extractValue
     {
         result = std::make_shared<Address>(accumulator);
     }
-    if (parentValue && result)
-    {
-        ODL_LOG("(parentValue && result)"); //####
-        parentValue->addValue(result);
-    }
+    addValueToParent(parentValue, result);
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Address::extractValue

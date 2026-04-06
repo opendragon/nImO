@@ -101,6 +101,14 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Return the basic type of an object.
+             @return The basic type of an object. */
+            BasicType
+            basicType
+                (void)
+                const
+                override;
+
             /*! @brief Return @c true if two Values are structurally identical.
              @param[in] other The Value to be compared with.
              @param[in] ignoreCase @c true if case-insensitive comparison.
@@ -308,7 +316,7 @@ namespace nImO
                 (const Message &    theMessage,
                  const int          leadByte,
                  size_t &           position,
-                 SpArray            parentValue);
+                 SpValue            parentValue);
 
         public :
             // Public fields.

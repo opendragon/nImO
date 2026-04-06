@@ -420,7 +420,7 @@ namespace nImO
                 (const Message &    theMessage,
                  const int          leadByte,
                  size_t &           position,
-                 SpArray            parentValue);
+                 SpValue            parentValue);
 
         public :
             // Public fields.

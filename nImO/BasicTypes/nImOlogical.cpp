@@ -136,6 +136,18 @@ nImO::Logical::asLogical
     return this;
 } // nImO::Logical::asLogical
 
+nImO::BasicType
+nImO::Logical::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::Logical};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Logical::basicType
+
 bool
 nImO::Logical::deeplyEqualTo
     (const Value &  other,
@@ -177,7 +189,7 @@ nImO::Logical::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::Logical};
+    auto    result{Enumerable::Logical};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -219,7 +231,7 @@ nImO::Logical::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     NIMO_UNUSED_VAR_(theMessage);
     ODL_ENTER(); //####
@@ -230,11 +242,7 @@ nImO::Logical::extractValue
 
     ++position; // We will always accept the lead byte
     ODL_I1(position); //####
-    if (parentValue && result)
-    {
-        ODL_LOG("(parentValue && result)"); //####
-        parentValue->addValue(result);
-    }
+    addValueToParent(parentValue, result);
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Logical::extractValue

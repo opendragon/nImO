@@ -131,6 +131,18 @@ nImO::Integer::asInteger
     return this;
 } // nImO::Integer::asInteger
 
+nImO::BasicType
+nImO::Integer::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::Address};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Integer::basicType
+
 bool
 nImO::Integer::deeplyEqualTo
     (const Value &  other,
@@ -172,7 +184,7 @@ nImO::Integer::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::Integer};
+    auto    result{Enumerable::Integer};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -221,7 +233,7 @@ nImO::Integer::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3(&theMessage, &position, parentValue.get()); //####
@@ -239,11 +251,7 @@ nImO::Integer::extractValue
         ODL_LOG("! (numStatus::Successful == status)"); //####
         result.reset();
     }
-    if (parentValue && result)
-    {
-        ODL_LOG("(parentValue && result)"); //####
-        parentValue->addValue(result);
-    }
+    addValueToParent(parentValue, result);
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Integer::extractValue

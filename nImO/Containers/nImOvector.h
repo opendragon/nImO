@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/BasicTypes/nImOlogical.h
+//  File:       nImO/Containers/nImOvector.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO logical values.
+//  Contains:   The class declaration for nImO vectors.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2026 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-21
+//  Created:    2026-04-06
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOlogical_H_))
-# define nImOlogical_H_ /* Header guard */
+#if (! defined(nImOvector_H_))
+# define nImOvector_H_ /* Header guard */
 
-# include <BasicTypes/nImOatom.h>
+# include <Containers/nImOcontainer.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,19 +47,41 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO logical values. */
+ @brief The class declaration for %nImO vectors. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide true / false values. */
-    class Logical final : public Atom
+    /*! @brief The standard class on which Vector is based. */
+    using VectorBase = std::vector<SpValue>;
+
+    /*! @brief A class to provide collections with vector-like behaviour.
+
+     Note that Vectors 'own' their data and will perform a delete of the
+     contained elements on deletion. */
+    class Vector final : public Container,
+                            public VectorBase
     {
 
         public :
             // Public type definitions.
+
+            /*! @brief The non-const iterator for Vectors. */
+            using iterator = VectorBase::iterator;
+
+            /*! @brief The const iterator for Vectors. */
+            using const_iterator = VectorBase::const_iterator;
+
+            /*! @brief The non-const iterator for Vectors. */
+            using reverse_iterator = VectorBase::reverse_iterator;
+
+            /*! @brief The const iterator for Vectors. */
+            using const_reverse_iterator = VectorBase::const_reverse_iterator;
+
+            /*! @brief The size of indices. */
+            using size_type = VectorBase::size_type;
 
         protected :
             // Protected type definitions.
@@ -67,46 +89,89 @@ namespace nImO
         private :
             // Private type definitions.
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = Atom;
+            /*! @brief The first class that this class is derived from. */
+            using inherited1 = Container;
+
+            /*! @brief The second class that this class is derived from. */
+            using inherited2 = VectorBase;
 
         public :
             // Public methods.
 
             /*! @brief The constructor. */
-            Logical
+            Vector
                 (void);
-
-            /*! @brief The constructor.
-             @param[in] initialValue The initial value for the object. */
-            explicit Logical
-                (const bool initialValue);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
-            Logical
-                (const Logical &    other);
+            Vector
+                (const Vector & other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
-            Logical
-                (Logical && other)
+            Vector
+                (Vector &&  other)
                 noexcept;
 
-            /*! @brief Return non-@c nullptr if the object is a Logical.
-             @return Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */
-            CPtr(Logical)
-            asLogical
+            /*! @brief The destructor. */
+            ~Vector
+                (void)
+                override;
+
+            /*! @brief Add the entries from another Vector.
+              @param[in] other The object to be copied from. */
+            Vector &
+            addEntries
+                (const Vector & other);
+
+            /*! @brief Add a Value to the end of the Vector.
+             @param[in] newElement The Value to be added.
+             @return @c true if the Value was added. */
+            bool
+            addValue
+                (SpValue    newElement);
+
+            /*! @brief Add a Value to the end of the Vector.
+             @param[in] newElement The Value to be added.
+             @return The Container. */
+            void
+            appendValue
+                (SpValue    newElement)
+                override;
+
+            /*! @brief Return non-@c nullptr if the object is a Vector.
+             @return Non-@c nullptr if the object is a Vector and @c nullptr otherwise. */
+            CPtr(Vector)
+            asVector
                 (void)
                 const
                 override;
 
-            /*! @brief Return the basic type of an object.
-             @return The basic type of an object. */
-            BasicType
-            basicType
-                (void)
+            /*! @brief Returns the element at position index in the Vector.
+             @param[in] index The position of the element in the Vector.
+             @return The element at the given position, or @c nullptr if the index is out of range. */
+            inline SpValue
+            at
+                (const size_type    index = 0)
                 const
+            {
+                SpValue result;
+
+                if (index < inherited2::size())
+                {
+                    result = inherited2::at(index);
+                }
+                else
+                {
+                    result = nullptr;
+                }
+                return result;
+            }
+
+            /*! @brief Remove all entries from the Vector. */
+            void
+            clear
+                (void)
                 override;
 
             /*! @brief Return @c true if two Values are structurally identical.
@@ -129,10 +194,9 @@ namespace nImO
                 const
                 override;
 
-            /*! @brief Return the enumeration type of an object.
-             @return The enumeration type of an object. */
-            Enumerable
-            enumerationType
+            /*! @brief Return @c true if the Vector is empty. */
+            bool
+            empty
                 (void)
                 const
                 override;
@@ -146,15 +210,18 @@ namespace nImO
                 const
                 override;
 
-            /*! @brief Return the standard textual representation of a boolean value.
-             @param[in] aValue The value to be represented.
-             @return The standard textual representation of a boolean value. */
-            static const std::string &
-            getCanonicalRepresentation
-                (const bool aValue);
+            /*! @brief Return the kind of data used with the Vector.
+             @return The kind of data used with the Vector.*/
+            inline BasicType
+            getDataKind
+                (void)
+                const
+            {
+                return _dataKind;
+            }
 
-            /*! @brief Get the extraction information for Logical objects.
-             @param[out] aByte The byte value that indicates the start of a Logical value.
+            /*! @brief Get the extraction information for Vector objects.
+             @param[out] aByte The byte value that indicates the start of a Vector value.
              @param[out] aMask The mask to apply to a lead byte.
              @return The function to perform when the lead byte is seen. */
             static Extractor
@@ -162,10 +229,16 @@ namespace nImO
                 (DataKind & aByte,
                  DataKind & aMask);
 
-            /*! @brief Return the characters that can appear as the start of a Logical.
-             @return The characters that can appear as the start of a Logical. */
+            /*! @brief Return the characters that can appear as the start of a Vector.
+             @return The characters that can appear as the start of a Vector. */
             static CPtr(char)
             getInitialCharacters
+                (void);
+
+            /*! @brief Return the characters that can appear as the end of a Vector.
+             @return The characters that can appear as the end of a Vector. */
+            static CPtr(char)
+            getTerminalCharacters
                 (void);
 
             /*! @brief Return the type tag for the Value for use with Messages.
@@ -175,16 +248,6 @@ namespace nImO
                 (void)
                 const
                 override;
-
-            /*! @brief Return the value of the object.
-             @return The value of the object. */
-            inline bool
-            getValue
-                (void)
-                const
-            {
-                return _value;
-            }
 
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
@@ -225,27 +288,28 @@ namespace nImO
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
-            Logical &
+            inline Vector &
             operator=
-                (const Logical &    other);
+                (const Vector & other)
+            {
+                if (this != &other)
+                {
+                    clear();
+                    addEntries(other);
+                }
+                return *this;
+            }
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            Logical &
+            Vector &
             operator=
-                (Logical && other)
+                (Vector &&  other)
                 noexcept;
 
-            /*! @brief The assignment operator.
-             @param[in] value The value to be assigned.
-             @return The updated object. */
-            Logical &
-            operator=
-                (const bool value);
-
             /*! @brief Add a readable representation of the object to the buffer.
-             @param[out] outBuffer The buffer to be appended to.
+             @param[in,out] outBuffer The buffer to be appended to.
              @param[in] squished @c true if the output has no unnecessary characters and @c false if it
              is as readable as possible. */
             void
@@ -256,7 +320,7 @@ namespace nImO
                 override;
 
             /*! @brief Add a JSON representation of the object to the buffer.
-             @param[out] outBuffer The buffer to be appended to.
+             @param[in,out] outBuffer The buffer to be appended to.
              @param[in] asKey The value is a key.
              @param[in] squished @c true if the output has no unnecessary characters and @c false if it
              is as readable as possible. */
@@ -268,17 +332,35 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Return a random iterator from the Vector. */
+            const_iterator
+            random
+                (void)
+                const;
+
+            /*! @brief Return a random iterator from the Vector. */
+            iterator
+            random
+                (void);
+
             /*! @brief Convert a readable representation of the object in a buffer into an object.
              @param[in] inBuffer The buffer to be scanned.
-             @param[out] position Where in the buffer to start.
+             @param[in,out] position Where in the buffer to start.
              @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
             static SpValue
             readFromStringBuffer // cppcheck-suppress duplInheritedMember
                 (const StringBuffer &   inBuffer,
                  size_t &               position);
 
+            /*! @brief Returns the number of elements in the Vector. */
+            size_t
+            size
+                (void)
+                const
+                override;
+
             /*! @brief Add a binary representation of the object to the message.
-             @param[out] outMessage The Message to be appended to. */
+             @param[in] outMessage The Message to be appended to. */
             void
             writeToMessage
                 (Message &  outMessage)
@@ -304,9 +386,9 @@ namespace nImO
             /*! @brief Extracts Value objects from a Message.
              Note that the parentValue argument is normally @c nullptr, and is used for handling
              multiple floating-point numbers in a sequence; if a series of Double values are extracted,
-             they are directly added to the Array and the last Value is returned as the result of the
+             they are directly added to the Vector and the last Value is returned as the result of the
              function; for all other Value objects, the (single) Value that is extracted is added to
-             the Array to simplify the logic, as well as being returned.
+             the Vector to simplify the logic, as well as being returned.
              @param[in] theMessage The Message being processed.
              @param[in] leadByte The initial byte of the Value.
              @param[in,out] position The location of the next byte to be processed.
@@ -330,11 +412,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The associated value of the object. */
-            bool    _value{false};
+            /*! @brief The kind of data being stored. */
+            BasicType   _dataKind{BasicType::Unknown};
 
-    }; // Logical
+    }; // Vector
 
 } // nImO
 
-#endif // not defined(nImOlogical_H_)
+#endif // not defined(nImOvector_H_)

@@ -108,6 +108,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/Containers/nImOmessage.cpp"
             "${THIS_SOURCE_DIR}/Containers/nImOset.cpp"
             "${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOvector.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOcontext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.cpp"
@@ -340,6 +341,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/Containers/nImOmessage.h"
         "${THIS_SOURCE_DIR}/Containers/nImOset.h"
         "${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.h"
+        "${THIS_SOURCE_DIR}/Containers/nImOvector.h"
         DESTINATION ${INCLUDE_DEST}/Containers
         COMPONENT headers)
 
@@ -508,6 +510,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/Containers/nImOmessage.cpp ${THIS_SOURCE_DIR}/Containers/nImOmessage.h
         ${THIS_SOURCE_DIR}/Containers/nImOset.cpp ${THIS_SOURCE_DIR}/Containers/nImOset.h
         ${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.h
+        ${THIS_SOURCE_DIR}/Containers/nImOvector.cpp ${THIS_SOURCE_DIR}/Containers/nImOvector.h
         ${THIS_SOURCE_DIR}/Contexts/nImOcontext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.h

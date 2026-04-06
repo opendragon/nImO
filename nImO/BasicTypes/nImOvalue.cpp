@@ -53,6 +53,7 @@
 #include <Containers/nImOmessage.h>
 #include <Containers/nImOset.h>
 #include <Containers/nImOstringBuffer.h>
+#include <Containers/nImOvector.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -148,7 +149,31 @@ nImO::Value::addToExtractionMap
         }
     }
     ODL_EXIT(); //####
-} // addToExtractionMap
+} // nImO::Value::addToExtractionMap
+
+void
+nImO::Value::addValueToParent
+    (SpValue    parentValue,
+     SpValue    newValue)
+{
+    ODL_ENTER(); //####
+    ODL_P2(parentValue.get(), newValue.get()); //####
+    if (parentValue && newValue)
+    {
+        parentValue->appendValue(newValue);
+    }
+    ODL_EXIT(); //####
+} // nImO::Value::addValueToParent
+
+void
+nImO::Value::appendValue
+    (SpValue    newElement)
+{
+    NIMO_UNUSED_VAR_(newElement);
+    ODL_OBJENTER(); //####
+    ODL_P1(newElement.get()); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Value::appendValue
 
 CPtr(nImO::Address)
 nImO::Value::asAddress
@@ -290,6 +315,28 @@ nImO::Value::asTime
     return nullptr;
 } // nImO::Value::asTime
 
+CPtr(nImO::Vector)
+nImO::Value::asVector
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asVector
+
+nImO::BasicType
+nImO::Value::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto   result{BasicType::NotBasic};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Value::basicType
+
 bool
 nImO::Value::deeplyEqualTo
     (const Value &  other,
@@ -310,7 +357,7 @@ nImO::Value::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::NotEnumerable};
+    auto    result{Enumerable::NotEnumerable};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -434,11 +481,12 @@ nImO::Value::getValueFromMessage
     (const Message &    inMessage,
      size_t &           position,
      const int          leadByte,
-     SpArray            parent)
+     SpValue            parent)
 {
     ODL_ENTER(); //####
     ODL_P3(&inMessage, &position, parent.get()); //####
     ODL_X1(leadByte); //####
+ODL_LOG("got here"); //####
     SpValue result;
 
     if (auto match{gExtractors.find(StaticCast(uint8_t, leadByte))}; gExtractors.end() == match)
@@ -448,6 +496,7 @@ nImO::Value::getValueFromMessage
     }
     else
     {
+ODL_LOG("got here"); //####
         Extractor   handler{match->second};
 
         if (nullptr == handler)
@@ -457,6 +506,7 @@ nImO::Value::getValueFromMessage
         }
         else
         {
+ODL_LOG("got here"); //####
             result = handler(inMessage, leadByte, position, parent);
             ODL_P1(result.get()); //####
         }
@@ -509,6 +559,7 @@ nImO::Value::initialize
     addToReaderMap(Array::getInitialCharacters(), &Array::readFromStringBuffer);
     addToReaderMap(Map::getInitialCharacters(), &Map::readFromStringBuffer);
     addToReaderMap(Set::getInitialCharacters(), &Set::readFromStringBuffer);
+    addToReaderMap(Vector::getInitialCharacters(), &Vector::readFromStringBuffer);
     auto    suffixes{Array::getTerminalCharacters()};
 
     gTerminators = suffixes;
@@ -518,6 +569,11 @@ nImO::Value::initialize
         gTerminators += suffixes;
     }
     suffixes = Set::getTerminalCharacters();
+    if (nullptr != suffixes)
+    {
+        gTerminators += suffixes;
+    }
+    suffixes = Vector::getTerminalCharacters();
     if (nullptr != suffixes)
     {
         gTerminators += suffixes;
@@ -546,6 +602,8 @@ nImO::Value::initialize
     theExtractor = String::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     theExtractor = Time::getExtractionInfo(aByte, aMask);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    theExtractor = Vector::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     ODL_EXIT(); //####
 } // nImO::Value::initialize

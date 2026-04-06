@@ -303,6 +303,38 @@ namespace nImO
 
     // Type definitions.
 
+    /*! @brief Whether a Value is a basic type. */
+    enum class BasicType
+    {
+        /*! @brief It is not known if the Value is a basic type. */
+        Unknown,
+
+        /*! @brief The Value is an Address and therefore a basic type. */
+        Address,
+
+        /*! @brief The Value is a Date and therefore basic type. */
+        Date,
+
+        /*! @brief The Value is a Double and therefore basic type. */
+        Double,
+
+        /*! @brief The Value is a Logical and therefore basic type. */
+        Logical,
+
+        /*! @brief The Value is a signed integer and therefore basic type. */
+        Integer,
+
+        /*! @brief The Value is a String and therefore basic type. */
+        String,
+
+        /*! @brief The Value is a Time and therefore basic type. */
+        Time,
+
+        /*! @brief The Value is not a basic type. */
+        NotBasic
+
+    }; // BasicType
+
     /*! @brief The tag values for Message contents. */
     enum class DataKind : uint8_t
     {
@@ -522,6 +554,9 @@ namespace nImO
         /*! @brief The Value is an Address and therefore enumerable. */
         Address,
 
+        /*! @brief The Value is a Date and therefore enumerable. */
+        Date,
+
         /*! @brief The Value is a Logical and therefore enumerable. */
         Logical,
 
@@ -530,9 +565,6 @@ namespace nImO
 
         /*! @brief The Value is a String and therefore enumerable. */
         String,
-
-        /*! @brief The Value is a Date and therefore enumerable. */
-        Date,
 
         /*! @brief The Value is a Time and therefore enumerable. */
         Time,
@@ -875,17 +907,14 @@ namespace nImO
     /*! @brief The IP name for the loopback address for the machine that is running the executable. */
     const std::string   kSelfAddressName{"localhost"s};
 
-    /*! @brief The standard type for Signal channels. */
+    /*! @brief The standard type for SIGNAL channels. */
     const std::string   kSignalType{"SIGNAL"s};
 
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
 
-    /*! @brief A sequence of bytes. */
-    using ByteVector = std::vector<uint8_t>;
-
-    /*! @brief The table type used for lookups. */
-    using StdStringSet = std::set<std::string>;
+    /*! @brief A holder for a shared pointer to an Asio TCP/IP acceptor. */
+    using SpAcceptorTCP = std::shared_ptr<BTCP::acceptor>;
 
     /*! @brief A holder for a shared pointer to an Array. */
     using SpArray = std::shared_ptr<Array>;
@@ -893,14 +922,17 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a BaseArgumentDescriptor. */
     using SpBaseArgumentDescriptor = std::shared_ptr<BaseArgumentDescriptor>;
 
-    /*! @brief A sequence of argument descriptors. */
-    using DescriptorVector = std::vector<SpBaseArgumentDescriptor>;
+    /*! @brief A holder for a shared pointer to a bool variable. */
+    using SpBool = std::shared_ptr<bool>;
 
     /*! @brief A holder for a shared pointer to a BufferChunk. */
     using SpBufferChunk = std::shared_ptr<BufferChunk>;
 
     /*! @brief A holder for a shared pointer to a ChannelName. */
     using SpChannelName = std::shared_ptr<ChannelName>;
+
+    /*! @brief A holder for a shared pointer to an Asio deadline timer. */
+    using SpDeadlineTimer = std::shared_ptr<BAD_t>;
 
     /*! @brief A holder for a shared pointer to a Flaw. */
     using SpFlaw = std::shared_ptr<Flaw>;
@@ -917,20 +949,11 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a Message. */
     using SpMessage = std::shared_ptr<Message>;
 
-    /*! @brief A holder for a shared pointer to a Set. */
-    using SpSet = std::shared_ptr<Set>;
-
-    /*! @brief A holder for a shared pointer to a bool variable. */
-    using SpBool = std::shared_ptr<bool>;
-
-    /*! @brief A holder for a shared pointer to an Asio TCP/IP acceptor. */
-    using SpAcceptorTCP = std::shared_ptr<BTCP::acceptor>;
-
-    /*! @brief A holder for a shared pointer to an Asio deadline timer. */
-    using SpDeadlineTimer = std::shared_ptr<BAD_t>;
-
     /*! @brief A holder for a shared pointer to a RegistryProxy. */
     using SpRegistryProxy = std::shared_ptr<RegistryProxy>;
+
+    /*! @brief A holder for a shared pointer to a Set. */
+    using SpSet = std::shared_ptr<Set>;
 
     /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
     using SpSocketTCP = std::shared_ptr<BTCP::socket>;
@@ -952,6 +975,9 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to a Value. */
     using SpValue = std::shared_ptr<Value>;
+
+    /*! @brief A holder for a shared pointer to a Set. */
+    using SpVector = std::shared_ptr<Vector>;
 
     /*! @brief A holder for a non-shared pointer to an Array. */
     using UpArray = std::unique_ptr<Array>;
@@ -977,11 +1003,14 @@ namespace nImO
     /*! @brief A holder for a non-shared pointer to a StringBuffer. */
     using UpStringBuffer = std::unique_ptr<StringBuffer>;
 
-    /*! @brief A holder for a non-shared pointer to an array of uint8_t values. */
-    using UpAuint8_t = std::unique_ptr<uint8_t[]>;
-
     /*! @brief A holder for a non-shared pointer to a Value. */
     using UpValue = std::unique_ptr<Value>;
+
+    /*! @brief A holder for a non-shared pointer to a Vector. */
+    using UpVector = std::unique_ptr<Vector>;
+
+    /*! @brief A holder for a non-shared pointer to an array of uint8_t values. */
+    using UpAuint8_t = std::unique_ptr<uint8_t[]>;
 
     /*! @brief A holder for a weak pointer to an Array. */
     using WpArray = std::weak_ptr<Array>;
@@ -1009,6 +1038,18 @@ namespace nImO
 
     /*! @brief A holder for a weak pointer to a Value. */
     using WpValue = std::weak_ptr<Value>;
+
+    /*! @brief A holder for a weak pointer to a Vector. */
+    using WpVector = std::weak_ptr<Vector>;
+
+    /*! @brief A sequence of bytes. */
+    using ByteVector = std::vector<uint8_t>;
+
+    /*! @brief A sequence of argument descriptors. */
+    using DescriptorVector = std::vector<SpBaseArgumentDescriptor>;
+
+    /*! @brief The table type used for lookups. */
+    using StdStringSet = std::set<std::string>;
 
     /*! @brief A pointer to a handler for interrupt signals. */
     using SignalFunction = void (*)

@@ -170,6 +170,18 @@ nImO::Date::asDate
     return this;
 } // nImO::Date::asDate
 
+nImO::BasicType
+nImO::Date::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::Date};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Date::basicType
+
 uint16_t
 nImO::Date::day
     (void)
@@ -223,7 +235,7 @@ nImO::Date::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::Date};
+    auto    result{Enumerable::Date};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -265,7 +277,7 @@ nImO::Date::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     NIMO_UNUSED_VAR_(leadByte);
     ODL_ENTER(); //####
@@ -302,11 +314,7 @@ nImO::Date::extractValue
     {
         result = std::make_shared<Date>(accumulator);
     }
-    if (parentValue && result)
-    {
-        ODL_LOG("(parentValue && result)"); //####
-        parentValue->addValue(result);
-    }
+    addValueToParent(parentValue, result);
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Date::extractValue

@@ -103,7 +103,7 @@ namespace nImO
                 (const Message &    theMessage,
                  const int          leadByte,
                  size_t &           position,
-                 SpArray            parentValue);
+                 SpValue            parentValue);
 
         private :
             // Private type definitions.
@@ -147,6 +147,12 @@ namespace nImO
             Value
                 (Value &&	other)
                 noexcept = default;
+
+            /*! @brief Add a Value to the end of another Value.
+             @param[in] newElement The Value to be added. */
+            virtual void
+            appendValue
+                (SpValue    newElement);
 
             /*! @brief Return non-@c nullptr if the object is an Array.
              @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
@@ -246,6 +252,20 @@ namespace nImO
                 (void)
                 const;
 
+            /*! @brief Return non-@c nullptr if the object is a Vector.
+             @return Non-@c nullptr if the object is a Vector and @c nullptr otherwise. */
+            virtual CPtr(Vector)
+            asVector
+                (void)
+                const;
+
+            /*! @brief Return the basic type of an object.
+             @return The basic type of an object. */
+            virtual BasicType
+            basicType
+                (void)
+                const;
+
             /*! @brief Return @c true if two Values are structurally identical.
              @param[in] other The Value to be compared with.
              @param[in] ignoreCase @c true if case-insensitive comparison.
@@ -298,7 +318,7 @@ namespace nImO
                 (const Message &    inMessage,
                  size_t &           position,
                  const int          leadByte,
-                 SpArray            parent);
+                 SpValue            parent);
 
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
@@ -472,6 +492,14 @@ namespace nImO
             /*! @brief The constructor. */
             Value
                 (void) = default;
+
+            /*! @brief Adds a value to a Container.
+             @param[in] parentValue The Container to be added to.
+             @param[in] newValue The object to be added. */
+            static void
+            addValueToParent
+                (SpValue    parentValue,
+                 SpValue    newValue);
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.

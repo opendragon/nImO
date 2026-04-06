@@ -348,7 +348,7 @@ nImO::Map::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3(&theMessage, &position, parentValue.get()); //####
@@ -549,10 +549,10 @@ nImO::Map::extractValue
             }
         }
     }
-    if (parentValue && result && (! result->asFlaw()))
+    if (result && (! result->asFlaw()))
     {
-        ODL_LOG("(parentValue && result && (! result->asFlaw()))"); //####
-        parentValue->addValue(result);
+        ODL_LOG("(result && (! result->asFlaw()))"); //####
+        addValueToParent(parentValue, result);
     }
     ODL_EXIT_P(result.get()); //####
     return result;
@@ -628,7 +628,7 @@ nImO::Map::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     if (&other == this)
     {
@@ -692,7 +692,7 @@ nImO::Map::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     if (&other == this)
     {

@@ -50,6 +50,7 @@
 #include "Containers/nImOmessage.h"
 #include "Containers/nImOset.h"
 #include "Containers/nImOstringBuffer.h"
+#include "Containers/nImOvector.h"
 #include "Contexts/nImOcontext.h"
 #include "Contexts/nImOfilterContext.h"
 #include "Contexts/nImOinputOutputContext.h"

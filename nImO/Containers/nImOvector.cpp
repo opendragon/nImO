@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Containers/nImOarray.cpp
+//  File:       nImO/Containers/nImOvector.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO arrays.
+//  Contains:   The class definition for nImO vectors.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2026 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-21
+//  Created:    2026-04-06
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Containers/nImOarray.h>
+#include <Containers/nImOvector.h>
 
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %nImO arrays. */
+ @brief The class definition for %nImO vectors. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,93 +82,121 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Array::Array
+nImO::Vector::Vector
     (void) :
         inherited1{}, inherited2{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::Array::Array
+} // nImO::Vector::Vector
 
-nImO::Array::Array
-    (const Array &  other) :
-        inherited1{}, inherited2{}
+nImO::Vector::Vector
+    (const Vector & other) :
+        inherited1{}, inherited2{}, _dataKind{other._dataKind}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
     addEntries(other);
     ODL_EXIT_P(this); //####
-} // nImO::Array::Array
+} // nImO::Vector::Vector
 
-nImO::Array::Array
-    (Array &&   other)
+nImO::Vector::Vector
+    (Vector &&   other)
     noexcept :
-        inherited1{std::move(other)}, inherited2{std::move(other)}
+        inherited1{std::move(other)}, inherited2{std::move(other)}, _dataKind{std::exchange(other._dataKind, BasicType::Unknown)}
 {
     ODL_ENTER(); //####
     ODL_P1(&other); //####
     addEntries(other);
     other.clear();
     ODL_EXIT_P(this); //####
-} // nImO::Array::Array
+} // nImO::Vector::Vector
 
-nImO::Array::~Array
+nImO::Vector::~Vector
     (void)
 {
     ODL_OBJENTER(); //####
     clear();
     ODL_OBJEXIT(); //####
-} // nImO::Array::~Array
+} // nImO::Vector::~Vector
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::Array &
-nImO::Array::addEntries
-    (const Array &  other)
+nImO::Vector &
+nImO::Vector::addEntries
+    (const Vector & other)
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    for (const auto & walker : other)
+    if ((other._dataKind == _dataKind) || (BasicType::Unknown == _dataKind))
     {
-        addValue(walker);
+        for (const auto & walker : other)
+        {
+            addValue(walker);
+        }
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::Array::addEntries
+} // nImO::Vector::addEntries
+
+bool
+nImO::Vector::addValue
+    (SpValue    newElement)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(newElement.get()); //####
+    bool    result{false};
+
+    if (newElement)
+    {
+        if (BasicType::Unknown == _dataKind)
+        {
+            _dataKind = newElement->basicType();
+        }
+        if (newElement->basicType() == _dataKind)
+        {
+            inherited2::emplace_back(newElement);
+            result = true;
+        }
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::Vector::addValue
 
 void
-nImO::Array::appendValue
+nImO::Vector::appendValue
     (SpValue    newElement)
 {
     ODL_OBJENTER(); //####
     ODL_P1(newElement.get()); //####
     addValue(newElement);
     ODL_OBJEXIT(); //####
-} // nImO::Array::appendValue
+} // nImO::Vector::appendValue
 
-CPtr(nImO::Array)
-nImO::Array::asArray
+CPtr(nImO::Vector)
+nImO::Vector::asVector
     (void)
     const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(this); //####
     return this;
-} // nImO::Array::asArray
+} // nImO::Vector::asVector
 
 void
-nImO::Array::clear
+nImO::Vector::clear
 (void)
 {
     ODL_OBJENTER(); //####
     inherited2::clear();
+    _dataKind = BasicType::Unknown;
     ODL_OBJEXIT(); //####
-} // nImO::Array::clear
+} // nImO::Vector::clear
 
 bool
-nImO::Array::deeplyEqualTo
+nImO::Vector::deeplyEqualTo
     (const Value &  other,
      const bool     ignoreCase)
     const
@@ -181,7 +209,7 @@ nImO::Array::deeplyEqualTo
 
     if (! result)
     {
-        if (auto otherPtr{other.asArray()}; (nullptr != otherPtr) && (size() == otherPtr->size()))
+        if (auto otherPtr{other.asVector()}; (nullptr != otherPtr) && (size() == otherPtr->size()))
         {
             auto    thisWalker{inherited2::begin()};
             auto    otherWalker{otherPtr->inherited2::begin()};
@@ -204,22 +232,57 @@ nImO::Array::deeplyEqualTo
     }
     ODL_OBJEXIT_B(result); //####
     return result;
-} // nImO::Array::deeplyEqualTo
+} // nImO::Vector::deeplyEqualTo
 
 std::ostream &
-nImO::Array::describe
+nImO::Vector::describe
     (std::ostream & output)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1(&output); //####
-    output << "array of " << size() << " elements";
+    output << "vector of " << size() << " elements and a data type of ";
+    switch (_dataKind)
+    {
+        case BasicType::Address :
+            output << "address";
+            break;
+
+        case BasicType::Date :
+            output << "date";
+            break;
+
+        case BasicType::Double :
+            output << "double";
+            break;
+
+        case BasicType::Logical :
+            output << "logical";
+            break;
+
+        case BasicType::Integer :
+            output << "integer";
+            break;
+
+        case BasicType::String :
+            output << "string";
+            break;
+
+        case BasicType::Time :
+            output << "time";
+            break;
+
+        default :
+            output << "<unknown>";
+            break;
+
+    }
     ODL_OBJEXIT_P(&output); //####
     return output;
-} // nImO::Array::describe
+} // nImO::Vector::describe
 
 bool
-nImO::Array::empty
+nImO::Vector::empty
     (void)
     const
 {
@@ -228,10 +291,10 @@ nImO::Array::empty
 
     ODL_OBJEXIT_B(result); //####
     return result;
-} // nImO::Array::empty
+} // nImO::Vector::empty
 
 nImO::ComparisonStatus
-nImO::Array::equalTo
+nImO::Vector::equalTo
     (const Value &  other)
     const
 {
@@ -240,19 +303,26 @@ nImO::Array::equalTo
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto & walker : *this)
+    if ((BasicType::Unknown == _dataKind) || (other.basicType() != _dataKind))
     {
-        if (walker)
+        result.clear();
+    }
+    else
+    {
+        for (auto & walker : *this)
         {
-            result &= walker->equalTo(other);
+            if (walker)
+            {
+                result &= walker->equalTo(other);
+            }
         }
     }
     ODL_EXIT_B(result.value()); //####
     return result;
-} // nImO::Array::equalTo
+} // nImO::Vector::equalTo
 
 nImO::SpValue
-nImO::Array::extractValue
+nImO::Vector::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
@@ -278,19 +348,19 @@ nImO::Array::extractValue
         {
             ODL_LOG("(! atEnd)"); //####
             static const DataKind   endMarker{DataKind::Other | DataKind::OtherContainerEnd |
-                                                DataKind::OtherContainerTypeArray | DataKind::OtherContainerEmptyValue};
+                                                DataKind::OtherContainerTypeVector | DataKind::OtherContainerEmptyValue};
 
             if (toUType(endMarker) == aByte)
             {
                 ODL_LOG("(endMarker == aByte)"); //####
-                result = std::make_shared<Array>();
+                result = std::make_shared<Vector>();
                 ++position;
                 ODL_I1(position); //####
             }
             else
             {
                 ODL_LOG("! (endMarker == aByte)"); //####
-                result = std::make_shared<Invalid>("Empty Array with incorrect end tag", position);
+                result = std::make_shared<Invalid>("Empty Vector with incorrect end tag", position);
             }
         }
     }
@@ -314,18 +384,18 @@ nImO::Array::extractValue
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result = std::make_shared<Invalid>("Array with zero or negative count", position);
+                    result = std::make_shared<Invalid>("Vector with zero or negative count", position);
                 }
                 else
                 {
-                    auto    anArray{std::make_shared<Array>()};
+                    auto    aVector{std::make_shared<Vector>()};
 
-                    result = anArray;
+                    result = aVector;
                     if (result)
                     {
                         bool    okSoFar{true};
 
-                        for ( ; okSoFar && (elementCount > StaticCast(int64_t, anArray->size())); )
+                        for ( ; okSoFar && (elementCount > StaticCast(int64_t, aVector->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
                             ODL_X1(aByte); //####
@@ -339,11 +409,8 @@ nImO::Array::extractValue
                             }
                             else
                             {
-                                auto    aValue{getValueFromMessage(theMessage, position, aByte, anArray)};
+                                auto    aValue{getValueFromMessage(theMessage, position, aByte, aVector)};
 
-                                // Note that it is the responsibility of the extractor to add to
-                                // this Array, so it's not correct for this loop to perform an
-                                // append operation.
                                 if (aValue)
                                 {
                                     if (aValue->asFlaw())
@@ -352,6 +419,11 @@ nImO::Array::extractValue
                                         result = aValue;
                                         okSoFar = false;
                                         ODL_B1(okSoFar); //####
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (aValue->asFlaw())"); //####
+                                        aVector->addValue(aValue);
                                     }
                                 }
                                 else
@@ -379,7 +451,7 @@ nImO::Array::extractValue
                             {
                                 ODL_LOG("! (atEnd)"); //####
                                 static const DataKind endMarker{DataKind::Other | DataKind::OtherContainerEnd |
-                                                                DataKind::OtherContainerTypeArray |
+                                                                DataKind::OtherContainerTypeVector |
                                                                 DataKind::OtherContainerNonEmptyValue};
 
                                 if (toUType(endMarker) == aByte)
@@ -391,7 +463,7 @@ nImO::Array::extractValue
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    result = std::make_shared<Invalid>("Non-empty Array with incorrect end tag", position);
+                                    result = std::make_shared<Invalid>("Non-empty Vector with incorrect end tag", position);
                                 }
                             }
                         }
@@ -399,7 +471,7 @@ nImO::Array::extractValue
                     else
                     {
                         ODL_LOG("! (result)"); //####
-                        result = std::make_shared<Invalid>("Could not allocate an Array");
+                        result = std::make_shared<Invalid>("Could not allocate an Vector");
                     }
                 }
             }
@@ -416,45 +488,45 @@ nImO::Array::extractValue
     }
     ODL_EXIT_P(result.get()); //####
     return result;
-} // nImO::Array::extractValue
+} // nImO::Vector::extractValue
 
 nImO::Value::Extractor
-nImO::Array::getExtractionInfo
+nImO::Vector::getExtractionInfo
     (DataKind & aByte,
      DataKind & aMask)
 {
     ODL_ENTER(); //####
     ODL_P2(&aByte, &aMask); //####
-    aByte = (DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeArray);
+    aByte = (DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeVector);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherContainerTypeMask);
     ODL_EXIT(); //####
     return extractValue;
-} // nImO::Array::getExtractionInfo
+} // nImO::Vector::getExtractionInfo
 
 CPtr(char)
-nImO::Array::getInitialCharacters
+nImO::Vector::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   initialChars[]{ kStartArrayChar, kEndOfString };
+    static const char   initialChars[]{ kStartVectorChar, kEndOfString };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
-} // nImO::Array::getInitialCharacters
+} // nImO::Vector::getInitialCharacters
 
 CPtr(char)
-nImO::Array::getTerminalCharacters
+nImO::Vector::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   terminalChars[]{ kEndArrayChar, kEndOfString };
+    static const char   terminalChars[]{ kEndVectorChar, kEndOfString };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
-} // nImO::Array::getTerminalCharacters
+} // nImO::Vector::getTerminalCharacters
 
 nImO::DataKind
-nImO::Array::getTypeTag
+nImO::Vector::getTypeTag
     (void)
     const
 {
@@ -463,10 +535,10 @@ nImO::Array::getTypeTag
 
     ODL_OBJEXIT_I(StaticCast(int, result));
     return result;
-} // nImO::Array::getTypeTag
+} // nImO::Vector::getTypeTag
 
 nImO::ComparisonStatus
-nImO::Array::greaterThan
+nImO::Vector::greaterThan
     (const Value &  other)
     const
 {
@@ -474,20 +546,63 @@ nImO::Array::greaterThan
     ODL_P1(&other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
-    // Note that all the values must be validated.
-    for (auto & walker : *this)
+    if (&other == this)
     {
-        if (walker)
+        result = false;
+    }
+    else
+    {
+        if ((BasicType::Unknown == _dataKind) || (other.basicType() != _dataKind))
         {
-            result &= walker->greaterThan(other);
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
+            {
+                if (walker)
+                {
+                    result &= walker->greaterThan(other);
+                }
+            }
         }
     }
     ODL_EXIT_B(result.value()); //####
     return result;
-} // nImO::Array::greaterThan
+} // nImO::Vector::greaterThan
 
 nImO::ComparisonStatus
-nImO::Array::greaterThanOrEqual
+nImO::Vector::greaterThanOrEqual
+    (const Value &  other)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(&other); //####
+    ComparisonStatus    result{};
+
+    if (&other != this)
+    {
+        if ((BasicType::Unknown == _dataKind) || (other.basicType() != _dataKind))
+        {
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
+            {
+                if (walker)
+                {
+                    result &= walker->greaterThanOrEqual(other);
+                }
+            }
+        }
+    }
+    ODL_EXIT_B(result.value()); //####
+    return result;
+} // nImO::Vector::greaterThanOrEqual
+
+nImO::ComparisonStatus
+nImO::Vector::lessThan
     (const Value &  other)
     const
 {
@@ -495,63 +610,64 @@ nImO::Array::greaterThanOrEqual
     ODL_P1(&other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
-    // Note that all the values must be validated.
-    for (auto & walker : *this)
+    if (&other == this)
     {
-        if (walker)
+        result = false;
+    }
+    else
+    {
+        if ((BasicType::Unknown == _dataKind) || (other.basicType() != _dataKind))
         {
-            result &= walker->greaterThanOrEqual(other);
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
+            {
+                if (walker)
+                {
+                    result &= walker->lessThan(other);
+                }
+            }
         }
     }
     ODL_EXIT_B(result.value()); //####
     return result;
-} // nImO::Array::greaterThanOrEqual
+} // nImO::Vector::lessThan
 
 nImO::ComparisonStatus
-nImO::Array::lessThan
+nImO::Vector::lessThanOrEqual
     (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
+    ComparisonStatus    result{};
 
-    // Note that all the values must be validated.
-    for (auto & walker : *this)
+    if (&other != this)
     {
-        if (walker)
+        if ((BasicType::Unknown == _dataKind) || (other.basicType() != _dataKind))
         {
-            result &= walker->lessThan(other);
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
+            {
+                if (walker)
+                {
+                    result &= walker->lessThanOrEqual(other);
+                }
+            }
         }
     }
     ODL_EXIT_B(result.value()); //####
     return result;
-} // nImO::Array::lessThan
+} // nImO::Vector::lessThanOrEqual
 
-nImO::ComparisonStatus
-nImO::Array::lessThanOrEqual
-    (const Value &  other)
-    const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1(&other); //####
-    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
-
-    // Note that all the values must be validated.
-    for (auto & walker : *this)
-    {
-        if (walker)
-        {
-            result &= walker->lessThanOrEqual(other);
-        }
-    }
-    ODL_EXIT_B(result.value()); //####
-    return result;
-} // nImO::Array::lessThanOrEqual
-
-nImO::Array &
-nImO::Array::operator=
-    (Array &&   other)
+nImO::Vector &
+nImO::Vector::operator=
+    (Vector &&   other)
     noexcept
 {
     ODL_OBJENTER(); //####
@@ -560,21 +676,22 @@ nImO::Array::operator=
     {
         inherited1::operator=(std::move(other));
         inherited2::operator=(std::move(other));
+        _dataKind = std::exchange(other._dataKind, BasicType::Unknown);
         addEntries(other);
         other.clear();
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::Array::operator=
+} // nImO::Vector::operator=
 
 std::ostream &
-nImO::Array::operator<<
+nImO::Vector::operator<<
     (std::ostream & out)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1(&out); //####
-    out << kStartArrayChar;
+    out << kStartVectorChar;
     for (const auto & walker : *this)
     {
         if (walker)
@@ -582,13 +699,13 @@ nImO::Array::operator<<
             out << " " << *walker;
         }
     }
-    out << " " << kEndArrayChar;
+    out << " " << kEndVectorChar;
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Array::operator<<
+} // nImO::Vector::operator<<
 
 void
-nImO::Array::printToStringBuffer
+nImO::Vector::printToStringBuffer
     (StringBuffer & outBuffer,
      const bool     squished)
     const
@@ -598,7 +715,7 @@ nImO::Array::printToStringBuffer
     ODL_B1(squished); //####
     bool    first{true};
 
-    outBuffer.appendChar(kStartArrayChar);
+    outBuffer.appendChar(kStartVectorChar);
     for (auto & walker : *this)
     {
         if (walker)
@@ -619,12 +736,12 @@ nImO::Array::printToStringBuffer
     {
         outBuffer.appendChar(' ');
     }
-    outBuffer.appendChar(kEndArrayChar);
+    outBuffer.appendChar(kEndVectorChar);
     ODL_OBJEXIT(); //####
-} // nImO::Array::printToStringBuffer
+} // nImO::Vector::printToStringBuffer
 
 void
-nImO::Array::printToStringBufferAsJSON
+nImO::Vector::printToStringBufferAsJSON
     (StringBuffer & outBuffer,
      const bool     asKey,
      const bool     squished)
@@ -659,10 +776,10 @@ nImO::Array::printToStringBufferAsJSON
     }
     outBuffer.appendChar(kEndArrayChar);
     ODL_OBJEXIT(); //####
-} // nImO::Array::printToStringBufferAsJSON
+} // nImO::Vector::printToStringBufferAsJSON
 
-nImO::Array::const_iterator
-nImO::Array::random
+nImO::Vector::const_iterator
+nImO::Vector::random
     (void)
     const
 {
@@ -679,10 +796,10 @@ nImO::Array::random
     }
     ODL_OBJEXIT(); //####
     return result;
-} /* nImO::Array::random */
+} /* nImO::Vector::random */
 
-nImO::Array::iterator
-nImO::Array::random
+nImO::Vector::iterator
+nImO::Vector::random
     (void)
 {
     ODL_OBJENTER(); //####
@@ -698,10 +815,10 @@ nImO::Array::random
     }
     ODL_OBJEXIT(); //####
     return result;
-} /* nImO::Array::random */
+} /* nImO::Vector::random */
 
 nImO::SpValue
-nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
+nImO::Vector::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
@@ -709,7 +826,7 @@ nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     ODL_P2(&inBuffer, &position); //####
     bool    atEnd{false};
     bool    valid{false};
-    auto    result{std::make_shared<Array>()};
+    auto    result{std::make_shared<Vector>()};
     size_t  localIndex{position};
     int     aChar{inBuffer.getChar(localIndex++, atEnd)};
 
@@ -717,7 +834,7 @@ nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     ODL_I1(localIndex); //####
     ODL_C1(aChar); //####
     ODL_B1(atEnd); //####
-    if ((! atEnd) && (kStartArrayChar == aChar))
+    if ((! atEnd) && (kStartVectorChar == aChar))
     {
         for (bool done{false}; ! done; )
         {
@@ -733,7 +850,7 @@ nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
             }
             else
             {
-                if (kEndArrayChar == aChar)
+                if (kEndVectorChar == aChar)
                 {
                     done = valid = true;
                 }
@@ -744,7 +861,36 @@ nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
                     ODL_I1(localIndex); //####
                     if (element)
                     {
-                        result->addValue(element);
+                        auto    elementType{element->basicType()};
+
+                        if ((BasicType::Unknown == elementType) ||
+                            (BasicType::NotBasic == elementType))
+                        {
+                            ODL_LOG("((BasicType::Unknown == elementType) || " //####
+                                    "(BasicType::NotBasic == elementType))"); //####
+                            element.reset();
+                            done = true;
+                        }
+                        else
+                        {
+                            if (0 < result->size())
+                            {
+                                if (result->_dataKind == elementType)
+                                {
+                                    result->addValue(element);
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (result->_dataKind == elementType)"); //####
+                                    element.reset();
+                                    done = true;
+                                }
+                            }
+                            else
+                            {
+                                result->addValue(element);
+                            }
+                        }
                     }
                     else
                     {
@@ -757,7 +903,7 @@ nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     }
     else
     {
-        ODL_LOG("! (kStartArrayChar == aChar)"); //####
+        ODL_LOG("! (kStartVectorChar == aChar)"); //####
     }
     if (valid)
     {
@@ -770,10 +916,10 @@ nImO::Array::readFromStringBuffer // cppcheck-suppress duplInheritedMember
     }
     ODL_EXIT_P(result.get()); //####
     return result;
-} // nImO::Array::readFromStringBuffer
+} // nImO::Vector::readFromStringBuffer
 
 size_t
-nImO::Array::size
+nImO::Vector::size
     (void)
     const
 {
@@ -782,10 +928,10 @@ nImO::Array::size
 
     ODL_OBJEXIT_I(result); //####
     return result;
-} // nImO::Array::size
+} // nImO::Vector::size
 
 void
-nImO::Array::writeToMessage
+nImO::Vector::writeToMessage
     (Message &  outMessage)
     const
 {
@@ -794,35 +940,21 @@ nImO::Array::writeToMessage
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####
-        DataKind           startArray{DataKind::Other | DataKind::OtherContainerStart |
-                                        DataKind::OtherContainerTypeArray |
-                                        DataKind::OtherContainerNonEmptyValue};
-        DataKind           endArray{DataKind::Other | DataKind::OtherContainerEnd |
-                                    DataKind::OtherContainerTypeArray |
-                                    DataKind::OtherContainerNonEmptyValue};
-        std::queue<double> doublesSeen;
+        DataKind    startVector{DataKind::Other | DataKind::OtherContainerStart |
+                                DataKind::OtherContainerTypeVector | DataKind::OtherContainerNonEmptyValue};
+        DataKind    endVector{DataKind::Other | DataKind::OtherContainerEnd |
+                                DataKind::OtherContainerTypeVector | DataKind::OtherContainerNonEmptyValue};
 
-        outMessage.appendBytes(&startArray, sizeof(startArray));
+        outMessage.appendBytes(&startVector, sizeof(startVector));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
         for (auto & walker : *this)
         {
             if (walker)
             {
-                // Check for sequences of Double values
-                if (auto doubleValue{walker->asDouble()}; nullptr == doubleValue)
-                {
-                    Double::writeValuesToMessage(doublesSeen, outMessage);
-                    walker->writeToMessage(outMessage);
-                }
-                else
-                {
-                    doublesSeen.push(doubleValue->getDoubleValue());
-                }
+                walker->writeToMessage(outMessage);
             }
         }
-        // Write out any held Double values
-        Double::writeValuesToMessage(doublesSeen, outMessage);
-        outMessage.appendBytes(&endArray, sizeof(endArray));
+        outMessage.appendBytes(&endVector, sizeof(endVector));
     }
     else
     {
@@ -830,17 +962,17 @@ nImO::Array::writeToMessage
         static const DataKind   stuff[]
         {
             (DataKind::Other | DataKind::OtherContainerStart |
-             DataKind::OtherContainerTypeArray |
+                DataKind::OtherContainerTypeVector |
              DataKind::OtherContainerEmptyValue),
             (DataKind::Other | DataKind::OtherContainerEnd |
-             DataKind::OtherContainerTypeArray |
-             DataKind::OtherContainerEmptyValue)
+                DataKind::OtherContainerTypeVector |
+                DataKind::OtherContainerEmptyValue)
         };
 
         outMessage.appendBytes(stuff, sizeof(stuff));
     }
     ODL_EXIT(); //####
-} // nImO::Array::writeToMessage
+} // nImO::Vector::writeToMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -149,6 +149,18 @@ nImO::String::asString
     return this;
 } // nImO::String::asString
 
+nImO::BasicType
+nImO::String::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::String};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::String::basicType
+
 bool
 nImO::String::deeplyEqualTo
     (const Value &  other,
@@ -198,7 +210,7 @@ nImO::String::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::String};
+    auto    result{Enumerable::String};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -240,7 +252,7 @@ nImO::String::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3(&theMessage, &position, parentValue.get()); //####
@@ -312,19 +324,21 @@ nImO::String::extractValue
         }
         if (okSoFar)
         {
+ODL_LOG("got here"); //####
             holder[numBytes] = kEndOfString;
+ODL_LOG("got here"); //####
             result = std::make_shared<String>(holder.get());
-            ODL_I1(numBytes); //####
+            ODL_P1(result.get()); //####
         }
     }
     else
     {
         result = std::make_shared<String>();
     }
-    if (parentValue && result && (! result->asFlaw()))
+    if (result && (! result->asFlaw()))
     {
-        ODL_LOG("(parentValue && result && (! result->asFlaw()))"); //####
-        parentValue->addValue(result);
+        ODL_LOG("(result && (! result->asFlaw()))"); //####
+        addValueToParent(parentValue, result);
     }
     ODL_EXIT_P(result.get()); //####
     return result;

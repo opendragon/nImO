@@ -132,6 +132,18 @@ nImO::Double::asDouble
     return this;
 } // nImO::Double::asDouble
 
+nImO::BasicType
+nImO::Double::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::Double};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Double::basicType
+
 bool
 nImO::Double::deeplyEqualTo
     (const Value &  other,
@@ -173,7 +185,7 @@ nImO::Double::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::NotEnumerable};
+    auto    result{Enumerable::NotEnumerable};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -222,7 +234,7 @@ nImO::Double::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3(&theMessage, &position, parentValue.get()); //####
@@ -304,11 +316,7 @@ nImO::Double::extractValue
             if (okSoFar)
             {
                 result = std::make_shared<Double>(B2D(holder));
-                if (parentValue)
-                {
-                    ODL_LOG("(parentValue)"); //####
-                    parentValue->addValue(result);
-                }
+                addValueToParent(parentValue, result);
             }
         }
     }

@@ -127,6 +127,14 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Return the basic type of an object.
+             @return The basic type of an object. */
+            BasicType
+            basicType
+                (void)
+                const
+                override;
+
             /*! @brief Return the day part of the Date.
              @return The day part of the Date. */
             uint16_t
@@ -325,7 +333,7 @@ namespace nImO
                 (const Message &    theMessage,
                  const int          leadByte,
                  size_t &           position,
-                 SpArray            parentValue);
+                 SpValue            parentValue);
 
         public :
             // Public fields.

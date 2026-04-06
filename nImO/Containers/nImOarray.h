@@ -138,6 +138,13 @@ namespace nImO
                 return *this;
             }
 
+            /*! @brief Add a Value to the end of the Array.
+             @param[in] newElement The Value to be added. */
+            void
+            appendValue
+                (SpValue    newElement)
+                override;
+
             /*! @brief Return non-@c nullptr if the object is an Array.
              @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
             CPtr(Array)
@@ -390,7 +397,7 @@ namespace nImO
                 (const Message &    theMessage,
                  const int          leadByte,
                  size_t &           position,
-                 SpArray            parentValue);
+                 SpValue            parentValue);
 
         public :
             // Public fields.

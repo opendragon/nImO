@@ -200,6 +200,18 @@ nImO::Time::asTime
     return this;
 } // nImO::Time::asTime
 
+nImO::BasicType
+nImO::Time::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::Time};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Time::basicType
+
 bool
 nImO::Time::deeplyEqualTo
     (const Value &  other,
@@ -241,7 +253,7 @@ nImO::Time::enumerationType
     const
 {
     ODL_OBJENTER(); //####
-    Enumerable  result{Enumerable::Time};
+    auto    result{Enumerable::Time};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
@@ -283,7 +295,7 @@ nImO::Time::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     SpArray            parentValue)
+     SpValue            parentValue)
 {
     NIMO_UNUSED_VAR_(leadByte);
     ODL_ENTER(); //####
@@ -320,11 +332,7 @@ nImO::Time::extractValue
     {
         result = std::make_shared<Time>(accumulator);
     }
-    if (parentValue && result)
-    {
-        ODL_LOG("(parentValue && result)"); //####
-        parentValue->addValue(result);
-    }
+    addValueToParent(parentValue, result);
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Time::extractValue

@@ -861,6 +861,80 @@ doTestParseImplicitArrayValue
 } // doTestParseImplicitArrayValue
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 11 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestParseVectorValue
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString)
+{
+    ODL_ENTER(); //####
+    ODL_B1(expected); //####
+    ODL_S2(inString, expectedString); //####
+    int result{1};
+
+    try
+    {
+        StringBuffer    buff{inString};
+
+        if (auto readValue{buff.convertToValue()}; readValue)
+        {
+            if (expected)
+            {
+                if (nullptr == readValue->asVector())
+                {
+                    ODL_LOG("(nullptr == readValue->asVector())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    if (0 == compareValueWithString(*readValue, expectedString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                        result = 1;
+                    }
+                }
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+        else
+        {
+            if (expected)
+            {
+                ODL_LOG("(expected)"); //####
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestParseVectorValue
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -940,6 +1014,10 @@ main
 
                     case 10 :
                         result = doTestParseImplicitArrayValue(expected, *(argv + 3), *(argv + 4));
+                        break;
+
+                    case 11 :
+                        result = doTestParseVectorValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     default :

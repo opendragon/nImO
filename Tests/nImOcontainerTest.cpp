@@ -49,6 +49,7 @@
 #include <Containers/nImOmap.h>
 #include <Containers/nImOset.h>
 #include <Containers/nImOstringBuffer.h>
+#include <Containers/nImOvector.h>
 #include <Contexts/nImOtestContext.h>
 
 #include <stdio.h>
@@ -4532,6 +4533,155 @@ doTestMapWithSetValue
 } // doTestMapWithSetValue
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 156 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayWithVectorValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Array>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                    kStartVectorChar, kEndVectorChar,
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                    kStartVectorChar, ' ', kEndVectorChar, ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Vector>());
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestArrayWithVectorValue
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMapWithVectorValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Map>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                    '4', '2', kKeyValueSeparator,
+                        kStartVectorChar, kEndVectorChar,
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                    '4', '2', ' ', kKeyValueSeparator, ' ',
+                        kStartVectorChar, ' ', kEndVectorChar, ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Vector>());
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMapWithArrayValue
+
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 200 ***
 #endif // defined(__APPLE__)
 
@@ -5772,7 +5922,7 @@ doTestValidArrayCompares
         }
         if (0 == result)
         {
-            struct testNumbers
+            struct testDoubles
             {
                 double              _testValue;
                 ComparisonStatus    _lessThan;
@@ -5780,9 +5930,9 @@ doTestValidArrayCompares
                 ComparisonStatus    _lessThanOrEqual;
                 ComparisonStatus    _greaterThanOrEqual;
                 ComparisonStatus    _equalTo;
-            }; // testNumbers
+            }; // testDoubles
 
-            static testNumbers  testSet3l[]
+            static testDoubles  testSet3l[]
             {
                 { -300,
                     ComparisonStatus{true}, // <
@@ -5852,7 +6002,7 @@ doTestValidArrayCompares
                     ComparisonStatus{false} } // ==
             };
             constexpr size_t    numTestValues3l{numElementsInArray(testSet3l)};
-            static testNumbers  testSet3r[]
+            static testDoubles  testSet3r[]
             {
                 { -300,
                     ComparisonStatus{false}, // <
@@ -6016,43 +6166,79 @@ doTestValidArrayCompares
         }
         if (0 == result)
         {
-            struct testStrings
+            struct testIntegers
             {
-                CPtr(char)        _testValue;
+                int64_t             _testValue;
                 ComparisonStatus    _lessThan;
                 ComparisonStatus    _greaterThan;
                 ComparisonStatus    _lessThanOrEqual;
                 ComparisonStatus    _greaterThanOrEqual;
                 ComparisonStatus    _equalTo;
-            }; // testStrings
+            }; // testIntegers
 
-            static testStrings  testSet4l[]
+            static testIntegers testSet4l[]
             {
-                { "aaa",
+                { -300,
                     ComparisonStatus{true}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { "abc",
-                    ComparisonStatus{false}, // <
+                { -200,
+                    ComparisonStatus{true}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { "def",
+                { -100,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -50,
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { "ghi",
+                { -25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 200,
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} }, // ==
-                { "zzz",
+                { 300,
                     ComparisonStatus{false}, // <
                     ComparisonStatus{true}, // >
                     ComparisonStatus{false}, // <=
@@ -6060,33 +6246,69 @@ doTestValidArrayCompares
                     ComparisonStatus{false} } // ==
             };
             constexpr size_t    numTestValues4l{numElementsInArray(testSet4l)};
-            static testStrings  testSet4r[]
+            static testIntegers testSet4r[]
             {
-                { "aaa",
+                { -300,
                     ComparisonStatus{false}, // <
                     ComparisonStatus{true}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} }, // ==
-                { "abc",
+                { -200,
                     ComparisonStatus{false}, // <
-                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} }, // ==
-                { "def",
+                { -100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -50,
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { "ghi",
+                { -25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 200,
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { "zzz",
+                { 300,
                     ComparisonStatus{true}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
@@ -6096,12 +6318,14 @@ doTestValidArrayCompares
             constexpr size_t    numTestValues4r{numElementsInArray(testSet4r)};
 
             stuff.clear();
-            stuff.addValue(std::make_shared<String>("abc"));
-            stuff.addValue(std::make_shared<String>("def"));
-            stuff.addValue(std::make_shared<String>("ghi"));
+            stuff.addValue(std::make_shared<Integer>(123));
+            stuff.addValue(std::make_shared<Integer>(200));
+            stuff.addValue(std::make_shared<Integer>(-25));
+            stuff.addValue(std::make_shared<Integer>(-60));
+            stuff.addValue(std::make_shared<Integer>(0));
             for (size_t ii{0}; (0 == result) && (numTestValues4l > ii); ++ii)
             {
-                String  aValue{testSet4l[ii]._testValue};
+                Integer aValue{testSet4l[ii]._testValue};
 
                 if (testSet4l[ii]._lessThan != aValue.lessThan(stuff))
                 {
@@ -6143,7 +6367,7 @@ doTestValidArrayCompares
             }
             for (size_t ii{0}; (0 == result) && (numTestValues4r > ii); ++ii)
             {
-                String  aValue{testSet4r[ii]._testValue};
+                Integer aValue{testSet4r[ii]._testValue};
 
                 if (testSet4r[ii]._lessThan != stuff.lessThan(aValue))
                 {
@@ -6186,77 +6410,77 @@ doTestValidArrayCompares
         }
         if (0 == result)
         {
-            struct testAddresses
+            struct testStrings
             {
-                IPv4Address         _testValue;
+                CPtr(char)          _testValue;
                 ComparisonStatus    _lessThan;
                 ComparisonStatus    _greaterThan;
                 ComparisonStatus    _lessThanOrEqual;
                 ComparisonStatus    _greaterThanOrEqual;
                 ComparisonStatus    _equalTo;
-            }; // testAddresses
+            }; // testStrings
 
-            static testAddresses  testSet5l[]
+            static testStrings  testSet5l[]
             {
-                { 0x01020304,
+                { "aaa",
                     ComparisonStatus{true}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x12345678,
+                { "abc",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x345678AB,
+                { "def",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x5678ABCD,
+                { "ghi",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x8090A0B0,
+                { "zzz",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{true}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} } // ==
             };
-            constexpr size_t        numTestValues5l{numElementsInArray(testSet5l)};
-            static testAddresses    testSet5r[]
+            constexpr size_t    numTestValues5l{numElementsInArray(testSet5l)};
+            static testStrings  testSet5r[]
             {
-                { 0x01020304,
+                { "aaa",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{true}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x12345678,
+                { "abc",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x345678AB,
+                { "def",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{false}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x5678ABCD,
+                { "ghi",
                     ComparisonStatus{false}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} }, // ==
-                { 0x8090A0B0,
+                { "zzz",
                     ComparisonStatus{true}, // <
                     ComparisonStatus{false}, // >
                     ComparisonStatus{true}, // <=
@@ -6266,12 +6490,12 @@ doTestValidArrayCompares
             constexpr size_t    numTestValues5r{numElementsInArray(testSet5r)};
 
             stuff.clear();
-            stuff.addValue(std::make_shared<Address>(0x12345678));
-            stuff.addValue(std::make_shared<Address>(0x345678AB));
-            stuff.addValue(std::make_shared<Address>(0x5678ABCD));
+            stuff.addValue(std::make_shared<String>("abc"));
+            stuff.addValue(std::make_shared<String>("def"));
+            stuff.addValue(std::make_shared<String>("ghi"));
             for (size_t ii{0}; (0 == result) && (numTestValues5l > ii); ++ii)
             {
-                Address aValue{testSet5l[ii]._testValue};
+                String  aValue{testSet5l[ii]._testValue};
 
                 if (testSet5l[ii]._lessThan != aValue.lessThan(stuff))
                 {
@@ -6313,7 +6537,7 @@ doTestValidArrayCompares
             }
             for (size_t ii{0}; (0 == result) && (numTestValues5r > ii); ++ii)
             {
-                Address aValue{testSet5r[ii]._testValue};
+                String  aValue{testSet5r[ii]._testValue};
 
                 if (testSet5r[ii]._lessThan != stuff.lessThan(aValue))
                 {
@@ -6349,6 +6573,176 @@ doTestValidArrayCompares
                     if (testSet5r[ii]._equalTo != stuff.equalTo(aValue))
                     {
                         ODL_LOG("(testSet5r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                        result = 1;
+                    }
+                }
+            }
+        }
+        if (0 == result)
+        {
+            struct testAddresses
+            {
+                IPv4Address         _testValue;
+                ComparisonStatus    _lessThan;
+                ComparisonStatus    _greaterThan;
+                ComparisonStatus    _lessThanOrEqual;
+                ComparisonStatus    _greaterThanOrEqual;
+                ComparisonStatus    _equalTo;
+            }; // testAddresses
+
+            static testAddresses  testSet6l[]
+            {
+                { 0x01020304,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x12345678,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x345678AB,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x5678ABCD,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x8090A0B0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t        numTestValues6l{numElementsInArray(testSet6l)};
+            static testAddresses    testSet6r[]
+            {
+                { 0x01020304,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x12345678,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x345678AB,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x5678ABCD,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x8090A0B0,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues6r{numElementsInArray(testSet6r)};
+
+            stuff.clear();
+            stuff.addValue(std::make_shared<Address>(0x12345678));
+            stuff.addValue(std::make_shared<Address>(0x345678AB));
+            stuff.addValue(std::make_shared<Address>(0x5678ABCD));
+            for (size_t ii{0}; (0 == result) && (numTestValues6l > ii); ++ii)
+            {
+                Address aValue{testSet6l[ii]._testValue};
+
+                if (testSet6l[ii]._lessThan != aValue.lessThan(stuff))
+                {
+                    ODL_LOG("(testSet6l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._greaterThan != aValue.greaterThan(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._equalTo != aValue.equalTo(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii{0}; (0 == result) && (numTestValues6r > ii); ++ii)
+            {
+                Address aValue{testSet6r[ii]._testValue};
+
+                if (testSet6r[ii]._lessThan != stuff.lessThan(aValue))
+                {
+                    ODL_LOG("(testSet6r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._greaterThan != stuff.greaterThan(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._equalTo != stuff.equalTo(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._equalTo != stuff.equalTo(aValue))"); //####
                         result = 1;
                     }
                 }
@@ -6683,7 +7077,7 @@ doTestValidIntegerMapCompares
 
     try
     {
-        struct testNumbers
+        struct testIntegers
         {
             int64_t             _testValue;
             ComparisonStatus    _lessThan;
@@ -6693,7 +7087,7 @@ doTestValidIntegerMapCompares
             ComparisonStatus    _equalTo;
         }; // testNumbers
 
-        static testNumbers  testSet1l[]
+        static testIntegers testSet1l[]
         {
             { -300,
                 ComparisonStatus{true}, // <
@@ -6763,7 +7157,7 @@ doTestValidIntegerMapCompares
                 ComparisonStatus{false} } // ==
         };
         constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
-        static testNumbers  testSet1r[]
+        static testIntegers testSet1r[]
         {
             { -300,
                 ComparisonStatus{false}, // <
@@ -7457,7 +7851,7 @@ doTestValidIntegerSetCompares
 
     try
     {
-        struct testNumbers
+        struct testIntegers
         {
             int64_t             _testValue;
             ComparisonStatus    _lessThan;
@@ -7465,9 +7859,9 @@ doTestValidIntegerSetCompares
             ComparisonStatus    _lessThanOrEqual;
             ComparisonStatus    _greaterThanOrEqual;
             ComparisonStatus    _equalTo;
-        }; // testNumbers
+        }; // testIntegers
 
-        static testNumbers  testSet1l[]
+        static testIntegers testSet1l[]
         {
             { -300,
                 ComparisonStatus{true}, // <
@@ -7537,7 +7931,7 @@ doTestValidIntegerSetCompares
                 ComparisonStatus{false} } // ==
         };
         constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
-        static testNumbers  testSet1r[]
+        static testIntegers testSet1r[]
         {
             { -300,
                 ComparisonStatus{false}, // <
@@ -15596,6 +15990,2494 @@ doTestKeysFromMapWithTimeKeys
 } // doTestKeysFromMapWithTimeKeys
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 500 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyVectorValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar, kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ', kEndVectorChar, kEndOfString
+            };
+
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyVectorValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 501 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularVectorValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    '1', '2', '3', '.', '4', '5',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Double>(123.45));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularVectorValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 502 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallVectorValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    '1', '2', '3', '.', '4', '5', ' ',
+                    '3', '.', '1', '4', ' ',
+                    '4', '2', '.', '4', '3',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    '1', '2', '3', '.', '4', '5', ',', ' ',
+                    '3', '.', '1', '4', ',', ' ',
+                    '4', '2', '.', '4', '3', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Double>(3.14));
+            stuff->addValue(std::make_shared<Double>(42.43));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallVectorValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 503 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestBigVectorValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
+
+            if (bigBlob)
+            {
+                std::string expectedSquishedString{kStartVectorChar};
+                std::string expectedString{kStartVectorChar};
+                char        numBuff[10];
+
+                for (size_t ii{0}; kBigTestSize > ii; ++ii)
+                {
+                    CPtr(uint8_t)   addr{bigBlob.get()};
+                    auto            aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
+
+                    if (0 != ii)
+                    {
+                        expectedString += ',';
+                    }
+                    expectedString += ' ';
+                    if (0 != ii)
+                    {
+                        expectedSquishedString += ' ';
+                    }
+                    bigBlob[ii] = aByte;
+                    stuff->addValue(std::make_shared<Integer>(aByte));
+                    snprintf(numBuff, sizeof(numBuff), "%d", aByte);
+                    expectedString += numBuff;
+                    expectedSquishedString += numBuff;
+                }
+                expectedString += ' ';
+                expectedSquishedString += kEndVectorChar;
+                expectedString += kEndVectorChar;
+                if (0 == compareValueWithString(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+                }
+                if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString.c_str()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                            "expectedSquishedString))"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestBigVectorValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 504 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyVectorSizeFunction
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyVectorSizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 505 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyVectorSizeFunction
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            stuff->addValue(std::make_shared<Double>(123.45));
+            if (1 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (1 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyVectorSizeFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 506 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyVectorEmptyFunction
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            if (stuff->empty())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->empty())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyVectorEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 507 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyVectorEmptyFunction
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            stuff->addValue(std::make_shared<Double>(123.45));
+            if (stuff->empty())
+            {
+                ODL_LOG("(stuff->empty())"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyVectorEmptyFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 508 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyVectorClearFunction
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyVectorClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 509 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyVectorClearFunction
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->clear();
+            if (0 == stuff->size())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == stuff->size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyVectorClearFunction
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 510 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyVectorRandomIterator
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            if (stuff->end() == stuff->random())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (stuff->end() == stuff->randomIterator())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyVectorRandomIterator
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 511 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyVectorRandomIterator
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            result = 0;
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Double>(3.14));
+            stuff->addValue(std::make_shared<Double>(42.43));
+            for (size_t ii{0}, count{2 * stuff->size()}; ii < count; ++ii)
+            {
+                if (stuff->end() == stuff->random())
+                {
+                    ODL_LOG("(stuff->end() == stuff->random())"); //####
+                    result = 1;
+                    break;
+
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyVectorRandomIterator
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 512 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearingNonEmptyVectorUsingRandomIterator
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            result = 0;
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Double>(3.14));
+            stuff->addValue(std::make_shared<Double>(42.43));
+            for (size_t ii{0}, count{stuff->size()}; ii < count; ++ii)
+            {
+                Vector::iterator walker(stuff->random());
+
+                if (stuff->end() == walker)
+                {
+                    ODL_LOG("(stuff->end() == walker)"); //####
+                    result = 1;
+                    break;
+
+                }
+                stuff->erase(walker);
+            }
+            if (0 == result)
+            {
+                if (! stuff->empty())
+                {
+                    ODL_LOG("(! stuff->empty())"); //####
+                    result = 1;
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearingNonEmptyVectorUsingRandomIterator
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 540 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestLogicalVectorValueWithIncompatibleElements
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    't', 'r', 'u', 'e',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    't', 'r', 'u', 'e', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            stuff->addValue(std::make_shared<Address>(0x12345678));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestLogicalVectorValueWithIncompatibleElements
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 541 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestIntegerVectorValueWithIncompatibleElements
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    '4', '2',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    '4', '2', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            stuff->addValue(std::make_shared<Address>(0x12345678));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestIntegerVectorValueWithIncompatibleElements
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 542 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestStringVectorValueWithIncompatibleElements
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<String>("charlie"));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<Address>(0x12345678));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestStringVectorValueWithIncompatibleElements
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 543 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddressVectorValueWithIncompatibleElements
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Address>(0x12345678));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddressVectorValueWithIncompatibleElements
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 544 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateVectorValueWithIncompatibleElements
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', '1', kDateSeparator, '1', '0', kDateSeparator, '2', '5',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', '1', kDateSeparator, '1', '0', kDateSeparator, '2', '5', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(111, 10, 25)));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateVectorValueWithIncompatibleElements
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 545 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeVectorValueWithIncompatibleElements
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    kStartDateTimeChar, kSecondCharForTime, '1', '7', kTimeSeparator, '1', '8', kTimeSeparator, '1', '9', kSecondMillisecondSeparator, '0', '2', '0',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '7', kTimeSeparator, '1', '8', kTimeSeparator, '1', '9', kSecondMillisecondSeparator, '0', '2', '0', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(17, 18, 19, 20)));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeVectorValueWithIncompatibleElements
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 546 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDoubleVectorValueWithIncompatibleElements
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Vector>()}; stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartVectorChar,
+                    '1', '9', '.', '7', '7',
+                kEndVectorChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartVectorChar, ' ',
+                    '1', '9', '.', '7', '7', ' ',
+                kEndVectorChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            stuff->addValue(std::make_shared<Address>(0x12345678));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestLogicalVectorValueWithIncompatibleElements
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 250 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidVectorCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{0};
+
+    try
+    {
+        struct testLogicals
+        {
+            bool                _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testLogicals
+
+        Vector              stuff;
+        static testLogicals testSet1l[]
+        {
+            { false,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { true,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
+        };
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
+        static testLogicals testSet1r[]
+        {
+            { false,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { true,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
+        };
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
+
+        stuff.addValue(std::make_shared<Logical>(true));
+        stuff.addValue(std::make_shared<Logical>(true));
+        stuff.addValue(std::make_shared<Logical>(true));
+        for (size_t ii{0}; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            Logical aValue{testSet1l[ii]._testValue};
+
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii{0}; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            Logical aValue{testSet1r[ii]._testValue};
+
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            static testLogicals testSet2l[]
+            {
+                { false,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{true} }, // ==
+                { true,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues2l{numElementsInArray(testSet2l)};
+            static testLogicals testSet2r[]
+            {
+                { false,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{true} }, // ==
+                { true,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues2r{numElementsInArray(testSet2r)};
+
+            stuff.clear();
+            stuff.addValue(std::make_shared<Logical>(false));
+            stuff.addValue(std::make_shared<Logical>(false));
+            stuff.addValue(std::make_shared<Logical>(false));
+            for (size_t ii{0}; (0 == result) && (numTestValues2l > ii); ++ii)
+            {
+                Logical aValue{testSet2l[ii]._testValue};
+
+                if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
+                {
+                    ODL_LOG("(testSet2l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet2l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet2l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2l[ii]._equalTo != aValue.equalTo(stuff))
+                    {
+                        ODL_LOG("(testSet2l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii{0}; (0 == result) && (numTestValues2r > ii); ++ii)
+            {
+                Logical aValue{testSet2r[ii]._testValue};
+
+                if (testSet2r[ii]._lessThan != stuff.lessThan(aValue))
+                {
+                    ODL_LOG("(testSet2r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet2r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet2r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet2r[ii]._equalTo != stuff.equalTo(aValue))
+                    {
+                        ODL_LOG("(testSet2r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                        result = 1;
+                    }
+                }
+            }
+        }
+        if (0 == result)
+        {
+            struct testDoubles
+            {
+                double              _testValue;
+                ComparisonStatus    _lessThan;
+                ComparisonStatus    _greaterThan;
+                ComparisonStatus    _lessThanOrEqual;
+                ComparisonStatus    _greaterThanOrEqual;
+                ComparisonStatus    _equalTo;
+            }; // testDoubles
+
+            static testDoubles  testSet3l[]
+            {
+                { -300,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -200,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -100,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 200,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 300,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues3l{numElementsInArray(testSet3l)};
+            static testDoubles  testSet3r[]
+            {
+                { -300,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -200,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 200,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 300,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues3r{numElementsInArray(testSet3r)};
+
+            stuff.clear();
+            stuff.addValue(std::make_shared<Double>(123.45));
+            stuff.addValue(std::make_shared<Double>(200.0));
+            stuff.addValue(std::make_shared<Double>(-25.0));
+            stuff.addValue(std::make_shared<Double>(-60.0));
+            stuff.addValue(std::make_shared<Double>(0.0));
+            for (size_t ii{0}; (0 == result) && (numTestValues3l > ii); ++ii)
+            {
+                Double  aValue{testSet3l[ii]._testValue};
+
+                if (testSet3l[ii]._lessThan != aValue.lessThan(stuff))
+                {
+                    ODL_LOG("(testSet3l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._greaterThan != aValue.greaterThan(stuff))
+                    {
+                        ODL_LOG("(testSet3l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet3l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet3l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3l[ii]._equalTo != aValue.equalTo(stuff))
+                    {
+                        ODL_LOG("(testSet3l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii{0}; (0 == result) && (numTestValues3r > ii); ++ii)
+            {
+                Double  aValue{testSet3r[ii]._testValue};
+
+                if (testSet3r[ii]._lessThan != stuff.lessThan(aValue))
+                {
+                    ODL_LOG("(testSet3r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._greaterThan != stuff.greaterThan(aValue))
+                    {
+                        ODL_LOG("(testSet3r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet3r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet3r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet3r[ii]._equalTo != stuff.equalTo(aValue))
+                    {
+                        ODL_LOG("(testSet3r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                        result = 1;
+                    }
+                }
+            }
+        }
+        if (0 == result)
+        {
+            struct testIntegers
+            {
+                int64_t             _testValue;
+                ComparisonStatus    _lessThan;
+                ComparisonStatus    _greaterThan;
+                ComparisonStatus    _lessThanOrEqual;
+                ComparisonStatus    _greaterThanOrEqual;
+                ComparisonStatus    _equalTo;
+            }; // testIntegers
+
+            static testIntegers testSet4l[]
+            {
+                { -300,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -200,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -100,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 200,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 300,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues4l{numElementsInArray(testSet4l)};
+            static testIntegers testSet4r[]
+            {
+                { -300,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -200,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { -25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 25,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 50,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 100,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 200,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 300,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues4r{numElementsInArray(testSet4r)};
+
+            stuff.clear();
+            stuff.addValue(std::make_shared<Integer>(123));
+            stuff.addValue(std::make_shared<Integer>(200));
+            stuff.addValue(std::make_shared<Integer>(-25));
+            stuff.addValue(std::make_shared<Integer>(-60));
+            stuff.addValue(std::make_shared<Integer>(0));
+            for (size_t ii{0}; (0 == result) && (numTestValues4l > ii); ++ii)
+            {
+                Integer aValue{testSet4l[ii]._testValue};
+
+                if (testSet4l[ii]._lessThan != aValue.lessThan(stuff))
+                {
+                    ODL_LOG("(testSet4l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._greaterThan != aValue.greaterThan(stuff))
+                    {
+                        ODL_LOG("(testSet4l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet4l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet4l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4l[ii]._equalTo != aValue.equalTo(stuff))
+                    {
+                        ODL_LOG("(testSet4l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii{0}; (0 == result) && (numTestValues4r > ii); ++ii)
+            {
+                Integer aValue{testSet4r[ii]._testValue};
+
+                if (testSet4r[ii]._lessThan != stuff.lessThan(aValue))
+                {
+                    ODL_LOG("(testSet4r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._greaterThan != stuff.greaterThan(aValue))
+                    {
+                        ODL_LOG("(testSet4r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet4r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet4r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet4r[ii]._equalTo != stuff.equalTo(aValue))
+                    {
+                        ODL_LOG("(testSet4r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                        result = 1;
+                    }
+                }
+            }
+        }
+        if (0 == result)
+        {
+            struct testStrings
+            {
+                CPtr(char)          _testValue;
+                ComparisonStatus    _lessThan;
+                ComparisonStatus    _greaterThan;
+                ComparisonStatus    _lessThanOrEqual;
+                ComparisonStatus    _greaterThanOrEqual;
+                ComparisonStatus    _equalTo;
+            }; // testStrings
+
+            static testStrings  testSet5l[]
+            {
+                { "aaa",
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "abc",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "def",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "ghi",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "zzz",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues5l{numElementsInArray(testSet5l)};
+            static testStrings  testSet5r[]
+            {
+                { "aaa",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "abc",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "def",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "ghi",
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { "zzz",
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues5r{numElementsInArray(testSet5r)};
+
+            stuff.clear();
+            stuff.addValue(std::make_shared<String>("abc"));
+            stuff.addValue(std::make_shared<String>("def"));
+            stuff.addValue(std::make_shared<String>("ghi"));
+            for (size_t ii{0}; (0 == result) && (numTestValues5l > ii); ++ii)
+            {
+                String  aValue{testSet5l[ii]._testValue};
+
+                if (testSet5l[ii]._lessThan != aValue.lessThan(stuff))
+                {
+                    ODL_LOG("(testSet5l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet5l[ii]._greaterThan != aValue.greaterThan(stuff))
+                    {
+                        ODL_LOG("(testSet5l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet5l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet5l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet5l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet5l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet5l[ii]._equalTo != aValue.equalTo(stuff))
+                    {
+                        ODL_LOG("(testSet5l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii{0}; (0 == result) && (numTestValues5r > ii); ++ii)
+            {
+                String  aValue{testSet5r[ii]._testValue};
+
+                if (testSet5r[ii]._lessThan != stuff.lessThan(aValue))
+                {
+                    ODL_LOG("(testSet5r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet5r[ii]._greaterThan != stuff.greaterThan(aValue))
+                    {
+                        ODL_LOG("(testSet5r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet5r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet5r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet5r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet5r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet5r[ii]._equalTo != stuff.equalTo(aValue))
+                    {
+                        ODL_LOG("(testSet5r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                        result = 1;
+                    }
+                }
+            }
+        }
+        if (0 == result)
+        {
+            struct testAddresses
+            {
+                IPv4Address         _testValue;
+                ComparisonStatus    _lessThan;
+                ComparisonStatus    _greaterThan;
+                ComparisonStatus    _lessThanOrEqual;
+                ComparisonStatus    _greaterThanOrEqual;
+                ComparisonStatus    _equalTo;
+            }; // testAddresses
+
+            static testAddresses  testSet6l[]
+            {
+                { 0x01020304,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x12345678,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x345678AB,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x5678ABCD,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x8090A0B0,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t        numTestValues6l{numElementsInArray(testSet6l)};
+            static testAddresses    testSet6r[]
+            {
+                { 0x01020304,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{true}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x12345678,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{true}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x345678AB,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{false}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x5678ABCD,
+                    ComparisonStatus{false}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} }, // ==
+                { 0x8090A0B0,
+                    ComparisonStatus{true}, // <
+                    ComparisonStatus{false}, // >
+                    ComparisonStatus{true}, // <=
+                    ComparisonStatus{false}, // >=
+                    ComparisonStatus{false} } // ==
+            };
+            constexpr size_t    numTestValues6r{numElementsInArray(testSet6r)};
+
+            stuff.clear();
+            stuff.addValue(std::make_shared<Address>(0x12345678));
+            stuff.addValue(std::make_shared<Address>(0x345678AB));
+            stuff.addValue(std::make_shared<Address>(0x5678ABCD));
+            for (size_t ii{0}; (0 == result) && (numTestValues6l > ii); ++ii)
+            {
+                Address aValue{testSet6l[ii]._testValue};
+
+                if (testSet6l[ii]._lessThan != aValue.lessThan(stuff))
+                {
+                    ODL_LOG("(testSet6l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._greaterThan != aValue.greaterThan(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6l[ii]._equalTo != aValue.equalTo(stuff))
+                    {
+                        ODL_LOG("(testSet6l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                        result = 1;
+                    }
+                }
+            }
+            for (size_t ii{0}; (0 == result) && (numTestValues6r > ii); ++ii)
+            {
+                Address aValue{testSet6r[ii]._testValue};
+
+                if (testSet6r[ii]._lessThan != stuff.lessThan(aValue))
+                {
+                    ODL_LOG("(testSet6r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                    result = 1;
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._greaterThan != stuff.greaterThan(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                        result = 1;
+                    }
+                }
+                if (0 == result)
+                {
+                    if (testSet6r[ii]._equalTo != stuff.equalTo(aValue))
+                    {
+                        ODL_LOG("(testSet6r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                        result = 1;
+                    }
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidVectorCompares
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -15889,6 +18771,14 @@ main
 
                     case 155 :
                         result = doTestMapWithSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 156 :
+                        result = doTestArrayWithVectorValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 157 :
+                        result = doTestMapWithVectorValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 200 :
@@ -16261,6 +19151,90 @@ main
 
                     case 405 :
                         result = doTestKeysFromMapWithTimeKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 500 :
+                        result = doTestEmptyVectorValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 501 :
+                        result = doTestSingularVectorValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 502 :
+                        result = doTestSmallVectorValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 503 :
+                        result = doTestBigVectorValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 504 :
+                        result = doTestEmptyVectorSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 505 :
+                        result = doTestNonEmptyVectorSizeFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 506 :
+                        result = doTestEmptyVectorEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 507 :
+                        result = doTestNonEmptyVectorEmptyFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 508 :
+                        result = doTestEmptyVectorClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 509 :
+                        result = doTestNonEmptyVectorClearFunction(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 510 :
+                        result = doTestEmptyVectorRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 511 :
+                        result = doTestNonEmptyVectorRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 512 :
+                        result = doTestClearingNonEmptyVectorUsingRandomIterator(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 540 :
+                        result = doTestLogicalVectorValueWithIncompatibleElements(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 541 :
+                        result = doTestIntegerVectorValueWithIncompatibleElements(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 542 :
+                        result = doTestStringVectorValueWithIncompatibleElements(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 543 :
+                        result = doTestAddressVectorValueWithIncompatibleElements(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 544 :
+                        result = doTestDateVectorValueWithIncompatibleElements(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 545 :
+                        result = doTestTimeVectorValueWithIncompatibleElements(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 546 :
+                        result = doTestDoubleVectorValueWithIncompatibleElements(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 560 :
+                        result = doTestValidVectorCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

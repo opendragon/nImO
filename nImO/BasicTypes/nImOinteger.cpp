@@ -137,7 +137,7 @@ nImO::Integer::basicType
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{BasicType::Address};
+    auto    result{BasicType::Integer};
 
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;

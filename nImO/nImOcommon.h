@@ -454,11 +454,11 @@ namespace nImO
                     /*! @brief An unimplemented bit field. */
                     OtherMiscellaneousTypeBitFieldTypeReserved = 0x0003,
 
-                /*! @brief An unimplemented miscellaneous value. */
-                OtherMiscellaneousTypeReserved1 = 0x0008,
+                /*! @brief The 'Escape' value. */
+                OtherMiscellaneousTypeEscape = 0x0008,
 
                 /*! @brief An unimplemented miscellaneous value. */
-                OtherMiscellaneousTypeReserved2 = 0x000C,
+                OtherMiscellaneousTypeReserved = 0x000C,
 
             /*! @brief The value that follows is a Container. */
             OtherContainerStart = 0x0010,
@@ -541,7 +541,7 @@ namespace nImO
         EndOfMessageValue = (Other | OtherMessage | OtherMessageEndValue),
 
         /*! @brief A value that will not normally appear in a Message. */
-        EscapeValue = (Other | OtherMiscellaneous | OtherMiscellaneousTypeReserved2)
+        EscapeValue = (Other | OtherMiscellaneous | OtherMiscellaneousTypeEscape)
 
     }; // DataKind
 

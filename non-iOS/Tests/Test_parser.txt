@@ -829,3 +829,109 @@ add_test(NAME TestInvalidImplicitArrayValue11 COMMAND ${THIS_TARGET} 10 f "^t25:
 add_test(NAME TestInvalidImplicitArrayValue12 COMMAND ${THIS_TARGET} 10 f "^T25:26:27.28 tx" "")
 # Test parse of implicit array
 add_test(NAME TestInvalidImplicitArrayValue13 COMMAND ${THIS_TARGET} 10 f "(1 ^t25:26:27.28) {" "")
+
+# Test parse of vector value
+add_test(NAME TestVectorValue01 COMMAND ${THIS_TARGET} 11 t "< >" "< >")
+# Test parse of vector value
+add_test(NAME TestVectorValue02 COMMAND ${THIS_TARGET} 11 t "<>" "< >")
+# Test parse of vector value
+add_test(NAME TestVectorValue03 COMMAND ${THIS_TARGET} 11 t "< 42 >" "< 42 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue04 COMMAND ${THIS_TARGET} 11 t "<42>" "< 42 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue05 COMMAND ${THIS_TARGET} 11 t "<t>" "< true >")
+# Test parse of vector value
+add_test(NAME TestVectorValue06 COMMAND ${THIS_TARGET} 11 t "<'abc'>" "< \"abc\" >")
+# Test parse of vector value
+add_test(NAME TestVectorValue07 COMMAND ${THIS_TARGET} 11 t "<42.25 41.7>" "< 42.25, 41.7 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue08 COMMAND ${THIS_TARGET} 11 t "<16 17>" "< 16, 17 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue09 COMMAND ${THIS_TARGET} 11 t "< @1.2.3.4 >" "< @1.2.3.4 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue10 COMMAND ${THIS_TARGET} 11 t "<@2.3.4.5>" "< @2.3.4.5 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue11 COMMAND ${THIS_TARGET} 11 t "<@3.4.5.6 @1.2.3.4>" "< @3.4.5.6, @1.2.3.4 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue12 COMMAND ${THIS_TARGET} 11 t "< ^d1/2/3 >" "< ^d1/2/3 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue13 COMMAND ${THIS_TARGET} 11 t "<^D2/3/4>" "< ^d2/3/4 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue14 COMMAND ${THIS_TARGET} 11 t "<^d3/4/5 ^d1/2/3>" "< ^d3/4/5, ^d1/2/3 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue15 COMMAND ${THIS_TARGET} 11 t "< ^t1:2:3 >" "< ^t01:02:03.000 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue16 COMMAND ${THIS_TARGET} 11 t "<^T2:3:4.5>" "< ^t02:03:04.005 >")
+# Test parse of vector value
+add_test(NAME TestVectorValue17 COMMAND ${THIS_TARGET} 11 t "<^t3:4:5 ^t1:2:3>" "< ^t03:04:05.000, ^t01:02:03.000 >")
+
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue1 COMMAND ${THIS_TARGET} 11 t "< >#1123" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue2 COMMAND ${THIS_TARGET} 11 t "< #123\n>" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue3 COMMAND ${THIS_TARGET} 11 t "<>#1412" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue4 COMMAND ${THIS_TARGET} 11 t "<#12312\n>" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue5 COMMAND ${THIS_TARGET} 11 t "< 42 >#212" "< 42 >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue6 COMMAND ${THIS_TARGET} 11 t "< 42#556\n>" "< 42 >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue7 COMMAND ${THIS_TARGET} 11 t "<#424234\n42 >" "< 42 >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue8 COMMAND ${THIS_TARGET} 11 t "< >," "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue9 COMMAND ${THIS_TARGET} 11 t "< ;\n>" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue10 COMMAND ${THIS_TARGET} 11 t "<>,;" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue11 COMMAND ${THIS_TARGET} 11 t "<;,\n>" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue12 COMMAND ${THIS_TARGET} 11 t "< 42 >,," "< 42 >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue13 COMMAND ${THIS_TARGET} 11 t "< 42;;\n>" "< 42 >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue14 COMMAND ${THIS_TARGET} 11 t "<,,,\n42 >" "< 42 >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue15 COMMAND ${THIS_TARGET} 11 t ",< >" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue16 COMMAND ${THIS_TARGET} 11 t ",;<>" "< >")
+# Test parse of whitespace and vector value
+add_test(NAME TestWhitespaceAndVectorValue17 COMMAND ${THIS_TARGET} 11 t ",,< 42 >" "< 42 >")
+
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue01 COMMAND ${THIS_TARGET} 11 f "<" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue02 COMMAND ${THIS_TARGET} 11 f "<]" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue03 COMMAND ${THIS_TARGET} 11 f "< 42 " "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue04 COMMAND ${THIS_TARGET} 11 f "<12t>" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue05 COMMAND ${THIS_TARGET} 11 f "<t'abc'>" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue06 COMMAND ${THIS_TARGET} 11 f "<'abc'12>" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue07 COMMAND ${THIS_TARGET} 11 f "< @6.7.8.9 " "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue08 COMMAND ${THIS_TARGET} 11 f "<@7.8.9.10 'abc' t" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue09 COMMAND ${THIS_TARGET} 11 f "<@8.9.10.11t>" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue10 COMMAND ${THIS_TARGET} 11 f "<'abc'@9.10.11.12>" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue11 COMMAND ${THIS_TARGET} 11 f "< ^d6/7/8 " "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue12 COMMAND ${THIS_TARGET} 11 f "<^D7/8/9 'abc' t" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue13 COMMAND ${THIS_TARGET} 11 f "<^d8/9/10t>" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue14 COMMAND ${THIS_TARGET} 11 f "<'abc'^D9/10/11>" "")
+add_test(NAME TestInvalidVectorValue15 COMMAND ${THIS_TARGET} 11 f "< ^t6:7:8.9 " "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue16 COMMAND ${THIS_TARGET} 11 f "<^t7:8:9.10 'abc' t" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue17 COMMAND ${THIS_TARGET} 11 f "<^t8:9:10.11t>" "")
+# Test parse of vector value
+add_test(NAME TestInvalidVectorValue18 COMMAND ${THIS_TARGET} 11 f "<'abc'^t9:10:11.12>" "")

@@ -833,7 +833,7 @@ namespace nImO
     constexpr char  kEscapeChar{'\\'};
 
     /*! @brief The character that separates a key from a value in a key/value pair. */
-    constexpr char  kKeyValueSeparator{'='};
+    constexpr char  kKeyValueSeparator{'>'};
 
     /*! @brief The character that indicates a Date value. */
     constexpr char  kSecondCharForDate{'d'};

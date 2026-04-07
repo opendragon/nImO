@@ -947,11 +947,29 @@ nImO::Vector::writeToMessage
 
         outMessage.appendBytes(&startVector, sizeof(startVector));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
-        for (auto & walker : *this)
+        if (BasicType::Double == _dataKind)
         {
-            if (walker)
+            std::queue<double>  doublesSeen;
+
+            for (auto & walker : *this)
             {
-                walker->writeToMessage(outMessage);
+                if (walker)
+                {
+                    auto    doubleValue{walker->asDouble()};
+
+                    doublesSeen.push(doubleValue->getDoubleValue());
+                }
+            }
+            Double::writeValuesToMessage(doublesSeen, outMessage);
+        }
+        else
+        {
+            for (auto & walker : *this)
+            {
+                if (walker)
+                {
+                    walker->writeToMessage(outMessage);
+                }
             }
         }
         outMessage.appendBytes(&endVector, sizeof(endVector));

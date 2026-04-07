@@ -21,8 +21,9 @@
 <control-sequence> ::= <control-sequence-1> | <control-sequence-2>;\
 <control-sequence-1> ::= 'c' <low-char>;\
 <control-sequence-2> ::= 'C' '-' <low-char>;\
-<date> ::= '^' ('d' | 'D') <year> <date-separator> <month> <date-separator> <day>;\
+<date-pieces> ::= <year> <date-separator> <month> <date-separator> <day>;\
 <date-separator> ::= '/';\
+<date-time> ::= '^' (('d' | 'D') <date-pieces>) | (('t' | 'T') <time-pieces>);\
 <day> ::= <unsigned-integer>; ## limited to 1..31\
 <double-quote> ::= '"';\
 <double-quoted-string> ::= <double-quote> <non-double-quote-character>* <double-quote>; ## empty strings allowed\
@@ -67,7 +68,7 @@
 <sp> ::= ' ' | '\\f' | '\\n' | '\\r' | '\\t' | '\\v' | <noise> | <comment>; ## whitespace characters\
 <special-character> ::= <single-quote> | <double-quote> | <escape-character> | <escape-sequence>; ## only specific escapes\
 <string> ::= <single-quoted-string> | <double-quoted-string>;\
-<time> ::= '$' ('t' | 'T') <hour> (<time-separator> <minutes> (<time-separator> <seconds> ('.' <milliseconds>)?)?)?; ## only hours is strictly required\
+<time-pieces> ::= <hour> (<time-separator> <minutes> (<time-separator> <seconds> ('.' <milliseconds>)?)?)?; ## only hours is strictly required\
 <time-separator> ::= ':';\
 <unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
 <unsigned-integer> ::= \\d+;\

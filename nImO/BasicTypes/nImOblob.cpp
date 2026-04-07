@@ -240,6 +240,18 @@ nImO::Blob::asBlob
     return this;
 } // nImO::Blob::asBlob
 
+nImO::BasicType
+nImO::Blob::basicType
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{BasicType::Blob};
+
+    ODL_OBJEXIT_I(StaticCast(int, result)); //####
+    return result;
+} // nImO::Blob::basicType
+
 bool
 nImO::Blob::deeplyEqualTo
     (const Value &  other,

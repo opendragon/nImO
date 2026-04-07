@@ -180,3 +180,40 @@ add_test(NAME TestExtractTimeSetMessage COMMAND ${THIS_TARGET} 171)
 
 # Test message with array with range of integers
 add_test(NAME TestMessageWithArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 180)
+
+# Test message with empty vector
+add_test(NAME TestExtractEmptyVectorMessage COMMAND ${THIS_TARGET} 200)
+# Test message with vector with one logical
+add_test(NAME TestExtractVectorWithOneLogicalMessage COMMAND ${THIS_TARGET} 201)
+# Test message with vector with one integer
+add_test(NAME TestExtractVectorWithOneIntegerMessage COMMAND ${THIS_TARGET} 202)
+# Test message with vector with one double
+add_test(NAME TestExtractVectorWithOneDoubleMessage COMMAND ${THIS_TARGET} 203)
+# Test message with vector with one string
+add_test(NAME TestExtractVectorWithOneStringMessage COMMAND ${THIS_TARGET} 204)
+# Test message with vector with one address
+add_test(NAME TestExtractVectorWithOneAddressMessage COMMAND ${THIS_TARGET} 205)
+# Test message with vector with one date
+add_test(NAME TestExtractVectorWithOneDateMessage COMMAND ${THIS_TARGET} 206)
+# Test message with vector with one time
+add_test(NAME TestExtractVectorWithOneTimeMessage COMMAND ${THIS_TARGET} 207)
+# Test message with vector with one blob
+add_test(NAME TestExtractVectorWithOneBlobMessage COMMAND ${THIS_TARGET} 208)
+# Test message with vector with two logicals
+add_test(NAME TestExtractVectorWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 209)
+# Test message with vector with two integers
+add_test(NAME TestExtractVectorWithTwoIntegersMessage COMMAND ${THIS_TARGET} 210)
+# Test message with vector with two doubles
+add_test(NAME TestExtractVectorWithTwoDoublesMessage COMMAND ${THIS_TARGET} 211)
+# Test message with vector with two strings
+add_test(NAME TestExtractVectorWithTwoStringsMessage COMMAND ${THIS_TARGET} 212)
+# Test message with vector with many doubles
+add_test(NAME TestExtractVectorWithManyDoublesMessage COMMAND ${THIS_TARGET} 213)
+# Test message with vector with two addresses
+add_test(NAME TestExtractVectorWithTwoAddressesMessage COMMAND ${THIS_TARGET} 214)
+# Test message with vector with two dates
+add_test(NAME TestExtractVectorWithTwoDatesMessage COMMAND ${THIS_TARGET} 215)
+# Test message with vector with two times
+add_test(NAME TestExtractVectorWithTwoTimesMessage COMMAND ${THIS_TARGET} 216)
+# Test message with vector with two blobs
+add_test(NAME TestExtractVectorWithTwoBlobsMessage COMMAND ${THIS_TARGET} 217)

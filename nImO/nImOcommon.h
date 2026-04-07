@@ -312,22 +312,25 @@ namespace nImO
         /*! @brief The Value is an Address and therefore a basic type. */
         Address,
 
-        /*! @brief The Value is a Date and therefore basic type. */
+        /*! @brief The Value is a Blob and therefore a basic type. */
+        Blob,
+
+        /*! @brief The Value is a Date and therefore a basic type. */
         Date,
 
-        /*! @brief The Value is a Double and therefore basic type. */
+        /*! @brief The Value is a Double and therefore a basic type. */
         Double,
 
-        /*! @brief The Value is a Logical and therefore basic type. */
+        /*! @brief The Value is a Logical and therefore a basic type. */
         Logical,
 
-        /*! @brief The Value is a signed integer and therefore basic type. */
+        /*! @brief The Value is a signed integer and therefore a basic type. */
         Integer,
 
-        /*! @brief The Value is a String and therefore basic type. */
+        /*! @brief The Value is a String and therefore a basic type. */
         String,
 
-        /*! @brief The Value is a Time and therefore basic type. */
+        /*! @brief The Value is a Time and therefore a basic type. */
         Time,
 
         /*! @brief The Value is not a basic type. */

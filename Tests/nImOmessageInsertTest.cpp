@@ -5412,6 +5412,45 @@ main
                         result = doTestInsertTimeSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
+#if 0
+# Test message with empty vector
+add_test(NAME TestInsertEmptyVectorMessage COMMAND ${THIS_TARGET} 200)
+# Test message with vector with one logical
+add_test(NAME TestInsertVectorWithOneLogicalMessage COMMAND ${THIS_TARGET} 201)
+# Test message with vector with one integer
+add_test(NAME TestInsertVectorWithOneIntegerMessage COMMAND ${THIS_TARGET} 202)
+# Test message with vector with one double
+add_test(NAME TestInsertVectorWithOneDoubleMessage COMMAND ${THIS_TARGET} 203)
+# Test message with vector with one string
+add_test(NAME TestInsertVectorWithOneStringMessage COMMAND ${THIS_TARGET} 204)
+# Test message with vector with one address
+add_test(NAME TestInsertVectorWithOneAddressMessage COMMAND ${THIS_TARGET} 205)
+# Test message with vector with one date
+add_test(NAME TestInsertVectorWithOneDateMessage COMMAND ${THIS_TARGET} 206)
+# Test message with vector with one time
+add_test(NAME TestInsertVectorWithOneTimeMessage COMMAND ${THIS_TARGET} 207)
+# Test message with vector with one blob
+add_test(NAME TestInsertVectorWithOneBlobMessage COMMAND ${THIS_TARGET} 208)
+# Test message with vector with two logicals
+add_test(NAME TestInsertVectorWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 209)
+# Test message with vector with two integers
+add_test(NAME TestInsertVectorWithTwoIntegersMessage COMMAND ${THIS_TARGET} 210)
+# Test message with vector with two doubles
+add_test(NAME TestInsertVectorWithTwoDoublesMessage COMMAND ${THIS_TARGET} 211)
+# Test message with vector with two strings
+add_test(NAME TestInsertVectorWithTwoStringsMessage COMMAND ${THIS_TARGET} 212)
+# Test message with vector with many doubles
+add_test(NAME TestInsertVectorWithManyDoublesMessage COMMAND ${THIS_TARGET} 213)
+# Test message with vector with two addresses
+add_test(NAME TestInsertVectorWithTwoAddressesMessage COMMAND ${THIS_TARGET} 214)
+# Test message with vector with two dates
+add_test(NAME TestInsertVectorWithTwoDatesMessage COMMAND ${THIS_TARGET} 215)
+# Test message with vector with two times
+add_test(NAME TestInsertVectorWithTwoTimesMessage COMMAND ${THIS_TARGET} 216)
+# Test message with vector with two blobs
+add_test(NAME TestInsertVectorWithTwoBlobsMessage COMMAND ${THIS_TARGET} 217)
+#endif//0
+
                     default :
                         break;
 

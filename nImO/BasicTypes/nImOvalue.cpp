@@ -486,7 +486,6 @@ nImO::Value::getValueFromMessage
     ODL_ENTER(); //####
     ODL_P3(&inMessage, &position, parent.get()); //####
     ODL_X1(leadByte); //####
-ODL_LOG("got here"); //####
     SpValue result;
 
     if (auto match{gExtractors.find(StaticCast(uint8_t, leadByte))}; gExtractors.end() == match)
@@ -496,7 +495,6 @@ ODL_LOG("got here"); //####
     }
     else
     {
-ODL_LOG("got here"); //####
         Extractor   handler{match->second};
 
         if (nullptr == handler)
@@ -506,7 +504,6 @@ ODL_LOG("got here"); //####
         }
         else
         {
-ODL_LOG("got here"); //####
             result = handler(inMessage, leadByte, position, parent);
             ODL_P1(result.get()); //####
         }

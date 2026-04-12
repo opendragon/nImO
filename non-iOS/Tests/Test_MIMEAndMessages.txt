@@ -147,6 +147,10 @@ add_test(NAME TestMIMEExtractEmptyMapMessage COMMAND ${THIS_TARGET} 203)
 add_test(NAME TestMIMEInsertEmptySetMessage COMMAND ${THIS_TARGET} 204)
 # Test message with empty set
 add_test(NAME TestMIMEExtractEmptySetMessage COMMAND ${THIS_TARGET} 205)
+# Test message with empty vector
+add_test(NAME TestMIMEInsertEmptyVectorMessage COMMAND ${THIS_TARGET} 206)
+# Test message with empty vector
+add_test(NAME TestMIMEExtractEmptyVectorMessage COMMAND ${THIS_TARGET} 207)
 
 # Test message with array with one logical
 add_test(NAME TestMIMEInsertArrayWithOneLogicalMessage COMMAND ${THIS_TARGET} 300)
@@ -192,7 +196,10 @@ add_test(NAME TestMIMEExtractArrayWithOneDateMessage COMMAND ${THIS_TARGET} 319)
 add_test(NAME TestMIMEInsertArrayWithOneTimeMessage COMMAND ${THIS_TARGET} 320)
 # Test message with array with one time
 add_test(NAME TestMIMEExtractArrayWithOneTimeMessage COMMAND ${THIS_TARGET} 321)
-
+# Test message with array with one empty vector
+add_test(NAME TestMIMEInsertArrayWithOneEmptyVectorMessage COMMAND ${THIS_TARGET} 322)
+# Test message with array with one empty vector
+add_test(NAME TestMIMEExtractArrayWithOneEmptyVectorMessage COMMAND ${THIS_TARGET} 323)
 # Test message with array with two logicals
 add_test(NAME TestMIMEInsertArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 400)
 # Test message with array with two logicals
@@ -225,6 +232,7 @@ add_test(NAME TestMIMEExtractArrayWithTwoEmptyMapsMessage COMMAND ${THIS_TARGET}
 add_test(NAME TestMIMEInsertArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 414)
 # Test message with array with two empty sets
 add_test(NAME TestMIMEExtractArrayWithTwoEmptySetsMessage COMMAND ${THIS_TARGET} 415)
+
 # Test message with array with empty array and empty map
 add_test(NAME TestMIMEInsertArrayWithEmptyArrayAndEmptyMapMessage COMMAND ${THIS_TARGET} 416)
 # Test message with array with empty array and empty map
@@ -237,6 +245,7 @@ add_test(NAME TestMIMEExtractArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_
 add_test(NAME TestMIMEInsertArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 420)
 # Test message with array with empty set and empty array
 add_test(NAME TestMIMEExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 421)
+
 # Test message with array with many doubles
 add_test(NAME TestMIMEInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 422)
 # Test message with array with many doubles
@@ -254,9 +263,50 @@ add_test(NAME TestMIMEInsertArrayWithTwoTimesMessage COMMAND ${THIS_TARGET} 428)
 # Test message with array with two times
 add_test(NAME TestMIMEExtractArrayWithTwoTimesMessage COMMAND ${THIS_TARGET} 429)
 # Test message with array with one date and one time
-add_test(NAME TestMIMEInsertArrayWithONeDateOneTimeMessage COMMAND ${THIS_TARGET} 430)
+add_test(NAME TestMIMEInsertArrayWithOneDateOneTimeMessage COMMAND ${THIS_TARGET} 430)
 # Test message with array with one date and one time
-add_test(NAME TestMIMEExtractArrayWithONeDateOneTimeMessage COMMAND ${THIS_TARGET} 431)
+add_test(NAME TestMIMEExtractArrayWithOneDateOneTimeMessage COMMAND ${THIS_TARGET} 431)
+
+# Test message with array with two empty vectors
+add_test(NAME TestMIMEInsertArrayWithTwoEmptyVectorsMessage COMMAND ${THIS_TARGET} 439)
+# Test message with array with two empty vectors
+add_test(NAME TestMIMEExtractArrayWithTwoEmptyVectorsMessage COMMAND ${THIS_TARGET} 440)
+# Test message with array with empty vector and empty map
+add_test(NAME TestMIMEInsertArrayWithEmptyVectorAndEmptyMapMessage COMMAND ${THIS_TARGET} 441)
+# Test message with array with empty vector and empty map
+add_test(NAME TestMIMEExtractArrayWithEmptyVectorAndEmptyMapMessage COMMAND ${THIS_TARGET} 442)
+# Test message with array with empty map and empty vector
+add_test(NAME TestMIMEInsertArrayWithEmptyMapAndEmptyVectorMessage COMMAND ${THIS_TARGET} 443)
+# Test message with array with empty map and empty vector
+add_test(NAME TestMIMEExtractArrayWithEmptyMapAndEmptyVectorMessage COMMAND ${THIS_TARGET} 444)
+# Test message with array with empty set and empty vector
+add_test(NAME TestMIMEInsertArrayWithEmptySetAndEmptyVectorMessage COMMAND ${THIS_TARGET} 445)
+# Test message with array with empty set and empty vector
+add_test(NAME TestMIMEExtractArrayWithEmptySetAndEmptyVectorMessage COMMAND ${THIS_TARGET} 446)
+# Test message with array with empty vector and empty set
+add_test(NAME TestMIMEInsertArrayWithEmptyVectorAndEmptySetMessage COMMAND ${THIS_TARGET} 447)
+# Test message with array with empty vector and empty set
+add_test(NAME TestMIMEExtractArrayWithEmptyVectorAndEmptySetMessage COMMAND ${THIS_TARGET} 448)
+# Test message with array with empty array and empty vector
+add_test(NAME TestMIMEInsertArrayWithEmptyArrayAndEmptyVectorMessage COMMAND ${THIS_TARGET} 449)
+# Test message with array with empty array and empty vector
+add_test(NAME TestMIMEExtractArrayWithEmptyArrayAndEmptyVectorMessage COMMAND ${THIS_TARGET} 450)
+# Test message with array with empty map and empty array
+add_test(NAME TestMIMEInsertArrayWithEmptyMapAndEmptyArrayMessage COMMAND ${THIS_TARGET} 451)
+# Test message with array with empty map and empty array
+add_test(NAME TestMIMEExtractArrayWithEmptyMapAndEmptyArrayMessage COMMAND ${THIS_TARGET} 452)
+# Test message with array with empty set and empty map
+add_test(NAME TestMIMEInsertArrayWithEmptySetAndEmptyMapMessage COMMAND ${THIS_TARGET} 453)
+# Test message with array with empty set and empty map
+add_test(NAME TestMIMEExtractArrayWithEmptySetAndEmptyMapMessage COMMAND ${THIS_TARGET} 454)
+# Test message with array with empty array and empty set
+add_test(NAME TestMIMEInsertArrayWithEmptyArrayAndEmptySetMessage COMMAND ${THIS_TARGET} 455)
+# Test message with array with empty array and empty set
+add_test(NAME TestMIMEExtractArrayWithEmptyArrayAndEmptySetMessage COMMAND ${THIS_TARGET} 456)
+# Test message with array with empty vector and empty array
+add_test(NAME TestMIMEInsertArrayWithEmptyVectorAndEmptyArrayMessage COMMAND ${THIS_TARGET} 457)
+# Test message with array with empty vector and empty array
+add_test(NAME TestMIMEExtractArrayWithEmptyVectorAndEmptyArrayMessage COMMAND ${THIS_TARGET} 458)
 
 # Test message with logical map
 add_test(NAME TestMIMEInsertLogicalMapMessage COMMAND ${THIS_TARGET} 500)
@@ -316,3 +366,76 @@ add_test(NAME TestMIMEExtractArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 601
 add_test(NAME TestMEMExtractWithBadNumberOfCharacters COMMAND ${THIS_TARGET} 700)
 # Test message with bad characters
 add_test(NAME TestMEMExtractWithBadCharacters COMMAND ${THIS_TARGET} 701)
+
+# Test message with vector with one logical
+add_test(NAME TestMIMEInsertVectorWithOneLogicalMessage COMMAND ${THIS_TARGET} 800)
+# Test message with vector with one logical
+add_test(NAME TestMIMEExtractVectorWithOneLogicalMessage COMMAND ${THIS_TARGET} 801)
+# Test message with vector with one integer
+add_test(NAME TestMIMEInsertVectorWithOneIntegerMessage COMMAND ${THIS_TARGET} 802)
+# Test message with vector with one integer
+add_test(NAME TestMIMEExtractVectorWithOneIntegerMessage COMMAND ${THIS_TARGET} 803)
+# Test message with vector with one double
+add_test(NAME TestMIMEInsertVectorWithOneDoubleMessage COMMAND ${THIS_TARGET} 804)
+# Test message with vector with one double
+add_test(NAME TestMIMEExtractVectorWithOneDoubleMessage COMMAND ${THIS_TARGET} 805)
+# Test message with vector with one string
+add_test(NAME TestMIMEInsertVectorWithOneStringMessage COMMAND ${THIS_TARGET} 806)
+# Test message with vector with one string
+add_test(NAME TestMIMEExtractVectorWithOneStringMessage COMMAND ${THIS_TARGET} 807)
+# Test message with vector with one blob
+add_test(NAME TestMIMEInsertVectorWithOneBlobMessage COMMAND ${THIS_TARGET} 808)
+# Test message with vector with one blob
+add_test(NAME TestMIMEExtractVectorWithOneBlobMessage COMMAND ${THIS_TARGET} 809)
+# Test message with vector with one address
+add_test(NAME TestMIMEInsertVectorWithOneAddressMessage COMMAND ${THIS_TARGET} 810)
+# Test message with vector with one address
+add_test(NAME TestMIMEExtractVectorWithOneAddressMessage COMMAND ${THIS_TARGET} 811)
+# Test message with vector with one date
+add_test(NAME TestMIMEInsertVectorWithOneDateMessage COMMAND ${THIS_TARGET} 812)
+# Test message with vector with one date
+add_test(NAME TestMIMEExtractVectorWithOneDateMessage COMMAND ${THIS_TARGET} 813)
+# Test message with vector with one time
+add_test(NAME TestMIMEInsertVectorWithOneTimeMessage COMMAND ${THIS_TARGET} 814)
+# Test message with vector with one time
+add_test(NAME TestMIMEExtractVectorWithOneTimeMessage COMMAND ${THIS_TARGET} 815)
+# Test message with vector with two logicals
+add_test(NAME TestMIMEInsertVectorWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 816)
+# Test message with vector with two logicals
+add_test(NAME TestMIMEExtractVectorWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 817)
+# Test message with vector with two integers
+add_test(NAME TestMIMEInsertVectorWithTwoIntegersMessage COMMAND ${THIS_TARGET} 818)
+# Test message with vector with two integers
+add_test(NAME TestMIMEExtractVectorWithTwoIntegersMessage COMMAND ${THIS_TARGET} 819)
+# Test message with vector with two doubles
+add_test(NAME TestMIMEInsertVectorWithTwoDoublesMessage COMMAND ${THIS_TARGET} 820)
+# Test message with vector with two doubles
+add_test(NAME TestMIMEExtractVectorWithTwoDoublesMessage COMMAND ${THIS_TARGET} 821)
+# Test message with vector with two strings
+add_test(NAME TestMIMEInsertVectorWithTwoStringsMessage COMMAND ${THIS_TARGET} 822)
+# Test message with vector with two strings
+add_test(NAME TestMIMEExtractVectorWithTwoStringsMessage COMMAND ${THIS_TARGET} 823)
+# Test message with vector with two blobs
+add_test(NAME TestMIMEInsertVectorWithTwoBlobsMessage COMMAND ${THIS_TARGET} 824)
+# Test message with vector with two blobs
+add_test(NAME TestMIMEExtractVectorWithTwoBlobsMessage COMMAND ${THIS_TARGET} 825)
+# Test message with vector with many doubles
+add_test(NAME TestMIMEInsertVectorWithManyDoublesMessage COMMAND ${THIS_TARGET} 826)
+# Test message with vector with many doubles
+add_test(NAME TestMIMEExtractVectorWithManyDoublesMessage COMMAND ${THIS_TARGET} 827)
+# Test message with vector with two addresses
+add_test(NAME TestMIMEInsertVectorWithTwoAddressesMessage COMMAND ${THIS_TARGET} 828)
+# Test message with vector with two addresses
+add_test(NAME TestMIMEExtractVectorWithTwoAddressesMessage COMMAND ${THIS_TARGET} 829)
+# Test message with vector with two dates
+add_test(NAME TestMIMEInsertVectorWithTwoDatesMessage COMMAND ${THIS_TARGET} 830)
+# Test message with vector with two dates
+add_test(NAME TestMIMEExtractVectorWithTwoDatesMessage COMMAND ${THIS_TARGET} 831)
+# Test message with vector with two times
+add_test(NAME TestMIMEInsertVectorWithTwoTimesMessage COMMAND ${THIS_TARGET} 832)
+# Test message with vector with two times
+add_test(NAME TestMIMEExtractVectorWithTwoTimesMessage COMMAND ${THIS_TARGET} 833)
+# Test message with vector with range of integers
+add_test(NAME TestMIMEInsertVectorWithRangeOfIntegers COMMAND ${THIS_TARGET} 834)
+# Test message with vector with range of integers
+add_test(NAME TestMIMEExtractVectorWithRangeOfIntegers COMMAND ${THIS_TARGET} 835)

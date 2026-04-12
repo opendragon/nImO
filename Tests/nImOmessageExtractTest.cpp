@@ -51,6 +51,7 @@
 #include <Containers/nImOmessage.h>
 #include <Containers/nImOset.h>
 #include <Containers/nImOstringBuffer.h>
+#include <Containers/nImOvector.h>
 #include <Contexts/nImOtestContext.h>
 
 #include <string>
@@ -1680,7 +1681,7 @@ doTestExtractEmptySetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneLogicalMessage
+doTestExtractArrayWithOneLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -1744,7 +1745,7 @@ doTestExtractArrayOneLogicalMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneLogicalMessage
+} // doTestExtractArrayWithOneLogicalMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 111 ***
@@ -1756,7 +1757,7 @@ doTestExtractArrayOneLogicalMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneIntegerMessage
+doTestExtractArrayWithOneIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -1820,7 +1821,7 @@ doTestExtractArrayOneIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneIntegerMessage
+} // doTestExtractArrayWithOneIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 112 ***
@@ -1832,7 +1833,7 @@ doTestExtractArrayOneIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneDoubleMessage
+doTestExtractArrayWithOneDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -1901,7 +1902,7 @@ doTestExtractArrayOneDoubleMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneDoubleMessage
+} // doTestExtractArrayWithOneDoubleMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 113 ***
@@ -1913,7 +1914,7 @@ doTestExtractArrayOneDoubleMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneStringMessage
+doTestExtractArrayWithOneStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -1978,7 +1979,7 @@ doTestExtractArrayOneStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneStringMessage
+} // doTestExtractArrayWithOneStringMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 114 ***
@@ -1990,7 +1991,7 @@ doTestExtractArrayOneStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneBlobMessage
+doTestExtractArrayWithOneBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2055,7 +2056,7 @@ doTestExtractArrayOneBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneBlobMessage
+} // doTestExtractArrayWithOneBlobMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 115 ***
@@ -2067,7 +2068,7 @@ doTestExtractArrayOneBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneArrayMessage
+doTestExtractArrayWithOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2136,7 +2137,7 @@ doTestExtractArrayOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneArrayMessage
+} // doTestExtractArrayWithOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 116 ***
@@ -2148,7 +2149,7 @@ doTestExtractArrayOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneMapMessage
+doTestExtractArrayWithOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2217,7 +2218,7 @@ doTestExtractArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneMapMessage
+} // doTestExtractArrayWithOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 117 ***
@@ -2229,7 +2230,7 @@ doTestExtractArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneSetMessage
+doTestExtractArrayWithOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2298,7 +2299,7 @@ doTestExtractArrayOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneSetMessage
+} // doTestExtractArrayWithOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 118 ***
@@ -2552,7 +2553,7 @@ doTestExtractArrayWithOneTimeMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoLogicalsMessage
+doTestExtractArrayWithTwoLogicalsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2620,7 +2621,7 @@ doTestExtractArrayTwoLogicalsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoLogicalsMessage
+} // doTestExtractArrayWithTwoLogicalsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 131 ***
@@ -2632,7 +2633,7 @@ doTestExtractArrayTwoLogicalsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoIntegersMessage
+doTestExtractArrayWithTwoIntegersMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2700,7 +2701,7 @@ doTestExtractArrayTwoIntegersMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoIntegersMessage
+} // doTestExtractArrayWithTwoIntegersMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 132 ***
@@ -2712,7 +2713,7 @@ doTestExtractArrayTwoIntegersMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoDoublesMessage
+doTestExtractArrayWithTwoDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2786,7 +2787,7 @@ doTestExtractArrayTwoDoublesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoDoublesMessage
+} // doTestExtractArrayWithTwoDoublesMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 133 ***
@@ -2798,7 +2799,7 @@ doTestExtractArrayTwoDoublesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoStringsMessage
+doTestExtractArrayWithTwoStringsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2868,7 +2869,7 @@ doTestExtractArrayTwoStringsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoStringsMessage
+} // doTestExtractArrayWithTwoStringsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 134 ***
@@ -2880,7 +2881,7 @@ doTestExtractArrayTwoStringsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoBlobsMessage
+doTestExtractArrayWithTwoBlobsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2950,7 +2951,7 @@ doTestExtractArrayTwoBlobsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoBlobsMessage
+} // doTestExtractArrayWithTwoBlobsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 135 ***
@@ -2962,7 +2963,7 @@ doTestExtractArrayTwoBlobsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoArraysMessage
+doTestExtractArrayWithTwoArraysMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3040,7 +3041,7 @@ doTestExtractArrayTwoArraysMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoArraysMessage
+} // doTestExtractArrayWithTwoArraysMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 136 ***
@@ -3052,7 +3053,7 @@ doTestExtractArrayTwoArraysMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoMapsMessage
+doTestExtractArrayWithTwoMapsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3130,7 +3131,7 @@ doTestExtractArrayTwoMapsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoMapsMessage
+} // doTestExtractArrayWithTwoMapsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 137 ***
@@ -3142,7 +3143,7 @@ doTestExtractArrayTwoMapsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayTwoSetsMessage
+doTestExtractArrayWithTwoSetsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3220,7 +3221,7 @@ doTestExtractArrayTwoSetsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayTwoSetsMessage
+} // doTestExtractArrayWithTwoSetsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 138 ***
@@ -3232,7 +3233,7 @@ doTestExtractArrayTwoSetsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneArrayOneMapMessage
+doTestExtractArrayWithOneArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3310,7 +3311,7 @@ doTestExtractArrayOneArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneArrayOneMapMessage
+} // doTestExtractArrayWithOneArrayOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 139 ***
@@ -3322,7 +3323,7 @@ doTestExtractArrayOneArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneMapOneSetMessage
+doTestExtractArrayWithOneMapOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3400,7 +3401,7 @@ doTestExtractArrayOneMapOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneMapOneSetMessage
+} // doTestExtractArrayWithOneMapOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 140 ***
@@ -3412,7 +3413,7 @@ doTestExtractArrayOneMapOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractArrayOneSetOneArrayMessage
+doTestExtractArrayWithOneSetOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3490,7 +3491,7 @@ doTestExtractArrayOneSetOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractArrayOneSetOneArrayMessage
+} // doTestExtractArrayWithOneSetOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 141 ***
@@ -5404,6 +5405,1633 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
 } // doTestExtractMessageWithArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 200 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForEmptyVector[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedEmptyVectorCount{numElementsInArray(insertedBytesForEmptyVector)};
+            Vector                  emptyVector;
+
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyVector, insertedEmptyVectorCount, emptyVector);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 201 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneLogicalMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorOneLogical[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorOneLogicalCount{numElementsInArray(insertedBytesForVectorOneLogical)};
+            Vector                  vectorOneLogical;
+
+            vectorOneLogical.addValue(std::make_shared<Logical>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneLogical, insertedVectorOneLogicalCount, vectorOneLogical);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneLogicalMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 202 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneIntegerMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorOneInteger[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  0,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorOneIntegerCount{numElementsInArray(insertedBytesForVectorOneInteger)};
+            Vector                  vectorOneInteger;
+
+            vectorOneInteger.addValue(std::make_shared<Integer>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneInteger, insertedVectorOneIntegerCount, vectorOneInteger);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 203 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneDoubleMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorOneDouble[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Double
+                DataKind::Double | DataKind::DoubleShortCount |
+                  ((1 - kDataKindDoubleShortCountMinValue) &
+                    DataKind::DoubleShortCountMask),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorOneDoubleCount{numElementsInArray(insertedBytesForVectorOneDouble)};
+            Vector                  vectorOneDouble;
+
+            vectorOneDouble.addValue(std::make_shared<Double>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneDouble, insertedVectorOneDoubleCount, vectorOneDouble);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneDoubleMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 204 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneStringMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorOneString[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorOneStringCount{numElementsInArray(insertedBytesForVectorOneString)};
+            Vector                  vectorOneString;
+
+            vectorOneString.addValue(std::make_shared<String>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneString, insertedVectorOneStringCount, vectorOneString);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneStringMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 205 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorOneAddress[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
+                    StaticCast(DataKind, 0x12),
+                    StaticCast(DataKind, 0x34),
+                    StaticCast(DataKind, 0x56),
+                    StaticCast(DataKind, 0x78),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorOneAddressCount{numElementsInArray(insertedBytesForVectorOneAddress)};
+            Vector                  vectorOneAddress;
+
+            vectorOneAddress.addValue(std::make_shared<Address>(0x12345678));
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneAddress, insertedVectorOneAddressCount, vectorOneAddress);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneAddressMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 206 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            static const DataKind           insertedBytesForVectorOneDate[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate)),
+                    StaticCast(DataKind, SecondDateByte(aDate)),
+                    StaticCast(DataKind, ThirdDateByte(aDate)),
+                    StaticCast(DataKind, FourthDateByte(aDate)),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                insertedVectorOneDateCount{numElementsInArray(insertedBytesForVectorOneDate)};
+            Vector                          vectorOneDate;
+
+            vectorOneDate.addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneDate, insertedVectorOneDateCount, vectorOneDate);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 207 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            static const DataKind           insertedBytesForVectorOneTime[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime)),
+                    StaticCast(DataKind, SecondTimeByte(aTime)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime)),
+                    StaticCast(DataKind, FourthTimeByte(aTime)),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t                insertedVectorOneTimeCount{numElementsInArray(insertedBytesForVectorOneTime)};
+            Vector                          vectorOneTime;
+
+            vectorOneTime.addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneTime, insertedVectorOneTimeCount, vectorOneTime);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneTimeMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 208 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithOneBlobMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorOneBlob[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorOneBlobCount{numElementsInArray(insertedBytesForVectorOneBlob)};
+            Vector                  vectorOneBlob;
+
+            vectorOneBlob.addValue(std::make_shared<Blob>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorOneBlob, insertedVectorOneBlobCount, vectorOneBlob);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithOneBlobMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 209 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoLogicalsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorTwoLogicals[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoLogicalsCount{numElementsInArray(insertedBytesForVectorTwoLogicals)};
+            Vector                  vectorTwoLogicals;
+
+            vectorTwoLogicals.addValue(std::make_shared<Logical>());
+            vectorTwoLogicals.addValue(std::make_shared<Logical>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoLogicals, insertedVectorTwoLogicalsCount, vectorTwoLogicals);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoLogicalsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 210 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoIntegersMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorTwoIntegers[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  0,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  0,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoIntegersCount{numElementsInArray(insertedBytesForVectorTwoIntegers)};
+            Vector                  vectorTwoIntegers;
+
+            vectorTwoIntegers.addValue(std::make_shared<Integer>());
+            vectorTwoIntegers.addValue(std::make_shared<Integer>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoIntegers, insertedVectorTwoIntegersCount, vectorTwoIntegers);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoIntegersMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 211 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoDoublesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorTwoDoubles[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Double
+                DataKind::Double | DataKind::DoubleShortCount |
+                  ((2 - kDataKindDoubleShortCountMinValue) &
+                    DataKind::DoubleShortCountMask),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoDoublesCount{numElementsInArray(insertedBytesForVectorTwoDoubles)};
+            Vector                  vectorTwoDoubles;
+
+            vectorTwoDoubles.addValue(std::make_shared<Double>());
+            vectorTwoDoubles.addValue(std::make_shared<Double>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoDoubles, insertedVectorTwoDoublesCount, vectorTwoDoubles);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 212 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoStringsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorTwoStrings[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
+                // String
+                DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoStringsCount{numElementsInArray(insertedBytesForVectorTwoStrings)};
+            Vector                  vectorTwoStrings;
+
+            vectorTwoStrings.addValue(std::make_shared<String>());
+            vectorTwoStrings.addValue(std::make_shared<String>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoStrings, insertedVectorTwoStringsCount, vectorTwoStrings);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoStringsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 213 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithManyDoublesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            constexpr size_t        numValues{43};
+            static const DataKind   insertedBytesForVectorManyDoubles[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, StaticCast(int, numValues) +
+                    kDataKindIntegerShortValueMinValue - 1),
+                // Double
+                DataKind::Double | DataKind::DoubleLongCount |
+                  ((1 - 1) & DataKind::DoubleLongCountMask),
+                StaticCast(DataKind, numValues),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 0
+                StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0xF0),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 1
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 2
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x08),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 3
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x10),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 4
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x14),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 5
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x18),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 6
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x1C),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 7
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x20),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 8
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x22),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 9
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x24),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 10
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x26),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 11
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x28),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 12
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2A),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 13
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2C),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 14
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x2E),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 15
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x30),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 16
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x31),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 17
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x32),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 18
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x33),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 19
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x34),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 20
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x35),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 21
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x36),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 22
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x37),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 23
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x38),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 24
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x39),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 25
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3A),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 26
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3B),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 27
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3C),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 28
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3D),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 29
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3E),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 30
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x3F),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 31
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 32
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x40),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 33
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 34
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x41),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 35
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 36
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x42),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 37
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 38
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x43),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 39
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 40
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x44),
+                StaticCast(DataKind, 0x80), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 41
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 42
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorManyDoublesCount{numElementsInArray(insertedBytesForVectorManyDoubles)};
+            Vector                  vectorManyDoubles;
+
+            for (size_t ii{0}; numValues > ii; ++ii)
+            {
+                vectorManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
+            }
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorManyDoubles, insertedVectorManyDoublesCount, vectorManyDoubles);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithManyDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 214 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoAddressesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorTwoAddresses[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
+                    StaticCast(DataKind, 0x12),
+                    StaticCast(DataKind, 0x34),
+                    StaticCast(DataKind, 0x56),
+                    StaticCast(DataKind, 0x78),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
+                    StaticCast(DataKind, 0x34),
+                    StaticCast(DataKind, 0x56),
+                    StaticCast(DataKind, 0x78),
+                    StaticCast(DataKind, 0xAB),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoAddressesCount{numElementsInArray(insertedBytesForVectorTwoAddresses)};
+            Vector                  vectorTwoAddresses;
+
+            vectorTwoAddresses.addValue(std::make_shared<Address>(0x12345678));
+            vectorTwoAddresses.addValue(std::make_shared<Address>(0x345678AB));
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoAddresses, insertedVectorTwoAddressesCount, vectorTwoAddresses);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoAddressesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 215 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoDatesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Date::DatePieces   aDate1{12, 11, 10};
+            static const Date::DatePieces   aDate2{11, 10, 9};
+            static const DataKind           insertedBytesForVectorTwoDates[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate1)),
+                    StaticCast(DataKind, SecondDateByte(aDate1)),
+                    StaticCast(DataKind, ThirdDateByte(aDate1)),
+                    StaticCast(DataKind, FourthDateByte(aDate1)),
+                // Date
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeDate,
+                    StaticCast(DataKind, FirstDateByte(aDate2)),
+                    StaticCast(DataKind, SecondDateByte(aDate2)),
+                    StaticCast(DataKind, ThirdDateByte(aDate2)),
+                    StaticCast(DataKind, FourthDateByte(aDate2)),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoDatesCount{numElementsInArray(insertedBytesForVectorTwoDates)};
+            Vector                  vectorTwoDates;
+
+            vectorTwoDates.addValue(std::make_shared<Date>(MakeDateValue(aDate1)));
+            vectorTwoDates.addValue(std::make_shared<Date>(MakeDateValue(aDate2)));
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoDates, insertedVectorTwoDatesCount, vectorTwoDates);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoDatesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 216 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoTimesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Time::TimePieces   aTime1{12, 11, 10, 9};
+            static const Time::TimePieces   aTime2{11, 10, 9, 8};
+            static const DataKind           insertedBytesForVectorTwoTimes[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime1)),
+                    StaticCast(DataKind, SecondTimeByte(aTime1)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime1)),
+                    StaticCast(DataKind, FourthTimeByte(aTime1)),
+                // Time
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeTime,
+                    StaticCast(DataKind, FirstTimeByte(aTime2)),
+                    StaticCast(DataKind, SecondTimeByte(aTime2)),
+                    StaticCast(DataKind, ThirdTimeByte(aTime2)),
+                    StaticCast(DataKind, FourthTimeByte(aTime2)),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoTimesCount{numElementsInArray(insertedBytesForVectorTwoTimes)};
+            Vector                  vectorTwoTimes;
+
+            vectorTwoTimes.addValue(std::make_shared<Time>(MakeTimeValue(aTime1)));
+            vectorTwoTimes.addValue(std::make_shared<Time>(MakeTimeValue(aTime2)));
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoTimes, insertedVectorTwoTimesCount, vectorTwoTimes);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoTimesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 217 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractVectorWithTwoBlobsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   insertedBytesForVectorTwoBlobs[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
+                // Blob
+                DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                  DataKind::StringOrBlobShortLengthValue |
+                  (0 & DataKind::StringOrBlobShortLengthMask),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t        insertedVectorTwoBlobsCount{numElementsInArray(insertedBytesForVectorTwoBlobs)};
+            Vector                  vectorTwoBlobs;
+
+            vectorTwoBlobs.addValue(std::make_shared<Blob>());
+            vectorTwoBlobs.addValue(std::make_shared<Blob>());
+            result = extractValueAndCheck(*stuff, insertedBytesForVectorTwoBlobs, insertedVectorTwoBlobsCount, vectorTwoBlobs);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractVectorWithTwoBlobsMessage
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -5519,35 +7147,35 @@ main
                         break;
 
                     case 110 :
-                        result = doTestExtractArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 111 :
-                        result = doTestExtractArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 112 :
-                        result = doTestExtractArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 113 :
-                        result = doTestExtractArrayOneStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 114 :
-                        result = doTestExtractArrayOneBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 115 :
-                        result = doTestExtractArrayOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 116 :
-                        result = doTestExtractArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 117 :
-                        result = doTestExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 118 :
@@ -5563,47 +7191,47 @@ main
                         break;
 
                     case 130 :
-                        result = doTestExtractArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 131 :
-                        result = doTestExtractArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 132 :
-                        result = doTestExtractArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 133 :
-                        result = doTestExtractArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoStringsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 134 :
-                        result = doTestExtractArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoBlobsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 135 :
-                        result = doTestExtractArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoArraysMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 136 :
-                        result = doTestExtractArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoMapsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 137 :
-                        result = doTestExtractArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithTwoSetsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 138 :
-                        result = doTestExtractArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 139 :
-                        result = doTestExtractArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneMapOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 140 :
-                        result = doTestExtractArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractArrayWithOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 141 :
@@ -5678,44 +7306,77 @@ main
                         result = doTestExtractMessageWithArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
                         break;
 
-#if 0
-# Test message with empty vector
-add_test(NAME TestExtractEmptyVectorMessage COMMAND ${THIS_TARGET} 200)
-# Test message with vector with one logical
-add_test(NAME TestExtractVectorWithOneLogicalMessage COMMAND ${THIS_TARGET} 201)
-# Test message with vector with one integer
-add_test(NAME TestExtractVectorWithOneIntegerMessage COMMAND ${THIS_TARGET} 202)
-# Test message with vector with one double
-add_test(NAME TestExtractVectorWithOneDoubleMessage COMMAND ${THIS_TARGET} 203)
-# Test message with vector with one string
-add_test(NAME TestExtractVectorWithOneStringMessage COMMAND ${THIS_TARGET} 204)
-# Test message with vector with one address
-add_test(NAME TestExtractVectorWithOneAddressMessage COMMAND ${THIS_TARGET} 205)
-# Test message with vector with one date
-add_test(NAME TestExtractVectorWithOneDateMessage COMMAND ${THIS_TARGET} 206)
-# Test message with vector with one time
-add_test(NAME TestExtractVectorWithOneTimeMessage COMMAND ${THIS_TARGET} 207)
-# Test message with vector with one blob
-add_test(NAME TestExtractVectorWithOneBlobMessage COMMAND ${THIS_TARGET} 208)
-# Test message with vector with two logicals
-add_test(NAME TestExtractVectorWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 209)
-# Test message with vector with two integers
-add_test(NAME TestExtractVectorWithTwoIntegersMessage COMMAND ${THIS_TARGET} 210)
-# Test message with vector with two doubles
-add_test(NAME TestExtractVectorWithTwoDoublesMessage COMMAND ${THIS_TARGET} 211)
-# Test message with vector with two strings
-add_test(NAME TestExtractVectorWithTwoStringsMessage COMMAND ${THIS_TARGET} 212)
-# Test message with vector with many doubles
-add_test(NAME TestExtractVectorWithManyDoublesMessage COMMAND ${THIS_TARGET} 213)
-# Test message with vector with two addresses
-add_test(NAME TestExtractVectorWithTwoAddressesMessage COMMAND ${THIS_TARGET} 214)
-# Test message with vector with two dates
-add_test(NAME TestExtractVectorWithTwoDatesMessage COMMAND ${THIS_TARGET} 215)
-# Test message with vector with two times
-add_test(NAME TestExtractVectorWithTwoTimesMessage COMMAND ${THIS_TARGET} 216)
-# Test message with vector with two blobs
-add_test(NAME TestExtractVectorWithTwoBlobsMessage COMMAND ${THIS_TARGET} 217)
-#endif//0
+                    case 200 :
+                        result = doTestExtractEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 201 :
+                        result = doTestExtractVectorWithOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 202 :
+                        result = doTestExtractVectorWithOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 203 :
+                        result = doTestExtractVectorWithOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 204 :
+                        result = doTestExtractVectorWithOneStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 205 :
+                        result = doTestExtractVectorWithOneAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 206 :
+                        result = doTestExtractVectorWithOneDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 207 :
+                        result = doTestExtractVectorWithOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 208 :
+                        result = doTestExtractVectorWithOneBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 209 :
+                        result = doTestExtractVectorWithTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 210 :
+                        result = doTestExtractVectorWithTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 211 :
+                        result = doTestExtractVectorWithTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 212 :
+                        result = doTestExtractVectorWithTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 213 :
+                        result = doTestExtractVectorWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 214 :
+                        result = doTestExtractVectorWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 215 :
+                        result = doTestExtractVectorWithTwoDatesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 216 :
+                        result = doTestExtractVectorWithTwoTimesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 217 :
+                        result = doTestExtractVectorWithTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        break;
 
                     default :
                         break;

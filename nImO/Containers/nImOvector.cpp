@@ -420,11 +420,6 @@ nImO::Vector::extractValue
                                         okSoFar = false;
                                         ODL_B1(okSoFar); //####
                                     }
-                                    else
-                                    {
-                                        ODL_LOG("! (aValue->asFlaw())"); //####
-                                        aVector->addValue(aValue);
-                                    }
                                 }
                                 else
                                 {
@@ -471,7 +466,7 @@ nImO::Vector::extractValue
                     else
                     {
                         ODL_LOG("! (result)"); //####
-                        result = std::make_shared<Invalid>("Could not allocate an Vector");
+                        result = std::make_shared<Invalid>("Could not allocate a Vector");
                     }
                 }
             }

@@ -51,6 +51,7 @@
 #include <Containers/nImOmessage.h>
 #include <Containers/nImOset.h>
 #include <Containers/nImOstringBuffer.h>
+#include <Containers/nImOvector.h>
 #include <Contexts/nImOtestContext.h>
 #include <nImOMIMESupport.h>
 
@@ -145,7 +146,7 @@ setValueAndCheck
             if (expectedSize == outVec.size())
             {
                 result = 0;
-                for (size_t ii{0}; (0 == result) && (ii < expectedSize); ++ii)
+                for (size_t ii{0}; ii < expectedSize; ++ii)
                 {
                     auto    expectedString{expectedContents[ii]};
                     auto    outString{outVec[ii]};
@@ -2754,6 +2755,104 @@ doTestMIMEExtractEmptySetMessage
 } // doTestMIMEExtractEmptySetMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 206 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                emptyVector{std::make_shared<Vector>()};
+            std::string         expectedEmptyVectorLines[]{ "99zs/w=="s };
+            constexpr size_t    expectedEmptyVectorLinesCount{numElementsInArray(expectedEmptyVectorLines)};
+
+            result = setValueAndCheck(*stuff, emptyVector, expectedEmptyVectorLines, expectedEmptyVectorLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 207 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedEmptyVectorLines[]{ "99zs/w=="s };
+            constexpr size_t    insertedEmptyVectorLinesCount{numElementsInArray(insertedEmptyVectorLines)};
+            Vector              emptyVector;
+
+            result = extractValueAndCheck(*stuff, insertedEmptyVectorLines, insertedEmptyVectorLinesCount, emptyVector);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractEmptyVectorMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 300 ***
 #endif // defined(__APPLE__)
 
@@ -2763,7 +2862,7 @@ doTestMIMEExtractEmptySetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneLogicalMessage
+doTestMIMEInsertArrayWithOneLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2801,7 +2900,7 @@ doTestMIMEInsertArrayOneLogicalMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneLogicalMessage
+} // doTestMIMEInsertArrayWithOneLogicalMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 301 ***
@@ -2813,7 +2912,7 @@ doTestMIMEInsertArrayOneLogicalMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneLogicalMessage
+doTestMIMEExtractArrayWithOneLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2851,7 +2950,7 @@ doTestMIMEExtractArrayOneLogicalMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneLogicalMessage
+} // doTestMIMEExtractArrayWithOneLogicalMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 302 ***
@@ -2863,7 +2962,7 @@ doTestMIMEExtractArrayOneLogicalMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneIntegerMessage
+doTestMIMEInsertArrayWithOneIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2901,7 +3000,7 @@ doTestMIMEInsertArrayOneIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneIntegerMessage
+} // doTestMIMEInsertArrayWithOneIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 303 ***
@@ -2913,7 +3012,7 @@ doTestMIMEInsertArrayOneIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneIntegerMessage
+doTestMIMEExtractArrayWithOneIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2951,7 +3050,7 @@ doTestMIMEExtractArrayOneIntegerMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneIntegerMessage
+} // doTestMIMEExtractArrayWithOneIntegerMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 304 ***
@@ -2963,7 +3062,7 @@ doTestMIMEExtractArrayOneIntegerMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneDoubleMessage
+doTestMIMEInsertArrayWithOneDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3001,7 +3100,7 @@ doTestMIMEInsertArrayOneDoubleMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneDoubleMessage
+} // doTestMIMEInsertArrayWithOneDoubleMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 305 ***
@@ -3013,7 +3112,7 @@ doTestMIMEInsertArrayOneDoubleMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneDoubleMessage
+doTestMIMEExtractArrayWithOneDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3051,7 +3150,7 @@ doTestMIMEExtractArrayOneDoubleMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneDoubleMessage
+} // doTestMIMEExtractArrayWithOneDoubleMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 306 ***
@@ -3063,7 +3162,7 @@ doTestMIMEExtractArrayOneDoubleMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneStringMessage
+doTestMIMEInsertArrayWithOneStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3101,7 +3200,7 @@ doTestMIMEInsertArrayOneStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneStringMessage
+} // doTestMIMEInsertArrayWithOneStringMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 307 ***
@@ -3113,7 +3212,7 @@ doTestMIMEInsertArrayOneStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneStringMessage
+doTestMIMEExtractArrayWithOneStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3151,7 +3250,7 @@ doTestMIMEExtractArrayOneStringMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneStringMessage
+} // doTestMIMEExtractArrayWithOneStringMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 308 ***
@@ -3163,7 +3262,7 @@ doTestMIMEExtractArrayOneStringMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneBlobMessage
+doTestMIMEInsertArrayWithOneBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3201,7 +3300,7 @@ doTestMIMEInsertArrayOneBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneBlobMessage
+} // doTestMIMEInsertArrayWithOneBlobMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 309 ***
@@ -3213,7 +3312,7 @@ doTestMIMEInsertArrayOneBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneBlobMessage
+doTestMIMEExtractArrayWithOneBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3251,7 +3350,7 @@ doTestMIMEExtractArrayOneBlobMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneBlobMessage
+} // doTestMIMEExtractArrayWithOneBlobMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 310 ***
@@ -3263,7 +3362,7 @@ doTestMIMEExtractArrayOneBlobMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneArrayMessage
+doTestMIMEInsertArrayWithOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3301,7 +3400,7 @@ doTestMIMEInsertArrayOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneArrayMessage
+} // doTestMIMEInsertArrayWithOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 311 ***
@@ -3313,7 +3412,7 @@ doTestMIMEInsertArrayOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneArrayMessage
+doTestMIMEExtractArrayWithOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3351,7 +3450,7 @@ doTestMIMEExtractArrayOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneArrayMessage
+} // doTestMIMEExtractArrayWithOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 312 ***
@@ -3363,7 +3462,7 @@ doTestMIMEExtractArrayOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneMapMessage
+doTestMIMEInsertArrayWithOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3401,7 +3500,7 @@ doTestMIMEInsertArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneMapMessage
+} // doTestMIMEInsertArrayWithOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 313 ***
@@ -3413,7 +3512,7 @@ doTestMIMEInsertArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneMapMessage
+doTestMIMEExtractArrayWithOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3451,7 +3550,7 @@ doTestMIMEExtractArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneMapMessage
+} // doTestMIMEExtractArrayWithOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 314 ***
@@ -3463,7 +3562,7 @@ doTestMIMEExtractArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneSetMessage
+doTestMIMEInsertArrayWithOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3501,7 +3600,7 @@ doTestMIMEInsertArrayOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneSetMessage
+} // doTestMIMEInsertArrayWithOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 315 ***
@@ -3513,7 +3612,7 @@ doTestMIMEInsertArrayOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneSetMessage
+doTestMIMEExtractArrayWithOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3551,7 +3650,7 @@ doTestMIMEExtractArrayOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneSetMessage
+} // doTestMIMEExtractArrayWithOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 316 ***
@@ -3858,6 +3957,106 @@ doTestMIMEExtractArrayWithOneTimeMessage
 } // doTestMIMEExtractArrayWithOneTimeMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 322 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithOneVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneVector{std::make_shared<Array>()};
+            std::string         expectedArrayOneVectorLines[]{ "99EQ3Ozh/w=="s };
+            constexpr size_t    expectedArrayOneVectorLinesCount{numElementsInArray(expectedArrayOneVectorLines)};
+
+            arrayOneVector->addValue(std::make_shared<Vector>());
+            result = setValueAndCheck(*stuff, arrayOneVector, expectedArrayOneVectorLines, expectedArrayOneVectorLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithOneVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 323 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithOneVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneVectorLines[]{ "99EQ3Ozh/w=="s };
+            constexpr size_t    insertedArrayOneVectorLinesCount{numElementsInArray(insertedArrayOneVectorLines)};
+            Array               arrayOneVector;
+
+            arrayOneVector.addValue(std::make_shared<Vector>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneVectorLines, insertedArrayOneVectorLinesCount, arrayOneVector);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithOneVectorMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 400 ***
 #endif // defined(__APPLE__)
 
@@ -3867,7 +4066,7 @@ doTestMIMEExtractArrayWithOneTimeMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoLogicalsMessage
+doTestMIMEInsertArrayWithTwoLogicalsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3906,7 +4105,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoLogicalsMessage
+} // doTestMIMEInsertArrayWithTwoLogicalsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 401 ***
@@ -3918,7 +4117,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoLogicalsMessage
+doTestMIMEExtractArrayWithTwoLogicalsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3957,7 +4156,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoLogicalsMessage
+} // doTestMIMEExtractArrayWithTwoLogicalsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 402 ***
@@ -3969,7 +4168,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoIntegersMessage
+doTestMIMEInsertArrayWithTwoIntegersMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4008,7 +4207,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoIntegersMessage
+} // doTestMIMEInsertArrayWithTwoIntegersMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 403 ***
@@ -4020,7 +4219,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoIntegersMessage
+doTestMIMEExtractArrayWithTwoIntegersMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4059,7 +4258,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoIntegersMessage
+} // doTestMIMEExtractArrayWithTwoIntegersMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 404 ***
@@ -4071,7 +4270,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoDoublesMessage
+doTestMIMEInsertArrayWithTwoDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4110,7 +4309,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoDoublesMessage
+} // doTestMIMEInsertArrayWithTwoDoublesMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 405 ***
@@ -4122,7 +4321,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoDoublesMessage
+doTestMIMEExtractArrayWithTwoDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4161,7 +4360,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoDoublesMessage
+} // doTestMIMEExtractArrayWithTwoDoublesMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 406 ***
@@ -4173,7 +4372,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoStringsMessage
+doTestMIMEInsertArrayWithTwoStringsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4212,7 +4411,7 @@ doTestMIMEInsertArrayTwoStringsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoStringsMessage
+} // doTestMIMEInsertArrayWithTwoStringsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 407 ***
@@ -4224,7 +4423,7 @@ doTestMIMEInsertArrayTwoStringsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoStringsMessage
+doTestMIMEExtractArrayWithTwoStringsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4263,7 +4462,7 @@ doTestMIMEExtractArrayTwoStringsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoStringsMessage
+} // doTestMIMEExtractArrayWithTwoStringsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 408 ***
@@ -4275,7 +4474,7 @@ doTestMIMEExtractArrayTwoStringsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoBlobsMessage
+doTestMIMEInsertArrayWithTwoBlobsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4314,7 +4513,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoBlobsMessage
+} // doTestMIMEInsertArrayWithTwoBlobsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 409 ***
@@ -4326,7 +4525,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoBlobsMessage
+doTestMIMEExtractArrayWithTwoBlobsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4365,7 +4564,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoBlobsMessage
+} // doTestMIMEExtractArrayWithTwoBlobsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 410 ***
@@ -4377,7 +4576,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoArraysMessage
+doTestMIMEInsertArrayWithTwoArraysMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4416,7 +4615,7 @@ doTestMIMEInsertArrayTwoArraysMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoArraysMessage
+} // doTestMIMEInsertArrayWithTwoArraysMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 411 ***
@@ -4428,7 +4627,7 @@ doTestMIMEInsertArrayTwoArraysMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoArraysMessage
+doTestMIMEExtractArrayWithTwoArraysMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4467,7 +4666,7 @@ doTestMIMEExtractArrayTwoArraysMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoArraysMessage
+} // doTestMIMEExtractArrayWithTwoArraysMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 412 ***
@@ -4479,7 +4678,7 @@ doTestMIMEExtractArrayTwoArraysMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoMapsMessage
+doTestMIMEInsertArrayWithTwoMapsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4518,7 +4717,7 @@ doTestMIMEInsertArrayTwoMapsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoMapsMessage
+} // doTestMIMEInsertArrayWithTwoMapsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 413 ***
@@ -4530,7 +4729,7 @@ doTestMIMEInsertArrayTwoMapsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoMapsMessage
+doTestMIMEExtractArrayWithTwoMapsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4569,7 +4768,7 @@ doTestMIMEExtractArrayTwoMapsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoMapsMessage
+} // doTestMIMEExtractArrayWithTwoMapsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 414 ***
@@ -4581,7 +4780,7 @@ doTestMIMEExtractArrayTwoMapsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayTwoSetsMessage
+doTestMIMEInsertArrayWithTwoSetsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4620,7 +4819,7 @@ doTestMIMEInsertArrayTwoSetsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayTwoSetsMessage
+} // doTestMIMEInsertArrayWithTwoSetsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 415 ***
@@ -4632,7 +4831,7 @@ doTestMIMEInsertArrayTwoSetsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayTwoSetsMessage
+doTestMIMEExtractArrayWithTwoSetsMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4671,7 +4870,7 @@ doTestMIMEExtractArrayTwoSetsMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayTwoSetsMessage
+} // doTestMIMEExtractArrayWithTwoSetsMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 416 ***
@@ -4683,7 +4882,7 @@ doTestMIMEExtractArrayTwoSetsMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneArrayOneMapMessage
+doTestMIMEInsertArrayWithOneArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4722,7 +4921,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneArrayOneMapMessage
+} // doTestMIMEInsertArrayWithOneArrayOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 417 ***
@@ -4734,7 +4933,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneArrayOneMapMessage
+doTestMIMEExtractArrayWithOneArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4773,7 +4972,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneArrayOneMapMessage
+} // doTestMIMEExtractArrayWithOneArrayOneMapMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 418 ***
@@ -4785,7 +4984,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneMapOneSetMessage
+doTestMIMEInsertArrayWithOneMapOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4824,7 +5023,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneMapOneSetMessage
+} // doTestMIMEInsertArrayWithOneMapOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 419 ***
@@ -4836,7 +5035,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneMapOneSetMessage
+doTestMIMEExtractArrayWithOneMapOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4875,7 +5074,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneMapOneSetMessage
+} // doTestMIMEExtractArrayWithOneMapOneSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 420 ***
@@ -4887,7 +5086,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertArrayOneSetOneArrayMessage
+doTestMIMEInsertArrayWithOneSetOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4926,7 +5125,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertArrayOneSetOneArrayMessage
+} // doTestMIMEInsertArrayWithOneSetOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 421 ***
@@ -4938,7 +5137,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractArrayOneSetOneArrayMessage
+doTestMIMEExtractArrayWithOneSetOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4977,7 +5176,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayOneSetOneArrayMessage
+} // doTestMIMEExtractArrayWithOneSetOneArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 422 ***
@@ -5520,6 +5719,1026 @@ doTestMIMEExtractArrayWithOneDateOneTimeMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMIMEExtractArrayWithOneDateOneTimeMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 439 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithTwoEmptyVectorsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayTwoVectors{std::make_shared<Array>()};
+            std::string         expectedArrayTwoVectorsLines[]{ "99ER3Ozc7OH/"s };
+            constexpr size_t    expectedArrayTwoVectorsLinesCount{numElementsInArray(expectedArrayTwoVectorsLines)};
+
+            arrayTwoVectors->addValue(std::make_shared<Vector>());
+            arrayTwoVectors->addValue(std::make_shared<Vector>());
+            result = setValueAndCheck(*stuff, arrayTwoVectors, expectedArrayTwoVectorsLines, expectedArrayTwoVectorsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithTwoEmptyVectorsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 440 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithTwoEmptyVectorsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayTwoVectorsLines[]{ "99ER3Ozc7OH/"s };
+            constexpr size_t    insertedArrayTwoVectorsLinesCount{numElementsInArray(insertedArrayTwoVectorsLines)};
+            Array               arrayTwoVectors;
+
+            arrayTwoVectors.addValue(std::make_shared<Vector>());
+            arrayTwoVectors.addValue(std::make_shared<Vector>());
+            result = extractValueAndCheck(*stuff, insertedArrayTwoVectorsLines, insertedArrayTwoVectorsLinesCount, arrayTwoVectors);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithTwoEmptyVectorsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 441 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptyVectorAndEmptyMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneVectorOneMap{std::make_shared<Array>()};
+            std::string         expectedArrayOneVectorOneMapLines[]{ "99ER3OzU5OH/"s };
+            constexpr size_t    expectedArrayOneVectorOneMapLinesCount{numElementsInArray(expectedArrayOneVectorOneMapLines)};
+
+            arrayOneVectorOneMap->addValue(std::make_shared<Vector>());
+            arrayOneVectorOneMap->addValue(std::make_shared<Map>());
+            result = setValueAndCheck(*stuff, arrayOneVectorOneMap, expectedArrayOneVectorOneMapLines, expectedArrayOneVectorOneMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptyVectorAndEmptyMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 442 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptyVectorAndEmptyMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneVectorOneMapLines[]{ "99ER3OzU5OH/"s };
+            constexpr size_t    insertedArrayOneVectorOneMapLinesCount{numElementsInArray(insertedArrayOneVectorOneMapLines)};
+            Array               arrayOneVectorOneMap;
+
+            arrayOneVectorOneMap.addValue(std::make_shared<Vector>());
+            arrayOneVectorOneMap.addValue(std::make_shared<Map>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneVectorOneMapLines, insertedArrayOneVectorOneMapLinesCount, arrayOneVectorOneMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptyVectorAndEmptyMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 443 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptyMapAndEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneMapOneVector{std::make_shared<Array>()};
+            std::string         expectedArrayOneMapOneVectorLines[]{ "99ER1OTc7OH/"s };
+            constexpr size_t    expectedArrayOneMapOneVectorLinesCount{numElementsInArray(expectedArrayOneMapOneVectorLines)};
+
+            arrayOneMapOneVector->addValue(std::make_shared<Map>());
+            arrayOneMapOneVector->addValue(std::make_shared<Vector>());
+            result = setValueAndCheck(*stuff, arrayOneMapOneVector, expectedArrayOneMapOneVectorLines, expectedArrayOneMapOneVectorLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptyMapAndEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 444 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptyMapAndEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneMapOneVectorLines[]{ "99ER1OTc7OH/"s };
+            constexpr size_t    insertedArrayOneMapOneVectorLinesCount{numElementsInArray(insertedArrayOneMapOneVectorLines)};
+            Array               arrayOneMapOneVector;
+
+            arrayOneMapOneVector.addValue(std::make_shared<Map>());
+            arrayOneMapOneVector.addValue(std::make_shared<Vector>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneMapOneVectorLines, insertedArrayOneMapOneVectorLinesCount, arrayOneMapOneVector);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptyMapAndEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 445 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptySetAndEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneSetOneVector{std::make_shared<Array>()};
+            std::string         expectedArrayOneSetOneVectorLines[]{ "99ER2Ojc7OH/"s };
+            constexpr size_t    expectedArrayOneSetOneVectorLinesCount{numElementsInArray(expectedArrayOneSetOneVectorLines)};
+
+            arrayOneSetOneVector->addValue(std::make_shared<Set>());
+            arrayOneSetOneVector->addValue(std::make_shared<Vector>());
+            result = setValueAndCheck(*stuff, arrayOneSetOneVector, expectedArrayOneSetOneVectorLines, expectedArrayOneSetOneVectorLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptySetAndEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 446 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptySetAndEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneSetOneVectorLines[]{ "99ER2Ojc7OH/"s };
+            constexpr size_t    insertedArrayOneSetOneVectorLinesCount{numElementsInArray(insertedArrayOneSetOneVectorLines)};
+            Array               arrayOneSetOneVector;
+
+            arrayOneSetOneVector.addValue(std::make_shared<Set>());
+            arrayOneSetOneVector.addValue(std::make_shared<Vector>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneSetOneVectorLines, insertedArrayOneSetOneVectorLinesCount, arrayOneSetOneVector);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptySetAndEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 447 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptyVectorAndEmptySetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneVectorOneSet{std::make_shared<Array>()};
+            std::string         expectedArrayOneVectorOneSetLines[]{ "99ER3OzY6OH/"s };
+            constexpr size_t    expectedArrayOneVectorOneSetLinesCount{numElementsInArray(expectedArrayOneVectorOneSetLines)};
+
+            arrayOneVectorOneSet->addValue(std::make_shared<Vector>());
+            arrayOneVectorOneSet->addValue(std::make_shared<Set>());
+            result = setValueAndCheck(*stuff, arrayOneVectorOneSet, expectedArrayOneVectorOneSetLines, expectedArrayOneVectorOneSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptyVectorAndEmptySetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 448 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptyVectorAndEmptySetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneVectorOneSetLines[]{ "99ER3OzY6OH/"s };
+            constexpr size_t    insertedArrayOneVectorOneSetLinesCount{numElementsInArray(insertedArrayOneVectorOneSetLines)};
+            Array               arrayOneVectorOneSet;
+
+            arrayOneVectorOneSet.addValue(std::make_shared<Vector>());
+            arrayOneVectorOneSet.addValue(std::make_shared<Set>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneVectorOneSetLines, insertedArrayOneVectorOneSetLinesCount, arrayOneVectorOneSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptyVectorAndEmptySetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 449 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptyArrayAndEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneArrayOneVector{std::make_shared<Array>()};
+            std::string         expectedArrayOneArrayOneVectorLines[]{ "99ER0ODc7OH/"s };
+            constexpr size_t    expectedArrayOneArrayOneVectorLinesCount{numElementsInArray(expectedArrayOneArrayOneVectorLines)};
+
+            arrayOneArrayOneVector->addValue(std::make_shared<Array>());
+            arrayOneArrayOneVector->addValue(std::make_shared<Vector>());
+            result = setValueAndCheck(*stuff, arrayOneArrayOneVector, expectedArrayOneArrayOneVectorLines, expectedArrayOneArrayOneVectorLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptyArrayAndEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 450 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptyArrayAndEmptyVectorMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneArrayOneVectorLines[]{ "99ER0ODc7OH/"s };
+            constexpr size_t    insertedArrayOneArrayOneVectorLinesCount{numElementsInArray(insertedArrayOneArrayOneVectorLines)};
+            Array               arrayOneArrayOneVector;
+
+            arrayOneArrayOneVector.addValue(std::make_shared<Array>());
+            arrayOneArrayOneVector.addValue(std::make_shared<Vector>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneArrayOneVectorLines, insertedArrayOneArrayOneVectorLinesCount, arrayOneArrayOneVector);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptyArrayAndEmptyVectorMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 451 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptyMapAndEmptyArrayMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneMapOneArray{std::make_shared<Array>()};
+            std::string         expectedArrayOneMapOneArrayLines[]{ "99ER1OTQ4OH/"s };
+            constexpr size_t    expectedArrayOneMapOneArrayLinesCount{numElementsInArray(expectedArrayOneMapOneArrayLines)};
+
+            arrayOneMapOneArray->addValue(std::make_shared<Map>());
+            arrayOneMapOneArray->addValue(std::make_shared<Array>());
+            result = setValueAndCheck(*stuff, arrayOneMapOneArray, expectedArrayOneMapOneArrayLines, expectedArrayOneMapOneArrayLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptyMapAndEmptyArrayMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 452 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptyMapAndEmptyArrayMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneMapOneArrayLines[]{ "99ER1OTQ4OH/"s };
+            constexpr size_t    insertedArrayOneMapOneArrayLinesCount{numElementsInArray(insertedArrayOneMapOneArrayLines)};
+            Array               arrayOneMapOneArray;
+
+            arrayOneMapOneArray.addValue(std::make_shared<Map>());
+            arrayOneMapOneArray.addValue(std::make_shared<Array>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneMapOneArrayLines, insertedArrayOneMapOneArrayLinesCount, arrayOneMapOneArray);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptyMapAndEmptyArrayMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 453 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptySetAndEmptyMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneSetOneMap{std::make_shared<Array>()};
+            std::string         expectedArrayOneSetOneMapLines[]{ "99ER2OjU5OH/"s };
+            constexpr size_t    expectedArrayOneSetOneMapLinesCount{numElementsInArray(expectedArrayOneSetOneMapLines)};
+
+            arrayOneSetOneMap->addValue(std::make_shared<Set>());
+            arrayOneSetOneMap->addValue(std::make_shared<Map>());
+            result = setValueAndCheck(*stuff, arrayOneSetOneMap, expectedArrayOneSetOneMapLines, expectedArrayOneSetOneMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptySetAndEmptyMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 454 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptySetAndEmptyMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneSetOneMapLines[]{ "99ER2OjU5OH/"s };
+            constexpr size_t    insertedArrayOneSetOneMapLinesCount{numElementsInArray(insertedArrayOneSetOneMapLines)};
+            Array               arrayOneSetOneMap;
+
+            arrayOneSetOneMap.addValue(std::make_shared<Set>());
+            arrayOneSetOneMap.addValue(std::make_shared<Map>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneSetOneMapLines, insertedArrayOneSetOneMapLinesCount, arrayOneSetOneMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptySetAndEmptyMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 455 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptyArrayAndEmptySetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneArrayOneSet{std::make_shared<Array>()};
+            std::string         expectedArrayOneArrayOneSetLines[]{ "99ER0ODY6OH/"s };
+            constexpr size_t    expectedArrayOneArrayOneSetLinesCount{numElementsInArray(expectedArrayOneArrayOneSetLines)};
+
+            arrayOneArrayOneSet->addValue(std::make_shared<Array>());
+            arrayOneArrayOneSet->addValue(std::make_shared<Set>());
+            result = setValueAndCheck(*stuff, arrayOneArrayOneSet, expectedArrayOneArrayOneSetLines, expectedArrayOneArrayOneSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptyArrayAndEmptySetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 456 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptyArrayAndEmptySetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneArrayOneSetLines[]{ "99ER0ODY6OH/"s };
+            constexpr size_t    insertedArrayOneArrayOneSetLinesCount{numElementsInArray(insertedArrayOneArrayOneSetLines)};
+            Array               arrayOneArrayOneSet;
+
+            arrayOneArrayOneSet.addValue(std::make_shared<Array>());
+            arrayOneArrayOneSet.addValue(std::make_shared<Set>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneArrayOneSetLines, insertedArrayOneArrayOneSetLinesCount, arrayOneArrayOneSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptyArrayAndEmptySetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 457 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithEmptyVectorAndEmptyArrayMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                arrayOneVectorOneArray{std::make_shared<Array>()};
+            std::string         expectedArrayOneVectorOneArrayLines[]{ "99ER3OzQ4OH/"s };
+            constexpr size_t    expectedArrayOneVectorOneArrayLinesCount{numElementsInArray(expectedArrayOneVectorOneArrayLines)};
+
+            arrayOneVectorOneArray->addValue(std::make_shared<Vector>());
+            arrayOneVectorOneArray->addValue(std::make_shared<Array>());
+            result = setValueAndCheck(*stuff, arrayOneVectorOneArray, expectedArrayOneVectorOneArrayLines, expectedArrayOneVectorOneArrayLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithEmptyVectorAndEmptyArrayMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 458 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithEmptyVectorAndEmptyArrayMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedArrayOneVectorOneArrayLines[]{ "99ER3OzQ4OH/"s };
+            constexpr size_t    insertedArrayOneVectorOneArrayLinesCount{numElementsInArray(insertedArrayOneVectorOneArrayLines)};
+            Array               arrayOneVectorOneArray;
+
+            arrayOneVectorOneArray.addValue(std::make_shared<Vector>());
+            arrayOneVectorOneArray.addValue(std::make_shared<Array>());
+            result = extractValueAndCheck(*stuff, insertedArrayOneVectorOneArrayLines, insertedArrayOneVectorOneArrayLinesCount, arrayOneVectorOneArray);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithEmptyVectorAndEmptyArrayMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 500 ***
@@ -7008,6 +8227,1936 @@ doTestMIMExtractWithBadCharacters
 } // doTestMIMExtractWithBadCharacters
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 800 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneLogicalMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorOneLogical{std::make_shared<Vector>()};
+            std::string         expectedVectorOneLogicalLines[]{ "990QwO3/"s };
+            constexpr size_t    expectedVectorOneLogicalLinesCount{numElementsInArray(expectedVectorOneLogicalLines)};
+
+            vectorOneLogical->addValue(std::make_shared<Logical>());
+            result = setValueAndCheck(*stuff, vectorOneLogical, expectedVectorOneLogicalLines, expectedVectorOneLogicalLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneLogicalMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 801 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneLogicalMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorOneLogicalLines[]{ "990QwO3/"s };
+            constexpr size_t    insertedVectorOneLogicalLinesCount{numElementsInArray(insertedVectorOneLogicalLines)};
+            Vector              vectorOneLogical;
+
+            vectorOneLogical.addValue(std::make_shared<Logical>());
+            result = extractValueAndCheck(*stuff, insertedVectorOneLogicalLines, insertedVectorOneLogicalLinesCount, vectorOneLogical);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneLogicalMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 802 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneIntegerMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorOneInteger{std::make_shared<Vector>()};
+            std::string         expectedVectorOneIntegerLines[]{ "990QAO3/"s };
+            constexpr size_t    expectedVectorOneIntegerLinesCount{numElementsInArray(expectedVectorOneIntegerLines)};
+
+            vectorOneInteger->addValue(std::make_shared<Integer>());
+            result = setValueAndCheck(*stuff, vectorOneInteger, expectedVectorOneIntegerLines, expectedVectorOneIntegerLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 803 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneIntegerMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorOneIntegerLines[]{ "990QAO3/"s };
+            constexpr size_t    insertedVectorOneIntegerLinesCount{numElementsInArray(insertedVectorOneIntegerLines)};
+            Vector              vectorOneInteger;
+
+            vectorOneInteger.addValue(std::make_shared<Integer>());
+            result = extractValueAndCheck(*stuff, insertedVectorOneIntegerLines, insertedVectorOneIntegerLinesCount, vectorOneInteger);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneIntegerMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 804 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneDoubleMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorOneDouble{std::make_shared<Vector>()};
+            std::string         expectedVectorOneDoubleLines[]{ "990QQAAAAAAAAAAA7f8="s };
+            constexpr size_t    expectedVectorOneDoubleLinesCount{numElementsInArray(expectedVectorOneDoubleLines)};
+
+            vectorOneDouble->addValue(std::make_shared<Double>());
+            result = setValueAndCheck(*stuff, vectorOneDouble, expectedVectorOneDoubleLines, expectedVectorOneDoubleLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneDoubleMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 805 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneDoubleMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorOneDoubleLines[]{ "990QQAAAAAAAAAAA7f8="s };
+            constexpr size_t    insertedVectorOneDoubleLinesCount{numElementsInArray(insertedVectorOneDoubleLines)};
+            Vector              vectorOneDouble;
+
+            vectorOneDouble.addValue(std::make_shared<Double>());
+            result = extractValueAndCheck(*stuff, insertedVectorOneDoubleLines, insertedVectorOneDoubleLinesCount, vectorOneDouble);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneDoubleMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 806 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneStringMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorOneString{std::make_shared<Vector>()};
+            std::string         expectedVectorOneStringLines[]{ "990QgO3/"s };
+            constexpr size_t    expectedVectorOneStringLinesCount{numElementsInArray(expectedVectorOneStringLines)};
+
+            vectorOneString->addValue(std::make_shared<String>());
+            result = setValueAndCheck(*stuff, vectorOneString, expectedVectorOneStringLines, expectedVectorOneStringLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneStringMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 807 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneStringMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorOneStringLines[]{ "990QgO3/"s };
+            constexpr size_t    insertedVectorOneStringLinesCount{numElementsInArray(insertedVectorOneStringLines)};
+            Vector              vectorOneString;
+
+            vectorOneString.addValue(std::make_shared<String>());
+            result = extractValueAndCheck(*stuff, insertedVectorOneStringLines, insertedVectorOneStringLinesCount, vectorOneString);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneStringMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 808 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneBlobMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorOneBlob{std::make_shared<Vector>()};
+            std::string         expectedVectorOneBlobLines[]{ "990QoO3/"s };
+            constexpr size_t    expectedVectorOneBlobLinesCount{numElementsInArray(expectedVectorOneBlobLines)};
+
+            vectorOneBlob->addValue(std::make_shared<Blob>());
+            result = setValueAndCheck(*stuff, vectorOneBlob, expectedVectorOneBlobLines, expectedVectorOneBlobLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneBlobMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 809 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneBlobMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorOneBlobLines[]{ "990QoO3/"s };
+            constexpr size_t    insertedVectorOneBlobLinesCount{numElementsInArray(insertedVectorOneBlobLines)};
+            Vector              vectorOneBlob;
+
+            vectorOneBlob.addValue(std::make_shared<Blob>());
+            result = extractValueAndCheck(*stuff, insertedVectorOneBlobLines, insertedVectorOneBlobLinesCount, vectorOneBlob);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneBlobMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 810 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorOneAddress{std::make_shared<Vector>()};
+            std::string         expectedVectorOneAddressLines[]{ "990QxDRWeKvt/w=="s };
+            constexpr size_t    expectedVectorOneAddressLinesCount{numElementsInArray(expectedVectorOneAddressLines)};
+
+            vectorOneAddress->addValue(std::make_shared<Address>(0x345678AB));
+            result = setValueAndCheck(*stuff, vectorOneAddress, expectedVectorOneAddressLines, expectedVectorOneAddressLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneAddressMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 811 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorOneAddressLines[]{ "990QxDRWeKvt/w=="s };
+            constexpr size_t    insertedVectorOneAddressLinesCount{numElementsInArray(insertedVectorOneAddressLines)};
+            Vector              vectorOneAddress;
+
+            vectorOneAddress.addValue(std::make_shared<Address>(0x345678AB));
+            result = extractValueAndCheck(*stuff, insertedVectorOneAddressLines, insertedVectorOneAddressLinesCount, vectorOneAddress);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneAddressMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 812 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            auto                            vectorOneDate{std::make_shared<Vector>()};
+            std::string                     expectedVectorOneDateLines[]{ "990QxQAAFOrt/w=="s };
+            constexpr size_t                expectedVectorOneDateLinesCount{numElementsInArray(expectedVectorOneDateLines)};
+
+            vectorOneDate->addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = setValueAndCheck(*stuff, vectorOneDate, expectedVectorOneDateLines, expectedVectorOneDateLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 813 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneDateMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Date::DatePieces   aDate{12, 11, 10};
+            std::string                     insertedVectorOneDateLines[]{ "990QxQAAFOrt/w=="s };
+            constexpr size_t                insertedVectorOneDateLinesCount{numElementsInArray(insertedVectorOneDateLines)};
+            Vector                          vectorOneDate;
+
+            vectorOneDate.addValue(std::make_shared<Date>(MakeDateValue(aDate)));
+            result = extractValueAndCheck(*stuff, insertedVectorOneDateLines, insertedVectorOneDateLinesCount, vectorOneDate);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneDateMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 814 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            auto                            vectorOneTime{std::make_shared<Vector>()};
+            std::string                     expectedVectorOneTimeLines[]{ "990QxgKdZznt/w=="s };
+            constexpr size_t                expectedVectorOneTimeLinesCount{numElementsInArray(expectedVectorOneTimeLines)};
+
+            vectorOneTime->addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = setValueAndCheck(*stuff, vectorOneTime, expectedVectorOneTimeLines, expectedVectorOneTimeLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithOneTimeMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 815 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithOneTimeMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Time::TimePieces   aTime{12, 11, 10, 9};
+            std::string                     insertedVectorOneTimeLines[]{ "990QxgKdZznt/w=="s };
+            constexpr size_t                insertedVectorOneTimeLinesCount{numElementsInArray(insertedVectorOneTimeLines)};
+            Vector                          vectorOneTime;
+
+            vectorOneTime.addValue(std::make_shared<Time>(MakeTimeValue(aTime)));
+            result = extractValueAndCheck(*stuff, insertedVectorOneTimeLines, insertedVectorOneTimeLinesCount, vectorOneTime);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithOneTimeMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 816 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoLogicalsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorTwoLogicals{std::make_shared<Vector>()};
+            std::string         expectedVectorTwoLogicalsLines[]{ "990RwMDt/w=="s };
+            constexpr size_t    expectedVectorTwoLogicalsLinesCount{numElementsInArray(expectedVectorTwoLogicalsLines)};
+
+            vectorTwoLogicals->addValue(std::make_shared<Logical>());
+            vectorTwoLogicals->addValue(std::make_shared<Logical>());
+            result = setValueAndCheck(*stuff, vectorTwoLogicals, expectedVectorTwoLogicalsLines, expectedVectorTwoLogicalsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoLogicalsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 817 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoLogicalsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorTwoLogicalsLines[]{ "990RwMDt/w=="s };
+            constexpr size_t    insertedVectorTwoLogicalsLinesCount{numElementsInArray(insertedVectorTwoLogicalsLines)};
+            Vector              vectorTwoLogicals;
+
+            vectorTwoLogicals.addValue(std::make_shared<Logical>());
+            vectorTwoLogicals.addValue(std::make_shared<Logical>());
+            result = extractValueAndCheck(*stuff, insertedVectorTwoLogicalsLines, insertedVectorTwoLogicalsLinesCount, vectorTwoLogicals);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoLogicalsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 818 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoIntegersMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorTwoIntegers{std::make_shared<Vector>()};
+            std::string         expectedVectorTwoIntegersLines[]{ "990RAADt/w=="s };
+            constexpr size_t    expectedVectorTwoIntegersLinesCount{numElementsInArray(expectedVectorTwoIntegersLines)};
+
+            vectorTwoIntegers->addValue(std::make_shared<Integer>());
+            vectorTwoIntegers->addValue(std::make_shared<Integer>());
+            result = setValueAndCheck(*stuff, vectorTwoIntegers, expectedVectorTwoIntegersLines, expectedVectorTwoIntegersLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoIntegersMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 819 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoIntegersMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorTwoIntegersLines[]{ "990RAADt/w=="s };
+            constexpr size_t    insertedVectorTwoIntegersLinesCount{numElementsInArray(insertedVectorTwoIntegersLines)};
+            Vector              vectorTwoIntegers;
+
+            vectorTwoIntegers.addValue(std::make_shared<Integer>());
+            vectorTwoIntegers.addValue(std::make_shared<Integer>());
+            result = extractValueAndCheck(*stuff, insertedVectorTwoIntegersLines, insertedVectorTwoIntegersLinesCount, vectorTwoIntegers);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoIntegersMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 820 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoDoublesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorTwoDoubles{std::make_shared<Vector>()};
+            std::string         expectedVectorTwoDoublesLines[]{ "990RQQAAAAAAAAAAAAAAAAAAAADt/w=="s };
+            constexpr size_t    expectedVectorTwoDoublesLinesCount{numElementsInArray(expectedVectorTwoDoublesLines)};
+
+            vectorTwoDoubles->addValue(std::make_shared<Double>());
+            vectorTwoDoubles->addValue(std::make_shared<Double>());
+            result = setValueAndCheck(*stuff, vectorTwoDoubles, expectedVectorTwoDoublesLines, expectedVectorTwoDoublesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 821 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoDoublesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorTwoDoublesLines[]{ "990RQQAAAAAAAAAAAAAAAAAAAADt/w=="s };
+            constexpr size_t    insertedVectorTwoDoublesLinesCount{numElementsInArray(insertedVectorTwoDoublesLines)};
+            Vector              vectorTwoDoubles;
+
+            vectorTwoDoubles.addValue(std::make_shared<Double>());
+            vectorTwoDoubles.addValue(std::make_shared<Double>());
+            result = extractValueAndCheck(*stuff, insertedVectorTwoDoublesLines, insertedVectorTwoDoublesLinesCount, vectorTwoDoubles);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 822 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoStringsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorTwoStrings{std::make_shared<Vector>()};
+            std::string         expectedVectorTwoStringsLines[]{ "990RgIDt/w=="s };
+            constexpr size_t    expectedVectorTwoStringsLinesCount{numElementsInArray(expectedVectorTwoStringsLines)};
+
+            vectorTwoStrings->addValue(std::make_shared<String>());
+            vectorTwoStrings->addValue(std::make_shared<String>());
+            result = setValueAndCheck(*stuff, vectorTwoStrings, expectedVectorTwoStringsLines, expectedVectorTwoStringsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoStringsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 823 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoStringsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorTwoStringsLines[]{ "990RgIDt/w=="s };
+            constexpr size_t    insertedVectorTwoStringsLinesCount{numElementsInArray(insertedVectorTwoStringsLines)};
+            Vector              vectorTwoStrings;
+
+            vectorTwoStrings.addValue(std::make_shared<String>());
+            vectorTwoStrings.addValue(std::make_shared<String>());
+            result = extractValueAndCheck(*stuff, insertedVectorTwoStringsLines, insertedVectorTwoStringsLinesCount, vectorTwoStrings);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoStringsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 824 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoBlobsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorTwoBlobs{std::make_shared<Vector>()};
+            std::string         expectedVectorTwoBlobsLines[]{ "990RoKDt/w=="s };
+            constexpr size_t    expectedVectorTwoBlobsLinesCount{numElementsInArray(expectedVectorTwoBlobsLines)};
+
+            vectorTwoBlobs->addValue(std::make_shared<Blob>());
+            vectorTwoBlobs->addValue(std::make_shared<Blob>());
+            result = setValueAndCheck(*stuff, vectorTwoBlobs, expectedVectorTwoBlobsLines, expectedVectorTwoBlobsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoBlobsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 825 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoBlobsMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorTwoBlobsLines[]{ "990RoKDt/w=="s };
+            constexpr size_t    insertedVectorTwoBlobsLinesCount{numElementsInArray(insertedVectorTwoBlobsLines)};
+            Vector              vectorTwoBlobs;
+
+            vectorTwoBlobs.addValue(std::make_shared<Blob>());
+            vectorTwoBlobs.addValue(std::make_shared<Blob>());
+            result = extractValueAndCheck(*stuff, insertedVectorTwoBlobsLines, insertedVectorTwoBlobsLinesCount, vectorTwoBlobs);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoBlobsMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 826 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithManyDoublesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            constexpr size_t    numValues{43};
+            auto                vectorManyDoubles{std::make_shared<Vector>()};
+            std::string         expectedVectorManyDoublesLines[]{
+                                    "990gGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAA"s,
+                                    "QBgAAAAAAABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAA"s,
+                                    "AABAKgAAAAAAAEAsAAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAA"s,
+                                    "AAAAAEA0AAAAAAAAQDUAAAAAAABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6"s,
+                                    "AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAA"s,
+                                    "QECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAAAABAQoAAAAAAAEBDAAAAAAAAQEOAAAAA"s,
+                                    "AABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADt/w=="s };
+            constexpr size_t    expectedVectorManyDoublesLinesCount{numElementsInArray(expectedVectorManyDoublesLines)};
+
+            for (size_t ii{0}; numValues > ii; ++ii)
+            {
+                vectorManyDoubles->addValue(std::make_shared<Double>(StaticCast(double, ii)));
+            }
+            result = setValueAndCheck(*stuff, vectorManyDoubles, expectedVectorManyDoublesLines, expectedVectorManyDoublesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithManyDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 827 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithManyDoublesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            constexpr size_t    numValues{43};
+            std::string         insertedVectorManyDoublesLines[]{
+                                    "990gGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAA"s,
+                                    "QBgAAAAAAABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAA"s,
+                                    "AABAKgAAAAAAAEAsAAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAA"s,
+                                    "AAAAAEA0AAAAAAAAQDUAAAAAAABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6"s,
+                                    "AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAA"s,
+                                    "QECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAAAABAQoAAAAAAAEBDAAAAAAAAQEOAAAAA"s,
+                                    "AABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADt/w=="s };
+            constexpr size_t    insertedVectorManyDoublesLinesCount{numElementsInArray(insertedVectorManyDoublesLines)};
+            Vector              vectorManyDoubles;
+
+            for (size_t ii{0}; numValues > ii; ++ii)
+            {
+                vectorManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
+            }
+            result = extractValueAndCheck(*stuff, insertedVectorManyDoublesLines, insertedVectorManyDoublesLinesCount, vectorManyDoubles);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithManyDoublesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 828 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoAddressesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorTwoAddresses{std::make_shared<Vector>()};
+            std::string         expectedVectorTwoAddressesLines[]{ "990RxBI0VnjENFZ4q+3/"s };
+            constexpr size_t    expectedVectorTwoAddressesLinesCount{numElementsInArray(expectedVectorTwoAddressesLines)};
+
+            vectorTwoAddresses->addValue(std::make_shared<Address>(0x12345678));
+            vectorTwoAddresses->addValue(std::make_shared<Address>(0x345678AB));
+            result = setValueAndCheck(*stuff, vectorTwoAddresses, expectedVectorTwoAddressesLines, expectedVectorTwoAddressesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoAddressesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 829 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoAddressesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorTwoAddressesLines[]{ "990RxBI0VnjENFZ4q+3/"s };
+            constexpr size_t    insertedVectorTwoAddressesLinesCount{numElementsInArray(insertedVectorTwoAddressesLines)};
+            Vector              vectorTwoAddresses;
+
+            vectorTwoAddresses.addValue(std::make_shared<Address>(0x12345678));
+            vectorTwoAddresses.addValue(std::make_shared<Address>(0x345678AB));
+            result = extractValueAndCheck(*stuff, insertedVectorTwoAddressesLines, insertedVectorTwoAddressesLinesCount, vectorTwoAddresses);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoAddressesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 830 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoDatesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Date::DatePieces   aDate1{12, 11, 10};
+            static const Date::DatePieces   aDate2{11, 10, 9};
+            auto                            vectorTwoDates{std::make_shared<Vector>()};
+            std::string                     expectedVectorTwoDatesLines[]{ "990RxQAAFOrFAAATKe3/"s };
+            constexpr size_t                expectedVectorTwoDatesLinesCount{numElementsInArray(expectedVectorTwoDatesLines)};
+
+            vectorTwoDates->addValue(std::make_shared<Date>(MakeDateValue(aDate1)));
+            vectorTwoDates->addValue(std::make_shared<Date>(MakeDateValue(aDate2)));
+            result = setValueAndCheck(*stuff, vectorTwoDates, expectedVectorTwoDatesLines, expectedVectorTwoDatesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoDatesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 831 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoDatesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Date::DatePieces   aDate1{12, 11, 10};
+            static const Date::DatePieces   aDate2{11, 10, 9};
+            std::string                     insertedVectorTwoDatesLines[]{ "990RxQAAFOrFAAATKe3/"s };
+            constexpr size_t                insertedVectorTwoDatesLinesCount{numElementsInArray(insertedVectorTwoDatesLines)};
+            Vector                          vectorTwoDates;
+
+            vectorTwoDates.addValue(std::make_shared<Date>(MakeDateValue(aDate1)));
+            vectorTwoDates.addValue(std::make_shared<Date>(MakeDateValue(aDate2)));
+            result = extractValueAndCheck(*stuff, insertedVectorTwoDatesLines, insertedVectorTwoDatesLinesCount, vectorTwoDates);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoDatesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 832 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithTwoTimesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Time::TimePieces   aTime1{12, 11, 10, 9};
+            static const Time::TimePieces   aTime2{11, 10, 9, 8};
+            auto                            vectorTwoTimes{std::make_shared<Vector>()};
+            std::string                     expectedVectorTwoTimesLines[]{ "990RxgKdZznGAmWKcO3/"s };
+            constexpr size_t                expectedVectorTwoTimesLinesCount{numElementsInArray(expectedVectorTwoTimesLines)};
+
+            vectorTwoTimes->addValue(std::make_shared<Time>(MakeTimeValue(aTime1)));
+            vectorTwoTimes->addValue(std::make_shared<Time>(MakeTimeValue(aTime2)));
+            result = setValueAndCheck(*stuff, vectorTwoTimes, expectedVectorTwoTimesLines, expectedVectorTwoTimesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertVectorWithTwoTimesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 833 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithTwoTimesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const Time::TimePieces   aTime1{12, 11, 10, 9};
+            static const Time::TimePieces   aTime2{11, 10, 9, 8};
+            std::string                     insertedVectorTwoTimesLines[]{ "990RxgKdZznGAmWKcO3/"s };
+            constexpr size_t                insertedVectorTwoTimesLinesCount{numElementsInArray(insertedVectorTwoTimesLines)};
+            Vector                          vectorTwoTimes;
+
+            vectorTwoTimes.addValue(std::make_shared<Time>(MakeTimeValue(aTime1)));
+            vectorTwoTimes.addValue(std::make_shared<Time>(MakeTimeValue(aTime2)));
+            result = extractValueAndCheck(*stuff, insertedVectorTwoTimesLines, insertedVectorTwoTimesLinesCount, vectorTwoTimes);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithTwoTimesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 834 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertVectorWithRangeOfIntegers
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            auto                vectorWithRangeOfIntegers{std::make_shared<Vector>()};
+            std::string         expectedVectorWithRangeOfIntegersLines[]{
+                                    "990gEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSl"s,
+                                    "EAAlCRhOcqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55"s,
+                                    "YCLwvcAj/2dpgCP6Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm"s,
+                                    "/HKBWzmAACbceQ2QPwAAJ/6cuoeidgAA7f8="s };
+            constexpr size_t    expectedVectorWithRangeOfIntegersLinesCount{numElementsInArray(expectedVectorWithRangeOfIntegersLines)};
+
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(1));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(10));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(100));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(1000000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(10000000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(100000000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-1000000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-10000000000000000));
+            vectorWithRangeOfIntegers->addValue(std::make_shared<Integer>(-100000000000000000));
+            result = setValueAndCheck(*stuff, vectorWithRangeOfIntegers, expectedVectorWithRangeOfIntegersLines,
+                                      expectedVectorWithRangeOfIntegersLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithRangeOfIntegers
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 835 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractVectorWithRangeOfIntegers
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            std::string         insertedVectorWithRangeOfIntegersLines[]{
+                                    "990gEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSl"s,
+                                    "EAAlCRhOcqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55"s,
+                                    "YCLwvcAj/2dpgCP6Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm"s,
+                                    "/HKBWzmAACbceQ2QPwAAJ/6cuoeidgAA7f8="s };
+            constexpr size_t    insertedVectorWithRangeOfIntegersLinesCount{numElementsInArray(insertedVectorWithRangeOfIntegersLines)};
+            Vector              vectorWithRangeOfIntegers;
+
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(1));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(10));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(100));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(1000000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(10000000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(100000000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000000));
+            vectorWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000000));
+            result = extractValueAndCheck(*stuff, insertedVectorWithRangeOfIntegersLines, insertedVectorWithRangeOfIntegersLinesCount,
+                                          vectorWithRangeOfIntegers);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractVectorWithRangeOfIntegers
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -7222,68 +10371,76 @@ main
                         result = doTestMIMEExtractEmptySetMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 206 :
+                        result = doTestMIMEInsertEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 207 :
+                        result = doTestMIMEExtractEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 300 :
-                        result = doTestMIMEInsertArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 301 :
-                        result = doTestMIMEExtractArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 302 :
-                        result = doTestMIMEInsertArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 303 :
-                        result = doTestMIMEExtractArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 304 :
-                        result = doTestMIMEInsertArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 305 :
-                        result = doTestMIMEExtractArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 306 :
-                        result = doTestMIMEInsertArrayOneStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 307 :
-                        result = doTestMIMEExtractArrayOneStringMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 308 :
-                        result = doTestMIMEInsertArrayOneBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 309 :
-                        result = doTestMIMEExtractArrayOneBlobMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 310 :
-                        result = doTestMIMEInsertArrayOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 311 :
-                        result = doTestMIMEExtractArrayOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 312 :
-                        result = doTestMIMEInsertArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 313 :
-                        result = doTestMIMEExtractArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 314 :
-                        result = doTestMIMEInsertArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 315 :
-                        result = doTestMIMEExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 316 :
@@ -7310,92 +10467,100 @@ main
                         result = doTestMIMEExtractArrayWithOneTimeMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 322 :
+                        result = doTestMIMEInsertArrayWithOneVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 323 :
+                        result = doTestMIMEExtractArrayWithOneVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 400 :
-                        result = doTestMIMEInsertArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 401 :
-                        result = doTestMIMEExtractArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 402 :
-                        result = doTestMIMEInsertArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 403 :
-                        result = doTestMIMEExtractArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 404 :
-                        result = doTestMIMEInsertArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 405 :
-                        result = doTestMIMEExtractArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 406 :
-                        result = doTestMIMEInsertArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoStringsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 407 :
-                        result = doTestMIMEExtractArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoStringsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 408 :
-                        result = doTestMIMEInsertArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoBlobsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 409 :
-                        result = doTestMIMEExtractArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoBlobsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 410 :
-                        result = doTestMIMEInsertArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoArraysMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 411 :
-                        result = doTestMIMEExtractArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoArraysMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 412 :
-                        result = doTestMIMEInsertArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoMapsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 413 :
-                        result = doTestMIMEExtractArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoMapsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 414 :
-                        result = doTestMIMEInsertArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithTwoSetsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 415 :
-                        result = doTestMIMEExtractArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithTwoSetsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 416 :
-                        result = doTestMIMEInsertArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 417 :
-                        result = doTestMIMEExtractArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 418 :
-                        result = doTestMIMEInsertArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneMapOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 419 :
-                        result = doTestMIMEExtractArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneMapOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 420 :
-                        result = doTestMIMEInsertArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 421 :
-                        result = doTestMIMEExtractArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayWithOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 422 :
@@ -7436,6 +10601,86 @@ main
 
                     case 431 :
                         result = doTestMIMEExtractArrayWithOneDateOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 439 :
+                        result = doTestMIMEInsertArrayWithTwoEmptyVectorsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 440 :
+                        result = doTestMIMEExtractArrayWithTwoEmptyVectorsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 441 :
+                        result = doTestMIMEInsertArrayWithEmptyVectorAndEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 442 :
+                        result = doTestMIMEExtractArrayWithEmptyVectorAndEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 443 :
+                        result = doTestMIMEInsertArrayWithEmptyMapAndEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 444 :
+                        result = doTestMIMEExtractArrayWithEmptyMapAndEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 445 :
+                        result = doTestMIMEInsertArrayWithEmptySetAndEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 446 :
+                        result = doTestMIMEExtractArrayWithEmptySetAndEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 447 :
+                        result = doTestMIMEInsertArrayWithEmptyVectorAndEmptySetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 448 :
+                        result = doTestMIMEExtractArrayWithEmptyVectorAndEmptySetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 449 :
+                        result = doTestMIMEInsertArrayWithEmptyArrayAndEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 450 :
+                        result = doTestMIMEExtractArrayWithEmptyArrayAndEmptyVectorMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 451 :
+                        result = doTestMIMEInsertArrayWithEmptyMapAndEmptyArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 452 :
+                        result = doTestMIMEExtractArrayWithEmptyMapAndEmptyArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 453 :
+                        result = doTestMIMEInsertArrayWithEmptySetAndEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 454 :
+                        result = doTestMIMEExtractArrayWithEmptySetAndEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 455 :
+                        result = doTestMIMEInsertArrayWithEmptyArrayAndEmptySetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 456 :
+                        result = doTestMIMEExtractArrayWithEmptyArrayAndEmptySetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 457 :
+                        result = doTestMIMEInsertArrayWithEmptyVectorAndEmptyArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 458 :
+                        result = doTestMIMEExtractArrayWithEmptyVectorAndEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 500 :
@@ -7548,6 +10793,150 @@ main
 
                     case 701 :
                         result = doTestMIMExtractWithBadCharacters(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 800 :
+                        result = doTestMIMEInsertVectorWithOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 801 :
+                        result = doTestMIMEExtractVectorWithOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 802 :
+                        result = doTestMIMEInsertVectorWithOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 803 :
+                        result = doTestMIMEExtractVectorWithOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 804 :
+                        result = doTestMIMEInsertVectorWithOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 805 :
+                        result = doTestMIMEExtractVectorWithOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 806 :
+                        result = doTestMIMEInsertVectorWithOneStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 807 :
+                        result = doTestMIMEExtractVectorWithOneStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 808 :
+                        result = doTestMIMEInsertVectorWithOneBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 809 :
+                        result = doTestMIMEExtractVectorWithOneBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 810 :
+                        result = doTestMIMEInsertVectorWithOneAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 811 :
+                        result = doTestMIMEExtractVectorWithOneAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 812 :
+                        result = doTestMIMEInsertVectorWithOneDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 813 :
+                        result = doTestMIMEExtractVectorWithOneDateMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 814 :
+                        result = doTestMIMEInsertVectorWithOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 815 :
+                        result = doTestMIMEExtractVectorWithOneTimeMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 816 :
+                        result = doTestMIMEInsertVectorWithTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 817 :
+                        result = doTestMIMEExtractVectorWithTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 818 :
+                        result = doTestMIMEInsertVectorWithTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 819 :
+                        result = doTestMIMEExtractVectorWithTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 820 :
+                        result = doTestMIMEInsertVectorWithTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 821 :
+                        result = doTestMIMEExtractVectorWithTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 822 :
+                        result = doTestMIMEInsertVectorWithTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 823 :
+                        result = doTestMIMEExtractVectorWithTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 824 :
+                        result = doTestMIMEInsertVectorWithTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 825 :
+                        result = doTestMIMEExtractVectorWithTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 826 :
+                        result = doTestMIMEInsertVectorWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 827 :
+                        result = doTestMIMEExtractVectorWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 828 :
+                        result = doTestMIMEInsertVectorWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 829 :
+                        result = doTestMIMEExtractVectorWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 830 :
+                        result = doTestMIMEInsertVectorWithTwoDatesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 831 :
+                        result = doTestMIMEExtractVectorWithTwoDatesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 832 :
+                        result = doTestMIMEInsertVectorWithTwoTimesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 833 :
+                        result = doTestMIMEExtractVectorWithTwoTimesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 834 :
+                        result = doTestMIMEInsertVectorWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 835 :
+                        result = doTestMIMEExtractVectorWithRangeOfIntegers(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

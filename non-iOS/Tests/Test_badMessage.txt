@@ -126,3 +126,21 @@ add_test(NAME TestNonEmptyMessageWithNonEmptySetWithInvalidCount COMMAND ${THIS_
 add_test(NAME TestNonEmptyMessageWithNonEmptySetWithTooFewValues COMMAND ${THIS_TARGET} 65)
 ## Test message with set with too many values
 add_test(NAME TestNonEmptyMessageWithNonEmptySetWithTooManyValues COMMAND ${THIS_TARGET} 66)
+
+## Test message with vector with initial end tag
+add_test(NAME TestNonEmptyMessageWithVectorWithInitialEndTag COMMAND ${THIS_TARGET} 80)
+## Test message with vector with terminal start tag
+add_test(NAME TestNonEmptyMessageWithVectorWithTerminalStartTag COMMAND ${THIS_TARGET} 81)
+## Test message with empty vector with content
+add_test(NAME TestNonEmptyMessageWithEmptyVectorWithContent COMMAND ${THIS_TARGET} 82)
+## Test message with non-empty vector without content
+add_test(NAME TestNonEmptyMessageWithNonEmptyVectorWithoutContent COMMAND ${THIS_TARGET} 83)
+## Test message with vector with invalid count
+add_test(NAME TestNonEmptyMessageWithNonEmptyVectorWithInvalidCount COMMAND ${THIS_TARGET} 84)
+## Test message with vector with too few values
+add_test(NAME TestNonEmptyMessageWithNonEmptyVectorWithTooFewValues COMMAND ${THIS_TARGET} 85)
+## Test message with vector with too many values
+add_test(NAME TestNonEmptyMessageWithNonEmptyVectorWithTooManyValues COMMAND ${THIS_TARGET} 86)
+## Test message with vector with too many double values
+add_test(NAME TestNonEmptyMessageWithNonEmptyVectorWithTooManyDoubles COMMAND ${THIS_TARGET} 87)
+

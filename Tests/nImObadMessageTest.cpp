@@ -2449,6 +2449,602 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
 } // doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 080 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithVectorWithInitialEndTag
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Unexpected character in Message @1d/0x1");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTTestNonEmptyMessageWithVectorWithInitialEndTag
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 081 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithVectorWithTerminalStartTag
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Empty Vector with incorrect end tag @2d/0x2");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMessageWithVectorWithTerminalStartTag
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 082 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithEmptyVectorWithContent
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Empty Vector with incorrect end tag @2d/0x2");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMessageWithEmptyVectorWithContent
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 083 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithNonEmptyVectorWithoutContent
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                  DataKind::IntegerShortValueValueMask),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Unexpected character in Message @3d/0x3");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMessageWithNonEmptyVectorWithoutContent
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 084 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithNonEmptyVectorWithInvalidCount
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerLongValue |
+                  ((1 - 1) & DataKind::IntegerLongValueCountMask),
+                StaticCast(DataKind, 0 + kDataKindIntegerShortValueMinValue - 1),
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Vector with zero or negative count @4d/0x4");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMessageWithNonEmptyVectorWithInvalidCount
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 085 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithNonEmptyVectorWithTooFewValues
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((3 + kDataKindIntegerShortValueMinValue - 1) &
+                  DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Unexpected character in Message @5d/0x5");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMessageWithNonEmptyVectorWithTooFewValues
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 086 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithNonEmptyVectorWithTooManyValues
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                  DataKind::IntegerShortValueValueMask),
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Non-empty Vector with incorrect end tag @5d/0x5");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMessageWithNonEmptyVectorWithTooManyValues
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 087 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNonEmptyMessageWithNonEmptyVectorWithTooManyDoubles
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    ODL_S1(launchPath); //####
+    ODL_I1(argc); //####
+    ODL_P1(argv); //####
+    int result{1};
+
+    try
+    {
+        if (auto stuff{std::make_unique<Message>()}; stuff)
+        {
+            static const DataKind   bytesToInsert[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Vector
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
+                  DataKind::IntegerShortValueValueMask),
+                // Double
+                DataKind::Double | DataKind::DoubleLongCount |
+                  ((1 - 1) & DataKind::DoubleLongCountMask),
+                StaticCast(DataKind, 3),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 0
+                StaticCast(DataKind, 0x3F), StaticCast(DataKind, 0xF0),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 1
+                StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
+                StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 2
+                // Logical
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
+                // End of Vector
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeVector |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
+
+            result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
+                                                 "Non-empty Vector with incorrect end tag @29d/0x1d");
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNonEmptyMessageWithNonEmptyVectorWithTooManyDoubles
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -2617,6 +3213,38 @@ main
 
                     case 66 :
                         result = doTestNonEmptyMessageWithNonEmptySetWithTooManyValues(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 80 :
+                        result = doTestNonEmptyMessageWithVectorWithInitialEndTag(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 81 :
+                        result = doTestNonEmptyMessageWithVectorWithTerminalStartTag(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 82 :
+                        result = doTestNonEmptyMessageWithEmptyVectorWithContent(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 83 :
+                        result = doTestNonEmptyMessageWithNonEmptyVectorWithoutContent(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 84 :
+                        result = doTestNonEmptyMessageWithNonEmptyVectorWithInvalidCount(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 85 :
+                        result = doTestNonEmptyMessageWithNonEmptyVectorWithTooFewValues(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 86 :
+                        result = doTestNonEmptyMessageWithNonEmptyVectorWithTooManyValues(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 87 :
+                        result = doTestNonEmptyMessageWithNonEmptyVectorWithTooManyDoubles(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

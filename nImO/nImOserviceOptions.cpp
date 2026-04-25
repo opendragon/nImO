@@ -240,9 +240,9 @@ nImO::ProcessServiceOptions
     auto                inTypeHelpString2{"  "s + MakeOption("i"s, "intype"s) + " <type> \tSpecify the data type for input channels"s};
     Option_::Descriptor inTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
                                             inTypeHelpString2.c_str()};
-    auto                logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog the application"s};
-    Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
-                                        logHelpString.c_str()};
+    auto                logHelpString{"  "s + MakeOption(kLoggingShortOptionString, "log"s) + " \tLog the application"s};
+    Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, kLoggingShortOptionString.c_str(), "log",
+                                        Option_::Arg::None, logHelpString.c_str()};
     auto                missingHelpString{"  "s + MakeOption("m"s, "missing"s) + " <mode> \tSpecify the behaviour for missing input on an input channel"s};
     Option_::Descriptor missingDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMISSING), 0, "m", "missing", checkMissingMode,
                                             missingHelpString.c_str()};

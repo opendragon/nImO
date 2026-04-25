@@ -793,6 +793,11 @@ nImO::SearchContext::findAndLaunchTheRegistry
                 }
             }
         }
+        // Add the standard logging option if the requesting application is being logged.
+        if (loggingIsEnabled())
+        {
+            commandLine.push_back(kLoggingShortOptionString);
+        }
         // We need to put the new process in it's own group so that it will be fully detached.
         BP::group   aGroup;
 

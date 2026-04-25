@@ -249,8 +249,8 @@ nImO::ProcessStandardOptions
     auto                        jsonHelpString{"  "s + MakeOption("j"s, "json"s) + " \tGenerate output in JSON format"s};
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::kOptionJSON), 0, "j", "json",
                                                 Option_::Arg::None, jsonHelpString.c_str()};
-    auto                        logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog the application"s};
-    Option_::Descriptor         logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l",
+    auto                        logHelpString{"  "s + MakeOption(kLoggingShortOptionString, "log"s) + " \tLog the application"s};
+    Option_::Descriptor         logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, kLoggingShortOptionString.c_str(),
                                                 "log", Option_::Arg::None, logHelpString.c_str()};
     auto                        machineHelpString{"  "s + MakeOption("m"s, "machine"s) + " <name> \tSpecify machine to be referenced"s};
     Option_::Descriptor         machineDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMACHINE), 0, "m", "machine",

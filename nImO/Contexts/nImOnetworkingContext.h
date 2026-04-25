@@ -256,6 +256,16 @@ namespace nImO
                 return _registrySearchTimeout;
             }
 
+            /*! @brief Return @c true if logging has been enabled.
+             @return @c true if logging is enabled. */
+            inline bool
+            loggingIsEnabled
+                (void)
+                const
+            {
+                return _loggingEnabled;
+            }
+
             /*! @brief Returns RegistryMode value corresponding to a name.
              @param[in] aName The name of the RegistryMode to be converted.
              @return The RegistryMode value corresponding to the name. */

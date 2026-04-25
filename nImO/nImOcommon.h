@@ -904,6 +904,9 @@ namespace nImO
     /*! @brief The standard copyright holder name to use for nImO-created executables. */
     const std::string   kCopyrightName{"OpenDragon"s};
 
+    /*! @brief The standard command-line option for logging. */
+    const std::string   kLoggingShortOptionString{"l"s};
+
     /*! @brief The IP address for the loopback address for the machine that is running the executable. */
     const std::string   kSelfAddressIpAddress{"127.0.0.1"s};
 

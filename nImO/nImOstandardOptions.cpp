@@ -398,7 +398,7 @@ nImO::ProcessStandardOptions
                     {
                         optionValues._expanded = true;
                     }
-                    if ((0 == (kSkipLoggingOption & optionsToIgnore)) &&(nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)]))
+                    if ((0 == (kSkipLoggingOption & optionsToIgnore)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)]))
                     {
                         optionValues._logging = true;
                     }

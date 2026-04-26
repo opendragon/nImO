@@ -301,7 +301,6 @@ main
 
                                                     }
                                                 }
-
                                             }
                                         }
                                         if (! nImO::gPendingStop)

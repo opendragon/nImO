@@ -139,7 +139,7 @@ namespace nImO
 
     }; // OutputFlavour
 
-    UnaryAndBinaryOperators(OptionsMask)
+    UnaryAndBinaryOperators_(OptionsMask)
 
     /*! @brief Convenience structure for standard options. */
     struct StandardOptions

@@ -97,6 +97,12 @@ using namespace std::string_literals;
 # endif // defined(__APPLE__)
 # include <boost/asio.hpp>
 # include <boost/optional.hpp>
+# pragma clang diagnostic push
+#  pragma clang diagnostic ignored "-Wunused-parameter"
+#  pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#  include <boost/process.hpp>
+# pragma clang diagnostic pop
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -210,6 +216,7 @@ numElementsInArray
 namespace BA = boost::asio;
 namespace BAIP = BA::ip;
 namespace BAErr = BA::error;
+namespace BP = boost::process;
 
 /*! @brief A shortened name for a type. */
 using BAD_t = BA::deadline_timer;
@@ -223,7 +230,7 @@ using BTCP = BAIP::tcp;
 /*! @brief A shortened name for a type. */
 using BUDP = BAIP::udp;
 
-# define UnaryAndBinaryOperators(Type_) \
+# define UnaryAndBinaryOperators_(Type_) \
 inline constexpr Type_ \
 operator~\
     (const Type_ rightValue)\
@@ -294,7 +301,9 @@ namespace nImO
     class Logical;
     class Map;
     class Message;
+    class ReceiveFromMulticastPort;
     class RegistryProxy;
+    class SendToMulticastPort;
     class Set;
     class String;
     class StringBuffer;
@@ -611,6 +620,8 @@ namespace nImO
 
     }; // RegistryMode
 
+    UnaryAndBinaryOperators_(RegistryMode)
+
     /*! @brief The transport mechanism to use. */
     enum class TransportType : uint8_t
     {
@@ -907,6 +918,9 @@ namespace nImO
     /*! @brief The standard command-line option for logging. */
     const std::string   kLoggingShortOptionString{"l"s};
 
+    /*! @brief The key for the message in a multicast message. */
+    const std::string   kMessageKey{"message"s};
+
     /*! @brief The IP address for the loopback address for the machine that is running the executable. */
     const std::string   kSelfAddressIpAddress{"127.0.0.1"s};
 
@@ -955,8 +969,14 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a Message. */
     using SpMessage = std::shared_ptr<Message>;
 
+    /*! @brief A holder for a shared pointer to a ReceiveFromMulticastPort. */
+    using SpReceiveFromMulticastPort = std::shared_ptr<ReceiveFromMulticastPort>;
+
     /*! @brief A holder for a shared pointer to a RegistryProxy. */
     using SpRegistryProxy = std::shared_ptr<RegistryProxy>;
+
+    /*! @brief A holder for a shared pointer to a SendToMulticastPort. */
+    using SpSendToMulticastPort = std::shared_ptr<SendToMulticastPort>;
 
     /*! @brief A holder for a shared pointer to a Set. */
     using SpSet = std::shared_ptr<Set>;
@@ -1301,9 +1321,9 @@ namespace nImO
         return ((',' == aChar) || (';' == aChar));
     }
 
-    UnaryAndBinaryOperators(DataKind)
+    UnaryAndBinaryOperators_(DataKind)
 
-    UnaryAndBinaryOperators(TransportType)
+    UnaryAndBinaryOperators_(TransportType)
 
     /*! @brief Write out a (possibly multi-line) description.
      @param[in,out] outStream The stream to write to.

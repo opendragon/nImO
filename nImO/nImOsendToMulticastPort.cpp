@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOreceiveQueue.cpp
+//  File:       nImO/nImOsendToMessagePort.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for data used with nImO network receivers.
+//  Contains:   The class definition for nImO handling messages on a multicast port.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2024 by OpenDragon.
+//  Copyright:  (c) 2026 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,16 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-03
+//  Created:    2026-04-26
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOreceiveQueue.h>
-
+#include <nImOsendToMulticastPort.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
 #include <Containers/nImOmessage.h>
-#include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
 
 //#include <odlEnable.h>
@@ -51,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for data used with %nImO network receivers. */
+ @brief The class definition for for sending %nImO messages to a multicast group. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -80,102 +82,86 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+nImO::SendToMulticastPort::SendToMulticastPort
+    (nImO::SPservice            service,
+     const nImO::Connection &   theConnection) :
+        _connection{theConnection}, _endpoint{BAIP::address_v4(_connection._address), _connection._port},
+        _socket{*service, _endpoint.protocol()}
+{
+    ODL_ENTER(); //####
+    ODL_P1(service.get()); //####
+    BAIP::address_v4    multicastAddress{_connection._address};
+
+    // Join the multicast group.
+    _socket.set_option(BAIP::multicast::join_group(multicastAddress));
+    ODL_EXIT_P(this); //####
+} // nImO::SendToMulticastPort::SendToMulticastPort
+
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
-nImO::ReceiveQueue::addRawBytesAsMessage
-    (const int              tag,
-     const IPv4Address      senderAddress,
-     const IPv4Port         senderPort,
-     const std::string &    receivedAsString)
-{
-    ODL_OBJENTER(); //####
-    if (! _stop)
-    {
-        ByteVector  inBytes;
-
-        // We need to convert the raw data to a string!
-        if (DecodeMIMEToBytes(receivedAsString, inBytes))
-        {
-            auto    newMessage{std::make_shared<Message>()};
-
-            newMessage->open(false);
-            newMessage->appendBytes(inBytes.data(), inBytes.size());
-            auto    newData{std::make_shared<ReceivedData>(tag, newMessage->getValue(), senderAddress, senderPort)};
-
-            {
-                std::lock_guard<std::mutex>  lock{_receivedLock};
-
-                _receivedData.push_back(newData);
-            }
-            newMessage->close();
-            _receivedCondition.notify_one();
-        }
-    }
-    ODL_OBJEXIT(); //####
-} // nImO::ReceiveQueue::addRawBytesAsMessage
-
-nImO::SpReceivedData
-nImO::ReceiveQueue::getNextMessage
-    (void)
-{
-    ODL_OBJENTER(); //####
-    SpReceivedData  nextMessage;
-
-    boost::this_thread::yield();
-    {
-        // Check for messages.
-        std::unique_lock<std::mutex>    lock{_receivedLock};
-
-        for ( ; (! _stop) && gKeepRunning && (0 == _receivedData.size()); )
-        {
-            boost::this_thread::yield();
-            _receivedCondition.wait(lock);
-        }
-        if ((! _stop) && gKeepRunning)
-        {
-            nextMessage = _receivedData.front();
-            _receivedData.pop_front();
-        }
-    }
-    ODL_OBJEXIT_P(nextMessage.get()); //####
-    return nextMessage;
-} // nImO::ReceiveQueue::getNextMessage
-
 bool
-nImO::ReceiveQueue::hasMessage
-    (void)
+nImO::SendToMulticastPort::sendValues
+    (SpMap  valuesToSend)
 {
     ODL_OBJENTER(); //####
-    bool    found{false};
+    ODL_P1(valuesToSend.get()); //####
+    bool    okSoFar{false};
 
-    boost::this_thread::yield();
+    if (valuesToSend)
     {
-        // Check for messages.
-        std::unique_lock<std::mutex>    lock{_receivedLock};
+        Message messageToSend;
+//        auto    messageMap{std::make_shared<Map>()};
 
-        found = (0 < _receivedData.size());
+        messageToSend.open(true);
+//        messageMap->addValue(std::make_shared<String>(key), valueToSend);
+//        messageMap->addValue(std::make_shared<String>(kComputerNameKey), _computerName);
+//        messageMap->addValue(std::make_shared<String>(kTagKey), _tag);
+//        if (nullptr != _commandPort)
+//        {
+//            messageMap->addValue(std::make_shared<String>(kCommandPortKey), _commandPort);
+//        }
+        messageToSend.setValue(valuesToSend);
+        messageToSend.close();
+        if (0 < messageToSend.getLength())
+        {
+            if (auto asString{messageToSend.getString()}; asString.empty())
+            {
+                ODL_LOG("(asString.empty())"); //####
+            }
+            else
+            {
+                StdStringVector outVec;
+
+                EncodeBytesAsMIME(outVec, asString);
+                auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
+
+                // send the encoded message to the logging ports
+                _socket.async_send_to(BA::buffer(*outString), _endpoint,
+                                      [outString]
+                                      (const BSErr          ec,
+                                       const std::size_t    length)
+                                      {
+                                        NIMO_UNUSED_VAR_(ec);
+                                        NIMO_UNUSED_VAR_(length);
+                                      });
+                okSoFar = true;
+                ODL_B1(okSoFar); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < messageToSend.getLength())"); //####
+        }
     }
-    ODL_OBJEXIT_B(found); //####
-    return found;
-} // nImO::ReceiveQueue::hasMessage
-
-void
-nImO::ReceiveQueue::stop
-    (void)
-{
-    ODL_OBJENTER(); //####
-    _stop = true;
+    else
     {
-        std::lock_guard<std::mutex>  lock{_receivedLock};
-
-        _receivedData.clear();
+        ODL_LOG("! (valuesToSend)"); //####
     }
-    _receivedCondition.notify_one();
-    ODL_OBJEXIT(); //####
-} // nImO::ReceiveQueue::stop
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::SendToMulticastPort::sendValues
 
 #if defined(__APPLE__)
 # pragma mark Global functions

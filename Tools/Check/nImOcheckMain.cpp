@@ -47,7 +47,6 @@
 # pragma GCC diagnostic push
 # pragma GCC diagnostic ignored "-Wunused-function"
 #endif // MAC_OR_LINUX_OR_BSD_
-//#include <mdns.hpp>
 #if MAC_OR_LINUX_OR_BSD_
 # pragma GCC diagnostic pop
 #endif // MAC_OR_LINUX_OR_BSD_
@@ -108,7 +107,7 @@ main
     nImO::ReportVersions();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Determines if the Registry is active"s, "nImOcheck"s, 2024,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipAutolaunchOption | nImO::kSkipExpandedOption |
-                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+                                     nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

@@ -44,12 +44,6 @@
 #include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 
-#pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wunused-parameter"
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# include <boost/process.hpp>
-#pragma clang diagnostic pop
-
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -67,8 +61,6 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
-
-namespace BP = boost::process;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables

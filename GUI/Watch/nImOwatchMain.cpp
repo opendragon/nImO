@@ -41,10 +41,11 @@
 #include <BasicTypes/nImOvalue.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
-//#include <Contexts/nImOsearchContext.h>
+#include <Contexts/nImOsearchContext.h>
 #include <nImOcallbackFunction.h>
 #include <nImOmainSupport.h>
 #include <nImOreceivedData.h>
+#include <nImOreceiveFromMulticastPort.h>
 #include <nImOreceiveQueue.h>
 #include <nImOstandardOptions.h>
 
@@ -79,93 +80,6 @@
 
 /*! @brief The sequence of received messages. */
 static nImO::ReceiveQueue   lReceiveQueue;
-
-/*! @brief A class to handle receiving messages from the logging or status multicast group. */
-class ReceiveOnMessagePort final
-{
-    public :
-        // Public type definitions.
-
-    protected :
-        // Protected type definitions.
-
-    private :
-        // Private type definitions.
-
-    public :
-        // Public methods.
-
-        /*! @brief The constructor.
-         @param[in] service The I/O service to attach to.
-         @param[in] runFlag A reference to the flag that is used to stop execution.
-         @param[in] theConnection The connection to listen on. */
-        inline ReceiveOnMessagePort
-            (nImO::SPservice            service,
-             const nImO::Connection &   theConnection) :
-                _socket(*service)
-        {
-            BAIP::address_v4    listenAddress{0};
-            BAIP::address_v4    multicastAddress{theConnection._address};
-            BUDP::endpoint      listenEndpoint{listenAddress, theConnection._port};
-
-            _socket.open(listenEndpoint.protocol());
-            _socket.set_option(BUDP::socket::reuse_address(true));
-            _socket.bind(listenEndpoint);
-            // Join the multicast group.
-            _socket.set_option(BAIP::multicast::join_group(multicastAddress));
-            receiveMessages();
-        }
-
-    protected :
-        // Protected methods.
-
-    private :
-        // Private methods.
-
-        /*! @brief Receive a message. */
-        inline void
-        receiveMessages
-            (void)
-        {
-            if (nImO::gKeepRunning)
-            {
-                _socket.async_receive_from(BA::buffer(_data), _senderEndpoint,
-                                           [this]
-                                           (const BSErr         ec,
-                                            const std::size_t   length)
-                                           {
-                                               if (! ec)
-                                               {
-                                                   std::string          receivedAsString{_data.data(), length};
-                                                   nImO::IPv4Address    senderAddress{_senderEndpoint.address().to_v4().to_uint()};
-                                                   nImO::IPv4Port       senderPort{_senderEndpoint.port()};
-
-                                                   lReceiveQueue.addRawBytesAsMessage(0, senderAddress, senderPort, receivedAsString);
-                                                   receiveMessages();
-                                               }
-                                           });
-            }
-        }
-
-    public :
-        // Public fields.
-
-    protected :
-        // Protected fields.
-
-    private :
-        // Private fields.
-
-        /*! @brief The socket for a multicast reception. */
-        BUDP::socket    _socket;
-
-        /*! @brief The sender's endpoint. */
-        BUDP::endpoint  _senderEndpoint{};
-
-        /*! @brief A buffer for the raw message data. */
-        std::array<char, 2048>  _data{};
-
-}; // ReceiveOnMessagePort
 
 /*! @brief A class to provide values that are used for handling callbacks for the application. */
 class LogBreakHandler final : public nImO::CallbackFunction
@@ -267,13 +181,13 @@ std::cerr << "** Unimplemented **\n";
 
 #if 0
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::NetworkingContext                 ourContext{"watch"s, optionValues._logging};
-            auto                                    loggingConnection{ourContext.getLoggingInfo()};
-            auto                                    registrySearchConnection{ourContext.gerRegistrySearchInfo()};
-            auto                                    statusConnection{ourContext.getStatusInfo()};
-            auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
-            std::shared_ptr<ReceiveOnMessagePort>   registrySearchReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), registrySearchConnection)};
-            std::shared_ptr<ReceiveOnMessagePort>   statusReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection)};
+            nImO::SearchContext ourContext{"watch"s, optionValues._logging};
+            auto                loggingConnection{ourContext.getLoggingInfo()};
+            auto                registrySearchConnection{ourContext.gerRegistrySearchInfo()};
+            auto                statusConnection{ourContext.getStatusInfo()};
+            auto                logReceiver{std::make_shared<ReceiveFromMulticastPort>(ourContext.getService(), loggingConnection, lReceiveQueue)};
+            auto                registrySearchReceiver{std::make_shared<ReceiveFromMulticastPort>(ourContext.getService(), registrySearchConnection, lReceiveQueue)};
+            auto                statusReceiver{std::make_shared<ReceiveFromMulticastPort>(ourContext.getService(), statusConnection, lReceiveQueue)};
 
             nImO::SetSpecialBreakObject(new LogBreakHandler());
             // Wait for messages until exit requested via Ctrl-C.

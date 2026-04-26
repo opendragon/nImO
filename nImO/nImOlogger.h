@@ -62,9 +62,6 @@ namespace nImO
     /*! @brief The key for the computer name in a log message. */
     extern const std::string    kComputerNameKey;
 
-    /*! @brief The key for the message in a log message. */
-    extern const std::string    kMessageKey;
-
     /*! @brief The The key for the tag in a log message. */
     extern const std::string    kTagKey;
 
@@ -157,11 +154,8 @@ namespace nImO
             /*! @brief The multicast connection used for logging. */
             Connection  _connection{};
 
-            /*! @brief The endpoint for a multicast transmission. */
-            BUDP::endpoint  _endpoint{};
-        
-            /*! @brief The socket for a multicast transmission. */
-            BUDP::socket    _socket;
+            /*! @brief The multicast port to be used. */
+            SpSendToMulticastPort   _loggerPort{};
 
             /*! @brief The symbolic name for the current process. */
             SpString    _tag;

@@ -167,7 +167,7 @@ main
 
             ourContext->setTag(thisService + "-"s + ourContext->getRegistryName());
             nImO::ServiceContext::addStandardHandlers(ourContext);
-            if (ourContext->findTheRegistry(true))
+            if (ourContext->findTheRegistry())
             {
                 ourContext->report("Registry already running."s);
                 std::cerr << "Registry already running.\n";

@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOreceiveQueue.h
+//  File:       nImO/nImOsendToMulticastPort.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for data used with nImO network receivers.
+//  Contains:   The class declaration for nImO handling messages on a multicast port.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2024 by OpenDragon.
+//  Copyright:  (c) 2026 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,23 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-03
+//  Created:    2026-04-26
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOreceiveQueue_H_))
-# define nImOreceiveQueue_H_ /* Header guard */
+#if (! defined(nImOsendToMulticastPort_H_))
+# define nImOsendToMulticastPort_H_ /* Header guard */
 
-# include <nImOreceivedData.h>
-
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma GCC diagnostic push
-#  pragma GCC diagnostic ignored "-Wunused-function"
-# endif // MAC_OR_LINUX_OR_BSD_
-# include <mdns.hpp>
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma GCC diagnostic pop
-# endif // MAC_OR_LINUX_OR_BSD_
+# include <Contexts/nImOcontext.h>
+# include <nImOmainSupport.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -56,15 +48,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for data used with %nImO network receivers. */
+ @brief The class declaration for sending %nImO messages to a multicast group. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A structure to hold a received message. */
-    class ReceiveQueue final
+    /*! @brief A class to handle sending messages to a multicast group. */
+    class SendToMulticastPort final
     {
         public :
             // Public type definitions.
@@ -78,45 +70,20 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief Convert raw bytes to a message and add to the queue.
-             @param[in] tag The input channel index.
-             @param[in] senderAddress The sender's IP address.
-             @param[in] senderPort The sender's port.
-             @param[in] receivedAsString The raw data as a string. */
-            void
-            addRawBytesAsMessage
-                (const int              tag,
-                 const IPv4Address      senderAddress,
-                 const IPv4Port         senderPort,
-                 const std::string &    receivedAsString);
+            /*! @brief The constructor.
+             @param[in] service The I/O service to attach to.
+             @param[in] runFlag A reference to the flag that is used to stop execution.
+             @param[in] theConnection The connection to listen on. */
+            SendToMulticastPort
+                (nImO::SPservice            service,
+                 const nImO::Connection &   theConnection);
 
-            /*! @brief Convert raw bytes to a message and add to the queue.
-             @param[in] tag The input channel index.
-             @param[in] receivedAsString The raw data as a string. */
-            void
-            addRawBytesAsMessage
-                (const int              tag,
-                 const std::string &    receivedAsString)
-            {
-                addRawBytesAsMessage(tag, 0, 0, receivedAsString);
-            }
-
-            /*! @brief Return the next available message in the queue if there is one.
-             @return The next available message or an empty pointer if the queue is being stopped. */
-            SpReceivedData
-            getNextMessage
-                (void);
-
-            /*! @brief Return @c true if there is a message in the queue.
-             @return @c true if there is a message in the queue. */
+            /*! @brief Send a value to the multicast port.
+             @param[in] valuesToSend The Values to be sent.
+             @returns @c true if the Value were sent. */
             bool
-            hasMessage
-                (void);
-
-            /*! @brief Empty the queue and stop adding to it.*/
-            void
-            stop
-                (void);
+            sendValues
+                (SpMap  valuesToSend);
 
         protected :
             // Protected methods.
@@ -133,20 +100,17 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief Used to indicate that the sequence of received messages is ready to use. */
-            std::condition_variable    _receivedCondition{};
+            /*! @brief The multicast connection used for transmission. */
+            Connection  _connection{};
 
-            /*! @brief The sequence of received messages. */
-            std::deque<nImO::SpReceivedData>    _receivedData{};
+            /*! @brief The endpoint for a multicast transmission. */
+            BUDP::endpoint  _endpoint{};
 
-            /*! @brief Used to protect the sequence of received messages. */
-            std::mutex _receivedLock{};
+            /*! @brief The socket for a multicast transmission. */
+            BUDP::socket    _socket;
 
-            /*! @brief Set to @c true to disable and empty the queue. */
-            std::atomic_bool    _stop{false};
-
-    }; // ReceiveQueue
+    }; // SendToMulticastPort
 
 } // nImO
 
-#endif // not defined(nImOreceiveQueue_H_)
+#endif // not defined(nImOsendToMulticastPort_H_)

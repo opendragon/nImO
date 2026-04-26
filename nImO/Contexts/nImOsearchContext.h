@@ -113,23 +113,20 @@ namespace nImO
 
             /*! @brief Find the Registry if it's running.
              @param[out] connection The IP address and port of the Registry, if found.
-             @param[in] quietly @c true if reporting a failure is suppressed.
              @return @c true if the Registry is located. */
             bool
             findTheRegistry
-                (Connection &   connection,
-                 const bool     quietly = false);
+                (Connection &   connection);
 
             /*! @brief Find the Registry if it's running.
-             @param[in] quietly @c true if reporting a failure is suppressed.
              @return @c true if the Registry is located. */
             inline bool
             findTheRegistry
-                (const bool quietly = false)
+                (void)
             {
                 Connection  ignoredConnection;
 
-                return findTheRegistry(ignoredConnection, quietly);
+                return findTheRegistry(ignoredConnection);
             }
 
             /*! @brief Return the mDNS name of the Registry. */
@@ -186,6 +183,11 @@ namespace nImO
         private :
             // Private methods.
 
+            /*! @brief Handle any messages on the receive queue. */
+            void
+            checkReceiveQueue
+                (void);
+
             /*! @brief Close the open sockets. */
             void
             closeSockets
@@ -198,15 +200,25 @@ namespace nImO
             executeBrowser
                 (SearchContext &    owner);
 
-            /*! @brief Collect announcements via mDNS.
-             @param[in] quietly @c true if reporting a failure is suppressed. */
+            /*! @brief Collect announcements via mDNS or multicast. */
             void
             gatherAnnouncements
-                (const bool quietly = false);
+                (void);
+
+            /*! @brief The function to call when a timer has expired.
+             @param[in,out] timer The active timer object. */
+            void
+            handleTimerEvent
+                (BAD_t &    timer);
 
             /*! @brief Create the sockets to be used. */
             void
             openSockets
+                (void);
+
+            /*! @brief Send an address request via the multicast port.*/
+            void
+            sendGetAddressRequest
                 (void);
 
             /*! @brief Stop collecting announcements via mDNS. */
@@ -268,6 +280,12 @@ namespace nImO
             /*! @brief The search mode of the Registry. */
             RegistryMode    _registrySearchMode;
 
+            /*! @brief The multicast port to be used for Registry searches. */
+            SpSendToMulticastPort   _registryRequestPort{};
+
+            /*! @brief The multicast port to be used for Registry searches. */
+            SpReceiveFromMulticastPort    _registryResponsePort{};
+
             /*! @brief The maximum number of retries when searching for the Registry. */
             int _registrySearchRetries{0};
 
@@ -280,8 +298,14 @@ namespace nImO
             /*! @brief Set to @c true to initiate a new scan of announcements. */
             std::atomic_bool    _requestNewScan{false};
 
+            /*! @brief The number of retries that have been performed. */
+            int _retryCount{0};
+
             /*! @brief @c true if the browser thread is to be launched. */
             bool  _startBrowser{false};
+
+            /*! @brief Set to @c true to indicate that the Registry was not found in the specified time interval. */
+            std::atomic_bool    _timedOut{false};
 
     }; // SearchContext
 

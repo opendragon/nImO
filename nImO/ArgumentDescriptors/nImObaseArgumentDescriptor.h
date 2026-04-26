@@ -104,7 +104,7 @@ namespace nImO
 
     }; // ArgumentMode
 
-    UnaryAndBinaryOperators(ArgumentMode)
+    UnaryAndBinaryOperators_(ArgumentMode)
 
     /*! @brief The type of an argument. */
     enum class ArgumentTypeTag : char

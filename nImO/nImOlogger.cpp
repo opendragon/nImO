@@ -44,6 +44,7 @@
 #include <Containers/nImOmap.h>
 #include <Containers/nImOmessage.h>
 #include <nImOMIMESupport.h>
+#include <nImOsendToMulticastPort.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -90,8 +91,6 @@ const std::string   nImO::kCommandPortKey{"commandPort"s};
 
 const std::string   nImO::kComputerNameKey{"computer"s};
 
-const std::string   nImO::kMessageKey{"message"s};
-
 const std::string   nImO::kTagKey{"tag"s};
 
 #if defined(__APPLE__)
@@ -111,8 +110,7 @@ nImO::Logger::Logger
      const std::string &    tagForLogging,
      const Connection &     logConnection):
         _commandPort{nullptr}, _computerName{std::make_shared<String>(GetShortComputerName())}, _connection{logConnection},
-        _endpoint{BAIP::address_v4(_connection._address), _connection._port}, _socket{*service, _endpoint.protocol()},
-        _tag{std::make_shared<String>(tagForLogging)}
+        _loggerPort{std::make_shared<SendToMulticastPort>(service, _connection)}, _tag{std::make_shared<String>(tagForLogging)}
 {
     ODL_ENTER(); //####
     ODL_S1s(tagForLogging); //####
@@ -213,10 +211,8 @@ nImO::Logger::report
 
     if (valueToSend)
     {
-        Message messageToSend;
         auto    messageMap{std::make_shared<Map>()};
 
-        messageToSend.open(true);
         messageMap->addValue(std::make_shared<String>(kMessageKey), valueToSend);
         messageMap->addValue(std::make_shared<String>(kComputerNameKey), _computerName);
         messageMap->addValue(std::make_shared<String>(kTagKey), _tag);
@@ -224,38 +220,7 @@ nImO::Logger::report
         {
             messageMap->addValue(std::make_shared<String>(kCommandPortKey), _commandPort);
         }
-        messageToSend.setValue(messageMap);
-        messageToSend.close();
-        if (0 < messageToSend.getLength())
-        {
-            if (auto asString{messageToSend.getString()}; asString.empty())
-            {
-                ODL_LOG("(asString.empty())"); //####
-            }
-            else
-            {
-                StdStringVector outVec;
-
-                EncodeBytesAsMIME(outVec, asString);
-                auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
-
-                // send the encoded message to the logging ports
-                _socket.async_send_to(BA::buffer(*outString), _endpoint,
-                                      [outString]
-                                      (const BSErr          ec,
-                                       const std::size_t    length)
-                                      {
-                                        NIMO_UNUSED_VAR_(ec);
-                                        NIMO_UNUSED_VAR_(length);
-                                      });
-                okSoFar = true;
-                ODL_B1(okSoFar); //####
-            }
-        }
-        else
-        {
-            ODL_LOG("! (0 < messageToSend.getLength())"); //####
-        }
+        okSoFar = _loggerPort->sendValues(messageMap);
     }
     else
     {

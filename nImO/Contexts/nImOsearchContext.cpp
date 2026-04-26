@@ -42,7 +42,12 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
 #include <nImOmainSupport.h>
+#include <nImOreceiveFromMulticastPort.h>
+#include <nImOreceiveQueue.h>
+#include <nImOregistryCommands.h>
+#include <nImOsendToMulticastPort.h>
 #include <nImOstandardOptions.h>
 
 #if MAC_OR_LINUX_OR_BSD_
@@ -50,12 +55,6 @@
 #endif // MAC_OR_LINUX_OR_BSD_
 #include <regex>
 #include <string>
-
-#pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wunused-parameter"
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# include <boost/process.hpp>
-#pragma clang diagnostic pop
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -74,8 +73,6 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
-
-namespace BP = boost::process;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -155,6 +152,9 @@ static char lEntryBuffer[256];
 
 /*! @brief @c true if the application needs to performa a single check for the Registry. */
 static std::atomic_bool lPerformSingleRegistryCheck{false};
+
+/*! @brief The sequence of received messages. */
+static nImO::ReceiveQueue   lReceiveQueue;
 
 /*! @brief Set to @c true to cause the loop looking for the Registry to terminate. */
 static std::atomic_bool lStopRegistryLoop{false};
@@ -882,6 +882,13 @@ nImO::SearchContext::SearchContext
 
         }
     }
+    _registryRequestPort = std::make_shared<nImO::SendToMulticastPort>(getService(), _registrySearchConnection);
+    ODL_P1(_registryRequestPort.get()); //####
+    if (! _registryRequestPort)
+    {
+        throw "The Registry multicast send connection could not be established."s;
+
+    }
     getLocalAddresses();
     openSockets();
     ODL_EXIT_P(this); //####
@@ -905,6 +912,40 @@ nImO::SearchContext::~SearchContext
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::SearchContext::checkReceiveQueue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    if (lReceiveQueue.hasMessage() && gKeepRunning)
+    {
+        ODL_LOG("got something!"); //####
+        auto    nextData{lReceiveQueue.getNextMessage()};
+
+        if (nImO::gKeepRunning)
+        {
+            if (nextData)
+            {
+                auto    contents{nextData->_receivedMessage}; // SpValue
+
+                if (contents)
+                {
+                    report("got something!");//!!
+//                    if (! outChannel->send(valueToSend))
+//                    {
+//                        ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
+//                        std::cerr << "Problem sending to " << outChannelPath << ".\n";
+//                        exitCode = 1;
+//                        break;
+//
+//                    }
+                }
+            }
+        }
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::SearchContext::checkReceiveQueue
 
 void
 nImO::SearchContext::closeSockets
@@ -1037,7 +1078,7 @@ nImO::SearchContext::findAndLaunchTheRegistry
     lWaitForRegistry = false;
     lPerformSingleRegistryCheck = true;
     ODL_B2(lWaitForRegistry, lPerformSingleRegistryCheck); //####
-    gatherAnnouncements(false);
+    gatherAnnouncements();
     if ((! _havePort) || (! _haveAddress))
     {
         auto            regPath{_registryLaunchPath};
@@ -1099,17 +1140,15 @@ nImO::SearchContext::findAndLaunchTheRegistry
 
 bool
 nImO::SearchContext::findTheRegistry
-    (Connection &   connection,
-     const bool     quietly)
+    (Connection &   connection)
 {
     ODL_OBJENTER(); //####
     ODL_P1(&connection); //####
-    ODL_B1(quietly); //####
     bool    found{false};
 
     if (lWaitForRegistry && ((! _havePort) || (! _haveAddress)))
     {
-        gatherAnnouncements(quietly);
+        gatherAnnouncements();
     }
     if (_havePort && _haveAddress)
     {
@@ -1124,11 +1163,10 @@ nImO::SearchContext::findTheRegistry
 
 void
 nImO::SearchContext::gatherAnnouncements
-    (const bool quietly)
+    (void)
 {
     ODL_OBJENTER(); //####
-    ODL_B1(quietly); //####
-    if (_startBrowser)
+    if (_startBrowser && (RegistryMode::kUnknown != _registrySearchMode))
     {
         bool    okSoFar{true};
 
@@ -1136,55 +1174,68 @@ nImO::SearchContext::gatherAnnouncements
         ODL_B2(lBrowserThreadStopped, lBrowserThreadStop); //####
         _havePort = _haveAddress = false;
         ODL_B2(_havePort, _haveAddress); //####
-        _browserThread = new boost::thread([this]
-                                            (void)
-                                            {
-                                                ODL_LOG("browser thread started"); //####
-                                                executeBrowser(*this);
-                                                ODL_LOG("browser thread ended"); //####
-                                            });
-        ODL_P1(_browserThread); //####
-        _pool.add_thread(_browserThread);
-        for (int isock{0}; isock < _numSockets; ++isock)
+        if (RegistryMode::kMDNS == (RegistryMode::kMDNS & _registrySearchMode))
         {
-            _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, getRegistryServiceName().c_str(),
-                                               getRegistryServiceName().length(), _buffer, kBufferCapacity, 0);
-            if (_queryId[isock] < 0)
+            _browserThread = new boost::thread([this]
+                                                (void)
+                                                {
+                                                    ODL_LOG("browser thread started"); //####
+                                                    executeBrowser(*this);
+                                                    ODL_LOG("browser thread ended"); //####
+                                                });
+            ODL_P1(_browserThread); //####
+            _pool.add_thread(_browserThread);
+            for (int isock{0}; isock < _numSockets; ++isock)
             {
-                report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
-                okSoFar = false;
-                ODL_B1(okSoFar); //####
+                _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, getRegistryServiceName().c_str(),
+                                                   getRegistryServiceName().length(), _buffer, kBufferCapacity, 0);
+                if (_queryId[isock] < 0)
+                {
+                    report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
+                    okSoFar = false;
+                    ODL_B1(okSoFar); //####
+                }
             }
+        }
+        if (RegistryMode::kMulticast == (RegistryMode::kMulticast & _registrySearchMode))
+        {
+            _registryResponsePort = std::make_shared<nImO::ReceiveFromMulticastPort>(getService(), getRegistrySearchInfo(), lReceiveQueue);
+            ODL_P1(_registryResponsePort.get()); //####
+            if (! _registryResponsePort)
+            {
+                throw "The Registry multicast receive connection could not be established."s;
+
+            }
+            sendGetAddressRequest();
         }
         if (okSoFar)
         {
-            std::atomic_bool    timedOut{false};
-            BAD_t               timeOutTimer{*getService()};
-            int                 maxTime{_registrySearchTimeout * _registrySearchRetries};
+            _timedOut = false;
+            _retryCount = 0;
+            BAD_t   timeOutTimer{*getService()};
+            int     maxTime{_registrySearchTimeout * _registrySearchRetries};
 
             report("Timeout = "s + std::to_string(maxTime) + " seconds."s);
-            timeOutTimer.expires_from_now(boost::posix_time::seconds(maxTime));
-            timeOutTimer.async_wait([this, quietly, &timedOut]
-                                   (const BSErr &   error)
-                                   {
-                                       if (! error)
-                                       {
-                                           if (! quietly)
-                                           {
-                                               report("Timed out!"s);
-                                           }
-                                           timedOut = true;
-                                       }
-                                   });
-            if (! quietly)
-            {
-                report("Waiting..."s);
-            }
-            for ( ; (! timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
+            timeOutTimer.expires_from_now(boost::posix_time::seconds(_registrySearchTimeout));
+            timeOutTimer.async_wait([this, &timeOutTimer]
+                                    (const BSErr &  error)
+                                    {
+                                        if (error)
+                                        {
+                                            _timedOut = true;
+                                        }
+                                        else
+                                        {
+                                            handleTimerEvent(timeOutTimer);
+                                        }
+                                    });
+            report("Waiting..."s);
+            for ( ; (! _timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
             {
                 boost::this_thread::yield();
+                checkReceiveQueue();
             }
-            if (! timedOut)
+            if (! _timedOut)
             {
                 timeOutTimer.cancel();
             }
@@ -1193,6 +1244,48 @@ nImO::SearchContext::gatherAnnouncements
     }
     ODL_OBJEXIT(); //####
 } // nImO::SearchContext::gatherAnnouncements
+
+void
+nImO::SearchContext::handleTimerEvent
+    (BAD_t &    timer)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(&timer); //####
+    if (++_retryCount >= _registrySearchRetries)
+    {
+        report("Timed out!"s);
+        _timedOut = true;
+    }
+    else
+    {
+        if (gKeepRunning && (RegistryMode::kMulticast == (RegistryMode::kMulticast & _registrySearchMode)))
+        {
+            sendGetAddressRequest();
+        }
+        timer.expires_from_now(boost::posix_time::seconds(_registrySearchTimeout));
+        timer.async_wait([this, &timer]
+                            (const BSErr &  error)
+                            {
+                                if (error)
+                                {
+                                    _timedOut = true;
+                                }
+                                else
+                                {
+                                    if (gKeepRunning)
+                                    {
+                                        report("Retrying..."s);
+                                        handleTimerEvent(timer);
+                                    }
+                                    else
+                                    {
+                                        lStopRegistryLoop = true;
+                                    }
+                                }
+                            });
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::SearchContext::handleTimerEvent
 
 nImO::RegistryMode
 nImO::SearchContext::modeFromName
@@ -1296,6 +1389,18 @@ nImO::SearchContext::openSockets
 } // nImO::SearchContext::openSockets
 
 void
+nImO::SearchContext::sendGetAddressRequest
+    (void)
+{
+    ODL_OBJENTER(); //####
+    auto    messageMap{std::make_shared<Map>()};
+
+    messageMap->addValue(std::make_shared<String>(kMessageKey), std::make_shared<String>(kRegistryRequest));
+    _registryRequestPort->sendValues(messageMap);
+    ODL_OBJEXIT(); //####
+} // nImO::SearchContext::sendGetAddressRequest
+
+void
 nImO::SearchContext::stopGatheringAnnouncements
     (void)
 {
@@ -1314,6 +1419,7 @@ nImO::SearchContext::stopGatheringAnnouncements
         _browserThread->join();
         _browserThread = nullptr;
     }
+    //!! TBD
     ODL_OBJEXIT(); //####
 } // nImO::SearchContext::stopGatheringAnnouncements
 
@@ -1328,7 +1434,7 @@ nImO::SearchContext::waitForRegistry
     {
         for ( ; (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
         {
-            gatherAnnouncements(true);
+            gatherAnnouncements();
         }
         wasFound = (_havePort && _haveAddress);
     }
@@ -1336,7 +1442,7 @@ nImO::SearchContext::waitForRegistry
     {
         if (lPerformSingleRegistryCheck)
         {
-            gatherAnnouncements(true);
+            gatherAnnouncements();
             wasFound = (_havePort && _haveAddress);
         }
     }

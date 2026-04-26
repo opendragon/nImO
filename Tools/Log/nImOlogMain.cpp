@@ -263,9 +263,9 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::NetworkingContext                 ourContext{"log"s, optionValues._logging};
+            nImO::SearchContext                     ourContext{"log"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
-            auto                                    registrySearchConnection{ourContext.gerRegistrySearchInfo()};
+            auto                                    registrySearchConnection{ourContext.getRegistrySearchInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
             std::shared_ptr<ReceiveOnMessagePort>   registrySearchReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), registrySearchConnection)};

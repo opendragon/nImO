@@ -140,34 +140,6 @@ namespace nImO
                 return _logConnection;
             }
 
-            /*! @brief Return the mDNS name of the Registry. */
-            inline const std::string &
-            getRegistryName
-                (void)
-                const
-            {
-                return _registryName;
-            }
-
-            /*! @brief Return the address and port to use for locating the Registry.
-             @return The address and port to use for searching for the Registry. */
-            inline Connection
-            gerRegistrySearchInfo
-                (void)
-                const
-            {
-                return _registrySearchConnection;
-            }
-
-            /*! @brief Return the full mDNS name of the Registry. */
-            inline std::string
-            getRegistryServiceName
-                (void)
-                const
-            {
-                return "_nimo_" + getRegistryName() + "._tcp.local."s;
-            }
-
             /*! @brief Return the address and port to use for logging.
              @return The address and port to use for logging.. */
             inline Connection
@@ -211,51 +183,6 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief Return the options to be applied when launching the Registry automatically. */
-            inline const Array &
-            getRegistryLaunchOptions
-                (void)
-                const
-            {
-                return _registryLaunchOptions;
-            }
-
-            /*! @brief Return the path to the executable to be used when launching the Registry automatically. */
-            inline const std::string &
-            getRegistryLaunchPath
-                (void)
-                const
-            {
-                return _registryLaunchPath;
-            }
-
-            /*! @brief Return the search mode of the Registry. */
-            inline RegistryMode
-            getRegistrySearchMode
-                (void)
-                const
-            {
-                return _registrySearchMode;
-            }
-
-            /*! @brief Return the maximum number of retries allowed for the search for an active Registry. */
-            inline int
-            getRegistrySearchRetries
-                (void)
-                const
-            {
-                return _registrySearchRetries;
-            }
-
-            /*! @brief Return the number of seconds allowed for the search for an active Registry. */
-            inline int
-            getRegistrySearchTimeout
-                (void)
-                const
-            {
-                return _registrySearchTimeout;
-            }
-
             /*! @brief Return @c true if logging has been enabled.
              @return @c true if logging is enabled. */
             inline bool
@@ -265,20 +192,6 @@ namespace nImO
             {
                 return _loggingEnabled;
             }
-
-            /*! @brief Returns RegistryMode value corresponding to a name.
-             @param[in] aName The name of the RegistryMode to be converted.
-             @return The RegistryMode value corresponding to the name. */
-            static RegistryMode
-            modeFromName
-                (const std::string &    aName);
-
-            /*! @brief Returns the name corresponding to a RegistryMode value.
-             @param[in] aValue The RegistryMode value to be converted.
-             @return The standard name for the RegistryMode value. */
-            static std::string
-            modeToName
-                (const RegistryMode aValue);
 
             /*! @brief Set the command port for the next message.
              @param[in] port The command port number. */
@@ -325,27 +238,6 @@ namespace nImO
             /*! @brief @c true if logging has been enabled. */
             bool _loggingEnabled{false};
 
-            /*! @brief The options to be applied when launching the Registry automatically. */
-            Array   _registryLaunchOptions;
-
-            /*! @brief The path to the Registry executable to be used when launching the Registry automatically. */
-            std::string _registryLaunchPath;
-
-            /*! @brief The mDNS name of the Registry. */
-            std::string _registryName;
-
-            /*! @brief The multicast search connection used for the Registry. */
-            Connection  _registrySearchConnection{};
-
-            /*! @brief The search mode of the Registry. */
-            RegistryMode    _registrySearchMode;
-
-            /*! @brief The maximum number of retries when searching for the Registry. */
-            int _registrySearchRetries{0};
-
-            /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
-            int _registrySearchTimeout{0};
-
             /*! @brief The multicast connection used for status changes. */
             Connection  _statusConnection{};
 
@@ -361,18 +253,6 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to a NetworkingContext. */
     using SpNetworkingContext = std::shared_ptr<NetworkingContext>;
-
-    /*! @brief The standard name for either mode. */
-    extern const std::string    kModeBothName;
-
-    /*! @brief The standard name for the mDNS mode. */
-    extern const std::string    kModeMdnsName;
-
-    /*! @brief The standard name for the multicast mode. */
-    extern const std::string    kModeMulticastName;
-
-    /*! @brief The standard name for an unknown mode. */
-    extern const std::string    kModeUnknownName;
 
 } // nImO
 

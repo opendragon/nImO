@@ -132,6 +132,48 @@ namespace nImO
                 return findTheRegistry(ignoredConnection, quietly);
             }
 
+            /*! @brief Return the mDNS name of the Registry. */
+            inline const std::string &
+            getRegistryName
+                (void)
+                const
+            {
+                return _registryName;
+            }
+
+            /*! @brief Return the address and port to use for locating the Registry.
+             @return The address and port to use for searching for the Registry. */
+            inline Connection
+            getRegistrySearchInfo
+                (void)
+                const
+            {
+                return _registrySearchConnection;
+            }
+
+            /*! @brief Return the full mDNS name of the Registry. */
+            inline std::string
+            getRegistryServiceName
+                (void)
+                const
+            {
+                return "_nimo_"s + getRegistryName() + "._tcp.local."s;
+            }
+
+            /*! @brief Returns RegistryMode value corresponding to a name.
+             @param[in] aName The name of the RegistryMode to be converted.
+             @return The RegistryMode value corresponding to the name. */
+            static RegistryMode
+            modeFromName
+                (const std::string &    aName);
+
+            /*! @brief Returns the name corresponding to a RegistryMode value.
+             @param[in] aValue The RegistryMode value to be converted.
+             @return The standard name for the RegistryMode value. */
+            static std::string
+            modeToName
+                (const RegistryMode aValue);
+
         protected :
             // Protected methods.
 
@@ -150,7 +192,7 @@ namespace nImO
                 (void)
                 const;
 
-            /*! @brief The browset thread function.
+            /*! @brief The browser thread function.
              @param[in,out] owner The owning object for the thread. */
             static void
             executeBrowser
@@ -205,11 +247,32 @@ namespace nImO
             /*! @brief The active query identifiers. */
             int _queryId[8];
 
+            /*! @brief The options to be applied when launching the Registry automatically. */
+            Array   _registryLaunchOptions;
+
+            /*! @brief The path to the Registry executable to be used when launching the Registry automatically. */
+            std::string _registryLaunchPath;
+
+            /*! @brief The mDNS name of the Registry. */
+            std::string _registryName;
+
             /*! @brief The IP port for connections to the Registry process. */
             IPv4Port    _registryPort{0};
 
             /*! @brief The preferred address for connections to the Registry process. */
             std::string _registryPreferredAddress{};
+
+            /*! @brief The multicast search connection used for the Registry. */
+            Connection  _registrySearchConnection{};
+
+            /*! @brief The search mode of the Registry. */
+            RegistryMode    _registrySearchMode;
+
+            /*! @brief The maximum number of retries when searching for the Registry. */
+            int _registrySearchRetries{0};
+
+            /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
+            int _registrySearchTimeout{0};
 
             /*! @brief The identifying tag for the Registry process. */
             std::string _registryTag{};
@@ -226,7 +289,7 @@ namespace nImO
     const std::string kRegistryAddressKey{"registry_address"};
 
     /*! @brief Don't wait for the Registry - used with the Registry and test programs.
-     @param[in] allowOneCheck @c true if there a single scan for the Registry is done instead. */
+     @param[in] allowOneCheck @c true if a single scan for the Registry is done instead. */
     void
     DisableWaitForRegistry
         (const bool allowOneCheck = false);

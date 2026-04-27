@@ -378,13 +378,13 @@ DoubleArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    auto    result{prefixFields(ArgumentTypeTag::DoubleTypeTag) + getParameterSeparator()};
+    auto    result{prefixFields(ArgumentTypeTag::DoubleTypeTag) + kParameterSeparator};
 
     if (_hasMinimumValue)
     {
         result += ConvertDoubleToString(_minimumValue);
     }
-    result += getParameterSeparator();
+    result += kParameterSeparator;
     if (_hasMaximumValue)
     {
         result += ConvertDoubleToString(_maximumValue);

@@ -74,9 +74,6 @@ namespace nImO
         public :
             // Public type definitions.
 
-            /*! @brief The size of the MDNS I/O buffer. */
-            static const size_t kBufferCapacity{2048};
-
         protected :
             // Protected type definitions.
 
@@ -281,10 +278,10 @@ namespace nImO
             RegistryMode    _registrySearchMode;
 
             /*! @brief The multicast port to be used for Registry searches. */
-            SpSendToMulticastPort   _registryRequestPort{};
+            SpSendToMulticast   _registryRequestPort{};
 
             /*! @brief The multicast port to be used for Registry searches. */
-            SpReceiveFromMulticastPort    _registryResponsePort{};
+            SpReceiveFromMulticast    _registryResponsePort{};
 
             /*! @brief The maximum number of retries when searching for the Registry. */
             int _registrySearchRetries{0};

@@ -433,8 +433,8 @@ FilePathArgumentDescriptor::toString
 {
     ODL_OBJENTER(); //####
     auto    oldDefault{inherited::getDefaultValue()};
-    auto    result{prefixFields(ArgumentTypeTag::FilePathTypeTag) + getParameterSeparator() + (_forOutput ? "o"s : "i"s) +
-                    getParameterSeparator() + _pathSuffix + getParameterSeparator() + (_useRandomPath ? "1"s : "0"s) +
+    auto    result{prefixFields(ArgumentTypeTag::FilePathTypeTag) + kParameterSeparator + (_forOutput ? "o"s : "i"s) +
+                    kParameterSeparator + _pathSuffix + kParameterSeparator + (_useRandomPath ? "1"s : "0"s) +
                     suffixFields(_pathPrefix)};
 
     NIMO_UNUSED_VAR_(oldDefault);

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOreceiveFromMulticastPort.h>
+#include <nImOreceiveFromMulticast.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -76,7 +76,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ReceiveFromMulticastPort::ReceiveFromMulticastPort
+nImO::ReceiveFromMulticast::ReceiveFromMulticast
     (nImO::SPservice            service,
      const nImO::Connection &   theConnection,
      nImO::ReceiveQueue &       theQueue) :
@@ -95,14 +95,21 @@ nImO::ReceiveFromMulticastPort::ReceiveFromMulticastPort
     _socket.set_option(BAIP::multicast::join_group(multicastAddress));
     receiveAMessage();
     ODL_EXIT_P(this); //####
-} // nImO::ReceiveFromMulticastPort::ReceiveFromMulticastPort
+} // nImO::ReceiveFromMulticast::ReceiveFromMulticast
+
+nImO::ReceiveFromMulticast::~ReceiveFromMulticast
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::ReceiveFromMulticast::~ReceiveFromMulticast
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::ReceiveFromMulticastPort::receiveAMessage
+nImO::ReceiveFromMulticast::receiveAMessage
     (void)
 {
     ODL_OBJENTER(); //####
@@ -125,7 +132,7 @@ nImO::ReceiveFromMulticastPort::receiveAMessage
                                    });
     }
     ODL_OBJEXIT(); //####
-} // nImO::ReceiveFromMulticastPort::receiveAMessage
+} // nImO::ReceiveFromMulticast::receiveAMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

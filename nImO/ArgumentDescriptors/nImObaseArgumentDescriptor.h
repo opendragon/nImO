@@ -417,15 +417,6 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief Return the parameter separator.
-             @return The parameter separator. */
-            inline static const std::string &
-            getParameterSeparator
-                (void)
-            {
-                return _parameterSeparator;
-            }
-
             /*! @brief Find a character that is not present in the input, to use as a delimiter.
              @param[in] inString The string to be analyzed.
              @return @c A character not present in the string that can be used as a delimiter for
@@ -515,9 +506,6 @@ namespace nImO
 
             /*! @brief The name of the command-line argument. */
             std::string _argName{};
-
-            /*! @brief The separator string to use when converting to a string. */
-            static std::string _parameterSeparator;
 
             /*! @brief @c true if the argument was valid and @c false otherwise. */
             bool _valid{false};

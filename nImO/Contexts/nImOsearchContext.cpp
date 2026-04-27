@@ -43,11 +43,12 @@
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
+#include <Containers/nImOstringBuffer.h>
 #include <nImOmainSupport.h>
-#include <nImOreceiveFromMulticastPort.h>
+#include <nImOreceiveFromMulticast.h>
 #include <nImOreceiveQueue.h>
 #include <nImOregistryCommands.h>
-#include <nImOsendToMulticastPort.h>
+#include <nImOsendToMulticast.h>
 #include <nImOstandardOptions.h>
 
 #if MAC_OR_LINUX_OR_BSD_
@@ -658,8 +659,8 @@ nImO::SearchContext::SearchContext
     (const std::string &    tagForLogging,
      const bool             logging,
      const bool             startBrowser) :
-        inherited{tagForLogging, logging, 2 /* browse + announce */}, _buffer{new char[kBufferCapacity]}, _numSockets{0},
-        _browserThread{nullptr}, _registryName{kDefaultRegistryName},
+        inherited{tagForLogging, logging, 4 /* browse + announce + send + receive */}, _buffer{new char[kBufferCapacity]},
+        _numSockets{0}, _browserThread{nullptr}, _registryName{kDefaultRegistryName},
         _registrySearchConnection{kDefaultRegistrySearchConnection}, _registrySearchMode{kDefaultRegistrySearchMode},
         _startBrowser{startBrowser}
 {
@@ -882,13 +883,6 @@ nImO::SearchContext::SearchContext
 
         }
     }
-    _registryRequestPort = std::make_shared<nImO::SendToMulticastPort>(getService(), _registrySearchConnection);
-    ODL_P1(_registryRequestPort.get()); //####
-    if (! _registryRequestPort)
-    {
-        throw "The Registry multicast send connection could not be established."s;
-
-    }
     getLocalAddresses();
     openSockets();
     ODL_EXIT_P(this); //####
@@ -920,26 +914,26 @@ nImO::SearchContext::checkReceiveQueue
     ODL_OBJENTER(); //####
     if (lReceiveQueue.hasMessage() && gKeepRunning)
     {
-        ODL_LOG("got something!"); //####
         auto    nextData{lReceiveQueue.getNextMessage()};
 
         if (nImO::gKeepRunning)
         {
             if (nextData)
             {
-                auto    contents{nextData->_receivedMessage}; // SpValue
+                auto    contents{nextData->_receivedMessage};
 
                 if (contents)
                 {
-                    report("got something!");//!!
-//                    if (! outChannel->send(valueToSend))
-//                    {
-//                        ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
-//                        std::cerr << "Problem sending to " << outChannelPath << ".\n";
-//                        exitCode = 1;
-//                        break;
-//
-//                    }
+                    if (auto asString{contents->asString()}; nullptr != asString)
+                    {
+                        auto    received{asString->getValue()};
+
+                        report("got "s + received);
+                        if (kRegistryResponse == received)
+                        {
+// TBD kStatusSeparator
+                        }
+                    }
                 }
             }
         }
@@ -1020,7 +1014,7 @@ nImO::SearchContext::executeBrowser
                     }
                     if (FD_ISSET(owner._sockets[isock], &readfs))
                     {
-                        mDNS::query_recv(owner._sockets[isock], owner._buffer, nImO::SearchContext::kBufferCapacity, queryCallback, &handler,
+                        mDNS::query_recv(owner._sockets[isock], owner._buffer, kBufferCapacity, queryCallback, &handler,
                                          owner._queryId[isock]);
                     }
 #if (! MAC_OR_LINUX_OR_BSD_)
@@ -1044,8 +1038,7 @@ nImO::SearchContext::executeBrowser
 
                         }
                         owner._queryId[isock] = mDNS::query_send(owner._sockets[isock], mDNS::kRecordTypePTR, owner.getRegistryServiceName().c_str(),
-                                                                 owner.getRegistryServiceName().length(), owner._buffer,
-                                                                 nImO::SearchContext::kBufferCapacity, 0);
+                                                                 owner.getRegistryServiceName().length(), owner._buffer, kBufferCapacity, 0);
                         if (owner._queryId[isock] < 0)
                         {
                             owner.report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
@@ -1199,11 +1192,18 @@ nImO::SearchContext::gatherAnnouncements
         }
         if (RegistryMode::kMulticast == (RegistryMode::kMulticast & _registrySearchMode))
         {
-            _registryResponsePort = std::make_shared<nImO::ReceiveFromMulticastPort>(getService(), getRegistrySearchInfo(), lReceiveQueue);
+            _registryResponsePort = std::make_shared<nImO::ReceiveFromMulticast>(getService(), getRegistrySearchInfo(), lReceiveQueue);
             ODL_P1(_registryResponsePort.get()); //####
             if (! _registryResponsePort)
             {
                 throw "The Registry multicast receive connection could not be established."s;
+
+            }
+            _registryRequestPort = std::make_shared<nImO::SendToMulticast>(getService(), _registrySearchConnection);
+            ODL_P1(_registryRequestPort.get()); //####
+            if (! _registryRequestPort)
+            {
+                throw "The Registry multicast send connection could not be established."s;
 
             }
             sendGetAddressRequest();
@@ -1393,10 +1393,7 @@ nImO::SearchContext::sendGetAddressRequest
     (void)
 {
     ODL_OBJENTER(); //####
-    auto    messageMap{std::make_shared<Map>()};
-
-    messageMap->addValue(std::make_shared<String>(kMessageKey), std::make_shared<String>(kRegistryRequest));
-    _registryRequestPort->sendValues(messageMap);
+    _registryRequestPort->sendValue(std::make_shared<String>(kRegistryRequest));
     ODL_OBJEXIT(); //####
 } // nImO::SearchContext::sendGetAddressRequest
 
@@ -1419,7 +1416,11 @@ nImO::SearchContext::stopGatheringAnnouncements
         _browserThread->join();
         _browserThread = nullptr;
     }
-    //!! TBD
+    if (RegistryMode::kMulticast == (RegistryMode::kMulticast & _registrySearchMode))
+    {
+        _registryResponsePort.reset();
+        _registryRequestPort.reset();
+    }
     ODL_OBJEXIT(); //####
 } // nImO::SearchContext::stopGatheringAnnouncements
 

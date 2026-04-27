@@ -155,7 +155,7 @@ namespace nImO
             Connection  _connection{};
 
             /*! @brief The multicast port to be used. */
-            SpSendToMulticastPort   _loggerPort{};
+            SpSendToMulticast   _loggerPort{};
 
             /*! @brief The symbolic name for the current process. */
             SpString    _tag;

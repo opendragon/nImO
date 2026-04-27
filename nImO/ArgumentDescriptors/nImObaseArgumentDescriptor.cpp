@@ -87,8 +87,6 @@ using namespace nImO;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-std::string BaseArgumentDescriptor::_parameterSeparator{"\t"s};
-
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -349,7 +347,7 @@ BaseArgumentDescriptor::partitionString
             workingCopy = workingCopy.substr(innerIndx + 1);
             if (! workingCopy.empty()) // cppcheck-suppress knownConditionTrueFalse
             {
-                if (0 == workingCopy.find(_parameterSeparator))
+                if (0 == workingCopy.find(kParameterSeparator))
                 {
                     workingCopy = workingCopy.substr(1);
                     okSoFar = true;
@@ -365,7 +363,7 @@ BaseArgumentDescriptor::partitionString
         }
         else
         {
-            size_t  indx{workingCopy.find(_parameterSeparator)};
+            size_t  indx{workingCopy.find(kParameterSeparator)};
 
             if (workingCopy.npos == indx)
             {
@@ -430,7 +428,7 @@ BaseArgumentDescriptor::prefixFields
 {
     ODL_OBJENTER(); //####
     ODL_C1(tagForField); //####
-    auto    result{_argName + _parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode))};
+    auto    result{_argName + kParameterSeparator + StaticCast(char, tagForField) + kParameterSeparator + std::to_string(toUType(_argMode))};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -453,7 +451,7 @@ BaseArgumentDescriptor::suffixFields
     ODL_OBJENTER(); //####
     ODL_S1s(defaultToUse); //####
     char    charToUse{identifyDelimiter(defaultToUse)};
-    auto    result{_parameterSeparator + charToUse + defaultToUse + charToUse + _parameterSeparator + _argDescription};
+    auto    result{kParameterSeparator + charToUse + defaultToUse + charToUse + kParameterSeparator + _argDescription};
 
     ODL_OBJEXIT_s(result); //####
     return result;

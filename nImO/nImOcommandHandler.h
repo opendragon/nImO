@@ -168,7 +168,7 @@ namespace nImO
             void
             sendStatusReport
                 (SpServiceContext       context,
-                 Connection             whereToSend,
+                 const Connection &     whereToSend,
                  const std::string &    statusChange)
                 const;
 

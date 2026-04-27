@@ -40,7 +40,7 @@
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOarray.h>
 #include <Contexts/nImOnetworkingContext.h>
-#include <nImOsendToMulticastPort.h>
+#include <nImOsendToMulticast.h>
 #include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>

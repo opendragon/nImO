@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOsendToMulticastPort.h
+//  File:       nImO/nImOreceiveFromMulticast.h
 //
 //  Project:    nImO
 //
@@ -36,11 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOsendToMulticastPort_H_))
-# define nImOsendToMulticastPort_H_ /* Header guard */
+#if (! defined(nImOreceiveFromMulticast_H_))
+# define nImOreceiveFromMulticast_H_ /* Header guard */
 
 # include <Contexts/nImOcontext.h>
 # include <nImOmainSupport.h>
+# include <nImOreceiveQueue.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for sending %nImO messages to a multicast group. */
+ @brief The class declaration for receiving %nImO messages from a multicast group. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to handle sending messages to a multicast group. */
-    class SendToMulticastPort final
+    /*! @brief A class to handle receiving messages from a multicast group. */
+    class ReceiveFromMulticast final
     {
         public :
             // Public type definitions.
@@ -73,23 +74,27 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] service The I/O service to attach to.
              @param[in] runFlag A reference to the flag that is used to stop execution.
-             @param[in] theConnection The connection to listen on. */
-            SendToMulticastPort
+             @param[in] theConnection The connection to listen on.
+             @param[in] theQueue The receive queue to be updated. */
+            ReceiveFromMulticast
                 (nImO::SPservice            service,
-                 const nImO::Connection &   theConnection);
+                 const nImO::Connection &   theConnection,
+                 nImO::ReceiveQueue &       theQueue);
 
-            /*! @brief Send a value to the multicast port.
-             @param[in] valuesToSend The Values to be sent.
-             @returns @c true if the Value were sent. */
-            bool
-            sendValues
-                (SpMap  valuesToSend);
+            /*! @brief The destructor. */
+            ~ReceiveFromMulticast
+                (void);
 
         protected :
             // Protected methods.
 
         private :
             // Private methods.
+
+            /*! @brief Receive a message. */
+            void
+            receiveAMessage
+                (void);
 
         public :
             // Public fields.
@@ -100,17 +105,20 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The multicast connection used for transmission. */
-            Connection  _connection{};
+            /*! @brief Where to store received messages. */
+            nImO::ReceiveQueue &  _queue;
 
-            /*! @brief The endpoint for a multicast transmission. */
-            BUDP::endpoint  _endpoint{};
-
-            /*! @brief The socket for a multicast transmission. */
+            /*! @brief The socket for a multicast reception. */
             BUDP::socket    _socket;
 
-    }; // SendToMulticastPort
+            /*! @brief The sender's endpoint. */
+            BUDP::endpoint  _senderEndpoint{};
+
+            /*! @brief A buffer for the raw message data. */
+            std::array<char, 2048>  _data{};
+
+    }; // ReceiveFromMulticast
 
 } // nImO
 
-#endif // not defined(nImOsendToMulticastPort_H_)
+#endif // not defined(nImOreceiveFromMulticast_H_)

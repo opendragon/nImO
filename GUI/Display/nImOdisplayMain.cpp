@@ -45,7 +45,7 @@
 #include <nImOcallbackFunction.h>
 #include <nImOmainSupport.h>
 #include <nImOreceivedData.h>
-#include <nImOreceiveFromMulticastPort.h>
+#include <nImOreceiveFromMulticast.h>
 #include <nImOreceiveQueue.h>
 #include <nImOstandardOptions.h>
 
@@ -185,9 +185,9 @@ std::cerr << "** Unimplemented **\n";
             auto                loggingConnection{ourContext.getLoggingInfo()};
             auto                registrySearchConnection{ourContext.gerRegistrySearchInfo()};
             auto                statusConnection{ourContext.getStatusInfo()};
-            auto                logReceiver{std::make_shared<ReceiveFromMulticastPort>(ourContext.getService(), loggingConnection, lReceiveQueue)};
-            auto                registrySearchReceiver{std::make_shared<ReceiveFromMulticastPort>(ourContext.getService(), registrySearchConnection, lReceiveQueue)};
-            auto                statusReceiver{std::make_shared<ReceiveFromMulticastPort>(ourContext.getService(), statusConnection, lReceiveQueue)};
+            auto                logReceiver{std::make_shared<ReceiveFromMulticast>(ourContext.getService(), loggingConnection, lReceiveQueue)};
+            auto                registrySearchReceiver{std::make_shared<ReceiveFromMulticast>(ourContext.getService(), registrySearchConnection, lReceiveQueue)};
+            auto                statusReceiver{std::make_shared<ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue)};
 
             nImO::SetSpecialBreakObject(new LogBreakHandler());
             // Wait for messages until exit requested via Ctrl-C.

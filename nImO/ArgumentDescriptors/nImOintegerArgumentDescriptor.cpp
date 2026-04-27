@@ -382,13 +382,13 @@ IntegerArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    auto    result{prefixFields(ArgumentTypeTag::IntegerTypeTag) + getParameterSeparator()};
+    auto    result{prefixFields(ArgumentTypeTag::IntegerTypeTag) + kParameterSeparator};
 
     if (_hasMinimumValue)
     {
         result += std::to_string(_minimumValue);
     }
-    result += getParameterSeparator();
+    result += kParameterSeparator;
     if (_hasMaximumValue)
     {
         result += std::to_string(_maximumValue);

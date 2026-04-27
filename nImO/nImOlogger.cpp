@@ -44,7 +44,7 @@
 #include <Containers/nImOmap.h>
 #include <Containers/nImOmessage.h>
 #include <nImOMIMESupport.h>
-#include <nImOsendToMulticastPort.h>
+#include <nImOsendToMulticast.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -110,7 +110,7 @@ nImO::Logger::Logger
      const std::string &    tagForLogging,
      const Connection &     logConnection):
         _commandPort{nullptr}, _computerName{std::make_shared<String>(GetShortComputerName())}, _connection{logConnection},
-        _loggerPort{std::make_shared<SendToMulticastPort>(service, _connection)}, _tag{std::make_shared<String>(tagForLogging)}
+        _loggerPort{std::make_shared<SendToMulticast>(service, _connection)}, _tag{std::make_shared<String>(tagForLogging)}
 {
     ODL_ENTER(); //####
     ODL_S1s(tagForLogging); //####
@@ -220,7 +220,7 @@ nImO::Logger::report
         {
             messageMap->addValue(std::make_shared<String>(kCommandPortKey), _commandPort);
         }
-        okSoFar = _loggerPort->sendValues(messageMap);
+        okSoFar = _loggerPort->sendValue(messageMap);
     }
     else
     {

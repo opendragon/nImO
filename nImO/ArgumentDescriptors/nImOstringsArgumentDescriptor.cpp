@@ -289,7 +289,7 @@ StringsArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMemb
         // We need to split the input into keys.
         for ( ; 0 < stringList.length(); )
         {
-            size_t  indx{stringList.find(getParameterSeparator())};
+            size_t  indx{stringList.find(kParameterSeparator)};
 
             if (stringList.npos == indx)
             {
@@ -350,7 +350,7 @@ StringsArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    auto        result{prefixFields(ArgumentTypeTag::StringsTypeTag) + getParameterSeparator()};
+    auto        result{prefixFields(ArgumentTypeTag::StringsTypeTag) + kParameterSeparator};
     std::string scratch{};
 
     for (const auto & walker : _allowedValues)
@@ -364,7 +364,7 @@ StringsArgumentDescriptor::toString
     {
         if (walker != _allowedValues.begin())
         {
-            result += getParameterSeparator();
+            result += kParameterSeparator;
         }
         result += *walker;
     }

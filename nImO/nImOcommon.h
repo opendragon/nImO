@@ -301,9 +301,9 @@ namespace nImO
     class Logical;
     class Map;
     class Message;
-    class ReceiveFromMulticastPort;
+    class ReceiveFromMulticast;
     class RegistryProxy;
-    class SendToMulticastPort;
+    class SendToMulticast;
     class Set;
     class String;
     class StringBuffer;
@@ -810,9 +810,6 @@ namespace nImO
     /*! @brief The alternative character that indicates a Time value. */
     constexpr char  kAltSecondCharForTime{'T'};
 
-    /*! @brief The character separating argument descriptors. */
-    constexpr char  kArgumentSeparator{'\v'};
-
     /*! @brief The character that is used with 'blob' data formatting. */
     constexpr char  kBlobSeparator{'%'};
 
@@ -909,6 +906,9 @@ namespace nImO
     /*! @brief The smallest IP port that is acceptable. */
     constexpr int   kMinimumPortAllowed{1024};
 
+    /*! @brief The size of the network I/O buffer. */
+    constexpr size_t    kBufferCapacity{2048};
+
     /*! @brief The line length for command-line help output. */
     constexpr size_t    kHelpLineLength{250};
 
@@ -921,6 +921,9 @@ namespace nImO
     /*! @brief The key for the message in a multicast message. */
     const std::string   kMessageKey{"message"s};
 
+    /*! @brief The parameter separator string. */
+    const std::string   kParameterSeparator{"\t"s};
+
     /*! @brief The IP address for the loopback address for the machine that is running the executable. */
     const std::string   kSelfAddressIpAddress{"127.0.0.1"s};
 
@@ -929,6 +932,9 @@ namespace nImO
 
     /*! @brief The standard type for SIGNAL channels. */
     const std::string   kSignalType{"SIGNAL"s};
+
+    /*! @brief The status separator string. */
+    const std::string   kStatusSeparator{"\t"s};
 
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
@@ -969,14 +975,14 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a Message. */
     using SpMessage = std::shared_ptr<Message>;
 
-    /*! @brief A holder for a shared pointer to a ReceiveFromMulticastPort. */
-    using SpReceiveFromMulticastPort = std::shared_ptr<ReceiveFromMulticastPort>;
+    /*! @brief A holder for a shared pointer to a ReceiveFromMulticast. */
+    using SpReceiveFromMulticast = std::shared_ptr<ReceiveFromMulticast>;
 
     /*! @brief A holder for a shared pointer to a RegistryProxy. */
     using SpRegistryProxy = std::shared_ptr<RegistryProxy>;
 
-    /*! @brief A holder for a shared pointer to a SendToMulticastPort. */
-    using SpSendToMulticastPort = std::shared_ptr<SendToMulticastPort>;
+    /*! @brief A holder for a shared pointer to a SendToMulticast. */
+    using SpSendToMulticast = std::shared_ptr<SendToMulticast>;
 
     /*! @brief A holder for a shared pointer to a Set. */
     using SpSet = std::shared_ptr<Set>;
@@ -1400,9 +1406,6 @@ namespace nImO
 
     /*! @brief The directory separator string. */
     extern const std::string    kDirectorySeparator;
-
-    /*! @brief The status separator string. */
-    extern const std::string    kStatusSeparator;
 
 } // nImO
 

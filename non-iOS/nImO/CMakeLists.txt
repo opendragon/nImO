@@ -206,11 +206,11 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
             "${THIS_SOURCE_DIR}/nImOoutChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOreceivedData.cpp"
-            "${THIS_SOURCE_DIR}/nImOreceiveFromMulticastPort.cpp"
+            "${THIS_SOURCE_DIR}/nImOreceiveFromMulticast.cpp"
             "${THIS_SOURCE_DIR}/nImOreceiveQueue.cpp"
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
             "${THIS_SOURCE_DIR}/nImOrequestResponse.cpp"
-            "${THIS_SOURCE_DIR}/nImOsendToMulticastPort.cpp"
+            "${THIS_SOURCE_DIR}/nImOsendToMulticast.cpp"
             "${THIS_SOURCE_DIR}/nImOserviceOptions.cpp"
             "${THIS_SOURCE_DIR}/nImOsinkBreakHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOsourceBreakHandler.cpp"
@@ -266,13 +266,13 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
         "${THIS_SOURCE_DIR}/nImOoutChannel.h"
         "${THIS_SOURCE_DIR}/nImOreceivedData.h"
-        "${THIS_SOURCE_DIR}/nImOreceiveFromMulticastPort.h"
+        "${THIS_SOURCE_DIR}/nImOreceiveFromMulticast.h"
         "${THIS_SOURCE_DIR}/nImOreceiveQueue.h"
         "${THIS_SOURCE_DIR}/nImOregistryCommands.h"
         "${THIS_SOURCE_DIR}/nImOregistryProxy.h"
         "${THIS_SOURCE_DIR}/nImOregistryTypes.h"
         "${THIS_SOURCE_DIR}/nImOrequestResponse.h"
-        "${THIS_SOURCE_DIR}/nImOsendToMulticastPort.h"
+        "${THIS_SOURCE_DIR}/nImOsendToMulticast.h"
         "${THIS_SOURCE_DIR}/nImOserviceOptions.h"
         "${THIS_SOURCE_DIR}/nImOsinkBreakHandler.h"
         "${THIS_SOURCE_DIR}/nImOsourceBreakHandler.h"
@@ -681,13 +681,13 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h
         ${THIS_SOURCE_DIR}/nImOoutChannel.cpp ${THIS_SOURCE_DIR}/nImOoutChannel.h
         ${THIS_SOURCE_DIR}/nImOreceivedData.cpp ${THIS_SOURCE_DIR}/nImOreceivedData.h
-        ${THIS_SOURCE_DIR}/nImOreceiveFromMulticastPort.cpp ${THIS_SOURCE_DIR}/nImOreceiveFromMulticastPort.h
+        ${THIS_SOURCE_DIR}/nImOreceiveFromMulticast.cpp ${THIS_SOURCE_DIR}/nImOreceiveFromMulticast.h
         ${THIS_SOURCE_DIR}/nImOreceiveQueue.cpp ${THIS_SOURCE_DIR}/nImOreceiveQueue.h
         ${THIS_SOURCE_DIR}/nImOregistryCommands.h
         ${THIS_SOURCE_DIR}/nImOregistryProxy.cpp ${THIS_SOURCE_DIR}/nImOregistryProxy.h
         ${THIS_SOURCE_DIR}/nImOregistryTypes.h
         ${THIS_SOURCE_DIR}/nImOrequestResponse.cpp ${THIS_SOURCE_DIR}/nImOrequestResponse.h
-        ${THIS_SOURCE_DIR}/nImOsendToMulticastPort.cpp ${THIS_SOURCE_DIR}/nImOsendToMulticastPort.h
+        ${THIS_SOURCE_DIR}/nImOsendToMulticast.cpp ${THIS_SOURCE_DIR}/nImOsendToMulticast.h
         ${THIS_SOURCE_DIR}/nImOserviceOptions.cpp ${THIS_SOURCE_DIR}/nImOserviceOptions.h
         ${THIS_SOURCE_DIR}/nImOsinkBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOsinkBreakHandler.h
         ${THIS_SOURCE_DIR}/nImOsourceBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOsourceBreakHandler.h

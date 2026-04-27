@@ -45,6 +45,7 @@
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
+#include <nImOsendToMulticast.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -331,49 +332,17 @@ nImO::CommandHandler::sendSimpleResponseWithContext
 void
 nImO::CommandHandler::sendStatusReport
     (SpServiceContext       context,
-     Connection             whereToSend,
+     const Connection &     whereToSend,
      const std::string &    statusChange)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1(context.get()); //####
     ODL_S1s(statusChange); //####
-    BUDP::endpoint  theEndpoint{BAIP::address_v4(whereToSend._address), whereToSend._port};
-    BUDP::socket    theSocket{*context->getService(), theEndpoint.protocol()};
-    Message         messageToSend;
-    auto            statusCopy{std::make_shared<String>(statusChange)};
+    auto    multicastPort{std::make_shared<nImO::SendToMulticast>(context->getService(), whereToSend)};
+    auto    statusCopy{std::make_shared<String>(statusChange)};
 
-    messageToSend.open(true);
-    messageToSend.setValue(statusCopy);
-    messageToSend.close();
-    if (0 < messageToSend.getLength())
-    {
-        if (auto asString{messageToSend.getString()}; asString.empty())
-        {
-            ODL_LOG("(asString.empty())"); //####
-        }
-        else
-        {
-            StdStringVector outVec;
-
-            EncodeBytesAsMIME(outVec, asString);
-            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
-
-            // send the encoded message to the logging ports
-            theSocket.async_send_to(BA::buffer(*outString), theEndpoint,
-                                      [outString]
-                                      (const BSErr          ec,
-                                       const std::size_t    length)
-                                      {
-                                        NIMO_UNUSED_VAR_(ec);
-                                        NIMO_UNUSED_VAR_(length);
-                                      });
-        }
-    }
-    else
-    {
-        ODL_LOG("! (0 < messageToSend.getLength())"); //####
-    }
+    multicastPort->sendValue(statusCopy);
 } // nImO::CommandHandler::sendStatusReport
 
 #if defined(__APPLE__)

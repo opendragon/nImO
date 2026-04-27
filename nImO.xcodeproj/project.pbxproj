@@ -443,10 +443,10 @@
 		F6B1E7A529B7B8BE00FDF4D6 /* shell.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shell.c; sourceTree = "<group>"; };
 		F6B1E7A629B7B8BE00FDF4D6 /* sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		F6B1E7A729B7B8BE00FDF4D6 /* sqlite3ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
-		F6B23BDC2F9E6C65009B7867 /* nImOreceiveFromMulticastPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOreceiveFromMulticastPort.h; path = nImO/nImOreceiveFromMulticastPort.h; sourceTree = "<group>"; };
-		F6B23BDD2F9E6C65009B7867 /* nImOreceiveFromMulticastPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreceiveFromMulticastPort.cpp; path = nImO/nImOreceiveFromMulticastPort.cpp; sourceTree = "<group>"; };
-		F6B23BDF2F9EA7DF009B7867 /* nImOsendToMulticastPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsendToMulticastPort.h; path = nImO/nImOsendToMulticastPort.h; sourceTree = "<group>"; };
-		F6B23BE02F9EA7DF009B7867 /* nImOsendToMulticastPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsendToMulticastPort.cpp; path = nImO/nImOsendToMulticastPort.cpp; sourceTree = "<group>"; };
+		F6B23BDC2F9E6C65009B7867 /* nImOreceiveFromMulticast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOreceiveFromMulticast.h; path = nImO/nImOreceiveFromMulticast.h; sourceTree = "<group>"; };
+		F6B23BDD2F9E6C65009B7867 /* nImOreceiveFromMulticast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreceiveFromMulticast.cpp; path = nImO/nImOreceiveFromMulticast.cpp; sourceTree = "<group>"; };
+		F6B23BDF2F9EA7DF009B7867 /* nImOsendToMulticast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsendToMulticast.h; path = nImO/nImOsendToMulticast.h; sourceTree = "<group>"; };
+		F6B23BE02F9EA7DF009B7867 /* nImOsendToMulticast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsendToMulticast.cpp; path = nImO/nImOsendToMulticast.cpp; sourceTree = "<group>"; };
 		F6B388FA1C77F3E3004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = CPack/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B8B9FA1E6D976B0094EF96 /* nImObadMessageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObadMessageTest.cpp; path = Tests/nImObadMessageTest.cpp; sourceTree = SOURCE_ROOT; };
 		F6B8B9FB1E6D976B0094EF96 /* nImObadMessageTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImObadMessageTest.rc.in; path = Tests/nImObadMessageTest.rc.in; sourceTree = SOURCE_ROOT; };
@@ -2150,8 +2150,8 @@
 				F62FE69C29FBCE1D002D5FE3 /* nImOoutChannel.h */,
 				F67832022B45698400618040 /* nImOreceivedData.cpp */,
 				F67832012B45698400618040 /* nImOreceivedData.h */,
-				F6B23BDD2F9E6C65009B7867 /* nImOreceiveFromMulticastPort.cpp */,
-				F6B23BDC2F9E6C65009B7867 /* nImOreceiveFromMulticastPort.h */,
+				F6B23BDD2F9E6C65009B7867 /* nImOreceiveFromMulticast.cpp */,
+				F6B23BDC2F9E6C65009B7867 /* nImOreceiveFromMulticast.h */,
 				F67832032B456E3600618040 /* nImOreceiveQueue.cpp */,
 				F67832042B456E3600618040 /* nImOreceiveQueue.h */,
 				F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */,
@@ -2160,8 +2160,8 @@
 				F6491B1029BE29FB00DE5D58 /* nImOregistryTypes.h */,
 				F69004EB29CF654300271A73 /* nImOrequestResponse.cpp */,
 				F69004EC29CF654300271A73 /* nImOrequestResponse.h */,
-				F6B23BE02F9EA7DF009B7867 /* nImOsendToMulticastPort.cpp */,
-				F6B23BDF2F9EA7DF009B7867 /* nImOsendToMulticastPort.h */,
+				F6B23BE02F9EA7DF009B7867 /* nImOsendToMulticast.cpp */,
+				F6B23BDF2F9EA7DF009B7867 /* nImOsendToMulticast.h */,
 				F67B359529BCF738000FC147 /* nImOserviceOptions.cpp */,
 				F67B359629BCF738000FC147 /* nImOserviceOptions.h */,
 				F6ADA5E52B51567B00BE55B0 /* nImOsinkBreakHandler.cpp */,

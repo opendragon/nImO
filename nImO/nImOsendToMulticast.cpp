@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOsendToMulticastPort.h>
+#include <nImOsendToMulticast.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
@@ -82,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::SendToMulticastPort::SendToMulticastPort
+nImO::SendToMulticast::SendToMulticast
     (nImO::SPservice            service,
      const nImO::Connection &   theConnection) :
         _connection{theConnection}, _endpoint{BAIP::address_v4(_connection._address), _connection._port},
@@ -95,34 +95,33 @@ nImO::SendToMulticastPort::SendToMulticastPort
     // Join the multicast group.
     _socket.set_option(BAIP::multicast::join_group(multicastAddress));
     ODL_EXIT_P(this); //####
-} // nImO::SendToMulticastPort::SendToMulticastPort
+} // nImO::SendToMulticast::SendToMulticast
+
+nImO::SendToMulticast::~SendToMulticast
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::SendToMulticast::~SendToMulticast
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::SendToMulticastPort::sendValues
-    (SpMap  valuesToSend)
+nImO::SendToMulticast::sendValue
+    (SpValue    valueToSend)
 {
     ODL_OBJENTER(); //####
-    ODL_P1(valuesToSend.get()); //####
+    ODL_P1(valueToSend.get()); //####
     bool    okSoFar{false};
 
-    if (valuesToSend)
+    if (valueToSend)
     {
         Message messageToSend;
-//        auto    messageMap{std::make_shared<Map>()};
 
         messageToSend.open(true);
-//        messageMap->addValue(std::make_shared<String>(key), valueToSend);
-//        messageMap->addValue(std::make_shared<String>(kComputerNameKey), _computerName);
-//        messageMap->addValue(std::make_shared<String>(kTagKey), _tag);
-//        if (nullptr != _commandPort)
-//        {
-//            messageMap->addValue(std::make_shared<String>(kCommandPortKey), _commandPort);
-//        }
-        messageToSend.setValue(valuesToSend);
+        messageToSend.setValue(valueToSend);
         messageToSend.close();
         if (0 < messageToSend.getLength())
         {
@@ -157,11 +156,11 @@ nImO::SendToMulticastPort::sendValues
     }
     else
     {
-        ODL_LOG("! (valuesToSend)"); //####
+        ODL_LOG("! (valueToSend)"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::SendToMulticastPort::sendValues
+} // nImO::SendToMulticast::sendValue
 
 #if defined(__APPLE__)
 # pragma mark Global functions

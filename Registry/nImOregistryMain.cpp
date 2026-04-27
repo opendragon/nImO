@@ -286,16 +286,33 @@ main
                                                   std::make_shared<nImO::RemoveNodeCommandHandler>(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kSetChannelInUseRequest,
                                                   std::make_shared<nImO::SetChannelInUseCommandHandler>(ourContext, theRegistry));
-                    if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), asRegistryContext->getRegistryServiceName(),
-                                                                nImO::GetShortComputerName(), nImO::kRegistryAddressKey))
+                    bool    okSoFar{false};
+
+                    if (nImO::RegistryMode::kMDNS == (nImO::RegistryMode::kMDNS & asRegistryContext->getSearchMode()))
+                    {
+                        okSoFar = asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), asRegistryContext->getRegistryServiceName(),
+                                                                          nImO::GetShortComputerName(), nImO::kRegistryAddressKey);
+                    }
+                    if (nImO::RegistryMode::kMulticast == (nImO::RegistryMode::kMulticast & asRegistryContext->getSearchMode()))
+                    {
+                        if (asRegistryContext->setUpPorts())
+                        {
+                            okSoFar = true;
+                        }
+                    }
+                    if (okSoFar)
                     {
                         std::cout << progName << " ready.\n";
                         std::cout.flush();
                         for ( ; nImO::gKeepRunning; )
                         {
                             boost::this_thread::yield();
+                            asRegistryContext->processMulticastMessages();
                         }
-                        asRegistryContext->removeAnnouncement();
+                        if (nImO::RegistryMode::kMDNS == (nImO::RegistryMode::kMDNS & asRegistryContext->getSearchMode()))
+                        {
+                            asRegistryContext->removeAnnouncement();
+                        }
                         std::cout << progName << " done.\n";
                         std::cout.flush();
                     }

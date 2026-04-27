@@ -356,9 +356,6 @@ namespace nImO
             /*! @brief The output channels for the service. */
             OutChannelVector    _outputChannelVector{};
 
-            /*! @brief The sequence of received packages. */
-            ReceiveQueue    _receiveQueue;
-
     }; // InputOutputContext
 
     /*! @brief Add the standard command handlers for an InputOutputContext.

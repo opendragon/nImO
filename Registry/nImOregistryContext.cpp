@@ -38,7 +38,11 @@
 
 #include "nImOregistryContext.h"
 
+#include <BasicTypes/nImOstring.h>
 #include <nImOannounceServiceData.h>
+#include <nImOmainSupport.h>
+#include <nImOregistryCommands.h>
+#include <nImOsendToMulticast.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -570,6 +574,73 @@ nImO::RegistryContext::makePortAnnouncement
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::RegistryContext::makePortAnnouncement
+
+void
+nImO::RegistryContext::processMulticastMessages
+    (void)
+{
+    ODL_OBJENTER(); //####
+    if (RegistryMode::kMulticast == (RegistryMode::kMulticast & _registrySearchMode))
+    {
+        if (_receiveQueue.hasMessage() && gKeepRunning)
+        {
+            auto    nextData{_receiveQueue.getNextMessage()};
+
+            if (nImO::gKeepRunning)
+            {
+                if (nextData)
+                {
+                    auto    contents{nextData->_receivedMessage};
+
+                    if (contents)
+                    {
+                        if (auto asString{contents->asString()}; nullptr != asString)
+                        {
+                            auto            received{asString->getValue()};
+                            StdStringVector pieces;
+
+                            boost::algorithm::split(pieces, received, boost::is_any_of(kStatusSeparator));
+                            if ((pieces.size() == 1) && (kRegistryRequest == pieces[0]))
+                            {
+                                char        addressBuffer[64];
+                                std::string hostAddress;
+
+                                if (gHasIpv4)
+                                {
+                                    mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
+                                                                                          gServiceAddressIpv4,
+                                                                                          sizeof(gServiceAddressIpv4))};
+
+                                    hostAddress = addressString.str;
+                                    release_mdns_string(addressString);
+                                }
+                                else
+                                {
+                                    if (gHasIpv6)
+                                    {
+                                        mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
+                                                                                              gServiceAddressIpv6,
+                                                                                              sizeof(gServiceAddressIpv6))};
+
+                                        hostAddress = addressString.str;
+                                        release_mdns_string(addressString);
+                                    }
+                                    else
+                                    {
+                                        hostAddress = kSelfAddressIpAddress;
+                                    }
+                                }
+                                _registrySendPort->sendValue(std::make_shared<String>(kRegistryResponse + kStatusSeparator + hostAddress +
+                                                                                      kStatusSeparator + std::to_string(getCommandPort())));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::RegistryContext::processMulticastMessages
 
 void
 nImO::RegistryContext::removeAnnouncement

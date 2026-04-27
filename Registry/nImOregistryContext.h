@@ -104,10 +104,24 @@ namespace nImO
                  const std::string &    hostName,
                  const std::string &    dataKey);
 
+            /*! @brief Process any received messages on the multicast port. */
+            void
+            processMulticastMessages
+                (void);
+
             /*! @brief Retract the announcement via mDNS. */
             void
             removeAnnouncement
                 (void);
+
+            /*! @brief Set up the multicast ports for use with requests.
+             @return @c true if the ports were set up. */
+            inline bool
+            setUpPorts
+                (void)
+            {
+                return setUpMulticastPorts();
+            }
 
         protected :
             // Protected methods.

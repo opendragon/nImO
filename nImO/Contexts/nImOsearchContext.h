@@ -40,6 +40,7 @@
 # define nImOsearchContext_H_ /* Header guard */
 
 # include <Contexts/nImOnetworkingContext.h>
+# include <nImOreceiveQueue.h>
 
 # if MAC_OR_LINUX_OR_BSD_
 #  pragma GCC diagnostic push
@@ -126,7 +127,8 @@ namespace nImO
                 return findTheRegistry(ignoredConnection);
             }
 
-            /*! @brief Return the mDNS name of the Registry. */
+            /*! @brief Return the mDNS name of the Registry.
+             @return The mDNS name of the Registry. */
             inline const std::string &
             getRegistryName
                 (void)
@@ -145,13 +147,24 @@ namespace nImO
                 return _registrySearchConnection;
             }
 
-            /*! @brief Return the full mDNS name of the Registry. */
+            /*! @brief Return the full mDNS name of the Registry.
+             @return The full mDNS name of the Registry. */
             inline std::string
             getRegistryServiceName
                 (void)
                 const
             {
                 return "_nimo_"s + getRegistryName() + "._tcp.local."s;
+            }
+
+            /*! @brief Return the search mode for the Registry.
+             @return The search mode to be used with the Registry. */
+            inline RegistryMode
+            getSearchMode
+                (void)
+                const
+            {
+                return _registrySearchMode;
             }
 
             /*! @brief Returns RegistryMode value corresponding to a name.
@@ -170,6 +183,12 @@ namespace nImO
 
         protected :
             // Protected methods.
+
+            /*! @brief Set up the multicast send and receive ports.
+             @return @c true if the ports were set up. */
+            bool
+            setUpMulticastPorts
+                (void);
 
             /*! @brief Wait until the Registry is located.
              @return @c true if the Registry was located. */
@@ -238,6 +257,21 @@ namespace nImO
             /*! @brief The number of sockets in use. */
             int _numSockets;
 
+            /*! @brief The sequence of received messages. */
+            ReceiveQueue    _receiveQueue{};
+
+            /*! @brief The multicast search connection used for the Registry. */
+            Connection  _registrySearchConnection{};
+
+            /*! @brief The search mode of the Registry. */
+            RegistryMode    _registrySearchMode;
+
+            /*! @brief The multicast port to be used for Registry searches. */
+            SpReceiveFromMulticast    _registryReceivePort{};
+
+            /*! @brief The multicast port to be used for Registry searches. */
+            SpSendToMulticast   _registrySendPort{};
+
             /*! @brief The sockets to use. */
             int _sockets[8];
 
@@ -270,18 +304,6 @@ namespace nImO
 
             /*! @brief The preferred address for connections to the Registry process. */
             std::string _registryPreferredAddress{};
-
-            /*! @brief The multicast search connection used for the Registry. */
-            Connection  _registrySearchConnection{};
-
-            /*! @brief The search mode of the Registry. */
-            RegistryMode    _registrySearchMode;
-
-            /*! @brief The multicast port to be used for Registry searches. */
-            SpSendToMulticast   _registryRequestPort{};
-
-            /*! @brief The multicast port to be used for Registry searches. */
-            SpReceiveFromMulticast    _registryResponsePort{};
 
             /*! @brief The maximum number of retries when searching for the Registry. */
             int _registrySearchRetries{0};

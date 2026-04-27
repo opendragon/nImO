@@ -84,7 +84,7 @@ namespace nImO
 
             /*! @brief Send a set of values to the multicast port.
              @param[in] valueToSend The Value to be sent.
-             @returns @c true if the Value were sent. */
+             @return @c true if the Value were sent. */
             bool
             sendValue
                 (SpValue    valueToSend);

@@ -158,7 +158,7 @@ helpForList
     size_t  choiceWidth{0};
 
     outStream << "Available choices:\n";
-    for (auto & walker : lChoiceMap)
+    for (const auto & walker : lChoiceMap)
     {
         size_t  thisWidth{walker.first.length()};
 
@@ -168,7 +168,7 @@ helpForList
         }
     }
     choiceWidth += 2;
-    for (auto & walker : lChoiceMap)
+    for (const auto & walker : lChoiceMap)
     {
         std::string padding;
 
@@ -1662,7 +1662,7 @@ main
     lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
     nImO::StdStringSet  choiceSet{};
 
-    for (auto & walker : lChoiceMap)
+    for (const auto & walker : lChoiceMap)
     {
         choiceSet.insert(walker.first);
     }

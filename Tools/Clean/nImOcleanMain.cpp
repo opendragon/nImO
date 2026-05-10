@@ -146,7 +146,7 @@ main
 
                                 if (statusWithAllConnections.first.first)
                                 {
-                                    for (auto & walker : statusWithAllConnections.second)
+                                    for (const auto & walker : statusWithAllConnections.second)
                                     {
                                         if (walker._found)
                                         {
@@ -283,7 +283,7 @@ main
 
                         if (statusWithAllConnections.first.first)
                         {
-                            for (auto & walker : statusWithAllConnections.second)
+                            for (const auto & walker : statusWithAllConnections.second)
                             {
                                 if (walker._found)
                                 {

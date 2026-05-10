@@ -189,7 +189,7 @@ loadApplicationInformation
                         auto    descriptionKey{std::make_shared<nImO::String>(nImO::kDescriptionKey)};
                         auto    pathKey{std::make_shared<nImO::String>(nImO::kPathKey)};
 
-                        for (auto & walker : *asMap)
+                        for (const auto & walker : *asMap)
                         {
                             if (auto readSubMap{walker.second->asMap()}; nullptr == readSubMap)
                             {
@@ -392,7 +392,7 @@ main
                                     statusWithBool = proxy->clearAppListForLauncher(nodeName);
                                     if (statusWithBool.first.first)
                                     {
-                                        for (auto & walker : *ourContext->getAppList()->asMap())
+                                        for (const auto & walker : *ourContext->getAppList()->asMap())
                                         {
                                             auto    keyValue{walker.first->asString()};
                                             auto    readSubMap{walker.second->asMap()};

@@ -188,7 +188,7 @@ nImO::InputOutputContext::anInputChannelIsConnected
     ODL_OBJENTER(); //####
     bool    result{false};
 
-    for (auto & walker : _inputChannelMap)
+    for (const auto & walker : _inputChannelMap)
     {
         if (walker.second->isConnected())
         {
@@ -209,7 +209,7 @@ nImO::InputOutputContext::anOutputChannelIsConnected
     ODL_OBJENTER(); //####
     bool    result{false};
 
-    for (auto & walker : _outputChannelMap)
+    for (const auto & walker : _outputChannelMap)
     {
         if (walker.second->isConnected())
         {

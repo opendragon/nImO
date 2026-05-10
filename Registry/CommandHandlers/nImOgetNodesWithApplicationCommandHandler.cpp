@@ -125,7 +125,7 @@ nImO::GetNodesWithApplicationCommandHandler::doIt
             {
                 auto    stringSet{std::make_shared<Set>()};
 
-                for (auto & walker : statusWithSet.second)
+                for (const auto & walker : statusWithSet.second)
                 {
                     stringSet->addValue(std::make_shared<String>(walker));
                 }

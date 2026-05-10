@@ -315,7 +315,7 @@ handleConnectCompletion
 nImO::SuccessOrFailure
 nImO::SendRequestWithArgumentsAndNonEmptyResponse
     (SpNetworkingContext    context,
-     Connection &           connection,
+     const Connection &     connection,
      Ptr(ResponseHandler)   handler,
      CPtr(Array)            arguments,
      const std::string &    requestKey,

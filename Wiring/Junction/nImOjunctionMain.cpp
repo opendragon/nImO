@@ -278,7 +278,7 @@ main
 
                                                 if (contents)
                                                 {
-                                                    for (auto & walker : outChannels)
+                                                    for (const auto & walker : outChannels)
                                                     {
                                                         if (! walker->send(contents))
                                                         {
@@ -310,7 +310,7 @@ main
                                         bool    alreadyReported{false};
 
                                         nImO::gKeepRunning = true; // So that the calls to 'CloseConnection' and 'getInputChannelNames' won't fail...
-                                        for (auto & walker : outChannels)
+                                        for (const auto & walker : outChannels)
                                         {
                                             nImO::CloseConnection(ourContext, nodeName, proxy, walker->getName(), true, alreadyReported);
                                         }

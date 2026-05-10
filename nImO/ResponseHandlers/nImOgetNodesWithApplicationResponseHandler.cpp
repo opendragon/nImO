@@ -107,7 +107,7 @@ nImO::GetNodesWithApplicationResponseHandler::doIt
         {
             if (Enumerable::String == asSet->getKeyKind())
             {
-                for (auto & walker : *asSet)
+                for (const auto & walker : *asSet)
                 {
                     _result.insert(walker->asString()->getValue());
                 }

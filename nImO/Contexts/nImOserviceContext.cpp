@@ -225,7 +225,7 @@ nImO::ServiceContext::destroyCommandPort
     _keepGoing = false;
     ODL_B1(_keepGoing); //####
     _acceptor.close();
-    for (auto & walker : _sessions)
+    for (const auto & walker : _sessions)
     {
         auto    sessionSocket{walker->getSocket()};
 

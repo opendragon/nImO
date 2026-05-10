@@ -260,7 +260,7 @@ std::cerr << "** Unimplemented **\n";
 
                                         nImO::gKeepRunning = true; // So that the calls to 'CloseConnection' and 'getInputChannelNames' won't fail...
                                         ourContext->getInputChannelNames(inChannelPaths);
-                                        for (auto & walker : inChannelPaths)
+                                        for (const auto & walker : inChannelPaths)
                                         {
                                             nImO::CloseConnection(ourContext, nodeName, proxy, walker, false, alreadyReported);
                                         }
@@ -271,7 +271,7 @@ std::cerr << "** Unimplemented **\n";
                                 nImO::StdStringVector   inChannelPaths;
 
                                 ourContext->getInputChannelNames(inChannelPaths);
-                                for (auto & walker : inChannelPaths)
+                                for (const auto & walker : inChannelPaths)
                                 {
                                     statusWithBool = proxy->removeChannel(nodeName, walker);
                                     if (statusWithBool.first.first)

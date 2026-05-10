@@ -110,7 +110,7 @@ nImO::GetKeysForAllUnconnectedChannelsOnNodeResponseHandler::doIt
         {
             okSoFar = true;
             ODL_B1(okSoFar); //####
-            for (auto & walker : *keysVector)
+            for (const auto & walker : *keysVector)
             {
                 if (auto keysArray{walker->asArray()}; nullptr == keysArray)
                 {

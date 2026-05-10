@@ -287,7 +287,7 @@ main
                                                 }
                                             }
                                         }
-                                        for (auto & walker : timers)
+                                        for (const auto & walker : timers)
                                         {
                                             walker->cancel();
                                         }

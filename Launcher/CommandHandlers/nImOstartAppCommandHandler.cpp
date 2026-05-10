@@ -153,7 +153,7 @@ nImO::StartAppCommandHandler::doIt
                                     // Prepend a default node name.
                                     commandLine.push_back(MakeOption("n"));
                                     commandLine.push_back(ConstructNodeName(_ownerForLauncher->getName(), false, appName->getValue(), ""s, true));
-                                    for (auto & walker : *appOptionsArray)
+                                    for (const auto & walker : *appOptionsArray)
                                     {
                                         if (auto anOptionString{walker->asString()}; nullptr == anOptionString)
                                         {
@@ -180,7 +180,7 @@ nImO::StartAppCommandHandler::doIt
                                             }
                                         }
                                     }
-                                    for (auto & walker : *appParametersArray)
+                                    for (const auto & walker : *appParametersArray)
                                     {
                                         if (auto aParameterString{walker->asString()}; nullptr == aParameterString)
                                         {

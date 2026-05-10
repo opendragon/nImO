@@ -329,7 +329,7 @@ std::cerr << "** Unimplemented **\n";
                                                 }
                                             }
                                         }
-                                        for (auto & walker : timers)
+                                        for (const auto & walker : timers)
                                         {
                                             walker->cancel();
                                         }

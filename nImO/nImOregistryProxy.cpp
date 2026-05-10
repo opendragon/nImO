@@ -1013,7 +1013,7 @@ nImO::ConvertApplicationListToMap
     auto        applicationSubMap{std::make_shared<Map>()};
     std::string nodeName{};
 
-    for (auto & walker : applications)
+    for (const auto & walker : applications)
     {
         if (walker._found)
         {

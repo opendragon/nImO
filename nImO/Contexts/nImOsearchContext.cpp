@@ -828,7 +828,7 @@ nImO::SearchContext::SearchContext
         }
         else
         {
-            for (auto & walker : *asArray)
+            for (const auto & walker : *asArray)
             {
                 if (auto anOptionString{walker->asString()}; nullptr == anOptionString)
                 {
@@ -1083,7 +1083,7 @@ nImO::SearchContext::findAndLaunchTheRegistry
         StdStringVector commandLine{};
 
         report("Registry was not found so it will be launched.");
-        for (auto & walker : regOptions)
+        for (const auto & walker : regOptions)
         {
             if (auto anOptionString{walker->asString()}; nullptr == anOptionString)
             {

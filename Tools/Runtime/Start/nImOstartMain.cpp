@@ -190,7 +190,7 @@ main
                         nImO::StdStringSet  launchers{};
                         auto                nodes{statusWithAllNodes.second};
 
-                        for (auto & walker : nodes)
+                        for (const auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
@@ -591,7 +591,7 @@ main
                                         if (! appDescriptors.empty())
                                         {
                                             std::cout << "Parameters for '" << serviceName << "' on '" << launcherName << "':\n";
-                                            for (auto & walker : appDescriptors)
+                                            for (const auto & walker : appDescriptors)
                                             {
                                                 std::cout << "\t" << walker->describe() << "\n";
                                             }
@@ -612,11 +612,11 @@ main
                                         auto    optionsArray{std::make_shared<nImO::Array>()};
                                         auto    parametersArray{std::make_shared<nImO::Array>()};
 
-                                        for (auto & option : optionsToApply)
+                                        for (const auto & option : optionsToApply)
                                         {
                                             optionsArray->addValue(std::make_shared<nImO::String>(option));
                                         }
-                                        for (auto & walker : appDescriptors)
+                                        for (const auto & walker : appDescriptors)
                                         {
                                             parametersArray->addValue(std::make_shared<nImO::String>(walker->getProcessedValue()));
                                         }

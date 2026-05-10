@@ -107,7 +107,7 @@ nImO::GetRunParamsForAppResponseHandler::doIt
         {
             okSoFar = true;
             ODL_B1(okSoFar); //####
-            for (auto & walker : *asArray)
+            for (const auto & walker : *asArray)
             {
                 if (walker)
                 {

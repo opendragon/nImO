@@ -134,7 +134,7 @@ main
                             auto    nodes{statusWithAllNodes.second};
 
                             // Send Stop command to all launchers.
-                            for (auto & walker : nodes)
+                            for (const auto & walker : nodes)
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                                 {
@@ -159,7 +159,7 @@ main
 
                             if (statusWithAllConnections.first.first)
                             {
-                                for (auto & walker : statusWithAllConnections.second)
+                                for (const auto & walker : statusWithAllConnections.second)
                                 {
                                     if (walker._found)
                                     {
@@ -220,7 +220,7 @@ main
                                 exitCode = 1;
                             }
                             // Send Stop command to all other nodes.
-                            for (auto & walker : nodes)
+                            for (const auto & walker : nodes)
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                                 {
@@ -267,7 +267,7 @@ main
 
                                 if (statusWithAllConnections.first.first)
                                 {
-                                    for (auto & walker : statusWithAllConnections.second)
+                                    for (const auto & walker : statusWithAllConnections.second)
                                     {
                                         if (walker._found)
                                         {
@@ -380,7 +380,7 @@ main
                         auto    nodes{statusWithAllNodes.second};
 
                         // Send Stop command to all the launchers on the machine.
-                        for (auto & walker : nodes)
+                        for (const auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
@@ -409,7 +409,7 @@ main
 
                         if (statusWithAllConnections.first.first)
                         {
-                            for (auto & walker : statusWithAllConnections.second)
+                            for (const auto & walker : statusWithAllConnections.second)
                             {
                                 if (walker._found)
                                 {
@@ -488,7 +488,7 @@ main
                             exitCode = 1;
                         }
                         // Send Stop command to all other nodes on the machine.
-                        for (auto & walker : nodes)
+                        for (const auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                             {

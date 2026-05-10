@@ -315,7 +315,7 @@ main
                                         bool    alreadyReported{false};
 
                                         nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
-                                        for (auto & walker : outChannels)
+                                        for (const auto & walker : outChannels)
                                         {
                                             nImO::CloseConnection(ourContext, nodeName, proxy, walker->getName(), true, alreadyReported);
                                         }

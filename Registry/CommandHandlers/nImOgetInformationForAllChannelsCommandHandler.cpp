@@ -118,7 +118,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
         {
             auto    channelArray{std::make_shared<Array>()};
 
-            for (auto & walker : statusWithInfoVector.second)
+            for (const auto & walker : statusWithInfoVector.second)
             {
                 auto    infoArray{std::make_shared<Array>()};
 

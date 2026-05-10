@@ -110,7 +110,7 @@ nImO::GetInformationForAllNodesResponseHandler::doIt
         {
             okSoFar = true;
             ODL_B1(okSoFar); //####
-            for (auto & walker : *infoVector)
+            for (const auto & walker : *infoVector)
             {
                 if (auto infoArray{walker->asArray()}; nullptr == infoArray)
                 {

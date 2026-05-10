@@ -118,7 +118,7 @@ nImO::GetKeysForAllUnconnectedChannelsCommandHandler::doIt
         {
             auto    channelArray{std::make_shared<Array>()};
 
-            for (auto & walker : statusWithKeysVector.second)
+            for (const auto & walker : statusWithKeysVector.second)
             {
                 auto    keysArray{std::make_shared<Array>()};
 

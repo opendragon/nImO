@@ -67,7 +67,7 @@ namespace nImO
     SuccessOrFailure
     SendRequestWithArgumentsAndNonEmptyResponse
         (SpNetworkingContext    context,
-         Connection &           connection,
+         const Connection &     connection,
          Ptr(ResponseHandler)   handler,
          CPtr(Array)            arguments,
          const std::string &    requestKey,
@@ -83,7 +83,7 @@ namespace nImO
     inline SuccessOrFailure
     SendRequestWithArgumentsAndEmptyResponse
         (SpNetworkingContext    context,
-         Connection &           connection,
+         const Connection &     connection,
          CPtr(Array)            arguments,
          const std::string &    requestKey,
          const std::string &    responseKey)
@@ -100,7 +100,7 @@ namespace nImO
     inline SuccessOrFailure
     SendRequestWithNoArgumentsAndEmptyResponse
         (SpNetworkingContext    context,
-         Connection &           connection,
+         const Connection &     connection,
          const std::string &    requestKey,
          const std::string &    responseKey)
     {
@@ -117,7 +117,7 @@ namespace nImO
     inline SuccessOrFailure
     SendRequestWithNoArgumentsAndNonEmptyResponse
         (SpNetworkingContext    context,
-         Connection &           connection,
+         const Connection &     connection,
          Ptr(ResponseHandler)   handler,
          const std::string &    requestKey,
          const std::string &    responseKey)

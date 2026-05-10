@@ -240,7 +240,7 @@ nImO::Array::equalTo
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -475,7 +475,7 @@ nImO::Array::greaterThan
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -496,7 +496,7 @@ nImO::Array::greaterThanOrEqual
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -517,7 +517,7 @@ nImO::Array::lessThan
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -538,7 +538,7 @@ nImO::Array::lessThanOrEqual
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -599,7 +599,7 @@ nImO::Array::printToStringBuffer
     bool    first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -637,7 +637,7 @@ nImO::Array::printToStringBufferAsJSON
     bool    first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -804,7 +804,7 @@ nImO::Array::writeToMessage
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
-        for (auto & walker : *this)
+        for (const auto & walker : *this)
         {
             if (walker)
             {

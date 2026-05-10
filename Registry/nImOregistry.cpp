@@ -2905,7 +2905,7 @@ nImO::Registry::getInformationForAllConnections
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 if (5 < walker.size())
                 {
@@ -2971,7 +2971,7 @@ nImO::Registry::getInformationForAllConnectionsOnMachine
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchMachines, &machineName);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 if (5 < walker.size())
                 {
@@ -3036,7 +3036,7 @@ nImO::Registry::getInformationForAllConnectionsOnNode
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchNodeConnections, &nodeName);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 if (5 < walker.size())
                 {
@@ -3096,7 +3096,7 @@ nImO::Registry::getInformationForAllMachines
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 if (1 < walker.size())
                 {
@@ -3517,7 +3517,7 @@ nImO::Registry::getNamesOfMachines
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 strings.insert(walker);
             }
@@ -3549,7 +3549,7 @@ nImO::Registry::getNamesOfNodes
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 strings.insert(walker);
             }
@@ -3584,7 +3584,7 @@ nImO::Registry::getNamesOfNodesOnMachine
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 if (0 < walker.size())
                 {
@@ -3705,7 +3705,7 @@ nImO::Registry::getNodesWithApplication
                                                             &applicationName);
         if (status.first)
         {
-            for (auto & walker : results)
+            for (const auto & walker : results)
             {
                 strings.insert(walker);
             }

@@ -132,7 +132,7 @@ nImO::Map::addEntries
     ODL_P1(&other); //####
     if ((other._keyKind == _keyKind) || (Enumerable::Unknown == _keyKind))
     {
-        for (auto & walker : other)
+        for (const auto & walker : other)
         {
             SpValue key{walker.first};
             SpValue mappedValue{walker.second};
@@ -330,7 +330,7 @@ nImO::Map::equalTo
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker.first)
                 {
@@ -590,7 +590,7 @@ nImO::Map::getKeys
     ODL_OBJENTER(); //####
     auto    result{std::make_shared<Set>()};
 
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         result->addValue(walker.first);
     }
@@ -642,7 +642,7 @@ nImO::Map::greaterThan
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker.first)
                 {
@@ -672,7 +672,7 @@ nImO::Map::greaterThanOrEqual
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker.first)
                 {
@@ -706,7 +706,7 @@ nImO::Map::lessThan
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker.first)
                 {
@@ -736,7 +736,7 @@ nImO::Map::lessThanOrEqual
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker.first)
                 {
@@ -797,7 +797,7 @@ nImO::Map::printToStringBuffer
     bool    first{true};
 
     outBuffer.appendChar(kStartMapChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (! first)
         {
@@ -842,7 +842,7 @@ nImO::Map::printToStringBufferAsJSON
     bool    first{true};
 
     outBuffer.appendChar(kStartMapChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (! first)
         {
@@ -1076,7 +1076,7 @@ nImO::Map::writeToMessage
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
-        for (auto & walker : *this)
+        for (const auto & walker : *this)
         {
             walker.first->writeToMessage(outMessage);
             walker.second->writeToMessage(outMessage);

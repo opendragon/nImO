@@ -302,7 +302,7 @@ nImO::Set::equalTo
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -562,7 +562,7 @@ nImO::Set::greaterThan
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -592,7 +592,7 @@ nImO::Set::greaterThanOrEqual
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (nullptr != walker)
                 {
@@ -626,7 +626,7 @@ nImO::Set::lessThan
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -656,7 +656,7 @@ nImO::Set::lessThanOrEqual
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -720,7 +720,7 @@ nImO::Set::printToStringBuffer
     bool first{true};
 
     outBuffer.appendChar(kStartSetChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -758,7 +758,7 @@ nImO::Set::printToStringBufferAsJSON
     bool first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -951,7 +951,7 @@ nImO::Set::writeToMessage
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
-        for (auto & walker : *this)
+        for (const auto & walker : *this)
         {
             if (walker)
             {

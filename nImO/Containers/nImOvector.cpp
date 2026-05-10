@@ -309,7 +309,7 @@ nImO::Vector::equalTo
     }
     else
     {
-        for (auto & walker : *this)
+        for (const auto & walker : *this)
         {
             if (walker)
             {
@@ -553,7 +553,7 @@ nImO::Vector::greaterThan
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -583,7 +583,7 @@ nImO::Vector::greaterThanOrEqual
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -617,7 +617,7 @@ nImO::Vector::lessThan
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -647,7 +647,7 @@ nImO::Vector::lessThanOrEqual
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -711,7 +711,7 @@ nImO::Vector::printToStringBuffer
     bool    first{true};
 
     outBuffer.appendChar(kStartVectorChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -749,7 +749,7 @@ nImO::Vector::printToStringBufferAsJSON
     bool    first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto & walker : *this)
+    for (const auto & walker : *this)
     {
         if (walker)
         {
@@ -946,7 +946,7 @@ nImO::Vector::writeToMessage
         {
             std::queue<double>  doublesSeen;
 
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {
@@ -959,7 +959,7 @@ nImO::Vector::writeToMessage
         }
         else
         {
-            for (auto & walker : *this)
+            for (const auto & walker : *this)
             {
                 if (walker)
                 {

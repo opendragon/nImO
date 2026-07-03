@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to write to a nImO channel.
+//  Contains:   A utility application to read from the console and write to a nImO channel.
 //
 //  Written by: Norman Jaffe
 //
@@ -56,7 +56,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to write to a #nImO channel. */
+ @brief A utility application to read from the console and write to a #nImO channel. */
 
 /*! @dir Write
  @brief The set of files that implement the Write application. */
@@ -116,7 +116,7 @@ gatherLines
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for writing to a #nImO channel.
+/*! @brief The entry point for reading from the console and writing to a #nImO channel.
 
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
@@ -137,7 +137,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel"s, "nImOwrite"s, 2016, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Read from the console and write to a channel"s, "nImOwrite"s, 2016, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipInTypeOption | nImO::kSkipMissingOption))
     {
         try
@@ -227,7 +227,7 @@ main
 
                                     if (outChannel)
                                     {
-                                        bool    isSignal{nImO::kSignalType == optionValues._inType};
+                                        bool    isOutSignal{nImO::kSignalType == optionValues._outType};
 
                                         if (optionValues._waitForConnections)
                                         {
@@ -284,7 +284,7 @@ main
                                                     {
                                                         bool    okToSend;
 
-                                                        if (isSignal)
+                                                        if (isOutSignal)
                                                         {
                                                             if (nullptr == readValue->asNumber())
                                                             {

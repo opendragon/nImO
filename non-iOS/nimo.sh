@@ -28,9 +28,10 @@ function list_commands
     echo "    stop       stop one or all applications except active log programs"
 #    echo "    storea     store a set of applications"
 #    echo "    stores     store a setup"
+    echo "    talk       read from the console and a channel and write to another"
 #    echo "    update     update an application"
     echo "    version    report the version numbers of the libraries"
-    echo "    write      write to a channel"
+    echo "    write      read from the console and write to a channel"
 }
 
 function usage
@@ -116,6 +117,9 @@ function usage_help
 #            "stores")
 #                nImOstoreSetup -h
 #                ;;
+            "talk")
+                nImOtalk -h
+                ;;
 #            "update")
 #                nImOupdateApp -h
 #                ;;
@@ -279,6 +283,9 @@ else
 #                nImOstoreSetup $*
 #            fi
 #            ;;
+        "talk")
+            nImOtalk $*
+            ;;
 #        "update")
 #            if [[ $# -eq 0 ]]; then
 #                usage_help update

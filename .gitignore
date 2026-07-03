@@ -211,6 +211,9 @@ non-iOS/Tools/InputOutput/Read/nImOread.rc
 non-iOS/Tools/InputOutput/Record/nImOrecord
 non-iOS/Tools/InputOutput/Record/nImOrecord.dir/
 non-iOS/Tools/InputOutput/Record/nImOrecord.rc
+non-iOS/Tools/InputOutput/Talk/nImOtalk
+non-iOS/Tools/InputOutput/Talk/nImOtalk.dir/
+non-iOS/Tools/InputOutput/Talk/nImOtalk.rc
 non-iOS/Tools/InputOutput/Write/nImOwrite
 non-iOS/Tools/InputOutput/Write/nImOwrite.dir/
 non-iOS/Tools/InputOutput/Write/nImOwrite.rc

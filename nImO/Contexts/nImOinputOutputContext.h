@@ -258,6 +258,15 @@ namespace nImO
                 (StdStringVector &  names)
                 const;
 
+            /*! @brief Return @c true if there is a message in the queue.
+             @return @c true if there is a message in the queue. */
+            bool
+            hasMessage
+                (void)
+            {
+                return _receiveQueue.hasMessage();
+            }
+
             /*! @brief Return the behaviour to apply when an input channel is inactive.
              @return The behaviour to apply when an input channel is inactive. */
             inline MissingModeType

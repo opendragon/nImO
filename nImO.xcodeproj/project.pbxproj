@@ -172,6 +172,10 @@
 		F6546F152F51C53800421044 /* optionparser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = optionparser.cpp; sourceTree = "<group>"; };
 		F6546F162F51C53800421044 /* whereami.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = whereami.h; sourceTree = "<group>"; };
 		F6546F172F51C53800421044 /* whereami.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = whereami.c; sourceTree = "<group>"; };
+		F657F05D2FF7B66000DEF2A4 /* nImOtalk.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = nImOtalk.rc.in; sourceTree = "<group>"; };
+		F657F05E2FF7B66000DEF2A4 /* nImOtalkMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOtalkMain.cpp; sourceTree = "<group>"; };
+		F657F05F2FF7B66000DEF2A4 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F657F0762FF7B67500DEF2A4 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65A7B072995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65A7B092995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65A7B0B2995DA05009BA794 /* nImOstoreAppsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstoreAppsMain.cpp; sourceTree = "<group>"; };
@@ -1090,6 +1094,7 @@
 				F6CA168D2CD952B800BA78EB /* Playback */,
 				F65C4B012985620200430284 /* Read */,
 				F6CA168F2CD952DD00BA78EB /* Record */,
+				F657F0792FF7B67500DEF2A4 /* Talk */,
 				F65C4A3E2985620100430284 /* Write */,
 			);
 			path = InputOutput;
@@ -1101,6 +1106,7 @@
 				F6CA169F2CD954FC00BA78EB /* Playback */,
 				F65C4BBB2985636800430284 /* Read */,
 				F6CA16A32CD9551E00BA78EB /* Record */,
+				F657F0602FF7B66000DEF2A4 /* Talk */,
 				F65C4B9E2985636700430284 /* Write */,
 			);
 			path = InputOutput;
@@ -1283,6 +1289,24 @@
 				F6546F172F51C53800421044 /* whereami.c */,
 			);
 			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		F657F0602FF7B66000DEF2A4 /* Talk */ = {
+			isa = PBXGroup;
+			children = (
+				F657F05D2FF7B66000DEF2A4 /* nImOtalk.rc.in */,
+				F657F05E2FF7B66000DEF2A4 /* nImOtalkMain.cpp */,
+				F657F05F2FF7B66000DEF2A4 /* resource.h */,
+			);
+			path = Talk;
+			sourceTree = "<group>";
+		};
+		F657F0792FF7B67500DEF2A4 /* Talk */ = {
+			isa = PBXGroup;
+			children = (
+				F657F0762FF7B67500DEF2A4 /* CMakeLists.txt */,
+			);
+			path = Talk;
 			sourceTree = "<group>";
 		};
 		F65A7B062995D8B5009BA794 /* LoadApplications */ = {

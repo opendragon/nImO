@@ -39,6 +39,7 @@
 add_subdirectory(Playback)
 add_subdirectory(Read)
 add_subdirectory(Record)
+add_subdirectory(Talk)
 add_subdirectory(Write)
 
 enable_testing()

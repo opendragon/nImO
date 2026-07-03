@@ -189,7 +189,7 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    bool    isSignal{nImO::kSignalType == optionValues._inType};
+                                    bool    isInSignal{nImO::kSignalType == optionValues._inType};
 
                                     if (optionValues._waitForConnections)
                                     {
@@ -229,7 +229,7 @@ main
                                                 contents->printToStringBuffer(buff);
                                                 auto    valString{buff.getString()};
 
-                                                if (isSignal)
+                                                if (isInSignal)
                                                 {
                                                     okSoFar = ((nullptr != contents->asNumber()) || (nullptr != contents->asLogical()));
                                                 }

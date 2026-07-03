@@ -224,14 +224,13 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
+                                    auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                     auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
-                                    if (outChannel)
+                                    if (inChannel && outChannel)
                                     {
                                         if (optionValues._waitForConnections)
                                         {
-                                            auto    inChannel{ourContext->getInputChannel(inChannelPath)};
-
                                             std::cout << "Waiting for connections.\n";
                                             ourContext->report("Waiting for connections."s);
                                             for ( ; nImO::gKeepRunning; )

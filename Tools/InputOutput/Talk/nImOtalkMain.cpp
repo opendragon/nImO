@@ -40,10 +40,10 @@
 #include <Contexts/nImOsourceContext.h>
 #include <nImOcallbackFunction.h>
 #include <nImOchannelName.h>
+#include <nImOfilterBreakHandler.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
-#include <nImOsourceBreakHandler.h>
 
 #include <chrono>
 
@@ -138,7 +138,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Talk to a channel and listen on another"s, "nImOtalk"s, 2026, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipInTypeOption | nImO::kSkipMissingOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipMissingOption))
     {
         try
         {
@@ -148,13 +148,13 @@ main
             std::string         thisService{"Talk"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
-            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
-            auto                cleanup{new nImO::SourceBreakHandler{}};
+            auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                longName{progName + " ["s + nodeName + "]"s};
 
             nImO::SetSpecialBreakObject(cleanup);
-            ourContext->setChannelLimits(0, 1);
+            ourContext->setChannelLimits(1, 1);
             if (optionValues._autolaunch)
             {
                 ourContext->findAndLaunchTheRegistry();
@@ -181,7 +181,9 @@ main
                         {
                             if (statusWithBool.second)
                             {
+                                bool        inValid{false};
                                 bool        outValid{false};
+                                std::string inChannelPath;
                                 std::string outChannelPath;
                                 auto        basePath{optionValues._base};
 
@@ -223,20 +225,55 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
+                                    if (nImO::ChannelName::generatePath(basePath, nImO::ChannelName::ChannelType::Input, 1, 1, inChannelPath))
+                                    {
+                                        statusWithBool = proxy->addChannel(nodeName, inChannelPath, false, optionValues._inType,
+                                                                           nImO::TransportType::kAny);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (statusWithBool.second)
+                                            {
+                                                ourContext->addInputChannel(inChannelPath);
+                                                inValid = true;
+                                            }
+                                            else
+                                            {
+                                                ourContext->report(inChannelPath + " already registered."s);
+                                                std::cerr << inChannelPath << " already registered.\n";
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << ".\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
+                                        exitCode = 1;
+                                    }
+
+                                }
+                                if (0 == exitCode)
+                                {
+                                    auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                     auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
-                                    if (outChannel)
+                                    if (inChannel && outChannel)
                                     {
-                                        bool    isSignal{nImO::kSignalType == optionValues._inType};
+                                        bool    isInSignal{nImO::kSignalType == optionValues._inType};
+                                        bool    isOutSignal{nImO::kSignalType == optionValues._outType};
 
                                         if (optionValues._waitForConnections)
                                         {
-                                            std::cout << "Waiting for connection.\n";
-                                            ourContext->report("Waiting for connection."s);
+                                            std::cout << "Waiting for connections.\n";
+                                            ourContext->report("Waiting for connections."s);
                                             for ( ; nImO::gKeepRunning; )
                                             {
                                                 boost::this_thread::yield();
-                                                if (outChannel->isConnected())
+                                                if (inChannel->isConnected() && outChannel->isConnected())
                                                 {
                                                     break;
 
@@ -258,6 +295,8 @@ main
                                         std::cout.flush();
                                         for ( ; nImO::gKeepRunning; )
                                         {
+                                            nImO::SpReceivedData    nextData;
+
                                             {
                                                 // Check for text.
                                                 std::unique_lock<std::mutex>    lock{lReceivedLock};
@@ -271,33 +310,72 @@ main
                                                                                   {
                                                                                     return (! nImO::gKeepRunning);
                                                                                   });
+                                                    if (ourContext->hasMessage())
+                                                    {
+                                                        nextData = ourContext->getNextMessage();
+                                                        break;
+
+                                                    }
                                                 }
                                             }
                                             if (nImO::gKeepRunning)
                                             {
-                                                inBuffer.addString("\n" + inLine);
-                                                inLine.clear();
-                                                if (auto readValue{inBuffer.convertToValue()}; readValue)
+                                                if (nextData)
                                                 {
-                                                    inBuffer.reset();
-                                                    if (nImO::gKeepRunning)
+                                                    auto                contents{nextData->_receivedMessage};
+                                                    bool                okSoFar;
+                                                    nImO::StringBuffer  buff;
+
+                                                    contents->printToStringBuffer(buff);
+                                                    auto    valString{buff.getString()};
+
+                                                    if (isInSignal)
                                                     {
-                                                        bool    okToSend;
-
-                                                        if (isSignal)
+                                                        okSoFar = ((nullptr != contents->asNumber()) || (nullptr != contents->asLogical()));
+                                                    }
+                                                    else
+                                                    {
+                                                        okSoFar = true;
+                                                    }
+                                                    if (okSoFar)
+                                                    {
+                                                        std::cout << valString << "\n";
+                                                    }
+                                                    else
+                                                    {
+                                                        std::cout << "Non-numeric or non-logical seen '" << valString << "'.\n";
+                                                    }
+                                                }
+                                                if (! inLine.empty())
+                                                {
+                                                    inBuffer.addString("\n" + inLine);
+                                                    inLine.clear();
+                                                    if (auto readValue{inBuffer.convertToValue()}; readValue)
+                                                    {
+                                                        inBuffer.reset();
+                                                        if (nImO::gKeepRunning)
                                                         {
-                                                            if (nullptr == readValue->asNumber())
+                                                            bool    okToSend;
+
+                                                            if (isOutSignal)
                                                             {
-                                                                if (nullptr == readValue->asLogical())
+                                                                if (nullptr == readValue->asNumber())
                                                                 {
-                                                                    nImO::StringBuffer  buff;
+                                                                    if (nullptr == readValue->asLogical())
+                                                                    {
+                                                                        nImO::StringBuffer  buff;
 
-                                                                    readValue->printToStringBuffer(buff);
-                                                                    auto    valString{buff.getString()};
+                                                                        readValue->printToStringBuffer(buff);
+                                                                        auto    valString{buff.getString()};
 
-                                                                    ourContext->report("Value '"s + valString + "' cannot be used with SIGNAL channels; ignored."s);
-                                                                    std::cerr << "Value '" << valString << "' cannot be used with SIGNAL channels; ignored.\n";
-                                                                    okToSend = false;
+                                                                        ourContext->report("Value '"s + valString + "' cannot be used with SIGNAL channels; ignored."s);
+                                                                        std::cerr << "Value '" << valString << "' cannot be used with SIGNAL channels; ignored.\n";
+                                                                        okToSend = false;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        okToSend = true;
+                                                                    }
                                                                 }
                                                                 else
                                                                 {
@@ -308,20 +386,16 @@ main
                                                             {
                                                                 okToSend = true;
                                                             }
-                                                        }
-                                                        else
-                                                        {
-                                                            okToSend = true;
-                                                        }
-                                                        if (okToSend)
-                                                        {
-                                                            if (! outChannel->send(readValue))
+                                                            if (okToSend)
                                                             {
-                                                                ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
-                                                                std::cerr << "Problem sending to " << outChannelPath << ".\n";
-                                                                exitCode = 1;
-                                                                break;
+                                                                if (! outChannel->send(readValue))
+                                                                {
+                                                                    ourContext->report("Problem sending to '"s + outChannelPath + "'."s);
+                                                                    std::cerr << "Problem sending to " << outChannelPath << ".\n";
+                                                                    exitCode = 1;
+                                                                    break;
 
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -334,9 +408,29 @@ main
 
                                             nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                         }
                                         std::cout << longName << " done.\n";
                                         std::cout.flush();
+                                    }
+                                }
+                                if (inValid)
+                                {
+                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                    statusWithBool = proxy->removeChannel(nodeName, inChannelPath);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
+                                        {
+                                            ourContext->report(inChannelPath + " already unregistered."s);
+                                            std::cerr << inChannelPath << " already unregistered.\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
+                                        exitCode = 1;
                                     }
                                 }
                                 if (outValid)

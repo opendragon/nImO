@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by nImOwrite.rc
+// Used by nImOtalk.rc
 
 // Next default values for new objects
 //

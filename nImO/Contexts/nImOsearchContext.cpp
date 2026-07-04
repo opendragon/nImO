@@ -61,6 +61,16 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -1115,6 +1125,7 @@ nImO::SearchContext::findAndLaunchTheRegistry
         {
             commandLine.push_back(kLoggingShortOptionString);
         }
+#if (CALC_BOOST_VERSION_(1, 85) >= BOOST_VERSION)
         // We need to put the new process in it's own group so that it will be fully detached.
         BP::group   aGroup;
 
@@ -1123,6 +1134,8 @@ nImO::SearchContext::findAndLaunchTheRegistry
         BP::child   cc{regPath, BP::args(commandLine), BP::std_out > BP::null, aGroup};
 
         cc.detach();
+#else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
+#endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
         launched = true;
     }
     if (wasEnabled)

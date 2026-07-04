@@ -200,6 +200,7 @@ nImO::StartAppCommandHandler::doIt
                                             }
                                         }
                                     }
+#if (CALC_BOOST_VERSION_(1, 85) >= BOOST_VERSION)
                                     // We need to put the new process in it's own group so that it will be fully detached.
                                     BP::group   aGroup;
 
@@ -208,6 +209,8 @@ nImO::StartAppCommandHandler::doIt
                                     BP::child   cc{appPath, BP::args(commandLine), BP::std_out > BP::null, aGroup};
 
                                     cc.detach();
+#else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
+#endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
                                     okSoFar = sendSimpleResponse(socket, kStartAppResponse, "Start app"s, true, reason);
                                     ODL_B1(okSoFar); //####
                                 }

@@ -38,7 +38,6 @@
 
 #include <nImOstandardOptions.h>
 
-#include <boost/version.hpp>
 #include <regex>
 #include "sqlite3.h"
 

@@ -97,6 +97,7 @@ using namespace std::string_literals;
 # endif // defined(__APPLE__)
 # include <boost/asio.hpp>
 # include <boost/optional.hpp>
+# include <boost/version.hpp>
 # pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-parameter"
 #  pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -165,6 +166,15 @@ using namespace std::string_literals;
 # else // not MAC_OR_LINUX_OR_BSD_
 #  define STANDARD_SIGNAL_TO_USE_   42
 # endif // not MAC_OR_LINUX_OR_BSD_
+
+/*! @brief The major version for Boost. */
+# define BOOST_MAJOR_VERSION_   (BOOST_VERSION / 100000)
+
+/*! @brief The minor version for Boost. */
+# define BOOST_MINOR_VERSION_   (BOOST_VERSION / 100 % 1000)
+
+/*! @brief Calculate a Boost version number. */
+# define CALC_BOOST_VERSION_(major_,minor_)  ((major_ * 100000) + ((minor_ % 1000) * 100))
 
 /*! @brief A simple macro to make the pointer declarations a bit more readable. */
 # define Ptr(type_) type_ *

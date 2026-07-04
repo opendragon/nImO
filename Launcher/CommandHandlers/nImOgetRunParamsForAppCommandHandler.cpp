@@ -140,6 +140,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                         else
                         {
                             auto            appPath{appPathIterator->second->asString()->getValue()};
+#if (CALC_BOOST_VERSION_(1, 85) >= BOOST_VERSION)
                             BP::ipstream    pipeStream{};
                             BP::child       cc{StdStringVector{appPath, MakeOption("a"s)}, BP::std_out > pipeStream};
                             std::string     line{};
@@ -152,6 +153,8 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                             okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "Get run params for app"s, params, reason);
                             ODL_B1(okSoFar); //####
                             cc.wait();
+#else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
+#endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
                         }
                     }
                 }

@@ -49,6 +49,19 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#if (CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION)
+# include <boost/process/v1/args.hpp>
+# include <boost/process/v1/group.hpp>
+# include <boost/process/v1/io.hpp>
+#endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -169,6 +182,33 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                             }
                             cc.wait();
 #else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
+                            BP::v1::ipstream    pipeStream{};
+                            BP::v1::child       cc{StdStringVector{appPath, MakeOption("d"s)}, BP::v1::std_out > pipeStream};
+                            std::string         line{};
+
+                            if (std::getline(pipeStream, line))
+                            {
+                                size_t      tabIndex{line.find('\t', 0)};
+                                std::string runOptions{};
+
+                                if (line.npos == tabIndex)
+                                {
+                                    runOptions = line;
+                                }
+                                else
+                                {
+                                    runOptions = line.substr(0, tabIndex);
+                                }
+                                okSoFar = sendComplexResponse(socket, kGetRunOptionsForAppResponse, "Get run options for app"s,
+                                                              std::make_shared<String>(runOptions), reason);
+                                ODL_B1(okSoFar); //####
+                            }
+                            else
+                            {
+                                ODL_LOG("! (std::getline(pipeStream, line))"); //####
+                                reason = "Could not retrieve command-line arguments from application"s;
+                            }
+                            cc.wait();
 #endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
                         }
                     }

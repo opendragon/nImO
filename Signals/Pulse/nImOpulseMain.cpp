@@ -224,7 +224,7 @@ main
                                         }
                                         std::atomic_bool                doAnother{true};
                                         bool                            sendHigh{false};
-                                        std::set<nImO::SpDeadlineTimer> timers{};
+                                        std::set<nImO::SpSystemTimer>   timers{};
 
                                         if (nImO::gKeepRunning)
                                         {

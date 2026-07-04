@@ -958,7 +958,7 @@ namespace nImO
     using SpChannelName = std::shared_ptr<ChannelName>;
 
     /*! @brief A holder for a shared pointer to an Asio deadline timer. */
-    using SpDeadlineTimer = std::shared_ptr<BAS_t>;
+    using SpSystemTimer = std::shared_ptr<BAS_t>;
 
     /*! @brief A holder for a shared pointer to a Flaw. */
     using SpFlaw = std::shared_ptr<Flaw>;

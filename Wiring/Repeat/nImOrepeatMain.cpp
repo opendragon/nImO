@@ -254,7 +254,7 @@ main
                                             std::cout << longName << " ready.\n";
                                             std::cout.flush();
                                         }
-                                        std::set<nImO::SpDeadlineTimer> timers{};
+                                        std::set<nImO::SpSystemTimer>   timers{};
 
                                         for ( ; nImO::gKeepRunning; )
                                         {

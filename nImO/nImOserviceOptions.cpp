@@ -225,7 +225,7 @@ nImO::ProcessServiceOptions
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
                                             configHelpString.c_str()};
     auto                describeHelpString{"  "s + MakeOption("d"s, "describe"s) +
-                                            " \tPrint executable type, supported service options and description and exit"s};
+                                            " \tPrint supported options and description and exit"s};
     Option_::Descriptor describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,
                                             describeHelpString.c_str()};
     auto                expandedHelpString{"  "s + MakeOption("e"s, "expanded"s) + " \tDisplay more details"s};

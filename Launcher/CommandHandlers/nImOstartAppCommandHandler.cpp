@@ -51,11 +51,6 @@
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #endif // defined(__APPLE__)
-#if (CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION)
-# include <boost/process/v1/args.hpp>
-# include <boost/process/v1/group.hpp>
-# include <boost/process/v1/io.hpp>
-#endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -223,12 +218,7 @@ nImO::StartAppCommandHandler::doIt
 
                                     cc.detach();
 #else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
-                                    // We need to put the new process in it's own group so that it will be fully detached.
-                                    BP::v1::group   aGroup;
-
-                                    aGroup.detach();
-                                    // Make sure to 'throw away' any standard output from the child process.
-                                    BP::v1::child   cc{appPath, BP::v1::args(commandLine), BP::v1::std_out > BP::v1::null, aGroup};
+                                    BP::process cc{*_ownerForLauncher->getService(), appPath, commandLine, BP::process_stdio{nullptr, nullptr, nullptr}};
 
                                     cc.detach();
 #endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */

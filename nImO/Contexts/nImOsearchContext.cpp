@@ -65,11 +65,6 @@
 #endif // defined(__APPLE__)
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
-#if (CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION)
-# include <boost/process/v1/args.hpp>
-# include <boost/process/v1/group.hpp>
-# include <boost/process/v1/io.hpp>
-#endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -1128,9 +1123,10 @@ nImO::SearchContext::findAndLaunchTheRegistry
         // Add the standard logging option if the requesting application is being logged.
         if (loggingIsEnabled())
         {
-            commandLine.push_back(kLoggingShortOptionString);
+            commandLine.push_back(MakeOption(kLoggingShortOptionString));
         }
 #if (CALC_BOOST_VERSION_(1, 85) >= BOOST_VERSION)
+        std::cerr << "'" << commandLine[0] << "'\n";//!!
         // We need to put the new process in it's own group so that it will be fully detached.
         BP::group   aGroup;
 
@@ -1140,12 +1136,7 @@ nImO::SearchContext::findAndLaunchTheRegistry
 
         cc.detach();
 #else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
-        // We need to put the new process in it's own group so that it will be fully detached.
-        BP::v1::group   aGroup;
-
-        aGroup.detach();
-        // Make sure to 'throw away' any standard output from the child process.
-        BP::v1::child   cc{regPath, BP::v1::args(commandLine), BP::v1::std_out > BP::v1::null, aGroup};
+        BP::process     cc{*getService(), regPath, commandLine, BP::process_stdio{nullptr, nullptr, nullptr}};
 
         cc.detach();
 #endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */

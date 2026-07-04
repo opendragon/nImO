@@ -49,19 +49,6 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#endif // defined(__APPLE__)
-#if (CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION)
-# include <boost/process/v1/args.hpp>
-# include <boost/process/v1/group.hpp>
-# include <boost/process/v1/io.hpp>
-#endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
-#if defined(__APPLE__)
-# pragma clang diagnostic pop
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -167,14 +154,30 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                             ODL_B1(okSoFar); //####
                             cc.wait();
 #else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
-                            BP::v1::ipstream    pipeStream{};
-                            BP::v1::child       cc{StdStringVector{appPath, MakeOption("a"s)}, BP::v1::std_out > pipeStream};
+                            BA::readable_pipe   rp{*_ownerForLauncher->getService()};
+                            BP::process         cc{*_ownerForLauncher->getService(), appPath, {MakeOption("a"s)},
+                                                    BP::process_stdio{nullptr, rp, nullptr}};
                             std::string         line{};
                             auto                params{std::make_shared<Array>()};
 
-                            for ( ; getline(pipeStream, line); )
+                            for ( ; ; )
                             {
-                                params->addValue(std::make_shared<String>(line));
+                                BSErr   ec;
+                                auto    lineLength{BA::read(rp, BA::dynamic_buffer(line), ec)};
+
+                                if (lineLength > 0)
+                                {
+                                    if (line.size() != lineLength)
+                                    {
+                                        line.resize(lineLength);
+                                    }
+                                    params->addValue(std::make_shared<String>(line));
+                                }
+                                if (ec.value())
+                                {
+                                    break;
+
+                                }
                             }
                             okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "Get run params for app"s, params, reason);
                             ODL_B1(okSoFar); //####

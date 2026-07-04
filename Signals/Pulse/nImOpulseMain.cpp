@@ -239,7 +239,7 @@ main
                                             {
                                                 double  actualValue;
                                                 auto    numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
-                                                auto    delayTime{boost::posix_time::milliseconds(numMilliseconds) / 2.0};
+                                                auto    delayTime{std::chrono::milliseconds(numMilliseconds / 2)};
                                                 bool    valueIsRandom{secondArg->getCurrentValue()};
                                                 double  lowValue{thirdArg->getCurrentValue()};
                                                 double  highValue{fourthArg->getCurrentValue()};
@@ -259,10 +259,10 @@ main
                                                     sendHigh = (! sendHigh);
                                                 }
                                                 nImO::SpValue   valueToSend{std::make_shared<nImO::Double>(actualValue)};
-                                                auto            aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+                                                auto            aTimer{std::make_shared<BAS_t>(*ourContext->getService())};
 
                                                 timers.insert(aTimer);
-                                                aTimer->expires_from_now(delayTime);
+                                                aTimer->expires_after(delayTime);
                                                 aTimer->async_wait([&outChannel, &ourContext, valueToSend, outChannelPath, aTimer, &doAnother]
                                                                    (const BSErr & error)
                                                                    {

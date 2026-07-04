@@ -271,14 +271,14 @@ main
                                                     {
                                                         int64_t numCopies{firstArg->getCurrentValue()};
                                                         auto    numMilliseconds{StaticCast(int, 1000.0 * secondArg->getCurrentValue())};
-                                                        auto    delayTime{boost::posix_time::milliseconds(numMilliseconds)};
+                                                        auto    delayTime{std::chrono::milliseconds(numMilliseconds)};
 
                                                         for (int64_t ii{0}; ii < numCopies; ++ii)
                                                         {
-                                                            auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+                                                            auto    aTimer{std::make_shared<BAS_t>(*ourContext->getService())};
 
                                                             timers.insert(aTimer);
-                                                            aTimer->expires_from_now(delayTime * (ii + 1));
+                                                            aTimer->expires_after(delayTime * (ii + 1));
                                                             aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
                                                                                (const BSErr & error)
                                                                                {

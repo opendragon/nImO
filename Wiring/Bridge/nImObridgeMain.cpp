@@ -270,7 +270,7 @@ std::cerr << "** Unimplemented **\n";
 
 #if 0
                                             auto                            numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
-                                            auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
+                                            auto                            delayTime{std::chrono::milliseconds(numMilliseconds)};
                                             std::set<nImO::SpDeadlineTimer> timers{};
 
                                             for ( ; nImO::gKeepRunning; )
@@ -286,10 +286,10 @@ std::cerr << "** Unimplemented **\n";
 
                                                         if (contents)
                                                         {
-                                                            auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+                                                            auto    aTimer{std::make_shared<BAS_t>(*ourContext->getService())};
 
                                                             timers.insert(aTimer);
-                                                            aTimer->expires_from_now(delayTime);
+                                                            aTimer->expires_after(delayTime);
                                                             aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
                                                                                (const BSErr & error)
                                                                                {

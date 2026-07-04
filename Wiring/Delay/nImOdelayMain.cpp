@@ -265,11 +265,11 @@ main
                                                     if (contents)
                                                     {
                                                         auto    numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
-                                                        auto    delayTime{boost::posix_time::milliseconds(numMilliseconds)};
-                                                        auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+                                                        auto    delayTime{std::chrono::milliseconds(numMilliseconds)};
+                                                        auto    aTimer{std::make_shared<BAS_t>(*ourContext->getService())};
 
                                                         timers.insert(aTimer);
-                                                        aTimer->expires_from_now(delayTime);
+                                                        aTimer->expires_after(delayTime);
                                                         aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
                                                                            (const BSErr & error)
                                                                            {

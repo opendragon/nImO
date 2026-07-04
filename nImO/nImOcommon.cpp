@@ -292,9 +292,9 @@ nImO::ConsumeSomeTime
     ODL_D1(factor); //####
     if (nullptr != context)
     {
-        BAD_t   timer(*context->getService());
+        BAS_t   timer(*context->getService());
 
-        timer.expires_from_now(boost::posix_time::milliseconds(StaticCast(int, 1000.0 / factor)));
+        timer.expires_after(std::chrono::milliseconds(StaticCast(int, 1000.0 / factor)));
         timer.wait();
     }
     boost::this_thread::yield();

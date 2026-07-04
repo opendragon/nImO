@@ -225,7 +225,7 @@ namespace nImO
              @param[in,out] timer The active timer object. */
             void
             handleTimerEvent
-                (BAD_t &    timer);
+                (BAS_t &    timer);
 
             /*! @brief Create the sockets to be used. */
             void

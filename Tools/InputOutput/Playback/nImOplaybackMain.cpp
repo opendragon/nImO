@@ -270,9 +270,9 @@ main
                                                         if (0 < numMilliseconds)
                                                         {
                                                             bool    doneFlag{false};
-                                                            auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+                                                            auto    aTimer{std::make_shared<BAS_t>(*ourContext->getService())};
 
-                                                            aTimer->expires_from_now(boost::posix_time::milliseconds(numMilliseconds));
+                                                            aTimer->expires_after(std::chrono::milliseconds(numMilliseconds));
                                                             aTimer->async_wait([&doneFlag, aTimer]
                                                                                (const BSErr & error)
                                                                                {

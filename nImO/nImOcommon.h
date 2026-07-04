@@ -219,7 +219,7 @@ namespace BAErr = BA::error;
 namespace BP = boost::process;
 
 /*! @brief A shortened name for a type. */
-using BAD_t = BA::deadline_timer;
+using BAS_t = BA::system_timer;
 
 /*! @brief A shortened name for a type. */
 using BSErr = boost::system::error_code;
@@ -958,7 +958,7 @@ namespace nImO
     using SpChannelName = std::shared_ptr<ChannelName>;
 
     /*! @brief A holder for a shared pointer to an Asio deadline timer. */
-    using SpDeadlineTimer = std::shared_ptr<BAD_t>;
+    using SpDeadlineTimer = std::shared_ptr<BAS_t>;
 
     /*! @brief A holder for a shared pointer to a Flaw. */
     using SpFlaw = std::shared_ptr<Flaw>;

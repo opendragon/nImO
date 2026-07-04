@@ -1205,11 +1205,11 @@ nImO::SearchContext::gatherAnnouncements
         {
             _timedOut = false;
             _retryCount = 0;
-            BAD_t   timeOutTimer{*getService()};
+            BAS_t   timeOutTimer{*getService()};
             int     maxTime{_registrySearchTimeout * _registrySearchRetries};
 
             report("Timeout = "s + std::to_string(maxTime) + " seconds."s);
-            timeOutTimer.expires_from_now(boost::posix_time::seconds(_registrySearchTimeout));
+            timeOutTimer.expires_after(std::chrono::seconds(_registrySearchTimeout));
             timeOutTimer.async_wait([this, &timeOutTimer]
                                     (const BSErr &  error)
                                     {
@@ -1240,7 +1240,7 @@ nImO::SearchContext::gatherAnnouncements
 
 void
 nImO::SearchContext::handleTimerEvent
-    (BAD_t &    timer)
+    (BAS_t &    timer)
 {
     ODL_OBJENTER(); //####
     ODL_P1(&timer); //####
@@ -1255,7 +1255,7 @@ nImO::SearchContext::handleTimerEvent
         {
             sendGetAddressRequest();
         }
-        timer.expires_from_now(boost::posix_time::seconds(_registrySearchTimeout));
+        timer.expires_after(std::chrono::seconds(_registrySearchTimeout));
         timer.async_wait([this, &timer]
                             (const BSErr &  error)
                             {

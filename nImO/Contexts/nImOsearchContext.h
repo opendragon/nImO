@@ -290,6 +290,9 @@ namespace nImO
             /*! @brief The active query identifiers. */
             int _queryId[8];
 
+            /*! @brief @c true if the Registry search is only performed once. */
+            bool    _registryDoOnce;
+
             /*! @brief The options to be applied when launching the Registry automatically. */
             Array   _registryLaunchOptions;
 

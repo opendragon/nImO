@@ -7,6 +7,7 @@
     "registry options" > ( "l" )
     "registry path" > "$$/nImOregistry"
     "registry search address" > @239.55.12.17
+    "registry search do once" > false
     "registry search mode" > "both" # mdns, multicast or both
     "registry search port" > 2263
     "registry search retries" > 5

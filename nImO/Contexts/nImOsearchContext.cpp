@@ -40,6 +40,7 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
@@ -88,6 +89,9 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The Registry 'do once' flag value to be used if none is specified in the configuration file. */
+constexpr bool  kDefaultRegistryDoOnce{false};
+
 /*! @brief The Registry launch path value to be used if none is specified in the configuration file. */
 static const std::string    kDefaultRegistryLaunchPath{"$$/nImOregistry"s};
 
@@ -104,7 +108,7 @@ static const nImO::RegistryMode kDefaultRegistrySearchMode{nImO::RegistryMode::k
 constexpr int   kDefaultRegistrySearchRetries{5};
 
 /*! @brief The Registry search timeout value to be used if none is specified in the configuration file. */
-constexpr int   kDefaultRegistryTimeout{1};
+constexpr int   kDefaultRegistrySearchTimeout{1};
 
 /*! @brief The standard name for either mode. */
 static const std::string   kModeBothName{"both"s}; // must be lower-case!
@@ -133,7 +137,10 @@ static const std::string    kRegistryPathKey{"registry path"s};
 /*! @brief The key for the Registry search multicast address in the configuration file. */
 static const std::string    kRegistrySearchAddressKey{"registry search address"s};
 
-/*! @brief The key for the search mode of the Registry. */
+/*! @brief The key for the Registry search perform once in the configuration file. */
+static const std::string    kRegistrySearchDoOnceKey{"registry search do once"s};
+
+/*! @brief The key for the search mode of the Registry in the configuration file. */
 static const std::string    kRegistrySearchModeKey{"registry search mode"s};
 
 /*! @brief The key for the Registry multicast search port in the configuration file. */
@@ -707,7 +714,7 @@ nImO::SearchContext::SearchContext
         if (auto asInteger{actualValue->asInteger()}; nullptr == asInteger)
         {
             std::cerr << "Invalid timeout (" << kRegistryTimeoutKey << ") in configuration file; using default.\n";
-            _registrySearchTimeout = kDefaultRegistryTimeout;
+            _registrySearchTimeout = kDefaultRegistrySearchTimeout;
         }
         else
         {
@@ -720,13 +727,13 @@ nImO::SearchContext::SearchContext
             else
             {
                 std::cerr << "Invalid timeout (" << kRegistryTimeoutKey << ") in configuration file; using default.\n";
-                _registrySearchTimeout = kDefaultRegistryTimeout;
+                _registrySearchTimeout = kDefaultRegistrySearchTimeout;
             }
         }
     }
     else
     {
-        _registrySearchTimeout = kDefaultRegistryTimeout;
+        _registrySearchTimeout = kDefaultRegistrySearchTimeout;
     }
     retValue = GetConfiguredValue(kRegistrySearchRetriesKey);
     if (retValue)
@@ -874,6 +881,21 @@ nImO::SearchContext::SearchContext
             {
                 _registrySearchMode = mode;
             }
+        }
+    }
+    retValue = GetConfiguredValue(kRegistrySearchDoOnceKey);
+    if (retValue)
+    {
+        SpValue actualValue{*retValue};
+
+        if (auto asLogical{actualValue->asLogical()}; nullptr == asLogical)
+        {
+            std::cerr << "Invalid mode (" << kRegistrySearchDoOnceKey << ") in configuration file; using default mode.\n";
+            _registryDoOnce = kDefaultRegistryDoOnce;
+        }
+        else
+        {
+            _registryDoOnce = asLogical->getValue();
         }
     }
     if (getLoggingInfo() == _registrySearchConnection)
@@ -1243,7 +1265,10 @@ nImO::SearchContext::gatherAnnouncements
             for ( ; (! _timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
             {
                 boost::this_thread::yield();
-                checkReceiveQueue();
+                if (RegistryMode::kMulticast == (RegistryMode::kMulticast & _registrySearchMode))
+                {
+                    checkReceiveQueue();
+                }
             }
             if (! _timedOut)
             {
@@ -1476,11 +1501,21 @@ nImO::SearchContext::waitForRegistry
 
     if (lWaitForRegistry)
     {
-        for ( ; (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
+        for ( ; (! lStopRegistryLoop) && (! wasFound); )
         {
             gatherAnnouncements();
+            boost::this_thread::yield();
+            wasFound = (_havePort && _haveAddress);
+            if (! wasFound)
+            {
+                report("Registry was not found - checking again."s);
+                if (_registryDoOnce)
+                {
+                    break;
+                    
+                }
+            }
         }
-        wasFound = (_havePort && _haveAddress);
     }
     else
     {

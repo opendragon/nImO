@@ -177,34 +177,31 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                             BSErr               ec;
                             auto                lineLength{BA::read(rp, BA::dynamic_buffer(line), ec)};
 
-                            if (ec)
+                            if (lineLength > 0)
                             {
-                                ODL_LOG("ec"); //####
-                                reason = "Could not retrieve command-line arguments from application"s;
+                                if (line.size() != lineLength)
+                                {
+                                    line.resize(lineLength);
+                                }
+                                size_t      tabIndex{line.find('\t', 0)};
+                                std::string runOptions{};
+
+                                if (line.npos == tabIndex)
+                                {
+                                    runOptions = line;
+                                }
+                                else
+                                {
+                                    runOptions = line.substr(0, tabIndex);
+                                }
+                                okSoFar = sendComplexResponse(socket, kGetRunOptionsForAppResponse, "Get run options for app"s,
+                                                              std::make_shared<String>(runOptions), reason);
+                                ODL_B1(okSoFar); //####
                             }
                             else
                             {
-                                if (lineLength > 0)
-                                {
-                                    if (line.size() != lineLength)
-                                    {
-                                        line.resize(lineLength);
-                                    }
-                                    size_t      tabIndex{line.find('\t', 0)};
-                                    std::string runOptions{};
-
-                                    if (line.npos == tabIndex)
-                                    {
-                                        runOptions = line;
-                                    }
-                                    else
-                                    {
-                                        runOptions = line.substr(0, tabIndex);
-                                    }
-                                    okSoFar = sendComplexResponse(socket, kGetRunOptionsForAppResponse, "Get run options for app"s,
-                                                                  std::make_shared<String>(runOptions), reason);
-                                    ODL_B1(okSoFar); //####
-                                }
+                                ODL_LOG("! (lineLength > 0)");
+                                reason = "Could not retrieve command-line arguments from application"s;
                             }
                             cc.wait();
 #endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */

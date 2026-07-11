@@ -1149,7 +1149,6 @@ nImO::SearchContext::findAndLaunchTheRegistry
             commandLine.push_back(MakeOption(kLoggingShortOptionString));
         }
 #if (CALC_BOOST_VERSION_(1, 85) >= BOOST_VERSION)
-        std::cerr << "'" << commandLine[0] << "'\n";//!!
         // We need to put the new process in it's own group so that it will be fully detached.
         BP::group   aGroup;
 
@@ -1159,7 +1158,7 @@ nImO::SearchContext::findAndLaunchTheRegistry
 
         cc.detach();
 #else /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */
-        BP::process     cc{*getService(), regPath, commandLine, BP::process_stdio{nullptr, nullptr, nullptr}};
+        BP::process cc{*getService(), regPath, commandLine, BP::process_stdio{nullptr, nullptr, nullptr}};
 
         cc.detach();
 #endif /* CALC_BOOST_VERSION_(1, 85) < BOOST_VERSION */

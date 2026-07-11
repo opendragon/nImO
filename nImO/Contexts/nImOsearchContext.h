@@ -260,9 +260,6 @@ namespace nImO
             /*! @brief The sequence of received messages. */
             ReceiveQueue    _receiveQueue{};
 
-            /*! @brief The multicast search connection used for the Registry. */
-            Connection  _registrySearchConnection{};
-
             /*! @brief The search mode of the Registry. */
             RegistryMode    _registrySearchMode;
 
@@ -278,9 +275,6 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The thread which executes the browser code. */
-            Ptr(boost::thread)  _browserThread{nullptr};
-
             /*! @brief Set to @c true when the Registry has reported its address. */
             std::atomic_bool    _haveAddress{false};
 
@@ -290,8 +284,11 @@ namespace nImO
             /*! @brief The active query identifiers. */
             int _queryId[8];
 
+            /*! @brief The thread which executes the browser code. */
+            Ptr(boost::thread)  _registryBrowserThread{nullptr};
+
             /*! @brief @c true if the Registry search is only performed once. */
-            bool    _registryDoOnce;
+            bool    _registryDoOnce{false};
 
             /*! @brief The options to be applied when launching the Registry automatically. */
             Array   _registryLaunchOptions;
@@ -307,6 +304,9 @@ namespace nImO
 
             /*! @brief The preferred address for connections to the Registry process. */
             std::string _registryPreferredAddress{};
+
+            /*! @brief The multicast search connection used for the Registry. */
+            Connection  _registrySearchConnection;
 
             /*! @brief The maximum number of retries when searching for the Registry. */
             int _registrySearchRetries{0};

@@ -297,6 +297,7 @@ main
                     {
                         if (asRegistryContext->setUpPorts())
                         {
+                            ourContext->report("Starting multicast receiver for Registry."s);
                             okSoFar = true;
                         }
                     }

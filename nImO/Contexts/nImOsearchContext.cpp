@@ -673,8 +673,8 @@ nImO::SearchContext::SearchContext
      const bool             logging,
      const bool             startBrowser) :
         inherited{tagForLogging, logging, 4 /* browse + announce + send + receive */}, _buffer{new char[kBufferCapacity]},
-        _numSockets{0}, _registrySearchConnection{kDefaultRegistrySearchConnection},
-        _registrySearchMode{kDefaultRegistrySearchMode}, _browserThread{nullptr}, _registryName{kDefaultRegistryName},
+        _numSockets{0}, _registrySearchMode{kDefaultRegistrySearchMode}, _registryBrowserThread{nullptr},
+        _registryName{kDefaultRegistryName}, _registrySearchConnection{kDefaultRegistrySearchConnection},
         _startBrowser{startBrowser}
 {
     ODL_ENTER(); //####
@@ -958,7 +958,7 @@ nImO::SearchContext::checkReceiveQueue
                         StdStringVector pieces;
 
                         boost::algorithm::split(pieces, received, boost::is_any_of(kStatusSeparator));
-                        if ((pieces.size() == 3) && (kRegistryResponse == pieces[0]))
+                        if ((3 == pieces.size()) && (kRegistryResponse == pieces[0]))
                         {
                             int64_t intValue;
 
@@ -967,6 +967,7 @@ nImO::SearchContext::checkReceiveQueue
                                 _registryPreferredAddress = pieces[1];
                                 _registryPort = StaticCast(IPv4Port, intValue);
                                 _haveAddress = _havePort = true;
+                                ODL_B2(_haveAddress, _havePort); //####
                             }
                         }
                     }
@@ -1212,15 +1213,15 @@ nImO::SearchContext::gatherAnnouncements
         ODL_B2(_havePort, _haveAddress); //####
         if (RegistryMode::kMDNS == (RegistryMode::kMDNS & _registrySearchMode))
         {
-            _browserThread = new boost::thread([this]
+            _registryBrowserThread = new boost::thread([this]
                                                 (void)
                                                 {
                                                     ODL_LOG("browser thread started"); //####
                                                     executeBrowser(*this);
                                                     ODL_LOG("browser thread ended"); //####
                                                 });
-            ODL_P1(_browserThread); //####
-            _pool.add_thread(_browserThread);
+            ODL_P1(_registryBrowserThread); //####
+            _pool.add_thread(_registryBrowserThread);
             for (int isock{0}; isock < _numSockets; ++isock)
             {
                 _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, getRegistryServiceName().c_str(),
@@ -1443,23 +1444,23 @@ nImO::SearchContext::setUpMulticastPorts
     ODL_P1(_registryReceivePort.get()); //####
     if (_registryReceivePort)
     {
-        okSoFar = true;
-    }
-    else
-    {
-        report("The Registry multicast receive connection could not be established."s);
-        okSoFar = false;
-    }
-    if (okSoFar)
-    {
         _registrySendPort = std::make_shared<nImO::SendToMulticast>(getService(), _registrySearchConnection);
         ODL_P1(_registrySendPort.get()); //####
-        if (! _registrySendPort)
+        if (_registrySendPort)
+        {
+            okSoFar = true;
+        }
+        else
         {
             report("The Registry multicast send connection could not be established."s);
             _registryReceivePort.reset();
             okSoFar = false;
         }
+    }
+    else
+    {
+        report("The Registry multicast receive connection could not be established."s);
+        okSoFar = false;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -1470,7 +1471,7 @@ nImO::SearchContext::stopGatheringAnnouncements
     (void)
 {
     ODL_OBJENTER(); //####
-    if (_startBrowser && (nullptr != _browserThread))
+    if (_startBrowser && (nullptr != _registryBrowserThread))
     {
         lBrowserThreadStop = true;
         ODL_B1(lBrowserThreadStop); //####
@@ -1481,8 +1482,8 @@ nImO::SearchContext::stopGatheringAnnouncements
                 boost::this_thread::yield();
             }
         }
-        _browserThread->join();
-        _browserThread = nullptr;
+        _registryBrowserThread->join();
+        _registryBrowserThread = nullptr;
     }
     if (RegistryMode::kMulticast == (RegistryMode::kMulticast & _registrySearchMode))
     {

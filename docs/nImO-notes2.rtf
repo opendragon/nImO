@@ -1,11 +1,11 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2868
+{\rtf1\ansi\ansicpg1252\cocoartf2870
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Bold;\f2\fswiss\fcharset0 Helvetica-Bold;
 \f3\fmodern\fcharset0 Courier-BoldOblique;}
-{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red255\green255\blue255;
-}
-{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;
-}
-\margl1440\margr1440\vieww28660\viewh22460\viewkind0
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red127\green127\blue127;
+\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c57046\c57047\c57046;
+\cssrgb\c100000\c100000\c100000;}
+\margl1440\margr1440\vieww25020\viewh22460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 application support:\
@@ -53,6 +53,9 @@ input output:\
 \f1\b DONE\
 
 \f0\b0 * nImOrecord 'a' - writes out received messages to a file; 
+\f1\b DONE\
+
+\f0\b0 * nImOtalk - talk to a channel and listen on another; 
 \f1\b DONE
 \f0\b0 \
 * nImOwrite \'97 reads the string representation of a message and sends it out a channel; 
@@ -193,37 +196,40 @@ wiring:\
 shell script:\
 * nimo\
 	provides a 'simplified' command-line interface to some of the executables, using the default options \
-		nimo adda <a> - invokes nImOaddApp <a>\
-		nImO addc <a> <b> - invokes nImOaddChannel <a> <b>\
-		nimo bridge <a> <b> - invokes nImObridge <a> <b>\
-		nimo check - invokes nImOcheck\
+\cf4 		nimo adda <a> - invokes nImOaddApp <a>\
+\cf0 		nImO addc <a> <b> - invokes nImOaddChannel <a> <b>\
+\cf4 		nimo bridge <a> <b> - invokes nImObridge <a> <b>\
+\cf0 		nimo check - invokes nImOcheck\
 		nimo clean <a> - invokes nImOclean <a>\
 		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
 		nimo disconnect <c> - invokes nImOdisconnect <c>\
-		nimo getparams <a> - invokes nImOgetParameters <a>\
-		nimo getparamv <a> <b> - invokes nImOgetParameterValue <a> <b>\
+		nimo getps <a> - invokes nImOgetParameters <a>\
+		nimo getpv <a> <b> - invokes nImOgetParameterValue <a> <b>\
 		nimo help - lists choices\
 		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\
-		nimo loada <a> - invokes nImOloadApps <a>\
+\cf4 		nimo loada <a> - invokes nImOloadApps <a>\
 		nimo loads <a> - invokes nImOloadSetup <a>\
-		nimo log - invokes nImOlog\
+\cf0 		nimo log - invokes nImOlog\
 		nimo playback <a> <b> <c> - invokes nImOplayback <a> <b> <c>\
 		nimo post <a> <b> - invokes nImOport <a> <b>\
 		nimo read - invokes nImOread\
 		nimo record <a> - invokes nImOrecord <a>\
-		nimo remove <a> - invokes nImOremoveApp <a>\
-		nimo setparamv <a> <b> <c> - invokes nImOgetParameterValue <a> <b> <c>\
+\cf4 		nimo remove <a> - invokes nImOremoveApp <a>\
+\cf0 		nimo setpv <a> <b> <c> - invokes nImOsetParameterValue <a> <b> <c>\
 		nimo start <a> <b> - invokes nImOstart <a> <b>\
 		nimo stop <a> - invokes nImOstop <a>\
-		nimo storea <a> - invokes nImOstoreApps <a>\
+\cf4 		nimo storea <a> - invokes nImOstoreApps <a>\
 		nimo stores <a> - invokes nImOstoreSetup <a>\
-		nimo update <a> - invokes nImOupdateApp <a>\
-		nimo version - invokes nImOversion\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 		nimo talk - invokes nImOtalk\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 		nimo update <a> - invokes nImOupdateApp <a>\
+\cf0 		nimo version - invokes nImOversion\
 		nimo write - invokes nImOwrite\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f2\b \cf3 \cb4 \expnd0\expndtw0\kerning0
+\f2\b \cf3 \cb5 \expnd0\expndtw0\kerning0
 fix CMakeLists.txt to use current SWIG commands; check what languages can be generated - currently Python and C#
 \f0\b0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
 1. can Ansible be used for the initial deployment - installing nImOmanage, nImOregistry, nImOlauncher, tools and services plus starting nImOlauncher and nImOregistry?\

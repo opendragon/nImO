@@ -249,6 +249,9 @@ nImO::ProcessServiceOptions
     auto                nodeHelpString{"  "s + MakeOption("n"s, "node"s) + " <name> \tSpecify a non-default node name to be used"s};
     Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", checkRequiredName,
                                         nodeHelpString.c_str()};
+    auto                noSuffixHelpString{"  "s + MakeOption("x"s, "nosuffix"s) + " \tDon't apply the default suffix to the node name"s};
+    Option_::Descriptor noSuffixDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNOSUFFIX), 0, "x", "nosuffix", Option_::Arg::None,
+                                            noSuffixHelpString.c_str()};
     auto                outTypeHelpString1{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecify the data type for the output channel"s};
     Option_::Descriptor outTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
                                             outTypeHelpString1.c_str()};
@@ -269,9 +272,6 @@ nImO::ProcessServiceOptions
     auto                waitHelpString{"  "s + MakeOption("w"s, "wait"s) + " \tWait for connection(s)"s};
     Option_::Descriptor waitDescriptor{StaticCast(unsigned int, OptionIndex::kOptionWAIT), 0, "w", "wait", Option_::Arg::None,
                                         waitHelpString.c_str()};
-    auto                noSuffixHelpString{"  "s + MakeOption("x"s, "nosuffix"s) + " \tDon't apply the default suffix to the node name"s};
-    Option_::Descriptor noSuffixDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNOSUFFIX), 0, "x", "nosuffix", Option_::Arg::None,
-                                            noSuffixHelpString.c_str()};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
@@ -351,6 +351,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipNoSuffixOption))
+    {
+        ++descriptorCount;
+    }
     if (0 == (skipOptions & kSkipOutTypeOption))
     {
         ++descriptorCount;
@@ -368,10 +372,6 @@ nImO::ProcessServiceOptions
         ++descriptorCount;
     }
     if (0 == (skipOptions & kSkipWaitOption))
-    {
-        ++descriptorCount;
-    }
-    if (0 == (skipOptions & kSkipNoSuffixOption))
     {
         ++descriptorCount;
     }
@@ -429,6 +429,10 @@ nImO::ProcessServiceOptions
     {
         memcpy(usageWalker++, &nodeDescriptor, sizeof(nodeDescriptor));
     }
+    if (0 == (skipOptions & kSkipNoSuffixOption))
+    {
+        memcpy(usageWalker++, &noSuffixDescriptor, sizeof(noSuffixDescriptor));
+    }
     if (0 == (skipOptions & kSkipOutTypeOption))
     {
         if (multipleOutputs)
@@ -456,10 +460,6 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipWaitOption))
     {
         memcpy(usageWalker++, &waitDescriptor, sizeof(waitDescriptor));
-    }
-    if (0 == (skipOptions & kSkipNoSuffixOption))
-    {
-        memcpy(usageWalker++, &noSuffixDescriptor, sizeof(noSuffixDescriptor));
     }
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
@@ -564,6 +564,10 @@ nImO::ProcessServiceOptions
                                     }
                                 }
                             }
+                            if ((0 == (skipOptions & kSkipNoSuffixOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNOSUFFIX)]))
+                            {
+                                optionValues._suppressStandardSuffix = true;
+                            }
                             if (0 == (skipOptions & kSkipOutTypeOption))
                             {
                                 // Use the last 'outType' value.
@@ -597,10 +601,6 @@ nImO::ProcessServiceOptions
                             if ((0 == (skipOptions & kSkipWaitOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionWAIT)]))
                             {
                                 optionValues._waitForConnections = true;
-                            }
-                            if ((0 == (skipOptions & kSkipNoSuffixOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNOSUFFIX)]))
-                            {
-                                optionValues._suppressStandardSuffix = true;
                             }
                             // Check if all channels are required to be SIGNAL and input or output types are specified
                             if (optionValues._signal && ((0 < optionValues._inType.length()) || (0 < optionValues._outType.length())))

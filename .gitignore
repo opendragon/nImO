@@ -8,6 +8,8 @@ _CPack_Packages
 *.vcxproj
 *.vcxproj.filters
 *.xcscheme
+.qt
+*_autogen
 cmake_install.cmake
 CMakeCache.txt
 CMakeFiles

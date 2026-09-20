@@ -218,10 +218,14 @@ add_library(${THIS_TARGET}
             "${nImO_THIRD_PARTY_DIR}/optionparser.cpp"
             "${nImO_THIRD_PARTY_DIR}/whereami.c")
 
-target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
+target_link_libraries(${THIS_TARGET}
+                        ${ODL_LIBRARY}
+                        ${BONJOUR_LIB}
+                        ${Boost_LIBRARIES})
 
 if(LINUX)
-    target_link_libraries(${THIS_TARGET} pthread)
+    target_link_libraries(${THIS_TARGET}
+                            pthread)
 endif()
 
 if(APPLE)

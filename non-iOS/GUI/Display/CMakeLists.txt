@@ -48,14 +48,23 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
+find_package(Qt6 REQUIRED COMPONENTS Widgets Gui Core)
+
+qt_standard_project_setup()
+
 # Set up our program
-add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOdisplayMain.cpp
-               ${VERS_RESOURCE})
+qt_add_executable(${THIS_TARGET}
+                    ${THIS_SOURCE_DIR}/nImOdisplayMain.cpp
+                    ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
 # processed once.
-target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET}
+                        PRIVATE
+                        ${nImO_LINK_LIBRARIES}
+                        Qt6::Widgets
+                        Qt6::Gui
+                        Qt6::Core)
 
 fix_dynamic_libs(${THIS_TARGET})
 

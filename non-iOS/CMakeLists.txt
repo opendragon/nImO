@@ -125,9 +125,11 @@ else()
     set(WIN64 OFF)
 endif()
 
-option(nImO_ChattyStart "Report the version numbers when launching an executable")
+option(nImO_BuildGUIApps "Build the GUI applications" ON)
 
-option(nImO_ChattyTcpUdpLogging "Log the TCP/IP and UDP/IP operations")
+option(nImO_ChattyStart "Report the version numbers when launching an executable" OFF)
+
+option(nImO_ChattyTcpUdpLogging "Log the TCP/IP and UDP/IP operations" OFF)
 mark_as_advanced(nImO_ChattyTcpUdpLogging)
 
 option(nImO_DO_SWIG "Build the SWIG files" OFF)
@@ -270,7 +272,9 @@ install(EXPORT ${PROJECT_NAME}
 add_subdirectory(nImO)
 add_subdirectory(CPack)
 add_subdirectory(examples)
-add_subdirectory(GUI)
+if(nImO_BuildGUIApps)
+    add_subdirectory(GUI)
+endif()
 add_subdirectory(Launcher)
 add_subdirectory(ProgrammableServices)
 add_subdirectory(Registry)

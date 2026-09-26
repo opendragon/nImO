@@ -208,7 +208,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The cached value of the buffer for transmission. */
-            std::string _cachedTransmissionString{};
+            std::string _cachedTransmissionString;
 
             /*! @brief @c true if the initial header bytes are present in the buffer. */
             bool    _headerAdded{false};

@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The multicast connection used for status reports. */
-            Connection  _statusConnection{};
+            Connection  _statusConnection;
 
     }; // ClearAppListForLauncherCommandHandler
 

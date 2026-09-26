@@ -492,7 +492,7 @@ nImO::ProcessServiceOptions
                 {
                     if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
                     {
-                        std::string badArgs{};
+                        std::string badArgs;
 
                         if (ProcessArguments(argumentDescriptions, parse, badArgs))
                         {

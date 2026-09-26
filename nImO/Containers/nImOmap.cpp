@@ -320,7 +320,7 @@ nImO::Map::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {
@@ -662,7 +662,7 @@ nImO::Map::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {
@@ -726,7 +726,7 @@ nImO::Map::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {

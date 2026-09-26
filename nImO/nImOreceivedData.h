@@ -87,7 +87,7 @@ namespace nImO
                  nImO::SpValue              receivedMessage,
                  const nImO::IPv4Address    receivedAddress = 0,
                  const nImO::IPv4Port       receivedPort = 0) :
-                    _receivedAddress(receivedAddress), _receivedMessage(receivedMessage), _receivedPort(receivedPort), _tag{tag}
+                    _receivedAddress{receivedAddress}, _receivedMessage{receivedMessage}, _receivedPort{receivedPort}, _tag{tag}
             {
             }
 
@@ -101,13 +101,13 @@ namespace nImO
             // Public fields.
 
             /*! @brief The IP address of the sender. */
-            nImO::IPv4Address   _receivedAddress{};
+            nImO::IPv4Address   _receivedAddress;
 
             /*! @brief The message from the sender. */
-            nImO::SpValue   _receivedMessage{};
+            nImO::SpValue   _receivedMessage;
 
             /*! @brief The IP port of the sender. */
-            nImO::IPv4Port  _receivedPort{};
+            nImO::IPv4Port  _receivedPort;
 
             /*! @brief The tag for the associated Message. */
             int _tag;

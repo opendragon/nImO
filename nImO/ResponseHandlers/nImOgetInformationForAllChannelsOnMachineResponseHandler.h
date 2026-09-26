@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            ChannelInfoVector   _result{};
+            ChannelInfoVector   _result;
 
     }; // GetInformationForAllChannelsOnMachineResponseHandler
 

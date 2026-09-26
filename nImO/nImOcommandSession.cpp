@@ -233,7 +233,7 @@ nImO::CommandSession::start
                                         }
                                         else
                                         {
-                                            std::string reason{};
+                                            std::string reason;
 
 #if defined(nImO_ChattyTcpUdpLogging)
                                             _owner->report("Got request."s);

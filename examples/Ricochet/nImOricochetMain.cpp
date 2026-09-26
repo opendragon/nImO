@@ -92,8 +92,8 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::PortArgumentDescriptor>("port"s, "Port for communication"s,
                                                                                     nImO::ArgumentMode::Optional, 2020)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -110,7 +110,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::MiscellaneousContext  ourContext{};
+            nImO::MiscellaneousContext  ourContext;
 
 std::cerr << "** Unimplemented **\n";
             std::cout << progName << " ready.\n";

@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            ChannelKeysVector   _result{};
+            ChannelKeysVector   _result;
 
     }; // GetKeysForAllUnconnectedChannelsOnNodeResponseHandler
 

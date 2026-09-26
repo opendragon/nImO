@@ -170,16 +170,16 @@ namespace nImO
             IPv4Port    _matchPort{0};
 
             /*! @brief A buffer for the raw message data. */
-            std::array<char, 2048>  _rawData{};
+            std::array<char, 2048>  _rawData;
 
             /*! @brief The acceptor TCP connections. */
-            SpAcceptorTCP   _tcpAcceptor{};
+            SpAcceptorTCP   _tcpAcceptor;
 
             /*! @brief The sender's endpoint for TCP. */
-            BTCP::endpoint  _tcpSenderEndpoint{};
+            BTCP::endpoint  _tcpSenderEndpoint;
 
             /*! @brief The sender's endpoint for UDP. */
-            BUDP::endpoint  _udpSenderEndpoint{};
+            BUDP::endpoint  _udpSenderEndpoint;
 
             /*! @brief @c true if the sender address and port are ignored. */
             bool    _unfiltered{false};

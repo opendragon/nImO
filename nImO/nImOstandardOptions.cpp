@@ -76,7 +76,7 @@ using namespace nImO;
 static const std::string    kDefaultConfigFilePath{nImO_RUN_CONFIG_DIR_ "nimo-config.txt"};
 
 /*! @brief The loaded configuration values. */
-static nImO::SpValue    lConfigurationValues{};
+static nImO::SpValue    lConfigurationValues;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -168,7 +168,7 @@ nImO::LoadConfiguration
 
     if (inStream)
     {
-        nImO::StringBuffer  readString{};
+        nImO::StringBuffer  readString;
 
         inStream >> readString;
         if (auto readValue{readString.convertToValue()}; readValue)

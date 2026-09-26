@@ -103,8 +103,8 @@ main
     auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("parameter"s,
                                                                                       "Parameter to be retrieved"s,
                                                                                       nImO::ArgumentMode::Required)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -126,7 +126,7 @@ main
             auto                ourContext{std::make_shared<nImO::UtilityContext>("getParameterValue"s, optionValues._logging)};
             auto                nodeName{firstArg->getCurrentValue()};
             auto                paramName{secondArg->getCurrentValue()};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {

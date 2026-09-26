@@ -314,7 +314,7 @@ namespace nImO
             size_t  _size{0};
 
             /*! @brief The associated value. */
-            UpAuint8_t  _value{};
+            UpAuint8_t  _value;
 
     }; // Blob
 

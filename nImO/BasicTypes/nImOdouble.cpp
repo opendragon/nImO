@@ -198,7 +198,7 @@ nImO::Double::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {
@@ -356,7 +356,7 @@ nImO::Double::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other == this)
     {
@@ -398,7 +398,7 @@ nImO::Double::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {
@@ -436,7 +436,7 @@ nImO::Double::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other == this)
     {
@@ -478,7 +478,7 @@ nImO::Double::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {

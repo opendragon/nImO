@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            ConnectionInfo  _result{};
+            ConnectionInfo  _result;
 
     }; // GetConnectionInformationResponseHandler
 

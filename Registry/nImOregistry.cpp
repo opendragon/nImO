@@ -3507,7 +3507,7 @@ nImO::Registry::getNamesOfMachines
 {
     ODL_OBJENTER(); //####
     auto            status{doBeginTransaction(_owner, _dbHandle)};
-    StdStringSet    strings{};
+    StdStringSet    strings;
 
     if (status.first)
     {
@@ -3539,7 +3539,7 @@ nImO::Registry::getNamesOfNodes
 {
     ODL_OBJENTER(); //####
     auto            status{doBeginTransaction(_owner, _dbHandle)};
-    StdStringSet    strings{};
+    StdStringSet    strings;
 
     if (status.first)
     {
@@ -3572,7 +3572,7 @@ nImO::Registry::getNamesOfNodesOnMachine
     ODL_OBJENTER(); //####
     ODL_S1s(machineName); //####
     auto            status{doBeginTransaction(_owner, _dbHandle)};
-    StdStringSet    strings{};
+    StdStringSet    strings;
 
     if (status.first)
     {
@@ -3693,7 +3693,7 @@ nImO::Registry::getNodesWithApplication
     ODL_OBJENTER(); //####
     ODL_S1s(applicationName); //####
     auto            status{doBeginTransaction(_owner, _dbHandle)};
-    StdStringSet    strings{};
+    StdStringSet    strings;
 
     if (status.first)
     {

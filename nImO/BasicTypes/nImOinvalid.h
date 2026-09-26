@@ -128,7 +128,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief A description of what was found to be invalid. */
-            std::string _description{};
+            std::string _description;
 
     }; // Invalid
 

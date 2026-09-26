@@ -100,6 +100,8 @@
 		F639E41D2EC613620088F313 /* nImOgetParameterValueResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetParameterValueResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetParameterValueResponseHandler.cpp; sourceTree = "<group>"; };
 		F639E41E2EC6142A0088F313 /* nImOsetParameterValueResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsetParameterValueResponseHandler.h; path = nImO/ResponseHandlers/nImOsetParameterValueResponseHandler.h; sourceTree = "<group>"; };
 		F639E41F2EC6142A0088F313 /* nImOsetParameterValueResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsetParameterValueResponseHandler.cpp; path = nImO/ResponseHandlers/nImOsetParameterValueResponseHandler.cpp; sourceTree = "<group>"; };
+		F63A9F0D3067D45C00FB4A85 /* nImOwatchWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOwatchWindow.h; sourceTree = "<group>"; };
+		F63A9F0E3067D46E00FB4A85 /* nImOwatchWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOwatchWindow.cpp; sourceTree = "<group>"; };
 		F63DDD6D2B56AD4100182B28 /* nimo-services.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "nimo-services.txt"; path = "non-iOS/nimo-services.txt"; sourceTree = "<group>"; };
 		F640ADAD2EC219FE00A83703 /* nImOstart.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOstart.rc.in; path = Start/nImOstart.rc.in; sourceTree = "<group>"; };
 		F640ADAE2EC219FE00A83703 /* nImOstartMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstartMain.cpp; path = Start/nImOstartMain.cpp; sourceTree = "<group>"; };
@@ -1973,6 +1975,8 @@
 		F6ACA6EB2DCD0EEE004A2336 /* Watch */ = {
 			isa = PBXGroup;
 			children = (
+				F63A9F0E3067D46E00FB4A85 /* nImOwatchWindow.cpp */,
+				F63A9F0D3067D45C00FB4A85 /* nImOwatchWindow.h */,
 				F6ACA6E82DCD0EEE004A2336 /* nImOwatch.rc.in */,
 				F6ACA6E92DCD0EEE004A2336 /* nImOwatchMain.cpp */,
 				F6ACA6EA2DCD0EEE004A2336 /* resource.h */,

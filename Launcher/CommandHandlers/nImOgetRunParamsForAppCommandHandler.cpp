@@ -141,9 +141,9 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                         {
                             auto            appPath{appPathIterator->second->asString()->getValue()};
 #if (CALC_BOOST_VERSION_(1, 85) >= BOOST_VERSION)
-                            BP::ipstream    pipeStream{};
+                            BP::ipstream    pipeStream;
                             BP::child       cc{StdStringVector{appPath, MakeOption("a"s)}, BP::std_out > pipeStream};
-                            std::string     line{};
+                            std::string     line;
                             auto            params{std::make_shared<Array>()};
 
                             for ( ; getline(pipeStream, line); )
@@ -157,7 +157,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                             BA::readable_pipe   rp{*_ownerForLauncher->getService()};
                             BP::process         cc{*_ownerForLauncher->getService(), appPath, {MakeOption("a"s)},
                                                     BP::process_stdio{nullptr, rp, nullptr}};
-                            std::string         line{};
+                            std::string         line;
                             auto                params{std::make_shared<Array>()};
 
                             for ( ; ; )

@@ -249,7 +249,7 @@ nImO::GetPathToExecutable
     (void)
 {
     ODL_ENTER(); //####
-    std::string result{};
+    std::string result;
     int         dirNameLength{0};
     int         length{wai_getExecutablePath(nullptr, 0, &dirNameLength)};
 
@@ -272,7 +272,7 @@ nImO::MakeOption
 {
     ODL_ENTER(); //####
     ODL_S2s(shortForm, longForm); //####
-    std::string result{};
+    std::string result;
 
 #if MAC_OR_LINUX_OR_BSD_
     if (longForm.empty())

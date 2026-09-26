@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            NodeInfoVector    _result{};
+            NodeInfoVector    _result;
 
     }; // GetInformationForAllNodesOnMachineResponseHandler
 

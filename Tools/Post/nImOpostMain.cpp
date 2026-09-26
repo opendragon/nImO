@@ -95,9 +95,9 @@ main
                                                                                        nImO::ArgumentMode::Optional, false)};
     auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("message"s, "Text to send to logging applications"s,
                                                                                        nImO::ArgumentMode::Optional)};
-    nImO::DescriptorVector  argumentList{};
+    nImO::DescriptorVector  argumentList;
     nImO::StandardOptions   optionValues{true};
-    nImO::StdStringVector   arguments{};
+    nImO::StdStringVector   arguments;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####

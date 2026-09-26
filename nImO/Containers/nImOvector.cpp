@@ -573,7 +573,7 @@ nImO::Vector::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {
@@ -637,7 +637,7 @@ nImO::Vector::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {

@@ -92,7 +92,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The owning Context. */
-            SpInputOutputContext _ownerForInputOutput{};
+            SpInputOutputContext _ownerForInputOutput;
 
         private :
             // Private fields.

@@ -237,16 +237,16 @@ namespace nImO
             // Private fields.
 
             /*! @brief The values that are allowed for the command-line argument. */
-            StdStringSet    _allowedValues{};
+            StdStringSet    _allowedValues;
 
             /*! @brief Whether comparisons are case-insensitive or not. */
             bool    _caseInsensitive{false};
 
             /*! @brief The current value of the command-line argument. */
-            std::string _currentValue{};
+            std::string _currentValue;
 
             /*! @brief The default value for the command-line argument. */
-            std::string _defaultValue{};
+            std::string _defaultValue;
 
     }; // StringsArgumentDescriptor
 

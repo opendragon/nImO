@@ -284,7 +284,7 @@ StringsArgumentDescriptor::parseArgString // cppcheck-suppress duplInheritedMemb
         auto            defaultString{inVector[0]};
         auto            stringList{inVector[1]};
         auto            description{inVector[2]};
-        StdStringSet    allowedValues{};
+        StdStringSet    allowedValues;
 
         // We need to split the input into keys.
         for ( ; 0 < stringList.length(); )
@@ -351,7 +351,7 @@ StringsArgumentDescriptor::toString
 {
     ODL_OBJENTER(); //####
     auto        result{prefixFields(ArgumentTypeTag::StringsTypeTag) + kParameterSeparator};
-    std::string scratch{};
+    std::string scratch;
 
     for (const auto & walker : _allowedValues)
     {

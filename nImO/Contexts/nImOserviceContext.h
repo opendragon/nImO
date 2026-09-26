@@ -248,10 +248,10 @@ namespace nImO
             IPv4Address _commandAddress{0};
 
             /*! @brief The command handlers. */
-            std::map<std::string, SpCommandHandler> _commandHandlers{};
+            std::map<std::string, SpCommandHandler> _commandHandlers;
 
             /*! @brief The command-line provided to the application. */
-            SpArray _commandLine{};
+            SpArray _commandLine;
 
             /*! @brief The command port. */
             IPv4Port    _commandPort{0};
@@ -260,10 +260,10 @@ namespace nImO
             std::atomic_bool    _keepGoing{false};
 
             /*! @brief The @nImO-visible name of the executing program. */
-            std::string _nodeName{};
+            std::string _nodeName;
 
             /*! @brief The active sessions. */
-            std::set<SpCommandSession>  _sessions{};
+            std::set<SpCommandSession>  _sessions;
 
     }; // ServiceContext
 

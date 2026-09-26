@@ -92,8 +92,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -115,7 +115,7 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                longName{progName + " ["s + nodeName + "]"s};
 

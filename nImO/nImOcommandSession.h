@@ -123,13 +123,13 @@ namespace nImO
             // Private fields.
 
             /*! @brief A buffer to hold the received request. */
-            BA::streambuf  _buffer{};
+            BA::streambuf  _buffer;
 
             /*! @brief The context that created this session. */
-            SpServiceContext    _owner{};
+            SpServiceContext    _owner;
 
             /*! @brief The socket used for request and response. */
-            SpSocketTCP _socket{};
+            SpSocketTCP _socket;
 
     }; // CommandSession
 

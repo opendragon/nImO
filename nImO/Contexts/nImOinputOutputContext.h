@@ -342,16 +342,16 @@ namespace nImO
             // Protected fields.
 
             /*@ @brief The input channels for the service. */
-            InChannelMap    _inputChannelMap{};
+            InChannelMap    _inputChannelMap;
 
             /*! @brief The output channels for the service. */
-            OutChannelMap   _outputChannelMap{};
+            OutChannelMap   _outputChannelMap;
 
         private :
             // Private fields.
 
             /*@ @brief The input channels for the service. */
-            InChannelVector _inputChannelVector{};
+            InChannelVector _inputChannelVector;
 
             /*! @brief The maximum number of input channels allowed. */
             int64_t _maxInputChannels{0};
@@ -363,7 +363,7 @@ namespace nImO
             MissingModeType _missingMode;
 
             /*! @brief The output channels for the service. */
-            OutChannelVector    _outputChannelVector{};
+            OutChannelVector    _outputChannelVector;
 
     }; // InputOutputContext
 

@@ -79,8 +79,9 @@
 nImO::ReceiveFromMulticast::ReceiveFromMulticast
     (nImO::SPservice            service,
      const nImO::Connection &   theConnection,
-     nImO::ReceiveQueue &       theQueue) :
-        _queue(theQueue), _socket(*service)
+     nImO::ReceiveQueue &       theQueue,
+     const int                  theTag) :
+        _queue(theQueue), _socket(*service), _tag(theTag)
 {
     ODL_ENTER(); //####
     ODL_P2(service.get(), &theQueue); //####
@@ -126,7 +127,7 @@ nImO::ReceiveFromMulticast::receiveAMessage
                                            nImO::IPv4Address    senderAddress{_senderEndpoint.address().to_v4().to_uint()};
                                            nImO::IPv4Port       senderPort{_senderEndpoint.port()};
 
-                                           _queue.addRawBytesAsMessage(0, senderAddress, senderPort, receivedAsString);
+                                           _queue.addRawBytesAsMessage(_tag, senderAddress, senderPort, receivedAsString);
                                            receiveAMessage();
                                        }
                                    });

@@ -931,7 +931,7 @@ nImO::PromptForValues
         {
             auto        currentValue{anArg->getProcessedValue()};
             auto        defaultValue{anArg->getDefaultValue()};
-            std::string inputLine{};
+            std::string inputLine;
 
             std::cout << "\t" << anArg->argumentDescription() << " (default=" << defaultValue << ", current=" << currentValue << "): ";
             std::cout.flush();
@@ -1011,7 +1011,7 @@ nImO::ReformatString
     ODL_ENTER(); //####
     ODL_S1s(inString); //####
     ODL_C1(typeChar); //####
-    std::string result{};
+    std::string result;
 
     switch (StaticCast(ArgumentTypeTag, typeChar))
     {

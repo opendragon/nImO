@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            std::string _result{};
+            std::string _result;
 
     }; // GetParameterValueResponseHandler
 

@@ -55,6 +55,7 @@ qt_standard_project_setup()
 # Set up our program
 qt_add_executable(${THIS_TARGET}
                     ${THIS_SOURCE_DIR}/nImOwatchMain.cpp
+                    ${THIS_SOURCE_DIR}/nImOwatchWindow.cpp
                     ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

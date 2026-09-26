@@ -172,6 +172,17 @@ nImO::StringBuffer::addBool
 } // nImO::StringBuffer::addBool
 
 nImO::StringBuffer &
+nImO::StringBuffer::addBuffer
+    (StringBuffer & inBuffer)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(&inBuffer); //####
+    addString(inBuffer.getString());
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+}   // nImO::StringBuffer::addBuffer
+
+nImO::StringBuffer &
 nImO::StringBuffer::addBytes
     (CPtr(uint8_t)  inBytes,
      const size_t   numBytes)

@@ -202,13 +202,13 @@ class MaximumValueCollector final : public nImO::CallbackFunction
         // Private fields.
 
         /*! @brief The collected values. */
-        std::vector<double> _values{};
+        std::vector<double> _values;
 
         /*! @brief Flags to indicate a value has been set. */
-        std::vector<bool>   _present{};
+        std::vector<bool>   _present;
 
         /*! @brief Used to protect the collected values. */
-        std::mutex  _valuesLock{};
+        std::mutex  _valuesLock;
 
 }; // ProductValueCollector
 
@@ -228,8 +228,8 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numIn"s, "Number of input channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -253,7 +253,7 @@ main
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                valueCollection{std::make_shared<MaximumValueCollector>()};
             auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath, valueCollection.get()}};

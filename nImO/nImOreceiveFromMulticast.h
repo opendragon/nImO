@@ -75,11 +75,13 @@ namespace nImO
              @param[in] service The I/O service to attach to.
              @param[in] runFlag A reference to the flag that is used to stop execution.
              @param[in] theConnection The connection to listen on.
-             @param[in] theQueue The receive queue to be updated. */
+             @param[in] theQueue The receive queue to be updated.
+             @param[in] theTag A value used to distinguish the messages on a shared queue. */
             ReceiveFromMulticast
                 (nImO::SPservice            service,
                  const nImO::Connection &   theConnection,
-                 nImO::ReceiveQueue &       theQueue);
+                 nImO::ReceiveQueue &       theQueue,
+                 const int                  theTag = 0);
 
             /*! @brief The destructor. */
             ~ReceiveFromMulticast
@@ -105,17 +107,20 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief A buffer for the raw message data. */
+            std::array<char, 2048>  _data;
+
             /*! @brief Where to store received messages. */
             nImO::ReceiveQueue &  _queue;
+
+            /*! @brief The sender's endpoint. */
+            BUDP::endpoint  _senderEndpoint;
 
             /*! @brief The socket for a multicast reception. */
             BUDP::socket    _socket;
 
-            /*! @brief The sender's endpoint. */
-            BUDP::endpoint  _senderEndpoint{};
-
-            /*! @brief A buffer for the raw message data. */
-            std::array<char, 2048>  _data{};
+            /*! @brief The value used to distinguish these messages on a shared queue. */
+            int _tag;
 
     }; // ReceiveFromMulticast
 

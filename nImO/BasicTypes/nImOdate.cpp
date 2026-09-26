@@ -248,7 +248,7 @@ nImO::Date::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {
@@ -341,7 +341,7 @@ nImO::Date::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other == this)
     {
@@ -376,7 +376,7 @@ nImO::Date::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {
@@ -407,7 +407,7 @@ nImO::Date::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other == this)
     {
@@ -442,7 +442,7 @@ nImO::Date::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1(&other); //####
-    ComparisonStatus    result{};
+    ComparisonStatus    result;
 
     if (&other != this)
     {

@@ -168,7 +168,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The internal buffer used to hold the assembled data. */
-            UpAuint8_t  _buffer{};
+            UpAuint8_t  _buffer;
 
             /*! @brief The byte just past the end of the internal buffer. */
             Ptr(uint8_t)    _bufferEnd{nullptr};

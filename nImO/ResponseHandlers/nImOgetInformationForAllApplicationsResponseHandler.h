@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-        ApplicationInfoVector    _result{};
+        ApplicationInfoVector    _result;
 
     }; // GetInformationForAllApplicationsResponseHandler
 

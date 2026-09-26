@@ -106,8 +106,8 @@ main
     auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("isOutput"s,
                                                                                         "True if the new channel is an output"s,
                                                                                         nImO::ArgumentMode::Optional, false)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -127,7 +127,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("addChannel"s, optionValues._logging)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {

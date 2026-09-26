@@ -121,7 +121,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The application information as a map. */
-            SpValue _appListValues{};
+            SpValue _appListValues;
 
     }; // LauncherContext
 

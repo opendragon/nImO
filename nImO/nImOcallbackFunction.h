@@ -102,7 +102,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief If the callback fails, the reason for the failure. */
-            std::string _failureReason{};
+            std::string _failureReason;
 
         private :
             // Private fields.

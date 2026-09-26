@@ -141,14 +141,14 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                         {
                             auto            appPath{appPathIterator->second->asString()->getValue()};
 #if (CALC_BOOST_VERSION_(1, 85) >= BOOST_VERSION)
-                            BP::ipstream    pipeStream{};
+                            BP::ipstream    pipeStream;
                             BP::child       cc{StdStringVector{appPath, MakeOption("d"s)}, BP::std_out > pipeStream};
-                            std::string     line{};
+                            std::string     line;
 
                             if (std::getline(pipeStream, line))
                             {
                                 size_t      tabIndex{line.find('\t', 0)};
-                                std::string runOptions{};
+                                std::string runOptions;
 
                                 if (line.npos == tabIndex)
                                 {
@@ -172,7 +172,7 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                             BA::readable_pipe   rp{*_ownerForLauncher->getService()};
                             BP::process         cc{*_ownerForLauncher->getService(), appPath, {MakeOption("d"s)},
                                                     BP::process_stdio{nullptr, rp, nullptr}};
-                            std::string         line{};
+                            std::string         line;
                             auto                params{std::make_shared<Array>()};
                             BSErr               ec;
                             auto                lineLength{BA::read(rp, BA::dynamic_buffer(line), ec)};
@@ -184,7 +184,7 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                                     line.resize(lineLength);
                                 }
                                 size_t      tabIndex{line.find('\t', 0)};
-                                std::string runOptions{};
+                                std::string runOptions;
 
                                 if (line.npos == tabIndex)
                                 {

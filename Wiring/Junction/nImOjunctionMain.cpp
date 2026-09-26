@@ -98,8 +98,8 @@ main
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
     auto                    secondArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numOut"s, "Number of output channels"s,
                                                                                         nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -123,7 +123,7 @@ main
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
             auto                addOutputChannelCallback{new nImO::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
@@ -236,7 +236,7 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    nImO::OutChannelVector  outChannels{};
+                                    nImO::OutChannelVector  outChannels;
 
                                     ourContext->collectOutputChannels(outChannels);
                                     addInputChannelCallback->enable(nodeName, proxy, optionValues._inType);

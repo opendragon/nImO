@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            AddressInfo _result{};
+            AddressInfo _result;
 
     }; // SetUpReceiverResponseHandler
 

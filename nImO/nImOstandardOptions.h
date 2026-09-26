@@ -148,7 +148,7 @@ namespace nImO
         bool    _autolaunch{false};
 
         /*! @brief The configuration file path set by a command-line option. */
-        std::string _configFilePath{};
+        std::string _configFilePath;
 
         /*! @brief @c true if a command-line option requested more details. */
         bool    _expanded{false};
@@ -160,7 +160,7 @@ namespace nImO
         bool    _logging{false};
 
         /*! @brief The machine name set by a command-line option. */
-        std::string _machine{};
+        std::string _machine;
 
         /*! @brief The constructor.
          @param[in] loggingOnByDefault @c true if logging should be enabled. */

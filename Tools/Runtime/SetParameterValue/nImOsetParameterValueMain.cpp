@@ -106,8 +106,8 @@ main
     auto                    thirdArg{std::make_shared<nImO::StringArgumentDescriptor>("value"s,
                                                                                       "Value to be written to the parameter"s,
                                                                                       nImO::ArgumentMode::Required)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -131,7 +131,7 @@ main
             auto                nodeName{firstArg->getCurrentValue()};
             auto                paramName{secondArg->getCurrentValue()};
             auto                paramValue{thirdArg->getCurrentValue()};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {

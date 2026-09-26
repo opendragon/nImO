@@ -212,7 +212,7 @@ namespace nImO
             firstPartOfPath
                 (const std::string &    inString)
             {
-                std::string             outString{};
+                std::string             outString;
                 std::string::size_type  period{inString.find('.')};
 
                 if (std::string::npos == period)
@@ -392,7 +392,7 @@ getLocalAddresses
 #else // not MAC_OR_LINUX_OR_BSD_
     Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress{nullptr};
     ULONG                       addressSize{8000};
-    uint                        ret{};
+    uint                        ret;
     uint                        numRetries{4};
 #endif // not MAC_OR_LINUX_OR_BSD_
 
@@ -1113,7 +1113,7 @@ nImO::SearchContext::findAndLaunchTheRegistry
     {
         auto            regPath{_registryLaunchPath};
         auto            regOptions{_registryLaunchOptions};
-        StdStringVector commandLine{};
+        StdStringVector commandLine;
 
         report("Registry was not found so it will be launched.");
         for (const auto & walker : regOptions)
@@ -1220,7 +1220,7 @@ nImO::SearchContext::gatherAnnouncements
                                                     ODL_LOG("browser thread ended"); //####
                                                 });
             ODL_P1(_registryBrowserThread); //####
-            _pool.add_thread(_registryBrowserThread);
+            addCustomThread(_registryBrowserThread);
             for (int isock{0}; isock < _numSockets; ++isock)
             {
                 _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, getRegistryServiceName().c_str(),

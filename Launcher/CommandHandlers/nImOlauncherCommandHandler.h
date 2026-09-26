@@ -92,7 +92,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The owning Context. */
-            SpLauncherContext _ownerForLauncher{};
+            SpLauncherContext _ownerForLauncher;
 
         private :
             // Private fields.

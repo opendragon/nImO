@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            SpArray _result{};
+            SpArray _result;
 
     }; // GetParametersResponseHandler
 

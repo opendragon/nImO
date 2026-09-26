@@ -158,7 +158,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The IP address, port and mode for the communication. */
-            Connection  _connection{};
+            Connection  _connection;
 
             /*! @brief The owning context. */
             InputOutputContext &    _context;
@@ -167,22 +167,22 @@ namespace nImO
             int _index{0};
 
             /*! @brief The name to be used when connecting or disconnecting. */
-            std::string _name{};
+            std::string _name;
 
             /*! @brief The transfer statistics for the channel. */
-            ChannelStatistics   _statistics{};
+            ChannelStatistics   _statistics;
 
             /*! @brief @c true once a TCP connection has been established. */
             std::atomic_bool    _tcpConnected{false};
 
             /*! @brief The socket to use for TCP communication. */
-            SpSocketTCP    _tcpSocket{};
+            SpSocketTCP    _tcpSocket;
 
             /*! @brief @c true once a UDP connection has been established. */
             std::atomic_bool    _udpConnected{false};
 
             /*! @brief The socket to use for UDP communication. */
-            SpSocketUDP    _udpSocket{};
+            SpSocketUDP    _udpSocket;
 
         private :
             // Private fields.

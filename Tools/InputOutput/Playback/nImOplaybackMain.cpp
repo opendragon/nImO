@@ -106,8 +106,8 @@ main
                                                                                        nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, true, 0.0, false, 0.0)};
     auto                    thirdArg{std::make_shared<nImO::LogicalArgumentDescriptor>("loop"s, "Repeat sending the file contents"s,
                                                                                        nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, false)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -131,7 +131,7 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::SourceBreakHandler{}};
             auto                longName{progName + " ["s + nodeName + "]"s};
 

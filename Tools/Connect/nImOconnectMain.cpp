@@ -126,8 +126,8 @@ main
                                                                                        nImO::ArgumentMode::Optional |
                                                                                        nImO::ArgumentMode::CaseInsensitive,
                                                                                        nImO::kProtocolAnyName, nImO::ChannelName::transportNames())};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -147,7 +147,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("connect"s, optionValues._logging)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
@@ -159,7 +159,7 @@ main
                 auto        fromPath{fromChannel->getPath()};
                 auto        toNode{toChannel->getNode()};
                 auto        toPath{toChannel->getPath()};
-                std::string dataType{};
+                std::string dataType;
                 auto        statusWithBool{proxy->isChannelPresent(fromNode, fromPath)};
                 bool        previousStateForFrom{false};
                 bool        previousStateForTo{false};
@@ -252,8 +252,8 @@ main
                     }
                 }
                 // We now 'own' the two channels, so we need to resolve if they can be connected.
-                std::string         fromDataType{};
-                std::string         toDataType{};
+                std::string         fromDataType;
+                std::string         toDataType;
                 nImO::TransportType fromModes{nImO::TransportType::kUnknown};
                 nImO::TransportType toModes{nImO::TransportType::kUnknown};
                 nImO::TransportType resolvedMode{nImO::TransportType::kUnknown};

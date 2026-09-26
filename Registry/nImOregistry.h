@@ -559,7 +559,7 @@ namespace nImO
             Ptr(sqlite3)    _dbHandle{nullptr};
 
             /*! @brief The owning Context. */
-            SpNetworkingContext _owner{};
+            SpNetworkingContext _owner;
 
     }; // Registry
 

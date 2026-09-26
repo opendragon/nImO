@@ -99,7 +99,7 @@ constructNodeNameFromOptions
     bool        addSuffix{true};
     bool        useRandomName{false};
     std::string nodeName{initialName};
-    std::string tag{};
+    std::string tag;
 
     for (const auto & walker : theOptions)
     {
@@ -157,8 +157,8 @@ main
                                                                                       nImO::ArgumentMode::Optional)};
     auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("service"s, "Service to start"s,
                                                                                        nImO::ArgumentMode::Optional)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -178,7 +178,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("start"s, optionValues._logging)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (optionValues._autolaunch)
             {
@@ -187,7 +187,7 @@ main
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {
                 auto                proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
-                nImO::Connection    launcherConnection{};
+                nImO::Connection    launcherConnection;
                 auto                launcherName{firstArg->getCurrentValue()};
                 auto                serviceName{secondArg->getCurrentValue()};
 
@@ -197,7 +197,7 @@ main
 
                     if (statusWithAllNodes.first.first)
                     {
-                        nImO::StdStringSet  launchers{};
+                        nImO::StdStringSet  launchers;
                         auto                nodes{statusWithAllNodes.second};
 
                         for (const auto & walker : nodes)
@@ -380,7 +380,7 @@ main
 
                     if (statusWithBool.first)
                     {
-                        std::set<char>  availableOptions{};
+                        std::set<char>  availableOptions;
 
                         for (const auto & walker : handler1->result())
                         {
@@ -402,7 +402,7 @@ main
 
                         if (statusWithBool.first)
                         {
-                            nImO::DescriptorVector  appDescriptors{};
+                            nImO::DescriptorVector  appDescriptors;
 
                             for (const auto & walker : handler2->result())
                             {
@@ -420,8 +420,8 @@ main
                             }
                             if (0 == exitCode)
                             {
-                                std::set<char>  optionNeedsName{};
-                                std::set<char>  optionNeedsString{};
+                                std::set<char>  optionNeedsName;
+                                std::set<char>  optionNeedsString;
 
                                 std::cout << "Options for '" << serviceName << "' on '" << launcherName << "':\n";
                                 std::cout << "\t-\t<select none and leave>\n";
@@ -495,8 +495,8 @@ main
                                     }
                                     std::cout << "\n";
                                 }
-                                std::string             optionsSoFar{};
-                                nImO::StdStringVector   optionsToApply{};
+                                std::string             optionsSoFar;
+                                nImO::StdStringVector   optionsToApply;
 
                                 // Build up the option list:
                                 for ( ; ; )
@@ -507,7 +507,7 @@ main
                                     }
                                     std::cout << "Option to apply (empty line when finished): ";
                                     std::cout.flush();
-                                    std::string inLine{};
+                                    std::string inLine;
 
                                     if (getline(std::cin, inLine))
                                     {

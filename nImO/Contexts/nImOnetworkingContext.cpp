@@ -156,7 +156,7 @@ nImO::NetworkingContext::NetworkingContext
                                                 })};
 
             ODL_P1(aThread); //####
-            _pool.add_thread(aThread);
+            addCustomThread(aThread);
         }
         // Get the address and port to use for logging.
         auto    retValue{GetConfiguredValue(kLoggerAddressKey)};
@@ -294,6 +294,19 @@ nImO::NetworkingContext::~NetworkingContext
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::NetworkingContext::addCustomThread
+    (boost::thread *    customThread)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1(customThread); //####
+    if (nullptr != customThread)
+    {
+        _pool.add_thread(customThread);
+    }
+    ODL_OBJEXIT(); //####
+}   // nImO::NetworkingContext::addCustomThread
 
 Ptr(nImO::InputOutputContext)
 nImO::NetworkingContext::asInputOutputContext

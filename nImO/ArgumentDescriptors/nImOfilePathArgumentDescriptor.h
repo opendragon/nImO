@@ -242,10 +242,10 @@ namespace nImO
             bool    _forOutput{false};
 
             /*! @brief The prefix value to use for constructing the default value. */
-            std::string _pathPrefix{};
+            std::string _pathPrefix;
 
             /*! @brief The suffix value to use for constructing the default value. */
-            std::string _pathSuffix{};
+            std::string _pathSuffix;
 
             /*! @brief @c true if the file path will be constructed with a random number
             and @c false if the file path is fixed. */

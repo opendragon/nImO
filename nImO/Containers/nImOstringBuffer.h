@@ -98,6 +98,13 @@ namespace nImO
             addBool
                 (const bool aBool);
 
+            /*! @brief Add the contents of another buffer to the buffer.
+             @param[in] inBuffer The buffer to be added.
+             @return The StringBuffer object so that cascading can be done. */
+            StringBuffer &
+            addBuffer
+                (StringBuffer & inBuffer);
+
             /*! @brief Add a sequence of bytes to the buffer.
              @param[in] inBytes The bytes to be added.
              @param[in] numBytes The number of bytes to add.

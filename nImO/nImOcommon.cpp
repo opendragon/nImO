@@ -253,7 +253,7 @@ nImO::ConstructNodeName
     ODL_ENTER(); //####
     ODL_S3s(nameFromOptions, suffixIfNotFromOptions, tag); //####
     ODL_B2(useRandomNodeName, alwaysAddTheSuffix); //####
-    std::string nodeName{};
+    std::string nodeName;
 
     if (useRandomNodeName)
     {

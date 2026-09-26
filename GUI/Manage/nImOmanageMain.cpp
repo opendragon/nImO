@@ -159,8 +159,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -182,13 +182,13 @@ std::cerr << "** Unimplemented **\n";
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::SearchContext ourContext{"manage"s, optionValues._logging};
             auto                loggingConnection{ourContext.getLoggingInfo()};
-            auto                registrySearchConnection{ourContext.gerRegistrySearchInfo()};
+            auto                registrySearchConnection{ourContext.getRegistrySearchInfo()};
             auto                statusConnection{ourContext.getStatusInfo()};
-            auto                logReceiver{std::make_shared<ReceiveFromMulticast>(ourContext.getService(), loggingConnection, lReceiveQueue)};
-            auto                registrySearchReceiver{std::make_shared<ReceiveFromMulticast>(ourContext.getService(), registrySearchConnection, lReceiveQueue)};
-            auto                statusReceiver{std::make_shared<ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue)};
+            auto                logReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), loggingConnection, lReceiveQueue)};
+            auto                registrySearchReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), registrySearchConnection, lReceiveQueue)};
+            auto                statusReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue)};
 
-            nImO::SetSpecialBreakObject(new LogBreakHandler());
+            nImO::SetSpecialBreakObject(new LogBreakHandler);
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; nImO::gKeepRunning; )
             {

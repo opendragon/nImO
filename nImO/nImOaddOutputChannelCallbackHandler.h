@@ -167,19 +167,19 @@ namespace nImO
             std::atomic_bool    _added{false};
 
             /*! @brief The base part of the channel name. */
-            std::string _basePath{};
+            std::string _basePath;
 
             /*! @brief The filter context that is active. */
             Ptr(nImO::InputOutputContext)   _context{nullptr};
 
             /*! @brief The expected data type. */
-            std::string _dataType{};
+            std::string _dataType;
 
             /*! @brief The name of this node. */
-            std::string _nodeName{};
+            std::string _nodeName;
 
             /*! @brief The RegistryProxy to use. */
-            nImO::SpRegistryProxy   _proxy{};
+            nImO::SpRegistryProxy   _proxy;
 
             /*! @brief A flag to control when requests can be honoured. */
             std::atomic_bool    _requestsAllowed{false};

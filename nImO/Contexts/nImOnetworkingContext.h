@@ -91,6 +91,12 @@ namespace nImO
                 (void)
                 override;
 
+            /*! @brief Add a custom thread to the thread pool.
+             @param[in] customThread The thread to add to the pool. */
+            void
+            addCustomThread
+                (boost::thread *    customThread);
+
             /*! @brief Is this an InputOutputContext?
              @return @c nullptr. */
             virtual Ptr(InputOutputContext)
@@ -220,14 +226,11 @@ namespace nImO
         protected :
             // Protected fields.
 
-            /*! @brief The pool of active threads. */
-            boost::thread_group _pool;
-
         private :
             // Private fields.
 
             /*! @brief The multicast connection used for logging. */
-            Connection  _logConnection{};
+            Connection  _logConnection;
 
             /*! @brief The active logger. */
             std::shared_ptr<Logger> _logger{nullptr};
@@ -239,10 +242,13 @@ namespace nImO
             bool _loggingEnabled{false};
 
             /*! @brief The multicast connection used for status changes. */
-            Connection  _statusConnection{};
+            Connection  _statusConnection;
+
+            /*! @brief The pool of active threads. */
+            boost::thread_group _pool;
 
             /*! @brief A 'dummy' operation to keep the service queue alive. */
-            UPwork  _work{};
+            UPwork  _work;
 
 # if (! MAC_OR_LINUX_OR_BSD_)
             /*! @brief Required for Windows networking. */

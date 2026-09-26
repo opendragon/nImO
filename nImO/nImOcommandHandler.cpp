@@ -358,7 +358,7 @@ nImO::CommandHandler::SendBadResponse
     ODL_ENTER(); //####
     ODL_P2(context.get(), socket.get()); //####
     ODL_S1s(reason); //####
-    std::string localReason{}; // this is so the original reason is not lost.
+    std::string localReason; // this is so the original reason is not lost.
 
     if (reason.empty())
     {

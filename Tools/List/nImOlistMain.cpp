@@ -123,7 +123,7 @@ struct ChoiceInfo final
     Choice  _choice{Choice::kAll};
 
     /*! @brief The description of the choice. */
-    std::string _description{};
+    std::string _description;
 
     /*! @brief The constructor.
      @param[in] choice The choice value associated with the description.
@@ -1660,7 +1660,7 @@ main
     lChoiceMap.insert({"mach", ChoiceInfo{Choice::kMach, "active machines"}});
     lChoiceMap.insert({"node", ChoiceInfo{Choice::kNode, "active nodes"}});
     lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
-    nImO::StdStringSet  choiceSet{};
+    nImO::StdStringSet  choiceSet;
 
     for (const auto & walker : lChoiceMap)
     {
@@ -1668,8 +1668,8 @@ main
     }
     auto                    firstArg{std::make_shared<nImO::StringsArgumentDescriptor>("choice"s, "Objects to report"s,
                                                                                        nImO::ArgumentMode::Optional, "all"s, choiceSet)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     argumentList.push_back(firstArg);
@@ -1682,7 +1682,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("list"s, optionValues._logging)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (optionValues._autolaunch)
             {

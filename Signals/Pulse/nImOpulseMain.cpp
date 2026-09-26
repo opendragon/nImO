@@ -102,8 +102,8 @@ main
                                                                                        nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 0.0, false, 0.0, false, 0.0)};
     auto                    fourthArg{std::make_shared<nImO::DoubleArgumentDescriptor>("maximum"s, "High value to be sent"s,
                                                                                        nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, 1.0, false, 0.0, false, 0.0)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -129,7 +129,7 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::SourceBreakHandler{}};
             auto                longName{progName + " ["s + nodeName + "]"s};
 
@@ -224,7 +224,7 @@ main
                                         }
                                         std::atomic_bool                doAnother{true};
                                         bool                            sendHigh{false};
-                                        std::set<nImO::SpSystemTimer>   timers{};
+                                        std::set<nImO::SpSystemTimer>   timers;
 
                                         if (nImO::gKeepRunning)
                                         {

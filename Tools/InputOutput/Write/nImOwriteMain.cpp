@@ -75,10 +75,10 @@ using namespace std::chrono_literals;
 #endif // defined(__APPLE__)
 
 /*! @brief Used to indicate that there is some received text. */
-static std::condition_variable lReceivedCondition{};
+static std::condition_variable lReceivedCondition;
 
 /*! @brief Used to protect the received text. */
-static std::mutex  lReceivedLock{};
+static std::mutex  lReceivedLock;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -94,7 +94,7 @@ static void
 gatherLines
     (std::string &  outLine)
 {
-    std::string inLine{};
+    std::string inLine;
 
     for ( ; nImO::gKeepRunning; )
     {
@@ -127,8 +127,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -149,7 +149,7 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag,
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::SourceBreakHandler{}};
             auto                longName{progName + " ["s + nodeName + "]"s};
 

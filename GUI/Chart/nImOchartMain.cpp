@@ -97,8 +97,8 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numIn"s, "Number of input channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -124,7 +124,7 @@ std::cerr << "** Unimplemented **\n";
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::SinkContext>(argc, argv, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::SinkBreakHandler{ourContext.get()}};
             auto                addInputChannelCallback{new nImO::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
             auto                longName{progName + " ["s + nodeName + "]"s};

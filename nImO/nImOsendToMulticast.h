@@ -105,10 +105,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The multicast connection used for transmission. */
-            Connection  _connection{};
+            Connection  _connection;
 
             /*! @brief The endpoint for a multicast transmission. */
-            BUDP::endpoint  _endpoint{};
+            BUDP::endpoint  _endpoint;
 
             /*! @brief The socket for a multicast transmission. */
             BUDP::socket    _socket;

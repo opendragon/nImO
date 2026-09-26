@@ -113,7 +113,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            ChannelInfo _result{};
+            ChannelInfo _result;
 
     }; // GetChannelInformationResponseHandler
 

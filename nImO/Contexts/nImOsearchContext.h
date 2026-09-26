@@ -258,16 +258,16 @@ namespace nImO
             int _numSockets;
 
             /*! @brief The sequence of received messages. */
-            ReceiveQueue    _receiveQueue{};
+            ReceiveQueue    _receiveQueue;
 
             /*! @brief The search mode of the Registry. */
             RegistryMode    _registrySearchMode;
 
             /*! @brief The multicast port to be used for Registry searches. */
-            SpReceiveFromMulticast    _registryReceivePort{};
+            SpReceiveFromMulticast    _registryReceivePort;
 
             /*! @brief The multicast port to be used for Registry searches. */
-            SpSendToMulticast   _registrySendPort{};
+            SpSendToMulticast   _registrySendPort;
 
             /*! @brief The sockets to use. */
             int _sockets[8];
@@ -303,7 +303,7 @@ namespace nImO
             IPv4Port    _registryPort{0};
 
             /*! @brief The preferred address for connections to the Registry process. */
-            std::string _registryPreferredAddress{};
+            std::string _registryPreferredAddress;
 
             /*! @brief The multicast search connection used for the Registry. */
             Connection  _registrySearchConnection;
@@ -315,7 +315,7 @@ namespace nImO
             int _registrySearchTimeout{0};
 
             /*! @brief The identifying tag for the Registry process. */
-            std::string _registryTag{};
+            std::string _registryTag;
 
             /*! @brief Set to @c true to initiate a new scan of announcements. */
             std::atomic_bool    _requestNewScan{false};

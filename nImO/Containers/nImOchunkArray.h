@@ -237,7 +237,7 @@ namespace nImO
             bool    _buffersArePadded{false};
 
             /*! @brief The cached value of the buffer. */
-            std::string _cachedString{};
+            std::string _cachedString;
 
             /*! @brief The number of buffer chunks being used. */
             size_t  _numChunks{0};

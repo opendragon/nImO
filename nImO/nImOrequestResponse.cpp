@@ -111,7 +111,7 @@ handleResponse
     {
         // We need to strip off the Message separator first.
         auto                trimmed{nImO::UnpackageMessage(incoming)};
-        nImO::ByteVector    rawStuff{};
+        nImO::ByteVector    rawStuff;
 
         ODL_S1s(trimmed); //####
         // Ignore a request that can't be processed...
@@ -232,7 +232,7 @@ handleWriteCompletion
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         if (nullptr != handler)
                                         {
-                                            std::string failureReason{};
+                                            std::string failureReason;
 
                                             if (! handleResponse(handler, handleThis, responseKey, failureReason))
                                             {
@@ -345,7 +345,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         }
         else
         {
-            StdStringVector outVec{};
+            StdStringVector outVec;
             auto            keepGoing{std::make_shared<bool>(true)};
 
             EncodeBytesAsMIME(outVec, asString);

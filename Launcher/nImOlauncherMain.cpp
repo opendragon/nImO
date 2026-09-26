@@ -149,7 +149,7 @@ loadApplicationInformation
     ODL_ENTER(); //####
     ODL_P1(ourContext.get()); //####
     ODL_S1s(appListFilePath); //####
-    std::string workingPath{};
+    std::string workingPath;
     bool        result{false};
 
     if (appListFilePath.empty())
@@ -170,7 +170,7 @@ loadApplicationInformation
 
         if (inStream)
         {
-            nImO::StringBuffer  readString{};
+            nImO::StringBuffer  readString;
 
             inStream >> readString;
             if (auto readValue{readString.convertToValue()}; readValue)
@@ -332,8 +332,8 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("appList"s, "File containing a list of applications"s,
                                                                                         nImO::ArgumentMode::Optional, ""s, kDefaultAppListFilePath)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -355,7 +355,7 @@ main
             std::string         thisService{"Launcher"s};
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, optionValues._randomNodeName, thisService, optionValues._tag, false)};
             auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new LauncherBreakHandler};
             auto                longName{progName + " ["s + nodeName + "]"s};
 

@@ -168,7 +168,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The service object to be used for asynchronous operations. */
-            SPservice   _service{};
+            SPservice   _service;
 
     }; // Context
 

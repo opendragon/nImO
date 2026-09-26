@@ -116,10 +116,10 @@ namespace nImO
             // Public fields.
 
             /*! @brief The IPv4 address to use. */
-            struct sockaddr_in  _addressIpv4{};
+            struct sockaddr_in  _addressIpv4;
 
             /*! @brief The Ipv6 address to use. */
-            struct sockaddr_in6 _addressIpv6{};
+            struct sockaddr_in6 _addressIpv6;
 
             /*! @brief The name of the computer. */
             mDNS::string_t  _hostName;

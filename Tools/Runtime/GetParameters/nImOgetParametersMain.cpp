@@ -100,7 +100,7 @@ adjustValue
      const char                 typeChar,
      const nImO::OutputFlavour  flavour)
 {
-    std::string result{};
+    std::string result;
 
     if ((nImO::OutputFlavour::kFlavourNiMo == flavour) || (nImO::OutputFlavour::kFlavourJSON == flavour))
     {
@@ -527,8 +527,8 @@ main
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("node"s,
                                                                                       "Node to be interrogated"s,
                                                                                       nImO::ArgumentMode::Required)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -547,7 +547,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("getParameter"s, optionValues._logging)};
             auto                nodeName{firstArg->getCurrentValue()};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {

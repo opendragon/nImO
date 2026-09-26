@@ -97,8 +97,8 @@ main
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("node"s,
                                                                                       "Node information to be removed (if machine is not specified)"s,
                                                                                       nImO::ArgumentMode::Optional)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -117,7 +117,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("clean"s, optionValues._logging)};
             auto                nodeName{firstArg->getCurrentValue()};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {

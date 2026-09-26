@@ -111,7 +111,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            StdStringVector _result{};
+            StdStringVector _result;
 
     }; // GetRunParamsForAppResponseHandler
 

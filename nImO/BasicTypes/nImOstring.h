@@ -366,7 +366,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The associated value. */
-            std::string _value{};
+            std::string _value;
 
     }; // String
 

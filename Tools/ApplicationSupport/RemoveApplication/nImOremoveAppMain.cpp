@@ -91,8 +91,8 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("name"s, "Application name"s,
                                                                                       nImO::ArgumentMode::Required)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -111,7 +111,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::GetShortComputerName()};
             auto                ourContext{std::make_shared<nImO::UtilityContext>("removeApp"s, optionValues._logging)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {

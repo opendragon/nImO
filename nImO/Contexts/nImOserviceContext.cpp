@@ -276,7 +276,7 @@ nImO::ServiceContext::getHandler
 {
     ODL_OBJENTER(); //####
     ODL_S1s(commandName); //####
-    SpCommandHandler    handler{};
+    SpCommandHandler    handler;
 
     if (0 < commandName.size())
     {

@@ -156,7 +156,7 @@ nImO::StartAppCommandHandler::doIt
 
                                 if ((nullptr != appOptionsArray) && (nullptr != appParametersArray))
                                 {
-                                    StdStringVector commandLine{};
+                                    StdStringVector commandLine;
 
                                     // Prepend a default node name.
                                     commandLine.push_back(MakeOption("n"));

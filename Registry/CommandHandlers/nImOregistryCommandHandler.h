@@ -96,7 +96,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The Registry to use when processing a request. */
-            SpRegistry  _registry{};
+            SpRegistry  _registry;
 
         private :
             // Private fields.

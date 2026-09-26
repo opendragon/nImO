@@ -890,7 +890,7 @@ namespace Option_
      *static Option_::ArgStatus Numeric(const Option_::Option& option, bool msg)
      *{
      *char * endptr = 0;
-     *if (option.arg != 0 && strtol(option.arg, &endptr, 10)){};
+     *if (option.arg != 0 && strtol(option.arg, &endptr, 10));
      *if (endptr != option.arg && *endptr == 0)
      *return Option_::ARG_OK;
      *

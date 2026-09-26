@@ -96,8 +96,8 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::ChannelArgumentDescriptor>("from/to"s, "'Sending' or 'Receiving' channel"s,
                                                                                        nImO::ArgumentMode::Required, "/out"s)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::StandardOptions   optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::StandardOptions   optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -115,7 +115,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>("disconnect"s, optionValues._logging)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findTheRegistry(registryConnection))
             {

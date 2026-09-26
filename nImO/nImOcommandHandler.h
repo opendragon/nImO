@@ -216,7 +216,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The owning Context. */
-            SpServiceContext    _owner{};
+            SpServiceContext    _owner;
 
         private :
             // Private fields.

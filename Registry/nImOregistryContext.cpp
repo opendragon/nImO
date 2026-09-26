@@ -520,7 +520,7 @@ nImO::RegistryContext::makePortAnnouncement
                                                 ODL_LOG("announcer thread ended"); //####
                                             });
         ODL_P1(_announcerThread); //####
-        _pool.add_thread(_announcerThread);
+        addCustomThread(_announcerThread);
         if (nImO::NetworkingContext::gHasIpv4)
         {
             mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer),

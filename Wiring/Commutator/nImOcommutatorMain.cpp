@@ -98,8 +98,8 @@ main
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
     auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random routing"s,
                                                                                         nImO::ArgumentMode::Optional | nImO::ArgumentMode::Mutable, false)};
-    nImO::DescriptorVector  argumentList{};
-    nImO::ServiceOptions    optionValues{};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -123,7 +123,7 @@ main
                                                                  ! optionValues._suppressStandardSuffix)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, optionValues._missingMode, thisService, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection{};
+            nImO::Connection    registryConnection;
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addOutputChannelCallback{new nImO::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
             auto                longName{progName + " ["s + nodeName + "]"s};
@@ -232,7 +232,7 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    nImO::OutChannelVector  outChannels{};
+                                    nImO::OutChannelVector  outChannels;
 
                                     ourContext->collectOutputChannels(outChannels);
                                     addOutputChannelCallback->enable(nodeName, proxy, optionValues._outType);

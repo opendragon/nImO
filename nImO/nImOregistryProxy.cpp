@@ -1011,7 +1011,7 @@ nImO::ConvertApplicationListToMap
     ODL_P1(&applications); //####
     auto        result{std::make_shared<Map>()};
     auto        applicationSubMap{std::make_shared<Map>()};
-    std::string nodeName{};
+    std::string nodeName;
 
     for (const auto & walker : applications)
     {

@@ -38,6 +38,7 @@
 
 #include <nImOstandardOptions.h>
 
+#include <QtVersion>
 #include <regex>
 #include "sqlite3.h"
 
@@ -131,6 +132,7 @@ main
             std::string mdnsVersionString;
             std::string nImOversionString;
             std::string odlVersionString;
+            std::string qtVersionString;
             std::string sqlVersionString{SQLITE_VERSION};
 
             switch (optionValues._flavour)
@@ -139,14 +141,16 @@ main
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                    qtVersionString = nImO::SanitizeString(QT_VERSION_STR, true);
                     std::cout << nImOversionString << "\t" << odlVersionString << "\t" << mdnsVersionString << "\t" <<
-                                getBoostVersion() << "\t" << sqlVersionString << "\n";
+                                getBoostVersion() << "\t" << sqlVersionString << "\t" << qtVersionString << "\n";
                     break;
 
                 case nImO::OutputFlavour::kFlavourJSON :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_);
+                    qtVersionString = nImO::SanitizeString(QT_VERSION_STR);
                     std::cout << "{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nImOversionString <<
                                 CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                 odlVersionString << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "mdns_plusplus"
@@ -155,13 +159,16 @@ main
                                                         CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                 getBoostVersion() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "SQLite"
                                                         CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
-                                sqlVersionString << CHAR_DOUBLEQUOTE_ << " }\n";
+                                sqlVersionString << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Qt"
+                                                        CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                qtVersionString << CHAR_DOUBLEQUOTE_ << " }\n";
                     break;
 
                 case nImO::OutputFlavour::kFlavourNiMo :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_);
+                    qtVersionString = nImO::SanitizeString(QT_VERSION_STR);
                     std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
                                                     " " CHAR_DOUBLEQUOTE_ << nImOversionString <<
                                 CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "ODL" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
@@ -172,16 +179,19 @@ main
                                                         CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
                                 getBoostVersion() << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "SQLite"
                                                         CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
-                                sqlVersionString << CHAR_DOUBLEQUOTE_ << " " << nImO::kEndMapChar << "\n";
+                                sqlVersionString << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "Qt"
+                                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                qtVersionString << CHAR_DOUBLEQUOTE_ << " " << nImO::kEndMapChar << "\n";
                     break;
 
                 case nImO::OutputFlavour::kFlavourNormal :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                    qtVersionString = nImO::SanitizeString(QT_VERSION_STR, true);
                     std::cout << "nImO version: " << nImOversionString << ", ODL version: " <<
                                 odlVersionString << ", mdns_plusplus version: " << mdnsVersionString <<
-                                ", Boost version: " << getBoostVersion() << ", SQLite version: " << sqlVersionString << "\n";
+                                ", Boost version: " << getBoostVersion() << ", SQLite version: " << sqlVersionString << ", Qt version: " << qtVersionString << "\n";
                     break;
 
                 default :

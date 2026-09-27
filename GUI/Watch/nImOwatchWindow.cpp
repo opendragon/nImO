@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOwatchWindow.h
+//  File:       nImOwatchWindow.cpp
 //
 //  Project:    nImO
 //
@@ -57,7 +57,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for a callback function for adding input channels. */
+ @brief The class definition for a GUI window to continuously display information from #nImO. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -157,8 +157,10 @@ nImO::WatchWindow::createActions
     _watchLogAction->setChecked(true);
     _watchRegistrySearchAction = new QAction(tr("Watch for Registry search messages"));
     _watchRegistrySearchAction->setCheckable(true);
+    _watchRegistrySearchAction->setChecked(true);
     _watchStatusAction = new QAction(tr("Watch for status messages"), this);
     _watchStatusAction->setCheckable(true);
+    _watchStatusAction->setChecked(true);
     auto    optionsMenu{menuBar()->addMenu(tr("&Options"))};
     auto    viewMenu{menuBar()->addMenu(tr("&View"))};
 
@@ -221,19 +223,6 @@ nImO::WatchWindow::isWatchStatusChecked
     ODL_EXIT_B(result); //####
     return result;
 }   // nImO::WatchWindow::isWatchStatusChecked
-
-void
-nImO::WatchWindow::scrollToLastLine
- (void)
-{
-    ODL_ENTER(); //####
-    auto    horiz{_textWidget->horizontalScrollBar()};
-    auto    vert{_textWidget->verticalScrollBar()};
-
-    horiz->setValue(horiz->minimum());
-    vert->setValue(vert->maximum());
-    ODL_EXIT(); //####
-}   // nImO::WatchWindow::scrollToLastLine
 
 void
 nImO::WatchWindow::stopRunning

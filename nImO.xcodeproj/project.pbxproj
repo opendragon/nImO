@@ -748,6 +748,8 @@
 		F6F0F3A329828DA100E8A1CE /* nImOregistryTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistryTest.cpp; path = Tests/nImOregistryTest.cpp; sourceTree = "<group>"; };
 		F6F0F3A429828DA100E8A1CE /* nImOregistryTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOregistryTest.rc.in; path = Tests/nImOregistryTest.rc.in; sourceTree = "<group>"; };
 		F6F1D465294CE0E5000B48A7 /* nImOcommonSettings.cmake */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOcommonSettings.cmake; sourceTree = "<group>"; };
+		F6F62CAF30692A3C0070C375 /* nImOwatchThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOwatchThread.h; sourceTree = "<group>"; };
+		F6F62CB030692A600070C375 /* nImOwatchThread.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOwatchThread.cpp; sourceTree = "<group>"; };
 		F6F875F72F83B762004A9574 /* nImOvector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOvector.h; path = nImO/Containers/nImOvector.h; sourceTree = "<group>"; };
 		F6F875F82F83B762004A9574 /* nImOvector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOvector.cpp; path = nImO/Containers/nImOvector.cpp; sourceTree = "<group>"; };
 		F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOConfig.cmake; sourceTree = "<group>"; };
@@ -1975,6 +1977,8 @@
 		F6ACA6EB2DCD0EEE004A2336 /* Watch */ = {
 			isa = PBXGroup;
 			children = (
+				F6F62CB030692A600070C375 /* nImOwatchThread.cpp */,
+				F6F62CAF30692A3C0070C375 /* nImOwatchThread.h */,
 				F63A9F0E3067D46E00FB4A85 /* nImOwatchWindow.cpp */,
 				F63A9F0D3067D45C00FB4A85 /* nImOwatchWindow.h */,
 				F6ACA6E82DCD0EEE004A2336 /* nImOwatch.rc.in */,

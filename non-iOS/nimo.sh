@@ -31,6 +31,7 @@ function list_commands
     echo "    talk       read from the console and a channel and write to another"
 #    echo "    update     update an application"
     echo "    version    report the version numbers of the libraries"
+    echo "    watch      report on nImO in a scrollable window"
     echo "    write      read from the console and write to a channel"
 }
 
@@ -125,6 +126,9 @@ function usage_help
 #                ;;
             "version")
                 nImOversion -h
+                ;;
+            "watch")
+                nImOwatch -h
                 ;;
             "write")
                 nImOwrite -h
@@ -295,6 +299,9 @@ else
 #            ;;
         "version")
             nImOversion $*
+            ;;
+        "watch")
+            nImOwatch $*
             ;;
         "write")
             nImOwrite $*

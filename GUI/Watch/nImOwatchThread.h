@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOwatchWindow.h
+//  File:       nImOwatchThread.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a GUI window to continuously display information from nImO.
+//  Contains:   The class declaration for a thread to transfer information from nImO to a window.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,17 +32,18 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2026-09-26
+//  Created:    2026-09-27
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOwatchWindow_H_))
-# define nImOwatchWindow_H_ /* Header guard */
+#if (! defined(nImOwatchThread_H_))
+# define nImOwatchThread_H_ /* Header guard */
 
-# include <QMainWindow>
-# include <QAction>
+# include <nImOreceiveQueue.h>
 # include <QDebug>
-# include <QTextEdit>
+# include <QThread>
+//# include <QAction>
+//# include <QTextEdit>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -50,15 +51,26 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a GUI window to continuously display information from #nImO. */
+ @brief The class declaration for a thread to transfer information from #nImO to a window. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a GUI window for the application. */
-    class WatchWindow : public QMainWindow
+    /*! @brief The source of a message. */
+    enum MessageSource
+    {
+        /*! @brief The message was from a log source. */
+        kMessageFromLog = 1,
+        /*! @brief The message was from a Registry search. */
+        kMessageFromRegistrySearch,
+        /*! @brief The message is a status report. */
+        kMessageFromStatus
+    };  // MessageSource
+
+    /*! @brief A class to monitor the receive queue for the application. */
+    class WatchThread final : public QThread
     {
         public :
             // Public type definitions.
@@ -70,79 +82,39 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = QMainWindow;
+            using inherited = QThread;
 
             Q_OBJECT
 
-        public:
+        public :
             // Public methods.
 
-            /*! @brief The constructor.
-             @param[in] parent The owning Widget.
-             @param[in] flags The flags defining the behaviour of the window. */
-            WatchWindow
-                (QWidget *          parent = nullptr,
-                 Qt::WindowFlags    flags = Qt::WindowFlags());
+            /*! @brief The constructor. */
+            WatchThread
+                (nImO::ReceiveQueue &   theQueue,
+                 Ptr(QObject)           parent = nullptr);
 
             /*! @brief The destructor. */
-            virtual ~WatchWindow
+            virtual ~WatchThread
                 (void);
 
-            /*! @brief Check the state of the watch log flag.
-             @return @c true if watching log messages is enabled. */
-            bool
-            isWatchLogChecked
-                (void)
-                const;
+        signals:
+            // Public signals.
 
-            /*! @brief Check the state of the watch Registry search flag.
-             @return @c true if watching Registry search messages is enabled. */
-            bool
-            isWatchRegistrySearchChecked
-                (void)
-                const;
-
-            /*! @brief Check the state of the watch status flag.
-             @return @c true if watching status messages is enabled. */
-            bool
-            isWatchStatusChecked
-                (void)
-                const;
+            void
+            addLine
+                (QString    aLine);
 
         protected :
             // Protected methods.
 
+            void
+            run
+                (void)
+                override;
+
         private :
             // Private methods.
-
-            /*! @brief Set up the menus and actions for the window. */
-            void
-            createActions
-                (void);
-
-        private slots:
-            // Private slots.
-
-            /*! @brief Add a line to the text area.
-             @param[in] aLine The text to be added. */
-            void
-            addText
-                (QString    aLine);
-
-            /*! @brief Clear the text area. */
-            void
-            clearTextArea
-                (void);
-        
-            /*! @brief Display information about the application. */
-            void
-            describe
-                (void);
-
-            /*! @brief Signal to stop watching messages. */
-            void
-            stopRunning
-                (void);
 
         public :
             // Public fields.
@@ -152,21 +124,14 @@ namespace nImO
 
         private :
             // Private fields.
+        
+            /*! @brief The sequence of received messages. */
+            ReceiveQueue &  _receiveQueue;
 
-            /*! @brief The embedded text area. */
-            QTextEdit * _textWidget{nullptr};
+    }; // WatchThread
 
-            /*! @brief The menu item that controls watching for log messages. */
-            QAction *   _watchLogAction{nullptr};
-
-            /*! @brief The menu item that controls watching for registry search messages. */
-            QAction *   _watchRegistrySearchAction{nullptr};
-
-            /*! @brief The menu item that controls watching for status messages. */
-            QAction *   _watchStatusAction{nullptr};
-
-    };  // WatchWindow
+    /*! @brief Set to @c true to cause the watch thread to terminate. */
+    extern std::atomic_bool gWatchThreadStop;
 
 } // nImO
-
-#endif // not defined(nImOwatchWindow_H_)
+#endif // not defined(nImOwatchThread_H_)

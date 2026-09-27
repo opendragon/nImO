@@ -91,12 +91,6 @@ namespace nImO
                 (void)
                 override;
 
-            /*! @brief Add a custom thread to the thread pool.
-             @param[in] customThread The thread to add to the pool. */
-            void
-            addCustomThread
-                (boost::thread *    customThread);
-
             /*! @brief Is this an InputOutputContext?
              @return @c nullptr. */
             virtual Ptr(InputOutputContext)
@@ -188,6 +182,12 @@ namespace nImO
 
         protected :
             // Protected methods.
+
+            /*! @brief Add a custom thread to the thread pool.
+             @param[in] customThread The thread to add to the pool. */
+            void
+            addCustomThread
+                (boost::thread *    customThread);
 
             /*! @brief Return @c true if logging has been enabled.
              @return @c true if logging is enabled. */

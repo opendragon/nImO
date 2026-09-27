@@ -36,19 +36,20 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <BasicTypes/nImOinteger.h>
-#include <BasicTypes/nImOstring.h>
-#include <Containers/nImOstringBuffer.h>
-#include <Containers/nImOarray.h>
-#include <Containers/nImOmap.h>
+#include "nImOwatchThread.h"
+#include "nImOwatchWindow.h"
+
+//#include <BasicTypes/nImOinteger.h>
+//#include <BasicTypes/nImOstring.h>
+//#include <Containers/nImOstringBuffer.h>
+//#include <Containers/nImOarray.h>
+//#include <Containers/nImOmap.h>
 #include <Contexts/nImOsearchContext.h>
 #include <nImOcallbackFunction.h>
 #include <nImOmainSupport.h>
 #include <nImOreceiveFromMulticast.h>
-#include <nImOreceiveQueue.h>
 #include <nImOstandardOptions.h>
 #include <QApplication>
-#include "nImOwatchWindow.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -75,22 +76,8 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The source of a message. */
-enum MessageSource
-{
-    /*! @brief The message was from a log source. */
-    kMessageFromLog = 1,
-    /*! @brief The message was from a Registry search. */
-    kMessageFromRegistrySearch,
-    /*! @brief The message is a status report. */
-    kMessageFromStatus
-};  // MessageSource
-
 /*! @brief The sequence of received messages. */
 static nImO::ReceiveQueue   lReceiveQueue;
-
-/*! @brief Set to @c true to cause the wather thread to terminate. */
-static std::atomic_bool lWatcherThreadStop;
 
 /*! @brief A class to provide values that are used for handling callbacks for the application. */
 class WatchBreakHandler final : public nImO::CallbackFunction
@@ -132,7 +119,8 @@ class WatchBreakHandler final : public nImO::CallbackFunction
         {
             ODL_OBJENTER(); //####
             lReceiveQueue.stop();
-            lWatcherThreadStop = true;
+            nImO::gWatchThreadStop = true;
+            ODL_B1(nImO::gWatchThreadStop); //####
             ODL_OBJEXIT_B(true); //####
             return true;
         }
@@ -155,210 +143,6 @@ class WatchBreakHandler final : public nImO::CallbackFunction
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
-
-/*! @brief Process messages from the various sources.
- @param[in] theWindow   The window that is to receive the messages. */
-static void
-executeWatcher
-    (Ptr(nImO::WatchWindow) theWindow)
-{
-    for ( ; nImO::gKeepRunning && (! lWatcherThreadStop); )
-    {
-        if (lReceiveQueue.hasMessage())
-        {
-            auto    nextData{lReceiveQueue.getNextMessage()};
-            auto    tag{nextData->_tag};
-            bool    processThisMessage;
-
-            switch (tag)
-            {
-                case kMessageFromLog :
-                    processThisMessage = theWindow->isWatchLogChecked();
-                    break;
-
-                case kMessageFromRegistrySearch :
-                    processThisMessage = theWindow->isWatchRegistrySearchChecked();
-                    break;
-
-                case kMessageFromStatus :
-                    processThisMessage = theWindow->isWatchStatusChecked();
-                    break;
-
-                default :
-                    processThisMessage = false;
-                    break;
-
-            }
-            if (nImO::gKeepRunning && processThisMessage && (! lWatcherThreadStop))
-            {
-                time_t              rawTime;
-                std::string         nowAsString;
-                BAIP::address_v4    sender{nextData->_receivedAddress};
-                char                timeBuffer[80];
-                auto                addressString{"["s + sender.to_string() + "]"s};
-                nImO::StringBuffer  aLine;
-                nImO::StringBuffer  bLine;
-
-                time(&rawTime);
-                strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
-                if (auto asMap{nextData->_receivedMessage->asMap()}; nullptr == asMap)
-                {
-                    // 'old' style or a status message
-                    if (auto asArray{nextData->_receivedMessage->asArray()}; nullptr == asArray)
-                    {
-                        aLine.addString(addressString);
-                        aLine.addString(timeBuffer);
-                        if (auto asString{nextData->_receivedMessage->asString()}; nullptr == asString)
-                        {
-                            nextData->_receivedMessage->printToStringBuffer(bLine);
-                            aLine.addBuffer(bLine);
-                            bLine.reset();
-                        }
-                        else
-                        {
-                            aLine.addString(asString->getValue());
-                        }
-                        theWindow->addText(aLine.getString().c_str());
-                    }
-                    else
-                    {
-                        for (size_t ii{0}, numElements{asArray->size()}; ii < numElements; ++ii)
-                        {
-                            auto    element{asArray->at(ii)};
-
-                            aLine.addString(addressString);
-                            aLine.addString(timeBuffer);
-                            if (auto asString{element->asString()}; nullptr == asString)
-                            {
-                                element->printToStringBuffer(bLine);
-                                aLine.addBuffer(bLine);
-                                bLine.reset();
-                            }
-                            else
-                            {
-                                aLine.addString(asString->getValue());
-                            }
-                            theWindow->addText(aLine.getString().c_str());
-                            aLine.reset();
-                        }
-                    }
-                }
-                else
-                {
-                    auto            commandPortKey{std::make_shared<nImO::String>(nImO::kCommandPortKey)};
-                    auto            computerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
-                    auto            tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
-                    auto            messageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
-                    // Get the computer name
-                    nImO::SpValue   theComputerName;
-                    nImO::SpValue   theCommandPort;
-                    nImO::SpValue   theTag;
-
-                    if (auto anIterator{asMap->find(computerNameKey)}; anIterator == asMap->end())
-                    {
-                        theComputerName = nullptr;
-                    }
-                    else
-                    {
-                        theComputerName = anIterator->second;
-                    }
-                    // Get the command port
-                    if (auto anIterator{asMap->find(commandPortKey)}; anIterator == asMap->end())
-                    {
-                        theCommandPort = nullptr;
-                    }
-                    else
-                    {
-                        theCommandPort = anIterator->second;
-                    }
-                    // Get the tag
-                    if (auto anIterator{asMap->find(tagKey)}; anIterator == asMap->end())
-                    {
-                        theTag = nullptr;
-                    }
-                    else
-                    {
-                        theTag = anIterator->second;
-                    }
-                    // Get the message
-                    if (auto anIterator{asMap->find(messageKey)}; anIterator != asMap->end())
-                    {
-                        auto        theMessage{anIterator->second};
-                        std::string tagText;
-                        std::string computerNameText;
-                        std::string commandPortText;
-
-                        if (theTag)
-                        {
-                            if (auto asString{theTag->asString()}; nullptr != asString)
-                            {
-                                tagText = "#"s + asString->getValue();
-                            }
-                        }
-                        if (theComputerName)
-                        {
-                            if (auto asString{theComputerName->asString()}; nullptr != asString)
-                            {
-                                computerNameText = asString->getValue();
-                            }
-                        }
-                        if (theCommandPort)
-                        {
-                            if (auto asInteger{theCommandPort->asInteger()}; nullptr != asInteger)
-                            {
-                                commandPortText = "-"s + std::to_string(asInteger->getIntegerValue());
-                            }
-                        }
-                        auto    prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};
-
-                        if (auto asArray{theMessage->asArray()}; nullptr == asArray)
-                        {
-                            aLine.addString(prefix);
-                            if (auto asString{theMessage->asString()}; nullptr == asString)
-                            {
-                                theMessage->printToStringBuffer(bLine);
-                                aLine.addBuffer(bLine);
-                                bLine.reset();
-                            }
-                            else
-                            {
-                                aLine.addString(asString->getValue());
-                            }
-                            theWindow->addText(aLine.getString().c_str());
-                        }
-                        else
-                        {
-                            for (size_t ii{0}, numElements{asArray->size()}; ii < numElements; ++ii)
-                            {
-                                auto    element{asArray->at(ii)};
-
-                                aLine.addString(prefix);
-                                if (auto asString{element->asString()}; nullptr == asString)
-                                {
-                                    element->printToStringBuffer(bLine);
-                                    aLine.addBuffer(bLine);
-                                    bLine.reset();
-                                }
-                                else
-                                {
-                                    aLine.addString(asString->getValue());
-                                }
-                                theWindow->addText(aLine.getString().c_str());
-                                aLine.reset();
-                            }
-                        }
-                    }
-                }
-                nextData.reset();
-            }
-            theWindow->scrollToLastLine();
-        }
-        else
-        {
-            boost::this_thread::yield();
-        }
-    }
-}   // executeWatcher
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -401,29 +185,23 @@ main
             auto                loggingConnection{ourContext.getLoggingInfo()};
             auto                registrySearchConnection{ourContext.getRegistrySearchInfo()};
             auto                statusConnection{ourContext.getStatusInfo()};
-            auto                logReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), loggingConnection, lReceiveQueue, kMessageFromLog)};
+            auto                logReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), loggingConnection, lReceiveQueue, nImO::kMessageFromLog)};
             auto                registrySearchReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), registrySearchConnection, lReceiveQueue,
-                                                                                                    kMessageFromRegistrySearch)};
-            auto                statusReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue, kMessageFromStatus)};
+                                                                                                    nImO::kMessageFromRegistrySearch)};
+            auto                statusReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue, nImO::kMessageFromStatus)};
 
             nImO::SetSpecialBreakObject(new WatchBreakHandler);
-            auto    watcherThread{new boost::thread([window]
-                                                    (void)
-                                                    {
-                                                        ODL_LOG("watcher thread started"); //####
-                                                        executeWatcher(window);
-                                                        ODL_LOG("watcher thread ended"); //####
-                                                    })};
+            auto    watchThread{new nImO::WatchThread(lReceiveQueue, window)};
 
-            ODL_P1(watcherThread); //####
-            ourContext.addCustomThread(watcherThread);
+            ODL_P1(watchThread); //####
+            QObject::connect(watchThread, SIGNAL(addLine(QString)), window, SLOT(addText(QString)));
+            watchThread->start();
             exitCode = app.exec();
-            if (nullptr != watcherThread)
+            if (nullptr != watchThread)
             {
-                lWatcherThreadStop = true;
-                ODL_B1(lWatcherThreadStop); //####
-                watcherThread->join();
-                watcherThread = nullptr;
+                nImO::gWatchThreadStop = true;
+                ODL_B1(nImO::gWatchThreadStop); //####
+                watchThread = nullptr;
             }
         }
         catch (const std::string &  fault)

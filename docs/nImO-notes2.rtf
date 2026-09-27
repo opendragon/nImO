@@ -1,10 +1,10 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2870
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Bold;\f2\fswiss\fcharset0 Helvetica-Bold;
 \f3\fmodern\fcharset0 Courier-BoldOblique;}
-{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red127\green127\blue127;
-\red255\green255\blue255;}
-{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c57046\c57047\c57046;
-\cssrgb\c100000\c100000\c100000;}
+{\colortbl;\red255\green255\blue255;\red127\green127\blue127;\red0\green0\blue0;\red255\green255\blue255;
+}
+{\*\expandedcolortbl;;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;
+}
 \margl1440\margr1440\vieww25020\viewh22460\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
@@ -40,7 +40,8 @@ GUI:\
 \f1\b nImOread
 \f0\b0  but GUI-based\
 * nImOmanage - GUI application to display and control nImO applications\
-* nImOwatch - like 
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 * nImOwatch - like 
 \f1\b nImOlog
 \f0\b0  but GUI-based\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
@@ -196,9 +197,13 @@ wiring:\
 shell script:\
 * nimo\
 	provides a 'simplified' command-line interface to some of the executables, using the default options \
-\cf4 		nimo adda <a> - invokes nImOaddApp <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 		nimo adda <a> - invokes nImOaddApp <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 		nImO addc <a> <b> - invokes nImOaddChannel <a> <b>\
-\cf4 		nimo bridge <a> <b> - invokes nImObridge <a> <b>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 		nimo bridge <a> <b> - invokes nImObridge <a> <b>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 		nimo check - invokes nImOcheck\
 		nimo clean <a> - invokes nImOclean <a>\
 		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
@@ -207,29 +212,36 @@ shell script:\
 		nimo getpv <a> <b> - invokes nImOgetParameterValue <a> <b>\
 		nimo help - lists choices\
 		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\
-\cf4 		nimo loada <a> - invokes nImOloadApps <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 		nimo loada <a> - invokes nImOloadApps <a>\
 		nimo loads <a> - invokes nImOloadSetup <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 		nimo log - invokes nImOlog\
 		nimo playback <a> <b> <c> - invokes nImOplayback <a> <b> <c>\
 		nimo post <a> <b> - invokes nImOport <a> <b>\
 		nimo read - invokes nImOread\
 		nimo record <a> - invokes nImOrecord <a>\
-\cf4 		nimo remove <a> - invokes nImOremoveApp <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 		nimo remove <a> - invokes nImOremoveApp <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 		nimo setpv <a> <b> <c> - invokes nImOsetParameterValue <a> <b> <c>\
 		nimo start <a> <b> - invokes nImOstart <a> <b>\
 		nimo stop <a> - invokes nImOstop <a>\
-\cf4 		nimo storea <a> - invokes nImOstoreApps <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 		nimo storea <a> - invokes nImOstoreApps <a>\
 		nimo stores <a> - invokes nImOstoreSetup <a>\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 		nimo talk - invokes nImOtalk\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf4 		nimo update <a> - invokes nImOupdateApp <a>\
+\cf2 		nimo update <a> - invokes nImOupdateApp <a>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 		nimo version - invokes nImOversion\
+		niko watch - invokes nImOwatch\
 		nimo write - invokes nImOwrite\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f2\b \cf3 \cb5 \expnd0\expndtw0\kerning0
+\f2\b \cf3 \cb4 \expnd0\expndtw0\kerning0
 fix CMakeLists.txt to use current SWIG commands; check what languages can be generated - currently Python and C#
 \f0\b0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
 1. can Ansible be used for the initial deployment - installing nImOmanage, nImOregistry, nImOlauncher, tools and services plus starting nImOlauncher and nImOregistry?\

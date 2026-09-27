@@ -140,14 +140,22 @@ nImO::WatchWindow::createActions
     (void)
 {
     ODL_ENTER(); //####
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
     auto    aboutAction{new QAction(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout), tr("&About"), this)};
+#else   /* QT_VERSION < QT_VERSION_CHECK(6, 7, 0) */
+    auto    aboutAction{new QAction(tr("&About"), this)};
+#endif  /* QT_VERSION < QT_VERSION_CHECK(6, 7, 0) */
 
     aboutAction->setStatusTip(tr("Show the application's About box"));
     connect(aboutAction, &QAction::triggered, this, &WatchWindow::describe);
     auto    clearTextAction{new QAction(tr("Clear Text Area"), this)};
 
     connect(clearTextAction, &QAction::triggered, this, &WatchWindow::clearTextArea);
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
     auto    exitAction{new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ApplicationExit), tr("E&xit"), this)};
+#else   /* QT_VERSION < QT_VERSION_CHECK(6, 7, 0) */
+    auto    exitAction{new QAction(tr("E&xit"), this)};
+#endif  /* QT_VERSION < QT_VERSION_CHECK(6, 7, 0) */
 
     exitAction->setShortcuts(QKeySequence::Quit);
     exitAction->setStatusTip(tr("Exit the application"));

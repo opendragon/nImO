@@ -57,6 +57,10 @@ qt_add_executable(${THIS_TARGET}
                     ${THIS_SOURCE_DIR}/nImOchartMain.cpp
                     ${VERS_RESOURCE})
 
+if(APPLE)
+#    set_target_properties(${THIS_TARGET} PROPERTIES MACOSX_BUNDLE TRUE)
+endif()
+
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
 # processed once.
 target_link_libraries(${THIS_TARGET}

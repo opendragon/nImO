@@ -38,7 +38,7 @@
 
 #include <nImOstandardOptions.h>
 
-#include <qconfig.h>
+#include <QtCore>
 #include <regex>
 #include "sqlite3.h"
 

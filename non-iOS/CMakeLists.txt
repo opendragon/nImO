@@ -57,7 +57,8 @@ if(APPLE)
 endif()
 
 project(nImO
-        HOMEPAGE_URL "https://github.com/opendragon/nImO")
+        HOMEPAGE_URL "https://github.com/opendragon/nImO"
+        LANGUAGES CXX OBJC)
 
 include(../nImOcommonSettings.cmake NO_POLICY_SCOPE)
 

@@ -54,6 +54,7 @@ qt_standard_project_setup()
 
 # Set up our program
 qt_add_executable(${THIS_TARGET}
+                    #WIN32 MACOSX_BUNDLE
                     ${THIS_SOURCE_DIR}/nImOwatchMain.cpp
                     ${THIS_SOURCE_DIR}/nImOwatchThread.cpp
                     ${THIS_SOURCE_DIR}/nImOwatchWindow.cpp
@@ -68,7 +69,7 @@ if(APPLE)
     #set(MACOSX_BUNDLE_INFO_STRING, "")
     set(MACOSX_BUNDLE_LONG_VERSION_STRING, "${nImO_VERSION}")
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING, "${nImO_VERSION}")
-    set_target_properties(${THIS_TARGET} PROPERTIES MACOSX_BUNDLE TRUE)
+#    set_target_properties(${THIS_TARGET} PROPERTIES MACOSX_BUNDLE TRUE)
 endif()
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -82,9 +83,20 @@ target_link_libraries(${THIS_TARGET}
 
 fix_dynamic_libs(${THIS_TARGET})
 
+#install(TARGETS
+#        ${THIS_TARGET}
+#        BUNDLE DESTINATION .
+#        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDER}
+#        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS
         ${THIS_TARGET}
         DESTINATION bin
         COMPONENT applications)
+
+#qt_generate_deploy_app_script(TARGET
+#                                ${THIS_TARGET}
+#                                OUTPUT_SCRIPT deploy_script
+#                                NO_UNSUPPORTED_PLATFORM_ERROR)
+#install(SCRIPT ${deploy_script})
 
 enable_testing()

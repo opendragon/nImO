@@ -40,6 +40,16 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 set(PROJECT_NAME "nImO")
 
+if(APPLE)
+    project(${PROJECT_NAME}
+            HOMEPAGE_URL "https://github.com/opendragon/nImO"
+            LANGUAGES CXX OBJC)
+else()
+    project(${PROJECT_NAME}
+            HOMEPAGE_URL "https://github.com/opendragon/nImO"
+            LANGUAGES CXX)
+endif()
+
 if(WIN32)
     set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE INTERNAL "" FORCE)
 endif()
@@ -55,10 +65,6 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES ${CPU_TYPE} CACHE STRING "Build architectures for Mac OSX")
     set(CMAKE_OSX_DEPLOYMENT_TARGET ${SYS_VERSION} CACHE STRING "Deployment target for Mac OSX")
 endif()
-
-project(nImO
-        HOMEPAGE_URL "https://github.com/opendragon/nImO"
-        LANGUAGES CXX OBJC)
 
 include(../nImOcommonSettings.cmake NO_POLICY_SCOPE)
 

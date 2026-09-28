@@ -201,7 +201,7 @@ main
             {
                 nImO::gWatchThreadStop = true;
                 ODL_B1(nImO::gWatchThreadStop); //####
-                watchThread->quit();
+                watchThread->terminate();
                 watchThread->wait();
             }
         }

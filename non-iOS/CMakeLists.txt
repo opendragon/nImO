@@ -42,7 +42,7 @@ set(PROJECT_NAME "nImO")
 
 project(${PROJECT_NAME}
         HOMEPAGE_URL "https://github.com/opendragon/nImO"
-        LANGUAGES CXX)
+        LANGUAGES C CXX)
 
 if(WIN32)
     set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE INTERNAL "" FORCE)

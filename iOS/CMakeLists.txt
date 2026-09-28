@@ -44,7 +44,7 @@ include(iOS.cmake)
 
 project(nImO
         HOMEPAGE_URL "https://github.com/opendragon/nImO"
-        LANGUAGES CXX)
+        LANGUAGES C CXX)
 
 include(../nImOcommonSettings.cmake NO_POLICY_SCOPE)
 

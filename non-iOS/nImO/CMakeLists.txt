@@ -219,7 +219,7 @@ add_library(${THIS_TARGET}
             "${nImO_THIRD_PARTY_DIR}/whereami.c")
 
 target_link_libraries(${THIS_TARGET}
-                        ${ODL_LIBRARY}
+                        ${odl_LIBRARY}
                         ${BONJOUR_LIB}
                         ${Boost_LIBRARIES})
 
@@ -230,7 +230,7 @@ endif()
 
 if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET_LIB})
+                        ${odl_LIBRARY_ROOT} ${odl_LIBRARY} ${THIS_TARGET_LIB})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -id
                         ${THIS_TARGET_LIB} ${THIS_TARGET_LIB})
@@ -710,7 +710,7 @@ if(nImO_DO_SWIG)
 
     swig_link_libraries(${OTHER_TARGET_PYTHON}
                         ${THIS_TARGET}
-                        ${ODL_LIBRARY}
+                        ${odl_LIBRARY}
                         ${PYTHON_LIBRARIES})
 
 # Note the modified target name!

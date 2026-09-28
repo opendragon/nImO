@@ -188,13 +188,13 @@ endif()
 
 # The following is to help CMake find ODL...
 if(WIN32)
-    set(ODL_DIR "C:/Program Files/ODL/lib")
+    set(odl_DIR "C:/Program Files/ODL/lib")
 else()
-    set(ODL_DIR "/opt/odl/lib")
+    set(odl_DIR "/opt/odl/lib")
 endif()
-find_package(ODL 1.0.0 REQUIRED)
-if(ODL_FOUND)
-    include_directories(${ODL_INCLUDE_DIRS})
+find_package(odl 1.0.0 REQUIRED)
+if(odl_FOUND)
+    include_directories(${odl_INCLUDE_DIRS})
 endif()
 
 # The following is to help CMake find mdns_plusplus...
@@ -224,7 +224,7 @@ else()
     set(DL_LIB "")
 endif()
 
-set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS} Threads::Threads ${DL_LIB})
+set(nImO_LINK_LIBRARIES nImOcommon ${odl_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS} Threads::Threads ${DL_LIB})
 
 if(LINUX)
 #    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} dns_sd)
@@ -236,7 +236,7 @@ if(APPLE)
                             libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${target})
 
         add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                            ${ODL_LIBRARY_ROOT} "@rpath/${ODL_LIBRARY_ROOT}" ${target})
+                            ${odl_LIBRARY_ROOT} "@rpath/${odl_LIBRARY_ROOT}" ${target})
 
     endfunction()
 elseif(UNIX)

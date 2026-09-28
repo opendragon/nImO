@@ -91,10 +91,10 @@ include_directories("${nImO_SOURCE_DIR}/nImO")
 
 set(BONJOUR_LIB "")
 
-set(ODL_DIR "/opt/odl/lib")
-find_package(ODL 1.0.0 REQUIRED)
-if(ODL_FOUND)
-    include_directories(${ODL_INCLUDE_DIRS})
+set(odl_DIR "/opt/odl/lib")
+find_package(odl 1.0.0 REQUIRED)
+if(odl_FOUND)
+    include_directories(${odl_INCLUDE_DIRS})
 endif()
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
@@ -103,7 +103,7 @@ find_package(Threads REQUIRED)
 
 set(OTHER_LIBS "")
 
-set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${Boost_LIBRARIES} ${BONJOUR_LIB} ${OTHER_LIBS}
+set(nImO_LINK_LIBRARIES nImOcommon ${odl_LIBRARY} ${Boost_LIBRARIES} ${BONJOUR_LIB} ${OTHER_LIBS}
     Threads::Threads)
 
 function(fix_dynamic_libs target)

@@ -140,7 +140,7 @@ main
                 case nImO::OutputFlavour::kFlavourTabs :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
-                    odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                    odlVersionString = nImO::SanitizeString(odl_VERSION_, true);
                     qtVersionString = nImO::SanitizeString(QT_VERSION_STR, true);
                     std::cout << nImOversionString << "\t" << odlVersionString << "\t" << mdnsVersionString << "\t" <<
                                 getBoostVersion() << "\t" << sqlVersionString << "\t" << qtVersionString << "\n";
@@ -149,7 +149,7 @@ main
                 case nImO::OutputFlavour::kFlavourJSON :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_);
-                    odlVersionString = nImO::SanitizeString(ODL_VERSION_);
+                    odlVersionString = nImO::SanitizeString(odl_VERSION_);
                     qtVersionString = nImO::SanitizeString(QT_VERSION_STR);
                     std::cout << "{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nImOversionString <<
                                 CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
@@ -167,7 +167,7 @@ main
                 case nImO::OutputFlavour::kFlavourNiMo :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_);
-                    odlVersionString = nImO::SanitizeString(ODL_VERSION_);
+                    odlVersionString = nImO::SanitizeString(odl_VERSION_);
                     qtVersionString = nImO::SanitizeString(QT_VERSION_STR);
                     std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
                                                     " " CHAR_DOUBLEQUOTE_ << nImOversionString <<
@@ -187,7 +187,7 @@ main
                 case nImO::OutputFlavour::kFlavourNormal :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
-                    odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
+                    odlVersionString = nImO::SanitizeString(odl_VERSION_, true);
                     qtVersionString = nImO::SanitizeString(QT_VERSION_STR, true);
                     std::cout << "nImO version: " << nImOversionString << ", ODL version: " <<
                                 odlVersionString << ", mdns_plusplus version: " << mdnsVersionString <<

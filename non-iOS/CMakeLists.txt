@@ -40,15 +40,9 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 set(PROJECT_NAME "nImO")
 
-if(APPLE)
-    project(${PROJECT_NAME}
-            HOMEPAGE_URL "https://github.com/opendragon/nImO"
-            LANGUAGES CXX OBJC)
-else()
-    project(${PROJECT_NAME}
-            HOMEPAGE_URL "https://github.com/opendragon/nImO"
-            LANGUAGES CXX)
-endif()
+project(${PROJECT_NAME}
+        HOMEPAGE_URL "https://github.com/opendragon/nImO"
+        LANGUAGES CXX)
 
 if(WIN32)
     set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE INTERNAL "" FORCE)

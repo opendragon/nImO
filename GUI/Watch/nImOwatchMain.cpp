@@ -191,19 +191,18 @@ main
             auto                statusReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue, nImO::kMessageFromStatus)};
 
             nImO::SetSpecialBreakObject(new WatchBreakHandler);
-            auto    watchThread{new nImO::WatchThread(lReceiveQueue, window)};
+            auto    watchThread{std::make_shared<nImO::WatchThread>(lReceiveQueue, window)};
 
             ODL_P1(watchThread); //####
-            QObject::connect(watchThread, SIGNAL(addLine(QString)), window, SLOT(addText(QString)));
+            QObject::connect(watchThread.get(), SIGNAL(addLine(QString)), window, SLOT(addText(QString)));
             watchThread->start();
             exitCode = app.exec();
-            if (nullptr != watchThread)
+            if (watchThread)
             {
                 nImO::gWatchThreadStop = true;
                 ODL_B1(nImO::gWatchThreadStop); //####
                 watchThread->quit();
                 watchThread->wait();
-                watchThread = nullptr;
             }
         }
         catch (const std::string &  fault)

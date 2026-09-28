@@ -60,7 +60,15 @@ qt_add_executable(${THIS_TARGET}
                     ${VERS_RESOURCE})
 
 if(APPLE)
-#    set_target_properties(${THIS_TARGET} PROPERTIES MACOSX_BUNDLE TRUE)
+    set(MACOSX_BUNDLE_BUNDLE_NAME "${THIS_TARGET}")
+    set(MACOSX_BUNDLE_BUNDLE_VERSION "${nImO_VERSION}")
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyright ${nImO_COMPANY} 2026")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER, "<unknown>")
+    #set(MACOSX_BUNDLE_ICON_FILE, "")
+    #set(MACOSX_BUNDLE_INFO_STRING, "")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING, "${nImO_VERSION}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING, "${nImO_VERSION}")
+    set_target_properties(${THIS_TARGET} PROPERTIES MACOSX_BUNDLE TRUE)
 endif()
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

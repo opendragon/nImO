@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 
 THIS_FILE_NAME=$(basename $0)
 

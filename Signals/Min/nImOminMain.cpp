@@ -102,7 +102,7 @@ class MinimumValueCollector final : public nImO::CallbackFunction
         /*! @brief The constructor. */
         inline MinimumValueCollector
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

@@ -78,7 +78,7 @@
 
 nImO::SinkBreakHandler::SinkBreakHandler
     (Ptr(SinkContext)   theContext) :
-        inherited(), _context(theContext)
+        inherited{}, _context{theContext}
 {
 } // nImO::SinkBreakHandler::SinkBreakHandler
 

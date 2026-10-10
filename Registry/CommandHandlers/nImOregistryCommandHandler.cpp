@@ -79,7 +79,7 @@
 nImO::RegistryCommandHandler::RegistryCommandHandler
     (SpServiceContext   owner,
      SpRegistry         theRegistry) :
-        inherited(owner), _registry(theRegistry)
+        inherited{owner}, _registry{theRegistry}
 {
     ODL_ENTER(); //####
     ODL_P2(owner.get(), theRegistry.get()); //####

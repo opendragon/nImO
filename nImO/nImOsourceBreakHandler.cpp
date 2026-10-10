@@ -78,7 +78,7 @@
 
 nImO::SourceBreakHandler::SourceBreakHandler
     (void) :
-        inherited()
+        inherited{}
 {
 } // nImO::SourceBreakHandler::SourceBreakHandler
 

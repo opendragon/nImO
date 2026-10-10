@@ -96,7 +96,7 @@ class LauncherBreakHandler final : public nImO::CallbackFunction
         /*! @brief The constructor. */
         inline LauncherBreakHandler
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

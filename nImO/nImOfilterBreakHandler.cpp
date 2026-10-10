@@ -78,7 +78,7 @@
 
 nImO::FilterBreakHandler::FilterBreakHandler
     (Ptr(FilterContext) theContext) :
-        inherited(), _context(theContext)
+        inherited{}, _context{theContext}
 {
 } // nImO::FilterBreakHandler::FilterBreakHandler
 

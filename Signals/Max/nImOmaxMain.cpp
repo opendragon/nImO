@@ -102,7 +102,7 @@ class MaximumValueCollector final : public nImO::CallbackFunction
         /*! @brief The constructor. */
         inline MaximumValueCollector
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

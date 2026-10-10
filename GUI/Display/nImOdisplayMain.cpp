@@ -102,7 +102,7 @@ class LogBreakHandler final : public nImO::CallbackFunction
         /*! @brief The constructor. */
         inline LogBreakHandler
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

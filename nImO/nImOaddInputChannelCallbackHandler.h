@@ -90,7 +90,7 @@ namespace nImO
                 (Ptr(nImO::InputOutputContext)  theContext,
                  const std::string &            basePath,
                  Ptr(CallbackFunction)          secondaryFunction = nullptr) :
-                    inherited(), _basePath(basePath), _context(theContext), _secondaryFunction(secondaryFunction)
+                    inherited{}, _basePath{basePath}, _context{theContext}, _secondaryFunction{secondaryFunction}
             {
             }
 

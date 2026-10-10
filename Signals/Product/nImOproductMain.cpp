@@ -102,7 +102,7 @@ class ProductValueCollector final : public nImO::CallbackFunction
         /*! @brief The constructor. */
         inline ProductValueCollector
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

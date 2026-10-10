@@ -81,7 +81,7 @@ nImO::ReceiveFromMulticast::ReceiveFromMulticast
      const nImO::Connection &   theConnection,
      nImO::ReceiveQueue &       theQueue,
      const int                  theTag) :
-        _queue(theQueue), _socket(*service), _tag(theTag)
+        _queue{theQueue}, _socket{*service}, _tag{theTag}
 {
     ODL_ENTER(); //####
     ODL_P2(service.get(), &theQueue); //####

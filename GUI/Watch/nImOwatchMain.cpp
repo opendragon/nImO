@@ -100,7 +100,7 @@ class WatchBreakHandler final : public nImO::CallbackFunction
         /*! @brief The constructor. */
         inline WatchBreakHandler
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

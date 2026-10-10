@@ -94,7 +94,7 @@ class SumValueCollector final : public nImO::CallbackFunction
         /*! @brief The constructor. */
         inline SumValueCollector
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

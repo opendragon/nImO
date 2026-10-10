@@ -89,7 +89,7 @@ std::atomic_bool    nImO::gWatchThreadStop;
 nImO::WatchThread::WatchThread
     (nImO::ReceiveQueue &   theQueue,
      Ptr(QObject)           parent) :
-        inherited(parent), _receiveQueue(theQueue)
+        inherited{parent}, _receiveQueue{theQueue}
 {
     ODL_ENTER(); //####
     ODL_P2(&theQueue, parent); //####

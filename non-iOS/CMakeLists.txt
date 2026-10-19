@@ -119,6 +119,7 @@ else()
     endif()
 endif()
 set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "Always set file paths as relative")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(WIN32)
     option(WIN64 "Build 64-bit binaries" ON)

@@ -72,6 +72,9 @@ option(nImO_ChattyStart "Report the version numbers when launching an executable
 #       option(nImO_ChattyTcpUdpLogging "Log the TCP/IP and UDP/IP operations")
 #mark_as_advanced(nImO_ChattyTcpUdpLogging)
 
+set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "Always set file paths as relative")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 #option(nImO_DO_SWIG "Build the SWIG files" OFF)
 
 # Add the nImO target path so that nImO can be found

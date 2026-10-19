@@ -37,6 +37,7 @@ nImO/swig_nImO_out_python
 nImOconfig.h
 nImOconfig.hpp
 nImOConfigVersion.cmake
+compile_commands.json
 non-iOS/examples/Ricochet/nImOricochet
 non-iOS/examples/Ricochet/nImOricochet.dir/
 non-iOS/examples/Ricochet/nImOricochet.rc

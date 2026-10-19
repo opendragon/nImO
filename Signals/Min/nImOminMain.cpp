@@ -114,7 +114,7 @@ class MinimumValueCollector final : public nImO::CallbackFunction
             (nImO::SpFilterContext  ourContext)
         {
             std::lock_guard<std::mutex> lock{_valuesLock};
-            double                      result;
+            double                      result{0};
             bool                        hasResult{false};
 
             for (size_t ii(0), maxI(_values.size()); ii < maxI; ++ii)

@@ -54,7 +54,7 @@ qt_standard_project_setup()
 
 # Set up our program
 qt_add_executable(${THIS_TARGET}
-                    #WIN32 MACOSX_BUNDLE
+                    WIN32 MACOSX_BUNDLE
                     ${THIS_SOURCE_DIR}/nImOwatchMain.cpp
                     ${THIS_SOURCE_DIR}/nImOwatchThread.cpp
                     ${THIS_SOURCE_DIR}/nImOwatchWindow.cpp
@@ -63,12 +63,12 @@ qt_add_executable(${THIS_TARGET}
 if(APPLE)
     set(MACOSX_BUNDLE_BUNDLE_NAME "${THIS_TARGET}")
     set(MACOSX_BUNDLE_BUNDLE_VERSION "${nImO_VERSION}")
-    set(MACOSX_BUNDLE_COPYRIGHT "Copyright ${nImO_COMPANY} 2026")
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyright 2026 ${nImO_COMPANY}")
     set(MACOSX_BUNDLE_GUI_IDENTIFIER, "<unknown>")
-    #set(MACOSX_BUNDLE_ICON_FILE, "")
-    #set(MACOSX_BUNDLE_INFO_STRING, "")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING, "${nImO_VERSION}")
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING, "${nImO_VERSION}")
+    #set(MACOSX_BUNDLE_ICON_FILE "")
+    set(MACOSX_BUNDLE_INFO_STRING "${nImO_VERSION}, Copyright 2026 ${nImO_COMPANY}")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${nImO_VERSION}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${nImO_VERSION}")
 #    set_target_properties(${THIS_TARGET} PROPERTIES MACOSX_BUNDLE TRUE)
 endif()
 
@@ -81,22 +81,32 @@ target_link_libraries(${THIS_TARGET}
                         Qt6::Gui
                         Qt6::Core)
 
-fix_dynamic_libs(${THIS_TARGET})
+#fix_dynamic_libs(${THIS_TARGET})
 
-#install(TARGETS
-#        ${THIS_TARGET}
-#        BUNDLE DESTINATION .
-#        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDER}
-#        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+qt_policy(SET QTP0007 NEW)
+
+if(APPLE)
+    set(deploy_tool_options_arg "")
+elseif(WIN32)
+    set(deploy_tool_options_arg -no-compiler-runtime)
+else()
+    set(deploy_tool_options_arg "")
+endif()
+
 install(TARGETS
         ${THIS_TARGET}
-        DESTINATION bin
-        COMPONENT applications)
+        BUNDLE DESTINATION .
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDER}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-#qt_generate_deploy_app_script(TARGET
-#                                ${THIS_TARGET}
-#                                OUTPUT_SCRIPT deploy_script
-#                                NO_UNSUPPORTED_PLATFORM_ERROR)
-#install(SCRIPT ${deploy_script})
+qt_generate_deploy_app_script(TARGET
+                                ${THIS_TARGET}
+                                OUTPUT_SCRIPT deploy_script
+                                NO_UNSUPPORTED_PLATFORM_ERROR
+                                DEPLOY_TOOL_OPTIONS ${deploy_tool_options_arg})
+
+install(SCRIPT ${deploy_script})
+
+fix_app_dynamic_libs(${THIS_TARGET})
 
 enable_testing()

@@ -173,8 +173,8 @@ configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nIm
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
                 ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake @ONLY)
 
-include_directories("${nImO_SOURCE_DIR}/nImO")
-include_directories("${nImO_THIRD_PARTY_DIR}")
+include_directories("${nImO_SOURCE_DIR}/nImO"
+                    "${nImO_THIRD_PARTY_DIR}")
 
 if(WIN32)
     set(BONJOUR_DIR "C:/Program Files/Bonjour SDK")
@@ -234,19 +234,37 @@ endif()
 
 if(APPLE)
     function(fix_dynamic_libs target)
-        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+        add_custom_command(TARGET ${target} POST_BUILD COMMAND install_name_tool -change
                             libnImOcommon.dylib "@rpath/libnImOcommon.dylib" ${target})
 
-        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+        add_custom_command(TARGET ${target} POST_BUILD COMMAND install_name_tool -change
                             ${odl_LIBRARY_ROOT} "@rpath/${odl_LIBRARY_ROOT}" ${target})
 
+    endfunction()
+    function(fix_app_dynamic_libs target)
+        add_custom_command(TARGET ${target}
+                            POST_BUILD COMMAND
+                            install_name_tool -change libnImOcommon.dylib
+                            @executable_path/../Frameworks/libnImOcommon.dylib ${target}.app/Contents/MacOS/${target})
+        add_custom_command(TARGET ${target}
+                            POST_BUILD COMMAND
+                            install_name_tool -change ${odl_LIBRARY_ROOT}
+                            @executable_path/../Frameworks/${odl_LIBRARY_ROOT} ${target}.app/Contents/MacOS/${target})
+        add_custom_command(TARGET ${target}
+                            POST_BUILD COMMAND
+                            install_name_tool -change "@rpath/${odl_LIBRARY_ROOT}"
+                            @executable_path/../Frameworks/${odl_LIBRARY_ROOT} ${target}.app/Contents/MacOS/${target})
     endfunction()
 elseif(UNIX)
     function(fix_dynamic_libs target)
     endfunction()
+    function(fix_app_dynamic_libs target)
+    endfunction()
 else()
 # Do nothing
     function(fix_dynamic_libs target)
+    endfunction()
+    function(fix_app_dynamic_libs target)
     endfunction()
 endif()
 

@@ -39,9 +39,11 @@
 #if (! defined(nImOwatchWindow_H_))
 # define nImOwatchWindow_H_ /* Header guard */
 
+# include <nImOcommon.h>
 # include <QMainWindow>
 # include <QAction>
 # include <QDebug>
+# include <QRegularExpression>
 # include <QTextEdit>
 
 # if defined(__APPLE__)
@@ -57,6 +59,120 @@
 
 namespace nImO
 {
+    // Forward declarations.
+    class WatchFilterDialog;
+
+    class WatchFilter final
+    {
+        public :
+            // Public type definitions.
+
+        protected :
+            // Protected type definitions.
+
+        private :
+
+            // Private type definitions.
+
+        public:
+            // Public methods.
+
+            /*! @brief The constructor.
+             @param[in] parent The owning Widget.
+             @param[in] flags The flags defining the behaviour of the window. */
+            WatchFilter
+                (void/*Ptr(QWidget)       parent = nullptr,
+                 Qt::WindowFlags    flags = Qt::WindowFlags()*/);
+
+            /*! @brief The destructor. */
+            ~WatchFilter
+                (void);
+
+            /*! @brief Check if the filter is case-insensitive.
+             @return @c true if the filter is case-insensitive. */
+            inline bool
+            isCaseInsensitive
+                (void)
+                const
+            {
+                return _caseInsensitive;
+            }
+
+            /*! @brief Check if the filter is enabled.
+             @return @c true if the filter is enabled. */
+            inline bool &
+            isEnabled
+                (void)
+            {
+                return _enabled;
+            }
+
+            /*! @brief Check if the filter is valid.
+             @return @c true if the filter is valid. */
+            inline bool &
+            isValid
+                (void)
+            {
+                return _valid;
+            }
+
+            /*! @brief Return the filter expression.
+             @return The filter expression. */
+            inline QString
+            expression
+                (void)
+                const
+            {
+                return _expression;
+            }
+
+            /*! @brief Check if a string matches the filter expression.
+             @param[in] inLine The string to check.
+             @return @c true if the string matches the filter expression. */
+            bool
+            matches
+                (QString    inLine);
+
+            /*! @brief Set  the filter expression.
+             @param[in] newExpression The filter expression.
+             @param[in] caseInsensitive @c true if not case-sensitive. */
+            void
+            setExpression
+                (QString    newExpression,
+                 const bool caseInsensitive);
+
+        protected :
+            // Protected methods.
+
+        private :
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+            /*! @brief @c true if the filter can be used.  */
+            bool    _caseInsensitive;
+
+            /*! @brief @c true if the filter can be used.  */
+            bool    _enabled;
+
+            /*! @brief The string version of the filter.  */
+            QString _expression;
+
+            /*! @brief The regular expression matching the provided string expression. */
+            QRegularExpression  _pattern;
+
+            /*! @brief @c true if the filter is useable.  */
+            bool    _valid;
+
+    };  // WatchFilter
+
     /*! @brief A class to provide a GUI window for the application. */
     class WatchWindow : public QMainWindow
     {
@@ -81,7 +197,7 @@ namespace nImO
              @param[in] parent The owning Widget.
              @param[in] flags The flags defining the behaviour of the window. */
             WatchWindow
-                (QWidget *          parent = nullptr,
+                (Ptr(QWidget)       parent = nullptr,
                  Qt::WindowFlags    flags = Qt::WindowFlags());
 
             /*! @brief The destructor. */
@@ -134,6 +250,16 @@ namespace nImO
             clearTextArea
                 (void);
         
+            /*! @brief Configure the 'exclude' filter. */
+            void
+            configureExcludeFilter
+                (void);
+
+            /*! @brief Configure the 'include' filter. */
+            void
+            configureIncludeFilter
+                (void);
+
             /*! @brief Display information about the application. */
             void
             describe
@@ -154,16 +280,34 @@ namespace nImO
             // Private fields.
 
             /*! @brief The embedded text area. */
-            QTextEdit * _textWidget{nullptr};
+            Ptr(QTextEdit)  _textWidget{nullptr};
 
-            /*! @brief The menu item that controls watching for log messages. */
-            QAction *   _watchLogAction{nullptr};
+            /*! @brief The menu item that specifies 'exclude' filtering.  */
+            Ptr(QAction)    _watchExcludeAction{nullptr};
 
-            /*! @brief The menu item that controls watching for registry search messages. */
-            QAction *   _watchRegistrySearchAction{nullptr};
+            /*! @brief The dialog to configure the 'exclude' filter. */
+            Ptr(WatchFilterDialog)  _watchExcludeDialog{nullptr};
+
+            /*! @brief The filter to handle explicit exclusion of text.  */
+            Ptr(WatchFilter)    _watchExcludeFilter{nullptr};
+
+            /*! @brief The menu item that specifies 'include' filtering.  */
+            Ptr(QAction)    _watchIncludeAction{nullptr};
+
+            /*! @brief The dialog to configure the 'include' filter. */
+            Ptr(WatchFilterDialog)  _watchIncludeDialog{nullptr};
+
+            /*! @brief The filter to handle explicit inclusion of text.  */
+            Ptr(WatchFilter)    _watchIncludeFilter{nullptr};
+
+            /*! @brief The menu item that controls watching for log messages.  */
+            Ptr(QAction)    _watchLogAction{nullptr};
+
+            /*! @brief The menu item that controls watching for registry search messages.  */
+            Ptr(QAction)    _watchRegistrySearchAction{nullptr};
 
             /*! @brief The menu item that controls watching for status messages. */
-            QAction *   _watchStatusAction{nullptr};
+            Ptr(QAction)    _watchStatusAction{nullptr};
 
     };  // WatchWindow
 

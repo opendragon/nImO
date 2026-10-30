@@ -42,8 +42,6 @@
 # include <nImOreceiveQueue.h>
 # include <QDebug>
 # include <QThread>
-//# include <QAction>
-//# include <QTextEdit>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

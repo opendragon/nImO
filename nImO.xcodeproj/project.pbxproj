@@ -587,6 +587,8 @@
 		F6E299922B8BD104006FEE77 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = AddChannel/resource.h; sourceTree = "<group>"; };
 		F6E299932B8BD104006FEE77 /* nImOaddChannel.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOaddChannel.rc.in; path = AddChannel/nImOaddChannel.rc.in; sourceTree = "<group>"; };
 		F6E299942B8BD104006FEE77 /* nImOaddChannelMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddChannelMain.cpp; path = AddChannel/nImOaddChannelMain.cpp; sourceTree = "<group>"; };
+		F6E452D93094A2B5006460AC /* nImOwatchFilterDialog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOwatchFilterDialog.cpp; sourceTree = "<group>"; };
+		F6E452DA3094A388006460AC /* nImOwatchFilterDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOwatchFilterDialog.h; sourceTree = "<group>"; };
 		F6E510812A19675600D52E80 /* nImOgetNamesOfNodesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNamesOfNodesResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.cpp; sourceTree = "<group>"; };
 		F6E510822A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllMachinesResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.cpp; sourceTree = "<group>"; };
 		F6E510832A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllMachinesResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h; sourceTree = "<group>"; };
@@ -1977,6 +1979,8 @@
 		F6ACA6EB2DCD0EEE004A2336 /* Watch */ = {
 			isa = PBXGroup;
 			children = (
+				F6E452D93094A2B5006460AC /* nImOwatchFilterDialog.cpp */,
+				F6E452DA3094A388006460AC /* nImOwatchFilterDialog.h */,
 				F6F62CB030692A600070C375 /* nImOwatchThread.cpp */,
 				F6F62CAF30692A3C0070C375 /* nImOwatchThread.h */,
 				F63A9F0E3067D46E00FB4A85 /* nImOwatchWindow.cpp */,

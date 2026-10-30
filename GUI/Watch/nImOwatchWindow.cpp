@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOwatchWindow.h"
+#include "nImOwatchFilterDialog.h"
 
 #include <nImOmainSupport.h>
 
@@ -86,8 +87,24 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+nImO::WatchFilter::WatchFilter
+    (void/*Ptr(QWidget)       parent,
+     Qt::WindowFlags    flags*/) :
+        _caseInsensitive{false}, _enabled{false}, _expression{""}, _valid{false}
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+}   // nImO::WatchFilter::WatchFilter
+
+nImO::WatchFilter::~WatchFilter
+    (void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT(); //####
+}   // nImO::WatchFilter::~WatchFilter
+
 nImO::WatchWindow::WatchWindow
-    (QWidget *          parent,
+    (Ptr(QWidget)       parent,
      Qt::WindowFlags    flags) :
         inherited{parent, flags}, _textWidget{new QTextEdit(this)}
 {
@@ -110,6 +127,18 @@ nImO::WatchWindow::~WatchWindow
 {
     ODL_ENTER(); //####
     stopRunning();
+    if (nullptr != _watchExcludeDialog)
+    {
+        _watchExcludeDialog->close();
+    }
+    delete _watchExcludeDialog;
+    if (nullptr != _watchIncludeDialog)
+    {
+        _watchIncludeDialog->close();
+    }
+    delete _watchIncludeDialog;
+    delete _watchExcludeFilter;
+    delete _watchIncludeFilter;
     ODL_EXIT(); //####
 }   // nImO::WatchWindow::~WatchWindow
 
@@ -117,12 +146,66 @@ nImO::WatchWindow::~WatchWindow
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+bool
+nImO::WatchFilter::matches
+    (QString    inLine)
+{
+    ODL_ENTER(); //####
+    QRegularExpressionMatch match{_pattern.match(inLine)};
+    bool                    matched{match.hasMatch()};
+
+    ODL_EXIT_B(matched); //####
+    return matched;
+}   // nImO::WatchFilter::matches
+
+void
+nImO::WatchFilter::setExpression
+    (QString    newExpression,
+     const bool caseInsensitive)
+{
+    ODL_ENTER(); //####
+    _expression = newExpression;
+    _pattern.setPattern(_expression);
+    if (caseInsensitive)
+    {
+        _pattern.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+    }
+    ODL_EXIT(); //####
+}   // nImO::WatchFilter::nImO::WatchFilter
+
 void
 nImO::WatchWindow::addText
     (QString    aLine)
 {
     ODL_ENTER(); //####
-    _textWidget->append(aLine);
+    bool    okToAdd;
+
+    if (nullptr == _watchIncludeFilter)
+    {
+        okToAdd = true;
+    }
+    else
+    {
+        if (_watchIncludeFilter->isEnabled() && _watchIncludeFilter->isValid())
+        {
+            okToAdd = _watchIncludeFilter->matches(aLine);
+        }
+        else
+        {
+            okToAdd = true;
+        }
+    }
+    if (okToAdd && (nullptr != _watchExcludeFilter))
+    {
+        if (_watchExcludeFilter->isEnabled() && _watchExcludeFilter->isValid())
+        {
+            okToAdd = (! _watchExcludeFilter->matches(aLine));
+        }
+    }
+    if (okToAdd)
+    {
+        _textWidget->append(aLine);
+    }
     ODL_EXIT(); //####
 }   // nImO::WatchWindow::addText
 
@@ -134,6 +217,44 @@ nImO::WatchWindow::clearTextArea
     _textWidget->clear();
     ODL_EXIT(); //####
 }   // nImO::WatchWindow::clearTextArea
+
+void
+nImO::WatchWindow::configureExcludeFilter
+    (void)
+{
+    ODL_ENTER(); //####
+    if (nullptr == _watchExcludeFilter)
+    {
+        _watchExcludeFilter = new WatchFilter;
+    }
+    if (nullptr == _watchExcludeDialog)
+    {
+        _watchExcludeDialog = new WatchFilterDialog{*_watchExcludeFilter, true, this};
+    }
+    _watchExcludeDialog->show();
+    _watchExcludeDialog->raise();
+    _watchExcludeDialog->activateWindow();
+    ODL_EXIT(); //####
+}   // nImO::WatchWindow::configureExcludeFilter
+
+void
+nImO::WatchWindow::configureIncludeFilter
+    (void)
+{
+    ODL_ENTER(); //####
+    if (nullptr == _watchIncludeFilter)
+    {
+        _watchIncludeFilter = new WatchFilter;
+    }
+    if (nullptr == _watchIncludeDialog)
+    {
+        _watchIncludeDialog = new WatchFilterDialog{*_watchIncludeFilter, false, this};
+    }
+    _watchIncludeDialog->show();
+    _watchIncludeDialog->raise();
+    _watchIncludeDialog->activateWindow();
+    ODL_EXIT(); //####
+}   // nImO::WatchWindow::configureIncludeFilter
 
 void
 nImO::WatchWindow::createActions
@@ -159,7 +280,12 @@ nImO::WatchWindow::createActions
 
     exitAction->setShortcuts(QKeySequence::Quit);
     exitAction->setStatusTip(tr("Exit the application"));
-    connect(exitAction, &QAction::triggered, this, &WatchWindow::stopRunning);//&QWidget::close);
+    connect(exitAction, &QAction::triggered, this, &WatchWindow::stopRunning);
+
+    _watchExcludeAction = new QAction(tr("Exclude filter ..."), this);
+    connect(_watchExcludeAction, &QAction::triggered, this, &WatchWindow::configureExcludeFilter);
+    _watchIncludeAction = new QAction(tr("Include filter ..."), this);
+    connect(_watchIncludeAction, &QAction::triggered, this, &WatchWindow::configureIncludeFilter);
     _watchLogAction = new QAction(tr("Watch for log messages"), this);
     _watchLogAction->setCheckable(true);
     _watchLogAction->setChecked(true);
@@ -175,6 +301,9 @@ nImO::WatchWindow::createActions
     optionsMenu->addAction(_watchLogAction);
     optionsMenu->addAction(_watchRegistrySearchAction);
     optionsMenu->addAction(_watchStatusAction);
+    optionsMenu->addSeparator();
+    optionsMenu->addAction(_watchExcludeAction);
+    optionsMenu->addAction(_watchIncludeAction);
     viewMenu->addAction(aboutAction);
     viewMenu->addAction(clearTextAction);
     viewMenu->addAction(exitAction); // This connects the action to the main menu!
@@ -186,7 +315,7 @@ nImO::WatchWindow::describe
     (void)
 {
     ODL_ENTER(); //####
-    QMessageBox     msgBox(this);
+    QMessageBox     msgBox{this};
 
     msgBox.setText(QApplication::applicationDisplayName());
     msgBox.setInformativeText(tr("An application to explore GUI features for nImO."));

@@ -55,6 +55,7 @@ qt_standard_project_setup()
 # Set up our program
 qt_add_executable(${THIS_TARGET}
                     WIN32 MACOSX_BUNDLE
+                    ${THIS_SOURCE_DIR}/nImOwatchFilterDialog.cpp
                     ${THIS_SOURCE_DIR}/nImOwatchMain.cpp
                     ${THIS_SOURCE_DIR}/nImOwatchThread.cpp
                     ${THIS_SOURCE_DIR}/nImOwatchWindow.cpp

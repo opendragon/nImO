@@ -118,21 +118,24 @@ nImO::WatchThread::run
     {
         if (_receiveQueue.hasMessage())
         {
-            auto    nextData{_receiveQueue.getNextMessage()};
-            auto    tag{nextData->_tag};
-            bool    processThisMessage;
+            auto        nextData{_receiveQueue.getNextMessage()};
+            std::string sourceTag;
+            bool        processThisMessage;
 
-            switch (tag)
+            switch (nextData->_tag)
             {
                 case kMessageFromLog :
+                    sourceTag = "%L% "s;
                     processThisMessage = theWindow->isWatchLogChecked();
                     break;
 
                 case kMessageFromRegistrySearch :
+                    sourceTag = "%R% "s;
                     processThisMessage = theWindow->isWatchRegistrySearchChecked();
                     break;
 
                 case kMessageFromStatus :
+                    sourceTag = "%S% "s;
                     processThisMessage = theWindow->isWatchStatusChecked();
                     break;
 
@@ -159,6 +162,7 @@ nImO::WatchThread::run
                     if (auto asArray{nextData->_receivedMessage->asArray()}; nullptr == asArray)
                     {
                         aLine.addString(addressString);
+                        aLine.addString(sourceTag);
                         aLine.addString(timeBuffer);
                         if (auto asString{nextData->_receivedMessage->asString()}; nullptr == asString)
                         {
@@ -179,6 +183,7 @@ nImO::WatchThread::run
                             auto    element{asArray->at(ii)};
 
                             aLine.addString(addressString);
+                            aLine.addString(sourceTag);
                             aLine.addString(timeBuffer);
                             if (auto asString{element->asString()}; nullptr == asString)
                             {
@@ -261,7 +266,7 @@ nImO::WatchThread::run
                                 commandPortText = "-"s + std::to_string(asInteger->getIntegerValue());
                             }
                         }
-                        auto    prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};
+                        auto    prefix{addressString + sourceTag + computerNameText + tagText + commandPortText + timeBuffer};
 
                         if (auto asArray{theMessage->asArray()}; nullptr == asArray)
                         {

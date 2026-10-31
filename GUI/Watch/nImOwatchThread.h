@@ -56,17 +56,6 @@
 
 namespace nImO
 {
-    /*! @brief The source of a message. */
-    enum MessageSource
-    {
-        /*! @brief The message was from a log source. */
-        kMessageFromLog = 1,
-        /*! @brief The message was from a Registry search. */
-        kMessageFromRegistrySearch,
-        /*! @brief The message is a status report. */
-        kMessageFromStatus
-    };  // MessageSource
-
     /*! @brief A class to monitor the receive queue for the application. */
     class WatchThread final : public QThread
     {

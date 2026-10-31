@@ -181,9 +181,10 @@ main
             auto                loggingConnection{ourContext.getLoggingInfo()};
             auto                registrySearchConnection{ourContext.getRegistrySearchInfo()};
             auto                statusConnection{ourContext.getStatusInfo()};
-            auto                logReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), loggingConnection, lReceiveQueue)};
-            auto                registrySearchReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), registrySearchConnection, lReceiveQueue)};
-            auto                statusReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue)};
+            auto                logReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), loggingConnection, lReceiveQueue, nImO::kMessageFromLog)};
+            auto                registrySearchReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), registrySearchConnection, lReceiveQueue,
+                                                                                                    nImO::kMessageFromRegistrySearch)};
+            auto                statusReceiver{std::make_shared<nImO::ReceiveFromMulticast>(ourContext.getService(), statusConnection, lReceiveQueue, nImO::kMessageFromStatus)};
 
             nImO::SetSpecialBreakObject(new LogBreakHandler);
             // Wait for messages until exit requested via Ctrl-C.
@@ -197,7 +198,26 @@ main
                     BAIP::address_v4    sender{nextData->_receivedAddress};
                     char                timeBuffer[80];
                     auto                addressString{"["s + sender.to_string() + "]"s};
+                    std::string         sourceTag;
 
+                    switch (nextData->_tag)
+                    {
+                        case nImO::kMessageFromLog :
+                            sourceTag = "%L% "s;
+                            break;
+
+                        case nImO::kMessageFromRegistrySearch :
+                            sourceTag = "%R% "s;
+                            break;
+
+                        case nImO::kMessageFromStatus :
+                            sourceTag = "%S% "s;
+                            break;
+
+                        default :
+                            break;
+
+                    }
                     time(&rawTime);
                     strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
                     if (auto asMap{nextData->_receivedMessage->asMap()}; nullptr == asMap)
@@ -205,7 +225,7 @@ main
                         // 'old' style or a status message
                         if (auto asArray{nextData->_receivedMessage->asArray()}; nullptr == asArray)
                         {
-                            std::cout << addressString << timeBuffer;
+                            std::cout << addressString << sourceTag << timeBuffer;
                             if (auto asString{nextData->_receivedMessage->asString()}; nullptr == asString)
                             {
                                 std::cout << *nextData->_receivedMessage;
@@ -222,7 +242,7 @@ main
                             {
                                 auto    element{asArray->at(ii)};
 
-                                std::cout << addressString << timeBuffer;
+                                std::cout << addressString << sourceTag << timeBuffer;
                                 if (auto asString{element->asString()}; nullptr == asString)
                                 {
                                     std::cout << *element;
@@ -301,7 +321,7 @@ main
                                     commandPortText = "-"s + std::to_string(asInteger->getIntegerValue());
                                 }
                             }
-                            auto    prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};
+                            auto    prefix{addressString + sourceTag + computerNameText + tagText + commandPortText + timeBuffer};
 
                             if (auto asArray{theMessage->asArray()}; nullptr == asArray)
                             {
